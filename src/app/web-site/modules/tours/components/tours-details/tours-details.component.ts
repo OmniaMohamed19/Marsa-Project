@@ -35,7 +35,6 @@ import {
   CUSTOM_DATE_FORMATS,
   CustomDateAdapter,
 } from 'src/app/shared/components/Date/custom-date-adapter';
-
 @Component({
   selector: 'app-tours-details',
   templateUrl: './tours-details.component.html',
@@ -100,6 +99,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   isSingleImage: boolean = false;
   showBookingOption = false;
   hideMobileFooter = false;
+
   constructor(
     private _httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -174,7 +174,25 @@ export class ToursDetailsComponent implements AfterViewInit {
       }
     }
   }
+    
+    responsiveOptions: any[] | undefined;
+
+    // constructor() {}
   ngOnInit(): void {
+        this.responsiveOptions = [
+            {
+                breakpoint: '1024px',
+                numVisible: 5
+            },
+            {
+                breakpoint: '768px',
+                numVisible: 3
+            },
+            {
+                breakpoint: '560px',
+                numVisible: 1
+            }
+        ];
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
       this.loadData();
@@ -326,7 +344,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
-      width: '60%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = this.images;
   }
@@ -347,7 +365,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       ([key, value]) => ({ value })
     );
     const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-      width: '60%',
+      width: '80%',
     });
     dialogRef.componentInstance.images = boatImages;
   }
@@ -355,7 +373,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   openVideoBoat(): void {
     this.dialog.open(this.videoBoatModal, {
       width: '100%',
-      height: '70%',
+      height: '50%',
     });
   }
 
@@ -608,7 +626,11 @@ export class ToursDetailsComponent implements AfterViewInit {
         });
     }
   }
-
+  addtoFavorits(){
+    // let id =
+    // console.log(123);
+    
+  }
   customOptions: OwlOptions = {
     loop: this.relatedtrips.length > 4 ? true : false,
     mouseDrag: true,

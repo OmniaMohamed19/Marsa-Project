@@ -11,6 +11,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-payment.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatSliderModule } from '@angular/material/slider';
     SharedModule,
     MatDialogModule,
     MatSliderModule,
+    GalleriaModule
   ],
   exports: [],
   providers: [DatePipe],

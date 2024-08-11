@@ -48,6 +48,7 @@
     "ngx-owl-carousel-o": "^16.0.0",
     "ngx-spinner": "^16.0.2",
     "ngx-toastr": "^18.0.0",
+    "primeng": "^17.18.8",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.8",
     "tslib": "^2.3.0",
