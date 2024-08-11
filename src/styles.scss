@@ -1,0 +1,1194 @@
+@import "./styles/theme.scss";
+// @import './styles/font-mytravel.scss';
+@import "./styles/user-table.scss";
+// @import "../node_modules/@flaticon/flaticon-uicons/css/all/all.css";
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,400&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+html {
+  zoom: 1.1;
+  scroll-behavior: smooth;
+  //   zoom: 125%;
+}
+
+
+
+html,
+body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0 !important;
+  padding-right: 0 !important;
+  margin: 0;
+  font-family: "Rubik", Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+} /*
+.content,#content{
+ flex:1;
+ padding-bottom: 400px;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/*************************/
+.animation {
+  animation-duration: 300ms;
+  right: 0px;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+  background-image: none !important;
+}
+@media only screen and (min-width: 1824px) {
+  .container {
+    max-width: 90%;
+  }
+
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 1.75rem;
+    padding-left: 1.75rem;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .u-header__section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+.icon img::before {
+  border: 1px solid #297cbb;
+  border-radius: 50%;
+  padding: 14px;
+  background-color: #297cbb;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+#package-search .nav-pills .active {
+  background: #0db1ff;
+  color: white;
+}
+
+.gradient-overlay-half-black-gradient::before {
+  opacity: 0.1 !important;
+}
+
+#trending .nav-pills .active {
+  background: #008ccf;
+  color: white;
+  text-align: center;
+}
+/********************/
+.owl-item img {
+  object-fit: cover;
+  object-position: center;
+}
+.my-tours-work {
+  .owl-item {
+    max-width: 300px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-tours-work {
+    .owl-item {
+      max-width: 100% !important;
+    }
+  }
+}
+/*****************************/
+.trending .owl-next,
+.trending .owl-prev {
+  box-shadow: 0px 0px 50px 0px rgba(32, 32, 32, 0.15) !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  padding: 10px !important;
+  background: rgba(255, 255, 255, 1) !important;
+  color: rgba(41, 124, 187, 1) !important;
+  position: absolute;
+  top: 50%;
+  right: -55px;
+}
+
+@media (max-width: 400px),
+  (max-width: 800px),
+  (max-width: 992px),
+  (min-width: 768px) {
+  .trending .owl-next {
+    right: 0px !important;
+  }
+
+  .trending .owl-prev {
+    left: 0 !important;
+  }
+}
+
+.trending .owl-prev {
+  left: -55px;
+}
+
+.my-tours .owl-next,
+.my-tours .owl-prev {
+  box-shadow: 0px 0px 50px 0px rgba(32, 32, 32, 0.15) !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  padding: 10px !important;
+  background: rgb(255, 255, 255) !important;
+  color: rgb(41, 124, 187) !important;
+  position: absolute;
+  top: 25%;
+  right: 0;
+}
+
+#signUpDropdownInvoker {
+  cursor: pointer;
+}
+
+.my-tours .owl-prev {
+  left: 0;
+}
+
+#blog .owl-prev,
+#blog .owl-next {
+  top: 45%;
+}
+
+#blog .owl-prev {
+  left: 1%;
+}
+
+#blog .owl-next {
+  right: 1%;
+}
+
+#about .owl-prev,
+#about .owl-next {
+  display: none;
+}
+
+#partner .owl-prev,
+#partner .owl-next {
+  display: none;
+}
+
+#destenation .owl-next,
+#destenation .owl-prev {
+  display: none;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+  width: 13px;
+  height: 13px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  border: 2px solid #0db1ff;
+  background: #fff;
+}
+
+.see-more-container .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.see-more-container:hover .overlay {
+  opacity: 1;
+}
+
+.remainingImages {
+  opacity: 0.9;
+  filter: brightness(0.5);
+}
+
+.see-more-container .see-more-button {
+  position: absolute;
+  transform: translate(30%, -200%);
+  background-color: transparent;
+  background: linear-gradient(180deg, black, transparent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  outline: none;
+  z-index: 2;
+}
+
+.cdk-overlay-pane {
+  overflow: scroll;
+}
+
+///packages
+///
+///
+///
+/*
+.all-packages .container {
+    max-width: 100%;
+
+    .images img {
+        transition: all ease-in-out .3s;
+    }
+
+    .images img:hover {
+        filter: sepia(33%)
+    }
+
+    .list-group {
+        padding: 0 20px;
+    }
+
+    .list-group li {
+        font-family: Lato;
+        font-size: 30px;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+
+    .discount h3 {
+        font-family: Poppins;
+        font-size: 60px;
+        font-weight: 700;
+        line-height: 60px;
+        text-align: center;
+        color: #0072BC;
+        position: absolute;
+    }
+
+    .discount small {
+        font-family: Poppins;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 30px;
+    }
+
+    div.vacation {
+        padding-top: 2.5rem;
+    }
+
+    .info {
+        top: -23px;
+        padding-top: 0;
+        position: relative;
+    }
+
+    .package {
+        position: relative;
+        top: -20px;
+    }
+
+    .discount img {
+        position: absolute;
+        left: 0px;
+        bottom: 35px;
+        width: 111%;
+        height: 67%;
+    }
+
+    .package-man {
+        position: absolute;
+        right: 0% !important;
+        bottom: 1%;
+        height: 95%;
+
+    }
+
+    .package-ship {
+        position: absolute;
+        right: 30% !important;
+        bottom: 1%;
+        height: 60%;
+
+    }
+
+    .packaged-dolphin {
+        position: absolute;
+        right: 61% !important;
+        bottom: 1%;
+        height: 80%;
+    }
+
+    @media only screen and (min-width : 1824px) {
+        .package-man {
+            position: absolute;
+            right: -0.9% !important;
+        }
+
+        .package-ship {
+            right: 30% !important;
+
+        }
+
+        .packaged-dolphin {
+            right: 61% !important;
+        }
+    }
+
+
+    h6 {
+        color: #FFCA0E;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .trip li {
+        font-family: Poppins;
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 38px;
+        color: #FFFFFF;
+    }
+
+    .btns button {
+        width: 214px;
+        height: 61px;
+        border-radius: 10px;
+        font-family: Karma;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 46px;
+        text-align: center;
+        color: #3372B8;
+        background-color: #FFFFFF;
+        padding: 6px;
+        box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.35);
+        margin: 0 7px;
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    .nav-pills li {
+        color: #008CCF;
+        font-family: Lato;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .nav-pills .active {
+        height: 56px !important;
+        background-color: #0DB1FF !important;
+        color: #ffffff !important;
+    }
+
+    .discount {
+        div {
+            position: relative;
+            left: 50px;
+        }
+
+        h3 {
+            top: 100px;
+        }
+
+        .num {
+            top: 155px;
+        }
+    }
+
+    @media screen and (min-width:992px) {}
+
+    @media screen and (min-width:768px)and (max-width:992px) {
+        .packaged-dolphin {
+            right: 58%;
+            bottom: 1%;
+            width: 33%;
+        }
+
+        .package-ship {
+            width: 26%;
+            right: 30%;
+            bottom: 1%;
+        }
+
+        .package-man {
+            right: 2%;
+            bottom: 1%;
+            width: 25%;
+        }
+
+        .discount {
+            div {
+                left: 0;
+            }
+
+            img {
+                position: absolute;
+                left: 0px;
+                bottom: 28px;
+                width: 90%;
+                height: 65%;
+            }
+
+            h3 {
+                font-size: 20px !important;
+                top: 120px;
+            }
+
+            .num {
+                top: 152px;
+                font-size: 30px !important;
+            }
+
+            small {
+                font-size: 13px !important;
+            }
+        }
+
+    }
+
+    @media screen and (min-width:500px)and (max-width:768px) {
+
+
+        .vacation {
+            text-align: center;
+        }
+
+        .vacation img {
+            width: 290px;
+        }
+
+        .list-group li {
+            font-family: Poppins;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 30px;
+            text-align: unset;
+        }
+    }
+
+    @media screen and (min-width:360px)and (max-width:500px) {
+        .order-1 {
+            top: 36px;
+            padding-left: 35px;
+
+            h6 {
+                display: none;
+            }
+
+            ul {
+                display: inline-flex;
+                padding-left: 5px !important;
+            }
+        }
+
+        .vacation {
+            padding: 0;
+        }
+
+        .package {
+            position: relative;
+            top: 41px;
+        }
+
+        .vacations {
+            top: 49px !important;
+            position: relative;
+        }
+
+
+        .info {
+            padding: 19px 0 0px 0 !important;
+            position: relative;
+            justify-content: flex-start !important;
+            top: 25px;
+        }
+
+        .vacations,
+        .package {
+            width: 165px;
+            display: block;
+            padding: 0 0px 0px 17px !important;
+        }
+
+        .list-group li {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: normal;
+
+            img {
+                width: 20px;
+            }
+        }
+
+        .package-ship {
+            height: 353.57px;
+            width: 117.85px;
+            bottom: 0px;
+            right: 36%;
+        }
+
+        .packaged-dolphin {
+            height: 272.61px;
+            bottom: 0px;
+            right: 66%;
+            width: 120.85px;
+        }
+
+        .package-man {
+            height: 421.31px;
+            right: 17px;
+            width: 130.09px;
+            bottom: -2px;
+        }
+
+        .trip-details {
+            justify-content: flex-start !important;
+            padding: 0px 0px 0px 60px !important;
+        }
+
+        .trip-details h6 {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 30px;
+            text-align: left;
+        }
+
+        .trip li {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1px;
+            padding: 13px 15px 0px 0px !important;
+            position: relative;
+            left: -33px;
+            top: -11px;
+        }
+
+        .trip li img {
+            padding: 0 4px 3px 0px !important;
+            width: 26px;
+        }
+
+
+        .btns {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btns button {
+            width: 307.02px !important;
+            height: 40px;
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+            text-align: center;
+            padding: 0px;
+            margin: 0;
+            position: absolute;
+            left: 60px;
+            bottom: -398px;
+            z-index: 10;
+            border-radius: 5px;
+            color: #fff;
+            background: #004796;
+        }
+
+        .discount img {
+            width: 139.99px;
+            bottom: 129px;
+            height: auto;
+        }
+
+        .discount div {
+            left: -5px;
+        }
+
+        .discount h3 {
+            &:first-child {
+                font-size: 20px !important;
+            }
+
+            top: -178px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 17px;
+            text-align: center;
+        }
+
+        .discount small {
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 14px;
+        }
+
+        .discount .num {
+            top: -159px;
+        }
+    }
+
+    @media screen and (max-width:360px) {
+        .vacation {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vacations,
+        .package {
+            width: 90px;
+            display: block;
+        }
+
+        .list-group li {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+
+        .package-ship {
+            height: 190px;
+            width: 103px;
+            bottom: 0;
+        }
+
+        .packaged-dolphin {
+            height: 244px;
+            bottom: 0;
+        }
+
+        .package-man {
+            height: 291px;
+            right: 12px;
+            bottom: 0;
+        }
+
+        .trip-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .trip-details h6 {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 30px;
+            text-align: left;
+        }
+
+        .trip li {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+
+            text-align: left;
+        }
+
+        .btns {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btns button {
+            width: 111px !important;
+            height: 31.64px;
+            font-family: Karma;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 24px;
+            text-align: center;
+            padding: 2px;
+            margin-left: -141px;
+            border-radius: 10px
+        }
+
+        .discount img {
+            width: 139.99px;
+            bottom: -310px;
+        }
+
+        .discount h3 {
+            top: 258px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 21px;
+            text-align: center;
+        }
+
+        .discount small {
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 14px;
+        }
+
+        .discount .num {
+            top: 275px;
+        }
+    }
+}
+/************************************/
+//Responsive for packages
+/*
+@media screen and (min-width:992px) {}
+
+
+
+@media screen and (max-width:360px) {
+    .vacation {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .vacations,
+    .package {
+        width: 100%;
+        display: block;
+    }
+
+    .list-group li {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 24px;
+    }
+
+    .package-ship {
+        height: 259px;
+        width: 129px;
+        bottom: 0;
+    }
+
+    .packaged-dolphin {
+        height: 244px;
+        bottom: 0;
+    }
+
+    .package-man {
+        height: 291px;
+        right: 12px;
+        bottom: 0;
+    }
+
+    .trip-details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .trip-details h6 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 30px;
+        text-align: left;
+    }
+
+    .trip li {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+    }
+
+    .btns {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btns button {
+        width: 80% !important;
+        height: 41.64px;
+        line-height: 24px;
+        text-align: center;
+        padding: 2px;
+        margin-left: 0px;
+        border-radius: 10px;
+        color: #FFF;
+        font-family: Lato;
+        font-size: 16px;
+        bottom: -286px;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+
+    .discount img {
+        width: 139.99px;
+        bottom: 245px;
+    }
+
+    .discount h3 {
+        top: -292px;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 21px;
+        text-align: center;
+    }
+
+    .discount small {
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 14px;
+    }
+
+    .discount .num {
+        top: -273px;
+    }
+}
+@media screen and (min-width:360px)and (max-width:540px) {
+    .order-1 {
+        top: 36px;
+        padding-left: 35px;
+
+        h6 {
+            display: none;
+        }
+
+        ul {
+            display: inline-flex;
+            padding-left: 5px !important;
+        }
+    }
+
+    .vacation {
+        padding: 0;
+    }
+
+    .package {
+        position: relative;
+        top: 41px;
+    }
+
+    .vacations {
+        top: 49px !important;
+        position: relative;
+    }
+
+
+    .info {
+        padding: 19px 0 0px 0 !important;
+        position: relative;
+        justify-content: flex-start !important;
+        top: 25px;
+    }
+
+    .vacations,
+    .package {
+        width: 165px;
+        display: block;
+        padding: 0 0px 0px 17px !important;
+    }
+
+    .list-group li {
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 30px;
+        margin-bottom: 9px;
+
+        img {
+            width: 20px;
+        }
+    }
+
+    .package-ship {
+        height: 353.57px;
+        width: 117.85px;
+        bottom: 0px;
+        right: 36%;
+    }
+
+    .packaged-dolphin {
+        height: 272.61px;
+        bottom: 0px;
+        right: 66%;
+        width: 120.85px;
+    }
+
+    .package-man {
+        height: 421.31px;
+        right: 17px;
+        width: 130.09px;
+        bottom: -2px;
+    }
+
+    .trip-details {
+        justify-content: flex-start !important;
+        padding: 0px 0px 0px 60px !important;
+    }
+
+    .trip-details h6 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 30px;
+        text-align: left;
+    }
+
+    .trip li {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1px;
+        padding: 13px 15px 0px 0px !important;
+        position: relative;
+        left: -33px;
+        top: -16px;
+    }
+
+    .trip li img {
+        padding: 0 4px 3px 0px !important;
+        width: 26px;
+    }
+
+
+    .btns {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btns button {
+        width: 85% !important;
+        height: 40px;
+        font-family: Lato;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: center;
+        padding: 9px;
+        margin: 0;
+        position: absolute;
+        left: 42px;
+        bottom: -361px;
+        z-index: 10;
+        border-radius: 5px;
+        color: #fff;
+        background: #0DB1FF;
+    }
+
+    .discount img {
+        width: 139.99px;
+        bottom: 156px;
+        height: auto;
+    }
+
+    .discount div {
+        left: -5px;
+    }
+
+    .discount h3 {
+        &:first-child {
+            font-size: 20px !important;
+        }
+
+        top: -201px;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 17px;
+        text-align: center;
+    }
+
+    .discount small {
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 14px;
+    }
+
+    .discount .num {
+        top: -182px;
+    }
+    .cdk-overlay-pane {
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+}
+@media screen and (min-width:540.9px)and (max-width:768px) {
+
+
+    .vacation {
+        text-align: center;
+    }
+
+    .vacation img {
+        width: 290px;
+    }
+
+    .list-group li {
+        font-family: Poppins;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 30px;
+        text-align: unset;
+        margin-bottom: 10px;
+    }
+}
+@media screen and (min-width:768px)and (max-width:992px) {
+    .packaged-dolphin {
+        right: 58%;
+        bottom: 1%;
+        width: 33%;
+    }
+
+    .package-ship {
+        width: 26%;
+        right: 30%;
+        bottom: 1%;
+    }
+
+    .package-man {
+        right: 2%;
+        bottom: 1%;
+        width: 25%;
+    }
+
+    .discount {
+        div {
+            left: 0;
+        }
+
+        img {
+            position: absolute;
+            left: 0px;
+            bottom: 28px;
+            width: 90%;
+            height: 65%;
+        }
+
+        h3 {
+            font-size: 20px !important;
+            top: 120px;
+        }
+
+        .num {
+            top: 152px;
+            font-size: 30px !important;
+        }
+
+        small {
+            font-size: 13px !important;
+        }
+    }
+    .all-packages .container .packaged-dolphin {
+        height: 70%;
+    }
+
+}
+
+
+@media only screen and (min-width : 1824px) {
+    .package-man {
+        position: absolute;
+        right: -0.9% !important;
+    }
+
+    .package-ship {
+        right: 30% !important;
+
+    }
+
+    .packaged-dolphin {
+        right: 61% !important;
+    }
+}
+
+
+
+
+/***************************************/
+.form-check-input[type="radio"] {
+  height: 1em !important;
+}
+
+.flag-icon {
+  padding: 4px;
+  width: 36px;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 40px 0px;
+  .prev,
+  .next {
+    cursor: pointer;
+    background: none;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+  .prev {
+    &:lang(en) {
+      transform: rotate(0deg);
+    }
+    &:lang(ar) {
+      transform: rotate(180deg);
+    }
+  }
+  .next {
+    &:lang(en) {
+      transform: rotate(180deg);
+    }
+    &:lang(ar) {
+      transform: rotate(0deg);
+    }
+  }
+  .pages {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .page {
+      border-radius: 4px;
+      border: 1px solid #d3d3d3;
+      background: #fff;
+      color: #dcd6d6;
+      font-family: Poppins;
+      font-size: 14px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &.active {
+        border: 1px solid #0db1ff;
+        color: #0db1ff;
+      }
+    }
+  }
+}
+
+//sticky-container
+.sticky-container {
+  position: sticky;
+  top: 20px; /* Adjust top value as needed */
+}

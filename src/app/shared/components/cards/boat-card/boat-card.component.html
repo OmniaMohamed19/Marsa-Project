@@ -1,0 +1,136 @@
+<!-- <div class="col-md-6 col-xl-4 mb-3 mb-md-4 pb-2 px-2" *ngFor="let trips of item"> -->
+<div class="card">
+  <div class="position-relative w-100" style="overflow: hidden">
+    <a
+      class="d-block gradient-overlay-half-bg-gradient-v5"
+      [routerLink]="['/', translate.currentLang, 'boats', 'details', item.id]"
+    >
+      <img
+        style="height: 200px"
+        class="min-height-230 bg-img-hero w-100"
+        [src]="item.cover"
+      />
+    </a>
+    <div class="position-absolute top-0 left-0 pt-4 pl-3">
+      <!-- <span
+        class="badge badge-pill bg-white featured"
+        *ngIf="item?.Featured > 0"
+        >Featured</span
+      > -->
+      <span
+        class="badge badge-pill bg-white ml-3 sale"
+        *ngIf="item?.discount > 0"
+        >%{{ item.discount }}</span
+      >
+    </div>
+    <div class="position-absolute top-0 right-0 pt-5 pr-3">
+      <button
+        type="button"
+        class="btn btn-sm btn-icon text-white rounded-circle"
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Save for later"
+        data-original-title="Save for later"
+        aria-label="Save for later"
+      >
+        <span
+          class="fa-regular fa-heart font-size-20"
+          style="color: white !important"
+        ></span>
+      </button>
+    </div>
+    <div class="position-absolute bottom-0 left-0 right-0">
+      <div class="px-3 pb-2">
+        <a
+          [routerLink]="[
+            '/',
+            translate.currentLang,
+            'boats',
+            'details',
+            item.id
+          ]"
+        >
+          <span class="text-white font-weight-bold font-size-17">
+            {{ item.Title }}
+          </span>
+        </a>
+        <div class="text-white my-2">
+          <span class="mr-1 font-size-14">From</span>
+          <span class="font-weight-bold font-size-19"
+            >{{ item.PriceColectiv }} $</span
+          >
+          <!-- <span class="mr-1 font-size-14">/ Night</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body px-4 py-4 border-bottom">
+    <a class="d-block">
+      <div
+        class="d-flex align-items-center justify-content-between font-size-14 text-gray-1"
+      >
+        <div>
+          <img
+            src="assets/custom/Activity/locationDark.svg"
+            style="width: 15px"
+            class="me-2"
+            alt="Hurghada"
+          />
+          {{ item.place }}
+        </div>
+        <div>
+          <span class="pl-3 stars">
+            <i
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              class="fa-solid fa-star"
+              style="color: #bfbfbf"
+              [ngClass]="{
+                'fa-star-filled': star <= item.rate,
+                'yellow-star': star <= item.rate
+              }"
+            ></i>
+          </span>
+          {{ item.Review }}
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="pt-3 pb-2" style="padding-left: 20px">
+    <div class="row icon">
+      <div class="col-6">
+        <div>
+          <img
+            src="assets/custom/boat-icons/user.svg"
+            class="me-2 boat-icon"
+            alt="boat icons"
+          /><span>{{ item.person }}</span>
+        </div>
+        <div>
+          <img
+            src="assets/custom/boat-icons/flexable booking.svg"
+            class="me-2 boat-icon"
+            alt="boat icons"
+          /><span>Flexible Booking</span>
+        </div>
+      </div>
+      <div class="col-6">
+        <div>
+          <img
+            src="assets/custom/boat-icons/Forma.svg"
+            class="me-1 boat-icon"
+            alt="boat icons"
+          /><span>{{ item.bed }}</span>
+        </div>
+        <div>
+          <img
+            src="assets/custom/boat-icons/wifi.svg"
+            class="me-1 boat-icon"
+            alt="boat icons"
+          /><span>Free Internet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

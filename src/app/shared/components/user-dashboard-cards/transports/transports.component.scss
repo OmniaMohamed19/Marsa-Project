@@ -1,0 +1,54 @@
+.table-content-general{
+    margin-top: 59px;
+}
+.booking{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    gap:40px;
+    svg{
+        width: 196px;
+        height: 196px;
+    }
+    h3{
+        margin-top:32px;
+        margin-bottom: 21px;
+        color: #302C2C;
+        font-family: Lato;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-align: center;
+    }
+    button{
+        color: #FFF;
+        font-family: Lato;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        width: 217px;
+        height: 60px;
+        flex-shrink: 0;
+        background-color: #0DB1FF;
+        border:1px solid #0DB1FF;
+        transition: all 0.5s ease-in-out;
+        &:hover{
+            cursor: pointer;
+            transform: translateY(4px);
+            background-color: #fff;
+            color: #0DB1FF;
+        }
+    }
+}
+
+/*******************************/
+@media screen and (min-width:1800px){
+    .booking{
+        gap: 60px;
+    }
+}

@@ -1,0 +1,199 @@
+<section class="packages-edit">
+  <header class="container">
+    <h3>Packages</h3>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="41"
+      height="3"
+      viewBox="0 0 41 3"
+      fill="none"
+    >
+      <path d="M40.871 0.375H0.870972V2.375H40.871V0.375Z" fill="#297CBB" />
+    </svg>
+  </header>
+  <div>
+    <div class="container">
+      <ul class="nav">
+        <li
+          class="nav-item"
+          *ngFor="let package of packages; let i = index"
+          role="presentation"
+          [class.active]="selectedTabId === i"
+          (click)="selectTab(i)"
+        >
+          {{ package.place }}
+        </li>
+      </ul>
+    </div>
+
+    <section
+      class="packages-content overflow-hidden position-relative tab-pane fade show"
+      *ngFor="let package of packages; let i = index"
+      [class.show]="selectedTabId === i"
+      [class.fade]="selectedTabId !== i"
+    >
+      <div class="position-relative mt-4 d-block d-lg-none pb-5">
+        <div class="discount-small">
+          <p>
+            UP TO <span>{{ package.discount }}</span>
+          </p>
+          <img src="../../../../../assets/images/Vector Smart Object.svg" />
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 first-column">
+            <div class="packages-img">
+              <img src="../../../../../assets/images/Vacation.svg"  style="width: 424px;" />
+              <img src="../../../../../assets/images/Packages.svg"  style="width: 314px;"/>
+            </div>
+            <div>
+              <ul class="list-unstyled package-list">
+                <li
+                  *ngFor="let trip of package.Trips.slice(0, 3); let j = index"
+                >
+                  <img src="assets/custom/list.svg" alt="list" loading="lazy" />
+                  <span>
+                    {{ trip?.title }}
+                  </span>
+                  <!-- Show "See more" button only for the last item -->
+                  <button
+                    *ngIf="j === 2 && package.Trips.length > 3"
+                    class="p-0 m-0 btn text-white btn-outline-primary"
+                    (click)="openPackModal(package.id)"
+                  >
+                    See More ...
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div
+                class="col-lg-6 position-relative d-flex justify-content-center align-items-center d-none d-lg-block"
+              ></div>
+
+              <div class="col-lg-6">
+                <div class="trip-details">
+                  <h5 class="d-none d-lg-block">Trip details :</h5>
+                  <ul class="list-unstyled times">
+                    <li>
+                      <span>
+                        <img
+                          src="../../../../../assets/images/location(1).svg"
+                          class="pe-4"
+                          alt="location"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span>
+                        {{ package?.place }}
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        <img
+                          src="../../../../../assets/images/chronometer(1).svg"
+                          class="pe-4"
+                          alt="chronometer"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span>
+                        {{ package?.duration }}
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        <img
+                          src="../../../../../assets/images/discount(1).svg"
+                          class="pe-4"
+                          alt="discount"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span> {{ package?.CountTrips }} Trips </span>
+                    </li>
+                    <!--<li>
+                                            <span>
+                                                <img src="../../../../../assets/images/location(1).svg">
+                                            </span>
+                                            <span>
+                                                Marsa Alam
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span>
+                                                <img src="../../../../../assets/images/chronometer(1).svg">
+                                            </span>
+                                            <span>
+                                                6 Days
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span>
+                                                <img src="../../../../../assets/images/discount(1).svg">
+                                            </span>
+                                            <span>
+                                                3 Trips
+                                            </span>
+                                        </li>-->
+                  </ul>
+                  <div class="d-none d-lg-block" style="margin-bottom: 60px">
+                    <button
+                      [routerLink]="[
+                        '/',
+                        this.translate.currentLang,
+                        'packages',
+                        'packageDetails',
+                        package?.id
+                      ]"
+                    >
+                      Get Offer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 position-relative">
+            <div class="diving-images">
+              <div>
+                <img src="../../../../../assets/images/dolphin1.png" />
+              </div>
+              <div>
+                <img src="../../../../../assets/images/boat2.png" />
+              </div>
+              <div>
+                <img src="../../../../../assets/images/man3.png" />
+              </div>
+            </div>
+
+            <div class="d-block d-lg-none btn-container">
+              <button
+                [routerLink]="[
+                  '/',
+                  this.translate.currentLang,
+                  'packages',
+                  'packageDetails',
+                  package?.id
+                ]"
+              >
+                Get Offer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="discount-2 d-none d-lg-flex">
+        <div class="percent">
+          <div>
+            <p>UP TO</p>
+            <p>15%</p>
+          </div>
+          <span>discount</span>
+        </div>
+        <img src="../../../../../assets/images/Vector Smart Object.svg" style="  width: 26%;" />
+      </div>
+    </section>
+  </div>
+</section>

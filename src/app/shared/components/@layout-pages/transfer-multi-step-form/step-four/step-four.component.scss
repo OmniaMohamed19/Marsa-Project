@@ -1,0 +1,102 @@
+.confirmation{
+    margin-top:25px;
+}
+.thanks{
+    padding: 21px;
+    margin-bottom: 21px;
+    p{
+        color: #297CBB;
+        text-align: center;
+        font-family: Lato;
+        font-size: 21px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        span{
+            color: #3699FF;
+            text-align: center;
+            font-family: Lato;
+            font-size: 21px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            text-decoration-line: underline;
+        }
+    }
+}
+.result{
+    padding-left: 31px;
+    padding-right: 26px;
+    padding-top:15px;
+    padding-bottom: 15px;
+    h2{
+        color: #3B444F;
+        font-family: Lato;
+        font-size: 21px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+    a{
+        color: #297CBB;
+        font-family: Lato;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: underline;
+    }
+}
+.thanks-message{
+    background: #EBF0F7;
+    .test{
+        width: 80%;
+        margin: 10px auto;
+        padding-top: 21px;
+        padding-bottom: 21px;
+        .thanks{
+            width: 80%;
+            margin-top: 20px;
+        }
+    }
+}
+.icon{
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    background-color: #0057FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.total-1{
+    margin-top: 51px;
+}
+.total-2{
+    margin-top: 55px;
+}
+
+/**********************************/
+.result-container{
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+/*******************************/
+@media screen and (max-width:992px){
+    .thanks-message {
+        width: 95%;
+        p{
+            font-size: 17px;
+        }
+        .test{
+            flex-direction: column;
+        }
+    
+    .thanks{
+            margin-top: 0!important;
+            width: 100%!important;
+            flex-direction: column;
+    }}
+}

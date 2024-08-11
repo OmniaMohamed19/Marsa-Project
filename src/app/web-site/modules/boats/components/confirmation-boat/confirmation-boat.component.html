@@ -1,0 +1,87 @@
+<app-header [background]="'#0DB1FF'"></app-header>
+<ng-container *ngIf="confirmRequest">
+    <div class="container content" >
+        <div class="row">
+            <div class="col p-10">
+                <div class="mb-5  bg-white rounded-sm"
+                    style=" margin: 30px auto !important;">
+                    <div class="py-6 px-5 border-bottom d-flex justify-content-center"
+                        style="background: rgba(235, 240, 247, 1); ">
+                        <div class="flex-horizontal-center ">
+                            <div class="height-50 width-50 flex-shrink-0 flex-content-center bg-primary rounded-circle">
+                                <i class="fa-solid fa-check text-white font-size-24"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 >
+                                    Thank you for choosing Marsa Waves Great News ! we have sent your confirmation to <a
+                                        [href]="'mailto:'+confirmRequest['E-mail']"
+                                        style="font-family: Lato;font-size: 21px;font-weight: 700;line-height: 25px;letter-spacing: 0em;color: rgba(54, 153, 255, 1);">
+                                        {{confirmRequest["E-mail"]}}<br></a>
+                                    Expect a follow up email or what’s app message shortly with your scheduled pick up
+                                    time from your location
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mb-5  bg-white rounded-sm"
+                    style="margin: 30px auto !important;box-shadow: 0.5px 0.8659999966621399px 4px 0px rgba(27, 32, 50, 0.08);">
+                    <div class="pt-4 pb-3 px-5 ">
+                        <div class="d-flex justify-content-between">
+                            <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-2">
+                                Traveler Information
+                            </h5>
+                            <!-- <a routerLink="/home/tours/payment" class="text-decoration-underline">Edit</a> -->
+                            <!-- <a class="text-decoration-underline">Edit</a> -->
+
+                        </div>
+                        <!-- Fact List -->
+                        <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                            <li class="d-flex justify-content-between py-2">
+                                <span class="font-weight-medium">Booking number</span>
+                                <span class="text-secondary text-right">{{confirmRequest?.Bookingnumber}}</span>
+                            </li>
+
+                            <li class="d-flex justify-content-between py-2">
+                                <span class="font-weight-medium">Name</span>
+                                <span class="text-secondary text-right">{{confirmRequest?.name}}</span>
+                            </li>
+
+                            <li class="d-flex justify-content-between py-2">
+                                <span class="font-weight-medium">E-mail address</span>
+                                <span class="text-secondary text-right">{{confirmRequest["E-mail"]}}</span>
+                            </li>
+
+                            <li class="d-flex justify-content-between py-2">
+                                <span class="font-weight-medium">Phone Number</span>
+                                <span class="text-secondary text-right">{{confirmRequest?.Phone}}</span>
+                            </li>
+                        </ul>
+                        <!-- End Fact List -->
+                    </div>
+                  
+                </div>
+                <ng-container *ngIf="showRelated">
+                    <div class="my-tours-work" >
+                        <h5 class="text-center mb-5 head">You might also like</h5>
+    
+                        <owl-carousel-o [options]="customOptions" class="my-tours">
+                            <ng-container *ngFor="let item of relatedtrips">
+                                <ng-template carouselSlide>
+                                    <app-activity-card [item]="item"></app-activity-card>
+                                </ng-template>
+                            </ng-container>
+    
+                            <ng-container *ngFor="let item of relatedtrips">
+                                <ng-template carouselSlide>
+                                    <app-activity-card [item]="item"></app-activity-card>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>

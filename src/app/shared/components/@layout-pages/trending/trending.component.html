@@ -1,0 +1,173 @@
+<section class="container" [ngStyle]="{ 'margin-top.px': applyMargin ? 80 : 0 }">
+  <div class="title text-center" style="color: #004796" *ngIf="showHeading">
+    <h3 class="mb-5">Trending</h3>
+  </div>
+  <div class="container">
+    <ul
+      class="nav nav-pills ms-3 mb-3 align-items-center justify-content-start justify-content-lg-center flex-nowrap overflow-x-auto"
+      id="pills-tab"
+      #listmobile1
+      role="tablist"
+    >
+      <li #tours1 class="nav-item" role="presentation">
+        <button
+          (click)="setActiveTrend('Tours&Activities')"
+          id="pills-Tours-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-Tours"
+          type="button"
+          role="tab"
+          aria-controls="pills-Tours"
+          aria-selected="true"
+          class="nav-link active"
+        >
+          Tours& Activities
+        </button>
+      </li>
+      <li #liveboard1 class="nav-item" role="presentation">
+        <button
+          (click)="setActiveTrend('Liveaboard')"
+          class="nav-link"
+          id="pills-Liveaboard-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-Liveaboard"
+          type="button"
+          role="tab"
+          aria-controls="pills-Liveaboard"
+          aria-selected="false"
+        >
+          Liveaboard
+        </button>
+      </li>
+      <li #boat1 class="nav-item" role="presentation">
+        <button
+          (click)="setActiveTrend('Boats')"
+          class="nav-link"
+          id="pills-Boats-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-Boats"
+          type="button"
+          role="tab"
+          aria-controls="pills-Boats"
+          aria-selected="false"
+        >
+          Boats
+        </button>
+      </li>
+      <li #transfer1 class="nav-item" role="presentation">
+        <button
+          (click)="setActiveTrend('Transfer')"
+          class="nav-link"
+          id="pills-Transfer-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-Transfer"
+          type="button"
+          role="tab"
+          aria-controls="pills-Transfer"
+          aria-selected="false"
+        >
+          Transfer
+        </button>
+      </li>
+    </ul>
+    <div class="my-tours-work container">
+      <owl-carousel-o [options]="customOptions" class="trending" >
+        <ng-template *ngFor="let trend of activeNowTrend" carouselSlide>
+          <div
+            class="card mb-1 transition-3d-hover shadow-hover-2 tab-card h-100"
+            style="width: 100%;"
+          >
+            <div class="position-relative mb-2">
+              <a
+                [routerLink]="route + trend.id"
+                class="d-block gradient-overlay-half-bg-gradient-v5"
+              >
+                <div class="imgBox">
+                  <img class="card-img-top" [src]="trend.cover" alt="img" />
+                </div>
+              </a>
+              <div class="position-absolute top-0 left-0 pt-2 pl-3">
+                <span
+                  *ngIf="trend.Featured"
+                  class="badge badge-pill bg-white text-primary px-4 py-2 font-size-14 font-weight-normal"
+                  >Featured</span
+                >
+                <span
+                  *ngIf="trend.discount"
+                  class="badge badge-pill bg-white text-danger px-3 ml-3 py-2 font-size-14 font-weight-normal"
+                  >{{ trend.discount }} %</span
+                >
+              </div>
+              <div class="position-absolute top-0 right-0 pt-2 pr-3">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-icon text-white rounded-circle"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title=""
+                  data-original-title="Save for later"
+                >
+                  <span class="flaticon-valentine-heart"></span>
+                </button>
+              </div>
+              <div class="position-absolute bottom-0 left-0 right-0">
+                <div class="px-3 pb-2">
+                  <h2 class="h5 text-white mb-2 font-weight-bold">
+                    <small class="mr-2">From</small>{{ trend.PriceColectiv }} $
+                    per person
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card-body px-4 py-2"
+              [style.height]="isMobile ? 'auto' : '220px'"
+            >
+              <a
+                [routerLink]="route + trend.id"
+                class="card-title font-size-17 font-weight-bold mb-0 text-name d-block"
+                style="height: 10%"
+                >{{ trend.Title }}</a
+              >
+              <br />
+              <a
+                [routerLink]="route + trend.id"
+                class="card-title font-size-17 font-weight-bold mb-0 text-dark"
+                >{{ trend?.type }}</a
+              >
+              <span class="d-block pe-3 my-2">
+                <i
+                  *ngFor="let star of [1, 2, 3, 4, 5]"
+                  class="fa-solid fa-star"
+                  style="color: #bfbfbf"
+                  [ngClass]="{
+                    'fa-star-filled': star <= trend?.rate,
+                    'yellow-star': star <= trend?.rate
+                  }"
+                ></i>
+                {{ trend.Review }} Reviews
+              </span>
+              <a [routerLink]="route + trend.id" class="d-block">
+                <div
+                  class="mb-1 d-flex align-items-center font-size-14 text-gray-1"
+                >
+                  <i class="fa-solid fa-location-dot mx-2"></i>
+                  {{ trend.place }}
+                </div>
+              </a>
+              <div
+                *ngIf="trend?.duration"
+                class="mb-1 d-flex align-items-center font-size-14 text-gray-1"
+              >
+                <i class="fa-regular fa-clock mx-2"></i> {{ trend?.duration }}
+                {{ trend?.durationType }}
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+
+
+  </div>
+</section>

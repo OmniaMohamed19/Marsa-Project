@@ -1,0 +1,47 @@
+<div class="card mb-1 tab-card" style="box-shadow: 0px 0px 50px 0px #20202026 !important;">
+    <div class="position-relative mb-2" style="overflow: hidden;">
+        <a [routerLink]="['/',translate.currentLang ,'tours','details', item.id]"
+            class="d-block gradient-overlay-half-bg-gradient-v5">
+            <img style="filter: brightness(0.7);" class="w-100" width="312" height="247" [src]="item.cover" [alt]="item.title">
+        </a>
+
+        <div class="position-absolute top-0 right-0 pt-4 pr-3">
+            <button type="button" class="btn btn-sm btn-icon text-white rounded-circle" data-toggle="tooltip"
+                data-placement="top" title="Save for later" data-original-title="Save for later"
+                aria-label="Save for later">
+                <span class="fa-regular fa-heart font-size-20"></span>
+            </button>
+        </div>
+        <div class="position-absolute bottom-0 left-0 right-0">
+            <div class="px-3 pb-3">
+                <div class="d-flex gap-2"><img src="../../../../../assets/icons/location-package.svg"
+                        style="width: 14.97px;" alt="icon">
+                    <span class="pb-0 place-location">
+                        {{item.Place}}
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body px-4 py-2">
+        <a  class="d-block">
+            <div class="mb-2 d-flex align-items-center title">
+                {{item.title}}
+            </div>
+        </a>
+        <!-- <a class="card-title   mb-0 ">{{item.type}}</a> -->
+        <div class="my-2">
+            <div class="d-inline-flex align-items-center review">
+                <p> {{ item?.rate }} /5.0</p>
+                <span >({{item?.countRev}} Reviews)</span>
+            </div>
+        </div>
+        <div class="mb-1  review">
+            <div class="py-3">
+                From
+                <span class="px-2" style="font-weight: 700; font-size: 18px; color:#000">{{item.price}}$</span>
+            </div>
+        </div>
+    </div>
+</div>

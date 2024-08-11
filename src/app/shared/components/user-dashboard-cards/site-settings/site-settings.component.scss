@@ -1,0 +1,141 @@
+
+form{
+    margin-top: 52px;
+    padding-right: 25px;
+    padding-left: 25px;
+    .row{
+        margin-bottom: 24px;
+    }
+}
+label{
+    color: #3F4254;
+    font-family: Roboto;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px; /* 140% */
+    margin-left: 15px;
+    margin-top: 5px;
+}
+.submit{
+    border-top: 1px solid #EBEDF3;
+    padding-top: 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 20px;
+    button{
+        height: 40px;
+        transition: all 0.5s ease-in-out;
+        &:hover{
+            cursor: pointer;
+            transform: translateY(5px);
+        }
+    }
+    button:nth-of-type(1){
+        color: #B5B5C3;
+        text-align: center;
+        font-family: Roboto;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: 12px 20px;
+        align-items: flex-end;
+        gap: 10px;
+        border:1px solid transparent;
+        background-color: transparent;
+        border-radius: 5px;
+    }
+    button:nth-of-type(2){
+        color: #FFF;
+        text-align: center;
+        font-family: Roboto;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        border-radius: 6px;
+        background: #00A3FF;
+        display: inline-flex;
+        padding: 12px 20px;
+        align-items: flex-start;
+        gap: 10px;
+        border: 1px solid #00A3FF;
+       
+    }
+}
+/*****************************/
+.dropdown {
+    position: relative;
+    display: inline-block;
+    
+    svg{
+        margin-top: -4px;
+    }
+  }
+
+  .dropdown-btn-2 {
+    padding:14px 10px;
+    cursor: pointer;
+    width: max-content;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 16px;
+    border-radius: 6px;
+    background: #F5F8FA;
+    span{
+        color: #5E6278;
+        font-family: Roboto;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 100%;
+    max-height: 100px;
+    overflow-y: scroll;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #5E6278;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #ddd;
+  }
+ 
+  .dropdown-2{
+    width: 100%;
+   /* border-radius: 6px;
+    background: #F5F8FA;
+    display: flex;
+    padding: 13px 16px;
+    align-items: flex-start;
+    gap: 9px;
+    border: 1px solid #F5F8FA;
+    cursor: pointer;*/
+  }
+  .dropdown-content-2{
+    top: 45px;
+    left: 2%;
+    width: 96%;
+  }
+/*******************************/

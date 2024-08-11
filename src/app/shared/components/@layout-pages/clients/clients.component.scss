@@ -1,0 +1,77 @@
+h3 {
+    color: #004796;
+    font-family: Poppins;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: relative;
+}
+.container {
+    max-width: 96%;
+ }
+h3::after {
+    content: '';
+    width: 40px;
+    height: 2px;
+    flex-shrink: 0;
+    background-color: #17AAD1;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+}
+
+h6 {
+    color: #3B444F;
+    font-family: Lato;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+p {
+    color: #67747C;
+    font-family: Lato;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+span.font-size-normal {
+    color: #5392F9;
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+div.card{
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        transform: translateY(10px);
+    }
+    // margin-top: 10px;
+}
+
+.card-img img {
+    width: 101px;
+    height: 101px;
+}
+.reviews  {
+   overflow-x: hidden
+
+}
+::ng-deep {
+    .client-review .owl-carousel .owl-stage-outer {
+        overflow: visible !important;
+    }
+}
+@media only screen  and (min-width : 1824px) {
+    .container {
+        max-width: 96%;
+     }
+
+}

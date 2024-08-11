@@ -1,0 +1,426 @@
+<nav
+  class="navbar navbar-expand-lg d-none d-lg-block"
+  [ngClass]="{
+    'trasparent-bg': !isWhiteByDefault,
+    scrolled: isScrolled,
+    'white-bg': isScrolled || isWhiteByDefault,
+
+  }"
+>
+  <div class="container-fluid p-0">
+    <a [routerLink]="'/'" class="navbar-brand me-0">
+      <img alt="Marsa Waves" src="assets/images/logo.svg" />
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul
+        class="navbar-nav me-auto mb-2 mb-lg-0 w-100"
+        style="place-content: flex-end"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            [routerLink]="['/', translate.currentLang]"
+            routerLinkActive="active1"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            {{ "header.home" | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/', translate.currentLang, 'tours']"
+            routerLinkActive="active1"
+          >
+            {{ "header.tours-activities" | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/', translate.currentLang, 'liveboard']"
+            routerLinkActive="active1"
+          >
+            {{ "header.liveboard" | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/', translate.currentLang, 'boats']"
+            routerLinkActive="active1"
+          >
+            {{ "header.boat" | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/', translate.currentLang, 'transfer']"
+            routerLinkActive="active1"
+          >
+            {{ "header.transport" | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/', translate.currentLang, 'contactUs']"
+            routerLinkActive="active1"
+          >
+            {{ "header.contact-us" | translate }}
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ "header.more" | translate }}
+          </a>
+          <ul class="dropdown-menu" id="navbarSupportedContent2">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/', translate.currentLang, 'blogs']"
+                routerLinkActive="active1"
+              >
+                {{ "header.blog" | translate }}
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/', translate.currentLang, 'faq']"
+                routerLinkActive="active1"
+              >
+                {{ "header.faq" | translate }}
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['/', translate.currentLang, 'about']"
+                routerLinkActive="active1"
+              >
+                {{ "header.about" | translate }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!------------------------->
+
+<div class="container-fluid">
+  <nav class="d-block d-lg-none" [style.background]="background">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <a
+          class="navbar-brand me-0"
+          [routerLink]="['/', translate.currentLang]"
+        >
+          <img alt="Marsa Waves" src="assets/images/logo.svg" />
+        </a>
+      </div>
+
+      <div class="form-container">
+       
+
+        <div>
+          <button
+            class="btn-bars"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#staticBackdrop"
+            aria-controls="staticBackdrop"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <!---------------------->
+    </div>
+  </nav>
+</div>
+
+<!------------------------------>
+<div
+  class="offcanvas offcanvas-start"
+  data-bs-backdrop="static"
+  tabindex="-1"
+  id="staticBackdrop"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="staticBackdropLabel">
+      <img [routerLink]="'/'" alt="Marsa Waves" src="assets/images/logo.svg" />
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="d-flex justify-content-between flex-column h-100">
+      <div>
+        <ul class="navbar-nav me-auto mb-2" style="text-align: justify">
+          <!------------------------------------->
+          <li
+            *ngIf="isLogin"
+            class="header-actions d-flex align-items-center justify-content-center"
+          >
+            <a
+              class="nav-link dropdown-toggle user-icon"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <!-- https://feathericons.dev/?search=user&iconset=feather -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                class="main-grid-item-icon"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span class="text-white"> Hello {{ userDate?.name }} </span>
+            </a>
+            <ul class="dropdown-menu menu-login">
+              <li
+                class="menu-item"
+                style="border-bottom: 1px solid #eee"
+                routerLink="/{{ translate.currentLang }}/your-account/settings"
+              >
+                Hello {{ userDate?.name }}
+              </li>
+              <li
+                class="menu-item"
+                routerLink="/{{ translate.currentLang }}/userDashboard"
+              >
+                <img src="assets/icons/dashbourd.svg" alt="dashbourd" />
+
+                {{ "Dashboard" | translate }}
+              </li>
+              <li
+                class="menu-item"
+                routerLink="/{{ translate.currentLang }}/wishlist"
+              >
+                <img src="assets/icons/heart.svg" alt="heart" />
+
+                {{ "Wishlist" | translate }}
+              </li>
+              <li
+                class="menu-item"
+                routerLink="/{{ translate.currentLang }}/booking"
+              >
+                <img src="assets/icons/booking.svg" alt="booking" />
+
+                {{ "Bookings" | translate }}
+              </li>
+              <li
+                class="menu-item"
+                routerLink="/{{ translate.currentLang }}/app-download"
+              >
+                <img
+                  src="assets/icons/downloadMobile.svg"
+                  alt="downloadMobile"
+                />
+
+                {{ "Download the APP" | translate }}
+              </li>
+              <!-- <li
+                class="menu-item"
+                routerLink="/{{ translate.currentLang }}/your-account/saved"
+              >
+                <img src="assets/icons/setting.svg" alt="setting" />
+
+                {{ "Settings" | translate }}
+              </li> -->
+              <li
+                (click)="callLogout()"
+                class="menu-item"
+                style="border-top: 1px solid #eee"
+              >
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+
+                {{ "Sign Out" | translate }}
+              </li>
+            </ul>
+          </li>
+          <!---------------------------------------->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              aria-current="page"
+              [routerLink]="['/']"
+              routerLinkActive="active1"
+            >
+              {{ "header.home" | translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/', translate.currentLang, 'tours']"
+              routerLinkActive="active1"
+            >
+              {{ "header.tours-activities" | translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/', translate.currentLang, 'liveboard']"
+              routerLinkActive="active1"
+            >
+              {{ "header.liveboard" | translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/', translate.currentLang, 'boats']"
+              routerLinkActive="active1"
+            >
+              {{ "header.boat" | translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/', translate.currentLang, 'transfer']"
+              routerLinkActive="active1"
+            >
+              {{ "header.transport" | translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/', translate.currentLang, 'contactUs']"
+              routerLinkActive="active1"
+            >
+              {{ "header.contact-us" | translate }}
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ "header.more" | translate }}
+            </a>
+            <ul class="dropdown-menu" id="navbarSupportedContent2">
+              <li>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/', translate.currentLang, 'blogs']"
+                  routerLinkActive="active1"
+                >
+                  {{ "header.blog" | translate }}
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/', translate.currentLang, 'faq']"
+                  routerLinkActive="active1"
+                >
+                  {{ "header.faq" | translate }}
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/', translate.currentLang, 'about']"
+                  routerLinkActive="active1"
+                >
+                  {{ "header.about" | translate }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="line"></div>
+        <ul
+          *ngIf="!isLogin"
+          class="navbar-nav me-auto mb-2"
+          style="text-align: justify"
+        >
+          <li class="nav-item">
+            <a class="nav-link sign" (click)="signIn()">
+              {{ "header.sign-in-or-register" | translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!----------------->
+      <div class="d-flex">
+        <div class="dropdown-lang" tabindex="0" (click)="toggleDropdown()">
+          <div
+            class="dropdown-btn-lang d-flex align-items-center justify-content-between gap-1"
+          >
+            <div>
+              <img
+                src="{{ selectedImg }}"
+                width="20"
+                height="20"
+                class="me-3"
+              />
+              {{ selectedLabel }}
+            </div>
+
+            <div class="mb-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="7"
+                viewBox="0 0 10 7"
+                fill="none"
+              >
+                <path
+                  d="M1.5575 0.5L5 4.2085L8.4425 0.5L9.5 1.6417L5 6.5L0.5 1.6417L1.5575 0.5Z"
+                  fill="black"
+                />
+              </svg>
+            </div>
+          </div>
+          <div *ngIf="isOpen" class="dropdown-content-lang">
+            <ng-container *ngFor="let country of countries">
+              <div (click)="selectCountry(country)" class="dropdown-item-lang">
+                <img
+                  [src]="country.flagUrl"
+                  alt="{{ country.label }}"
+                  width="20"
+                  height="15"
+                  class="me-2"
+                />
+                {{ country.label }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <!--------------------->
+    </div>
+  </div>
+</div>

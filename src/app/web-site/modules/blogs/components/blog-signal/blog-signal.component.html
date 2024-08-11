@@ -1,0 +1,213 @@
+<app-header [background]="'#0DB1FF'"></app-header>
+
+<div class="bg-img-hero content text-center mb-5 mb-lg-8" style="background-image: url(../../../../../../assets/images/blog.jpg)">
+
+    <div class="container space-top-xl-3 py-lg-6 py-xl-0">
+        <div class="row justify-content-center py-xl-4">
+            <!-- Info -->
+            <div class="py-xl-10 py-5">
+                <h1 class="font-size-40 font-size-xs-30 text-white font-weight-bold mb-0">Blog Single</h1>
+                <nav aria-label="breadcrumb ">
+                    <ol class="breadcrumb breadcrumb-no-gutter mb-0 d-flex justify-content-center py-3">
+                        <li class="breadcrumb-item font-size-14"><a class="text-white" [routerLink]="['/']">Home</a>
+                        </li>
+                        <li class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white " aria-current="page"
+                            [routerLink]="['/' , translate.currentLang , 'blogs']">Blogs</li>
+                        <li class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white " aria-current="page">
+                            Blog Single</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Info -->
+        </div>
+    </div>
+</div>
+<div class="mb-6 mb-lg-8 pt-lg-1">
+    <div class="container mb-5 mb-lg-9 pb-lg-1">
+        <div class="row">
+            <div class="col-lg-8 col-xl-9">
+                <div class="mb-5 pb-1" *ngIf="!showBlogByCategory">
+                    <div class="mb-4">
+                        <div id="blog">
+                            <owl-carousel-o [options]="carouselOptions" class="trending">
+                                <ng-container *ngFor="let img of blog?.image">
+                                    <ng-template carouselSlide>
+                                        <div class="item">
+
+                                            <div class="image-container">
+                                                <img class="img-fluid mb-4 rounded-xs w-100" [src]="img"
+                                                    [alt]="blog?.title">
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
+                            </owl-carousel-o>
+                        </div>
+
+                        <h5 class="font-weight-bold font-size-21 text-gray-3">
+                            <a>{{blog?.title}}</a>
+                        </h5>
+                        <div class="mb-3">
+                            <a class="mr-3 pr-1">
+                                <span class="font-weight-normal text-gray-3">{{blog?.date}}</span>
+                            </a>
+                            <a>
+                                <span  style="color: rgba(41, 124, 187, 1);">{{blog?.category}}</span>
+                            </a>
+                        </div>
+                        <p class="mb-5 " [innerHTML]="blog?.overview">
+                        </p>
+
+                        <div class="mb-5 pb-1">
+                            <div class="d-md-flex justify-content-between align-items-center">
+                                <!-- Previous Post -->
+                                <a *ngIf="prevBlog" class="d-block mb-4 mb-md-0 active"
+                                    [routerLink]="['/', translate.currentLang, 'blogs', 'blogSignal', prevBlog.id]">
+                                    <div class="d-flex justify-content-center justify-content-md-start">
+                                        <i class="fa-solid fa-arrow-left-long font-size-15 mr-2 pt-1 "></i>
+                                        <span class="active">Previous Post</span>
+                                    </div>
+                                    <div class="font-weight-normal ml-md-4 mb-0 pt-md-1 text-center text-md-left">
+                                        {{ prevBlog.title }}
+                                    </div>
+                                </a>
+
+                                <!-- Next Post -->
+                                <a *ngIf="nextBlog" class="d-block nextPost"
+                                    [routerLink]="['/', translate.currentLang, 'blogs', 'blogSignal', nextBlog.id]">
+                                    <div class="d-flex justify-content-center justify-content-md-end">
+                                        <span >Next Post</span>
+                                        <i class="fa-solid fa-arrow-right-long font-size-15 ml-2 pt-1"></i>
+                                    </div>
+                                    <div class="mr-md-4 mb-0 pt-md-1 text-center text-md-left">
+                                        {{ nextBlog.title }}
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="border border-color-8 mb-4"></div>
+                        <div class="comment-section">
+                            <h5 class=" mb-4">Write a Comment</h5>
+                            <form class="js-validate" novalidate="novalidate">
+                                <div class="row mb-5 mb-lg-0">
+
+                                    <div class="col-sm-12 mb-5">
+                                        <div class="js-form-message">
+                                            <div class="input-group">
+                                                <textarea class="form-control" rows="6" cols="77" name="text"
+                                                    placeholder="Comment" aria-label="Hi there, I would like to ..."
+                                                    [(ngModel)]="comment"
+                                                    rows="8"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Input -->
+                                    <div class="col d-flex justify-content-center justify-content-lg-start">
+                                        <button type="submit" class="btn rounded-xs p-2 "  (click)="addReview()"
+                                        >Submit comment</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <ng-container  *ngIf="showBlogByCategory">
+                
+                
+                    <div class="mb-4" *ngFor="let blog of filteredBlogs">
+                        <owl-carousel-o [options]="carouselOptions" class="trending">
+                            <ng-container *ngFor="let img of blog.image">
+                              <ng-template carouselSlide>
+                                <div class="item">
+                                  <a class="d-block" (click)="navigateToBlog(blog.id)">
+                                    <div class="image-container">
+                                      <img class="img-fluid mb-4 rounded-xs w-100" [src]="img" [alt]="blog.title">
+                                    </div>
+                                  </a>
+                                </div>
+                              </ng-template>
+                            </ng-container>
+                          </owl-carousel-o>
+                          
+                        <h5 class="font-weight-bold font-size-21 text-gray-3">
+                            <a (click)="navigateToBlog(blog.id)">{{ blog.title }}</a>
+                        </h5>
+                        <div class="mb-3">
+                            <a class="mr-3 pr-1" >
+                                <span class="font-weight-normal text-gray-3">{{ blog.date }}</span>
+                            </a>
+                            <a >
+                                <span  [class.activeLink]="activeCategory === blog.category_id ? true : false"
+                                    style="color: rgba(41, 124, 187, 1);"
+                                    (click)="filterBlogsByCategory(blog.category_id)">{{ blog.category }}</span>
+                            </a>
+                        </div>
+                        <p class="mb-0">{{ blog.overview }}</p>
+                    </div>
+                </ng-container>
+
+            </div>
+            <div class="col-lg-4 col-xl-3">
+                <form class="input-group input-group-borderless mb-5">
+                    <!-- Input -->
+                    <div class="js-focus-state w-100">
+                        <div class="input-group border border-color-8 border-width-2 rounded d-flex align-items-center">
+                            <input type="text" class="form-control font-size-14 placeholder-1 ml-1" placeholder="Search"
+                                aria-label="Company or title">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-magnifying-glass font-size-20 text-gray-8 mr-1"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Input -->
+                </form>
+                <!-- List -->
+                <ul id="sidebarNav" class="custom-dropdown list-unstyled border border-color-7 rounded pt-4 pb-1 mb-5">
+                    <h5 class="ps-4">All Categories</h5>
+                    <li class="list-item">
+                        <a class="d-block">
+                            <span class="font-weight-normal ps-5" (click)="filterBlogsByCategory(null)"
+                                [class.activeLink]="activeCategory === null">All</span>
+                        </a>
+                    </li>
+                    <li class="list-item" *ngFor="let category of allCategories">
+                        <a class="d-block">
+                            <span class="font-weight-normal ps-5" (click)="filterBlogsByCategory(category.id)"
+                                [class.activeLink]="activeCategory === category.id">{{
+                                category.name }}</span>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <!-- End List -->
+
+                <div class="border border-color-7 rounded p-4 mb-5 booking">
+                    <h6 class="mx-2 mb-3 pb-1 head">Why Book With Us?</h6>
+                    <div class="d-flex align-items-center mb-3" *ngFor="let about of chosse">
+                        <img [src]="about.icon" class="me-3" [alt]="about.title" loading="lazy" width="24" height="24">
+                        <h6 class="mb-0 font-size-14 text-gray-1">
+                            <a>{{about.title}}</a>
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="border border-color-7 rounded p-4">
+                    <h6 class="tags mx-1 mb-3 pb-1">Tags</h6>
+                    <div class="d-flex flex-wrap">
+                        <ng-container *ngFor="let tag of getUniqueTags()">
+                            <a
+                                class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 height-35 width-auto mr-2 mb-2">{{
+                                tag }}</a>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-clients></app-clients>

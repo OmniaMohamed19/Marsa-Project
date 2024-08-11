@@ -1,0 +1,227 @@
+@import url(../../../../../../styles/packages-edit.scss);
+.packages-content {
+  margin-top: 150px;
+}
+
+/*
+.discount img {
+    position: absolute;
+    bottom: -5px;
+    width: 111%;
+    height: 67%;
+    right: -2%;
+    left: auto;
+}
+*/
+h4,
+.heading,
+.option h3,
+.card-body h5,
+.my-tours-work h5.text-center {
+  font-family: Lato;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 30px;
+  line-height: 36px;
+  text-align: left;
+}
+h5,
+h6 {
+  color: #3b444f;
+  font-weight: 700;
+  font-family: Lato;
+}
+h5 {
+  font-size: 24px;
+}
+h6 {
+  font-size: 22px;
+}
+.fa-solid {
+  border: 1px solid #ebf0f7;
+  width: 30px;
+  height: 26px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  color: #3b444f;
+}
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}
+.breadcrumb,
+.popular,
+.location,
+.list,
+.navs li,
+.top,
+.collective,
+.private,
+.border,
+.priceTitle p,
+.badge-sale,
+.sale,
+.check,
+.cart,
+.book {
+  font-family: Lato;
+}
+.breadcrumb,
+.popular,
+.bookDetails small {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.breadcrumb i {
+  font-size: 10px;
+  margin-top: 6px;
+}
+
+.popular,
+.collective,
+.private,
+.review,
+.badge-sale,
+.check,
+.cart,
+.book {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.average-label,
+.location,
+.list {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+.average-label {
+  color: #67747c;
+  font-family: Lato;
+}
+.priceTitle p span {
+  font-weight: 700;
+}
+.progress-bar {
+  background-color: #0057ff;
+}
+.about-title {
+  color: #67747c;
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+}
+.navs {
+  box-shadow: 6px 3px 30px 8px rgba(0, 0, 0, 0.3);
+  padding: 10px 0;
+}
+.text-decoration-underline {
+  cursor: pointer;
+}
+
+.rate-num,
+h2.rate {
+  color: #0057ff;
+}
+.tab-pane {
+  margin-top: 25px;
+  border-bottom: 1px solid #ebf0f7;
+}
+
+.tab-content {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-nav {
+  border-radius: 10px;
+  position: sticky;
+  top: 80px;
+  z-index: 200;
+  background-color: #fff;
+  margin-top: 20px;
+}
+.selected {
+  color: gold;
+  text-shadow: 0.5px 0.5px #ffea01;
+}
+
+.yellow-star {
+  color: gold;
+}
+
+.review {
+  background: #297cbb;
+  text-align: center;
+  height: 40px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  padding: 7px !important;
+}
+
+@media (max-width: 992px) {
+  .sticky-nav {
+    display: none;
+  }
+}
+
+::ng-deep {
+  .Map {
+    iframe {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .packages-content {
+    margin-top: 0px;
+  }
+}
+.active {
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background-color: #1d508d !important;
+  border-radius: 25px;
+}
+
+.btnReview,
+.check {
+  background-color: #0db1ff;
+}
+
+.sale,
+.check,
+.badge-sale,
+.active {
+  color: #fff;
+}
+
+.sale {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.check {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

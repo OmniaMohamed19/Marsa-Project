@@ -1,0 +1,49 @@
+<div class="container">
+  <ul class="nav flex-nowrap overflow-x-auto">
+    <li
+      class="nav-item"
+      [class.active]="'all' === activeSection"
+      (click)="setActiveSection('all')"
+    >
+      All
+    </li>
+    <li
+      *ngFor="let tab of activityTypes"
+      class="nav-item"
+      [class.active]="tab.section === activeSection"
+      (click)="setActiveSection(tab.id)"
+    >
+      {{ tab.name }}
+    </li>
+  </ul>
+</div>
+
+<div class="container">
+  <div>
+    <section *ngIf="activeSection === 'all'">
+      <app-tours-table [tours]="tours.data"></app-tours-table>
+    </section>
+  </div>
+
+  <div *ngFor="let t of activityTypes">
+    <section *ngIf="activeSection === t.id">
+      <app-tours-table [tours]="filteredTours"></app-tours-table>
+    </section>
+  </div>
+  <!------------------------------->
+  <!-- <section *ngIf="activeSection === 'section2'">
+    <app-tours-table></app-tours-table>
+  </section>
+
+  <section *ngIf="activeSection === 'section3'">
+    <app-tours-table></app-tours-table>
+  </section>
+  <section *ngIf="activeSection === 'section4'">
+    <app-tours-table></app-tours-table>
+  </section>
+  <section *ngIf="activeSection === 'section5'">
+    <app-tours-table></app-tours-table>
+  </section> -->
+  <!---------Slider------------------------->
+  <!-- <app-featured-slider></app-featured-slider> -->
+</div>

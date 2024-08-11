@@ -1,0 +1,38 @@
+::ng-deep.owl-carousel .owl-nav .owl-prev {
+    position: absolute;
+    top: 30%;
+    right: -20px;
+    background: #fff;
+    color: #297CBB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-top:7px;
+    padding-right: 3px;
+    font-size: 18px;
+    box-shadow: 1px 2px 6px 4px #c3c9ca;
+    transition: all 0.5s ease-in-out;
+    &:hover{
+        background-color: #297CBB;
+        color: #fff;
+    }
+}
+::ng-deep.owl-carousel .owl-nav .owl-next {
+    position: absolute;
+    top: 30%;
+    left: -20px;
+    background: #fff;
+    color: #297CBB;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-top:7px;
+    padding-left: 3px;
+    font-size: 18px;
+    box-shadow: 1px 2px 6px 4px #c3c9ca;
+    transition: all 0.5s ease-in-out;
+    &:hover{
+        background-color: #297CBB;
+        color: #fff;
+    }
+}

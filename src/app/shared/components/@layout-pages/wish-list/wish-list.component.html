@@ -1,0 +1,88 @@
+<section class="wishlist">
+    <div class="container">
+        <div *ngIf="whishlistEmpty">
+            <section class="wishlist-empty ">
+                <div class="d-flex justify-content-center align-items-start gap-4 flex-column flex-md-row">
+                    <div>
+                        <img src="../../../../../assets/images/whislist.png" class="img-fluid">
+                    </div>
+                    <div class="whishlist-content">
+                        <h3>
+                            Your wish list is empty
+                        </h3>
+                        <p>
+                            Save favorites to your wish list by clicking on the heart icon
+                        </p>
+                        <button>
+                            Find your favorites
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-------------------------------------->
+        <div *ngIf="!whishlistEmpty">
+            <section class="wishlist-notempty">
+                <header class="d-flex justify-content-between align-items-center">
+                    <h4>Your Wish list</h4>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
+                </header>
+                <div class="d-flex flex-column whishlist-card-content">
+                    <a routerLink="../wishname" class="d-block">
+                    <div class="whishlist-card" >
+                        <div class="d-flex gap-4 img-container">
+                            <div>
+                                <img src="../../../../../assets/images/wish-1.jpg">
+                            </div>
+                           <div>
+                            <img src="../../../../../assets/images/wish-2.jpg">
+                           </div>
+                        </div>
+                        <h5>Hurghada </h5>
+                        <span>2 Activities & Tours</span>
+                    </div>
+                    </a>
+            
+                    <a routerLink="../wishname" class="d-block mt-5">
+                        <div class="whishlist-card" >
+                            <div class="d-flex gap-4 img-container">
+                                <div>
+                                    <img src="../../../../../assets/images/wish-1.jpg">
+                                </div>
+                               <div>
+                                <img src="../../../../../assets/images/wish-2.jpg">
+                               </div>
+                            </div>
+                            <h5>Hurghada </h5>
+                            <span>2 Activities & Tours</span>
+                        </div>
+                    </a>
+                    
+                </div>
+                <!----------------------------->
+            </section>
+        </div>
+        <!---------------------------------->
+    </div>
+</section>
+
+
+<!----------Create new List Model--------------------->  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+         
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+            <h5 class="modal-title" id="exampleModalLabel">Create New List</h5>
+          <input type="text" class="form-control" placeholder="Wish list name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="done">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>

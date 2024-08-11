@@ -1,0 +1,110 @@
+<div class="container">
+  <section class="table-content-general">
+    <header class="flex-wrap">
+      <div class="tabs">
+        <div
+          class="tab"
+          (click)="setFilter('year')"
+          [class.active]="activeTab === 'year'"
+        >
+          This Year
+        </div>
+        <div
+          class="tab"
+          (click)="setFilter('2023')"
+          [class.active]="activeTab === '2023'"
+        >
+          2023
+        </div>
+        <div
+          class="tab"
+          (click)="setFilter('2022')"
+          [class.active]="activeTab === '2022'"
+        >
+          2022
+        </div>
+        <div
+          class="tab"
+          (click)="setFilter('2021')"
+          [class.active]="activeTab === '2021'"
+        >
+          2021
+        </div>
+      </div>
+    </header>
+
+    <div *ngIf="filterdLiveAboard?.length > 0" class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <span> Liveaboard </span>
+            </th>
+            <th>
+              <span> Time </span>
+            </th>
+            <th>
+              <span> Type </span>
+            </th>
+            <th><span> Price </span></th>
+            <th><span> Status </span></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let live of filterdLiveAboard">
+            <td>
+              <span>{{ live?.name }}</span>
+            </td>
+            <td>
+              <span>{{ live?.time }}</span>
+            </td>
+            <td>
+              <span>{{ live?.type }}</span>
+            </td>
+            <td>
+              <span>{{ live?.price?.toFixed(2) }} $</span>
+            </td>
+            <td>
+              <span *ngIf="live?.status == 'paid'" class="completed">
+                {{ live?.status }}</span
+              >
+              <span class="cancel"> {{ live?.status }}</span>
+            </td>
+            <td>
+              <button
+                [routerLink]="'../../liveboard/liveboardDetails/' + live?.id"
+              >
+                View details
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="filterdLiveAboard?.length == 0">
+      <div class="booking">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="172"
+            height="172"
+            viewBox="0 0 172 172"
+            fill="none"
+          >
+            <path
+              d="M154.333 144.025L10.4361 0.128418L0.0644531 10.5001L29.9545 40.3901C25.8711 45.9434 23.6661 52.6401 23.6661 59.5001V149.333C23.6661 153.665 25.3869 157.82 28.45 160.883C31.5131 163.946 35.6676 165.667 39.9995 165.667H137.999C142.573 165.667 146.819 163.707 149.923 160.358L161.193 171.628L171.564 161.257L154.333 144.025ZM39.9995 59.5001C39.9995 56.9684 40.6528 54.4368 41.7961 52.2318L98.0645 108.5H39.9995V59.5001ZM137.999 149.333H39.9995V116.667H56.3328V133H64.4995V116.667H106.231L137.999 148.435V149.333ZM121.666 43.1668C125.998 43.1668 130.152 44.8876 133.216 47.9507C136.279 51.0138 137.999 55.1682 137.999 59.5001V106.867L154.333 123.2V59.5001C154.333 50.8363 150.891 42.5275 144.765 36.4013C138.639 30.2751 130.33 26.8334 121.666 26.8334V18.6668C121.666 14.3349 119.945 10.1804 116.882 7.11734C113.819 4.05425 109.665 2.33342 105.333 2.33342H72.6661C68.3343 2.33342 64.1798 4.05425 61.1167 7.11734C58.0536 10.1804 56.3328 14.3349 56.3328 18.6668V25.2001L74.2995 43.1668H121.666ZM72.6661 18.6668H105.333V26.8334H72.6661V18.6668Z"
+              fill="#B5B5C3"
+              fill-opacity="0.55"
+            />
+          </svg>
+        </div>
+        <h3>No Bookings yet , let’s changes that</h3>
+        <div>
+          <button routerLink="/">Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- <app-featured-slider></app-featured-slider> -->
+</div>

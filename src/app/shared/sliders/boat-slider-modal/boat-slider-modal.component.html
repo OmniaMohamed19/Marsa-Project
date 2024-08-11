@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <!-- <h4 class="modal-title">Boat Photos</h4> -->
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="image-slider">
+    <owl-carousel-o [options]="imagesOptions" class="trending">
+      <ng-container *ngFor="let img of images">
+        <ng-template carouselSlide>
+          <img [src]="img?.value" alt="item" loading="lazy" class="pe-3" />
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<section class="container">
+  <div>
+    <form>
+      <div class="row">
+        <div class="col-lg-12 form-col">
+          <label>Name</label>
+          <input type="text" [value]="userDetails.name" />
+          <span>Please enter your first name.</span>
+        </div>
+
+        <!-- <div class="col-lg-12 form-col">
+                    <label>Last Name</label>
+                    <input type="text" placeholder="KeenThemes">
+                    <span>Please enter your last name.</span>
+                </div> -->
+
+        <div class="col-lg-6 form-col">
+          <label for="phone" class="mt-2">Phone</label>
+          <div class="d-flex mt-1">
+            <div
+              class="dropdown"
+              tabindex="0"
+              (blur)="toggleDropdown()"
+              (click)="toggleDropdown()"
+            >
+              <div class="dropdown-btn d-flex align-items-center gap-1">
+                <img src="{{ selectedImg }}" width="20" height="20" />
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="20"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                >
+                  <path
+                    d="M19.5761 10.4414L14.3163 18.2724L9.13477 10.4414H19.5761Z"
+                    fill="#474747"
+                  />
+                </svg>
+                {{ selectedLabel }}
+              </div>
+              <div *ngIf="isOpen" class="dropdown-content">
+                <div
+                  *ngFor="let country of countries"
+                  (click)="selectCountry(country)"
+                  class="dropdown-item"
+                >
+                  <img
+                    [src]="country.flagUrl"
+                    alt="{{ country.label }}"
+                    width="20"
+                    height="15"
+                  />
+                  {{ country.label }}
+                </div>
+              </div>
+            </div>
+            <input type="tel" [value]="userDetails?.overviwe?.phonenumber" />
+          </div>
+          <span class="phone-validation">Please enter your phone number.</span>
+        </div>
+        <div class="col-lg-6 form-col">
+          <label>Email</label>
+          <input type="text" [value]="userDetails?.overviwe?.email" />
+          <span>Please enter your email address.</span>
+        </div>
+      </div>
+      <div class="text-end">
+        <button type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</section>
