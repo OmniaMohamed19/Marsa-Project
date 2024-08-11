@@ -7,6 +7,9 @@ h1 {
     color: rgba(255, 255, 255, 1);
 
 }
+.carousel-item{
+  min-height: 280px;
+}
 #content{
     margin-top: 100px;
 }
@@ -219,8 +222,8 @@ figure.u-avatar-image img {
 }
 
 .bg-img-hero{
-    background-position: center center; 
-    background-size: cover; 
+    background-position: center center;
+    background-size: cover;
     height: 372px;
     background-repeat: no-repeat;
 }
@@ -237,7 +240,7 @@ figure.u-avatar-image img {
 }
 /******************************/
 @media screen and (max-width: 500px){
- 
+
 }
 @media screen and (max-width:992px){
 .bg-img-hero {
@@ -248,7 +251,7 @@ figure.u-avatar-image img {
     .bg-img-hero-2{
         height: fit-content;
         padding: 40px 0;
-        
+
     }
 }
 @media screen and (max-width:1200px){
