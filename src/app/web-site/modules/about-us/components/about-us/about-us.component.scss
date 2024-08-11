@@ -7,6 +7,10 @@ h1 {
     color: rgba(255, 255, 255, 1);
 
 }
+.owl-carousel .owl-stage-outer 
+  {
+  width: 100% !important;
+}
 .carousel-item{
   min-height: 280px;
 }
