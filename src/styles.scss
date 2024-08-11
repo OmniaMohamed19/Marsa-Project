@@ -103,9 +103,19 @@ footer{
   object-fit: cover;
   object-position: center;
 }
+.owl-item img.bigimg {
+    object-fit: cover;
+    object-position: center;
+    width: 90% !important;
+    height: 65vh;
+    margin: auto;
+  }
+  .owl-carousel .owl-item img{
+    // height: 65vh;
+  }
 .my-tours-work {
   .owl-item {
-    max-width: 300px !important;
+    // max-width: 300px !important;
   }
 }
 
@@ -117,8 +127,8 @@ footer{
   }
 }
 /*****************************/
-.trending .owl-next,
-.trending .owl-prev {
+ .owl-next,
+ .owl-prev {
   box-shadow: 0px 0px 50px 0px rgba(32, 32, 32, 0.15) !important;
   width: 40px !important;
   height: 40px !important;
@@ -135,16 +145,15 @@ footer{
   (max-width: 800px),
   (max-width: 992px),
   (min-width: 768px) {
-  .trending .owl-next {
+   .owl-next {
     right: 0px !important;
   }
-
-  .trending .owl-prev {
+ .owl-prev {
     left: 0 !important;
   }
 }
 
-.trending .owl-prev {
+ .owl-prev {
   left: -55px;
 }
 
@@ -1191,4 +1200,44 @@ footer{
 .sticky-container {
   position: sticky;
   top: 20px; /* Adjust top value as needed */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.p-galleria-thumbnail-container{
+    background: #fff !important;
+    max-height: 150px;
+    border: 1px solid lightgray;
+padding: 5px;
+  }
+  .p-ripple.p-element.p-link.ng-star-inserted{
+
+    color: #008ccf;
+  }
+.p-galleria-thumbnail-container img{
+    width: 100px;
+    height: 70px ;
+}
+.cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0,.70 ) !important;
+}
+.ng-star-inserted .modal-header .close{
+    right: 0 !important;
+}
+.map iframe{
+    width: 100%;
+}
+.owl-carousel .owl-stage-outer {
+    width: 80%;
+    margin: auto;
 }
