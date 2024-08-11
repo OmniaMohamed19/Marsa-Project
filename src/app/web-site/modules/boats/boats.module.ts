@@ -10,6 +10,7 @@ import { BoatDetailsComponent } from './components/boat-details/boat-details.com
 import { PaymentBoatsComponent } from './components/payment-boats/payment-boats.component';
 import { ConfirmationBoatComponent } from './components/confirmation-boat/confirmation-boat.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { MatSliderModule } from '@angular/material/slider';
     PaymentBoatsComponent,
     ConfirmationBoatComponent,
   ],
-  imports: [CommonModule, BoatsRoutingModule, SharedModule, MatSliderModule],
+  imports: [CommonModule, BoatsRoutingModule, SharedModule, MatSliderModule,GalleriaModule],
   providers: [DatePipe],
 })
 export class BoatsModule {}

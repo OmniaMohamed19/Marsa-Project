@@ -288,7 +288,7 @@ export class LiveboardDetailsComponent {
   openBoatSliderModal(boat: any): void {
     const boatImages = boat.images;
     const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-      width: '60%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = boatImages;
   }
