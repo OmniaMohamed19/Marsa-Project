@@ -18,7 +18,7 @@ export class AboutUsComponent implements OnInit {
   backgroundImageUrl: string = '';
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   videoUrl!: SafeHtml;
-
+  rev:any ;
   constructor(
     private _HttpService: HttpService,
     public translate: TranslateService,
@@ -38,6 +38,8 @@ export class AboutUsComponent implements OnInit {
     this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
       next: (response: any) => {
         this.data = response;
+        this.rev=this.data.review;
+        console.log(this.rev);
         this.partnerPaths = Object.values(this.data.partner);
         this.backgroundImageUrl = this.data.aboutus.cover;
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
