@@ -141,7 +141,24 @@ export class BoatDetailsComponent {
       }
     }
   }
+  responsiveOptions: any[] | undefined;
+
+    // constructor() {}
   ngOnInit(): void {
+        this.responsiveOptions = [
+            {
+                breakpoint: '1024px',
+                numVisible: 5
+            },
+            {
+                breakpoint: '768px',
+                numVisible: 3
+            },
+            {
+                breakpoint: '560px',
+                numVisible: 1
+            }
+        ];
     this.range = this.fb.group({
       start: ['', Validators.required],
       end: ['', Validators.required],
@@ -327,7 +344,7 @@ export class BoatDetailsComponent {
       ([key, value]) => ({ value })
     );
     const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-      width: '60%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = boatImages;
   }
@@ -335,7 +352,7 @@ export class BoatDetailsComponent {
   openCabinSliderModal(cabin: any): void {
     const boatImages = cabin.image;
     const dialogRef = this.dialog.open(CabinInfoModalComponent, {
-      width: '60%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = boatImages;
     dialogRef.componentInstance.data = cabin;

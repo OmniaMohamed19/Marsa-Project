@@ -9,7 +9,14 @@
     <owl-carousel-o [options]="imagesOptions" class="trending">
       <ng-container *ngFor="let img of images">
         <ng-template carouselSlide>
-          <img [src]="img?.value" alt="item" loading="lazy" class="pe-3 bigimg" />
+          <ng-container *ngIf="img?.value; else elseTemplate">
+            
+            <img  [src]="img?.value" alt="item" loading="lazy" class="pe-3 bigimg" />
+          </ng-container>
+          <ng-template #elseTemplate>
+            <img  [src]="img" alt="item" loading="lazy" class="pe-3 bigimg" />
+            
+          </ng-template>
         </ng-template>
       </ng-container>
     </owl-carousel-o>

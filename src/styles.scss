@@ -1229,7 +1229,15 @@ padding: 5px;
     height: 70px ;
 }
 .cdk-overlay-dark-backdrop {
-    background: rgba(0, 0, 0,.70 ) !important;
+    background: rgba(0, 0, 0,.3 ) !important;
+}
+// .cdk-overlay-pane {
+//     overflow: auto !important;
+//     background-color: #fff;
+// }
+.mat-mdc-dialog-container .mdc-dialog__surface,.mat-mdc-dialog-container {
+    /* background-color: transparent !important; */
+    background-color: #fff !important;
 }
 .ng-star-inserted .modal-header .close{
     right: 0 !important;
