@@ -270,7 +270,7 @@ export class LiveboardDetailsComponent {
 
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
-      width: '80%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = Array.from(
       Object.entries(this.liveabourdData.Images)
