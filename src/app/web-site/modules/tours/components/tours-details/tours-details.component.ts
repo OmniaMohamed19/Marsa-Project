@@ -365,7 +365,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       ([key, value]) => ({ value })
     );
     const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-      width: '80%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = boatImages;
   }

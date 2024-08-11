@@ -64,7 +64,7 @@ export class LiveboardDetailsComponent {
   Why_chosse_us: any;
   cover: string = '';
   images: any;
-  coverAndImages: string[] | null = null;
+  coverAndImages: any;
   happyGustImages: any[] = [];
   remainingImages: string[] = [];
   showSeeMore: boolean = false;
@@ -118,7 +118,23 @@ export class LiveboardDetailsComponent {
       }
     }
   }
+  responsiveOptions: any[] | undefined;
+
   ngOnInit(): void {
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 5
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 3
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1
+      }
+  ];
     this.activatedRoute.params.subscribe((params: any) => {
       this.liveabourdID = params.id;
       this.loadData();
@@ -254,7 +270,7 @@ export class LiveboardDetailsComponent {
 
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
-      width: '60%',
+      width: '80%',
     });
     dialogRef.componentInstance.images = Array.from(
       Object.entries(this.liveabourdData.Images)
