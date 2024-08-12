@@ -179,20 +179,28 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     // constructor() {}
   ngOnInit(): void {
-        this.responsiveOptions = [
-            {
-                breakpoint: '1024px',
-                numVisible: 5
-            },
-            {
-                breakpoint: '768px',
-                numVisible: 3
-            },
-            {
-                breakpoint: '560px',
-                numVisible: 1
-            }
-        ];
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 6
+    },
+    {
+      breakpoint: '1200px',
+      numVisible: 5
+  },
+      {
+          breakpoint: '1024px',
+          numVisible: 4
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 3
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1
+      }
+  ];
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
       this.loadData();
@@ -366,6 +374,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     );
     const dialogRef = this.dialog.open(BoatSliderModalComponent, {
       width: '100%',
+
     });
     dialogRef.componentInstance.images = boatImages;
   }
@@ -374,6 +383,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.dialog.open(this.videoBoatModal, {
       width: '100%',
       height: '50%',
+      
     });
   }
 

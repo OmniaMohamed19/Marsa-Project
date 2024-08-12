@@ -145,20 +145,28 @@ export class BoatDetailsComponent {
 
     // constructor() {}
   ngOnInit(): void {
-        this.responsiveOptions = [
-            {
-                breakpoint: '1024px',
-                numVisible: 5
-            },
-            {
-                breakpoint: '768px',
-                numVisible: 3
-            },
-            {
-                breakpoint: '560px',
-                numVisible: 1
-            }
-        ];
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 6
+    },
+    {
+      breakpoint: '1200px',
+      numVisible: 5
+  },
+      {
+          breakpoint: '1024px',
+          numVisible: 4
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 3
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1
+      }
+  ];
     this.range = this.fb.group({
       start: ['', Validators.required],
       end: ['', Validators.required],
@@ -322,7 +330,7 @@ export class BoatDetailsComponent {
 
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
-      width: '60%',
+      width: '80%',
     });
     dialogRef.componentInstance.images = Array.from(
       Object.entries(this.boatData.Images)
@@ -333,7 +341,7 @@ export class BoatDetailsComponent {
   openImageSliderModal(): void {
     // this.showSeeMore = true;
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
-      width: '60%',
+      width: '80%',
     });
     dialogRef.componentInstance.images = this.happyGustImages;
     dialogRef.componentInstance.title = 'Traveler Photos';

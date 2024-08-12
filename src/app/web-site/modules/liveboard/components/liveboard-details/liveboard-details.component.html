@@ -143,7 +143,7 @@
           </p-galleria>
             <div
               class="flex-horizontal-center position-absolute video-gallery"
-              style="bottom: 30%; right: 25px; z-index: 1"
+              style="bottom: 18%; right: 25px; z-index: 1"
             >
               <!-- Video -->
               <a
@@ -933,13 +933,13 @@
               <!-- Input -->
               <div class="priceTitle d-flex justify-content-between">
                 <span
-                  class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                  class="d-block font-size-16  text-gray-1 font-weight-normal  text-left"
                   >Price</span
                 >
 
-                <p style="font-weight: 700">
+                <p style="font-weight: 500">
                   <span
-                    class="font-size-18 fw-bold text-dark"
+                    class="font-size-16 fw-bold text-dark"
                     [style.text-decoration]="
                       liveabourdData?.PriceColective?.AdultDiscount > 0
                         ? 'line-through'
@@ -957,9 +957,9 @@
                   >
 
                   <span
-                    class="font-size-18 fw-bold text-dark mx-2"
+                    class="font-size-15 fw-bold text-dark mx-2"
                     *ngIf="liveabourdData?.PriceColective?.AdultDiscount > 0"
-                    style="font-weight: 700; color: red"
+                    style="font-weight: 500; color: red"
                     >{{
                       getRoundedRate(
                         liveabourdData?.PriceColective?.Adult -

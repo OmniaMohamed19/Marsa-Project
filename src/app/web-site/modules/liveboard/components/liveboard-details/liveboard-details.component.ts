@@ -123,8 +123,16 @@ export class LiveboardDetailsComponent {
   ngOnInit(): void {
     this.responsiveOptions = [
       {
+        breakpoint: '1400px',
+        numVisible: 6
+    },
+    {
+      breakpoint: '1200px',
+      numVisible: 5
+  },
+      {
           breakpoint: '1024px',
-          numVisible: 5
+          numVisible: 4
       },
       {
           breakpoint: '768px',

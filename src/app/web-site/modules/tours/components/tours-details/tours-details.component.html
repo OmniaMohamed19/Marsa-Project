@@ -231,7 +231,7 @@
             </owl-carousel-o> -->
             <div
               class="flex-horizontal-center position-absolute video-gallery"
-              style="bottom: 30%; right: 25px; z-index: 1"
+              style="bottom: 18%; right: 25px; z-index: 1"
             >
               <!-- Video -->
               <a
@@ -1860,12 +1860,12 @@
     style="background: white; padding: 5%"
   >
     <div class="priceTitle d-flex justify-content-between">
-      <!-- <span class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+      <span class="d-block text-gray-1 font-weight-normal font-size-16  text-left"
         >Price</span
-      > -->
-      <p style="font-weight: 700">
+      >
+      <p style="font-weight: 500">
         <span
-          class="font-size-18 fw-bold text-dark"
+          class="font-size-16 fw-bold text-dark"
           [style.text-decoration]="
             (selectedOption === 'Collective' &&
               getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
@@ -1894,14 +1894,14 @@
           $</span
         >
         <span
-          class="mx-2 font-size-18 fw-bold text-dark"
+          class="mx-1 font-size-16 fw-bold text-dark"
           *ngIf="
             (selectedOption === 'Collective' &&
               getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
             (selectedOption === 'Private' &&
               getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
           "
-          style="font-weight: 700"
+          style="font-weight: 500"
           >{{
             selectedOption === "Collective"
               ? getRoundedRate(

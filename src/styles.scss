@@ -137,7 +137,7 @@ footer{
   background: rgba(255, 255, 255, 1) !important;
   color: rgba(41, 124, 187, 1) !important;
   position: absolute;
-  top: 50%;
+  top: 35%;
   right: -55px;
 }
 
@@ -1225,8 +1225,8 @@ padding: 5px;
     color: #008ccf;
   }
 .p-galleria-thumbnail-container img{
-    width: 100px;
-    height: 70px ;
+    width: 110px;
+    height: 60px ;
 }
 .cdk-overlay-dark-backdrop {
     background: rgba(0, 0, 0,.3 ) !important;
@@ -1235,9 +1235,14 @@ padding: 5px;
 //     overflow: auto !important;
 //     background-color: #fff;
 // }
-.mat-mdc-dialog-container .mdc-dialog__surface,.mat-mdc-dialog-container {
+
+.mat-mdc-dialog-container {
     /* background-color: transparent !important; */
     background-color: #fff !important;
+}
+.boat .mat-mdc-dialog-container .mdc-dialog__surface,.mat-mdc-dialog-container {
+    background-color: transparent !important; 
+    // background-color: #fff !important;
 }
 .ng-star-inserted .modal-header .close{
     right: 0 !important;
