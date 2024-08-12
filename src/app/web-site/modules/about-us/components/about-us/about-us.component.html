@@ -131,22 +131,22 @@
         <h2 class="title" style="margin-bottom: 2rem;" >Customer Reviews</h2>
       </div>
       <section class="myDestination mt-4">
-        <div id="about">
-          <owl-carousel-o [options]="customOptions" class="my-destination">
-            <ng-container>
+        <div id="about" >
+          <owl-carousel-o [options]="customOptions" class="my-destination" >
+            <ng-container *ngFor="let item of data.review">
               <ng-template carouselSlide>
-                <div class="d-flex justify-content-center mb-6">
+                <div class="d-flex justify-content-center mb-6" >
                   <div class="position-relative">
                     <img
                       class="img-fluid mx-auto"
                       style="border-radius: 50%; height: 150px"
                       (onError)="onImgError($event)"
-                      src="../../../../../../assets/images/clients.webp"
+                      [src]="item.avatar"
                       alt="Image-Descrition"
                     />
                     <div
-                    style="height: 3rem; width: 3rem;"
-                      class="btn-position btn btn-icon btn-dark rounded-circle d-flex align-items-center justify-content-center  btn-review"
+                    style="width: 3rem; height: 3rem;"
+                      class="btn-position btn btn-icon btn-dark rounded-circle d-flex align-items-center justify-content-center btn-review"
                     >
                       <figure id="quote9">
                         <svg
@@ -176,9 +176,9 @@
                 </div>
                 <div class="text-center">
                   <p class="px-xl-20 mx-xl-15 px-xl-20 mx-xl-18">
-                   sssssss
+                    {{ item.reviews }}
                   </p>
-                  <h6 class="mb-0">kkkkkkkkkk</h6>
+                  <h6 class="mb-0">{{ item.name }}</h6>
                 </div>
               </ng-template>
             </ng-container>
