@@ -15,6 +15,14 @@ h3 {
 .my-tours-work{
   width: 100%;
 }
+.owl-carousel .owl-item img{
+   height: 65vh;
+}
+.my-tours-work {
+  .owl-item {
+    width: 300px !important;
+  }
+}
 h3::after {
   content: "";
   position: absolute;
