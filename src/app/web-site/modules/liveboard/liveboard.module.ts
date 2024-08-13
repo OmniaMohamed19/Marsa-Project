@@ -10,6 +10,7 @@ import { LiveboardPaymentComponent } from './components/liveboard-payment/livebo
 import { ConfirmPaymentLiveabourdComponent } from './components/confirm-payment-liveabourd/confirm-payment-liveabourd.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { GalleriaModule } from 'primeng/galleria';
     LiveboardRoutingModule,
     SharedModule,
     MatSliderModule,
-    GalleriaModule
+    GalleriaModule,
+    ImageModule
   ],
 })
 export class LiveboardModule {}

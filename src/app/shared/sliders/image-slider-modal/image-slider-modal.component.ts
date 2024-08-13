@@ -1,7 +1,9 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 @Component({
   selector: 'app-image-slider-modal',
   templateUrl: './image-slider-modal.component.html',
@@ -43,5 +45,29 @@ export class ImageSliderModalComponent {
 
   closeModal(): void {
     this.dialogRef.close(); // Close the modal
+  }
+  responsiveOptions: any[] | undefined;
+
+
+  ngOnInit() {
+      
+
+      this.responsiveOptions = [
+          {
+              breakpoint: '1199px',
+              numVisible: 1,
+              numScroll: 1
+          },
+          {
+              breakpoint: '991px',
+              numVisible: 2,
+              numScroll: 1
+          },
+          {
+              breakpoint: '767px',
+              numVisible: 1,
+              numScroll: 1
+          }
+      ];
   }
 }

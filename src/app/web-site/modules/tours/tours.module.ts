@@ -12,7 +12,7 @@ import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-pa
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
-
+import { ImageModule } from 'primeng/image';
 @NgModule({
   declarations: [
     LandingToursComponent,
@@ -29,7 +29,8 @@ import { GalleriaModule } from 'primeng/galleria';
     SharedModule,
     MatDialogModule,
     MatSliderModule,
-    GalleriaModule
+    GalleriaModule,
+    ImageModule
   ],
   exports: [],
   providers: [DatePipe],

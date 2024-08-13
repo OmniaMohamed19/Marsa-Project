@@ -497,7 +497,9 @@
 
       <div>
         <ul
-          class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
+          class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border
+          
+           border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
           id="pills-tab"
           role="tablist"
           style="padding-left: 2px !important;"
@@ -537,6 +539,22 @@
             </button>
           </li>
         </ul>
+        <select name=""
+        
+        class=" form-select-fill-pill form-select form-select-lg mb-3 " aria-label=".form-select-lg example"
+        #option id="" (change)="searchByType({ target: { value: option.value } })">
+          <option value="null"
+          selected
+          >
+          All
+          </option>
+          <option value="item.id"
+          *ngFor="let item of types"
+          
+          >
+          {{ item?.type }}
+          </option>
+        </select>
         <div class="tab-content">
           <div
             class="tab-pane fade active show"

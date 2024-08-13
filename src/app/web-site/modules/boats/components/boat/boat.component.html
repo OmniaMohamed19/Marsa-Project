@@ -328,50 +328,64 @@
       <!-- End Activity Title -->
 
       <ul
-        class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
-        id="pills-tab"
-        role="tablist"
-        style="padding-left: 10px !important;
-  padding-right: 10px !important;"
-      >
-        <li
-          class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
-          role="presentation"
+          class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border
+          
+           border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
+          id="pills-tab"
+          role="tablist"
+          style="padding-left: 2px !important;"
         >
-          <button
-            (click)="searchByType({ target: { value: null } })"
-            class="nav-link active"
-            id="pills-Recommended-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-Recommended"
-            type="button"
-            role="tab"
-            aria-controls="pills-marstrending"
-            aria-selected="true"
+          <li
+            class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
+            role="presentation"
           >
-            All
-          </button>
-        </li>
-        <li
-          class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
-          role="presentation"
+            <button
+              (click)="searchByType({ target: { value: null } })"
+              class="nav-link active"
+              id="pills-marsa-trending-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-allActivity"
+              type="button"
+              role="tab"
+              aria-controls="pills-marstrending"
+              aria-selected="true"
+            >
+              All
+            </button>
+          </li>
+          <li
+            class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
+            role="presentation"
+            *ngFor="let item of types"
+          >
+            <button
+              (click)="searchByType({ target: { value: item.id } })"
+              class="nav-link"
+              data-bs-toggle="pill"
+              type="button"
+              role="tab"
+              aria-selected="false"
+            >
+              {{ item?.type }}
+            </button>
+          </li>
+        </ul>
+        <select name=""
+        
+        class=" form-select-fill-pill form-select form-select-lg mb-3 " aria-label=".form-select-lg example"
+        #option id="" (change)="searchByType({ target: { value: option.value } })">
+          <option value="null"
+          selected
+          >
+          All
+          </option>
+          <option value="item.id"
           *ngFor="let item of types"
-        >
-          <button
-            (click)="searchByType({ target: { value: item.id } })"
-            class="nav-link"
-            id="pills-PriceLive-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-Price"
-            type="button"
-            role="tab"
-            aria-controls="pills-Price-trending"
-            aria-selected="false"
+          
           >
-            {{ item.type }}
-          </button>
-        </li>
-      </ul>
+          {{ item?.type }}
+          </option>
+        </select>
       <div class="tab-content">
         <div
           class="tab-pane fade active show"
