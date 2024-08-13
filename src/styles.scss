@@ -1270,4 +1270,26 @@ padding: 5px;
 }
 .mdc-dialog .mdc-dialog__content iframe {
     height: 98% !important    ;
+    // width: 50% !important;
+    // margin: auto !important;
+}
+.mdc-dialog .mdc-dialog__content iframe video {
+    
+    width: 100% !important;
+    margin: 0 !important;
+}
+.form-select-fill-pill.form-select{
+        display: none !important; 
+    }
+@media (max-width:1200px) {
+    .nav.nav-pills{
+        display: none !important; 
+    }
+    .form-select-fill-pill.form-select{
+        display: block !important; 
+    }
+    
+}
+@media (min-width:11990px) {
+    
 }
