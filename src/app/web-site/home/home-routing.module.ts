@@ -101,7 +101,7 @@ const routes: Routes = [
   {
     path: 'search',
     loadChildren: () =>
-      import(`../modules/search/search.module`).then((m) => m.SearchModule),
+      import(`../modules/tour-details/tour-details.module`).then((m) => m.TourDetailsModule),
   },
   {
     path: 'app-download',

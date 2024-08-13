@@ -11,17 +11,19 @@
       </button>
 
       <div class="carousel-inner">
-        <mat-card *ngFor="let dist of visibleDestinations" class="dist-card" style="height: 250px; margin-left: 1.2rem;"[routerLink]="'search'" >
+        <mat-card *ngFor="let dist of visibleDestinations" class="dist-card" style="height: 250px; margin-left: 1.2rem;"
+          [routerLink]="'search'" (click)="logId(dist.id)">
           <img class="card-image" [src]="replaceSpace(dist?.cover)" alt="{{ dist?.name }}">
           <mat-card-content>
             <div class="destination-title text-white font-weight-bold font-size-21 pb-3 mb-3 text-lh-1 d-block">
               {{ dist?.name }}
             </div>
             <div class="destination-dropdown v1">
-              <a [routerLink]="'search'" [queryParams]="{ id: dist.id }" class="text-white font-weight-bold font-size-21 text-lh-1 d-block">
+              <a [routerLink]="'search'" [queryParams]="{ id: dist.id }"
+                class="text-white font-weight-bold font-size-21 text-lh-1 d-block">
                 {{ dist?.name }}
               </a>
-              <a class="dropdown-item" [routerLink]="'search'" [queryParams]="{ id: dist.id }">View Tours</a>
+              <a class="dropdown-item" [routerLink]="'search'" [queryParams]="{ id: dist.id }" (click)="logId(dist.id)">View Tours</a>
             </div>
           </mat-card-content>
         </mat-card>

@@ -70,6 +70,7 @@ export class SearchComponent {
         .subscribe((res) => {
           console.log(res);
           this.placeDetails = res;
+          console.log("placeDetails" +this.placeDetails);
           this.AllActivities = this.placeDetails?.alltrips;
           this.allTripsFiltered = this.placeDetails.alltrips.filter(
             (item: any) => {
