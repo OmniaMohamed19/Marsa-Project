@@ -347,16 +347,30 @@ select.form-control {
 }
 
 .day-trip-img {
-  flex: 1;
- // min-width: 200px;
-  max-width: calc(25% - 1rem);
 
+  flex: 1;
+  max-width: calc(25% - 1rem); /* Display 4 items per row */
+  opacity: 0.5; /* Default opacity */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+
+}
+.day-trip-img.selected {
+  opacity: 1;  /* Remove opacity when selected */
+  transform: scale(1.05); /* Slightly enlarge the selected item */
+  z-index: 1; /* Bring the selected item forward */
+}
+.day-trip-img.active {
+  opacity: 1; /* Remove opacity on click */
+  transform: scale(1.05); /* Slightly enlarge the active item */
+  z-index: 1; /* Bring the active item to the front */
 }
 .trip-image {
   width: 100%;  /* Make image fill the container width */
-  height: 175px; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
   aspect-ratio: 1/1; /* Ensure the image is square */
   object-fit: cover; /* Cover the container with the image */
+  border-radius: 8px; /* Add border radius to the image */
 }
 /*************************************************/
 @media screen and (max-width: 1023px) {

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -57,10 +57,23 @@ export class MaindetailComponent implements OnInit {
 
   constructor(
     private rout: ActivatedRoute,
+    private router:Router,
     private httpService: HttpService,
     private translate: TranslateService
   ) {
     this.screenWidth = window.innerWidth;
+  }
+  selectedTrip: any = null;
+
+  selectTrip(trip: any): void {
+    if (this.selectedTrip === trip) {
+      this.selectedTrip = null;
+    } else {
+      this.selectedTrip = trip;
+    } // Set the selected trip
+
+
+    this.router.navigate(['trip', trip.id]);
   }
 
   ngOnInit() {
@@ -73,6 +86,7 @@ export class MaindetailComponent implements OnInit {
         console.log("placeDetails" + this.placeDetails);
 
         this.AllActivities = this.placeDetails?.alltrips;
+        console.log(this.AllActivities)
         this.allTripsFiltered = this.placeDetails.alltrips.filter(
           (item: any) => {
             console.log(item.place);
