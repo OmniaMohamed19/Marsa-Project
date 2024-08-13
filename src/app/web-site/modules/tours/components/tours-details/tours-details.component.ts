@@ -363,7 +363,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
-      width: '60%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = happyGustImages;
   }

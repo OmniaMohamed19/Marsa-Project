@@ -5,7 +5,34 @@
 </div>
 <div class="modal-body">
   <div class="image-slider">
-    <owl-carousel-o [options]="imagesOptions" class="trending">
+    <p-carousel 
+        [value]="images" 
+        [numVisible]="1" 
+        [numScroll]="1" 
+        [responsiveOptions]="responsiveOptions">
+            <ng-template pTemplate="header">
+            </ng-template>
+            <ng-template let-product pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-3">
+                        <div class="relative mx-auto">
+                            <img 
+                            [src]="product?.value" 
+                            [alt]="product.name" 
+                            width="100%"
+                            height="350px"
+                                class="w-full border-round" />
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <!-- <p>Footer content</p> -->
+            </ng-template>
+    </p-carousel>
+    <!-- <owl-carousel-o [options]="imagesOptions" class="trending">
       <ng-container *ngFor="let img of images">
         <ng-template carouselSlide>
           <img
@@ -17,6 +44,6 @@
           />
         </ng-template>
       </ng-container>
-    </owl-carousel-o>
+    </owl-carousel-o> -->
   </div>
 </div>

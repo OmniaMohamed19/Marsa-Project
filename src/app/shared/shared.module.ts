@@ -1,7 +1,7 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+import { CarouselModule as CarouselModule } from 'ngx-owl-carousel-o';
 import { QuickSearchComponent } from './components/@layout-pages/quick-search/quick-search.component';
 import { DestinationComponent } from './components/@layout-pages/destination/destination.component';
 import { PacakagesSearchComponent } from './components/@layout-pages/pacakages-search/pacakages-search.component';
@@ -76,7 +76,7 @@ import { SearchBoatComponent } from './components/@layout-pages/quick-search/sea
 import { SearchToursComponent } from './components/@layout-pages/quick-search/search-tours/search-tours.component';
 import { SearchTransferComponent } from './components/@layout-pages/quick-search/search-transfer/search-transfer.component';
 import { SearchLiveComponent } from './components/@layout-pages/quick-search/search-live/search-live.component';
-
+import { CarouselModule as CarouselModule2 } from 'primeng/carousel';
 const layoutPages = [
   QuickSearchComponent,
   SearchBoatComponent,
@@ -164,6 +164,7 @@ const slider = [
   imports: [
     CommonModule,
     CarouselModule,
+    CarouselModule2,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
