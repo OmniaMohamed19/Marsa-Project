@@ -1,0 +1,63 @@
+<app-header [background]="'#008CCF'"></app-header>
+<section class="content">
+  <div class="container">
+    <div class="images">
+      <img src="../../../../../assets/images/Ellipse1(1).png" alt=""  width="50%" height="83%"/>
+      <div class="text-container">
+        <p>What to do in</p>
+        <p>{{ placeDetails.places.name }}</p>
+      </div>
+    </div>
+  <div id="about">
+    <h4>About The City</h4>
+    <p>
+      {{ placeDetails?.places?.overview }}
+    </p>
+    <p>
+      {{ placeDetails?.places?.short_overview }}
+    </p>
+
+    <!-- <div class="d-flex" >
+      <div  style="margin-right: 1rem; width: 100%;"  *ngFor="let trip of placeDetails?.typeTrip" >
+        <div class="day-trip-img">
+          <div class="text-center">
+            <div class="day-trip-img-content">
+              <img [src]="trip?.image" alt="" style="height: 150px" />
+            </div>
+            <h6 class="mt-3">{{ trip?.type }}</h6>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+<!-- Show elements side by side when screen width is greater than 1023px -->
+<div class="day-trip-container" *ngIf="screenWidth > 1023">
+  <div *ngFor="let trip of placeDetails?.typeTrip" class="day-trip-img">
+    <div class="text-center">
+      <div class="day-trip-img-content">
+        <img [src]="trip?.image" alt="" class="trip-image" />
+      </div>
+      <h6 class="mt-3">{{ trip?.type }}</h6>
+    </div>
+  </div>
+</div>
+
+<!-- Show carousel when screen width is 1023px or smaller -->
+<owl-carousel-o *ngIf="screenWidth <= 1023" [options]="customOptions" class="trending">
+  <ng-template *ngFor="let trip of placeDetails?.typeTrip" carouselSlide>
+    <div class="day-trip-img">
+      <div class="text-center">
+        <div class="day-trip-img-content">
+          <img [src]="trip?.image" alt="" class="trip-image" />
+        </div>
+        <h6 class="mt-3">{{ trip?.type }}</h6>
+      </div>
+    </div>
+  </ng-template>
+</owl-carousel-o>
+
+
+  </div>
+</div>
+
+</section>

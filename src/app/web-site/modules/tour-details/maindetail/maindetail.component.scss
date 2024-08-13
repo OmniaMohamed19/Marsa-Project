@@ -1,0 +1,585 @@
+.images {
+  text-align: center;
+  position: relative;
+  height: 362.733px;
+  padding-top: 58px;
+  margin-left: 10%;
+  margin-bottom: 50px;
+
+  p:nth-of-type(1) {
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
+    font-family: poppins;
+    margin-bottom: 30px;
+  }
+
+  P:nth-of-type(2) {
+    font-size: 42px;
+    font-weight: 700;
+    font-family: poppins;
+    color: #297cbb;
+    text-transform: uppercase;
+  }
+
+  .text-container {
+    position: absolute;
+    left: 10%;
+    margin-top: -213px;
+  }
+
+  img {
+    height: auto;
+  }
+}
+
+.images img {
+  /* width: 300px;*/
+}
+
+.content {
+  margin-top: 150px;
+}
+
+/***********************/
+#about {
+  h4 {
+    font-family: Lato;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 32px;
+    color: #3b444f;
+    position: relative;
+    margin-bottom: 22px;
+  }
+
+  h4::after {
+    content: "";
+    width: 45.67px;
+    height: 1.41px;
+    background: #297cbb;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+  }
+
+  p {
+    color: #3b444f;
+    font-family: Lato;
+    font-size: clamp(24px, 16px, 24px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &:nth-of-type(2) {
+      margin-top: 0;
+    }
+  }
+}
+
+.day-trips {
+  margin-top: 60px;
+  margin-bottom: 73px;
+}
+
+.day-trip-img {
+  height: 300px;
+}
+
+#about img {
+  width: 100%;
+}
+
+#about h6 {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  padding-top: 5px;
+  color: #000000;
+}
+.day-trip-img-content {
+  position: relative;
+  border-bottom: 5px solid transparent;
+  border-radius: 5px;
+  padding-bottom: 2px;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    border-bottom: 5px solid #0db1ff;
+    transform: scale(1.1);
+  }
+}
+/*****************Activities*********************************/
+#activities {
+  h4 {
+    position: relative;
+    color: #3b444f;
+    font-family: Lato;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 40px;
+  }
+
+  h4:after {
+    content: "";
+    width: 45.668px;
+    height: 1.412px;
+    background: #297cbb;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+  }
+}
+
+/*******************sights******************************/
+#sights {
+  margin-top: 64px;
+
+  img {
+    width: 100%;
+  }
+
+  p {
+    color: var(--d-9-d-9-d-9, #000);
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: absolute;
+    top: 90px;
+    left: 10px;
+    padding: 13px 18px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  h4 {
+    color: #3b444f;
+    font-family: Lato;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    position: relative;
+    line-height: normal;
+    margin-bottom: 33px;
+
+    &:after {
+      content: "";
+      width: 45.668px;
+      height: 1.412px;
+      background: #297cbb;
+      position: absolute;
+      bottom: -10px;
+      left: 5px;
+    }
+  }
+
+  img {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+#sights span {
+  display: block;
+  width: 181px;
+  //   height: 42px;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 5px;
+  font-family: Lato;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 26.8px;
+  text-align: left;
+  color: rgba(255, 104, 26, 1);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px;
+}
+
+/************All Activites**********************/
+#all-activity {
+  margin-top: 54px;
+
+  h4 {
+    color: #3b444f;
+    font-family: Lato;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: relative;
+
+    &:after {
+      content: "";
+      width: 45.668px;
+      height: 1.412px;
+      background: #297cbb;
+      position: absolute;
+      bottom: -10px;
+      left: 5px;
+    }
+  }
+
+  h5 {
+    font-family: Lato;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 22px;
+    padding-top: 22px;
+    color: rgba(59, 68, 79, 1);
+    margin-top: 23px;
+    margin-bottom: 23px;
+  }
+}
+
+#all-activity select {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgba(59, 68, 79, 1);
+  height: 52px;
+  border: 1px solid rgba(217, 217, 217, 1);
+  border-radius: 10px;
+  width: 142px;
+  padding-right: 10px;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &.last {
+    width: 161px;
+  }
+  &:hover {
+    border: 1px solid #0db1ff;
+    color: #1e6485;
+  }
+}
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("../../../../../assets/images/icons8-down-arrow-30.png");
+  background-repeat: no-repeat;
+  background-position: right 7px top 50%;
+  background-size: 15px;
+  padding-right: 20px;
+}
+/************************************************/
+.mat-expansion-panel-header {
+  font-family: Lato;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 17.2px;
+  color: red !important;
+}
+.mat-expansion-panel-header-title {
+  color: #3b444f;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none !important;
+}
+/***********Faq**********************/
+#faq {
+  margin-top: 65px;
+  margin-bottom: 70px;
+  a {
+    color: var(--Main-Title, #0db1ff);
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      transform: translateY(3px);
+    }
+  }
+  h6 {
+    padding-left: 30px;
+    color: #3b444f;
+    font-family: Lato;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+  p {
+    color: #67747c;
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    line-height: 1.7;
+  }
+}
+.faq {
+  width: 47px;
+  height: 42px;
+  border: 2px solid rgba(235, 240, 247, 1);
+  padding: 12px 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.day-trip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.day-trip-img {
+  flex: 1;
+ // min-width: 200px;
+  max-width: calc(25% - 1rem);
+
+}
+.trip-image {
+  width: 100%;  /* Make image fill the container width */
+  height: 175px; /* Maintain aspect ratio */
+  aspect-ratio: 1/1; /* Ensure the image is square */
+  object-fit: cover; /* Cover the container with the image */
+}
+/*************************************************/
+@media screen and (max-width: 1023px) {
+  .day-trip-container {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .images img {
+    width: 650px;
+  }
+
+  .content {
+    margin-top: 0;
+  }
+  #all-activity select {
+    width: 100px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  h4 {
+    font-family: Lato;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 36px;
+  }
+
+  p {
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.8px;
+  }
+
+  #about h6 {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  #sights span {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  #sights p {
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28.8px;
+  }
+
+  #faq h6 {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26.4px;
+    text-align: left;
+  }
+
+  .mat-expansion-panel-header {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(59, 68, 79, 1) !important;
+  }
+}
+
+@media screen and (max-width: 360.9px) {
+  .images {
+    padding-top: 0;
+    margin-bottom: 0;
+    height: 213px;
+
+    .text-container {
+      left: 0;
+      margin-top: -128px;
+    }
+
+    img {
+      width: 250px;
+      padding-top: 39px;
+    }
+
+    P:nth-of-type(2) {
+      font-size: 30px;
+    }
+
+    P:nth-of-type(1) {
+      font-size: 20px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 360.9px) and (max-width: 570px) {
+  .day-trip-img {
+    width: 48%;
+  }
+  .images {
+    padding-top: 0;
+    margin-bottom: 0;
+    height: 300px;
+
+    .text-container {
+      left: 4%;
+      margin-top: -173px;
+    }
+
+    img {
+      width: 360px;
+      padding-top: 39px;
+    }
+
+    P:nth-of-type(2) {
+      font-size: 32px;
+    }
+
+    P:nth-of-type(1) {
+      font-size: 20px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 570.98px) and (max-width: 767.8px) {
+  .images {
+    padding-top: 0;
+
+    .text-container {
+      left: -7%;
+    }
+
+    img {
+      width: 500px;
+      padding-top: 39px;
+    }
+
+    P:nth-of-type(2) {
+      font-size: 45px;
+    }
+
+    P:nth-of-type(1) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .images {
+    .text-container {
+      left: 0%;
+    }
+
+    img {
+      width: 500px;
+      padding-top: 39px;
+    }
+  }
+
+  h4 {
+    font-family: Lato;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 36px;
+  }
+
+  p {
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.8px;
+  }
+
+  #about h6 {
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  #sights span {
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    width: fit-content;
+  }
+
+  #sights p {
+    font-family: Lato;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    width: fit-content;
+  }
+
+  #faq h6 {
+    font-family: Lato;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26.4px;
+    text-align: left;
+  }
+
+  .mat-expansion-panel-header {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(59, 68, 79, 1) !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .content {
+    margin-top: 10px;
+  }
+}

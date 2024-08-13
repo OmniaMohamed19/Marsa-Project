@@ -55,4 +55,9 @@ export class DestinationComponent implements OnInit {
     }
     this.updateVisibleDestinations();
   }
+
+  logId(id: any): void {
+    localStorage.setItem('destinationId', id);
+    console.log('Clicked Destination ID:', id);
+  }
 }
