@@ -11,7 +11,7 @@
   p:nth-of-type(1) {
     font-size: 35px;
     font-weight: bold;
-    color: #000000;
+    color: #1a2b49;
     font-family: poppins;
     margin-bottom: 30px;
   }
@@ -45,12 +45,13 @@
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  text-align: center;
 }
 
 .horizontal-line {
   flex: 1;
-  height: 4px;
-  background-color: #e1f0ff;
+  height: 5px;
+  background-color: #c8ddf1;
   margin: auto 10px;
 }
 
@@ -67,7 +68,10 @@ button.btn-outline-primary {
   border: none;
   background-color: transparent; /* Optional: Makes the button background transparent when loading */
 }
-
+.btn-loading .spinner-border {
+  width: 1rem;
+  height: 1rem;
+}
 .spinner-border {
   margin-right: 5px;
 }
@@ -77,7 +81,7 @@ h4 {
   font-size: 26px;
   font-weight: 700;
   line-height: 32px;
-  color: #3b444f;
+  color: #1a2b49;
   position: relative;
   margin-bottom: 22px;
 }
@@ -87,7 +91,7 @@ h4 {
     font-size: 26px;
     font-weight: 700;
     line-height: 32px;
-    color: #3b444f;
+    color: #1a2b49;
     position: relative;
     margin-bottom: 22px;
   }
@@ -137,7 +141,7 @@ h4 {
   line-height: 22px;
   text-align: center;
   padding-top: 5px;
-  color: #000000;
+  color: #1a2b49;;
 }
 .day-trip-img-content {
   position: relative;
@@ -155,7 +159,7 @@ h4 {
 #activities {
   h4 {
     position: relative;
-    color: #3b444f;
+    color: #1a2b49;
     font-family: Lato;
     font-size: 30px;
     font-style: normal;
@@ -199,7 +203,7 @@ h4 {
   }
 
   h4 {
-    color: #3b444f;
+    color: #1a2b49;
     font-family: Lato;
     font-size: 30px;
     font-style: normal;
@@ -247,13 +251,6 @@ h4 {
 }
 
 /************All Activites**********************/
-#all-activity .details {
-  font-size: 1.5rem;
-}
-
-#all-activity .details p {
-  font-size: 1rem;
-}
 
 .recommend-activity {
   align-items: center;
@@ -315,7 +312,7 @@ select.form-control {
   margin-top: 65px;
   margin-bottom: 70px;
   a {
-    color: var(--Main-Title, #0db1ff);
+   
     font-family: Lato;
     font-size: 20px;
     font-style: normal;

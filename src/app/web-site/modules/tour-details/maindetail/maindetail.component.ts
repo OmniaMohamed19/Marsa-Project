@@ -146,6 +146,50 @@ export class MaindetailComponent implements OnInit {
       });
 
   }
+  filterTripType(event: any) {
+    this.TypeTrip = event.target.value;
+    this.filter();
+  }
+
+  filterDuration(ev: any) {
+    console.log(ev);
+    if (ev.target.value == 'all') {
+      this.FilterDurationid = [];
+    } else {
+      this.FilterDurationid = [];
+      this.FilterDurationid.push(ev.target.value);
+    }
+    this.filter();
+  }
+
+  filterTime(ev: any) {
+    console.log(ev.target.value);
+    if (ev.target.value == 'all') {
+      this.FilterTimeid = [];
+    } else {
+      this.FilterTimeid = [];
+      this.FilterTimeid.push(ev.target.value);
+    }
+    this.filter();
+  }
+
+  filter() {
+    this.httpService
+      .post(environment.marsa, 'Activtes/filter', {
+        Place_id: this.placeDetails.placesid,
+        TypeTrip: this.TypeTrip == 'null' ? null : this.TypeTrip,
+        filterid: this.FilterDurationid.concat(this.FilterTimeid),
+      })
+      .subscribe((response: any) => {
+        this.AllActivities = response.trips?.data;
+      });
+  }
+
+  onImgError(event: any) {
+    event.target.src =
+      '../../../../../../assets/images/sharm-elnaga-beach 1.png';
+    //Do other stuff with the event.target
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
