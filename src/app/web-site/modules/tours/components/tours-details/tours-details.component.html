@@ -998,10 +998,11 @@
           >
             <li class="list-group-item px-1">
               <a
-                (click)="addtoFavorits()"
+              #btn
+                (click)="addtoFavorits(btn,$event)"
                 class="height-45 width-45 border rounded border-width-2 flex-content-center"
               >
-                <i class="fa-regular fa-heart font-size-18 text-dark"></i>
+                <i class="fa-regular fa-heart font-size-18 "></i>
               </a>
             </li>
             <li class="list-group-item px-1">

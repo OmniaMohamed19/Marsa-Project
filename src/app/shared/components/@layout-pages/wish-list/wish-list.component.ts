@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./wish-list.component.scss'],
 })
 export class WishListComponent {
-  whishlistEmpty = false;
+  whishlistEmpty = true;
   wishlist: any = [];
   constructor(private httpService: HttpService) {}
 
@@ -16,6 +16,8 @@ export class WishListComponent {
     this.httpService
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {
+        console.log(res);
+        
         this.wishlist = res.wishlist;
         if (this.wishlist.length > 0) {
           this.whishlistEmpty = false;

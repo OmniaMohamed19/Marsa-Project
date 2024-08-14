@@ -38,6 +38,8 @@ export class AboutUsComponent implements OnInit {
     this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
       next: (response: any) => {
         this.data = response;
+        console.log(this.data);
+        
         this.rev=this.data.review;
         console.log(this.rev);
         this.partnerPaths = Object.values(this.data.partner);
