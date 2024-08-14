@@ -4,8 +4,13 @@ import { MaindetailComponent } from './maindetail/maindetail.component';
 import { ActivityditailComponent } from './activityditail/activityditail.component';
 
 const routes: Routes = [
+
   {path:'',component:MaindetailComponent},
-  { path: 'trip/:id', component: ActivityditailComponent },
+    {path:'trip/:typeid', component: ActivityditailComponent}
+
+  // {path:'',component:MaindetailComponent,children:[
+  //   {path:'trip/:typeid', component: ActivityditailComponent}
+  // ]}
 ];
 
 @NgModule({

@@ -2,9 +2,11 @@
   text-align: center;
   position: relative;
   height: 362.733px;
-  padding-top: 58px;
+  padding-top: 1rem;
   margin-left: 10%;
-  margin-bottom: 50px;
+
+
+ // margin-bottom: 1rem;
 
   p:nth-of-type(1) {
     font-size: 35px;
@@ -33,15 +35,52 @@
   }
 }
 
-.images img {
-  /* width: 300px;*/
-}
 
 .content {
   margin-top: 150px;
 }
 
+.show-more-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.horizontal-line {
+  flex: 1;
+  height: 4px;
+  background-color: #e1f0ff;
+  margin: auto 10px;
+}
+
+button.btn-outline-primary {
+  position: relative;
+  height: 40px;
+  padding-right: 8px;
+  padding-left: 8px;
+  width: 14%;
+  padding-top: 7px;
+}
+
+.btn-loading {
+  border: none;
+  background-color: transparent; /* Optional: Makes the button background transparent when loading */
+}
+
+.spinner-border {
+  margin-right: 5px;
+}
 /***********************/
+h4 {
+  font-family: Lato;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #3b444f;
+  position: relative;
+  margin-bottom: 22px;
+}
 #about {
   h4 {
     font-family: Lato;
@@ -90,6 +129,7 @@
   width: 100%;
 }
 
+
 #about h6 {
   font-family: Lato;
   font-size: 16px;
@@ -105,11 +145,11 @@
   border-radius: 5px;
   padding-bottom: 2px;
   transition: all 0.5s ease-in-out;
-  &:hover {
-    cursor: pointer;
-    border-bottom: 5px solid #0db1ff;
-    transform: scale(1.1);
-  }
+  // &:hover {
+  //   cursor: pointer;
+  //   border-bottom: 5px solid #0db1ff;
+  //   transform: scale(1.1);
+  // }
 }
 /*****************Activities*********************************/
 #activities {
@@ -207,39 +247,16 @@
 }
 
 /************All Activites**********************/
-#all-activity {
-  margin-top: 54px;
+#all-activity .details {
+  font-size: 1.5rem;
+}
 
-  h4 {
-    color: #3b444f;
-    font-family: Lato;
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    position: relative;
+#all-activity .details p {
+  font-size: 1rem;
+}
 
-    &:after {
-      content: "";
-      width: 45.668px;
-      height: 1.412px;
-      background: #297cbb;
-      position: absolute;
-      bottom: -10px;
-      left: 5px;
-    }
-  }
-
-  h5 {
-    font-family: Lato;
-    font-size: 19px;
-    font-weight: 600;
-    line-height: 22px;
-    padding-top: 22px;
-    color: rgba(59, 68, 79, 1);
-    margin-top: 23px;
-    margin-bottom: 23px;
-  }
+.recommend-activity {
+  align-items: center;
 }
 
 #all-activity select {
@@ -314,7 +331,7 @@ select.form-control {
     padding-left: 30px;
     color: #3b444f;
     font-family: Lato;
-    font-size: 22px;
+   // font-size: 22px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -324,7 +341,7 @@ select.form-control {
   p {
     color: #67747c;
     font-family: Lato;
-    font-size: 16px;
+//font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -344,23 +361,45 @@ select.form-control {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+ // position: relative;
+  //width: 100%;
+
 }
 
 .day-trip-img {
-
+  overflow: hidden;
   flex: 1;
-  max-width: calc(25% - 1rem); /* Display 4 items per row */
-  opacity: 0.5; /* Default opacity */
+ // max-width: calc(25% - 1rem); /* Display 4 items per row */
+  //opacity: 0.5; /* Default opacity */
   transition: opacity 0.3s ease, transform 0.3s ease;
   cursor: pointer;
+  //position: relative;
+}
+.day-trip-img img {
+  width: 100%;
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Ensures image covers the container */
+}
+// .day-trip-img h6 {
+//   margin-top: 10px;
+// }
+
+.trip-details {
+  width: 100%;
 
 }
-.day-trip-img.selected {
+.day-trip-img-content{
+  opacity: 0.5;
+}
+.day-trip-img-content.selected {
   opacity: 1;  /* Remove opacity when selected */
   transform: scale(1.05); /* Slightly enlarge the selected item */
   z-index: 1; /* Bring the selected item forward */
+  cursor: pointer;
+  border-bottom: 5px solid #0db1ff;
+  transform: scale(1.1);
 }
-.day-trip-img.active {
+.day-trip-img-content.active {
   opacity: 1; /* Remove opacity on click */
   transform: scale(1.05); /* Slightly enlarge the active item */
   z-index: 1; /* Bring the active item to the front */
@@ -372,6 +411,10 @@ select.form-control {
   object-fit: cover; /* Cover the container with the image */
   border-radius: 8px; /* Add border radius to the image */
 }
+.trending {
+  width: 100%;
+  height: auto;
+}
 /*************************************************/
 @media screen and (max-width: 1023px) {
   .day-trip-container {
@@ -379,9 +422,9 @@ select.form-control {
   }
 }
 @media screen and (max-width: 768px) {
-  .images img {
-    width: 650px;
-  }
+  // .images img {
+  //   width: 650px;
+  // }
 
   .content {
     margin-top: 0;

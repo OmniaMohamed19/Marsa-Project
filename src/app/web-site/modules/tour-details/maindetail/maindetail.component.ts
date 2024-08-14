@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./maindetail.component.scss']
 })
 export class MaindetailComponent implements OnInit {
-
   tourid: any;
   placeDetails: any;
   TypeTrip: any = null;
@@ -23,6 +22,18 @@ export class MaindetailComponent implements OnInit {
   selectedSight: any;
   route = '/' + this.translate.currentLang + '/tours/details/';
   screenWidth: number;
+   typetrips:any;
+   loading: boolean = false;
+
+   visibleTrips: any[] = [];
+   tripsPerRow: number = 3;
+   rowsToShow: number = 1;
+
+   selectedTrip: number | null = null;
+   selectedTripType: any = null;
+
+   hiddenTrips: any[] = [];
+   totalTripsCount: number = 0;
 
   customOptions: OwlOptions = {
     loop: false,
@@ -63,27 +74,57 @@ export class MaindetailComponent implements OnInit {
   ) {
     this.screenWidth = window.innerWidth;
   }
-  selectedTrip: any = null;
 
-  selectTrip(trip: any): void {
-    if (this.selectedTrip === trip) {
-      this.selectedTrip = null;
-    } else {
-      this.selectedTrip = trip;
-    } // Set the selected trip
+  toggleSeeMore(rec: any) {
+    rec.seeMore = !rec.seeMore;
+  }
+  selectTrip(tripId: number): void {
+    this.selectedTrip = tripId;
+    this.selectedTripType = this.placeDetails?.typeTrip.find((type: { id: number; }) => type.id === tripId);
 
+    if (this.selectedTripType) {
+      this.totalTripsCount = this.selectedTripType.trip.length;
+      this.visibleTrips = this.selectedTripType.trip.slice(0, this.tripsPerRow);
+      this.hiddenTrips = this.selectedTripType.trip.slice(this.tripsPerRow);
+    }
+  }
 
-    this.router.navigate(['trip', trip.id]);
+  showMore(): void {
+    this.loading = true;
+    setTimeout(() => {
+      const nextTrips = this.hiddenTrips.slice(0, this.tripsPerRow);
+      this.visibleTrips = [...this.visibleTrips, ...nextTrips];
+      this.hiddenTrips = this.hiddenTrips.slice(this.tripsPerRow);
+      this.loading = false;
+      if (this.hiddenTrips.length === 0) {
+        this.hideShowMoreButton();
+      }
+    }, 1000);
+  }
+
+  hideShowMoreButton(): void {
+    this.hiddenTrips = [];
   }
 
   ngOnInit() {
     this.tourid = localStorage.getItem('destinationId');
     this.httpService
       .get(environment.marsa, 'place/details/' + this.tourid)
-      .subscribe((res) => {
-        console.log("placeDetails" + res);
-        this.placeDetails = res;
-        console.log("placeDetails" + this.placeDetails);
+        .subscribe((res:any) => {
+         this.placeDetails = res;
+        this.typetrips = res.typeTrip;
+        if (this.typetrips && this.typetrips.length > 0) {
+          // Select the first trip by default
+          const firstTrip = this.typetrips[0];
+          this.selectTrip(firstTrip.id);
+
+          // Set the first item as active
+          this.selectedTrip = firstTrip.id;
+          this.selectedTripType = firstTrip;
+          this.totalTripsCount = firstTrip.trip.length;
+          this.visibleTrips = firstTrip.trip.slice(0, this.tripsPerRow);
+          this.hiddenTrips = firstTrip.trip.slice(this.tripsPerRow);
+        }
 
         this.AllActivities = this.placeDetails?.alltrips;
         console.log(this.AllActivities)
@@ -103,6 +144,7 @@ export class MaindetailComponent implements OnInit {
             this.questions = result.FAQ;
           });
       });
+
   }
 
   @HostListener('window:resize', ['$event'])
