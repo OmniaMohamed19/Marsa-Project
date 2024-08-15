@@ -24,7 +24,7 @@ export class MaindetailComponent implements OnInit {
   screenWidth: number;
    typetrips:any;
    loading: boolean = false;
-
+   carouselItems: any[] = [];
    visibleTrips: any[] = [];
    tripsPerRow: number = 3;
    rowsToShow: number = 1;
@@ -35,7 +35,7 @@ export class MaindetailComponent implements OnInit {
    hiddenTrips: any[] = [];
    totalTripsCount: number = 0;
 
-   customOptions: any[] = [
+   custom: any[] = [
     {
       breakpoint: '1024px',
       numVisible: 3,
@@ -53,6 +53,24 @@ export class MaindetailComponent implements OnInit {
       numScroll: 1
     }
   ];
+  responsiveOptions = [
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 3 // Add this line
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 2,
+      numScroll: 2 // Add this line
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+      numScroll: 1 // Add this line
+    }
+  ];
+
 
   constructor(
     private rout: ActivatedRoute,
@@ -62,7 +80,10 @@ export class MaindetailComponent implements OnInit {
   ) {
     this.screenWidth = window.innerWidth;
   }
-
+  isFirstTripSelected(): boolean {
+    const firstTripId = this.placeDetails?.typeTrip?.[0]?.id;
+    return this.selectedTrip === firstTripId;
+  }
   toggleSeeMore(rec: any) {
     rec.seeMore = !rec.seeMore;
   }
@@ -95,6 +116,16 @@ export class MaindetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    this.carouselItems = [
+      { title: 'Sight 1', image: '../../../../../assets/images/about-us.png' },
+      { title: 'Sight 2', image: '../../../../../assets/images/about-us.png' },
+      { title: 'Sight 3', image: '../../../../../assets/images/about-us.png' },
+      { title: 'Sight 4', image: '../../../../../assets/images/about-us.png' },
+      { title: 'Sight 5', image: '../../../../../assets/images/about-us.png' },
+      // Add more items
+    ];
     this.tourid = localStorage.getItem('destinationId');
     this.httpService
       .get(environment.marsa, 'place/details/' + this.tourid)
@@ -182,5 +213,8 @@ export class MaindetailComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = event.target.innerWidth;
+  }
+  setActiveSight(item: any) {
+    this.selectedSight = item;
   }
 }
