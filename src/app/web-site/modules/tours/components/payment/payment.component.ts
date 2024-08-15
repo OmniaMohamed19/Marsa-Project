@@ -42,7 +42,9 @@ export class PaymentComponent {
   activeTab: string = 'pills-one-example2';
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
-
+  coupon=0;
+  Coupons:any;
+  Total:any;
   nationalities!: Code[];
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
@@ -76,6 +78,7 @@ export class PaymentComponent {
       const trip_id = params['tripId'];
       this.tripId = trip_id;
       this.avilableOptions = parsedRes;
+      this.Total=this.avilableOptions?.TotlaPrice;
       this.booking_date = params['booking_date'];
       this.class = params['class'];
       this.avilable_option_id = params['avilable_option_id'];
@@ -102,7 +105,18 @@ export class PaymentComponent {
 
     this.getNationality();
   }
-
+  applycoupon(){
+    this._httpService
+      .get(environment.marsa, `Coupon`)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
+        this.Total=this.Total - this.Coupons[0].amount
+    console.log(this.Coupons);
+  });
+    console.log(this.coupon);
+    // Coupon
+  }
   toggleTab(tabId: string, paymentMethod: string) {
     this.activeTab = tabId;
     this.payment_method = paymentMethod;
@@ -252,6 +266,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'cash',
+        coupon_id:this.Coupons[0].id,
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
