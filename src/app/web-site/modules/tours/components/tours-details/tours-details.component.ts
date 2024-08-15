@@ -5,6 +5,7 @@ import {
   HostListener,
   TemplateRef,
   ViewChild,
+  
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -117,6 +118,11 @@ export class ToursDetailsComponent implements AfterViewInit {
     if (window.screen.width < 768) {
       this.isMobile = true;
     }
+  }
+  @ViewChild('myDiv') myDiv!: ElementRef;
+
+  scrollToTop() {
+    this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
     // Initialize the active tab on load
