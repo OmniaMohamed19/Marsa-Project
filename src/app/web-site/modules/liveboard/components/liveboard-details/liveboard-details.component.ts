@@ -85,6 +85,7 @@ export class LiveboardDetailsComponent {
   isSingleImage: boolean = false;
   isMobile = false;
   isTestDivScrolledIntoView: any;
+  showScrollToTopButton: boolean = false;
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -118,6 +119,7 @@ export class LiveboardDetailsComponent {
       }
     }
   }
+  
   responsiveOptions: any[] | undefined;
 
   ngOnInit(): void {

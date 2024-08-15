@@ -1429,3 +1429,18 @@
     </a>
   </div>
 </div>
+
+<a
+    *ngIf="showScrollToTopButton"
+    appScrollToTop
+    class="js-go-to u-go-to-modern animated js-animation-was-fired slideInUp text-primary"
+    data-position='{"bottom": 15, "right": 15 }'
+    data-type="fixed"
+    data-offset-top="400"
+    title="back to top"
+    data-compensation="#header"
+    data-show-effect="slideInUp"
+    data-hide-effect="slideOutDown"
+  >
+    <span class="fa fa-arrow-up u-go-to-modern__inner"></span>
+  </a>
