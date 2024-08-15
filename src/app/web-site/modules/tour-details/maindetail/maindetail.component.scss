@@ -42,6 +42,11 @@
   justify-content: center;
   margin-top: 20px;
   text-align: center;
+  flex-direction: row;
+}
+.show-more-container .horizontal-line {
+  margin: 0;
+ // border: 1px solid #ccc;
 }
 
 .horizontal-line {
@@ -63,6 +68,16 @@ button.btn-outline-primary {
   width: 14%;
   padding-top: 7px;
 }
+.dropdown-container {
+  min-width: 180px;
+}
+
+.form-select {
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  padding: 10px;
+}
+
 
 .btn-loading {
   border: none;
@@ -74,6 +89,17 @@ button.btn-outline-primary {
 }
 .spinner-border {
   margin-right: 5px;
+}
+
+//////top sights //////
+/* your-component.component.css */
+
+.custom-icon {
+  position: absolute;
+  top: 10px; /* Adjust this value based on your layout */
+  right: 10px; /* Adjust this value based on your layout */
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
 }
 /***********************/
 h4 {
@@ -381,11 +407,13 @@ select.form-control {
   cursor: pointer;
   border-bottom: 5px solid #0db1ff;
   transform: scale(1.1);
+  border-radius: 10px;
 }
 .day-trip-img-content.active {
   opacity: 1; /* Remove opacity on click */
   transform: scale(1.05); /* Slightly enlarge the active item */
   z-index: 1; /* Bring the active item to the front */
+
 }
 .trip-image {
   width: 100%;  /* Make image fill the container width */
@@ -411,6 +439,20 @@ select.form-control {
   }
   #all-activity select {
     width: 100px;
+  }
+  .show-more-container {
+    flex-direction: column;
+  }
+
+  .show-more-container .flex-grow-1 {
+    width: 100%;
+  }
+
+  .show-more-container .btn {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
   }
 }
 
@@ -466,6 +508,10 @@ select.form-control {
     text-align: left;
     color: rgba(59, 68, 79, 1) !important;
   }
+  .show-more-container .btn {
+   font-size: 18px;
+
+  }
 }
 
 @media screen and (max-width: 360.9px) {
@@ -493,9 +539,21 @@ select.form-control {
       margin-bottom: 0;
     }
   }
+
 }
 
 @media screen and (min-width: 360.9px) and (max-width: 570px) {
+  .dropdown-container {
+    width: 100%;
+  }
+
+  .form-select {
+    margin-top: 10px;
+  }
+  .show-more-container .btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
   .images {
     padding-top: 0;
     margin-bottom: 0;
@@ -520,6 +578,7 @@ select.form-control {
       margin-bottom: 0;
     }
   }
+
 }
 
 @media screen and (min-width: 570.98px) and (max-width: 767.8px) {
@@ -543,6 +602,7 @@ select.form-control {
       margin-bottom: 0;
     }
   }
+
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
@@ -610,6 +670,9 @@ select.form-control {
     text-align: left;
     color: rgba(59, 68, 79, 1) !important;
   }
+  .show-more-container .btn {
+    font-size: 15px;
+   }
 }
 
 @media screen and (max-width: 1200px) {
