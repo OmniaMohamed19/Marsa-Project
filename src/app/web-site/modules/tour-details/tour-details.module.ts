@@ -4,7 +4,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { TourDetailsRoutingModule } from './tour-details-routing.module';
 import { MaindetailComponent } from './maindetail/maindetail.component';
-
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import { MaindetailComponent } from './maindetail/maindetail.component';
   imports: [
     CommonModule,
     TourDetailsRoutingModule,
-    SharedModule
+    SharedModule,
+    CarouselModule
 
   ]
 })

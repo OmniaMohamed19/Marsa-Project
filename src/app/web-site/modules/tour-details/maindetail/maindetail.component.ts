@@ -35,36 +35,24 @@ export class MaindetailComponent implements OnInit {
    hiddenTrips: any[] = [];
    totalTripsCount: number = 0;
 
-  customOptions: OwlOptions = {
-    loop: false,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: true,
-    autoplay: false,
-    margin: 50,
-    navSpeed: 700,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      740: {
-        items: 3,
-      },
-      940: {
-        items: 4,
-      },
-      1200: {
-        items: 5,
-      },
-      2000: {
-        items: 6,
-      },
+   customOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 1
+
     },
-  };
+    {
+      breakpoint: '768px',
+      numVisible: 2,
+      numScroll: 1
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+      numScroll: 1
+    }
+  ];
 
   constructor(
     private rout: ActivatedRoute,

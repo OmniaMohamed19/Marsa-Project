@@ -4,10 +4,6 @@
   height: 362.733px;
   padding-top: 1rem;
   margin-left: 10%;
-
-
- // margin-bottom: 1rem;
-
   p:nth-of-type(1) {
     font-size: 35px;
     font-weight: bold;
@@ -53,6 +49,10 @@
   height: 5px;
   background-color: #c8ddf1;
   margin: auto 10px;
+}
+
+.full-width {
+  width: 100%;
 }
 
 button.btn-outline-primary {
@@ -125,10 +125,6 @@ h4 {
   margin-bottom: 73px;
 }
 
-.day-trip-img {
-  height: 300px;
-}
-
 #about img {
   width: 100%;
 }
@@ -149,11 +145,6 @@ h4 {
   border-radius: 5px;
   padding-bottom: 2px;
   transition: all 0.5s ease-in-out;
-  // &:hover {
-  //   cursor: pointer;
-  //   border-bottom: 5px solid #0db1ff;
-  //   transform: scale(1.1);
-  // }
 }
 /*****************Activities*********************************/
 #activities {
@@ -177,6 +168,10 @@ h4 {
     bottom: -10px;
     left: 0;
   }
+}
+::ng-deep .p-carousel-prev,
+::ng-deep .p-carousel-next {
+  display: none ;
 }
 
 /*******************sights******************************/
@@ -312,7 +307,7 @@ select.form-control {
   margin-top: 65px;
   margin-bottom: 70px;
   a {
-   
+
     font-family: Lato;
     font-size: 20px;
     font-style: normal;
@@ -358,28 +353,19 @@ select.form-control {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
- // position: relative;
-  //width: 100%;
-
 }
 
 .day-trip-img {
   overflow: hidden;
   flex: 1;
- // max-width: calc(25% - 1rem); /* Display 4 items per row */
-  //opacity: 0.5; /* Default opacity */
   transition: opacity 0.3s ease, transform 0.3s ease;
   cursor: pointer;
-  //position: relative;
 }
 .day-trip-img img {
   width: 100%;
   height: auto; /* Maintains aspect ratio */
   object-fit: cover; /* Ensures image covers the container */
 }
-// .day-trip-img h6 {
-//   margin-top: 10px;
-// }
 
 .trip-details {
   width: 100%;
@@ -419,9 +405,6 @@ select.form-control {
   }
 }
 @media screen and (max-width: 768px) {
-  // .images img {
-  //   width: 650px;
-  // }
 
   .content {
     margin-top: 0;
@@ -513,9 +496,6 @@ select.form-control {
 }
 
 @media screen and (min-width: 360.9px) and (max-width: 570px) {
-  .day-trip-img {
-    width: 48%;
-  }
   .images {
     padding-top: 0;
     margin-bottom: 0;
