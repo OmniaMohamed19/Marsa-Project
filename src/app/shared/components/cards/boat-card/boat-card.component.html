@@ -11,18 +11,18 @@
         [src]="item.cover"
       />
     </a>
-    <div class="position-absolute top-0 left-0 pt-4 pl-3">
+    <!-- <div class="position-absolute top-0 left-0 pt-4 pl-3"> -->
       <!-- <span
         class="badge badge-pill bg-white featured"
         *ngIf="item?.Featured > 0"
         >Featured</span
       > -->
-      <span
+      <!-- <span
         class="badge badge-pill bg-white ml-3 sale"
         *ngIf="item?.discount > 0"
         >%{{ item.discount }}</span
       >
-    </div>
+    </div> -->
     <div class="position-absolute top-0 right-0 pt-5 pr-3">
       <button
         type="button"
@@ -32,6 +32,8 @@
         title="Save for later"
         data-original-title="Save for later"
         aria-label="Save for later"
+        #btn
+        (click)="addtoFavorits(btn,$event)"
       >
         <span
           class="fa-regular fa-heart font-size-20"

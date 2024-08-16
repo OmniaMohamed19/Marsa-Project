@@ -1198,8 +1198,8 @@ footer{
 
 //sticky-container
 .sticky-container {
-  position: sticky;
-  top: 20px; /* Adjust top value as needed */
+  position: sticky !important;
+  top: -100px; /* Adjust top value as needed */
 }
 
 

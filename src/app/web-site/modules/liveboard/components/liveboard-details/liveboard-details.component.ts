@@ -85,6 +85,7 @@ export class LiveboardDetailsComponent {
   isSingleImage: boolean = false;
   isMobile = false;
   isTestDivScrolledIntoView: any;
+  showScrollToTopButton: boolean = false;
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -118,6 +119,7 @@ export class LiveboardDetailsComponent {
       }
     }
   }
+  
   responsiveOptions: any[] | undefined;
 
   ngOnInit(): void {
@@ -414,7 +416,34 @@ export class LiveboardDetailsComponent {
       }
     }
   }
-
+  addtoFavorits(btn: any,event:any) {
+    if (btn.classList.contains('bg-primary')) {
+      // Remove from favorites/wishlist
+      this._httpService
+        .get(environment.marsa, 'Wishlist/delete/'+this.liveabourdData?.id)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            // console.log(event.target);
+            btn.classList.remove('bg-primary');
+            event.target.classList.add('text-dark');
+            event.target.classList.remove('text-white');
+          }
+        });
+      } else {
+        // Add to favorites/wishlist
+        this._httpService
+        .post(environment.marsa,'Wishlist/add', { trip_id: this.liveabourdData?.id })
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            btn.classList.add('bg-primary');
+            event.target.classList.add('text-white');
+            event.target.classList.remove('text-dark');
+          }
+        });
+    }
+  }
   addReview(): void {
     const model = {
       trip_id: this.liveabourdData?.id,

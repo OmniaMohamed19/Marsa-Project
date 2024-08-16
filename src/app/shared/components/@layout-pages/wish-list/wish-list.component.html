@@ -13,9 +13,9 @@
                         <p>
                             Save favorites to your wish list by clicking on the heart icon
                         </p>
-                        <button>
+                        <!-- <button>
                             Find your favorites
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </section>
@@ -23,13 +23,60 @@
         <!-------------------------------------->
         <div *ngIf="!whishlistEmpty">
             <section class="wishlist-notempty">
-                <header class="d-flex justify-content-between align-items-center">
+                <!-- <header class="d-flex justify-content-between align-items-center">
                     <h4>Your Wish list</h4>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
-                </header>
+                </header> -->
+                <div class="card p-4">
+                    <p-carousel 
+                        [value]="wishlist" 
+                        [numVisible]="3" 
+                        [numScroll]="1" 
+                        [responsiveOptions]="responsiveOptions">
+                            <ng-template pTemplate="header">
+                                <p class="fs-3 text-dark fw-bold   ">Header content</p>
+                            </ng-template>
+                            <!-- <a  class="d-block"> -->
+                            <ng-template let-trips pTemplate="item">
+                                <div class="border-1 surface-border border-round m-2 p-3">
+                                    <div class="mb-3">
+                                        <div class="relative mx-auto">
+                                            <img 
+                                                [src]="trips?.trip?.[0]?.cover" 
+                                                [alt]="trips?.trip?.[0]?.name" 
+                                                class="w-full border-round w-100 "
+                                                height="200px"
+                                                 />
+                                            <!-- <p-tag 
+                                                [value]="product.inventoryStatus" 
+                                                [severity]="getSeverity(product.inventoryStatus)" 
+                                                class="absolute" 
+                                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" /> -->
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 font-medium">{{ trips?.trip?.[0]?.Title }}</div>
+                                    <div class="flex justify-content-between align-items-center">
+                                        <div class="mt-0 font-semibold text-xl">
+                                            <!-- {{ '$' + product.price }} -->
+                                        </div>
+                                        <span class="d-flex  gap-4 align-items-center justify-content-evenly ">
+                                            <button [routerLink]="['../../tours/details/'+trips?.trip?.[0]?.id]" class=" border-radius-5 " styleClass="ml-2" >
+                                                View Details
+                                            </button>
+                                            <button icon="pi pi-shopping-cart" class=" border-radius-5 w-25 text-danger border-danger " styleClass="ml-2" >
+                                                remove  
+                                                <!-- <i class="fa fa-heart fs-2" aria-hidden="true"></i> -->
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </ng-template>
+<!-- </a> -->
+                    </p-carousel>
+                </div>
                 <div class="d-flex flex-column whishlist-card-content">
-                    <a routerLink="../wishname" class="d-block">
-                    <div class="whishlist-card" >
+                    <!-- <a routerLink="../wishname" class="d-block"> -->
+                    <!-- <div class="whishlist-card" >
                         <div class="d-flex gap-4 img-container">
                             <div>
                                 <img src="../../../../../assets/images/wish-1.jpg">
@@ -40,23 +87,10 @@
                         </div>
                         <h5>Hurghada </h5>
                         <span>2 Activities & Tours</span>
-                    </div>
-                    </a>
+                    </div> -->
+                    <!-- </a> -->
             
-                    <a routerLink="../wishname" class="d-block mt-5">
-                        <div class="whishlist-card" >
-                            <div class="d-flex gap-4 img-container">
-                                <div>
-                                    <img src="../../../../../assets/images/wish-1.jpg">
-                                </div>
-                               <div>
-                                <img src="../../../../../assets/images/wish-2.jpg">
-                               </div>
-                            </div>
-                            <h5>Hurghada </h5>
-                            <span>2 Activities & Tours</span>
-                        </div>
-                    </a>
+                    
                     
                 </div>
                 <!----------------------------->

@@ -2,62 +2,260 @@
 <section class="content">
   <div class="container">
     <div class="images">
-      <img src="../../../../../assets/images/Ellipse1(1).png" alt=""  width="50%" height="83%"/>
+      <img src="../../../../../assets/images/Ellipse1(1).png" alt="" style="width: 100%; max-width: 50%;
+    height: 70%;" />
       <div class="text-container">
-        <p>What to do in</p>
-        <p>{{ placeDetails.places.name }}</p>
+        <p style="font-size:3vw;">What to do in</p>
+        <p style="font-size:4vw;" class="info">{{ placeDetails.places.name }}</p>
       </div>
     </div>
-  <div id="about">
-    <h4>About The City</h4>
-    <p>
-      {{ placeDetails?.places?.overview }}
-    </p>
-    <p>
-      {{ placeDetails?.places?.short_overview }}
-    </p>
+    <div id="about" style="margin-bottom: 2rem;">
+      <h4>About The City</h4>
+      <p>
+        {{ placeDetails?.places?.overview }}
+      </p>
+      <p>
+        {{ placeDetails?.places?.short_overview }}
+      </p>
+    </div>
 
-    <!-- <div class="d-flex" >
-      <div  style="margin-right: 1rem; width: 100%;"  *ngFor="let trip of placeDetails?.typeTrip" >
-        <div class="day-trip-img">
+    <!---------- Types--------->
+    <div class="day-trip-container" *ngIf="screenWidth > 1023">
+      <div *ngFor="let type of placeDetails?.typeTrip; let i = index" class="day-trip-img" (click)="selectTrip(type.id)">
+        <div class="text-center">
+          <div class="day-trip-img-content" [ngClass]="{
+             'selected': selectedTrip === type.id,
+             'active': selectedTrip === type.id && selectedTripType === type
+           }">
+            <img [src]="type?.image" alt="" class="trip-image" />
+          </div>
+          <h6 class="mt-3">{{ type?.type }}</h6>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Carousel -->
+
+    <p-carousel *ngIf="screenWidth <= 1023" [value]="placeDetails?.typeTrip" [numVisible]="1" [numScroll]="1"
+      [responsiveOptions]="custom" [circular]="true" [autoplayInterval]="2000">
+      <ng-template pTemplate="item" let-type>
+        <div class="day-trip-img me-3"
+          [ngClass]="{ 'selected': selectedTrip === type.id, 'full-width': screenWidth <= 560 }"
+          (click)="selectTrip(type.id)">
           <div class="text-center">
             <div class="day-trip-img-content">
-              <img [src]="trip?.image" alt="" style="height: 150px" />
+              <img [src]="type?.image" alt="" class="trip-image" />
             </div>
-            <h6 class="mt-3">{{ trip?.type }}</h6>
+            <h6 class="mt-3">{{ type?.type }}</h6>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+
+
+
+
+
+
+    <!-- Trip details section -->
+    <div class="trip-details mb-4">
+      <h4>{{ selectedTripType?.type }}</h4>
+      <h5>
+        {{ totalTripsCount }} Activities found
+      </h5>
+      <div class="row g-4 p-4">
+        <div class="col-12 col-xl-4 col-lg-6 col-md-6" *ngFor="let tripip of visibleTrips">
+          <app-activity-card [item]="tripip"></app-activity-card>
+        </div>
+      </div>
+
+      <div *ngIf="hiddenTrips.length > 0" class="text-center">
+        <div class="show-more-container d-flex align-items-center justify-content-center mt-3">
+          <div class="flex-grow-1">
+            <hr class="horizontal-line">
+          </div>
+
+          <button class="btn btn-outline-primary rounded-5 mx-2" (click)="showMore()"
+            [ngClass]="{'btn-loading': loading}" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border text-primary" role="status" aria-hidden="true"></span>
+            <span *ngIf="!loading">Show More</span>
+          </button>
+          <div class="flex-grow-1">
+            <hr class="horizontal-line">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- <div class="top-sights" *ngIf="isFirstTripSelected()">
+      <div id="sights">
+        <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
+        <p-carousel
+          [value]="placeDetails?.places?.placesshigts"
+          [numVisible]="3"
+          [responsiveOptions]="responsiveOptions"
+          [circular]="true"
+
+          [showIndicators]="true"
+          [showNavigateButtons]="false"
+          [showThumbnails]="false"
+          [showItemNavigators]="false"
+        >
+          <ng-template pTemplate="item" let-sight>
+            <div class="text-center position-relative">
+              <div class="position-relative">
+                <img
+                  [id]="sight?.id"
+                  style="height: 250px; width: 100%"
+                  (onError)="onImgError($event)"
+                  [src]="placeDetails?.places.cover"
+                  alt=""
+                />
+                <span>{{ sight?.name }}</span>
+                <p style="cursor: pointer" (click)="setActiveSight(sight)">
+                  {{ sight?.TripCount }} Activities
+                </p>
+              </div>
+
+              <svg *ngIf="selectedSight?.id === sight.id" class="custom-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Line" clip-path="url(#clip0_2217_309347)">
+                  <path id="line-border" fill-rule="evenodd" clip-rule="evenodd" d="M19 -94V0C19 10.2224 20.6166 17.0243 22.7383 21.5384C24.8881 17.2902 28.1228 13.3996 32.953 10.1795C36.967 7.50349 42.1289 6.00117 47.3245 6.33281C52.7414 6.67857 58.5676 9.09115 62.5874 14.6183C66.8079 20.4216 67.0854 27.2756 65.1508 32.9402C63.252 38.5003 59.1721 43.2884 53.8564 46.2416C49.6504 48.5783 44.3892 50.3086 38.7441 50.7628C38.759 51.3115 38.7747 51.8718 38.7907 52.4426C38.8897 55.9776 39 59.9144 39 64H19C19 60.2125 18.9021 56.7209 18.8057 53.2826C18.7659 51.8624 18.7263 50.4513 18.694 49.0323C18.6723 48.0812 18.654 47.1269 18.6424 46.1725C6.18535 38.6619 1.97239e-09 28 1.9736e-09 0L0 -94L19 -94Z" fill="white"/>
+                  <path id="line" fill-rule="evenodd" clip-rule="evenodd" d="M15 -94L15 2.0268e-06C15 16.7384 19.2011 25.6016 23.8879 30.1345C25.3931 23.6735 28.5985 17.8899 35.1718 13.5077C38.4802 11.3021 42.7773 10.0507 47.0697 10.3247C51.4949 10.6071 56.1406 12.5547 59.3524 16.971C62.6848 21.553 62.9512 27.0043 61.3655 31.6475C59.8012 36.228 56.4032 40.2508 51.9139 42.745C47.1954 45.3663 41.052 47.1002 34.6541 46.8565C34.6637 47.4476 34.6758 48.0513 34.6899 48.6681C34.7185 49.927 34.7554 51.244 34.7937 52.6105C34.8923 56.1286 35 59.9747 35 64L23 64C23 60.1535 22.8997 56.5745 22.8027 53.1145C22.7632 51.7071 22.7243 50.3193 22.693 48.9412C22.6535 47.209 22.6261 45.4941 22.6296 43.8078C22.0396 43.5112 21.4539 43.1909 20.8734 42.8461C10.0046 36.3903 3 22.5916 3 2.02656e-06L3 -94L15 -94ZM35.1855 34.8619C39.0777 35.0087 42.9656 33.9887 46.0861 32.2551C48.0968 31.1381 49.4488 29.4109 50.0095 27.7692C50.5488 26.1902 50.3152 24.947 49.6476 24.029C48.8594 22.9453 47.7551 22.3929 46.3053 22.3003C44.7227 22.1993 43.0198 22.6979 41.8282 23.4923C37.9037 26.1086 36.0179 29.51 35.1855 34.8619Z" fill="#81BEFF"/>
+                </g>
+              </svg>
+            </div>
+          </ng-template>
+        </p-carousel>
+
+        <div *ngIf="selectedSight" class="row mt-3">
+          <div *ngFor="let s of selectedSight.trips" class="col-3">
+            <app-activity-card [item]="s"></app-activity-card>
           </div>
         </div>
       </div>
     </div> -->
 
-<!-- Show elements side by side when screen width is greater than 1023px -->
-<div class="day-trip-container" *ngIf="screenWidth > 1023">
-  <div *ngFor="let trip of placeDetails?.typeTrip" class="day-trip-img">
-    <div class="text-center">
-      <div class="day-trip-img-content">
-        <img [src]="trip?.image" alt="" class="trip-image" />
-      </div>
-      <h6 class="mt-3">{{ trip?.type }}</h6>
-    </div>
-  </div>
-</div>
 
-<!-- Show carousel when screen width is 1023px or smaller -->
-<owl-carousel-o *ngIf="screenWidth <= 1023" [options]="customOptions" class="trending">
-  <ng-template *ngFor="let trip of placeDetails?.typeTrip" carouselSlide>
-    <div class="day-trip-img">
-      <div class="text-center">
-        <div class="day-trip-img-content">
-          <img [src]="trip?.image" alt="" class="trip-image" />
+    <!-- /////////All Activities///// -->
+    <div id="all-activity mb-3">
+      <h4>All Activities</h4>
+      <div class="d-flex justify-content-between align-items-center mt-5 w-100 flex-wrap mb-3">
+        <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
+          <div class="dropdown-container">
+            <label for="tripType" class="form-label">Trip Types</label>
+            <select id="tripType" class="form-select" (change)="filterTripType($event)">
+              <option [value]="null">All Trip types</option>
+              <option *ngFor="let type of placeDetails?.typeTrip" [value]="type?.id">
+                {{ type?.type }}
+              </option>
+            </select>
+          </div>
+
+          <div class="dropdown-container">
+            <label for="duration" class="form-label">Duration</label>
+            <select id="duration" class="form-select" (change)="filterDuration($event)">
+              <option [value]="'all'">All Durations</option>
+              <option *ngFor="let type of placeDetails?.duration" [value]="type?.id">
+                {{ type?.start }} - {{ type?.end }} {{ type?.typetime }}
+              </option>
+            </select>
+          </div>
+
+          <div class="dropdown-container">
+            <label for="time" class="form-label">Time</label>
+            <select id="time" class="form-select" (change)="filterTime($event)">
+              <option [value]="'all'">All Times</option>
+              <option *ngFor="let type of placeDetails?.time" [value]="type?.id">
+                {{ type?.start }} - {{ type?.end }}
+              </option>
+            </select>
+          </div>
         </div>
-        <h6 class="mt-3">{{ trip?.type }}</h6>
-      </div>
-    </div>
-  </ng-template>
-</owl-carousel-o>
 
+        <div class="dropdown-container mt-3 mt-lg-0">
+          <label for="recommendation" class="form-label">Sort by</label>
+          <select id="recommendation" class="form-select">
+            <option>Recommended</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+
+      <h5>{{ AllActivities?.length }} Activities found</h5>
+      <div class="row g-4 p-4">
+        <div class="col-12 col-xl-4 col-lg-6 col-md-6" *ngFor="let item of AllActivities.slice(0, 6)">
+          <app-activity-card [item]="item"></app-activity-card>
+        </div>
+      </div>
+      <div id="faq" class="d-flex justify-content-end my-2">
+        <a class="btn btn-link" [routerLink]="'../tours/allTours'"> View All </a>
+      </div>
+      <!-- /////////////recommended///////// -->
+      <div id="all-activity" class="mt-3">
+        <h4 class="mb-4">
+          Our most recommended things to do in {{ placeDetails?.places?.name }}
+        </h4>
+        <div class="row">
+          <div *ngFor="let rec of placeDetails?.recomended" class="mb-5 d-flex align-items-start"
+            [ngClass]="{'col-12': rec.seeMore, 'col-lg-6 col-xl-6 col-12': !rec.seeMore}">
+            <div [ngClass]="{'col-md-4': rec.seeMore, 'col-md-6': !rec.seeMore}">
+              <img [src]="rec.images" class="img-fluid rounded" style="width: 100%; height: auto; max-height: 300px;" />
+            </div>
+            <div [ngClass]="{'col-md-8': rec.seeMore, 'col-md-6': !rec.seeMore}" class="details">
+              <h5 class="font-weight-bold" style="font-size: 20px; color: #1a2b49; margin-bottom: 0px !important;">
+                {{ rec?.title }}
+              </h5>
+              <p class="text-muted" style="font-size: 12px; margin-bottom: 0px !important;">
+                {{ rec?.created_at }}
+                <span style="color: #297cbb; margin-bottom: 0px !important;">
+                  {{ rec?.Category }}
+                </span>
+              </p>
+              <p [innerHTML]="rec?.seeMore ? rec?.overview : (rec?.overview | slice:0:100)" [style.color]="'#1a2b49'"
+                [style.font-size]="rec?.seeMore ? '16px' : '13px'" style="margin-bottom: 0px !important;">
+              </p>
+              <button *ngIf="rec?.overview.length > 100" class="btn btn-link p-0" (click)="toggleSeeMore(rec)">
+                {{ rec?.seeMore ? 'See Less' : 'See More' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="faq">
+        <div>
+          <h6 class="mb-3 pb-1">Faq</h6>
+          <mat-accordion *ngFor="let q of questions">
+            <mat-expansion-panel #panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="me-2 faq">
+                    <i *ngIf="panel.expanded" class="fa-solid fa-minus"></i>
+                    <i *ngIf="!panel.expanded" class="fa-solid fa-plus"></i>
+                  </div>
+
+                  {{ q.Question }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p style="padding-left: 70px; font-size: 15px;">
+                {{ q.desc }}
+              </p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+      <app-clients></app-clients>
+    </div>
 
   </div>
-</div>
 
 </section>

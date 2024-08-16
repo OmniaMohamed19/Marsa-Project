@@ -917,7 +917,8 @@
           >
             <li class="list-group-item px-1">
               <a
-                href="#"
+                #btn
+                (click)="addtoFavorits(btn,$event)"
                 class="height-45 width-45 border rounded border-width-2 flex-content-center"
               >
                 <i class="fa-regular fa-heart font-size-18 text-dark"></i>
@@ -1428,3 +1429,18 @@
     </a>
   </div>
 </div>
+
+<a
+    *ngIf="showScrollToTopButton"
+    appScrollToTop
+    class="js-go-to u-go-to-modern animated js-animation-was-fired slideInUp text-primary"
+    data-position='{"bottom": 15, "right": 15 }'
+    data-type="fixed"
+    data-offset-top="400"
+    title="back to top"
+    data-compensation="#header"
+    data-show-effect="slideInUp"
+    data-hide-effect="slideOutDown"
+  >
+    <span class="fa fa-arrow-up u-go-to-modern__inner"></span>
+  </a>

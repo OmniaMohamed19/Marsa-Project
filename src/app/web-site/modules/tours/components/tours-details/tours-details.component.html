@@ -1,5 +1,7 @@
 <app-header [background]="'#0DB1FF'"></app-header>
-
+<div id="myDiv">
+  <!-- Your content goes here -->looooooooooooooooooooooe
+</div>
 <div class="container details-page">
   <div>
     <div>
@@ -998,10 +1000,11 @@
           >
             <li class="list-group-item px-1">
               <a
-                (click)="addtoFavorits()"
-                class="height-45 width-45 border rounded border-width-2 flex-content-center"
+              #btn
+                (click)="addtoFavorits(btn,$event)"
+                class="height-35 width-45 border rounded border-width-2 flex-content-center"
               >
-                <i class="fa-regular fa-heart font-size-18 text-dark"></i>
+                <i class="fa-regular fa-heart font-size-18 "></i>
               </a>
             </li>
             <li class="list-group-item px-1">
@@ -1029,7 +1032,7 @@
             </li>
           </ul>
           <span
-            class="mt-5 d-inline-block p-3"
+            class="mt-5 d-inline-block py-1 px-3"
             [ngClass]="{
               'border collective': selectedOption === 'Collective',
               'private collective': selectedOption !== 'Collective'
@@ -1050,10 +1053,10 @@
           >
 
           <div class="border border-color-7 rounded mb-5">
-            <div class="p-4" #checkAvailabilityButton>
+            <div class="p-1 px-4" #checkAvailabilityButton>
               <div class="priceTitle d-flex justify-content-between">
                 <span
-                  class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                  class="d-block text-gray-1 font-weight-normal  text-left"
                   >Price</span
                 >
                 <p style="font-weight: 700">
@@ -1117,7 +1120,7 @@
                   >
                 </p>
               </div>
-              <div class="mb-4">
+              <div class="mb-1">
                 <div class="border-bottom border-width-2 border-color-1 pb-1">
                   <span class="d-block">Date</span>
                   <mat-form-field class="w-100">
@@ -1174,14 +1177,14 @@
                 </div>
               </div>
               <span
-                class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                class="d-block text-gray-1 font-weight-normal mb-1 text-left"
                 *ngIf="selectedOption === 'Collective'"
                 >Adults</span
               >
               <div class="mb-4" *ngIf="selectedOption === 'Collective'">
                 <div class="border-bottom border-width-2 border-color-1 pb-1">
                   <div
-                    class="js-quantity flex-center-between mb-1 text-dark fw-bold"
+                    class="js-quantity flex-center-between  text-dark fw-bold"
                   >
                     <span class="d-block"
                       >Age
@@ -1218,11 +1221,11 @@
                 </div>
               </div>
               <span
-                class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                class="d-block text-gray-1 font-weight-normal mb-1 text-left"
                 *ngIf="selectedOption === 'Collective'"
                 >Children</span
               >
-              <div class="mb-4" *ngIf="selectedOption === 'Collective'">
+              <div class="mb-1" *ngIf="selectedOption === 'Collective'">
                 <div class="border-bottom border-width-2 border-color-1 pb-1">
                   <div
                     class="js-quantity flex-center-between mb-1 text-dark fw-bold"
@@ -1947,10 +1950,11 @@
       </p>
     </div>
     <a
-      class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
+      class="btn check text-white d-flex align-items-center justify-content-center height-40 w-100 mb-xl-0 mb-lg-1 fw-bold"
       (click)="scrollToCheckAvailabilityButton()"
     >
       Check availability
     </a>
   </div>
 </div>
+

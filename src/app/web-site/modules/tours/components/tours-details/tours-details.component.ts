@@ -5,6 +5,7 @@ import {
   HostListener,
   TemplateRef,
   ViewChild,
+  
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -117,6 +118,11 @@ export class ToursDetailsComponent implements AfterViewInit {
     if (window.screen.width < 768) {
       this.isMobile = true;
     }
+  }
+  @ViewChild('myDiv') myDiv!: ElementRef;
+
+  scrollToTop() {
+    this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
     // Initialize the active tab on load
@@ -636,10 +642,33 @@ export class ToursDetailsComponent implements AfterViewInit {
         });
     }
   }
-  addtoFavorits(){
-    // let id =
-    // console.log(123);
-    
+  addtoFavorits(btn: any,event:any) {
+    if (btn.classList.contains('bg-primary')) {
+      // Remove from favorites/wishlist
+      this._httpService
+        .get(environment.marsa, 'Wishlist/delete/'+this.activityData?.id)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            // console.log(event.target);
+            btn.classList.remove('bg-primary');
+            event.target.classList.add('text-dark');
+            event.target.classList.remove('text-white');
+          }
+        });
+      } else {
+        // Add to favorites/wishlist
+        this._httpService
+        .post(environment.marsa,'Wishlist/add', { trip_id: this.activityData?.id })
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            btn.classList.add('bg-primary');
+            event.target.classList.add('text-white');
+            event.target.classList.remove('text-dark');
+          }
+        });
+    }
   }
   customOptions: OwlOptions = {
     loop: this.relatedtrips.length > 4 ? true : false,
