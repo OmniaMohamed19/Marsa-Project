@@ -778,7 +778,7 @@
                     >
                     <div class="input-group">
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         style="height: 36px"
                         name="email"
@@ -787,12 +787,14 @@
                         aria-label=""
                         aria-describedby="CouponCodeExample2"
                         required=""
+                        [(ngModel)]="coupon"
                       />
                       <div class="input-group-append">
                         <button
                           class="btn py-2 ms-3"
                           type="button"
                           id="CouponCodeExample2"
+                          (click)="applycoupon()"
                           style="
                             background-color: rgba(0, 87, 255, 1);
                             font-family: Lato;
@@ -874,9 +876,27 @@
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
-                        <span style="font-weight: 700">Total</span>
+                        <span style="font-weight: 700">Price</span>
                         <span style="font-weight: 700">{{
                           avilableOptions?.TotlaPrice
+                        }}</span>
+                      </li>
+                      <li
+                        class="d-flex justify-content-between py-2 font-size-17"
+                        style="font-weight: 700"
+                      >
+                        <span style="font-weight: 700">Coupon</span>
+                        <span style="font-weight: 700">{{
+                          Coupons[0]?.amount
+                        }}</span>
+                      </li>
+                      <li
+                        class="d-flex justify-content-between py-2 font-size-17"
+                        style="font-weight: 700"
+                      >
+                        <span style="font-weight: 700">Total</span>
+                        <span style="font-weight: 700">{{
+                          Total
                         }}</span>
                       </li>
                     </ul>

@@ -77,6 +77,8 @@ import { SearchToursComponent } from './components/@layout-pages/quick-search/se
 import { SearchTransferComponent } from './components/@layout-pages/quick-search/search-transfer/search-transfer.component';
 import { SearchLiveComponent } from './components/@layout-pages/quick-search/search-live/search-live.component';
 import { CarouselModule as CarouselModule2 } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 const layoutPages = [
   QuickSearchComponent,
   SearchBoatComponent,
@@ -165,6 +167,8 @@ const slider = [
   imports: [
     CommonModule,
     CarouselModule,
+    ButtonModule ,
+    TagModule ,
     CarouselModule2,
     FormsModule,
     ReactiveFormsModule,
