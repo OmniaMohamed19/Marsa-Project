@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   ElementRef,
   Input,
   QueryList,
@@ -17,7 +18,13 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 })
 export class QuickSearchComponent {
 
-
+  carouselItems = [
+    { name: 'Tour 1' },
+    { name: 'Tour 2' },
+    { name: 'Tour 3' },
+    { name: 'Tour 4' }
+  ];
+  isMobileScreen: boolean | undefined;
 
   showSearch: string = 'tour';
   @Input() changeStyle: boolean = false;
@@ -43,6 +50,14 @@ export class QuickSearchComponent {
     this.showSearch = value;
     this.scrollToActive(value);
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isMobileScreen = window.innerWidth <= 1023;
+  }
 
   scrollToActive(value: any) {
     let activeElement: any;
@@ -55,7 +70,6 @@ export class QuickSearchComponent {
     } else {
       activeElement = this.transfer!.nativeElement;
     }
-    // if (value != 'tour') {
     const containerElement = this.listmobile!.nativeElement;
     const activeElementLeft = activeElement.offsetLeft;
     const activeElementWidth = activeElement.offsetWidth;
@@ -72,6 +86,8 @@ export class QuickSearchComponent {
   }
 
   ngOnInit() {
+    this.checkScreenSize();
+
     this.httpService.get('marsa', 'place').subscribe({
       next: (res: any) => {
         this.destination = res.places;

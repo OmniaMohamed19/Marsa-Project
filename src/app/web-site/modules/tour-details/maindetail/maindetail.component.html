@@ -208,7 +208,7 @@
           <div *ngFor="let rec of placeDetails?.recomended" class="mb-5 d-flex align-items-start"
             [ngClass]="{'col-12': rec.seeMore, 'col-lg-6 col-xl-6 col-12': !rec.seeMore}">
             <div [ngClass]="{'col-md-4': rec.seeMore, 'col-md-6': !rec.seeMore}">
-              <img [src]="rec.images" class="img-fluid rounded" style="width: 100%; height: auto; max-height: 300px;" />
+              <img [src]="rec.images" class="img-fluid rounded-2 fixed-size-img zoom-effect" />
             </div>
             <div [ngClass]="{'col-md-8': rec.seeMore, 'col-md-6': !rec.seeMore}" class="details">
               <h5 class="font-weight-bold" style="font-size: 20px; color: #1a2b49; margin-bottom: 0px !important;">
@@ -230,6 +230,7 @@
           </div>
         </div>
       </div>
+
 
       <div id="faq">
         <div>

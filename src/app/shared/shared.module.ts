@@ -1,5 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule as CarouselModule } from 'ngx-owl-carousel-o';
 import { QuickSearchComponent } from './components/@layout-pages/quick-search/quick-search.component';
@@ -161,6 +161,7 @@ const slider = [
     ...slider,
     NotFoundComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
     CommonModule,
     CarouselModule,

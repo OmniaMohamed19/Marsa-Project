@@ -43,6 +43,15 @@ input[type="date"] {
     width: auto;
   }
 }
+.carousel-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-item .text {
+  font-size: 1rem; /* Adjust font size as needed */
+}
 
 .nav-select-item {
   text-align: start;
@@ -300,6 +309,34 @@ input[type="date"] {
   }
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
+  .tab-nav {
+    display: none; /* Hide the default horizontal list */
+  }
+
+  .dropdown-nav {
+    display: block; /* Show the dropdown on mobile */
+  }
+
+  .dropdown-menu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    z-index: 1000;
+  }
+
+  .dropdown-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none;
+  }
   .card-body {
     height: auto !important;
   }
