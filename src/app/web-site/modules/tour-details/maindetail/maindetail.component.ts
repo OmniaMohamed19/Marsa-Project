@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 

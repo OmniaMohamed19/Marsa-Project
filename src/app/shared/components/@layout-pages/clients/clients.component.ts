@@ -47,10 +47,11 @@ export class ClientsComponent {
   ngOnInit(): void {
     this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
       next: (response: any) => {
+        console.log(response);
         this.data = response;
        // this.rev=this.data.review;
        // console.log(this.rev);
-       
+
       },
     });
   }

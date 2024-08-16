@@ -1,6 +1,6 @@
 <section class="settings">
   <h2>Basic Info</h2>
-  <form>
+  <form (ngSubmit)="submit()">
     <div class="row image-file">
       <div class="col-lg-4 pb-4">
         <label>Project Logo</label>
@@ -10,8 +10,8 @@
           <div *ngIf="!imageUrl" class="preview">
             <img
               [src]="
-                userDetails?.image
-                  ? userDetails?.image
+                userDetails?.cover
+                  ? userDetails?.cover
                   : ' ../../../../../assets/custom/user-dasboard/user.jpeg'
               "
               alt="Preview"
@@ -22,7 +22,7 @@
           </div>
         </label>
         <div class="pen">
-          <span>
+          <span (change)="previewImage($event)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="12"
@@ -53,7 +53,7 @@
         <input
           type="file"
           id="upload"
-          (change)="previewImage($event)"
+
           class="d-none"
         />
       </div>
@@ -217,169 +217,9 @@
     </div>
   </form>
 
-  <!-- <div class="social">
-    <div class="content">
-      <span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="36"
-          height="36"
-          viewBox="0 0 36 36"
-          fill="none"
-        >
-          <path
-            opacity="0.3"
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M27.75 12C29.8211 12 31.5 10.3211 31.5 8.25C31.5 6.17893 29.8211 4.5 27.75 4.5C25.6789 4.5 24 6.17893 24 8.25C24 10.3211 25.6789 12 27.75 12ZM27.75 31.5C29.8211 31.5 31.5 29.8211 31.5 27.75C31.5 25.6789 29.8211 24 27.75 24C25.6789 24 24 25.6789 24 27.75C24 29.8211 25.6789 31.5 27.75 31.5ZM12 27.75C12 29.8211 10.3211 31.5 8.25 31.5C6.17893 31.5 4.5 29.8211 4.5 27.75C4.5 25.6789 6.17893 24 8.25 24C10.3211 24 12 25.6789 12 27.75Z"
-            fill="#00A3FF"
-          />
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M8.25 12C10.3211 12 12 10.3211 12 8.25C12 6.17893 10.3211 4.5 8.25 4.5C6.17893 4.5 4.5 6.17893 4.5 8.25C4.5 10.3211 6.17893 12 8.25 12ZM15 7C15 6.44772 15.4477 6 16 6H20C20.5523 6 21 6.44772 21 7V8C21 8.55229 20.5523 9 20 9H16C15.4477 9 15 8.55229 15 8V7ZM16 27C15.4477 27 15 27.4477 15 28V29C15 29.5523 15.4477 30 16 30H20C20.5523 30 21 29.5523 21 29V28C21 27.4477 20.5523 27 20 27H16ZM6 16C6 15.4477 6.44772 15 7 15H8C8.55229 15 9 15.4477 9 16V20C9 20.5523 8.55229 21 8 21H7C6.44772 21 6 20.5523 6 20V16ZM28 15C27.4477 15 27 15.4477 27 16V20C27 20.5523 27.4477 21 28 21H29C29.5523 21 30 20.5523 30 20V16C30 15.4477 29.5523 15 29 15H28Z"
-            fill="#00A3FF"
-          />
-        </svg>
-      </span>
-      <p>
-        Two-factor authentication adds an extra layer of security to your
-        account. To log in, in you'll need to provide a 4 digit amazing code
-        <a>Learn More</a>
-      </p>
-    </div>
-  </div> -->
+
   <div class="links">
-    <!-- <div class="d-flex link-container">
-      <div class="Google">
-        <span class="me-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 28 28"
-            fill="none"
-          >
-            <g clip-path="url(#clip0_1290_20581)">
-              <path
-                d="M27.9856 14.2618C27.9856 13.1146 27.8904 12.2775 27.6842 11.4094H14.2793V16.5871H22.1477C21.9891 17.8738 21.1325 19.8116 19.2288 21.1137L19.2021 21.287L23.4405 24.4956L23.7341 24.5242C26.4309 22.0904 27.9856 18.5093 27.9856 14.2618Z"
-                fill="#4285F4"
-              />
-              <path
-                d="M14.278 27.904C18.1329 27.904 21.369 26.6637 23.7328 24.5245L19.2275 21.114C18.0219 21.9356 16.4037 22.5092 14.278 22.5092C10.5024 22.5092 7.29796 20.0754 6.15565 16.7114L5.98822 16.7253L1.58107 20.0583L1.52344 20.2149C3.87126 24.7725 8.69388 27.904 14.278 27.904Z"
-                fill="#34A853"
-              />
-              <path
-                d="M6.15705 16.7113C5.85565 15.8432 5.68121 14.913 5.68121 13.9519C5.68121 12.9907 5.85565 12.0606 6.14119 11.1925L6.13321 11.0076L1.67084 7.62109L1.52484 7.68896C0.557193 9.58024 0.00195312 11.7041 0.00195312 13.9519C0.00195312 16.1997 0.557193 18.3234 1.52484 20.2147L6.15705 16.7113Z"
-                fill="#FBBC05"
-              />
-              <path
-                d="M14.278 5.3947C16.9589 5.3947 18.7674 6.52635 19.7986 7.47204L23.8279 3.6275C21.3533 1.37969 18.1328 0 14.278 0C8.69387 0 3.87126 3.1314 1.52344 7.68899L6.13979 11.1925C7.29795 7.82856 10.5024 5.3947 14.278 5.3947Z"
-                fill="#EB4335"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_1290_20581">
-                <rect width="28" height="28" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-        </span>
-        <div>
-          <h3>Google</h3>
-          <span>Plan properly your workflow</span>
-        </div>
-      </div>
-      <div class="form-check form-switch">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="flexSwitchCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-      </div>
-    </div>
-    <div class="d-flex link-container">
-      <div class="Google">
-        <span class="me-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="33"
-            height="33"
-            viewBox="0 0 33 33"
-            fill="none"
-          >
-            <g clip-path="url(#clip0_1327_44708)">
-              <path
-                d="M33 16.5C33 7.38736 25.6126 0 16.5 0C7.38736 0 0 7.38723 0 16.5C0 24.7356 6.03384 31.5618 13.9219 32.7995V21.2695H9.73242V16.5H13.9219V12.8648C13.9219 8.72953 16.3853 6.44531 20.1541 6.44531C21.9594 6.44531 23.8477 6.76758 23.8477 6.76758V10.8281H21.7671C19.7172 10.8281 19.0781 12.1 19.0781 13.405V16.5H23.6543L22.9228 21.2695H19.0781V32.7995C26.9662 31.5618 33 24.7357 33 16.5Z"
-                fill="#1877F2"
-              />
-              <path
-                d="M22.9228 21.269L23.6543 16.4995H19.0781V13.4045C19.0781 12.0994 19.7174 10.8276 21.7671 10.8276H23.8477V6.76709C23.8477 6.76709 21.9594 6.44482 20.1541 6.44482C16.3853 6.44482 13.9219 8.72904 13.9219 12.8644V16.4995H9.73242V21.269H13.9219V32.7991C14.7747 32.9327 15.6367 32.9997 16.5 32.9995C17.3633 32.9998 18.2253 32.9328 19.0781 32.7991V21.269H22.9228Z"
-                fill="white"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_1327_44708">
-                <rect width="33" height="33" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-        </span>
-        <div>
-          <h3>Facebook</h3>
-          <span>Keep eye on on your Repositories</span>
-        </div>
-      </div>
-      <div class="form-check form-switch">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="flexSwitchCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-      </div>
-    </div>
-    <div class="d-flex link-container">
-      <div class="Google">
-        <span class="me-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="29"
-            viewBox="0 0 24 29"
-            fill="none"
-          >
-            <path
-              d="M23.2493 9.89151C23.1184 9.97229 20.0007 11.677 20.0007 15.4567C20.1476 19.7673 23.935 21.279 24 21.279C23.935 21.3598 23.4282 23.3383 21.9269 25.4122C20.7354 27.1988 19.4129 29 17.4048 29C15.4946 29 14.8089 27.8093 12.6048 27.8093C10.2378 27.8093 9.56802 29 7.75577 29C5.7476 29 4.32719 27.1023 3.07075 25.3325C1.43845 23.0162 0.0510477 19.3812 0.00206801 15.891C-0.0309401 14.0416 0.328954 12.2236 1.24253 10.6794C2.53198 8.52355 4.83402 7.06012 7.34796 7.01187C9.27414 6.94787 10.9884 8.31479 12.1639 8.31479C13.2905 8.31479 15.3966 7.01187 17.7796 7.01187C18.8081 7.01291 21.551 7.31819 23.2493 9.89151ZM12.001 6.6426C11.6582 4.95362 12.6048 3.26465 13.4864 2.18727C14.6129 0.884351 16.3922 0 17.9265 0C18.0245 1.68897 17.4037 3.34543 16.2942 4.55184C15.2986 5.85476 13.5844 6.83562 12.001 6.6426Z"
-              fill="black"
-            />
-          </svg>
-        </span>
-        <div>
-          <h3>Apple</h3>
-          <span>Integrate Projects Discussions</span>
-        </div>
-      </div>
-      <div class="form-check form-switch">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="flexSwitchCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-      </div>
-    </div>
 
-    <div class="submit">
-      <button>Discard</button>
-      <button>Save Changes</button>
-    </div> -->
-
-    <!---------------------------->
     <div class="deactivate">
       <h3>Deactivate Account</h3>
       <div class="deactivate-content">
