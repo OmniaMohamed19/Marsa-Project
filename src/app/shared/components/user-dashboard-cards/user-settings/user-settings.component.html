@@ -1,6 +1,6 @@
 <section class="settings">
   <h2>Basic Info</h2>
-  <form #userForm="ngForm" (ngSubmit)="submit(userForm)">
+  <form>
     <div class="row image-file">
       <div class="col-lg-4 pb-4">
         <label>Project Logo</label>
@@ -22,7 +22,7 @@
           </div>
         </label>
         <div class="pen">
-          <span (change)="previewImage($event)">
+          <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="12"
@@ -53,7 +53,7 @@
         <input
           type="file"
           id="upload"
-
+          (change)="previewImage($event)"
           class="d-none"
         />
       </div>
@@ -212,8 +212,8 @@
     </div>
 
     <div class="submit">
-      <button type="button" (click)="discardChanges()">Discard</button>
-      <button type="submit">Save Changes</button>
+      <button>Discard</button>
+      <button (click)="submit()">Save Changes</button>
     </div>
   </form>
 
