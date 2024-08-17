@@ -1,6 +1,6 @@
 <section class="settings">
   <h2>Basic Info</h2>
-  <form (ngSubmit)="submit()">
+  <form #userForm="ngForm" (ngSubmit)="submit(userForm)">
     <div class="row image-file">
       <div class="col-lg-4 pb-4">
         <label>Project Logo</label>
@@ -212,8 +212,8 @@
     </div>
 
     <div class="submit">
-      <button>Discard</button>
-      <button (click)="submit()">Save Changes</button>
+      <button type="button" (click)="discardChanges()">Discard</button>
+      <button type="submit">Save Changes</button>
     </div>
   </form>
 

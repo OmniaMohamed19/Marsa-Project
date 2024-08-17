@@ -71,11 +71,112 @@
       </li>
     </ul>
     <div class="my-tours-work container">
+
+<!-- <p-carousel [value]="activeNowTrend" [numVisible]="isMobile ? 1 : 3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+  <ng-template pTemplate="item" let-trend>
+    <div
+      class="card mb-1 transition-3d-hover shadow-hover-2 tab-card h-100"
+      style="width: 100%;"
+    >
+      <div class="position-relative mb-2">
+        <a
+          [routerLink]="route + trend.id"
+          class="d-block gradient-overlay-half-bg-gradient-v5"
+        >
+          <div class="imgBox">
+            <img class="card-img-top" [src]="trend.cover" alt="img" />
+          </div>
+        </a>
+        <div class="position-absolute top-0 left-0 pt-2 pl-3">
+          <span
+            *ngIf="trend.Featured"
+            class="badge badge-pill bg-white text-primary px-4 py-2 font-size-14 font-weight-normal"
+            >Featured</span
+          >
+          <span
+            *ngIf="trend.discount"
+            class="badge badge-pill bg-white text-danger px-3 ml-3 py-2 font-size-14 font-weight-normal"
+            >{{ trend.discount }} %</span
+          >
+        </div>
+        <div class="position-absolute top-0 right-0 pt-2 pr-3">
+          <button
+            type="button"
+            class="btn btn-sm btn-icon text-white rounded-circle"
+            data-toggle="tooltip"
+            data-placement="top"
+            title=""
+            data-original-title="Save for later"
+          >
+            <span class="flaticon-valentine-heart"></span>
+          </button>
+        </div>
+        <div class="position-absolute bottom-0 left-0 right-0">
+          <div class="px-3 pb-2">
+            <h2 class="h5 text-white mb-2 font-weight-bold">
+              <small class="mr-2">From</small>{{ trend.PriceColectiv }} $
+              per person
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div
+        class="card-body px-4 py-2"
+        [style.height]="isMobile ? 'auto' : '220px'"
+      >
+        <a
+          [routerLink]="route + trend.id"
+          class="card-title font-size-17 font-weight-bold mb-0 text-name d-block"
+          style="height: 10%"
+          >{{ trend.Title }}</a
+        >
+        <br />
+        <a
+          [routerLink]="route + trend.id"
+          class="card-title font-size-17 font-weight-bold mb-0 text-dark"
+          >{{ trend?.type }}</a
+        >
+        <span class="d-block pe-3 my-2">
+          <i
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            class="fa-solid fa-star"
+            style="color: #bfbfbf"
+            [ngClass]="{
+              'fa-star-filled': star <= trend?.rate,
+              'yellow-star': star <= trend?.rate
+            }"
+          ></i>
+          {{ trend.Review }} Reviews
+        </span>
+        <a [routerLink]="route + trend.id" class="d-block">
+          <div
+            class="mb-1 d-flex align-items-center font-size-14 text-gray-1"
+          >
+            <i class="fa-solid fa-location-dot mx-2"></i>
+            {{ trend.place }}
+          </div>
+        </a>
+        <div
+          *ngIf="trend?.duration"
+          class="mb-1 d-flex align-items-center font-size-14 text-gray-1"
+        >
+          <i class="fa-regular fa-clock mx-2"></i> {{ trend?.duration }}
+          {{ trend?.durationType }}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel> -->
+
+
+
+
+<!-- /////////////////////// -->
       <owl-carousel-o [options]="customOptions" class="trending" >
-        <ng-template *ngFor="let trend of activeNowTrend" carouselSlide>
+        <ng-template *ngFor="let trend of activeNowTrend" carouselSlide >
           <div
             class="card mb-1 transition-3d-hover shadow-hover-2 tab-card h-100"
-            style="width: 100%;"
+            style="width: 300px"
           >
             <div class="position-relative mb-2">
               <a

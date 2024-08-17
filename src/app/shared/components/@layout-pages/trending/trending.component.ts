@@ -14,6 +14,8 @@ export class TrendingComponent {
   @Input() placeId: any;
   @Input() applyMargin: boolean = true;
   route = '/' + this.translate.currentLang + '/tours/details/';
+  responsiveOptions: any[] | undefined;
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -62,6 +64,25 @@ export class TrendingComponent {
     if (window.screen.width < 1024) {
       this.isMobile = true;
     }
+
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
   }
 
   ngOnChanges() {

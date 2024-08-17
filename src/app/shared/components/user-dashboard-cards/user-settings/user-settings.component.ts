@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -14,13 +15,19 @@ interface Item {
   styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
-  imageUrl!: string;
+  imageUrl!: any;
   name: any;
   phone: any;
   phoneNumber: any;
   email: any;
   dob: any;
   deactivateChaecked = false;
+    // متغيرات لحفظ القيم الأصلية
+    originalName: any;
+    originalPhoneNumber: any;
+    originalEmail: any;
+    originalDob: any;
+    originalImageUrl: string | null = null;
   @Input() userDetails: any;
   constructor(
     private httpService: HttpService,
@@ -51,38 +58,53 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // ngOnChanges() {
+  //   // Initialize selectedLabel with the first country's label
+  //   this.name = this.userDetails?.name;
+  //   this.phone = this.userDetails?.overviwe?.phonenumber;
+  //   console.log(this.phone);
+  //   this.phoneNumber =
+  //     '+' +
+  //     this.userDetails?.overviwe?.countrycode +
+  //     this.phone.replace(/\s/g, '');
+  //   console.log(this.phoneNumber);
+  //   this.email = this.userDetails?.overviwe?.email;
+  //   this.dob = this.userDetails?.overviwe?.dateofbirth;
+  //   if (this.countries.length > 0) {
+  //     let selectedCountry = this.countries.find((item: any) => {
+  //       console.log(this.userDetails);
+  //       console.log(
+  //         item.label == '+' + this.userDetails?.overviwe?.countrycode
+  //       );
+  //       return item.label == '+' + this.userDetails?.overviwe?.countrycode;
+  //     });
+  //     console.log(selectedCountry);
+  //     this.selectedLabel = selectedCountry?.label;
+  //     this.selectedImg = selectedCountry?.flagUrl;
+  //   }
+  //   if (this.userDetails?.country == 'Egypt') {
+  //     this.selectedLabelCountry = this.countries1[0].label;
+  //     this.selectedImgCountry = this.countries1[0].flagUrl;
+  //   } else {
+  //     this.selectedLabelCountry = this.countries1[1].label;
+  //     this.selectedImgCountry = this.countries1[1].flagUrl;
+  //   }
+  //   this.selectedItem = this.items[0];
+  // }
   ngOnChanges() {
-    // Initialize selectedLabel with the first country's label
     this.name = this.userDetails?.name;
     this.phone = this.userDetails?.overviwe?.phonenumber;
-    console.log(this.phone);
-    this.phoneNumber =
-      '+' +
-      this.userDetails?.overviwe?.countrycode +
-      this.phone.replace(/\s/g, '');
-    console.log(this.phoneNumber);
+    this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
-    if (this.countries.length > 0) {
-      let selectedCountry = this.countries.find((item: any) => {
-        console.log(this.userDetails);
-        console.log(
-          item.label == '+' + this.userDetails?.overviwe?.countrycode
-        );
-        return item.label == '+' + this.userDetails?.overviwe?.countrycode;
-      });
-      console.log(selectedCountry);
-      this.selectedLabel = selectedCountry?.label;
-      this.selectedImg = selectedCountry?.flagUrl;
-    }
-    if (this.userDetails?.country == 'Egypt') {
-      this.selectedLabelCountry = this.countries1[0].label;
-      this.selectedImgCountry = this.countries1[0].flagUrl;
-    } else {
-      this.selectedLabelCountry = this.countries1[1].label;
-      this.selectedImgCountry = this.countries1[1].flagUrl;
-    }
-    this.selectedItem = this.items[0];
+    this.imageUrl = this.userDetails?.overviwe?.imageUrl || 'default-image-url'; // ضع مسار الصورة الافتراضية هنا
+
+    // حفظ القيم الأصلية
+    this.originalName = this.name;
+    this.originalPhoneNumber = this.phoneNumber;
+    this.originalEmail = this.email;
+    this.originalDob = this.dob;
+    this.originalImageUrl = this.imageUrl;
   }
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -131,34 +153,69 @@ export class UserSettingsComponent implements OnInit {
     return this.selectedItem === item;
   }
 
-  submit() {
-    console.log(this.phoneNumber);
-    let body: any = {
-      email: this.email,
-      fname: this.name,
-      phone: this.phone,
-      country_code: this.phoneNumber.dialCode,
-      dateofbirth: this.dob,
-      cover: this.imageUrl,
-    };
-    Object.keys(body).forEach(
-      (k: any) => (body[k] == '' || body[k] == null) && delete body[k]
-    );
-    console.log(body);
-    this.httpService
-      .post(environment.marsa, 'user/update', body)
-      .subscribe((res) => {
-        console.log(res);
-        this.toastr.success('The Account updated Sucsseful', ' ', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-      });
+
+  // submit() {
+  //   console.log(this.phoneNumber);
+  //   let body: any = {
+  //     email: this.email,
+  //     fname: this.name,
+  //     phone: this.phone,
+  //     country_code: this.phoneNumber.dialCode,
+  //     dateofbirth: this.dob,
+  //     cover: this.imageUrl,
+  //   };
+  //   Object.keys(body).forEach(
+  //     (k: any) => (body[k] == '' || body[k] == null) && delete body[k]
+  //   );
+  //   console.log(body);
+  //   this.httpService
+  //     .post(environment.marsa, 'user/update', body)
+  //     .subscribe((res) => {
+  //       console.log(res);
+  //       this.toastr.success('The Account updated Sucsseful', ' ', {
+  //         disableTimeOut: false,
+  //         titleClass: 'toastr_title',
+  //         messageClass: 'toastr_message',
+  //         timeOut: 5000,
+  //         closeButton: true,
+  //       });
+  //     });
+  // }
+  submit(userForm: NgForm) {
+    if (userForm.valid) {
+      const updatedUserDetails = {
+        email: this.email,
+            fname: this.name,
+            phone: this.phone,
+            country_code: this.phoneNumber.dialCode,
+            dateofbirth: this.dob,
+            cover: this.imageUrl,
+      };
+
+      this.httpService.post(environment.marsa, 'user/update', updatedUserDetails)
+        .subscribe(
+          (response) => {
+            // قم بإظهار رسالة النجاح هنا
+            this.toastr.success('User details updated successfully.');
+          },
+          (error) => {
+            // قم بإظهار رسالة الخطأ هنا
+            this.toastr.error('Failed to update user details.');
+          }
+        );
+    } else {
+      this.toastr.error('Please fill out the form correctly.');
+    }
   }
 
+  discardChanges() {
+    // إعادة تعيين القيم إلى الأصلية
+    this.name = this.originalName;
+    this.phoneNumber = this.originalPhoneNumber;
+    this.email = this.originalEmail;
+    this.dob = this.originalDob;
+    this.imageUrl = this.originalImageUrl;
+  }
   deactivate() {
     console.log(this.deactivateChaecked);
     if (this.deactivateChaecked) {
