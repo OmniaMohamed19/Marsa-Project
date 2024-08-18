@@ -291,10 +291,13 @@ export class PaymentComponent {
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
+      console.log(model);
+      
       this._httpService
         .post(environment.marsa, 'Activtes/book', model)
         .subscribe({
           next: (res: any) => {
+            console.log(res);
             const queryParams = {
               res: JSON.stringify(res),
               trip_id: this.tripId,

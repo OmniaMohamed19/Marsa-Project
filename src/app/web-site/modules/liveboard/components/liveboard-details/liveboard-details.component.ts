@@ -130,19 +130,19 @@ export class LiveboardDetailsComponent {
     },
     {
       breakpoint: '1200px',
-      numVisible: 5
+      numVisible: 6
   },
       {
           breakpoint: '1024px',
-          numVisible: 4
+          numVisible: 6
       },
       {
           breakpoint: '768px',
-          numVisible: 3
+          numVisible: 5
       },
       {
           breakpoint: '560px',
-          numVisible: 1
+          numVisible: 3
       }
   ];
     this.activatedRoute.params.subscribe((params: any) => {
@@ -306,7 +306,7 @@ export class LiveboardDetailsComponent {
   openCabinSliderModal(cabin: any): void {
     const boatImages = cabin.images;
     const dialogRef = this.dialog.open(CabinInfoModalComponent, {
-      width: '60%',
+      width: '100%',
     });
     dialogRef.componentInstance.images = boatImages;
     dialogRef.componentInstance.data = cabin;
@@ -418,18 +418,7 @@ export class LiveboardDetailsComponent {
   }
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('bg-primary')) {
-      // Remove from favorites/wishlist
-      this._httpService
-        .get(environment.marsa, 'Wishlist/delete/'+this.liveabourdData?.id)
-        .subscribe({
-          next: (res: any) => {
-            console.log(res);
-            // console.log(event.target);
-            btn.classList.remove('bg-primary');
-            event.target.classList.add('text-dark');
-            event.target.classList.remove('text-white');
-          }
-        });
+      
       } else {
         // Add to favorites/wishlist
         this._httpService

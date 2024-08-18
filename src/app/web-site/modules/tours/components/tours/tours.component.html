@@ -478,17 +478,19 @@
         </h3>
         <div class="d-flex align-items-center gap-3">
           <div
-            class="list-view"
+            class="list-view "
             (click)="activeView = 'list'"
             [class.active]="activeView == 'list'"
           >
+          <!-- d-none d-lg-block d-xl-block -->
             <i class="fa fa-list"></i>
           </div>
           <div
-            class="grid-view"
+            class="grid-view "
             (click)="activeView = 'grid'"
             [class.active]="activeView == 'grid'"
           >
+          <!-- d-none d-lg-block d-xl-block -->
             <i class="fa fa-th"></i>
           </div>
         </div>
@@ -573,7 +575,7 @@
                 </div>
               </div>
             </div>
-            <div class="row g-4 p-4" *ngIf="activeView == 'grid'">
+            <div class="row g-4 p-4 " *ngIf="activeView == 'grid'">
               <div
                 class="col-12 col-xl-4 col-lg-6 col-md-6"
                 *ngFor="let item of rows?.trips?.data"

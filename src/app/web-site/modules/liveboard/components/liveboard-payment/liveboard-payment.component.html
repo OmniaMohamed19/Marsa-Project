@@ -248,18 +248,18 @@
                     <label class="form-label"> Phone </label>
 
                     <ngx-intl-tel-input
-                      [enableAutoCountrySelect]="true"
-                      [enablePlaceholder]="true"
-                      [searchCountryFlag]="true"
-                      [maxLength]="20"
-                      [separateDialCode]="true"
-                      [phoneValidation]="true"
-                      [separateDialCode]="true"
-                      name="phone"
-                      [enablePlaceholder]="true"
-                      [customPlaceholder]="'Enter phone number'"
-                      [preferredCountries]="['de']"
-                      formControlName="phone"
+                    [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [selectFirstCountry]="true"
+                    [separateDialCode]="true"
+                    [maxLength]="20"
+                    [phoneValidation]="false"
+                    name="phone"
+                    [enablePlaceholder]="true"
+                    [customPlaceholder]="'Enter phone number'"
+                    [preferredCountries]="['de']"
+                    formControlName="phone"
                     ></ngx-intl-tel-input>
 
                     <ng-container
@@ -900,9 +900,11 @@
                       aria-label=""
                       aria-describedby="CouponCodeExample2"
                       required=""
-                    />
-                    <div class="input-group-append">
-                      <button
+                      [(ngModel)]="coupon"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          (click)="applycoupon()"                    
                         class="btn bg-main py-2 ms-3"
                         type="button"
                         id="CouponCodeExample2"
@@ -979,6 +981,23 @@
                       <span class="font-weighted">Total</span>
                       <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
                     </li>
+                    <li
+                        class="d-flex justify-content-between py-2 font-size-17"
+                        style="font-weight: 700"
+                      >
+                        <span style="font-weight: 700">Coupon</span>
+                        <span style="font-weight: 700">{{
+                          Coupons[0]?.amount
+                        }}</span>
+                      </li>
+                      <li
+                        class="d-flex justify-content-between py-2 font-size-17"
+                        style="font-weight: 700"
+                      >
+                        <span style="font-weight: 700">Total</span>
+                        <span style="font-weight: 700">{{
+                          Total
+                        }}</span>
                   </ul>
                 </ng-container>
                 <!-- End Fact List -->

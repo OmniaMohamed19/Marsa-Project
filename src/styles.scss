@@ -106,8 +106,9 @@ footer{
 .owl-item img.bigimg {
     object-fit: cover;
     object-position: center;
-    width: 90% !important;
-    height: 65vh;
+    width:  60% !important;
+    max-height: 400px;
+    //height: 65vh;
     margin: auto;
   }
   .owl-carousel .owl-item img{
@@ -254,7 +255,7 @@ footer{
 }
 
 .cdk-overlay-pane {
-  overflow: scroll;
+//   overflow: scroll;
 }
 
 ///packages

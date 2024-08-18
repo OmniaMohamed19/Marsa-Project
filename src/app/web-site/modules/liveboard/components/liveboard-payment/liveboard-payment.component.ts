@@ -38,7 +38,9 @@ export class LiveboardPaymentComponent implements OnInit {
   schedules_id: any;
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
-
+  coupon='';
+  Coupons:any;
+  Total:any;
   nationalities!: Code[];
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
@@ -129,10 +131,25 @@ export class LiveboardPaymentComponent implements OnInit {
       // Your logic to navigate to the next step
       stepper.next();
     } else {
+      console.log('Form is invalid!');
+      // Log the invalid controls
+      this.customerForm.markAllAsTouched(); // Mark all controls as touched
+      for (const controlName in this.customerForm.controls) {
+        if (this.customerForm.controls[controlName].invalid) {
+          console.log(`Control '${controlName}' is invalid:`, this.customerForm.controls[controlName].errors);
+        }
+      }
+  
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
   }
+  
+  // markFormGroupTouched(formGroup: FormGroup) {
+  //   Object.values(formGroup.controls).forEach(control => {
+  //     control.markAsTouched();
+  //   });
+  // }
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
@@ -204,6 +221,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
+        coupon_id:this.Coupons[0].id,
         adult: this.adult,
         schedules_id: this.schedules_id,
         cabins: this.cabins
@@ -231,6 +249,18 @@ export class LiveboardPaymentComponent implements OnInit {
     stepper.previous();
   }
 
+  applycoupon(){
+    this._httpService
+      .get(environment.marsa, `Coupon`)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
+        this.Total=this.Total - this.Coupons[0].amount
+    console.log(this.Coupons);
+  });
+    console.log(this.coupon);
+    // Coupon
+  }
   confirmBooking() {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
@@ -243,6 +273,7 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
+        coupon_id:this.Coupons[0].id,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
@@ -256,6 +287,7 @@ export class LiveboardPaymentComponent implements OnInit {
           }))
           .filter((cabin: any) => cabin.persons !== undefined),
       };
+console.log(model);
 
       this._httpService
         .post(environment.marsa, 'liveboard/book', model)
@@ -274,6 +306,10 @@ export class LiveboardPaymentComponent implements OnInit {
               'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
+          },
+          error(err) {
+              console.log(err);
+              
           },
         });
     } else {

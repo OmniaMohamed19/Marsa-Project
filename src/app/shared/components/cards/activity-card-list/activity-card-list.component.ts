@@ -23,18 +23,7 @@ export class ActivityCardListComponent {
   }
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('text-red')) {
-      // Remove from favorites/wishlist
-      this._httpService
-        .get(environment.marsa, 'Wishlist/delete/'+this.item?.id)
-        .subscribe({
-          next: (res: any) => {
-            console.log(res);
-            // console.log(event.target);
-            btn.classList.remove('bg-primary');
-            event.target.classList.add('text-dark');
-            event.target.classList.remove('text-red');
-          }
-        });
+      
       } else {
         // Add to favorites/wishlist
         this._httpService
