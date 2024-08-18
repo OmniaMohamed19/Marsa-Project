@@ -147,7 +147,7 @@ export class UserSettingsComponent implements OnInit {
     );
     console.log(body);
     this.httpService
-      .post(environment.marsa, 'user/update', body)
+      .post(environment.marsa, 'user/update', body , true)
       .subscribe((res) => {
         console.log(res);
         this.toastr.success('The Account updated Sucsseful', ' ', {

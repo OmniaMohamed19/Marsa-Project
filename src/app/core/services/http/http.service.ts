@@ -22,8 +22,8 @@ export class HttpService {
   public urlApiFile = environment;
   private BaseUrls: any = new Map();
   headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+   'Content-Type': 'multipart/form-data'
+
   })
   constructor(
     private http: HttpClient,
@@ -68,9 +68,9 @@ export class HttpService {
         })
       );
   }
-  post<T>(BaseUrlKey: any, APIName: string, body?: any, showAlert = false): Observable<T> {
+  post<T>(BaseUrlKey: any, APIName: string, body?: any, showAlert = false, head=false): Observable<T> {
     return this.http
-      .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null,{ headers: this.headers })
+      .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null, { headers: this.headers } )
       .pipe(
         take(1),
         map((event: any) => {
