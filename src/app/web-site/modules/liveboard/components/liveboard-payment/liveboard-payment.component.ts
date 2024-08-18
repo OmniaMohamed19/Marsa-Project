@@ -270,7 +270,7 @@ export class LiveboardPaymentComponent implements OnInit {
         // userid: this.userData?.id,
         class: 'collective',
         adult: this.adult,
-        schedules_id: this.schedules_id,
+        schedules_id: 4,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
         coupon_id:this.Coupons[0].id,

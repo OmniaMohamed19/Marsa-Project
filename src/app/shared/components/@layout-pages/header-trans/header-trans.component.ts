@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Renderer2 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -13,12 +13,14 @@ export class HeaderTransComponent {
   signClick: boolean = false;
   constructor(
     private _AuthService:AuthService,
+    private renderer: Renderer2,
     public translate:TranslateService
     ){
     this._AuthService.getRegisterBehavoir().subscribe((behavoiur:string)=>{
       this.registerBehavoiur=behavoiur
     })
   }
+
   @HostListener('document:click', ['$event'])
   OnClickSignIn(event: any) {
     if (event.target.matches('.signUpDropdownInvoker')) {
@@ -28,4 +30,8 @@ export class HeaderTransComponent {
   toggleDropdown() {
     this.signClick = !this.signClick;
   }
+  isDropdownOpen = false; 
+  toggleDropdown2(event: Event) { event.preventDefault(); this.isDropdownOpen = !this.isDropdownOpen; 
+    if (this.isDropdownOpen) 
+      { this.renderer.listen('document', 'click', (e: Event) => { const target = e.target as HTMLElement; if (!target.closest('.dropdown-menu') && !target.closest('.dropdown-toggle')) { this.isDropdownOpen = false; } }); } }
 }
