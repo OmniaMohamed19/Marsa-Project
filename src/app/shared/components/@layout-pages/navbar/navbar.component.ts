@@ -112,6 +112,8 @@ export class NavbarComponent {
   callLogout(): void {
     this._AuthService.logout();
   }
+ 
+
 
   closeOffcanvas() {
     const offcanvasElement = document.getElementById('staticBackdrop');

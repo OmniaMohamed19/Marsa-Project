@@ -12,6 +12,7 @@ export class HeaderTransComponent {
   registerBehavoiur!:string
   signClick: boolean = false;
   constructor(
+    private renderer: Renderer2,
     private _AuthService:AuthService,
     private renderer: Renderer2,
     public translate:TranslateService
@@ -30,8 +31,21 @@ export class HeaderTransComponent {
   toggleDropdown() {
     this.signClick = !this.signClick;
   }
+<<<<<<< Updated upstream
   isDropdownOpen = false; 
   toggleDropdown2(event: Event) { event.preventDefault(); this.isDropdownOpen = !this.isDropdownOpen; 
     if (this.isDropdownOpen) 
       { this.renderer.listen('document', 'click', (e: Event) => { const target = e.target as HTMLElement; if (!target.closest('.dropdown-menu') && !target.closest('.dropdown-toggle')) { this.isDropdownOpen = false; } }); } }
+=======
+
+  isDropdownOpen = false;
+  toggleDropdown2(event: Event)
+{ event.preventDefault();
+  this.isDropdownOpen = !this.isDropdownOpen;
+    if (this.isDropdownOpen)
+       { this.renderer.listen('document', 'click', (e: Event) =>
+         { const target = e.target as HTMLElement;
+           if (!target.closest('.dropdown-menu') && !target.closest('.dropdown-toggle'))
+            { this.isDropdownOpen = false; } }); } }
+>>>>>>> Stashed changes
 }

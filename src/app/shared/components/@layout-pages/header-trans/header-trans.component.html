@@ -75,7 +75,7 @@
           <div class="position-relative pl-3 language-switcher dropdown-connector-xl u-header__topbar-divider">
             <a id="languageDropdownInvoker"
               class="dropdown-nav-link dropdown-toggle d-flex align-items-center ml-1 py-3"
-              
+
               href="javascript:;"
               role="button" aria-controls="languageDropdown" aria-haspopup="true" aria-expanded="false"
               data-unfold-event="hover" data-unfold-target="#languageDropdown" data-unfold-type="css-animation"
@@ -84,9 +84,9 @@
               <span class="d-inline-block">{{'EN'}}</span>
             </a>
             <div id="languageDropdown" class="dropdown-menu dropdown-unfold dropdown-menu-right mt-0"
-           
+
               aria-labelledby="languageDropdownInvoker">
-              
+
             </div>
           </div>
         </div>
@@ -97,27 +97,27 @@
         <!-- Nav -->
         <nav  class="js-mega-menu navbar navbar-expand-xl u-header__navbar u-header__navbar--no-space hs-menu-initialized hs-menu-horizontal justify-content-between">
           <!-- Logo -->
-          <a 
+          <a
             [routerLink]="'/'">
             <img alt="Marsa Waves" src="assets/images/logo.webp">
           </a>
           <!-- End Logo -->
-    
+
           <!-- Handheld Logo -->
           <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center u-header__navbar-brand-collapsed"
             [routerLink]="'/'">
             <img class="w-50" alt="Marsa Waves" src="assets/images/logo.webp">
           </a>
-    
+
           <!-- End Handheld Logo -->
-    
+
           <!-- Scroll Logo -->
           <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center u-header__navbar-brand-on-scroll"
           >
             <img class="w-50" alt="Marsa Waves" src="assets/images/logo.webp">
           </a>
           <!-- End Scroll Logo -->
-    
+
           <!-- Search Form -->
           <div class="position-relative u-header__search-lg u-header__hide-content pl-2 ml-2">
             <!-- <a id="searchSlideDownInvoker" class="d-block u-search-slide-down-trigger" href="javascript:;" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="searchSlideDown" data-unfold-type="css-animation" data-unfold-hide-on-scroll="false" data-unfold-target="#searchSlideDown" data-unfold-animation-in="active" data-unfold-animation-out="fadeOutUp" data-unfold-delay="0" data-unfold-duration="800" data-unfold-overlay='{ "className": "u-search-slide-down-bg-overlay", "background": "rgba(59, 68, 79, 0.851)", "animationSpeed": 400 }'>
@@ -126,7 +126,7 @@
             <input type="search" class="form-control" placeholder="Where are you going?" aria-label="Destination, tour, hotel, etc">
             <button class="btn" type="submit">Search</button>
             <div class="input-group-append">
-                
+
             </div>
         </div>
             </a> -->
@@ -134,7 +134,7 @@
             <!-- End Search Content -->
           </div>
           <!-- End Search Form -->
-    
+
           <!-- Responsive Toggle Button -->
           <button type="button" class="navbar-toggler btn u-hamburger u-hamburger--primary order-2 ml-3"
             aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse"
@@ -144,11 +144,11 @@
             </span>
           </button>
           <!-- End Responsive Toggle Button -->
-    
+
           <!-- Navigation -->
           <nav class="navbar navbar-expand-lg bg-transparent">
               <div class="container-fluid">
-                
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -174,24 +174,31 @@
                     </li>
                     
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        More
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]="['/' , translate.currentLang , 'blogs']" routerLinkActive="active1">Blog</a></li>
-                        <li><a class="dropdown-item" [routerLink]="['/' , translate.currentLang , 'faq' ]" routerLinkActive="active1">FAQ</a></li>
-                        <li><a class="dropdown-item" [routerLink]="['/' , translate.currentLang , 'aboutUs' ]" routerLinkActive="active1">About</a></li>
-                        
+                      <a
+  role="button"
+  class="nav-link dropdown-toggle"
+  (click)="toggleDropdown2($event)">
+  More
+</a>
+
+<ul
+  id="navbarSupportedContent2"
+  class="dropdown-menu"
+  [class.show]="isDropdownOpen">
+  <li><a routerLinkActive="active1" class="dropdown-item" href="/en/blogs">Blog</a></li>
+  <li><a routerLinkActive="active1" class="dropdown-item" href="/en/faq">FAQ</a></li>
+  <li><a routerLinkActive="active1" class="dropdown-item" href="/en/about">About Us</a></li>
+
                       </ul>
                     </li>
                   </ul>
-                 
+
                 </div>
               </div>
             </nav>
           <!-- End Navigation -->
         </nav>
-        
+
         <!-- End Nav -->
       </div>
   </div>
