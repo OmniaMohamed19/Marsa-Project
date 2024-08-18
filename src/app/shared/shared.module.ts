@@ -162,6 +162,7 @@ const slider = [
     ...directives,
     ...slider,
     NotFoundComponent,
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [

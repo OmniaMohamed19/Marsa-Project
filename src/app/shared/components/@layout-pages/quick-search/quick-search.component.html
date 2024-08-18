@@ -310,24 +310,6 @@
   </ul>
 
 
-<p-carousel *ngIf="isMobileScreen" [value]="carouselItems" [numVisible]="1" [paginator]="true" [autoplay]="true" [circular]="true">
-  <ng-template pTemplate="item" let-item>
-    <div class="carousel-item">
-      <a (click)="showSearchForm(item)">
-        <div class="d-flex gap-2 position-relative align-items-center tours">
-          <figure class="ie-height-40 d-md-block mr-md-3">
-             <svg [attr.viewBox]="item.viewBox" [attr.width]="item.width" [attr.height]="item.height">
-          <path *ngFor="let path of item.paths" [attr.d]="path.d" [attr.fill]="path.fill"></path>
-             </svg>
-          </figure>
-          <div class="text">
-            {{ item.name }} hi
-          </div>
-        </div>
-      </a>
-    </div>
-  </ng-template>
-</p-carousel>
 
 
 

@@ -6,7 +6,7 @@
     </div>
 
     <div class="carousel mt-3">
-      <button mat-icon-button (click)="prevSlide()">
+      <button *ngIf="screenWidth > 768" mat-icon-button (click)="prevSlide()">
         <mat-icon>arrow_back</mat-icon>
       </button>
 
@@ -29,10 +29,14 @@
         </mat-card>
       </div>
 
-      <button mat-icon-button (click)="nextSlide()">
+      <button *ngIf="screenWidth > 768" mat-icon-button (click)="nextSlide()">
         <mat-icon>arrow_forward</mat-icon>
       </button>
     </div>
+
+
+
+
   </div>
 </div>
 <!-- End Destinantion v1 -->
