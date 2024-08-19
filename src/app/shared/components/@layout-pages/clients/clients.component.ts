@@ -49,8 +49,7 @@ export class ClientsComponent {
       next: (response: any) => {
         console.log(response);
         this.data = response;
-       // this.rev=this.data.review;
-       // console.log(this.rev);
+     
 
       },
     });
