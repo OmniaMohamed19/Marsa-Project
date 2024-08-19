@@ -1,63 +1,43 @@
-<section style="margin-top: 70px" class="reviews">
+<section style="margin-top: 70px ;height:100%" class="reviews">
 
     <div class="container">
      <div class="title text-center" style="color: #004796;">
       <h3 class="mb-5">Our Customer’s Reviews </h3>
      </div>
-     <section class="myDestination mt-4">
-      <div id="about" >
-        <owl-carousel-o [options]="customOptions" class="my-destination" >
-          <ng-container  >
-            <ng-template carouselSlide *ngFor="let item of data.review">
-              <div class="d-flex justify-content-center mb-6" >
-                <div class="position-relative">
-                  <img
-                    class="img-fluid mx-auto"
-                    style="border-radius: 50%; height: 150px"
-                    [src]="item.Avatar"
-                    alt="Image-Descrition"
-                  />
-                  <div
-                  style="width: 3rem; height: 3rem;"
-                    class="btn-position btn btn-icon btn-dark rounded-circle d-flex align-items-center justify-content-center btn-review"
-                  >
-                    <figure id="quote9">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        width="30px"
-                        height="21px"
-                        margin-top="20px"
-                        class="injected-svg js-svg-injector"
-                        data-parent="#quote9"
-                      >
-                        <text
-                          kerning="auto"
-                          font-family="Lato"
-                          fill="rgb(255, 255, 255)"
-                          font-weight="bold"
-                          font-size="70px"
-                          x="0px"
-                          y="51.9180000000001px"
-                        >
-                          “
-                        </text>
-                      </svg>
-                    </figure>
+     <section class="myDestination pt-5 ">
+      <div class="my-destination-work ">
+          <owl-carousel-o [options]="customOptions" class="my-destination client-review" >
+              <ng-template carouselSlide *ngFor="let item of data.review">
+                  <div class="card rounded-xs border-color-7 w-100">
+                      <div class="card-body p-5">
+                          <div class="d-flex align-items-baseline justify-content-between">
+                              <div class="mb-5">
+                                  <h6 class=" mb-0">{{ item.name }}</h6>
+                                  <span class=" font-size-normal">client</span>
+                              </div>
+                              <figure id="quote5" >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45" fill="none">
+                                      <circle cx="22.5" cy="22.5" r="22.5" fill="#0057FF"/>
+                                      <path d="M29.0171 23.2004L29.7945 18.1488H24.9315V14.8707C24.9315 13.4885 25.6108 12.1415 27.789 12.1415H30V7.84083C30 7.84083 27.9934 7.49951 26.0749 7.49951C22.0699 7.49951 19.4521 9.91881 19.4521 14.2987V18.1488H15V23.2004H19.4521V35.4122C20.3584 35.5538 21.2744 35.6248 22.1918 35.6245C23.1092 35.6248 24.0252 35.5538 24.9315 35.4122V23.2004H29.0171Z" fill="white"/>
+                                    </svg>
+                              </figure>
+                          </div>
+                          <p class="mb-0 ">
+                            {{ item.reviews }}
+                          </p>
+                      </div>
+                      <div class="card-img z-index-2 mb-3">
+                          <div class="ml-3">
+                              <img class="img-fluid rounded-circle" (onError)="onImgError($event)"
+                              [src]="item.Avatar" alt="Image Description" loading="lazy">
+                          </div>
+                      </div>
                   </div>
-                </div>
-              </div>
-              <div class="text-center">
-                <p class="px-xl-20 mx-xl-15 px-xl-20 mx-xl-18">
-                  {{ item.reviews }}
-                </p>
-                <h6 class="mb-0">{{ item.name }}</h6>
-              </div>
             </ng-template>
-          </ng-container>
-        </owl-carousel-o>
+
+          </owl-carousel-o>
       </div>
-    </section>
+  </section>
     </div>
 
   </section>

@@ -55,4 +55,7 @@ export class ClientsComponent {
       },
     });
   }
+  onImgError(event: any) {
+    event.target.src = 'assets/custom/user-dasboard/user.jpeg';
+  }
 }
