@@ -49,10 +49,12 @@ export class ClientsComponent {
       next: (response: any) => {
         console.log(response);
         this.data = response;
-       // this.rev=this.data.review;
-       // console.log(this.rev);
+     
 
       },
     });
+  }
+  onImgError(event: any) {
+    event.target.src = 'assets/custom/user-dasboard/user.jpeg';
   }
 }

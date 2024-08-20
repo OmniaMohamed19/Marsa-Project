@@ -125,66 +125,11 @@
       </a>
     </div>
   </div>
-  <div class="container">
-    <div class="pt-7 pb-8">
-      <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-5">
-        <h2 class="title" style="margin-bottom: 2rem;" >Customer Reviews</h2>
-      </div>
-      <section class="myDestination mt-4">
-        <div id="about" >
-          <owl-carousel-o [options]="customOptions" class="my-destination" >
-            <ng-container *ngFor="let item of data.review">
-              <ng-template carouselSlide>
-                <div class="d-flex justify-content-center mb-6" >
-                  <div class="position-relative">
-                    <img
-                      class="img-fluid mx-auto"
-                      style="border-radius: 50%; height: 150px"
-                      (onError)="onImgError($event)"
-                      [src]="item.avatar"
-                      alt="Image-Descrition"
-                    />
-                    <div
-                    style="width: 3rem; height: 3rem;"
-                      class="btn-position btn btn-icon btn-dark rounded-circle d-flex align-items-center justify-content-center btn-review"
-                    >
-                      <figure id="quote9">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                          width="30px"
-                          height="21px"
-                          margin-top="20px"
-                          class="injected-svg js-svg-injector"
-                          data-parent="#quote9"
-                        >
-                          <text
-                            kerning="auto"
-                            font-family="Lato"
-                            fill="rgb(255, 255, 255)"
-                            font-weight="bold"
-                            font-size="70px"
-                            x="0px"
-                            y="51.9180000000001px"
-                          >
-                            “
-                          </text>
-                        </svg>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <p class="px-xl-20 mx-xl-15 px-xl-20 mx-xl-18">
-                    {{ item.reviews }}
-                  </p>
-                  <h6 class="mb-0">{{ item.name }}</h6>
-                </div>
-              </ng-template>
-            </ng-container>
-          </owl-carousel-o>
-        </div>
-      </section>
+  <div class="container" style="    height: 600px !important;">
+    <div >
+
+
+     <app-clients></app-clients>
     </div>
   </div>
   <div class="bg-img-hero-2">

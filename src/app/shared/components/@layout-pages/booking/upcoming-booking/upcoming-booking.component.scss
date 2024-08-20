@@ -16,6 +16,7 @@ h4 {
   }
 }
 
+
 .place-card {
   margin-top: 37px;
   margin-bottom: 37px;
@@ -384,6 +385,7 @@ h4 {
 }
 /***************************************************/
 @media screen and (max-width: 576px) {
+
   .place-card {
     flex-direction: column;
     gap: 30px;
@@ -427,11 +429,14 @@ h4 {
       font-size: 14px;
     }
   }
+
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
+
 }
 
 @media screen and (min-width: 576.9px) and (max-width: 768px) {
+
   .place-card {
     flex-direction: row;
     gap: 30px;
@@ -439,7 +444,7 @@ h4 {
       flex-direction: column;
       justify-content: center;
       gap: 25px;
-      width: 48%;
+      width: 100%;
     }
   }
   .city {
@@ -450,6 +455,7 @@ h4 {
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
+
   .place-card {
     .first-place .trip {
       flex-direction: column;
