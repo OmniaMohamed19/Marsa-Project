@@ -86,6 +86,7 @@ export class LiveboardDetailsComponent {
   isMobile = false;
   isTestDivScrolledIntoView: any;
   showScrollToTopButton: boolean = false;
+  schedules_id:any
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -366,7 +367,9 @@ export class LiveboardDetailsComponent {
   onStarClick(starNumber: number) {
     this.starNumber = starNumber;
   }
-
+  hasId(value: any): value is { id: string } {
+    return typeof value === 'object' && 'id' in value;
+  }
   bookNow() {
     if (this.selectedDateControl.invalid) {
       this.selectedDateControl.markAsTouched();
@@ -384,12 +387,19 @@ export class LiveboardDetailsComponent {
 
         this.headerService.toggleDropdown();
       } else {
+        if (this.hasId(this.selectedDateControl.value)) {
+          this.schedules_id = this.selectedDateControl.value.id;
+        }
         const model = {
           trip_id: this.liveabourdData.id,
           class: 'collective',
           adult: this.persons,
-          schedules_id: this.selectedSchedule,
+          // schedules_id: this.selectedDateControl.value,
+          schedules_id: this.schedules_id,
         };
+        // let x=this.selectedDateControl.value
+        // console.log(this.schedules_id);
+        
 
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)
@@ -400,7 +410,7 @@ export class LiveboardDetailsComponent {
                 trip_id: this.liveabourdData.id,
                 class: 'collective',
                 adult: this.persons,
-                schedules_id: this.selectedSchedule,
+                schedules_id: this.schedules_id,
               };
               this._Router.navigate(
                 [

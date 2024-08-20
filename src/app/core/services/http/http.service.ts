@@ -70,7 +70,8 @@ export class HttpService {
   }
   post<T>(BaseUrlKey: any, APIName: string, body?: any, showAlert = false, head=false): Observable<T> {
     return this.http
-      .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null )
+      // .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null )
+      .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null, head ==true?{ headers: this.headers }:{} )
       .pipe(
         take(1),
         map((event: any) => {
