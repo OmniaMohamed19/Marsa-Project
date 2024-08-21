@@ -27,14 +27,14 @@
                     <h4>Your Wish list</h4>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
                 </header> -->
-                <div class="card p-4">
+                <div class="card p-4 my-5" *ngFor="let item of result">
                     <p-carousel 
-                        [value]="wishlist" 
+                        [value]="item.trips" 
                         [numVisible]="3" 
                         [numScroll]="1" 
                         [responsiveOptions]="responsiveOptions">
                             <ng-template pTemplate="header">
-                                <p class="fs-3 text-dark fw-bold   ">Header content</p>
+                                <p class="fs-3 text-dark fw-bold   ">{{item.category}}</p>
                             </ng-template>
                             <!-- <a  class="d-block"> -->
                             <ng-template let-trips pTemplate="item">
