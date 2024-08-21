@@ -80,6 +80,8 @@ export class LiveboardPaymentComponent implements OnInit {
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       this.schedules_id = params['schedules_id'];
+      console.log(params['schedules_id']);
+      
       this.tripId = params['trip_id'];
       this.adult = params['adult'];
       this.getDataById(this.tripId);
@@ -270,7 +272,8 @@ export class LiveboardPaymentComponent implements OnInit {
         // userid: this.userData?.id,
         class: 'collective',
         adult: this.adult,
-        schedules_id: 4,
+        // schedules_id: 4,
+        schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
         coupon_id:this.Coupons[0].id,
@@ -308,6 +311,8 @@ console.log(model);
             );
           },
           error(err) {
+            Swal.fire(err.error.message
+            );
               console.log(err);
               
           },

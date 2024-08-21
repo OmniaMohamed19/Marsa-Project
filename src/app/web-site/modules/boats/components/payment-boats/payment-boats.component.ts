@@ -96,9 +96,6 @@ export class PaymentBoatsComponent {
     });
   }
 
-
-
-
   closeMapModal() {
     if (this.mapModalDeatails) {
       this.mapModalDeatails.nativeElement.closeModal();
@@ -116,7 +113,8 @@ export class PaymentBoatsComponent {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
       };
-
+      console.log(model);
+      
       this._httpService.post(environment.marsa, 'Boats/book', model).subscribe({
         next: (res: any) => {
           const queryParams = {

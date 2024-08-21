@@ -14,8 +14,6 @@ html {
   //   zoom: 125%;
 }
 
-
-
 html,
 body {
   height: 100%;
@@ -104,15 +102,13 @@ footer{
   object-position: center;
 }
 .owl-item img.bigimg {
-    object-fit: cover;
-    object-position: center;
-    width:  60% !important;
-    max-height: 400px;
-    //height: 65vh;
-    margin: auto;
-  }
-
-
+  object-fit: cover;
+  object-position: center;
+  width: 60% !important;
+  max-height: 400px;
+  //height: 65vh;
+  margin: auto;
+}
 
 @media (max-width: 768px) {
   .my-tours-work {
@@ -122,8 +118,8 @@ footer{
   }
 }
 /*****************************/
- .owl-next,
- .owl-prev {
+.owl-next,
+.owl-prev {
   box-shadow: 0px 0px 50px 0px rgba(32, 32, 32, 0.15) !important;
   width: 40px !important;
   height: 40px !important;
@@ -140,15 +136,15 @@ footer{
   (max-width: 800px),
   (max-width: 992px),
   (min-width: 768px) {
-   .owl-next {
+  .owl-next {
     right: 0px !important;
   }
- .owl-prev {
+  .owl-prev {
     left: 0 !important;
   }
 }
 
- .owl-prev {
+.owl-prev {
   left: -55px;
 }
 
@@ -249,7 +245,7 @@ footer{
 }
 
 .cdk-overlay-pane {
-//   overflow: scroll;
+  //   overflow: scroll;
 }
 
 ///packages
@@ -1197,94 +1193,77 @@ footer{
   top: -100px; /* Adjust top value as needed */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.p-galleria-thumbnail-container{
-    background: #fff !important;
-    max-height: 150px;
-    border: 1px solid lightgray;
-padding: 5px;
-  }
-  .p-ripple.p-element.p-link.ng-star-inserted{
-
-    color: #008ccf;
-  }
-.p-galleria-thumbnail-container img{
-    width: 110px;
-    height: 60px ;
+.p-galleria-thumbnail-container {
+  background: #fff !important;
+  max-height: 150px;
+  border: 1px solid lightgray;
+  padding: 5px;
+}
+.p-ripple.p-element.p-link.ng-star-inserted {
+  color: #008ccf;
+}
+.p-galleria-thumbnail-container img {
+  width: 110px;
+  height: 60px;
 }
 .cdk-overlay-dark-backdrop {
-    background: rgba(0, 0, 0,.3 ) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
 }
 // .cdk-overlay-pane {
 //     overflow: auto !important;
 //     background-color: #fff;
 // }
 
-.Cabin  {
-    /* background-color: transparent !important; */
-    background-color: #fff !important;
+.Cabin {
+  /* background-color: transparent !important; */
+  background-color: #fff !important;
 }
-.boat .mat-mdc-dialog-container .mdc-dialog__surface,.mat-mdc-dialog-container {
-    background-color: transparent !important;
-    // background-color: #fff !important;
+.boat .mat-mdc-dialog-container .mdc-dialog__surface,
+.mat-mdc-dialog-container {
+  background-color: transparent !important;
+  // background-color: #fff !important;
 }
-.ng-star-inserted .modal-header .close{
-    right: 0 !important;
+.ng-star-inserted .modal-header .close {
+  right: 0 !important;
 }
-.map iframe{
-    width: 100%;
+.map iframe {
+  width: 100%;
 }
 .owl-carousel .owl-stage-outer {
-    width: 100%;
-    margin: auto;
+  width: 100%;
+  margin: auto;
 }
-.p-img
-
-{
-    width: 100%;
-    height: 100% !important;
+.p-img {
+  width: 100%;
+  height: 100% !important;
 }
 
-.p-image-toolbar button:not(:nth-last-of-type(1)){
-    display: none;
-
+.p-image-toolbar button:not(:nth-last-of-type(1)) {
+  display: none;
 }
 .mdc-dialog .mdc-dialog__content {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 .mdc-dialog .mdc-dialog__content iframe {
-    height: 98% !important    ;
-    // width: 50% !important;
-    // margin: auto !important;
+  height: 98% !important    ;
+  // width: 50% !important;
+  // margin: auto !important;
 }
 .mdc-dialog .mdc-dialog__content iframe video {
-
-    width: 100% !important;
-    margin: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
 }
-.form-select-fill-pill.form-select{
-        display: none !important;
-    }
-@media (max-width:1200px) {
-    .nav.nav-pills{
-        display: none !important;
-    }
-    .form-select-fill-pill.form-select{
-        display: block !important;
-    }
-
+.form-select-fill-pill.form-select {
+  display: none !important;
 }
-@media (min-width:11990px) {
-
+@media (max-width: 1200px) {
+  .nav.nav-pills {
+    display: none !important;
+  }
+  .form-select-fill-pill.form-select {
+    display: block !important;
+    
+  }
+}
+@media (min-width: 11990px) {
 }

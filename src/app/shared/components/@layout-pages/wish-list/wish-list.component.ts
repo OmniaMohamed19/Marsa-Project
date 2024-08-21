@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 export class WishListComponent {
   whishlistEmpty = true;
   wishlist: any = [];
+  result: any = [];
   constructor(private httpService: HttpService) {}
   responsiveOptions: any[] | undefined;
 
@@ -18,12 +19,21 @@ export class WishListComponent {
     this.httpService
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {
-        console.log(res.wishlist);
+        console.log(res);
         
         this.wishlist = res.wishlist;
+        this.result = res.categorys.map((category:any) => ({
+          category: category.name,
+          categoryId: category.id,
+          trips: res.wishlist.filter((wish :any) => wish.trip.some((trip:any) => trip.category_id === category.id))
+        }));
+        
+        console.log(this.result);
+
         if (this.wishlist.length > 0) {
           this.whishlistEmpty = false;
         }
+
       });
       this.responsiveOptions = [
         {
