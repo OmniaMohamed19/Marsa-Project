@@ -1207,7 +1207,7 @@ footer{
   height: 60px;
 }
 .cdk-overlay-dark-backdrop {
-  background: rgba(0, 0, 0, 0.3) !important;
+  background: rgba(0, 0, 0, 0.9) !important;
 }
 // .cdk-overlay-pane {
 //     overflow: auto !important;
@@ -1256,6 +1256,10 @@ footer{
 .form-select-fill-pill.form-select {
   display: none !important;
 }
+.p-carousel .p-carousel-indicators {
+  padding: 0;
+  display: none;
+}
 @media (max-width: 1200px) {
   .nav.nav-pills {
     display: none !important;
@@ -1265,5 +1269,13 @@ footer{
     
   }
 }
-@media (min-width: 11990px) {
+@media (max-width: 991px) {
+
+  .p-galleria-item .ng-star-inserted{
+    max-height:250px !important;
+  }
+  .video-gallery{
+    bottom: 28% !important;
+  }
+
 }
