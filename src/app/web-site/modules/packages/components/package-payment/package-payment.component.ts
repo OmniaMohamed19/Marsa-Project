@@ -167,20 +167,22 @@ export class PackagePaymentComponent {
 
     };
 
-    this._httpService.post(environment.marsa, 'package/book', model).subscribe({
-      next: (res: any) => {
-        const queryParams = {
-          res: JSON.stringify(res),
-          packege_id: this.model.packege_id,
-        }
-        this.router.navigate(['/', this.translate.currentLang, 'packages', 'packageConfirm'], { queryParams });
-        Swal.fire(
-          'Your request has been send successfully.',
-          'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-          'success'
-        );
-      }
-    })
+    console.log(model);
+    
+    // this._httpService.post(environment.marsa, 'package/book', model).subscribe({
+    //   next: (res: any) => {
+    //     const queryParams = {
+    //       res: JSON.stringify(res),
+    //       packege_id: this.model.packege_id,
+    //     }
+    //     this.router.navigate(['/', this.translate.currentLang, 'packages', 'packageConfirm'], { queryParams });
+    //     Swal.fire(
+    //       'Your request has been send successfully.',
+    //       'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+    //       'success'
+    //     );
+    //   }
+    // })
   } else {
     // Mark all form controls as touched to trigger validation messages
     this.markFormGroupTouched(this.customerForm);
