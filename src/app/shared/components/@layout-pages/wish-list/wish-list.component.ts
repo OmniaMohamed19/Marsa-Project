@@ -38,20 +38,52 @@ export class WishListComponent {
       this.responsiveOptions = [
         {
             breakpoint: '1199px',
-            numVisible: 1,
+            numVisible: 4,
             numScroll: 1
         },
         {
             breakpoint: '991px',
-            numVisible: 2,
+            numVisible: 3,
             numScroll: 1
         },
         {
             breakpoint: '767px',
-            numVisible: 1,
+            numVisible: 3,
             numScroll: 1
         }
     ];
+
+  }
+  RemoveFromWishlist(id:any){
+    console.log(id);
+    
+    this.httpService
+        .get(environment.marsa,'Wishlist/delete/'+id)
+        .subscribe({
+          next: (res: any) => {
+            this.httpService
+      .get(environment.marsa, 'Wishlist')
+      .subscribe((res: any) => {
+        console.log(res);
+        
+        this.wishlist = res.wishlist;
+        this.result = res.categorys.map((category:any) => ({
+          category: category.name,
+          categoryId: category.id,
+          trips: res.wishlist.filter((wish :any) => wish.trip.some((trip:any) => trip.category_id === category.id))
+        }));
+        
+        console.log(this.result);
+
+        if (this.wishlist.length > 0) {
+          this.whishlistEmpty = false;
+        }
+
+      });
+            
+          }
+        });
+    
   }
 
 }

@@ -63,7 +63,7 @@
                                             <button [routerLink]="['../../tours/details/'+trips?.trip?.[0]?.id]" class=" border-radius-5 " styleClass="ml-2" >
                                                 View Details
                                             </button>
-                                            <button icon="pi pi-shopping-cart" class=" border-radius-5 w-25 text-danger border-danger " styleClass="ml-2" >
+                                            <button icon="pi pi-shopping-cart" (click)="RemoveFromWishlist(trips?.id)" class=" border-radius-5 w-25 text-danger border-danger " styleClass="ml-2" >
                                                 remove  
                                                 <!-- <i class="fa fa-heart fs-2" aria-hidden="true"></i> -->
                                             </button>
