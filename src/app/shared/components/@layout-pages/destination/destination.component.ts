@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpService } from '../../../../core/services/http/http.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-destination',
@@ -14,17 +15,37 @@ export class DestinationComponent implements OnInit {
   currentIndex = 0;
   screenWidth: any;
   autoSlideInterval: any;
+  responsiveOptions: any;
 
   constructor(
     private httpService: HttpService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) {
+    this.screenWidth = window.innerWidth;
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 1
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+  }
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth <= 1023) {
-      this.startAutoSlide();
-    }
+    window.onresize = () => {
+      this.screenWidth = window.innerWidth;
+    };
     this.httpService.get(environment.marsa, 'place').subscribe(
       (res: any) => {
         this.destinations = res.places || [];
@@ -35,19 +56,16 @@ export class DestinationComponent implements OnInit {
       }
     );
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(event:any) {
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth <= 1023) {
-      this.startAutoSlide();
-    } else {
-      this.stopAutoSlide();
-    }
   }
+
   startAutoSlide() {
     this.autoSlideInterval = setInterval(() => {
       this.nextSlide();
-    }, 3000); // مدة التحرك التلقائي
+    }, 3000); 
   }
 
   stopAutoSlide() {
@@ -85,5 +103,11 @@ export class DestinationComponent implements OnInit {
   logId(id: any): void {
     localStorage.setItem('destinationId', id);
     console.log('Clicked Destination ID:', id);
+  }
+
+  // وظيفة لتحريك العناصر عند السحب
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.destinations, event.previousIndex, event.currentIndex);
+    this.updateVisibleDestinations();
   }
 }

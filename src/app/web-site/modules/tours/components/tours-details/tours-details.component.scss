@@ -7,6 +7,16 @@ h4,
   font-family: Lato;
   font-weight: 700;
 }
+.image-container {
+  width: 100%;  /* Make the container full width */
+  height: 265px; /* Fixed height for the container */
+  overflow: hidden; /* Hide overflow if necessary */
+}
+
+.p-img {
+  width: 100%; /* Ensure the image itself fills the width */
+  height: auto; /* Maintain aspect ratio */
+}
 
 ::ng-deep {
   // .mat-mdc-dialog-container .mdc-dialog__surface {

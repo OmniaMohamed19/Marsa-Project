@@ -148,24 +148,24 @@ export class RegisterComponent implements OnInit {
     this.showRegisterForm = !this.showRegisterForm;
   }
 
-  ngAfterViewInit(): void {
-    this.socialAuthService.authState.subscribe((user) => {
-      this.socialUser = user;
-      this.idToken = this.socialUser.idToken
-    });
+  // ngAfterViewInit(): void {
+  //   this.socialAuthService.authState.subscribe((user) => {
+  //     this.socialUser = user;
+  //     this.idToken = this.socialUser.idToken
+  //   });
 
-    google.accounts.id.initialize({
-      client_id: environment.googleClientId,
-      callback: this.handleCredentialResponse.bind(this)
-    });
+  //   google.accounts.id.initialize({
+  //     client_id: environment.googleClientId,
+  //     callback: this.handleCredentialResponse.bind(this)
+  //   });
 
-    google.accounts.id.renderButton(
-      document.getElementById('google-signin-button'),
-      { theme: 'outline', size: 'large' }
-    );
+  //   google.accounts.id.renderButton(
+  //     document.getElementById('google-signin-button'),
+  //     { theme: 'outline', size: 'large' }
+  //   );
 
-    google.accounts.id.prompt(); // Display the One Tap dialog
-  }
+  //   google.accounts.id.prompt(); // Display the One Tap dialog
+  // }
 
 
 

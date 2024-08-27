@@ -79,6 +79,8 @@ import { SearchLiveComponent } from './components/@layout-pages/quick-search/sea
 import { CarouselModule as CarouselModule2 } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 const layoutPages = [
   QuickSearchComponent,
   SearchBoatComponent,
@@ -162,11 +164,12 @@ const slider = [
     ...directives,
     ...slider,
     NotFoundComponent,
-    
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
     CommonModule,
+    DragDropModule,
     CarouselModule,
     ButtonModule ,
     TagModule ,

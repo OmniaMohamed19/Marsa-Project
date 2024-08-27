@@ -6,6 +6,11 @@ div.title h3 {
   letter-spacing: 0em;
   position: relative;
 }
+.hidden-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 div.title h3::after {
   content: "";
@@ -109,6 +114,7 @@ div.title h3::after {
 .dropdown-item:hover {
   background-color: transparent; /* Ensure no background on hover */
 }
+
 
 /* Responsive settings */
 @media (min-width: 1201px) {
