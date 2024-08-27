@@ -10,9 +10,7 @@
           <div *ngIf="!imageUrl" class="preview">
             <img
               [src]="
-                userDetails?.cover
-                  ? userDetails?.cover
-                  : ' ../../../../../assets/custom/user-dasboard/user.jpeg'
+          userDetails?.image
               "
               alt="Preview"
             />

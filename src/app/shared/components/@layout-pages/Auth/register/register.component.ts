@@ -9,6 +9,8 @@ import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
 import { CodeService } from '../services/code.service';
 import { MatDialog } from '@angular/material/dialog';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+declare const google: any;
 
 @Component({
   selector: 'app-register',
@@ -19,12 +21,16 @@ export class RegisterComponent implements OnInit {
   @Output() close: EventEmitter<void> = new EventEmitter<void>();
   isPasswordVisible1 = false;
   isPasswordVisible2 = false;
-
+  socialUser!: SocialUser;
+  isLoggedin?: boolean;
+  idToken :any;
   signupForm!: FormGroup;
   terms: boolean = false;
   showRegisterForm: boolean = true;
   showCodeSignForm: boolean = true;
+
   constructor(
+    private socialAuthService: SocialAuthService,
     private authService: AuthService,
     private fb: FormBuilder,
     private _Router: Router,
@@ -141,4 +147,34 @@ export class RegisterComponent implements OnInit {
   toggleForm(): void {
     this.showRegisterForm = !this.showRegisterForm;
   }
+
+  ngAfterViewInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.idToken = this.socialUser.idToken
+    });
+
+    google.accounts.id.initialize({
+      client_id: environment.googleClientId,
+      callback: this.handleCredentialResponse.bind(this)
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById('google-signin-button'),
+      { theme: 'outline', size: 'large' }
+    );
+
+    google.accounts.id.prompt(); // Display the One Tap dialog
+  }
+
+
+
+  handleCredentialResponse(response: any) {
+    const model = {
+      idToken: this.idToken,
+      provider: "GOOGLE"
+    }
+   this.authService.externalLogin(model)
+  }
+
 }

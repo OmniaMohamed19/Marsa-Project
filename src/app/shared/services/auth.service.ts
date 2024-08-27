@@ -46,6 +46,38 @@ export class AuthService {
     return this.httpservice.post(environment.marsa, 'signup', data);
   }
 
+  externalLogin(userData: { idToken: string; provider: string }) {
+    this._HttpClient.post<any>(`${this.baseURL}Auth/external-login`, userData).subscribe({
+      next: (res: any) => {
+
+        if (res) {
+          // set auth status and token
+          this.$isAuthenticated.next(true);
+          this.token = res.data.accessToken;
+          localStorage.setItem('userToken', res.data.accessToken);
+          // set user data
+          localStorage.setItem('userData', JSON.stringify(res.data.userData));
+          this.$userData.next(res.data.userData);
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([this.router.url]);
+          });
+          
+        }
+        else {
+          this.$loginError.next(true);
+        }
+      },
+      error: (err: any) => {
+        this.$loginError.next(true);
+        if (err.statusText == "Unauthorized") {
+          this.toastr.error(this.transtale.instant("validation.Unauthorized"))
+        }
+        else
+          this.toastr.error(err.message)
+      },
+    });
+  }
+
   sendEmail(data: any) {
     return this.httpservice.post(
       environment.marsa,
