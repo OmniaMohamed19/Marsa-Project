@@ -5,11 +5,12 @@
 </div>
 <div class="modal-body w-100 w-lg-75 m-auto">
   <div class="image-slider">
-    
-    <p-carousel 
-        [value]="images" 
-        [numVisible]="1" 
-        [numScroll]="1" 
+
+    <p-carousel
+        [value]="images"
+        [numVisible]="1"
+        [numScroll]="1"
+        [showIndicators]="false"
         [responsiveOptions]="responsiveOptions">
             <ng-template pTemplate="header">
             </ng-template>
@@ -17,16 +18,16 @@
                 <div class="border-1 surface-border border-round m-2 p-3">
                     <div class="mb-3">
                         <div class="relative mx-auto">
-                            <img 
-                            [src]="product?.value" 
-                            [alt]="product.name" 
+                            <img
+                            [src]="product?.value"
+                            [alt]="product.name"
                             width="100%"
                             style="height: auto; max-height:350px  "
                                 class="w-full border-round m-auto " />
-                            
+
                         </div>
                     </div>
-                    
+
                 </div>
             </ng-template>
             <ng-template pTemplate="footer">

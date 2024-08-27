@@ -28,10 +28,11 @@
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
                 </header> -->
                 <div class="card p-4 my-5" *ngFor="let item of result">
-                    <p-carousel 
-                        [value]="item.trips" 
-                        [numVisible]="3" 
-                        [numScroll]="1" 
+                    <p-carousel
+                        [value]="item.trips"
+                        [numVisible]="3"
+                        [numScroll]="1"
+                        [showIndicators]="false"
                         [responsiveOptions]="responsiveOptions">
                             <ng-template pTemplate="header">
                                 <p class="fs-3 text-dark fw-bold   ">{{item.category}}</p>
@@ -41,16 +42,16 @@
                                 <div class="border-1 surface-border border-round m-2 p-3">
                                     <div class="mb-3">
                                         <div class="relative mx-auto">
-                                            <img 
-                                                [src]="trips?.trip?.[0]?.cover" 
-                                                [alt]="trips?.trip?.[0]?.name" 
+                                            <img
+                                                [src]="trips?.trip?.[0]?.cover"
+                                                [alt]="trips?.trip?.[0]?.name"
                                                 class="w-full border-round w-100 "
                                                 height="200px"
                                                  />
-                                            <!-- <p-tag 
-                                                [value]="product.inventoryStatus" 
-                                                [severity]="getSeverity(product.inventoryStatus)" 
-                                                class="absolute" 
+                                            <!-- <p-tag
+                                                [value]="product.inventoryStatus"
+                                                [severity]="getSeverity(product.inventoryStatus)"
+                                                class="absolute"
                                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" /> -->
                                         </div>
                                     </div>
@@ -64,7 +65,7 @@
                                                 View Details
                                             </button>
                                             <button icon="pi pi-shopping-cart" (click)="RemoveFromWishlist(trips?.id)" class=" border-radius-5 w-25 text-danger border-danger " styleClass="ml-2" >
-                                                remove  
+                                                remove
                                                 <!-- <i class="fa fa-heart fs-2" aria-hidden="true"></i> -->
                                             </button>
                                         </span>
@@ -89,9 +90,9 @@
                         <span>2 Activities & Tours</span>
                     </div> -->
                     <!-- </a> -->
-            
-                    
-                    
+
+
+
                 </div>
                 <!----------------------------->
             </section>
@@ -101,13 +102,13 @@
 </section>
 
 
-<!----------Create new List Model--------------------->  
+<!----------Create new List Model--------------------->
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-         
+
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body text-center">

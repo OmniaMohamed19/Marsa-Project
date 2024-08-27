@@ -67,7 +67,11 @@ div.title h3::after {
   padding: 15px;
   z-index: 1; /* Ensure it appears above the image */
 }
-
+.dest-carousel .p-carousel-indicators
+{
+  padding: 10px;
+  display: flex !important ;
+}
 .destination-title {
   position: absolute; /* Position the title absolutely within the card */
   bottom: 20px; /* Adjust the position as needed */
@@ -115,6 +119,9 @@ div.title h3::after {
   background-color: transparent; /* Ensure no background on hover */
 }
 
+.dest-carousel .p-carousel-indicators{
+
+}
 
 /* Responsive settings */
 @media (min-width: 1201px) {
@@ -133,6 +140,7 @@ div.title h3::after {
   .carousel-inner {
     flex-direction: row; /* Keep horizontal scrolling */
   }
+
 
   .dist-card {
     flex: 0 0 100%; /* Display one card per view on small screens */
