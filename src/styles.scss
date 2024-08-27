@@ -1282,8 +1282,10 @@ footer{
   }
 
 }
-#pn_id_21.p-carousel-item{
-  width: fit-content;
-  flex: 0!important;
-  padding: 20px;
+
+#pn_id_1 .p-carousel-item {
+  flex: 1 0 auto !important;
 }
+// #pn_id_1 .p-carousel-item div{
+//   width: 54%;
+// }

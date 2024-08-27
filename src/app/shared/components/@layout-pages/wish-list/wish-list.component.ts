@@ -37,21 +37,21 @@ export class WishListComponent {
       });
       this.responsiveOptions = [
         {
-            breakpoint: '1199px',
-            numVisible: 4,
-            numScroll: 1
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 1
         },
         {
-            breakpoint: '991px',
-            numVisible: 3,
-            numScroll: 1
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 1
         },
         {
-            breakpoint: '767px',
-            numVisible: 3,
-            numScroll: 1
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
         }
-    ];
+      ];
 
   }
   RemoveFromWishlist(id:any){
