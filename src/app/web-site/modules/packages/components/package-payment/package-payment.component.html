@@ -387,19 +387,37 @@
                         <div id="basicsCollapseThree" class="collapse show" aria-labelledby="basicsHeadingThree"
                             data-parent="#basicsAccordion">
                             <div class="card-body px-4 pt-0 pb-4">
+                                <!-- Subscribe Form -->
                                 <form class="js-focus-state">
-                                    <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" name="email" id="CouponCodeExample1"
-                                            placeholder="" aria-label="" aria-describedby="CouponCodeExample2"
-                                            required="">
-                                        <div class="input-group-append">
-                                            <button class="btn bg-main py-2 ms-3" type="button"
-                                                id="CouponCodeExample2">Apply</button>
-                                        </div>
+                                  <label class="sr-only" for="CouponCodeExample1"
+                                    >Coupon Code</label
+                                  >
+                                  <div class="input-group">
+                                    <input
+                                      type="number"
+                                      class="form-control"
+                                      name="email"
+                                      id="CouponCodeExample1"
+                                      placeholder=""
+                                      aria-label=""
+                                      aria-describedby="CouponCodeExample2"
+                                      required=""
+                                      [(ngModel)]="coupon"
+                                    />
+                                    <div class="input-group-append">
+                                      <button
+                                        (click)="applycoupon()"
+                                        class="btn bg-main py-2 ms-3"
+                                        type="button"
+                                        id="CouponCodeExample2"
+                                      >
+                                        Apply
+                                      </button>
                                     </div>
+                                  </div>
                                 </form>
-                            </div>
+                                <!-- End Subscribe Form -->
+                              </div>
                         </div>
                     </div>
                     <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
@@ -431,11 +449,28 @@
                                             <span
                                                 class="text-secondary">{{responseFromAvailableOption?.TotalAddetionalCost}}</span>
                                         </li>
-                                        <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                                        <li
+                      *ngIf="Coupons && Coupons[0]"
+                      class="d-flex justify-content-between py-2 font-size-17"
+                      style="font-weight: 700"
+                    >
+                      <span style="font-weight: 700">Coupon</span>
+                      <span style="font-weight: 700">{{
+                        Coupons[0]?.amount
+                      }}</span>
+                    </li>
+                    <li
+                      class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                    >
+                      <span class="font-weighted">Total</span>
+                      <span>{{ Total }}</span>
+                      <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
+                    </li>
+                                        <!-- <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
                                             >
                                             <span class="font-weighted" >Total</span>
                                             <span >{{responseFromAvailableOption?.TotlaPrice}}</span>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </ng-container>
                             </div>

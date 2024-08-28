@@ -30,6 +30,9 @@ export class PackagePaymentComponent {
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
   nationalities!: Code[];
+  coupon='';
+  Coupons:any;
+  Total:any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
   locationValue = '';
@@ -153,6 +156,18 @@ export class PackagePaymentComponent {
     stepper.previous();
   }
 
+  applycoupon(){
+    this._httpService
+      .get(environment.marsa, `Coupon`)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
+        this.Total=this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount
+    console.log(this.Total);
+  });
+    console.log(this.coupon);
+    // Coupon
+  }
 
   confirmBooking() {
     if (this.customerForm.valid) {

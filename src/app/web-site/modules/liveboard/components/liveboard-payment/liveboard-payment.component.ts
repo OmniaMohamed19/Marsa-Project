@@ -223,7 +223,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
-        coupon_id:this.Coupons[0].id,
+        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
         adult: this.adult,
         schedules_id: this.schedules_id,
         cabins: this.cabins
@@ -257,8 +257,8 @@ export class LiveboardPaymentComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
         this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
-        this.Total=this.Total - this.Coupons[0].amount
-    console.log(this.Coupons);
+        this.Total=this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount
+    console.log(this.Total);
   });
     console.log(this.coupon);
     // Coupon
@@ -276,7 +276,7 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
-        coupon_id:this.Coupons[0].id,
+        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',

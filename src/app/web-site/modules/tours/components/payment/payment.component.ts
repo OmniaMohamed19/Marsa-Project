@@ -42,7 +42,7 @@ export class PaymentComponent {
   activeTab: string = 'pills-one-example2';
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
-  coupon=0;
+  coupon:any;
   Coupons:any;
   Total:any;
   nationalities!: Code[];
@@ -266,7 +266,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'cash',
-        coupon_id:this.Coupons[0].id,
+        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
