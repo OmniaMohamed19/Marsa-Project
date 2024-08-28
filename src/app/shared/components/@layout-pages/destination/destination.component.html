@@ -1,18 +1,27 @@
-<!-- Destinantion v1 -->
 <div *ngIf="destinations && destinations.length > 0" class="destination-block mt-4">
   <div class="container space-bottom-1 space-top-lg-1">
     <div class="title text-center mb-5" style="color: #004796">
       <h3 class="mb-5">Top Destinations</h3>
     </div>
 
-    <div class="carousel mt-3">
-      <button *ngIf="screenWidth > 768" mat-icon-button (click)="prevSlide()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-
-      <div class="carousel-inner">
-        <mat-card *ngFor="let dist of visibleDestinations" class="dist-card" style="height: 250px; margin-left: 1.2rem;"
-          [routerLink]="'search'" (click)="logId(dist.id)">
+    <p-carousel
+      class="dest-carousel"
+      [value]="destinations"
+      [numVisible]="screenWidth > 768 ? 3 : 2"
+      [numScroll]="1"
+      [responsiveOptions]="responsiveOptions"
+      class="custom-carousel"
+      [circular]="true"
+      [autoplayInterval]="3000"
+      [showIndicators]="screenWidth <= 768"
+      [showNavigators]="screenWidth > 768">
+      <ng-template pTemplate="item" let-dist>
+        <mat-card
+          cdkDrag
+          class="dist-card"
+          style="height: 250px; margin-left: 1.2rem;"
+          [routerLink]="'search'"
+          (click)="logId(dist.id)">
           <img class="card-image" [src]="replaceSpace(dist?.cover)" alt="{{ dist?.name }}">
           <mat-card-content>
             <div class="destination-title text-white font-weight-bold font-size-21 pb-3 mb-3 text-lh-1 d-block">
@@ -27,16 +36,7 @@
             </div>
           </mat-card-content>
         </mat-card>
-      </div>
-
-      <button *ngIf="screenWidth > 768" mat-icon-button (click)="nextSlide()">
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </div>
-
-
-
-
+      </ng-template>
+    </p-carousel>
   </div>
 </div>
-<!-- End Destinantion v1 -->

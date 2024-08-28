@@ -18,7 +18,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { SEOService } from './shared/services/seo.service';
 import { provideClientHydration } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -44,7 +45,20 @@ import { MatDialogModule } from '@angular/material/dialog';
     LeafletModule,
     MatDialogModule,
   ],
-  providers: [SEOService, provideClientHydration()],
+  providers: [SEOService, provideClientHydration(),
+      {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('530644158352-38j40k29rjl74b7t2re9llq4n1om8gdn.apps.googleusercontent.com'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

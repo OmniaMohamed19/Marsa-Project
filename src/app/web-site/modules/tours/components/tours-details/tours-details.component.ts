@@ -5,7 +5,7 @@ import {
   HostListener,
   TemplateRef,
   ViewChild,
-  
+
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -100,7 +100,10 @@ export class ToursDetailsComponent implements AfterViewInit {
   isSingleImage: boolean = false;
   showBookingOption = false;
   hideMobileFooter = false;
-
+  imageStyles = {
+    width: '100%',
+    height: '265px'
+  };
   constructor(
     private _httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -180,7 +183,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       }
     }
   }
-    
+
     responsiveOptions: any[] | undefined;
 
     // constructor() {}
@@ -389,7 +392,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.dialog.open(this.videoBoatModal, {
       width: '100%',
       height: '50%',
-      
+
     });
   }
 
@@ -644,7 +647,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('bg-primary')) {
-      
+
       } else {
         // Add to favorites/wishlist
         this._httpService

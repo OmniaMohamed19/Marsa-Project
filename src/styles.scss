@@ -1259,17 +1259,17 @@ footer{
 .form-select-fill-pill.form-select {
   display: none !important;
 }
-.p-carousel .p-carousel-indicators {
-  padding: 0;
-  display: none;
-}
+// .p-carousel .p-carousel-indicators {
+//   padding: 0;
+//   display: none;
+// }
 @media (max-width: 1200px) {
   .nav.nav-pills {
     display: none !important;
   }
   .form-select-fill-pill.form-select {
     display: block !important;
-    
+
   }
 }
 @media (max-width: 991px) {
@@ -1283,9 +1283,14 @@ footer{
 
 }
 
-#pn_id_1 .p-carousel-item {
-  flex: 1 0 auto !important;
-}
+// #pn_id_1 .p-carousel-item {
+//   flex: 1 0 auto !important;
+// }
 // #pn_id_1 .p-carousel-item div{
 //   width: 54%;
 // }
+#pn_id_21.p-carousel-item{
+  width: fit-content;
+  flex: 0!important;
+  padding: 20px;
+}
