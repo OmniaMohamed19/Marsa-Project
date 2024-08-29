@@ -394,3 +394,9 @@ body {
   flex: 0!important;
   padding: 20px;
 }
+::ng-deep {
+  .p-component.p-image-preview-container
+ {
+  width: 100% !important;
+ }
+}
