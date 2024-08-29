@@ -387,6 +387,10 @@
 }
 
 @media screen and (min-width: 769px) and (max-width: 992px) {
+  .get-offer-btn{
+    bottom: -9px;
+    position: absolute;
+  }
   .diving-images {
     justify-content: center;
     gap: 50px;
@@ -436,7 +440,7 @@
   }
 
   .btn-container {
-    bottom: 10px;
+    bottom: 0px;
     width: 73%;
     left: 15%;
 
