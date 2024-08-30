@@ -217,7 +217,12 @@ h3.highlighting {
     }
   }
 }
-
+::ng-deep {
+  .p-image-preview-container
+ {
+  width: 100% !important;
+ }
+}
 .active {
   font-family: Lato;
   font-size: 16px;
