@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { LanguageService } from './shared/services/language.service';
 import { AuthService } from './shared/services/auth.service';
 
@@ -9,11 +9,12 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent {
   title = 'marsa-project';
+
   constructor(
     private langServ: LanguageService,
     private authService: AuthService
   ) { }
-  
+
   ngOnInit(): void {
     const lang = localStorage.getItem('lang');
     if (lang) {
@@ -22,5 +23,13 @@ export class AppComponent {
       this.langServ.setCurrentLang('en', true);
     }
     this.authService.autoAuth();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.authService.getAuthStatus()) {
+      // تسجيل الخروج عند إغلاق المتصفح
+      this.authService.logout();
+    }
   }
 }

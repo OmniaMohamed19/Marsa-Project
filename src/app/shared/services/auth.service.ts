@@ -61,7 +61,7 @@ export class AuthService {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate([this.router.url]);
           });
-          
+
         }
         else {
           this.$loginError.next(true);

@@ -317,7 +317,6 @@
 
   .btn-container {
     position: absolute;
-    bottom: 50px;
     left: 1%;
     z-index: 5;
     width: 98%;
@@ -326,7 +325,7 @@
       border-radius: 5px;
       background: var(--Main-Title, #0db1ff);
       width: 100%;
-      margin: 5px auto;
+
       padding: 12px;
       display: inline-flex;
       justify-content: center;
@@ -345,6 +344,8 @@
 }
 
 @media (max-width: 768.98px) {
+
+
   .diving-images {
     justify-content: center;
     gap: 0px;
@@ -383,6 +384,11 @@
   .btn-container {
     bottom: 10px;
     width: 98%;
+    button {
+
+      margin-bottom: -0.59rem;
+
+    }
   }
 }
 

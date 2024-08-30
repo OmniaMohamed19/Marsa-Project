@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment';
 
@@ -15,41 +14,12 @@ export class TrendingComponent {
   @Input() applyMargin: boolean = true;
   route = '/' + this.translate.currentLang + '/tours/details/';
   responsiveOptions: any[] | undefined;
+  numVisible = 4;  // Default number of visible items
+  numScroll = 4;   // Default number of items to scroll
 
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: true,
-    autoplay: true,
-    margin: 49,
-    navSpeed: 700,
-    // navText: [
-    //   "<i class='fa fa-angle-left'></i>",
-    //   "<i class='fa fa-angle-right'></i>",
-    // ],
-    responsive: {
-      0: {
-        items: 1,
-      },
-      740: {
-        items: 2,
-      },
-      940: {
-        items: 3,
-      },
-      1200: {
-        items: 4,
-      },
-      2000: {
-        items: 4,
-      },
-    },
-  };
   AllTrend: any;
   activeNowTrend: any = [];
-  isMobile = false;
+  // isMobile = false;
   @ViewChild('listmobile1', { static: true }) listmobile:
     | ElementRef
     | undefined;
@@ -57,14 +27,15 @@ export class TrendingComponent {
   @ViewChild('liveboard1', { static: true }) liveaboard: ElementRef | undefined;
   @ViewChild('transfer1', { static: true }) transfer: ElementRef | undefined;
   @ViewChild('boat1', { static: true }) boat: ElementRef | undefined;
+  screenWidth: any;
+  isMobile: boolean = window.innerWidth < 768;
   constructor(
     private httpService: HttpService,
     private translate: TranslateService
   ) {
-    if (window.screen.width < 1024) {
-      this.isMobile = true;
-    }
-
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth < 768;
+    });
 
     this.responsiveOptions = [
       {
@@ -73,9 +44,14 @@ export class TrendingComponent {
         numScroll: 3
       },
       {
-        breakpoint: '768px',
+        breakpoint: '992px',
         numVisible: 2,
-        numScroll: 2
+        numScroll: 1
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 1,
+        numScroll: 1
       },
       {
         breakpoint: '560px',
@@ -86,18 +62,14 @@ export class TrendingComponent {
   }
 
   ngOnChanges() {
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+      this.screenWidth = window.innerWidth;
+    };
     if (this.placeId) {
-      console.log(this.placeId);
       this.activeNowTrend = this.AllTrend?.['Tours&Activities']?.filter(
-        (item: any) => {
-          console.log(item.place);
-
-          if (item.place == this.placeId) {
-            return item;
-          }
-        }
+        (item: any) => item.place === this.placeId
       );
-      console.log(this.AllTrend);
     }
   }
 
@@ -115,17 +87,16 @@ export class TrendingComponent {
 
   scrollToActive(value: any) {
     let activeElement: any;
-    if (value == 'Tours&Activities') {
+    if (value === 'Tours&Activities') {
       activeElement = this.tours!.nativeElement;
-    } else if (value == 'Liveaboard') {
-      console.log(this.listmobile);
+    } else if (value === 'Liveaboard') {
       activeElement = this.liveaboard!.nativeElement;
-    } else if (value == 'Boats') {
+    } else if (value === 'Boats') {
       activeElement = this.boat!.nativeElement;
     } else {
       activeElement = this.transfer!.nativeElement;
     }
-    // if (value != 'tour') {
+
     const containerElement = this.listmobile!.nativeElement;
     const activeElementLeft = activeElement.offsetLeft;
     const activeElementWidth = activeElement.offsetWidth;

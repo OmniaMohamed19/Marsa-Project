@@ -126,6 +126,15 @@ h2 {
   line-height: normal;
 }
 
+.card-wrapper {
+  margin: 0 10px; /* لإضافة المسافة بين البطاقات */
+}
+
+.p-carousel .p-carousel-content {
+  display: flex;
+  justify-content: center; /* لجعل البطاقات في المنتصف */
+}
+
 .nav-pills .active {
   height: 56px;
   background-color: #0db1ff;
@@ -138,17 +147,16 @@ section {
 }
 /********************************/
 @media screen and (max-width: 500px) {
-  /*.nav-pills{
-        padding-bottom: 5px;
-
-        li{
-            font-size: 16px;
-            width: 130px;
-        }
-
-    }*/
+  .trending .ui-carousel-item .card {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    float: none;
+  }
 }
+
 @media screen and (max-width: 768px) {
+
   .nav-link {
     color: #67747c !important;
   }
@@ -170,17 +178,7 @@ section {
   h3::after {
     left: 44%;
   }
-  /*.nav-pills .active::after{
-    content: "";
-      background-color: #0db1ff;
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      display: block;
-      position: absolute;
-      bottom: 11px;
-      left: 61px;
-  }*/
+
 }
 
 .title {
@@ -245,6 +243,7 @@ section {
 }
 
 @media (max-width: 1024px) {
+
   .min-height-230 {
     min-height: 10rem !important;
   }
@@ -255,5 +254,10 @@ section {
 
   .d-inline-flex {
     flex-direction: column;
+  }
+}
+@media (min-width: 1024px) {
+  .tab-card {
+    width: 300px;
   }
 }
