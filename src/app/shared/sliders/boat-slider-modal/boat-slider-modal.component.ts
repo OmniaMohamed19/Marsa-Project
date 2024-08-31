@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input , AfterViewInit, Renderer2 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
@@ -9,6 +9,25 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class BoatSliderModalComponent {
   @Input() images: any[] = [];
+  displayBasic: boolean = true;
+  responsiveOptions: any[] = [
+    {
+        breakpoint: '1500px',
+        numVisible: 5
+    },
+    {
+        breakpoint: '1024px',
+        numVisible: 3
+    },
+    {
+        breakpoint: '768px',
+        numVisible: 2
+    },
+    {
+        breakpoint: '560px',
+        numVisible: 1
+    }
+];
   imagesOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -37,10 +56,24 @@ export class BoatSliderModalComponent {
   };
   constructor(
     public dialogRef: MatDialogRef<BoatSliderModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public imageData: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public imageData: any,
+    private renderer: Renderer2  ) {}
 
   closeModal(): void {
     this.dialogRef.close(); // Close the modal
   }
+  ngAfterViewInit() {
+    const closeButton = document.querySelector('.p-ripple.p-element.p-galleria-close.p-link.ng-star-inserted');
+
+    if (closeButton) {
+      this.renderer.listen(closeButton, 'click', () => {
+        this.closeGalleria();
+      });
+    }
+  }
+
+  closeGalleria() {
+    this.displayBasic = false; // This correctly sets displayBasic to false
+  }
+
 }

@@ -210,9 +210,23 @@
                       <img [src]="item?.value" />
                     </div>
                   </ng-template>
-                  <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
+                </p-galleria>
+                <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
+        <p-galleria
+            [value]="coverAndImages"
+            [(visible)]="displayBasic"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '850px' }"
+            [numVisible]="7"
+            [circular]="true"
+            [fullScreen]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false">
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item?.value" style="width: 100%; height:  480px;" />
+            </ng-template>
           </p-galleria>
-            <!-- <owl-carousel-o [options]="coverAndImagesOptions" class="trending">
+          <!-- <owl-carousel-o [options]="coverAndImagesOptions" class="trending">
               <ng-container *ngFor="let imgs of coverAndImages">
                 <ng-template carouselSlide>
                   <div class="position-relative mt-4">
@@ -248,7 +262,7 @@
               <!-- End Video -->
               <a
                 class="btn btn-white ml-2 py-2 px-md-5 px-3 shadow-6 d-md-inline"
-                (click)="openMainImagesModal()"
+                (click)="displayBasic = true"
               >
                 <img
                   src="assets/custom/Activity/gallary.svg"
@@ -548,6 +562,8 @@
                       <a
                         class="js-fancybox btn btn-white ml-2 py-2 px-md-5 px-3 shadow-6"
                         (click)="openBoatSliderModal(item)"
+                        
+
                       >
                         <img
                           src="assets/custom/Activity/gallary.svg"
@@ -556,6 +572,20 @@
                         />
                         <span class="d-none d-md-inline">Gallery</span>
                       </a>
+                      <p-galleria
+            [value]="boatImages"
+            [(visible)]="displayBoats"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '850px' }"
+            [numVisible]="7"
+            [circular]="true"
+            [fullScreen]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false">
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item?.value" style="width: 100%; height:  480px;" />
+            </ng-template>
+          </p-galleria>
                     </div>
                   </div>
                 </div>
@@ -619,12 +649,18 @@
                 </div>
               </div>
             </div>
+            
             <div *ngIf="happyGustImages.length > 0">
               <h6>Traveler Photos</h6>
 
               <div class="row g-5">
                 <div class="col-md-5">
-                  <p-image
+                  <img 
+                [src]="happyGustImages[0]" 
+                [alt]="" 
+                style="cursor: pointer; max-width:100% ; height:100%"  
+                (click)="imageClick(0)" />
+                  <!-- <p-image
                     class="w-100 p-img h-100 "
                         [src]="happyGustImages[0]"
                         alt="tour"
@@ -632,7 +668,7 @@
                       width="100%"
                       height="265"
                     loading="lazy"
-                      [preview]="true" />
+                      [preview]="true" /> -->
                   <!-- <img
                     class="w-100 h-100"
                     [src]="happyGustImages[0]"
@@ -645,17 +681,23 @@
                       class="col-md-6 position-relative "
                       *ngFor="
                         let image of remainingImages.slice(0, 3);
-                        let i = index
+                        let index = index
                       "
+                      key="index"
                     >
-                    <p-image
+                    <img 
+                [src]="image" 
+                [alt]="image" 
+                style="cursor: pointer; max-width:100% ; height:100%"  
+                (click)="imageClick(index)" />
+                    <!-- <p-image
                     class="w-100 "
                         [src]="image"
                         alt="tour"
                         loading="lazy"
                       width="100%"
                       height="125px"
-                      [preview]="true" />
+                      [preview]="true" /> -->
                       <!-- <img
                         class="w-100 "
                         [src]="image"
@@ -672,20 +714,27 @@
                       class="col-md-6 position-relative pt-1"
                       *ngIf="remainingImages.length > 3"
                     >
-                    <p-image
+                    <img 
+                [src]="remainingImages[3]" 
+                alt="tour" 
+                style="cursor: pointer; max-width:100% ; height:100%"  
+                (click)="imageClick(3)" />
+
+                    <!-- <p-image
                     class="w-100 remainingImages"
                         [src]="remainingImages[3]"
                         alt="tour"
                         loading="lazy"
                       width="100%"
                       height="125px"
-                      [preview]="true" />
+                      [preview]="true" /> -->
                       <!-- <img
                         class="w-100 remainingImages"
                         [src]="remainingImages[3]"
                         alt="tour"
                         loading="lazy"
                       /> -->
+                      
                       <!-- Overlay and button -->
                       <div class="see-more-container">
                         <div class="position-relative">
@@ -694,7 +743,7 @@
                           <!-- Button -->
                           <button
                             class="see-more-button"
-                            (click)="openImageSliderModal()"
+                            (click)="imageClick(3)"
                           >
                             See More
                             <svg
@@ -718,6 +767,23 @@
               </div>
             </div>
           </div>
+          <p-galleria
+        [value]="desplayedGustImages"
+        [(visible)]="displayCustom"
+        [(activeIndex)]="activeIndex"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '850px' }"
+        [numVisible]="7"
+        [circular]="true"
+        [fullScreen]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="false">
+        <ng-template pTemplate="item" let-item>
+            <img 
+                [src]="item?.value" 
+                style="width: 100%; display: block;" />
+        </ng-template>
+    </p-galleria>
           <div id="review" class="tab-pane">
             <div class="border-bottom py-4">
               <h5 id="scroll-reviews">Average Reviews</h5>
@@ -900,7 +966,7 @@
                   <div>
                     <h5
                       class="font-size-21 fw-bold text-dark mb-2 mb-md-6"
-                      style="cursor: pointer"
+                      style="cursor: pointer; max-width:100% ; height:100%" 
                     >
                       Write a Review
                       <i

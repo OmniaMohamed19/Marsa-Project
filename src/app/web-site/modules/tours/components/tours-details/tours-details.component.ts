@@ -1,12 +1,18 @@
 import {
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
+import {
   AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   TemplateRef,
   ViewChild,
-
-} from '@angular/core';
+   Renderer2 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -36,6 +42,9 @@ import {
   CUSTOM_DATE_FORMATS,
   CustomDateAdapter,
 } from 'src/app/shared/components/Date/custom-date-adapter';
+import { Galleria } from 'primeng/galleria';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-tours-details',
   templateUrl: './tours-details.component.html',
@@ -68,7 +77,9 @@ export class ToursDetailsComponent implements AfterViewInit {
   cover: any;
   images: any[] = [];
   coverAndImages: any[] = [];
+  boatImages: any[] = [];
   happyGustImages: any[] = [];
+  desplayedGustImages: any[] = [];
   remainingImages: string[] = [];
   showSeeMore: boolean = false;
   videoBoatUrl!: SafeHtml;
@@ -102,8 +113,14 @@ export class ToursDetailsComponent implements AfterViewInit {
   hideMobileFooter = false;
   imageStyles = {
     width: '100%',
-    height: '265px'
+    height: '265px',
   };
+  displayBasic: boolean = false;
+  displayBoats: boolean = false;
+  displayCustom: boolean =false;
+
+  activeIndex: number = 0;
+  @ViewChild('galleria') galleria: Galleria | undefined;
   constructor(
     private _httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -116,7 +133,10 @@ export class ToursDetailsComponent implements AfterViewInit {
     private datePipe: DatePipe,
     private _AuthService: AuthService,
     private headerService: HeaderService,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: any,
+    private cd: ChangeDetectorRef
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -128,8 +148,9 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
-    // Initialize the active tab on load
-    this.setupIntersectionObserver();
+  //   // Initialize the active tab on load
+  this.setupIntersectionObserver();
+
   }
 
   scrollTo(tabId: string) {
@@ -139,7 +160,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     if (tabElement) {
       tabElement.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       });
     }
   }
@@ -148,11 +169,11 @@ export class ToursDetailsComponent implements AfterViewInit {
     const options = {
       root: null, // viewport
       rootMargin: '0px',
-      threshold: 0.5 // element should be at least 50% visible
+      threshold: 0.5, // element should be at least 50% visible
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           this.activeTabId = entry.target.id;
         }
@@ -160,13 +181,10 @@ export class ToursDetailsComponent implements AfterViewInit {
     }, options);
 
     const tabs = document.querySelectorAll('.tab-pane');
-    tabs.forEach(tab => {
+    tabs.forEach((tab) => {
       observer.observe(tab);
     });
   }
-
-
-
 
   @HostListener('window:scroll', ['$event'])
   isScrolledIntoView() {
@@ -184,32 +202,45 @@ export class ToursDetailsComponent implements AfterViewInit {
     }
   }
 
-    responsiveOptions: any[] | undefined;
-
-    // constructor() {}
+  responsiveOptions: any[] | undefined;
+  imageClick(index: number) {
+    console.log(this.happyGustImages);
+    this.desplayedGustImages = Array.from(
+      Object.entries(this.happyGustImages)
+    ).map(([key, value]) => ({ value }));
+    console.log(this.desplayedGustImages);
+    console.log(index);
+    
+    this.activeIndex = index;
+    this.displayCustom = true;
+}
+  // constructor() {}
   ngOnInit(): void {
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
-        numVisible: 6
-    },
-    {
-      breakpoint: '1200px',
-      numVisible: 6
-  },
-      {
-          breakpoint: '1024px',
-          numVisible: 6
+        numVisible: 6,
       },
       {
-          breakpoint: '768px',
-          numVisible: 5
+        breakpoint: '1200px',
+        numVisible: 6,
       },
       {
-          breakpoint: '560px',
-          numVisible: 3
-      }
-  ];
+        breakpoint: '1024px',
+        numVisible: 6,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 5,
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 3,
+      },
+    ];
+
+
+    
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
       this.loadData();
@@ -332,8 +363,6 @@ export class ToursDetailsComponent implements AfterViewInit {
           boat?.video
         );
 
-
-
         this.isSingleImage = this.images.length === 1;
 
         this.seoService.updateSEO(
@@ -378,21 +407,25 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   openBoatSliderModal(boat: any): void {
-    const boatImages = Array.from(Object.entries(boat.images)).map(
+    this.displayBoats=true
+    this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-    const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-      width: '100%',
-
-    });
-    dialogRef.componentInstance.images = boatImages;
+    // const dialogRef = this.dialog.open(BoatSliderModalComponent, {
+    //   width: '100%',
+    // });
+    console.log(this.coverAndImages);
+    
+    console.log(this.boatImages);
+    // console.log(boat.images);
+    
+    // dialogRef.componentInstance.images = boatImages;
   }
 
   openVideoBoat(): void {
     this.dialog.open(this.videoBoatModal, {
       width: '100%',
       height: '50%',
-
     });
   }
 
@@ -645,20 +678,21 @@ export class ToursDetailsComponent implements AfterViewInit {
         });
     }
   }
-  addtoFavorits(btn: any,event:any) {
+  addtoFavorits(btn: any, event: any) {
     if (btn.classList.contains('bg-primary')) {
-
-      } else {
-        // Add to favorites/wishlist
-        this._httpService
-        .post(environment.marsa,'Wishlist/add', { trip_id: this.activityData?.id })
+    } else {
+      // Add to favorites/wishlist
+      this._httpService
+        .post(environment.marsa, 'Wishlist/add', {
+          trip_id: this.activityData?.id,
+        })
         .subscribe({
           next: (res: any) => {
             console.log(res);
             btn.classList.add('bg-primary');
             event.target.classList.add('text-white');
             event.target.classList.remove('text-dark');
-          }
+          },
         });
     }
   }
