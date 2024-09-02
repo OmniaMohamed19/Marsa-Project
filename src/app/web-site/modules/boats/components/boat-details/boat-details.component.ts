@@ -107,6 +107,12 @@ export class BoatDetailsComponent {
   isMobile = false;
   isTestDivScrolledIntoView: any;
   hideMobileFooter = false;
+  desplayedGustImages: any[] = [];
+  displayBasic: boolean = false;
+  displayBoats: boolean = false;
+  displayCustom: boolean =false;
+  activeIndex: number = 0;
+  boatImages: any[] = [];
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -142,7 +148,17 @@ export class BoatDetailsComponent {
     }
   }
   responsiveOptions: any[] | undefined;
-
+  imageClick(index: number) {
+    console.log(this.happyGustImages);
+    this.desplayedGustImages = Array.from(
+      Object.entries(this.happyGustImages)
+    ).map(([key, value]) => ({ value }));
+    console.log(this.desplayedGustImages);
+    console.log(index);
+    
+    this.activeIndex = index;
+    this.displayCustom = true;
+}
     // constructor() {}
   ngOnInit(): void {
     this.responsiveOptions = [
@@ -348,13 +364,19 @@ export class BoatDetailsComponent {
   }
 
   openBoatSliderModal(boat: any): void {
-    const boatImages = Array.from(Object.entries(boat.images)).map(
+    this.displayBoats=true
+    this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-    const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-      width: '100%',
-    });
-    dialogRef.componentInstance.images = boatImages;
+    // const dialogRef = this.dialog.open(BoatSliderModalComponent, {
+    //   width: '100%',
+    // });
+    console.log(this.coverAndImages);
+    
+    console.log(this.boatImages);
+    // console.log(boat.images);
+    
+    // dialogRef.componentInstance.images = boatImages;
   }
 
   openCabinSliderModal(cabin: any): void {

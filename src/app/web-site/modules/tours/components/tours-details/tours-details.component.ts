@@ -79,7 +79,6 @@ export class ToursDetailsComponent implements AfterViewInit {
   coverAndImages: any[] = [];
   boatImages: any[] = [];
   happyGustImages: any[] = [];
-  desplayedGustImages: any[] = [];
   remainingImages: string[] = [];
   showSeeMore: boolean = false;
   videoBoatUrl!: SafeHtml;
@@ -115,6 +114,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     width: '100%',
     height: '265px',
   };
+  desplayedGustImages: any[] = [];
   displayBasic: boolean = false;
   displayBoats: boolean = false;
   displayCustom: boolean =false;
