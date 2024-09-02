@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -75,7 +75,7 @@ export class MaindetailComponent implements OnInit {
     private rout: ActivatedRoute,
     private router:Router,
     private httpService: HttpService,
-    private translate: TranslateService
+    public translate: TranslateService
   ) {
     this.screenWidth = window.innerWidth;
   }
@@ -94,6 +94,27 @@ export class MaindetailComponent implements OnInit {
       this.totalTripsCount = this.selectedTripType.trip.length;
       this.visibleTrips = this.selectedTripType.trip.slice(0, this.tripsPerRow);
       this.hiddenTrips = this.selectedTripType.trip.slice(this.tripsPerRow);
+    }
+  }
+  @Input() item: any;
+
+
+  addtoFavorits(btn: any,event:any) {
+
+    if (btn.classList.contains('bg-primary')) {
+
+      } else {
+        // Add to favorites/wishlist
+        this.httpService
+        .post(environment.marsa,'Wishlist/add', { trip_id: this.item?.id })
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            btn.classList.add('bg-primary');
+            event.target.classList.add('text-white');
+            event.target.classList.remove('text-dark');
+          }
+        });
     }
   }
 
@@ -215,5 +236,12 @@ export class MaindetailComponent implements OnInit {
   }
   setActiveSight(item: any) {
     this.selectedSight = item;
+  }
+  getRoundedRate(rate: number | null): number {
+    if (rate !== null && !isNaN(Number(rate))) {
+      return parseFloat(Number(rate).toFixed(1));
+    } else {
+      return 0;
+    }
   }
 }

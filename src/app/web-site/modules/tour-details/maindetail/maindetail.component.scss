@@ -1,3 +1,4 @@
+@import url(../../../../shared/components/cards/activity-card/activity-card.component.scss);
 .images {
   text-align: center;
   position: relative;
@@ -11,6 +12,7 @@
     font-family: poppins;
     margin-bottom: 30px;
   }
+
 
   P:nth-of-type(2) {
     font-size: 42px;
@@ -105,7 +107,7 @@ button.btn-outline-primary {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  max-height: 200px; 
+  max-height: 200px;
   transition: transform 0.3s ease;
 }
 
@@ -220,7 +222,7 @@ h4 {
     width: 100%;
   }
 
-  p {
+  .sights-p {
     color: var(--d-9-d-9-d-9, #000);
     font-family: Lato;
     font-size: 18px;
@@ -265,7 +267,7 @@ h4 {
   }
 }
 
-#sights span {
+#sights .sights-span {
   display: block;
   width: 181px;
   //   height: 42px;
@@ -691,4 +693,129 @@ select.form-control {
   .content {
     margin-top: 10px;
   }
+}
+h3 {
+  font-family: Poppins;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 0em;
+  position: relative;
+}
+
+h3::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 2.059px;
+  background-color: #297CBB;
+  top: 100%;
+  left: 48%;
+}
+
+.featured {
+  width: 97px;
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+  color: #297CBB;
+  padding: 6px 8px;
+}
+
+.sale {
+  width: 60px;
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+  text-align: left;
+  color: #FF0045;
+  text-align: center;
+}
+
+small {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+
+}
+
+h2 {
+  font-family: Lato;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 20.4px;
+}
+
+.title {
+  font-family: Lato;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 20.4px;
+  color: #297CBB;
+}
+
+.card {
+  height: 403px;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  overflow: hidden;
+  .gradient-overlay-half-bg-gradient-v5 {
+      transition: transform 0.3s ease;
+  }
+}
+.card:hover .gradient-overlay-half-bg-gradient-v5  {
+  transform: scale(1.2);
+
+}
+.card-title {
+  font-family: Lato;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 20.4px;
+  color: #3B444F;
+}
+
+.review {
+  gap: 10px;
+}
+
+.review p {
+  width: 59px;
+ /* height: 22px;*/
+  background: #FF681A;
+  border-radius: 5px;
+  font-family: Lato;
+  font-size: 13px;
+  font-weight: 400;
+  align-content: center;
+  text-align: center;
+  color: #FFFFFF;
+  padding: 5px;
+}
+
+.review span {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+  color: #67747C;
+  padding-bottom: 10px;
+}
+
+.nav-pills li {
+  color: #008CCF;
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.nav-pills .active {
+  height: 56px !important;
+  background-color: #0DB1FF !important;
+  color: #FFFFFF !important;
 }

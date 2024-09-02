@@ -93,7 +93,7 @@
       </div>
     </div>
 
-    <!-- <div class="top-sights" *ngIf="isFirstTripSelected()">
+    <div class="top-sights" *ngIf="isFirstTripSelected()">
       <div id="sights">
         <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
         <p-carousel
@@ -101,14 +101,13 @@
           [numVisible]="3"
           [responsiveOptions]="responsiveOptions"
           [circular]="true"
-
           [showIndicators]="true"
           [showNavigateButtons]="false"
           [showThumbnails]="false"
           [showItemNavigators]="false"
         >
           <ng-template pTemplate="item" let-sight>
-            <div class="text-center position-relative">
+            <div class="text-center position-relative" style="width: 300px;">
               <div class="position-relative">
                 <img
                   [id]="sight?.id"
@@ -117,29 +116,112 @@
                   [src]="placeDetails?.places.cover"
                   alt=""
                 />
-                <span>{{ sight?.name }}</span>
-                <p style="cursor: pointer" (click)="setActiveSight(sight)">
+                <span class="sights-span">{{ sight?.name }}</span>
+                <p class="sights-p" style="cursor: pointer" (click)="setActiveSight(sight)">
                   {{ sight?.TripCount }} Activities
                 </p>
               </div>
 
-              <svg *ngIf="selectedSight?.id === sight.id" class="custom-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="Line" clip-path="url(#clip0_2217_309347)">
-                  <path id="line-border" fill-rule="evenodd" clip-rule="evenodd" d="M19 -94V0C19 10.2224 20.6166 17.0243 22.7383 21.5384C24.8881 17.2902 28.1228 13.3996 32.953 10.1795C36.967 7.50349 42.1289 6.00117 47.3245 6.33281C52.7414 6.67857 58.5676 9.09115 62.5874 14.6183C66.8079 20.4216 67.0854 27.2756 65.1508 32.9402C63.252 38.5003 59.1721 43.2884 53.8564 46.2416C49.6504 48.5783 44.3892 50.3086 38.7441 50.7628C38.759 51.3115 38.7747 51.8718 38.7907 52.4426C38.8897 55.9776 39 59.9144 39 64H19C19 60.2125 18.9021 56.7209 18.8057 53.2826C18.7659 51.8624 18.7263 50.4513 18.694 49.0323C18.6723 48.0812 18.654 47.1269 18.6424 46.1725C6.18535 38.6619 1.97239e-09 28 1.9736e-09 0L0 -94L19 -94Z" fill="white"/>
-                  <path id="line" fill-rule="evenodd" clip-rule="evenodd" d="M15 -94L15 2.0268e-06C15 16.7384 19.2011 25.6016 23.8879 30.1345C25.3931 23.6735 28.5985 17.8899 35.1718 13.5077C38.4802 11.3021 42.7773 10.0507 47.0697 10.3247C51.4949 10.6071 56.1406 12.5547 59.3524 16.971C62.6848 21.553 62.9512 27.0043 61.3655 31.6475C59.8012 36.228 56.4032 40.2508 51.9139 42.745C47.1954 45.3663 41.052 47.1002 34.6541 46.8565C34.6637 47.4476 34.6758 48.0513 34.6899 48.6681C34.7185 49.927 34.7554 51.244 34.7937 52.6105C34.8923 56.1286 35 59.9747 35 64L23 64C23 60.1535 22.8997 56.5745 22.8027 53.1145C22.7632 51.7071 22.7243 50.3193 22.693 48.9412C22.6535 47.209 22.6261 45.4941 22.6296 43.8078C22.0396 43.5112 21.4539 43.1909 20.8734 42.8461C10.0046 36.3903 3 22.5916 3 2.02656e-06L3 -94L15 -94ZM35.1855 34.8619C39.0777 35.0087 42.9656 33.9887 46.0861 32.2551C48.0968 31.1381 49.4488 29.4109 50.0095 27.7692C50.5488 26.1902 50.3152 24.947 49.6476 24.029C48.8594 22.9453 47.7551 22.3929 46.3053 22.3003C44.7227 22.1993 43.0198 22.6979 41.8282 23.4923C37.9037 26.1086 36.0179 29.51 35.1855 34.8619Z" fill="#81BEFF"/>
-                </g>
-              </svg>
-            </div>
-          </ng-template>
-        </p-carousel>
 
+            </div>
+
+          </ng-template>
+
+
+        </p-carousel>
         <div *ngIf="selectedSight" class="row mt-3">
-          <div *ngFor="let s of selectedSight.trips" class="col-3">
-            <app-activity-card [item]="s"></app-activity-card>
+          <div *ngFor="let item of selectedSight.trips" class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card h-100 d-flex flex-row">
+              <div class="img-container" style="width: 40%;">
+                <a
+                  [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
+                  class="d-block gradient-overlay-half-bg-gradient-v5 h-100"
+                >
+                  <img
+                    class="w-100 h-100"
+                    [src]="item?.cover"
+                    alt="img"
+                    style="object-fit: cover;"
+                  />
+                </a>
+              </div>
+              <div class="card-body p-3" style="width: 60%;">
+                <a
+                  [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
+                  class="d-block mb-2"
+                >
+                  <h5 class="card-title mb-1">{{ item?.Title }}</h5>
+                  <p class="card-text mb-2">{{ item?.type }}</p>
+                </a>
+                <div class="my-2">
+                  <div class="d-inline-flex align-items-center review">
+                    <span class="stars">
+                      <i
+                        *ngFor="let star of [1, 2, 3, 4, 5]"
+                        class="fa-solid fa-star"
+                        style="color: #bfbfbf"
+                        [ngClass]="{
+                          'fa-star-filled': star <= getRoundedRate(item?.rate),
+                          'yellow-star': star <= getRoundedRate(item?.rate)
+                        }"
+                      ></i>
+                    </span>
+                    <span>{{ item?.Review }} Reviews</span>
+                  </div>
+                </div>
+                <div class="mb-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <img
+                      src="../../../../../assets/custom/Activity/locationDark.svg"
+                      style="width: 14.97px"
+                      alt="icon"
+                    />
+                    <span class="pb-0">{{ item?.place }}</span>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 pt-2">
+                    <img
+                      src="../../../../../assets/custom/Activity/time.png"
+                      style="width: 14.97px"
+                      alt="icon"
+                    />
+                    <span class="pb-0">{{ item.duration }} {{ item.durationType }}</span>
+                  </div>
+                </div>
+                <h2 class="h5 mb-0">
+                  <small class="mr-2">From</small>
+                  <span
+                    [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
+                    [style.color]="item.discount > 0 ? 'red' : ''"
+                    >{{ item?.PriceColectiv }} $</span
+                  >
+                  <span class="mx-2" *ngIf="item.discount > 0">
+                    {{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }} $
+                  </span>
+                  <span>per person</span>
+                </h2>
+                <div class="position-absolute top-0 right-0 pt-4 pr-3">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-icon text-white rounded-circle"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Save for later"
+                    aria-label="Save for later"
+                    #btn
+                    (click)="addtoFavorits(btn, $event)"
+                  >
+                    <span class="fa-regular fa-heart font-size-20"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+
+
       </div>
-    </div> -->
+    </div>
 
 
     <!-- /////////All Activities///// -->
