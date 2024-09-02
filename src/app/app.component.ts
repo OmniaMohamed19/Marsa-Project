@@ -28,7 +28,6 @@ export class AppComponent {
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.authService.getAuthStatus()) {
-      // تسجيل الخروج عند إغلاق المتصفح
       this.authService.logout();
     }
   }
