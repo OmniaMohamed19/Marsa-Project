@@ -47,8 +47,8 @@
                   />
                   <a class="location">{{ liveabourdData?.Place }}</a>
                   <a
-                  (click)="scrollTo('showmap')"
-                  [class.active]="activeTabId === 'showmap'"
+                    (click)="scrollTo('showmap')"
+                    [class.active]="activeTabId === 'showmap'"
                     class="ml-1 d-block d-md-inline location text-primary"
                   >
                     - View on map</a
@@ -126,21 +126,36 @@
                 </ng-template>
               </ng-container>
             </owl-carousel-o> -->
-            <p-galleria 
-              [value]="coverAndImages" 
-              [responsiveOptions]="responsiveOptions" 
-              [containerStyle]="{ 'width': '100%' }" 
-              [numVisible]="6">
-                  <ng-template pTemplate="item" let-item>
-                    <img [src]="item" style="width: 100%; height:  480px;" />
-                  </ng-template>
-                  <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
-                      <img [src]="item" />
-                    </div>
-                  </ng-template>
-                  <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
-          </p-galleria>
+            <p-galleria
+              [value]="coverAndImages"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ width: '100%' }"
+              [numVisible]="6"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item" style="width: 100%; height: 480px" />
+              </ng-template>
+              <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                  <img [src]="item" />
+                </div>
+              </ng-template>
+              <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
+            </p-galleria>
+            <p-galleria
+          [value]="coverAndImages"
+          [(visible)]="displayBasic"
+          [responsiveOptions]="responsiveOptions"
+          [containerStyle]="{ 'max-width': '850px' }"
+          [numVisible]="7"
+          [circular]="true"
+          [fullScreen]="true"
+          [showItemNavigators]="true"
+          [showThumbnails]="false">
+          <ng-template pTemplate="item" let-item>
+            <img [src]="item" style="width: 100%; height:  480px;" />
+          </ng-template>
+        </p-galleria>
             <div
               class="flex-horizontal-center position-absolute video-gallery"
               style="bottom: 18%; right: 25px; z-index: 1"
@@ -161,7 +176,7 @@
               <!-- End Video -->
               <a
                 class="btn btn-white ml-2 py-2 px-md-5 px-3 shadow-6 d-md-inline"
-                (click)="openMainImagesModal()"
+                (click)="displayBasic = true"
               >
                 <img
                   src="assets/custom/Activity/gallary.svg"
@@ -291,13 +306,14 @@
                   >
                     <p
                       class="d-flex justify-content-start example-accordion-item-header"
-                      style="font-size: 700;"
+                      style="font-size: 700"
                     >
                       Choose your departure time
                     </p>
                     <p
                       class="d-flex justify-content-end example-accordion-item-header mr-2"
-                      style="font-size: 700;">
+                      style="font-size: 700"
+                    >
                       Upcoming departure
                     </p>
                   </div>
@@ -426,7 +442,7 @@
           </div>
           <div id="map" class="tab-pane">
             <h5 class="mt-3" id="showmap">Map</h5>
-            <div class="map" >
+            <div class="map">
               <div [innerHTML]="googleIframe"></div>
             </div>
           </div>
@@ -472,6 +488,20 @@
                     </div>
                   </div>
                 </div>
+                <p-galleria
+            [value]="boatImages"
+            [(visible)]="displayBoats"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '850px' }"
+            [numVisible]="7"
+            [circular]="true"
+            [fullScreen]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false">
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item?.value" style="width: 100%; height:  480px;" />
+            </ng-template>
+          </p-galleria>
                 <div class="col-md-5">
                   <h6>{{ item.name }}</h6>
                   <ul class="py-3 boat-features list-unstyled">
@@ -543,17 +573,13 @@
             <h5 class="font-size-21 font-weight-bold text-dark mb-4">
               Traveler Photos
             </h5>
-            <div class="row g-5">
+            <div class="row  Traveler g-5">
               <div class="col-md-5">
-                <p-image 
-                  class="w-100 p-img h-100 "
-                      [src]="happyGustImages[0]"
-                      alt="tour"
-                      loading="lazy"
-                    width="100%"
-                    height="265"
-                  loading="lazy"
-                    [preview]="true" />
+                <img 
+                [src]="happyGustImages[0]" 
+                [alt]="" 
+                style="cursor: pointer; max-width:100% ; height:100%"  
+                (click)="imageClick(0)" />
                 <!-- <img
                   class="w-100 h-100"
                   [src]="happyGustImages[0]"
@@ -563,20 +589,17 @@
                 <div class="row g-3">
                   <!-- Display first three images -->
                   <div
-                    class="col-md-6 position-relative "
+                    class="col-md-6 position-relative"
                     *ngFor="
                       let image of remainingImages.slice(0, 3);
-                      let i = index
+                      let index = index
                     "
                   >
-                  <p-image 
-                  class="w-100 "
-                      [src]="image"
-                      alt="tour"
-                      loading="lazy"
-                    width="100%"
-                    height="125px" 
-                    [preview]="true" />
+                  <img 
+                  [src]="image" 
+                  [alt]="image" 
+                  style="cursor: pointer; max-width:100% ; height:100%"  
+                  (click)="imageClick(index)" />
                     <!-- <img
                       class="w-100 "
                       [src]="image"
@@ -593,14 +616,11 @@
                     class="col-md-6 position-relative pt-1"
                     *ngIf="remainingImages.length > 3"
                   >
-                  <p-image 
-                  class="w-100 remainingImages"
-                      [src]="remainingImages[3]"
-                      alt="tour"
-                      loading="lazy"
-                    width="100%"
-                    height="125px" 
-                    [preview]="true" />
+                  <img 
+                  [src]="remainingImages[3]" 
+                  alt="tour" 
+                  style="cursor: pointer; max-width:100% ; height:100%"  
+                  (click)="imageClick(3)" />
                     <!-- <img
                       class="w-100 remainingImages"
                       [src]="remainingImages[3]"
@@ -615,7 +635,7 @@
                         <!-- Button -->
                         <button
                           class="see-more-button"
-                          (click)="openImageSliderModal()"
+                          (click)="imageClick(3)"
                         >
                           See More
                           <svg
@@ -638,6 +658,23 @@
               </div>
             </div>
           </div>
+          <p-galleria
+      [value]="desplayedGustImages"
+      [(visible)]="displayCustom"
+      [(activeIndex)]="activeIndex"
+      [responsiveOptions]="responsiveOptions"
+      [containerStyle]="{ 'max-width': '850px' }"
+      [numVisible]="7"
+      [circular]="true"
+      [fullScreen]="true"
+      [showItemNavigators]="true"
+      [showThumbnails]="false">
+      <ng-template pTemplate="item" let-item>
+          <img 
+              [src]="item?.value" 
+              style="width: 100%; display: block;" />
+      </ng-template>
+  </p-galleria>
           <div id="review" class="tab-pane">
             <div class="border-bottom py-4">
               <h5 id="scroll-reviews">Average Reviews</h5>
@@ -918,7 +955,7 @@
             <li class="list-group-item px-1">
               <a
                 #btn
-                (click)="addtoFavorits(btn,$event)"
+                (click)="addtoFavorits(btn, $event)"
                 class="height-45 width-45 border rounded border-width-2 flex-content-center"
               >
                 <i class="fa-regular fa-heart font-size-18 text-dark"></i>
@@ -958,7 +995,7 @@
               <!-- Input -->
               <div class="priceTitle d-flex justify-content-between">
                 <span
-                  class="d-block font-size-16  text-gray-1 font-weight-normal  text-left"
+                  class="d-block font-size-16 text-gray-1 font-weight-normal text-left"
                   >Price</span
                 >
 
@@ -1431,16 +1468,16 @@
 </div>
 
 <a
-    *ngIf="showScrollToTopButton"
-    appScrollToTop
-    class="js-go-to u-go-to-modern animated js-animation-was-fired slideInUp text-primary"
-    data-position='{"bottom": 15, "right": 15 }'
-    data-type="fixed"
-    data-offset-top="400"
-    title="back to top"
-    data-compensation="#header"
-    data-show-effect="slideInUp"
-    data-hide-effect="slideOutDown"
-  >
-    <span class="fa fa-arrow-up u-go-to-modern__inner"></span>
-  </a>
+  *ngIf="showScrollToTopButton"
+  appScrollToTop
+  class="js-go-to u-go-to-modern animated js-animation-was-fired slideInUp text-primary"
+  data-position='{"bottom": 15, "right": 15 }'
+  data-type="fixed"
+  data-offset-top="400"
+  title="back to top"
+  data-compensation="#header"
+  data-show-effect="slideInUp"
+  data-hide-effect="slideOutDown"
+>
+  <span class="fa fa-arrow-up u-go-to-modern__inner"></span>
+</a>
