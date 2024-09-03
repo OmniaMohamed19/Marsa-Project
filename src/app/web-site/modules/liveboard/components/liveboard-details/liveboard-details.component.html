@@ -25,7 +25,7 @@
       </nav>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-xl-9 py-5 order-2 order-md-1">
+      <div class="col-lg-8 col-xl-8 py-5 order-2 order-md-1">
         <div
           class="d-block d-md-flex flex-center-between align-items-start mb-3"
         >
@@ -299,7 +299,7 @@
                             <mat-expansion-panel >
                                 <mat-expansion-panel-header> -->
             <mat-accordion>
-              <mat-expansion-panel [expanded]="true" class="p-3">
+              <mat-expansion-panel [expanded]="true" class="p-2">
                 <mat-expansion-panel-header>
                   <div
                     class="d-flex justify-content-between w-100 flex-column flex-md-row align-items-start"
@@ -322,7 +322,7 @@
                   <div class="col-md-12">
                     <mat-list>
                       <ul
-                        class="group-board px-2 list-unstyled gap-2 w-100"
+                        class="group-board p-2 list-unstyled gap-2 w-100"
                         *ngFor="let schedule of liveabourdData?.Schedules"
                       >
                         <li class="list-board">
@@ -599,7 +599,7 @@
                   [src]="image" 
                   [alt]="image" 
                   style="cursor: pointer; max-width:100% ; height:100%"  
-                  (click)="imageClick(index)" />
+                  (click)="imageClick(index+1)" />
                     <!-- <img
                       class="w-100 "
                       [src]="image"
@@ -620,7 +620,7 @@
                   [src]="remainingImages[3]" 
                   alt="tour" 
                   style="cursor: pointer; max-width:100% ; height:100%"  
-                  (click)="imageClick(3)" />
+                  (click)="imageClick(4)" />
                     <!-- <img
                       class="w-100 remainingImages"
                       [src]="remainingImages[3]"
@@ -635,7 +635,7 @@
                         <!-- Button -->
                         <button
                           class="see-more-button"
-                          (click)="imageClick(3)"
+                          (click)="imageClick(4)"
                         >
                           See More
                           <svg
@@ -946,7 +946,7 @@
       <!-- Filter -->
       <div
         *ngIf="!isMobile"
-        class="col-lg-4 col-xl-3 order-1 order-md-2 top-margin"
+        class="col-lg-4 col-xl-4 order-1 order-md-2 top-margin"
       >
         <div class="mb-4 sticky-container">
           <ul
@@ -991,7 +991,7 @@
             class="border border-color-7 rounded mb-5"
             #selectCabinButton
           >
-            <div class="p-4">
+            <div class="p-1">
               <!-- Input -->
               <div class="priceTitle d-flex justify-content-between">
                 <span
