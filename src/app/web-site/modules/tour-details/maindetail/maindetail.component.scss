@@ -258,7 +258,7 @@ h4 {
     }
   }
 
-  img {
+.sights-img {
     transition: transform 0.3s ease;
 
     &:hover {
@@ -762,14 +762,14 @@ h2 {
   cursor: pointer;
   transition: all 0.3s linear;
   overflow: hidden;
-  .gradient-overlay-half-bg-gradient-v5 {
-      transition: transform 0.3s ease;
-  }
+  // .gradient-overlay-half-bg-gradient-v5 {
+  //     transition: transform 0.3s ease;
+  // }
 }
-.card:hover .gradient-overlay-half-bg-gradient-v5  {
-  transform: scale(1.2);
+// .card:hover .gradient-overlay-half-bg-gradient-v5  {
+//   transform: scale(1.2);
 
-}
+// }
 .card-title {
   font-family: Lato;
   font-size: 17px;

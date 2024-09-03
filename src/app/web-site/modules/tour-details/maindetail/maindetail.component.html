@@ -93,7 +93,7 @@
       </div>
     </div>
 
-    <div class="top-sights" *ngIf="isFirstTripSelected()">
+    <div class="top-sights mb-5" *ngIf="isFirstTripSelected()">
       <div id="sights">
         <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
         <p-carousel
@@ -110,6 +110,7 @@
             <div class="text-center position-relative" style="width: 300px;">
               <div class="position-relative">
                 <img
+                class="sights-img"
                   [id]="sight?.id"
                   style="height: 250px; width: 100%"
                   (onError)="onImgError($event)"
@@ -129,75 +130,68 @@
 
 
         </p-carousel>
-        <div *ngIf="selectedSight" class="row mt-3">
+        <div *ngIf="selectedSight" class="row mt-3" style="border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
           <div *ngFor="let item of selectedSight.trips" class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <div class="card h-100 d-flex flex-row">
-              <div class="img-container" style="width: 40%;">
+            <div class="card h-100 d-flex flex-row" style="border: none; padding:0 10px;">
+              <div class="img-container position-relative" style="width: 50%; height: auto;">
                 <a
                   [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
-                  class="d-block gradient-overlay-half-bg-gradient-v5 h-100"
+                  class="d-block h-100"
+                  style="border-radius: 10px; overflow: hidden; transition: none; position: relative;"
                 >
                   <img
                     class="w-100 h-100"
                     [src]="item?.cover"
                     alt="img"
-                    style="object-fit: cover;"
+                    style="object-fit: cover; border-radius: 10px; height: auto; aspect-ratio: 1 / 1; transition: none;"
                   />
+
                 </a>
               </div>
-              <div class="card-body p-3" style="width: 60%;">
+              <div class="card-body p-2" style="width: 70%; font-size: 0.875rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <a
                   [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
                   class="d-block mb-2"
                 >
-                  <h5 class="card-title mb-1">{{ item?.Title }}</h5>
-                  <p class="card-text mb-2">{{ item?.type }}</p>
+                  <h5 class="card-title mb-1" style="font-size: 16px; font-weight: bold;">{{ item?.Title }}</h5>
+                  <p class="card-text mb-2" style="font-size: 0.75rem; color: #555;">{{ item?.type }}</p>
                 </a>
                 <div class="my-2">
-                  <div class="d-inline-flex align-items-center review">
+                  <div class="d-inline-flex align-items-center review" style="font-size: 0.75rem; color: yellow;">
                     <span class="stars">
                       <i
-                        *ngFor="let star of [1, 2, 3, 4, 5]"
+                        *ngFor="let star of [1]"
                         class="fa-solid fa-star"
-                        style="color: #bfbfbf"
+                        style="color: #bfbfbf; font-size: 0.875rem;"
                         [ngClass]="{
                           'fa-star-filled': star <= getRoundedRate(item?.rate),
                           'yellow-star': star <= getRoundedRate(item?.rate)
                         }"
                       ></i>
                     </span>
-                    <span>{{ item?.Review }} Reviews</span>
-                  </div>
-                </div>
-                <div class="mb-1">
-                  <div class="d-flex align-items-center gap-2">
-                    <img
-                      src="../../../../../assets/custom/Activity/locationDark.svg"
-                      style="width: 14.97px"
-                      alt="icon"
-                    />
-                    <span class="pb-0">{{ item?.place }}</span>
+                    <span style="font-size: 15px;">{{ item?.Review }} Reviews</span>
                   </div>
                   <div class="d-flex align-items-center gap-2 pt-2">
                     <img
                       src="../../../../../assets/custom/Activity/time.png"
-                      style="width: 14.97px"
+                      style="width: 12px;"
                       alt="icon"
                     />
-                    <span class="pb-0">{{ item.duration }} {{ item.durationType }}</span>
+                    <span class="pb-0" style="font-size: 0.75rem;">{{ item.duration }} {{ item.durationType }}</span>
                   </div>
                 </div>
-                <h2 class="h5 mb-0">
+
+                <h2 class="h5 mb-0" style="font-size: 0.875rem;">
                   <small class="mr-2">From</small>
                   <span
                     [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
                     [style.color]="item.discount > 0 ? 'red' : ''"
                     >{{ item?.PriceColectiv }} $</span
                   >
-                  <span class="mx-2" *ngIf="item.discount > 0">
+                  <span class="mx-2" *ngIf="item.discount > 0" style="font-size: 0.875rem;">
                     {{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }} $
                   </span>
-                  <span>per person</span>
+                  <span style="font-size: 0.75rem;">per person</span>
                 </h2>
                 <div class="position-absolute top-0 right-0 pt-4 pr-3">
                   <button
@@ -210,13 +204,16 @@
                     #btn
                     (click)="addtoFavorits(btn, $event)"
                   >
-                    <span class="fa-regular fa-heart font-size-20"></span>
+                    <span class=" font-size-20" style="color:#297cbb"><i class="fa-regular fa-heart"></i></span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+
+
 
 
 
