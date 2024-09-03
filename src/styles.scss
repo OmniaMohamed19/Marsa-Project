@@ -407,6 +407,16 @@ body {
     gap: 20px !important;
   }
 }
+.card {
+  // padding: .5rem;
+  overflow: hidden !important;
+}
+#description .mat-expansion-panel-body{
+  padding: 0;
+}
+.col-lg-8.col-xl-8.py-5 .col{
+  padding: 0 0;
+}
 // .Traveler{
 //   height: 280px;
 //   div.col-md-5{

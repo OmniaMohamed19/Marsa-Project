@@ -149,7 +149,7 @@ export class BoatDetailsComponent {
   }
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
-    console.log(this.happyGustImages);
+    console.log(index);
     this.desplayedGustImages = Array.from(
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));

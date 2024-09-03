@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
@@ -8,8 +8,14 @@ import { environment } from 'src/environments/environment.prod';
   templateUrl: './activity-card-list.component.html',
   styleUrls: ['./activity-card-list.component.scss'],
 })
-export class ActivityCardListComponent {
+export class ActivityCardListComponent implements OnInit{
   @Input() item: any;
+  ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    console.log(this.item);
+    
+  }
   readMore = false;
   constructor(public translate: TranslateService,
     private _httpService: HttpService,

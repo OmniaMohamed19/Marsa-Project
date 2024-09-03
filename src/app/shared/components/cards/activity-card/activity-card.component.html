@@ -1,7 +1,8 @@
 <div class="card mb-1 tab-card">
   <div class="position-relative mb-2" style="overflow: hidden">
     <a
-      [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
+      [routerLink]="['/', translate.currentLang, 'tours', 'details',item?.id,
+            item?.Title]"
       class="d-block gradient-overlay-half-bg-gradient-v5"
     >
       <img
@@ -64,7 +65,8 @@
   </div>
   <div class="card-body px-4 py-2">
     <a
-      [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
+      [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id,
+            item?.Title]"
       class="d-block"
     >
       <div class="mb-2 d-flex align-items-center title">
@@ -72,7 +74,8 @@
       </div>
     </a>
     <a
-      [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
+      [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id,
+            item?.Title]"
       class="card-title mb-0"
       >{{ item?.type }}</a
     >

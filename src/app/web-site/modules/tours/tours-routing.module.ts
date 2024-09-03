@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'allTours', pathMatch: 'full' },
       { path: 'allTours', component: ToursComponent },
-      { path: 'details/:id', component: ToursDetailsComponent },
+      { path: 'details/:id/:name', component: ToursDetailsComponent },
       { path: 'check', component: CheckAvailpiltyComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'confirm', component: ConfirmPaymentComponent },

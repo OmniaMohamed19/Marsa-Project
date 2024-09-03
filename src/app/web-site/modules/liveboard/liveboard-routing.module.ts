@@ -13,7 +13,7 @@ const routes: Routes = [
       { path: '', redirectTo: "allLiveboards", pathMatch: 'full' },
       //here your components on folder components
       { path: 'allLiveboards', component: LiveboardsComponent},
-      {path:'liveboardDetails/:id',component:LiveboardDetailsComponent},
+      {path:'liveboardDetails/:id/:name',component:LiveboardDetailsComponent},
       {path:'liveboard-payment',component:LiveboardPaymentComponent},
       { path: 'confirm', component: ConfirmPaymentLiveabourdComponent},
       

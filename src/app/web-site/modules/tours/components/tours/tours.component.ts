@@ -56,6 +56,8 @@ export class ToursComponent {
         this.duration = response.duration;
         this.time = response.time;
         this.types = response.types;
+        // console.log(this.rows?.trips?.data);
+        
         this.getPlaces();
       },
     });

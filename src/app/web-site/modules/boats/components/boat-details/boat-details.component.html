@@ -25,7 +25,7 @@
       </nav>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-xl-9 py-5">
+      <div class="col-lg-8 col-xl-8 py-5">
         <div
           class="d-block d-md-flex flex-center-between align-items-start mb-3"
         >
@@ -527,7 +527,7 @@
                 [src]="image" 
                 [alt]="image" 
                 style="cursor: pointer; max-width:100% ; height:100%"  
-                (click)="imageClick(index)" />
+                (click)="imageClick(index+1)" />
                     <!-- <img
                       class="w-100 "
                       [src]="image"
@@ -548,7 +548,7 @@
                 [src]="remainingImages[3]" 
                 alt="tour" 
                 style="cursor: pointer; max-width:100% ; height:100%"  
-                (click)="imageClick(3)" />
+                (click)="imageClick(4)" />
                     <!-- <img
                       class="w-100 remainingImages"
                       [src]="remainingImages[3]"
@@ -563,7 +563,7 @@
                         <!-- Button -->
                         <button
                           class="see-more-button"
-                          (click)="imageClick(3)"
+                          (click)="imageClick(4)"
                         >
                           See More
                           <svg
@@ -872,7 +872,7 @@
       </div>
       <!-- Filter -->
       <div
-        class="col-lg-4 col-xl-3 order-1 order-md-2"
+        class="col-lg-4 col-xl-4 order-1 order-md-2"
         style="margin-top: 9.5rem"
       >
         <div class="mb-4 sticky-container">
