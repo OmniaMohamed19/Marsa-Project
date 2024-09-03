@@ -9,15 +9,12 @@
               translate.currentLang,
               'liveboard',
               'liveboardDetails',
-              item.id
+              item?.id,
+              item?.Title
             ]"
             class="d-block"
           >
-            <img
-              [src]="item?.cover"
-              alt="Aquavita"
-              class="w-100"
-            />
+            <img [src]="item?.cover" alt="Aquavita" class="w-100" />
           </a>
         </div>
       </div>
@@ -196,8 +193,7 @@
                 <span
                   class="mx-2"
                   *ngIf="item?.discount > 0"
-
-                  style="font-weight: 700;font-size: 15px; color: #3b444f;"
+                  style="font-weight: 700; font-size: 15px; color: #3b444f"
                   >{{
                     getRoundedRate(
                       item?.PriceColectiv -
@@ -206,7 +202,9 @@
                   }}
                   $</span
                 >
-                <span style="font-weight: 700;font-size: 15px; color: #3b444f;" > / week</span>
+                <span style="font-weight: 700; font-size: 15px; color: #3b444f">
+                  / week</span
+                >
               </p>
             </div>
             <a
@@ -217,7 +215,8 @@
                 translate.currentLang,
                 'liveboard',
                 'liveboardDetails',
-                item.id
+                item?.id,
+                item?.Title
               ]"
               class="btn btn-outline-primary mt-5 d-flex align-items-center justify-content-center font-weight-bold min-height-50 border-radius-3 border-width-2 px-2 px-5 py-2"
               >View Detail</a
@@ -229,14 +228,14 @@
           >
             <button
               type="button"
-              class="btn  btn-sm btn-icon rounded-circle"
+              class="btn btn-sm btn-icon rounded-circle"
               data-toggle="tooltip"
               data-placement="top"
               title="Save for later"
               data-original-title="Save for later"
               aria-label="Save for later"
               #btn
-        (click)="addtoFavorits(btn,$event)"
+              (click)="addtoFavorits(btn, $event)"
             >
               <span class="fa-regular fa-heart font-size-22"></span>
             </button>

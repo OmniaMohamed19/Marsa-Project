@@ -3,7 +3,8 @@
   <div class="position-relative w-100" style="overflow: hidden">
     <a
       class="d-block gradient-overlay-half-bg-gradient-v5"
-      [routerLink]="['/', translate.currentLang, 'boats', 'details', item.id]"
+      [routerLink]="['/', translate.currentLang, 'boats', 'details', item?.id,
+            item?.Title]"
     >
       <img
         style="height: 200px"
@@ -49,7 +50,8 @@
             translate.currentLang,
             'boats',
             'details',
-            item.id
+            item?.id,
+            item?.Title
           ]"
         >
           <span class="text-white font-weight-bold font-size-17">
