@@ -372,3 +372,18 @@ h3.highlighting {
   }
 }
 
+.text-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 768px) {
+  .text-wrap {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}

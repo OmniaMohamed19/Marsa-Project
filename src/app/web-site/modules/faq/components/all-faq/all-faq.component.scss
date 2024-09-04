@@ -107,6 +107,65 @@ h5 {
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: none !important;
 }
+@media (max-width: 768px) {
+  mat-expansion-panel {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+
+  mat-expansion-panel-header {
+    padding: 10px;
+  }
+
+  p {
+    padding-left: 20px;
+  }
+}
+@media (max-width: 366px) {
+  mat-expansion-panel {
+    padding: 4px; /* تقليل الحواف الداخلية */
+    margin-bottom: 6px; /* تقليل الهامش السفلي */
+  }
+
+  mat-expansion-panel-header {
+    padding: 6px; /* تقليل الحواف الداخلية للعنوان */
+  }
+
+  mat-panel-title {
+    white-space: normal; /* السماح للنص بالالتفاف */
+    word-wrap: break-word; /* كسر النص إذا كان طويلًا */
+    font-size: 13px; /* تقليل حجم الخط لتناسب الشاشة */
+  }
+
+  p {
+    padding-left: 10px; /* تقليل الحواف الداخلية لتناسب العرض */
+    white-space: normal; /* السماح للنص بالالتفاف */
+    word-wrap: break-word; /* كسر النص إذا كان طويلًا */
+    font-size: 13px; /* تقليل حجم الخط */
+  }
+
+  .faq i {
+    margin-right: 3px; /* تقليل المسافة بين الأيقونة والنص */
+    font-size: 13px; /* تقليل حجم الأيقونة لتناسب النص */
+  }
+}
+
+@media (max-width: 320px) {
+  mat-expansion-panel {
+    padding: 3px; /* تقليل الحواف الداخلية أكثر */
+    margin-bottom: 5px; /* تقليل الهامش السفلي */
+  }
+
+  mat-panel-title, p {
+    font-size: 12px; /* تقليل حجم الخط أكثر */
+  }
+
+  .faq i {
+    font-size: 12px; /* تقليل حجم الأيقونة لتناسب النص */
+  }
+}
+
+
 .bg-img-hero {
   background-size: 100%;
   background-repeat: no-repeat;
