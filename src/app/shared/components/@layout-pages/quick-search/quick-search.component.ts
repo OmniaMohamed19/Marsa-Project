@@ -45,6 +45,24 @@ export class QuickSearchComponent {
   }
 
 
+  getCurrentTabLabel(): string {
+    switch (this.showSearch) {
+      case 'tour':
+        return 'Tours & Activities';
+      case 'liveboard':
+        return 'Liveaboard';
+      case 'boat':
+        return 'Boat';
+      case 'transfer':
+        return 'Transfer';
+      default:
+        return '';
+    }
+  }
+
+  selectTab(tab: string) {
+    this.showSearchForm(tab);
+  }
 
 
   scrollToActive(value: any) {

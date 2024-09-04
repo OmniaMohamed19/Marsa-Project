@@ -68,7 +68,7 @@
       <h5>
         {{ totalTripsCount }} Activities found
       </h5>
-      <div class="row g-4 p-4">
+      <div class="row g-4">
         <div class="col-12 col-xl-4 col-lg-6 col-md-6" *ngFor="let tripip of visibleTrips">
           <app-activity-card [item]="tripip"></app-activity-card>
         </div>
@@ -99,7 +99,7 @@
         <p-carousel
           [value]="placeDetails?.places?.placesshigts"
           [numVisible]="3"
-          [responsiveOptions]="responsiveOptions"
+          [responsiveOptions2]="responsiveOptions2"
           [circular]="true"
           [showIndicators]="true"
           [showNavigateButtons]="false"
@@ -107,12 +107,12 @@
           [showItemNavigators]="false"
         >
           <ng-template pTemplate="item" let-sight>
-            <div class="text-center position-relative" style="width: 300px;">
+            <div class="sights-container text-center position-relative">
               <div class="position-relative">
                 <img
-                class="sights-img"
+                  class="sights-img"
                   [id]="sight?.id"
-                  style="height: 250px; width: 100%"
+                  style="height: auto; width: 100%; max-height: 250px;"
                   (onError)="onImgError($event)"
                   [src]="placeDetails?.places.cover"
                   alt=""
@@ -122,16 +122,15 @@
                   {{ sight?.TripCount }} Activities
                 </p>
               </div>
-
-
             </div>
+
 
           </ng-template>
 
 
         </p-carousel>
         <div *ngIf="selectedSight" class="row mt-3" style="border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
-          <div *ngFor="let item of selectedSight.trips" class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div *ngFor="let item of selectedSight.trips" class="col-lg-6 col-md-6 col-sm-12 mb-5">
             <div class="card h-100 d-flex flex-row" style="border: none; padding:0 10px;">
               <div class="img-container position-relative" style="width: 50%; height: auto;">
                 <a
@@ -145,7 +144,6 @@
                     alt="img"
                     style="object-fit: cover; border-radius: 10px; height: auto; aspect-ratio: 1 / 1; transition: none;"
                   />
-
                 </a>
               </div>
               <div class="card-body p-2" style="width: 70%; font-size: 0.875rem; display: flex; flex-direction: column; justify-content: space-between;">
@@ -153,14 +151,14 @@
                   [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
                   class="d-block mb-2"
                 >
-                  <h5 class="card-title mb-1" style="font-size: 16px; font-weight: bold;">{{ item?.Title }}</h5>
+                  <h5 class="card-title mb-1" style="font-size: 17px; font-weight: bold;">{{ item?.Title }}</h5>
                   <p class="card-text mb-2" style="font-size: 0.75rem; color: #555;">{{ item?.type }}</p>
                 </a>
                 <div class="my-2">
                   <div class="d-inline-flex align-items-center review" style="font-size: 0.75rem; color: yellow;">
                     <span class="stars">
                       <i
-                        *ngFor="let star of [1]"
+                        *ngFor="let star of [1,2,3,4,5]"
                         class="fa-solid fa-star"
                         style="color: #bfbfbf; font-size: 0.875rem;"
                         [ngClass]="{
@@ -169,7 +167,7 @@
                         }"
                       ></i>
                     </span>
-                    <span style="font-size: 15px;">{{ item?.Review }} Reviews</span>
+                    <span style="font-size: 17px;">{{ item?.Review }} Reviews</span>
                   </div>
                   <div class="d-flex align-items-center gap-2 pt-2">
                     <img
@@ -193,7 +191,7 @@
                   </span>
                   <span style="font-size: 0.75rem;">per person</span>
                 </h2>
-                <div class="position-absolute top-0 right-0 pt-4 pr-3">
+                <div class="position-absolute top-0 right-0 pt-2 ps-5">
                   <button
                     type="button"
                     class="btn btn-sm btn-icon text-white rounded-circle"
@@ -211,6 +209,7 @@
             </div>
           </div>
         </div>
+
 
 
 

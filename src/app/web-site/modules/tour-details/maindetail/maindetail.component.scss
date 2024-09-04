@@ -313,6 +313,7 @@ h4 {
     color: #1e6485;
   }
 }
+
 select.form-control {
   appearance: none;
   -webkit-appearance: none;
@@ -762,14 +763,9 @@ h2 {
   cursor: pointer;
   transition: all 0.3s linear;
   overflow: hidden;
-  // .gradient-overlay-half-bg-gradient-v5 {
-  //     transition: transform 0.3s ease;
-  // }
-}
-// .card:hover .gradient-overlay-half-bg-gradient-v5  {
-//   transform: scale(1.2);
 
-// }
+}
+
 .card-title {
   font-family: Lato;
   font-size: 17px;
@@ -818,4 +814,9 @@ h2 {
   height: 56px !important;
   background-color: #0DB1FF !important;
   color: #FFFFFF !important;
+}
+@media screen and (min-width: 1200px){
+  .sights-container{
+    width: 320px !important;
+  }
 }

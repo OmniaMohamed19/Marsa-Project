@@ -25,10 +25,10 @@ export class AppComponent {
     this.authService.autoAuth();
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any) {
-    if (this.authService.getAuthStatus()) {
-      this.authService.logout();
-    }
-  }
+  // @HostListener('window:beforeunload', ['$event'])
+  // unloadNotification($event: any) {
+  //   if (this.authService.getAuthStatus()) {
+  //     this.authService.logout();
+  //   }
+  // }
 }

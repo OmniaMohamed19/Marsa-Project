@@ -239,7 +239,85 @@ export class PaymentComponent {
   preventStepNavigation(stepper: MatStepper, stepIndex: number) {
     stepper.selectedIndex = stepIndex; // Set the selected index to the current step
   }
+  confirmBookingByCard(){
+    if (this.customerForm.valid) {
+      const parts = this.booking_date.split('/');
+      const formattedDate = new Date(
+        parseInt(parts[2]),
+        parseInt(parts[1]) - 1,
+        parseInt(parts[0])
+      );
 
+      // Format the date using DatePipe
+      const formattedDateString = this.datePipe.transform(
+        formattedDate,
+        'yyyy/MM/dd'
+      );
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+
+      const model = {
+        trip_id: this.tripId,
+        userid: this.userData?.id,
+        avilable_option_id: this.avilable_option_id,
+        class: this.class,
+        adult: this.adult,
+        childern: this.childern,
+        infant: this.infant,
+        booking_date: formattedDateString,
+        payment_method: this.payment_method ? this.payment_method : 'tap',
+        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
+        ...this.customerForm.value,
+        phone: phoneNumber.replace('+', ''),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        booking_time: this.time,
+        booking_option: this.activityData?.bookingOption.reduce(
+          (acc: any[], item: any, index: number) => {
+            if (this.checkboxStatus[index]) {
+              acc.push({
+                id: item.id,
+                persons: this.personsInputValues[index] || 0,
+              });
+            }
+            return acc;
+          },
+          []
+        ),
+      };
+      // if (model.booking_option.length == 0) {
+      //   model.booking_option = null;
+      // }
+      Object.keys(model).forEach(
+        (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
+      );
+      console.log(model);
+
+      this._httpService
+        .post(environment.marsa, 'Activtes/book', model)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            const queryParams = {
+              res: JSON.stringify(res),
+              trip_id: this.tripId,
+            };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'tours', 'confirm'],
+              { queryParams }
+            );
+            Swal.fire(
+              'Your request has been send successfully.',
+              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'success'
+            );
+          },
+        });
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      this.markFormGroupTouched(this.customerForm);
+    }
+
+  }
   confirmBooking() {
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
@@ -292,7 +370,7 @@ export class PaymentComponent {
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
       console.log(model);
-      
+
       this._httpService
         .post(environment.marsa, 'Activtes/book', model)
         .subscribe({

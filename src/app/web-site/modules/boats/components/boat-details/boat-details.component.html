@@ -25,7 +25,7 @@
       </nav>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-xl-8 py-5">
+      <div class="col-lg-8 col-xl-9 py-5">
         <div
           class="d-block d-md-flex flex-center-between align-items-start mb-3"
         >
@@ -503,10 +503,10 @@
             <h5 class="heading">Traveler Photos</h5>
             <div class="row Traveler g-5">
               <div class="col-md-5">
-                <img 
-                [src]="happyGustImages[0]" 
-                [alt]="" 
-                style="cursor: pointer; max-width:100% ; height:100%"  
+                <img
+                [src]="happyGustImages[0]"
+                [alt]=""
+                style="cursor: pointer; max-width:100% ; height:100%"
                 (click)="imageClick(0)" />
                 <!-- <img
                   class="w-100 h-100"
@@ -523,10 +523,10 @@
                       let index = index
                     "
                   >
-                  <img 
-                [src]="image" 
-                [alt]="image" 
-                style="cursor: pointer; max-width:100% ; height:100%"  
+                  <img
+                [src]="image"
+                [alt]="image"
+                style="cursor: pointer; max-width:100% ; height:100%"
                 (click)="imageClick(index+1)" />
                     <!-- <img
                       class="w-100 "
@@ -544,10 +544,10 @@
                     class="col-md-6 position-relative pt-1"
                     *ngIf="remainingImages.length > 3"
                   >
-                  <img 
-                [src]="remainingImages[3]" 
-                alt="tour" 
-                style="cursor: pointer; max-width:100% ; height:100%"  
+                  <img
+                [src]="remainingImages[3]"
+                alt="tour"
+                style="cursor: pointer; max-width:100% ; height:100%"
                 (click)="imageClick(4)" />
                     <!-- <img
                       class="w-100 remainingImages"
@@ -598,8 +598,8 @@
       [showItemNavigators]="true"
       [showThumbnails]="false">
       <ng-template pTemplate="item" let-item>
-          <img 
-              [src]="item?.value" 
+          <img
+              [src]="item?.value"
               style="width: 100%; display: block;" />
       </ng-template>
   </p-galleria>
@@ -872,7 +872,7 @@
       </div>
       <!-- Filter -->
       <div
-        class="col-lg-4 col-xl-4 order-1 order-md-2"
+        class="col-lg-4 col-xl-3 p-0 order-1 order-md-2"
         style="margin-top: 9.5rem"
       >
         <div class="mb-4 sticky-container">
