@@ -239,7 +239,9 @@ export class PaymentComponent {
   preventStepNavigation(stepper: MatStepper, stepIndex: number) {
     stepper.selectedIndex = stepIndex; // Set the selected index to the current step
   }
-  confirmBookingByCard(){
+  confirmBookingByCard(event: Event) {
+    event.preventDefault();
+
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
@@ -248,7 +250,6 @@ export class PaymentComponent {
         parseInt(parts[0])
       );
 
-      // Format the date using DatePipe
       const formattedDateString = this.datePipe.transform(
         formattedDate,
         'yyyy/MM/dd'
@@ -265,7 +266,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'tap',
-        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
+        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
@@ -284,40 +285,39 @@ export class PaymentComponent {
           []
         ),
       };
-      // if (model.booking_option.length == 0) {
-      //   model.booking_option = null;
-      // }
+
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
       console.log(model);
 
-      this._httpService
-        .post(environment.marsa, 'Activtes/book', model)
-        .subscribe({
-          next: (res: any) => {
-            console.log(res);
-            const queryParams = {
-              res: JSON.stringify(res),
-              trip_id: this.tripId,
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'tours', 'confirm'],
-              { queryParams }
-            );
+      this._httpService.post(environment.marsa, 'Activtes/book', model).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res && res.link) {
+            window.location.href = res.link; 
+          } else {
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'Booking Confirmed',
+              'Your request has been sent successfully. Please check your email for further instructions.',
               'success'
             );
-          },
-        });
+          }
+        },
+        error: (err: any) => {
+          console.error('Error during booking:', err);
+          Swal.fire(
+            'Booking Failed',
+            'An error occurred while processing your booking. Please try again later.',
+            'error'
+          );
+        }
+      });
     } else {
-      // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
-
   }
+
   confirmBooking() {
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
@@ -372,10 +372,13 @@ export class PaymentComponent {
       console.log(model);
 
       this._httpService
-        .post(environment.marsa, 'Activtes/book', model)
-        .subscribe({
-          next: (res: any) => {
-            console.log(res);
+      .post(environment.marsa, 'Activtes/book', model)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res && res.link) {  // افترض أن الباكند يرسل الرابط في المتغير "link"
+            window.location.href = res.link; // إعادة توجيه المستخدم مباشرةً إلى الرابط
+          } else {
             const queryParams = {
               res: JSON.stringify(res),
               trip_id: this.tripId,
@@ -386,11 +389,21 @@ export class PaymentComponent {
             );
             Swal.fire(
               'Your request has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
               'success'
             );
-          },
-        });
+          }
+        },
+        error: (err: any) => {
+          console.error('Error during booking:', err);
+          Swal.fire(
+            'Booking Failed',
+            'An error occurred while processing your booking. Please try again later.',
+            'error'
+          );
+        }
+      });
+
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
