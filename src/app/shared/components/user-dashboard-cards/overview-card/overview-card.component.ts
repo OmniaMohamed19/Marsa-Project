@@ -10,7 +10,7 @@ export class OverviewCardComponent {
   tabs = [
     { label: 'Settings', section: 'section1' },
     // { label: 'Login Information', section: 'section2' },
-    { label: 'Payment Method', section: 'section3' },
+    // { label: 'Payment Method', section: 'section3' },
     // { label: 'Site Settings', section: 'section4' },
   ];
 

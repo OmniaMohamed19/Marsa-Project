@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpService } from '../../../../core/services/http/http.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-destination',
@@ -65,7 +64,7 @@ export class DestinationComponent implements OnInit {
   startAutoSlide() {
     this.autoSlideInterval = setInterval(() => {
       this.nextSlide();
-    }, 3000); 
+    }, 3000);
   }
 
   stopAutoSlide() {
@@ -105,9 +104,5 @@ export class DestinationComponent implements OnInit {
     console.log('Clicked Destination ID:', id);
   }
 
-  // وظيفة لتحريك العناصر عند السحب
-  drop(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.destinations, event.previousIndex, event.currentIndex);
-    this.updateVisibleDestinations();
-  }
+  
 }

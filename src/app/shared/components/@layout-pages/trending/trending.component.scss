@@ -19,9 +19,13 @@ h3 {
    height: 65vh;
 }
 
-  .owl-item {
+
+::ng-deep {
+  .my-tours.single-item .owl-item {
     width: 300px !important;
   }
+}
+
 
 h3::after {
   content: "";

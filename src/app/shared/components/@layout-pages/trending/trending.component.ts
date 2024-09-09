@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment';
 
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './trending.component.html',
   styleUrls: ['./trending.component.scss'],
 })
-export class TrendingComponent {
+export class TrendingComponent  {
   @Input() showHeading: boolean = true;
   @Input() placeId: any;
   @Input() applyMargin: boolean = true;
@@ -127,4 +128,95 @@ export class TrendingComponent {
         break;
     }
   }
+  isSingleCardVisible(): boolean {
+    return this.activeNowTrend.length === 1;
+  }
+
+
+
+  customOptions: OwlOptions = {
+    loop: this.activeNowTrend.length > 4 ? true : false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    autoplay: true,
+    margin: 10,
+    navSpeed: 700,
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      740: {
+        items: 4,
+      },
+      940: {
+        items: 4,
+      },
+      1200: {
+        items: 4,
+      },
+    },
+    nav: true,
+  };
+  imagesOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    margin: 0,
+    nav: false,
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 3,
+      },
+      720: {
+        items: 6,
+      },
+      1200: {
+        items: 6,
+      },
+    },
+  };
+  coverAndImagesOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    autoplay: false,
+    margin: 0,
+    navSpeed: 900,
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      740: {
+        items: 1,
+      },
+      940: {
+        items: 1,
+      },
+      1200: {
+        items: 1,
+      },
+    },
+    nav: true,
+  };
 }
