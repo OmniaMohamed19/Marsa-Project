@@ -69,7 +69,7 @@
               <span *ngIf="live?.status == 'paid'" class="completed">
                 {{ live?.status }}</span
               >
-              <span class="cancel"> {{ live?.status }}</span>
+              <span *ngIf="live?.status !== 'paid'"  class="cancel"> {{ live?.status }}</span>
             </td>
             <td>
               <button

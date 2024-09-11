@@ -44,7 +44,7 @@
               <span *ngIf="package?.status == 'paid'" class="completed">
                 {{ package?.status }}</span
               >
-              <span class="cancel"> {{ package?.status }}</span>
+              <span *ngIf="package?.status !== 'paid'" class="cancel"> {{ package?.status }}</span>
             </td>
             <td>
               <button

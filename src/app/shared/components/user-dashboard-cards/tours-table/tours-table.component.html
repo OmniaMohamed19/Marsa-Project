@@ -68,7 +68,7 @@
             <span *ngIf="tour?.status == 'paid'" class="completed">
               {{ tour?.status }}</span
             >
-            <span class="cancel"> {{ tour?.status }}</span>
+            <span *ngIf="tour?.status !== 'paid'" class="cancel"> {{ tour?.status }}</span>
           </td>
           <td>
             <button [routerLink]="'../../tours/details/' + tour?.id + '/' + tour?.name ">
