@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
-
+import { ProfileService } from './profile-service.service';
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
@@ -20,7 +20,42 @@ export class UserCardComponent {
 
   activeSection = 'section1'; // Initialize with a default value
 
-  constructor(private httpService: HttpService) {}
+  profiles: any[] = [];
+  currentPage: number = 1;
+  lastPage: number = 1;
+  total: number = 0;
+
+  // constructor(private profileService: ProfileService) {}
+
+  loadProfiles(page: number): void {
+    this.profileService.getProfiles(page).subscribe((data) => {
+      this.userDetails = data?.userDashboard;
+      // console.log(555);
+      this.profiles = data.userDashboard.data;
+      this.currentPage = data.userDashboard.current_page;
+      this.lastPage = data.userDashboard.last_page;
+      this.total = data.userDashboard.total;
+    });
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.lastPage) {
+      this.loadProfiles(this.currentPage + 1);
+    }
+  }
+
+  prevPage(): void {
+    // console.log(215);
+
+    if (this.currentPage > 1) {
+      this.loadProfiles(this.currentPage - 1);
+    }
+  }
+
+  constructor(
+    private httpService: HttpService,
+    private profileService: ProfileService
+  ) {}
   setActiveSection(section: string) {
     this.activeSection = section;
   }
@@ -28,7 +63,7 @@ export class UserCardComponent {
   ngOnInit() {
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-       console.log(res);
+      // console.log(res.userDashboard);
       this.types = res?.triptypes;
     });
   }

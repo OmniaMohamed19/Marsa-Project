@@ -417,6 +417,19 @@ body {
 .col-lg-8.col-xl-8.py-5 .col{
   padding: 0 0;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 30px;
+    // border: none;
+    padding:  var(--bs-btn-padding-y) var(--bs-btn-padding-x) !important; 
+}
+
 // .Traveler{
 //   height: 280px;
 //   div.col-md-5{

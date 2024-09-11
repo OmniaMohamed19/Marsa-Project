@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { HttpService } from 'src/app/core/services/http/http.service';
+import { ProfileService } from 'src/app/core/services/http/profile-service.service';
 
 @Component({
   selector: 'app-tours',
@@ -11,9 +13,53 @@ export class ToursComponent {
   activityTypes: any = [];
   filteredTours: any = [];
   activeSection = 'all'; // Initialize with a default value
+  
+  profiles: any[] = [];
+  currentPage: number = 1;
+  lastPage: number = 1;
+  total: number = 0;
+
+  
+  loadProfiles(page: number): void {
+    this.profileService.getProfiles(page).subscribe((data) => {
+      // console.log('API Response:', data);
+      this.profiles = data.userDashboard.data;
+      this.tours = data.userDashboard.ActivityDetails.data; // Ensure this is correct
+      // console.log('Tours Data:', this.tours);
+      this.currentPage = data.userDashboard.ActivityDetails.current_page;
+      this.lastPage = data.userDashboard.ActivityDetails.last_page;
+      this.total = data.userDashboard.ActivityDetails.total;
+      this.cdr.markForCheck();
+    });
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.lastPage) {
+      this.loadProfiles(this.currentPage + 1);
+    }
+  }
+
+  prevPage(): void {
+    // console.log(215);
+
+    if (this.currentPage > 1) {
+      this.loadProfiles(this.currentPage - 1);
+    }
+  }
+
+  constructor(
+    private httpService: HttpService,
+    private profileService: ProfileService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.loadProfiles(this.currentPage);
+  }
+
 
   ngOnChanges() {
-    console.log(this.types);
+    // console.log("lsls" ,this.types);
     this.activityTypes = this.types[0].types;
   }
   setActiveSection(section: string) {
