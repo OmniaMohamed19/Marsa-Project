@@ -81,7 +81,7 @@ export class LiveboardPaymentComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       this.schedules_id = params['schedules_id'];
       console.log(params['schedules_id']);
-      
+
       this.tripId = params['trip_id'];
       this.adult = params['adult'];
       this.getDataById(this.tripId);
@@ -141,12 +141,12 @@ export class LiveboardPaymentComponent implements OnInit {
           console.log(`Control '${controlName}' is invalid:`, this.customerForm.controls[controlName].errors);
         }
       }
-  
+
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
   }
-  
+
   // markFormGroupTouched(formGroup: FormGroup) {
   //   Object.values(formGroup.controls).forEach(control => {
   //     control.markAsTouched();
@@ -263,6 +263,67 @@ export class LiveboardPaymentComponent implements OnInit {
     console.log(this.coupon);
     // Coupon
   }
+
+  confirmBookingByCard(event: Event) {
+    event.preventDefault();
+
+    if (this.customerForm.valid) {
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+
+      const model = {
+        trip_id: this.tripId,
+        class: 'collective',
+        adult: this.adult,
+        schedules_id: this.schedules_id,
+        payment_method: this.payment_method ? this.payment_method : 'tap',
+        ...this.customerForm.value,
+        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+        phone: phoneNumber.replace('+', ''),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        cabins: this.cabins
+          .map((cabin: any) => ({
+            id: cabin.id,
+            persons:
+              this.personsMap[cabin.id] !== 0
+                ? this.personsMap[cabin.id]
+                : undefined,
+          }))
+          .filter((cabin: any) => cabin.persons !== undefined),
+      };
+
+      console.log(model);
+
+      this._httpService.post(environment.marsa, 'liveboard/book', model).subscribe({
+        next: (res: any) => {
+          if (res && res.link) {
+            window.location.href = res.link;
+          } else {
+            const queryParams = {
+              res: JSON.stringify(res),
+              trip_id: this.tripId,
+            };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'liveboard', 'confirm'],
+              { queryParams }
+            );
+            Swal.fire(
+              'Your request has been sent successfully.',
+              'The Liveaboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
+              'success'
+            );
+          }
+        },
+        error: (err) => {
+          Swal.fire(err.error.message);
+          console.log(err);
+        },
+      });
+    } else {
+      this.markFormGroupTouched(this.customerForm);
+    }
+  }
+
   confirmBooking() {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
@@ -314,7 +375,7 @@ console.log(model);
             Swal.fire(err.error.message
             );
               console.log(err);
-              
+
           },
         });
     } else {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/web-site/modules/transfer/dataService';
 
 @Component({
   selector: 'app-multi-step-form',
@@ -9,13 +10,20 @@ export class MultiStepFormComponent {
   currentStep: number = 1;
   formData: any = {}; // To store the data from all steps
   activeSection: number = 1; // Active section corresponds to the current step
-
+  responseData: any;
+  constructor(private dataService: DataService) {}
   tabs = [
     { section: 1, label: 'Customer information' },
     { section: 2, label: 'Optional items' },
     { section: 3, label: 'Payment information' },
     { section: 4, label: 'Booking is Confirmed' },
   ];
+
+  ngOnInit(): void {
+    // Retrieve the data from the service
+    this.responseData = this.dataService.getResponseData();
+    console.log(this.responseData); // Use the data as needed
+  }
 
   setActiveSection(section: number): void {
     this.currentStep = section;
@@ -40,4 +48,5 @@ export class MultiStepFormComponent {
     console.log('Form Data:', this.formData);
     // Handle form submission
   }
+
 }

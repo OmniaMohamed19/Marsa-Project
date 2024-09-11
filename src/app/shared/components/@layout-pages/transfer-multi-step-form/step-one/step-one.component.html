@@ -1,341 +1,256 @@
 <div class="container">
-    <h2 class="title">From Marsa Alam Hotel to Airport </h2>
-    <form (ngSubmit)="nextStep()">
-        <div class="d-flex justify-content-between align-items-center cars">
-            <div class="d-flex  flex-column car" (click)="activeSection = 'section1'"
-                [class.active]="activeSection === 'section1'">
-                <h2 class="text-center">Limousine</h2>
-                <img src="../../../../../../assets/images/primary1.png">
-                <div class="d-flex align-items-center gap-3 flex-column flex-lg-row">
-                    <div class="car-data">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
-                                fill="none">
-                                <path
-                                    d="M9.18774 1.99023C7.22274 1.99023 5.62524 3.58773 5.62524 5.55273C5.62524 7.48023 7.13274 9.04023 9.09774 9.10773C9.15774 9.10023 9.21774 9.10023 9.26274 9.10773C9.27774 9.10773 9.28524 9.10773 9.30024 9.10773C9.30774 9.10773 9.30774 9.10773 9.31524 9.10773C11.2352 9.04023 12.7427 7.48023 12.7502 5.55273C12.7502 3.58773 11.1527 1.99023 9.18774 1.99023Z"
-                                    fill="#292D32" />
-                                <path
-                                    d="M12.9977 11.1029C10.9052 9.70789 7.49271 9.70789 5.38521 11.1029C4.43271 11.7404 3.90771 12.6029 3.90771 13.5254C3.90771 14.4479 4.43271 15.3029 5.37771 15.9329C6.42771 16.6379 7.80771 16.9904 9.18771 16.9904C10.5677 16.9904 11.9477 16.6379 12.9977 15.9329C13.9427 15.2954 14.4677 14.4404 14.4677 13.5104C14.4602 12.5879 13.9427 11.7329 12.9977 11.1029Z"
-                                    fill="#292D32" />
-                            </svg>
-                        </span>
-                        <span>
-                            Up to 3
-                        </span>
-                    </div>
+  <h2 class="title">From {{responseData.booking.from }} Hotel to {{responseData.booking.to }} </h2>
+  <form #bookingForm="ngForm" (ngSubmit)="saveFormData(bookingForm)">
+    <div class="cars">
+      <owl-carousel-o [options]="customOptions" class="owl-theme">
+        <ng-container *ngFor="let item of responseData.car">
+          <ng-template carouselSlide>
+            <div class="d-flex flex-column car" (click)="onCarClick($event, item.id)"
+            [class.active]="formData.selectedCarId === item.id">
 
-                    <div class="car-data">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7.06152 2.36523C6.56424 2.36523 6.08733 2.56278 5.7357 2.91441C5.38407 3.26604 5.18652 3.74295 5.18652 4.24023V4.86523H3.31152C2.81424 4.86523 2.33733 5.06278 1.9857 5.41441C1.63407 5.76604 1.43652 6.24295 1.43652 6.74023V11.7402C1.43652 12.2375 1.63407 12.7144 1.9857 13.0661C2.33733 13.4177 2.81424 13.6152 3.31152 13.6152H12.0615C12.5588 13.6152 13.0357 13.4177 13.3873 13.0661C13.739 12.7144 13.9365 12.2375 13.9365 11.7402V6.74023C13.9365 6.24295 13.739 5.76604 13.3873 5.41441C13.0357 5.06278 12.5588 4.86523 12.0615 4.86523H10.1865V4.24023C10.1865 3.74295 9.98898 3.26604 9.63735 2.91441C9.28572 2.56278 8.8088 2.36523 8.31152 2.36523H7.06152ZM8.93652 4.86523H6.43652V4.24023C6.43652 4.07447 6.50237 3.9155 6.61958 3.79829C6.73679 3.68108 6.89576 3.61523 7.06152 3.61523H8.31152C8.47728 3.61523 8.63625 3.68108 8.75347 3.79829C8.87068 3.9155 8.93652 4.07447 8.93652 4.24023V4.86523Z"
-                                    fill="#474747" />
-                            </svg>
-                        </span>
-                        <span class="mt-1">
-                            2 bags
-                        </span>
-                    </div>
-                </div>
-                <div class="car-data mt-3">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path
-                                d="M12.2347 1.71484H4.73474C3.69724 1.71484 2.85974 2.54609 2.85974 3.57109V10.3898C2.85974 11.4148 3.69724 12.2461 4.73474 12.2461H5.20974C5.70974 12.2461 6.18474 12.4398 6.53474 12.7898L7.60349 13.8461C8.09099 14.3273 8.88474 14.3273 9.37224 13.8461L10.441 12.7898C10.791 12.4398 11.2722 12.2461 11.766 12.2461H12.2347C13.2722 12.2461 14.1097 11.4148 14.1097 10.3898V3.57109C14.1097 2.54609 13.2722 1.71484 12.2347 1.71484ZM8.48474 4.05859C9.29099 4.05859 9.94099 4.70859 9.94099 5.51484C9.94099 6.32109 9.29099 6.97109 8.48474 6.97109C7.67849 6.97109 7.02849 6.31484 7.02849 5.51484C7.02849 4.70859 7.67849 4.05859 8.48474 4.05859ZM10.1597 9.87734H6.80974C6.30349 9.87734 6.00974 9.31484 6.29099 8.89609C6.71599 8.26484 7.54099 7.83984 8.48474 7.83984C9.42849 7.83984 10.2535 8.26484 10.6785 8.89609C10.9597 9.31484 10.6597 9.87734 10.1597 9.87734Z"
-                                fill="#292D32" />
-                        </svg>
-                    </span>
-                    <span class="meet">
-                        Meet and Greet
-                    </span>
-                </div>
-            </div>
-            <!--------------End Of first Tab------------->
-            <div class="d-flex  flex-column car" (click)="activeSection = 'section2'"  [class.active]="activeSection === 'section2'">
-                <h2 class="text-center">SUV</h2>
-                <img src="../../../../../../assets/images/primary1.png">
-                <div class="d-flex align-items-center gap-3 gap-lg-5 mt-2 flex-column flex-lg-row">
-                    <div class="car-data">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
-                                fill="none">
-                                <path
-                                    d="M9.18774 1.99023C7.22274 1.99023 5.62524 3.58773 5.62524 5.55273C5.62524 7.48023 7.13274 9.04023 9.09774 9.10773C9.15774 9.10023 9.21774 9.10023 9.26274 9.10773C9.27774 9.10773 9.28524 9.10773 9.30024 9.10773C9.30774 9.10773 9.30774 9.10773 9.31524 9.10773C11.2352 9.04023 12.7427 7.48023 12.7502 5.55273C12.7502 3.58773 11.1527 1.99023 9.18774 1.99023Z"
-                                    fill="#292D32" />
-                                <path
-                                    d="M12.9977 11.1029C10.9052 9.70789 7.49271 9.70789 5.38521 11.1029C4.43271 11.7404 3.90771 12.6029 3.90771 13.5254C3.90771 14.4479 4.43271 15.3029 5.37771 15.9329C6.42771 16.6379 7.80771 16.9904 9.18771 16.9904C10.5677 16.9904 11.9477 16.6379 12.9977 15.9329C13.9427 15.2954 14.4677 14.4404 14.4677 13.5104C14.4602 12.5879 13.9427 11.7329 12.9977 11.1029Z"
-                                    fill="#292D32" />
-                            </svg>
-                        </span>
-                        <span>
-                            Up to 3
-                        </span>
-                    </div>
+              <div class="radio-container" style="position: absolute; top: 10px; left: 10px;">
+                <input type="radio" name="selectedCar" [value]="item.id" [checked]="selectedItemId === item.id" required>
+              </div>
 
-                    <div class="car-data">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7.06152 2.36523C6.56424 2.36523 6.08733 2.56278 5.7357 2.91441C5.38407 3.26604 5.18652 3.74295 5.18652 4.24023V4.86523H3.31152C2.81424 4.86523 2.33733 5.06278 1.9857 5.41441C1.63407 5.76604 1.43652 6.24295 1.43652 6.74023V11.7402C1.43652 12.2375 1.63407 12.7144 1.9857 13.0661C2.33733 13.4177 2.81424 13.6152 3.31152 13.6152H12.0615C12.5588 13.6152 13.0357 13.4177 13.3873 13.0661C13.739 12.7144 13.9365 12.2375 13.9365 11.7402V6.74023C13.9365 6.24295 13.739 5.76604 13.3873 5.41441C13.0357 5.06278 12.5588 4.86523 12.0615 4.86523H10.1865V4.24023C10.1865 3.74295 9.98898 3.26604 9.63735 2.91441C9.28572 2.56278 8.8088 2.36523 8.31152 2.36523H7.06152ZM8.93652 4.86523H6.43652V4.24023C6.43652 4.07447 6.50237 3.9155 6.61958 3.79829C6.73679 3.68108 6.89576 3.61523 7.06152 3.61523H8.31152C8.47728 3.61523 8.63625 3.68108 8.75347 3.79829C8.87068 3.9155 8.93652 4.07447 8.93652 4.24023V4.86523Z"
-                                    fill="#474747" />
-                            </svg>
-                        </span>
-                        <span class="mt-1">
-                            2 bags
-                        </span>
-                    </div>
-                </div>
-                <div class="car-data mt-3">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path
-                                d="M12.2347 1.71484H4.73474C3.69724 1.71484 2.85974 2.54609 2.85974 3.57109V10.3898C2.85974 11.4148 3.69724 12.2461 4.73474 12.2461H5.20974C5.70974 12.2461 6.18474 12.4398 6.53474 12.7898L7.60349 13.8461C8.09099 14.3273 8.88474 14.3273 9.37224 13.8461L10.441 12.7898C10.791 12.4398 11.2722 12.2461 11.766 12.2461H12.2347C13.2722 12.2461 14.1097 11.4148 14.1097 10.3898V3.57109C14.1097 2.54609 13.2722 1.71484 12.2347 1.71484ZM8.48474 4.05859C9.29099 4.05859 9.94099 4.70859 9.94099 5.51484C9.94099 6.32109 9.29099 6.97109 8.48474 6.97109C7.67849 6.97109 7.02849 6.31484 7.02849 5.51484C7.02849 4.70859 7.67849 4.05859 8.48474 4.05859ZM10.1597 9.87734H6.80974C6.30349 9.87734 6.00974 9.31484 6.29099 8.89609C6.71599 8.26484 7.54099 7.83984 8.48474 7.83984C9.42849 7.83984 10.2535 8.26484 10.6785 8.89609C10.9597 9.31484 10.6597 9.87734 10.1597 9.87734Z"
-                                fill="#292D32" />
-                        </svg>
-                    </span>
-                    <span class="meet">
-                        Meet and Greet
-                    </span>
-                </div>
-            </div>
-            <!--------------End Of second Tab------------->
-            <!--------------End Of third Tab------------->
-            <div class="d-flex  flex-column car" (click)="activeSection = 'section3'"  [class.active]="activeSection === 'section3'">
-                <h2 class="text-center">Minibus</h2>
-                <img src="../../../../../../assets/images/primary1.png">
-                <div class="d-flex align-items-center gap-3 gap-lg-5 mt-2 flex-column  flex-lg-row">
-                    <div class="car-data">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
-                                fill="none">
-                                <path
-                                    d="M9.18774 1.99023C7.22274 1.99023 5.62524 3.58773 5.62524 5.55273C5.62524 7.48023 7.13274 9.04023 9.09774 9.10773C9.15774 9.10023 9.21774 9.10023 9.26274 9.10773C9.27774 9.10773 9.28524 9.10773 9.30024 9.10773C9.30774 9.10773 9.30774 9.10773 9.31524 9.10773C11.2352 9.04023 12.7427 7.48023 12.7502 5.55273C12.7502 3.58773 11.1527 1.99023 9.18774 1.99023Z"
-                                    fill="#292D32" />
-                                <path
-                                    d="M12.9977 11.1029C10.9052 9.70789 7.49271 9.70789 5.38521 11.1029C4.43271 11.7404 3.90771 12.6029 3.90771 13.5254C3.90771 14.4479 4.43271 15.3029 5.37771 15.9329C6.42771 16.6379 7.80771 16.9904 9.18771 16.9904C10.5677 16.9904 11.9477 16.6379 12.9977 15.9329C13.9427 15.2954 14.4677 14.4404 14.4677 13.5104C14.4602 12.5879 13.9427 11.7329 12.9977 11.1029Z"
-                                    fill="#292D32" />
-                            </svg>
-                        </span>
-                        <span>
-                            Up to 3
-                        </span>
-                    </div>
+              <h2 class="text-center">{{ item.name }}</h2>
+              <img [src]="item.cover" alt="{{item.name}}" class="img-fluid">
 
-                    <div class="car-data">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M7.06152 2.36523C6.56424 2.36523 6.08733 2.56278 5.7357 2.91441C5.38407 3.26604 5.18652 3.74295 5.18652 4.24023V4.86523H3.31152C2.81424 4.86523 2.33733 5.06278 1.9857 5.41441C1.63407 5.76604 1.43652 6.24295 1.43652 6.74023V11.7402C1.43652 12.2375 1.63407 12.7144 1.9857 13.0661C2.33733 13.4177 2.81424 13.6152 3.31152 13.6152H12.0615C12.5588 13.6152 13.0357 13.4177 13.3873 13.0661C13.739 12.7144 13.9365 12.2375 13.9365 11.7402V6.74023C13.9365 6.24295 13.739 5.76604 13.3873 5.41441C13.0357 5.06278 12.5588 4.86523 12.0615 4.86523H10.1865V4.24023C10.1865 3.74295 9.98898 3.26604 9.63735 2.91441C9.28572 2.56278 8.8088 2.36523 8.31152 2.36523H7.06152ZM8.93652 4.86523H6.43652V4.24023C6.43652 4.07447 6.50237 3.9155 6.61958 3.79829C6.73679 3.68108 6.89576 3.61523 7.06152 3.61523H8.31152C8.47728 3.61523 8.63625 3.68108 8.75347 3.79829C8.87068 3.9155 8.93652 4.07447 8.93652 4.24023V4.86523Z"
-                                    fill="#474747" />
-                            </svg>
-                        </span>
-                        <span class="mt-1">
-                            2 bags
-                        </span>
-                    </div>
+              <div class="d-flex align-items-center gap-3 flex-column flex-lg-row">
+                <div class="car-data">
+                  <span>
+                    <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-user"></i>
+                  </span>
+                  <span>Up to {{item.people}}</span>
                 </div>
-                <div class="car-data mt-3">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path
-                                d="M12.2347 1.71484H4.73474C3.69724 1.71484 2.85974 2.54609 2.85974 3.57109V10.3898C2.85974 11.4148 3.69724 12.2461 4.73474 12.2461H5.20974C5.70974 12.2461 6.18474 12.4398 6.53474 12.7898L7.60349 13.8461C8.09099 14.3273 8.88474 14.3273 9.37224 13.8461L10.441 12.7898C10.791 12.4398 11.2722 12.2461 11.766 12.2461H12.2347C13.2722 12.2461 14.1097 11.4148 14.1097 10.3898V3.57109C14.1097 2.54609 13.2722 1.71484 12.2347 1.71484ZM8.48474 4.05859C9.29099 4.05859 9.94099 4.70859 9.94099 5.51484C9.94099 6.32109 9.29099 6.97109 8.48474 6.97109C7.67849 6.97109 7.02849 6.31484 7.02849 5.51484C7.02849 4.70859 7.67849 4.05859 8.48474 4.05859ZM10.1597 9.87734H6.80974C6.30349 9.87734 6.00974 9.31484 6.29099 8.89609C6.71599 8.26484 7.54099 7.83984 8.48474 7.83984C9.42849 7.83984 10.2535 8.26484 10.6785 8.89609C10.9597 9.31484 10.6597 9.87734 10.1597 9.87734Z"
-                                fill="#292D32" />
-                        </svg>
-                    </span>
-                    <span class="meet">
-                        Meet and Greet
-                    </span>
+
+                <div class="car-data">
+                  <span>
+                    <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-briefcase"></i>
+                  </span>
+                  <span>{{item.bags}} bags</span>
                 </div>
+              </div>
+
+              <div class="car-data mt-3">
+                <span>
+                  <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-clipboard-user"></i>
+                </span>
+                <span class="meet">Meet and Greet</span>
+              </div>
             </div>
-            <!--------------End Of third Tab------------->
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+
+    <!-- Start of Car Details Section -->
+    <div class="car1">
+      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.from }">
+        <div class="icon text-center">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-location-dot"></i>
+          </label>
         </div>
-        <!-------End Of first car selection--------------------->
+        <input type="text" name="from" [(ngModel)]="formData.from" [value]="formData.from" placeholder="From" required #fromInput="ngModel">
+       <br> <div *ngIf="fromInput.invalid && fromInput.touched" class="error-message">
+         From Location is required
+        </div>
 
-        <!--------Start of car ---------------------------->
-        <div class="car1">
-            <div class="input-content">
-                <div class="icon">A</div>
-                <input type="text" placeholder="From Marsa Alam Hotel">
-            </div>
-            <div class="input-content">
-                <div class="icon">B</div>
-                <input type="text" placeholder="To airport">
-            </div>
+      </div>
+      <div class="input-content">
+        <div class="icon text-center">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-location-dot"></i>
+          </label>
+        </div>
+        <input type="text" name="to" [(ngModel)]="formData.to" [value]="formData.to" placeholder="To" required #toInput="ngModel">
+         <br>
+       <br> <div *ngIf="toInput.invalid && toInput.touched" class="error-message">
+          To Location is required
+        </div>
+      </div>
 
-            <div class="input-content">
-                <div class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M26 6C26 5.46957 25.7893 4.96086 25.4142 4.58579C25.0391 4.21071 24.5304 4 24 4H8C7.46957 4 6.96086 4.21071 6.58579 4.58579C6.21071 4.96086 6 5.46957 6 6V26C6 26.5304 6.21071 27.0391 6.58579 27.4142C6.96086 27.7893 7.46957 28 8 28H16V26H8V6H24V12H26V6Z"
-                            fill="#0DB1FF" />
-                        <path d="M10 18H16V20H10V18ZM10 14H22V16H10V14Z" fill="#0DB1FF" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M22 10V12H10V10H22ZM25 23L30 25V23L25 20.5V18C25 17.7348 24.8946 17.4804 24.7071 17.2929C24.5196 17.1054 24.2652 17 24 17C23.7348 17 23.4804 17.1054 23.2929 17.2929C23.1054 17.4804 23 17.7348 23 18V20.5L18 23V25L23 23V26.5L21 28V29L24 28L27 29V28L25 26.5V23Z"
-                            fill="#0DB1FF" />
-                    </svg>
-                </div>
-                <input type="tel" placeholder="Flight Number">
-            </div>
+      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.flightNumber }">
+        <div class="icon">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-plane-departure"></i>
+          </label>
+        </div>
+        <input type="text" name="flightNumber" [(ngModel)]="formData.flightNumber" placeholder="Flight Number" required #flightNumberInput="ngModel">
 
-            <div class="input-content">
-                <div class="icon icon-1">
-                    <img src="../../../../../../assets/images/call.svg">
-                </div>
-                <div class="border-bottom-1 border-black">
-                    <div class="d-flex ms-2 position-relative">
-                        <div class="dropdown" tabindex="0" (click)="toggleDropdown()">
-                            <div class="dropdown-btn d-flex align-items-center gap-1">
-                                
-                                <img src="{{selectedImg}}" width="20" height="20">
-                                {{ selectedLabel }}
-                                <!-- https://feathericons.dev/?search=chevron-down&iconset=feather -->
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                    <polyline points="6 9 12 15 18 9" />
-                                </svg>
-  
-                            </div>
-                          
-                        </div>
-                        <div *ngIf="isOpen" class="dropdown-content">
-                            <div *ngFor="let country of countries" (click)="selectCountry(country)"
-                                class="dropdown-item">
-                                <img [src]="country.flagUrl" alt="{{ country.label }}" width="20" height="15">
-                                {{ country.label }}
-                            </div>
-                        </div>
-                        <input type="tel" placeholder="Phone Number" class="border-bottom-0">
-                    </div>
-                </div>
-            </div>
+       <br> <div *ngIf="flightNumberInput.invalid && flightNumberInput.touched" class="error-message">
+          Flight Number is required
+        </div>
+      </div>
 
-            <div class="input-content">
-                <div class="icon">
-                    <img src="../../../../../../assets/images/calendar1.svg">
-                </div>
-                <input type="date" placeholder="Phone Number">
-            </div>
+      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.phoneNumber }">
+        <div class="icon icon-1">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-phone"></i>
+          </label>
+        </div>
+        <div class="border-bottom-1 border-black">
+          <div class="d-flex ms-2 position-relative">
+            <ngx-intl-tel-input
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [separateDialCode]="true"
+              [selectFirstCountry]="true"
+              [maxLength]="20"
+              name="phoneNumber"
+              [phoneValidation]="false"
+              [customPlaceholder]="'Enter phone number'"
+              [preferredCountries]="['de']"
+              [(ngModel)]="formData.phoneNumber"
+              class="custom-tel-input"
+              required
+              #phoneNumberInput="ngModel"
+            ></ngx-intl-tel-input>
+          </div>
+        </div>
+       <br> <div *ngIf="phoneNumberInput.invalid && phoneNumberInput.touched" class="error-message">
+          Phone Number is required
+        </div>
+      </div>
 
-            <div class="input-content">
-                <div class="icon">
-                    <img src="../../../../../../assets/images/cl.svg">
-                </div>
-                <div id="datepickerWrapperFromOne" class="u-datepicker ">
-                    <label class="ms-2">Pickup time</label>
-                    <input [ngxTimepicker]="picker" class="form-control time-input" placeholder="3:00 PM">
-                    <ngx-material-timepicker #picker></ngx-material-timepicker>
-                </div>
-            </div>
+      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.date }">
+        <div class="icon">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-calendar-days"></i>
+          </label>
+        </div>
+        <input type="date" name="date" [(ngModel)]="formData.date" [value]="formData.date" required #dateInput="ngModel">
 
-            <div class="input-content">
+        <div *ngIf="dateInput.invalid && dateInput.touched" class="error-message">
+          Date is required
+        </div>
+      </div>
+
+      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.pickuptime }">
+        <div class="icon">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-clock"></i>
+          </label>
+        </div>
+        <div id="datepickerWrapperFromOne" class="u-datepicker">
+          <label class="ms-2">Pickup time</label>
+          <input [ngxTimepicker]="picker" class="form-control time-input" name="pickuptime" [(ngModel)]="formData.pickuptime" [value]="formData.pickuptime" required #pickuptimeInput="ngModel">
+          <ngx-material-timepicker #picker></ngx-material-timepicker>
+        </div>
+        <div *ngIf="pickuptimeInput.invalid && pickuptimeInput.touched" class="error-message">
+          Pickup time is required
+        </div>
+      </div>
+
+      <div class="input-content">
+        <div class="icon">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-user-plus"></i>
+          </label>
+        </div>
+        <div id="person-num">
+          <label class="ms-2">Passengers (Age +18)</label>
+          <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
+            <div class="persons">
+              <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="52" viewBox="0 0 56 52" fill="none">
-                        <path d="M34.8337 37.0941V34.6247H32.3632C32.125 34.6247 31.8965 34.5301 31.728 34.3618C31.5596 34.1934 31.4649 33.965 31.4649 33.7269C31.4649 33.4888 31.5596 33.2604 31.728 33.092C31.8965 32.9236 32.125 32.829 32.3632 32.829H34.8337V30.3596C34.8337 30.1213 34.9284 29.8928 35.097 29.7243C35.2655 29.5558 35.4942 29.4612 35.7325 29.4612C35.9709 29.4612 36.1996 29.5558 36.3681 29.7243C36.5367 29.8928 36.6314 30.1213 36.6314 30.3596V32.829H39.1018C39.34 32.829 39.5684 32.9236 39.7369 33.092C39.9054 33.2604 40 33.4888 40 33.7269C40 33.965 39.9054 34.1934 39.7369 34.3618C39.5684 34.5301 39.34 34.6247 39.1018 34.6247H36.6314V37.0941C36.6314 37.3323 36.5367 37.5606 36.3683 37.729C36.1998 37.8974 35.9713 37.992 35.7331 37.992C35.4949 37.992 35.2664 37.8974 35.098 37.729C34.9295 37.5606 34.8337 37.3323 34.8337 37.0941ZM19.7257 37.992C19.3198 37.9915 18.9193 37.9005 18.5531 37.7256C18.1869 37.5508 17.8643 37.2966 17.6088 36.9814C17.3533 36.6662 17.1713 36.298 17.0761 35.9037C16.9809 35.5093 16.9749 35.0987 17.0586 34.7018C17.4781 32.6956 18.4184 30.8351 19.7852 29.3073C21.152 27.7794 22.897 26.6381 24.8449 25.998C23.8172 25.2301 23.0576 24.1583 22.6735 22.9345C22.2895 21.7108 22.3006 20.3973 22.7054 19.1802C23.1102 17.9632 23.8881 16.9044 24.9287 16.1541C25.9693 15.4038 27.2198 15 28.5029 15C29.786 15 31.0365 15.4038 32.0771 16.1541C33.1177 16.9044 33.8954 17.9632 34.3002 19.1802C34.705 20.3973 34.7163 21.7108 34.3322 22.9345C33.9482 24.1583 33.1884 25.2301 32.1607 25.998C32.6218 26.1513 33.0731 26.3326 33.5122 26.5406C33.7185 26.6482 33.8751 26.8314 33.9491 27.0519C34.0231 27.2725 34.0087 27.513 33.909 27.7232C33.8092 27.9333 33.6319 28.0966 33.4142 28.1788C33.1965 28.2609 32.9554 28.2556 32.7416 28.1639C31.4901 27.5677 30.1263 27.244 28.7403 27.2143C28.6609 27.2143 28.5804 27.2143 28.4999 27.2143C28.4194 27.2143 28.34 27.2143 28.2618 27.2143C26.0332 27.2739 23.8896 28.0815 22.1761 29.5071C20.4626 30.9327 19.2791 32.8933 18.816 35.0731C18.7872 35.2101 18.7893 35.3518 18.8224 35.4879C18.8554 35.6239 18.9184 35.7508 19.0068 35.8594C19.0928 35.9675 19.2021 36.0547 19.3267 36.1145C19.4512 36.1742 19.5875 36.2049 19.7257 36.2043H30.7911C31.0293 36.2043 31.2577 36.2989 31.4262 36.4673C31.5947 36.6356 31.6893 36.864 31.6893 37.1021C31.6893 37.3403 31.5947 37.5686 31.4262 37.737C31.2577 37.9054 31.0293 38 30.7911 38L19.7257 37.992ZM28.7197 25.4128C29.8435 25.3559 30.9004 24.8622 31.6653 24.0373C32.4302 23.2123 32.8424 22.1212 32.8139 20.9968C32.7854 19.8725 32.3184 18.8037 31.5127 18.0185C30.707 17.2333 29.6263 16.7939 28.5011 16.7939C27.3758 16.7939 26.2951 17.2333 25.4894 18.0185C24.6838 18.8037 24.2169 19.8725 24.1884 20.9968C24.1599 22.1212 24.572 23.2123 25.3368 24.0373C26.1017 24.8622 27.1588 25.3559 28.2826 25.4128H28.4999H28.7197Z" fill="#0DB1FF"/>
-                        <path d="M55.5 26C55.5 40.049 43.2234 51.5 28 51.5C12.7766 51.5 0.5 40.049 0.5 26C0.5 11.951 12.7766 0.5 28 0.5C43.2234 0.5 55.5 11.951 55.5 26Z" stroke="#0DB1FF"/>
-                      </svg>
+                  <button (click)="increase('adult')" type="button"> + </button>
                 </div>
-                <div id="person-num">
-                    <label class="ms-2">Passengers</label>
-                    <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
-                        <div>
-                            Age +18
-                        </div>
-                        <div class="persons">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <button (click)="increase()" type="button"> + </button>
-                                </div>
-                                <div>
-                                    <span>
-                                        {{persons}}
-                                    </span>
-                                </div>
-                                <div>
-                                    <button (click)="decrease()" type="button"> - </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                  <span>{{adultCount}}</span>
                 </div>
+                <div>
+                  <button (click)="decrease('adult')" type="button"> - </button>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <!---------------------------->
-            <div class="input-content">
-                <div class="icon icon-1">
-                    <img src="../../../../../../assets/images/profile-2user.svg">
-                </div>
-                <div id="person-num">
-                    <label class="ms-2">Children</label>
-                    <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
-                        <div>
-                            Age +18
-                        </div>
-                        <div class="persons">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <button (click)="increase()" type="button"> + </button>
-                                </div>
-                                <div>
-                                    <span>
-                                        {{persons}}
-                                    </span>
-                                </div>
-                                <div>
-                                    <button (click)="decrease()" type="button"> - </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!------------------------------->
-            <div class="input-content">
-                <div class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="52" viewBox="0 0 56 52" fill="none">
-                        <path d="M34.8889 17.1579C34.8889 18.9263 33.4833 20.3158 31.6944 20.3158C29.9056 20.3158 28.5 18.9263 28.5 17.1579C28.5 15.3895 29.9056 14 31.6944 14C33.4833 14 34.8889 15.3895 34.8889 17.1579ZM32.3333 21.5789H31.3111C28.6278 21.5789 26.0722 20.0632 24.7944 17.6632C24.6667 17.5368 24.5389 17.4105 24.5389 17.2842L22.2389 18.2947C22.8778 20.0632 24.9222 22.3368 27.8611 23.4737L25.5611 29.7895L20.5778 28.4L17 35.3474L19.5556 35.9789L21.8556 31.4316L27.6056 32.9474C28.8833 33.2 30.1611 32.5684 30.6722 31.4316L33.6111 23.3474C33.8667 22.4632 33.2278 21.5789 32.3333 21.5789ZM37.3167 20.3158L32.9722 32.1895C32.2056 34.2105 30.2889 35.4737 28.2444 35.4737C27.8611 35.4737 27.35 35.4737 26.9667 35.3474L23.2611 34.3368L22.1111 36.6105L24.6667 37.2421L26.4556 37.7474C27.0944 37.8737 27.7333 38 28.3722 38C31.5667 38 34.3778 36.1053 35.5278 33.0737L40 20.3158H37.3167Z" fill="#0DB1FF"/>
-                        <path d="M55.5 26C55.5 40.049 43.2234 51.5 28 51.5C12.7766 51.5 0.5 40.049 0.5 26C0.5 11.951 12.7766 0.5 28 0.5C43.2234 0.5 55.5 11.951 55.5 26Z" stroke="#0DB1FF"/>
-                      </svg>
-                </div>
-                <div id="person-num">
-                    <label class="ms-2">Infant</label>
-                    <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
-                        <div>
-                            Age 0-5
-                        </div>
-                        <div class="persons">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <button (click)="increase()" type="button"> + </button>
-                                </div>
-                                <div>
-                                    <span>
-                                        {{persons}}
-                                    </span>
-                                </div>
-                                <div>
-                                    <button (click)="decrease()" type="button"> - </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!----------------------------------->
-            <div class="message">
-                <label>
-                    Special Requirements
-                </label>
-                <textarea class="form-control" rows="8"></textarea>
-            </div>
-            <!------------------------------->
+      <div class="input-content">
+        <div class="icon icon-1">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-user-group"></i>
+          </label>
         </div>
-        <!----------End Of Car 1--------------------------->
-        <div class="btns">
-            <button type="button">Cancel</button>
-            <button type="submit">Book Now</button>
-            
+        <div id="person-num">
+          <label class="ms-2">Children (Age 6-18)</label>
+          <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
+            <div class="persons">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <button (click)="increase('child')" type="button"> + </button>
+                </div>
+                <div>
+                  <span>{{childCount}}</span>
+                </div>
+                <div>
+                  <button (click)="decrease('child')" type="button"> - </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
+
+      <div class="input-content">
+        <div class="icon">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-wheelchair"></i>
+          </label>
+        </div>
+        <div id="person-num">
+          <label class="ms-2">Infants (Age 0-5)</label>
+          <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
+            <div class="persons">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <button (click)="increase('infant')" type="button"> + </button>
+                </div>
+                <div>
+                  <span>{{infantCount}}</span>
+                </div>
+                <div>
+                  <button (click)="decrease('infant')" type="button"> - </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display total persons -->
+      <div class="input-content" class="d-none">
+        <div class="icon">
+          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
+            <i class="fa-solid fa-users"></i>
+          </label>
+        </div>
+        <div id="total-persons">
+          <label class="ms-2">Total Persons</label>
+          <div class="persons-total">
+            <span>{{formData.personsTotal}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="message">
+        <label>
+          Special Requirements
+        </label>
+        <textarea class="form-control" name="specialRequirements" [(ngModel)]="formData.specialRequirements" rows="8" required></textarea>
+      </div>
+
+    </div>
+
+    <div class="btns">
+      <button type="button" (click)="previousStep()">Cancel</button>
+      <button type="submit">Book Now</button>
+    </div>
+</form> 
+
+
+
 </div>

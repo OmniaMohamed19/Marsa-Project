@@ -2,20 +2,14 @@
 <main>
   <main id="content">
     <!-- ========== HERO ========== -->
-    <div
-      class="bg-img-hero-bottom gradient-overlay-half-black-gradient text-center"
-      [style.background]="'url(' + transferDetails?.coverimage?.[0] + ')'"
-      style="
+    <div class="bg-img-hero-bottom gradient-overlay-half-black-gradient text-center"
+      [style.background]="'url(' + transferDetails?.coverimage?.[0] + ')'" style="
         background-position: center center;
         background-size: cover;
         height: 520px;
-      "
-    >
+      ">
       <!-- Info -->
-      <div
-        class="py-xl-10 d-flex flex-column justify-content-center align-content-center caption"
-        style="height: 100%"
-      >
+      <div class="py-xl-10 d-flex flex-column justify-content-center align-content-center caption" style="height: 100%">
         <h1>Let’s The World Together !</h1>
         <p>
           Are you planning a vacation to enjoy your free time? Looking for a
@@ -26,279 +20,169 @@
       <div class="container top-tap d-none d-lg-block">
         <!--------------->
         <ul class="nav">
-          <li
-            *ngFor="let tab of tabs"
-            class="nav-item"
-            [class.active]="tab.section === activeSection"
-            (click)="setActiveSection(tab.section)"
-          >
+          <li *ngFor="let tab of tabs" class="nav-item" [class.active]="tab.section === activeSection"
+            (click)="setActiveSection(tab.section)">
             {{ tab.label }}
           </li>
         </ul>
         <!---------------->
         <section *ngIf="activeSection === 'section1'">
           <div class="card border-0 tab-shadow px-1">
-            <div class="card-body" style="padding: 12px">
-              <div>
-                <div
-                  class="d-flex flex-column flex-lg-row justify-content-between align-items-center"
-                >
-                  <div
-                    class="d-flex flex-column flex-lg-row justify-content-start align-items-center gap-3"
-                  >
-                    <div class="mb-4 mb-lg-0 input-label">
-                      <label>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="19"
-                          viewBox="0 0 15 19"
-                          fill="none"
-                        >
-                          <path
-                            d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                            fill="#0057FF"
-                          />
-                        </svg>
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="From"
-                      />
-                    </div>
+            <div class="card-body" style="padding: 12px;">
+              <div class="row justify-content-center"> <!-- استخدام row لبدء صف جديد -->
 
-                    <div class="col-md-2 mb-4 mb-lg-0 input-label">
-                      <label>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="19"
-                          viewBox="0 0 15 19"
-                          fill="none"
-                        >
-                          <path
-                            d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                            fill="#0057FF"
-                          />
-                        </svg>
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="To"
-                      />
-                    </div>
-                    <div class="mb-4 mb-lg-0">
-                      <!-- Input -->
-                      <div class="mb-2">
-                        <div
-                          id="datepickerWrapperFromOne"
-                          class="u-datepicker input-group"
-                        >
-                          <div class="input-group-prepend">
-                            <span class="d-flex align-items-center">
-                              <!--<img src="assets/custom/Activity/calender.svg"
-                                                                alt="Calender Icon">-->
-                            </span>
-                          </div>
-                          <input
-                            style="
-                              color: #3b444f;
-                              font-family: Lato;
-                              font-size: 16px;
-                              font-style: normal;
-                              font-weight: 700;
-                              line-height: normal;
-                            "
-                            placeholder="return"
-                            class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                            type="date"
-                            data-rp-wrapper="#datepickerWrapper"
-                            data-rp-type="range"
-                            data-rp-date-format="M d / Y"
-                            data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
-                          />
-                        </div>
-                        <!-- End Datepicker -->
-                      </div>
-                      <!-- End Input -->
-                    </div>
-                    <div class="mb-4 mb-lg-0">
-                      <!-- Input -->
-                      <div class="input-label-1">
-                        <label>pick up time</label>
-                        <div class="input-label mb-2">
-                          <div class="input-group-prepend input-border">
-                            <span class="d-flex align-items-center ps-2">
-                              <img
-                                src="assets/custom/Activity/clockBlue.png"
-                                alt="clockBlue"
-                              />
-                            </span>
-                            <div
-                              id="datepickerWrapperFromOne"
-                              class="u-datepicker input-group"
-                            >
-                              <input
-                                [ngxTimepicker]="picker"
-                                class="form-control"
-                                style="
-                                  border: none !important;
-                                  box-shadow: none !important;
-                                "
-                              />
-                              <ngx-material-timepicker
-                                #picker
-                              ></ngx-material-timepicker>
-                            </div>
-                          </div>
-                          <!-- End Datepicker -->
-                        </div>
-                      </div>
-                      <!-- End Input -->
-                    </div>
-                    <!----------------------------------->
-                    <div class="">
-                      <div class="persons">
-                        <div
-                          class="d-flex justify-content-between align-items-center"
-                        >
-                          <div>
-                            <button (click)="increase()">+</button>
-                          </div>
-                          <div>
-                            <span>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="23"
-                                height="23"
-                                viewBox="0 0 23 23"
-                                fill="none"
-                              >
-                                <path
-                                  d="M17.8337 22.0941V19.6247H15.3632C15.125 19.6247 14.8965 19.5301 14.728 19.3618C14.5596 19.1934 14.4649 18.965 14.4649 18.7269C14.4649 18.4888 14.5596 18.2604 14.728 18.092C14.8965 17.9236 15.125 17.829 15.3632 17.829H17.8337V15.3596C17.8337 15.1213 17.9284 14.8928 18.097 14.7243C18.2655 14.5558 18.4942 14.4612 18.7325 14.4612C18.9709 14.4612 19.1996 14.5558 19.3681 14.7243C19.5367 14.8928 19.6314 15.1213 19.6314 15.3596V17.829H22.1018C22.34 17.829 22.5684 17.9236 22.7369 18.092C22.9054 18.2604 23 18.4888 23 18.7269C23 18.965 22.9054 19.1934 22.7369 19.3618C22.5684 19.5301 22.34 19.6247 22.1018 19.6247H19.6314V22.0941C19.6314 22.3323 19.5367 22.5606 19.3683 22.729C19.1998 22.8974 18.9713 22.992 18.7331 22.992C18.4949 22.992 18.2664 22.8974 18.098 22.729C17.9295 22.5606 17.8337 22.3323 17.8337 22.0941ZM2.72566 22.992C2.31982 22.9915 1.91929 22.9005 1.55307 22.7256C1.18686 22.5508 0.86427 22.2966 0.608776 21.9814C0.353281 21.6662 0.171287 21.298 0.0761161 20.9037C-0.0190545 20.5093 -0.0250638 20.0987 0.0585667 19.7018C0.47805 17.6956 1.41841 15.8351 2.78518 14.3073C4.15196 12.7794 5.89701 11.6381 7.84489 10.998C6.81721 10.2301 6.05756 9.15826 5.67354 7.93452C5.28952 6.71078 5.30062 5.39725 5.70541 4.18022C6.11019 2.96318 6.88811 1.90443 7.92871 1.15411C8.9693 0.403794 10.2198 0 11.5029 0C12.786 0 14.0365 0.403794 15.0771 1.15411C16.1177 1.90443 16.8954 2.96318 17.3002 4.18022C17.705 5.39725 17.7163 6.71078 17.3322 7.93452C16.9482 9.15826 16.1884 10.2301 15.1607 10.998C15.6218 11.1513 16.0731 11.3326 16.5122 11.5406C16.7185 11.6482 16.8751 11.8314 16.9491 12.0519C17.0231 12.2725 17.0087 12.513 16.909 12.7232C16.8092 12.9333 16.6319 13.0966 16.4142 13.1788C16.1965 13.2609 15.9554 13.2556 15.7416 13.1639C14.4901 12.5677 13.1263 12.244 11.7403 12.2143C11.6609 12.2143 11.5804 12.2143 11.4999 12.2143C11.4194 12.2143 11.34 12.2143 11.2618 12.2143C9.03324 12.2739 6.88962 13.0815 5.17612 14.5071C3.46261 15.9327 2.27909 17.8933 1.81603 20.0731C1.78721 20.2101 1.78932 20.3518 1.82235 20.4879C1.85539 20.6239 1.91839 20.7508 2.00683 20.8594C2.09276 20.9675 2.20214 21.0547 2.32665 21.1145C2.45116 21.1742 2.58755 21.2049 2.72566 21.2043H13.7911C14.0293 21.2043 14.2577 21.2989 14.4262 21.4673C14.5947 21.6356 14.6893 21.864 14.6893 22.1021C14.6893 22.3403 14.5947 22.5686 14.4262 22.737C14.2577 22.9054 14.0293 23 13.7911 23L2.72566 22.992ZM11.7197 10.4128C12.8435 10.3559 13.9004 9.86224 14.6653 9.03727C15.4302 8.2123 15.8424 7.12124 15.8139 5.99685C15.7854 4.87245 15.3184 3.80371 14.5127 3.01853C13.707 2.23334 12.6263 1.7939 11.5011 1.7939C10.3758 1.7939 9.29513 2.23334 8.48944 3.01853C7.68376 3.80371 7.21691 4.87245 7.1884 5.99685C7.15989 7.12124 7.57198 8.2123 8.33683 9.03727C9.10169 9.86224 10.1588 10.3559 11.2826 10.4128H11.4999H11.7197Z"
-                                  fill="#D9D9D9"
-                                />
-                              </svg>
-
-                              {{ persons }}
-                            </span>
-                          </div>
-                          <div>
-                            <button (click)="decrease()">-</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-------------------------------->
-                  </div>
-
-                  <div
-                    class="d-flex btn-content justify-content-center align-items-end"
-                  >
-                    <div class="">
-                      <!-- Input -->
-                      <a
-                        routerLink="../multi-step"
-                        class="text-capitalize submit"
-                      >
-                        See Price
-                      </a>
-                      <!-- End Input -->
-                    </div>
+                <!-- From Field -->
+                <div class="col-md-2 col-6 input-label"> <!-- استخدام col-md-2 ليكون 6 عناصر في الصف -->
+                  <label style="left: 25px !important;">
+                    <i style="color: #0057FF;" class="fa-solid fa-location-dot"></i>
+                  </label>
+                  <div class="custom-select-wrapper">
+                    <select class="form-control" [(ngModel)]="fromId" style="color:#2a3038">
+                      <option *ngFor="let option of transferDetails.hotel" [value]="option.id">{{ option.city }}
+                      </option>
+                    </select>
+                    <div class="custom-placeholder" *ngIf="!fromId"> &nbsp;&nbsp;&nbsp; From</div>
                   </div>
                 </div>
+
+                <!-- To Field -->
+                <div class="col-md-2 col-6 input-label">
+                  <label style="margin-right: 17px !important;">
+                    <i style="color: #0057FF;" class="fa-solid fa-location-dot"></i>
+                  </label>
+                  <select class="form-control" [(ngModel)]="toId">
+                    <option *ngFor="let option of transferDetails.airports" [value]="option.id">{{ option.name }}
+                    </option>
+                  </select>
+                  <div class="custom-placeholder" *ngIf="!toId"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To</div>
+                </div>
+
+                <!-- Date Picker -->
+                <div class="col-md-2 col-6">
+                  <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
+                    <input [(ngModel)]="date"
+                      style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
+                      placeholder="date"
+                      class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
+                      type="date" />
+                  </div>
+                </div>
+
+                <!-- Pickup Time -->
+                <div class="col-md-2 col-6">
+                  <div class="input-group-prepend input-border">
+                    <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
+                      [for]="picker"></ngx-material-timepicker-toggle>
+                    <input [(ngModel)]="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                      placeholder="Pick up time"
+                      style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
+                    <ngx-material-timepicker #picker></ngx-material-timepicker>
+                  </div>
+                </div>
+
+                <!-- Return Date -->
+                <div class="col-md-2 col-6">
+                  <div id="returndatepickerWrapperFromOne" class="u-datepicker input-group">
+                    <input [(ngModel)]="returnDate"
+                      style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
+                      placeholder="Return Date"
+                      class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
+                      type="date" />
+                  </div>
+                </div>
+
+                <!-- Return Pickup Time -->
+                <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
+                  <div class="input-group-prepend input-border">
+                    <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
+                      [for]="returnpicker"></ngx-material-timepicker-toggle>
+                    <input [(ngModel)]="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
+                      placeholder="Return time"
+                      style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
+                    <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
+                  </div>
+                </div>
+
+
+                <!-- Persons Counter -->
+
+                <div class="mt-2 d-flex align-items-center justify-content-center ">
+                  <div class="col-md-2 col-6 persons" style="margin-bottom: 0px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <button (click)="increase()">+</button>
+                      <span>
+                        <i class="fa-solid fa-user-plus"></i>
+                        {{ persons }}
+                      </span>
+                      <button (click)="decrease()">-</button>
+                    </div>
+                  </div>
+
+                  <!-- See Price Button -->
+                  <div class="col-md-2 col-6 d-flex justify-content-center align-items-center">
+                    <a class="text-capitalize submit" (click)="seePrice()">See Price</a>
+                  </div>
+                </div>
+
+
               </div>
-              <!-- End Checkbox -->
             </div>
           </div>
         </section>
+
+
+
+
         <!-- Nav Classic -->
         <!---------------->
         <section *ngIf="activeSection === 'section2'">
           <div class="card border-0 tab-shadow px-1">
             <div class="card-body" style="padding: 12px">
               <div>
-                <div
-                  class="d-flex flex-column flex-lg-row justify-content-between align-items-center"
-                >
-                  <div
-                    class="d-flex flex-column flex-lg-row justify-content-start align-items-center gap-3"
-                  >
+                <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center">
+                  <div class="d-flex flex-column flex-lg-row justify-content-start align-items-center gap-3">
                     <div class="mb-4 mb-lg-0 input-label">
                       <label>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="19"
-                          viewBox="0 0 15 19"
-                          fill="none"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                           <path
                             d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                            fill="#0057FF"
-                          />
+                            fill="#0057FF" />
                         </svg>
                       </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="From"
-                      />
+                      <input type="text" class="form-control" placeholder="From" />
                     </div>
 
                     <div class="col-md-2 mb-4 mb-lg-0 input-label">
                       <label>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="19"
-                          viewBox="0 0 15 19"
-                          fill="none"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                           <path
                             d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                            fill="#0057FF"
-                          />
+                            fill="#0057FF" />
                         </svg>
                       </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="To"
-                      />
+                      <input type="text" class="form-control" placeholder="To" />
                     </div>
                     <div class="mb-4 mb-lg-0">
                       <!-- Input -->
                       <div class="mb-2">
-                        <div
-                          id="datepickerWrapperFromOne"
-                          class="u-datepicker input-group"
-                        >
+                        <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
                           <div class="input-group-prepend">
                             <span class="d-flex align-items-center">
                               <!--<img src="assets/custom/Activity/calender.svg"
                                                                 alt="Calender Icon">-->
                             </span>
                           </div>
-                          <input
-                            style="
+                          <input style="
                               color: #3b444f;
                               font-family: Lato;
                               font-size: 16px;
                               font-style: normal;
                               font-weight: 700;
                               line-height: normal;
-                            "
-                            placeholder="return"
+                            " placeholder="return"
                             class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                            type="date"
-                            data-rp-wrapper="#datepickerWrapper"
-                            data-rp-type="range"
-                            data-rp-date-format="M d / Y"
-                            data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
-                          />
+                            type="date" data-rp-wrapper="#datepickerWrapper" data-rp-type="range"
+                            data-rp-date-format="M d / Y" data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]' />
                         </div>
                         <!-- End Datepicker -->
                       </div>
@@ -311,26 +195,14 @@
                         <div class="input-label mb-2">
                           <div class="input-group-prepend input-border">
                             <span class="d-flex align-items-center ps-2">
-                              <img
-                                src="assets/custom/Activity/clockBlue.png"
-                                alt="clockBlue"
-                              />
+                              <img src="assets/custom/Activity/clockBlue.png" alt="clockBlue" />
                             </span>
-                            <div
-                              id="datepickerWrapperFromOne"
-                              class="u-datepicker input-group"
-                            >
-                              <input
-                                [ngxTimepicker]="picker"
-                                class="form-control"
-                                style="
+                            <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
+                              <input [ngxTimepicker]="picker" class="form-control" style="
                                   border: none !important;
                                   box-shadow: none !important;
-                                "
-                              />
-                              <ngx-material-timepicker
-                                #picker
-                              ></ngx-material-timepicker>
+                                " />
+                              <ngx-material-timepicker #picker></ngx-material-timepicker>
                             </div>
                           </div>
                           <!-- End Datepicker -->
@@ -341,25 +213,17 @@
                     <!----------------------------------->
                     <div class="">
                       <div class="persons">
-                        <div
-                          class="d-flex justify-content-between align-items-center"
-                        >
+                        <div class="d-flex justify-content-between align-items-center">
                           <div>
                             <button (click)="increase()">+</button>
                           </div>
                           <div>
                             <span>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="23"
-                                height="23"
-                                viewBox="0 0 23 23"
-                                fill="none"
-                              >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
+                                fill="none">
                                 <path
                                   d="M17.8337 22.0941V19.6247H15.3632C15.125 19.6247 14.8965 19.5301 14.728 19.3618C14.5596 19.1934 14.4649 18.965 14.4649 18.7269C14.4649 18.4888 14.5596 18.2604 14.728 18.092C14.8965 17.9236 15.125 17.829 15.3632 17.829H17.8337V15.3596C17.8337 15.1213 17.9284 14.8928 18.097 14.7243C18.2655 14.5558 18.4942 14.4612 18.7325 14.4612C18.9709 14.4612 19.1996 14.5558 19.3681 14.7243C19.5367 14.8928 19.6314 15.1213 19.6314 15.3596V17.829H22.1018C22.34 17.829 22.5684 17.9236 22.7369 18.092C22.9054 18.2604 23 18.4888 23 18.7269C23 18.965 22.9054 19.1934 22.7369 19.3618C22.5684 19.5301 22.34 19.6247 22.1018 19.6247H19.6314V22.0941C19.6314 22.3323 19.5367 22.5606 19.3683 22.729C19.1998 22.8974 18.9713 22.992 18.7331 22.992C18.4949 22.992 18.2664 22.8974 18.098 22.729C17.9295 22.5606 17.8337 22.3323 17.8337 22.0941ZM2.72566 22.992C2.31982 22.9915 1.91929 22.9005 1.55307 22.7256C1.18686 22.5508 0.86427 22.2966 0.608776 21.9814C0.353281 21.6662 0.171287 21.298 0.0761161 20.9037C-0.0190545 20.5093 -0.0250638 20.0987 0.0585667 19.7018C0.47805 17.6956 1.41841 15.8351 2.78518 14.3073C4.15196 12.7794 5.89701 11.6381 7.84489 10.998C6.81721 10.2301 6.05756 9.15826 5.67354 7.93452C5.28952 6.71078 5.30062 5.39725 5.70541 4.18022C6.11019 2.96318 6.88811 1.90443 7.92871 1.15411C8.9693 0.403794 10.2198 0 11.5029 0C12.786 0 14.0365 0.403794 15.0771 1.15411C16.1177 1.90443 16.8954 2.96318 17.3002 4.18022C17.705 5.39725 17.7163 6.71078 17.3322 7.93452C16.9482 9.15826 16.1884 10.2301 15.1607 10.998C15.6218 11.1513 16.0731 11.3326 16.5122 11.5406C16.7185 11.6482 16.8751 11.8314 16.9491 12.0519C17.0231 12.2725 17.0087 12.513 16.909 12.7232C16.8092 12.9333 16.6319 13.0966 16.4142 13.1788C16.1965 13.2609 15.9554 13.2556 15.7416 13.1639C14.4901 12.5677 13.1263 12.244 11.7403 12.2143C11.6609 12.2143 11.5804 12.2143 11.4999 12.2143C11.4194 12.2143 11.34 12.2143 11.2618 12.2143C9.03324 12.2739 6.88962 13.0815 5.17612 14.5071C3.46261 15.9327 2.27909 17.8933 1.81603 20.0731C1.78721 20.2101 1.78932 20.3518 1.82235 20.4879C1.85539 20.6239 1.91839 20.7508 2.00683 20.8594C2.09276 20.9675 2.20214 21.0547 2.32665 21.1145C2.45116 21.1742 2.58755 21.2049 2.72566 21.2043H13.7911C14.0293 21.2043 14.2577 21.2989 14.4262 21.4673C14.5947 21.6356 14.6893 21.864 14.6893 22.1021C14.6893 22.3403 14.5947 22.5686 14.4262 22.737C14.2577 22.9054 14.0293 23 13.7911 23L2.72566 22.992ZM11.7197 10.4128C12.8435 10.3559 13.9004 9.86224 14.6653 9.03727C15.4302 8.2123 15.8424 7.12124 15.8139 5.99685C15.7854 4.87245 15.3184 3.80371 14.5127 3.01853C13.707 2.23334 12.6263 1.7939 11.5011 1.7939C10.3758 1.7939 9.29513 2.23334 8.48944 3.01853C7.68376 3.80371 7.21691 4.87245 7.1884 5.99685C7.15989 7.12124 7.57198 8.2123 8.33683 9.03727C9.10169 9.86224 10.1588 10.3559 11.2826 10.4128H11.4999H11.7197Z"
-                                  fill="#D9D9D9"
-                                />
+                                  fill="#D9D9D9" />
                               </svg>
 
                               {{ persons }}
@@ -374,15 +238,10 @@
                     <!-------------------------------->
                   </div>
 
-                  <div
-                    class="d-flex btn-content justify-content-center align-items-end"
-                  >
+                  <div class="d-flex btn-content justify-content-center align-items-end">
                     <div class="">
                       <!-- Input -->
-                      <a
-                        routerLink="../multi-step"
-                        class="text-capitalize submit"
-                      >
+                      <a routerLink="../multi-step" class="text-capitalize submit">
                         See Price
                       </a>
                       <!-- End Input -->
@@ -403,12 +262,8 @@
     <div class="container d-block d-lg-none">
       <!--------------->
       <ul class="small-nav">
-        <li
-          *ngFor="let tab of tabs"
-          class="nav-item"
-          [class.active]="tab.section === activeSection"
-          (click)="setActiveSection(tab.section)"
-        >
+        <li *ngFor="let tab of tabs" class="nav-item" [class.active]="tab.section === activeSection"
+          (click)="setActiveSection(tab.section)">
           {{ tab.label }}
         </li>
       </ul>
@@ -421,79 +276,46 @@
                 <div class="d-flex flex-column gap-3">
                   <div class="mb-4 mb-lg-0 input-label">
                     <label>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="19"
-                        viewBox="0 0 15 19"
-                        fill="none"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                         <path
                           d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                          fill="#0057FF"
-                        />
+                          fill="#0057FF" />
                       </svg>
                     </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="From"
-                      style="padding-left: 50px"
-                    />
+                    <input type="text" class="form-control" placeholder="From" style="padding-left: 50px" />
                   </div>
 
                   <div class="mb-4 mb-lg-0 input-label">
                     <label>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="19"
-                        viewBox="0 0 15 19"
-                        fill="none"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                         <path
                           d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                          fill="#0057FF"
-                        />
+                          fill="#0057FF" />
                       </svg>
                     </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="To"
-                      style="padding-left: 50px"
-                    />
+                    <input type="text" class="form-control" placeholder="To" style="padding-left: 50px" />
                   </div>
                   <div class="mb-4 mb-lg-0">
                     <!-- Input -->
                     <div class="mb-2">
-                      <div
-                        id="datepickerWrapperFromOne d-flex"
-                        class="u-datepicker input-group"
-                      >
+                      <div id="datepickerWrapperFromOne d-flex" class="u-datepicker input-group">
                         <div class="input-group-prepend">
                           <span class="d-flex align-items-center">
                             <!--<img src="assets/custom/Activity/calender.svg"
                                                             alt="Calender Icon">-->
                           </span>
                         </div>
-                        <input
-                          style="
+                        <input style="
                             color: #3b444f;
                             font-family: Lato;
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 700;
                             line-height: normal;
-                          "
-                          placeholder="return"
+                          " placeholder="return"
                           class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                          type="date"
-                          data-rp-wrapper="#datepickerWrapper"
-                          data-rp-type="range"
-                          data-rp-date-format="M d / Y"
-                          data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
-                        />
+                          type="date" data-rp-wrapper="#datepickerWrapper" data-rp-type="range"
+                          data-rp-date-format="M d / Y" data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]' />
                       </div>
                       <!-- End Datepicker -->
                     </div>
@@ -506,26 +328,14 @@
                       <div class="input-label mb-2">
                         <div class="input-group-prepend input-border">
                           <span class="d-flex align-items-center ps-2">
-                            <img
-                              src="assets/custom/Activity/clockBlue.png"
-                              alt="clockBlue"
-                            />
+                            <img src="assets/custom/Activity/clockBlue.png" alt="clockBlue" />
                           </span>
-                          <div
-                            id="datepickerWrapperFromOne"
-                            class="u-datepicker input-group"
-                          >
-                            <input
-                              [ngxTimepicker]="picker"
-                              class="form-control"
-                              style="
+                          <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
+                            <input [ngxTimepicker]="picker" class="form-control" style="
                                 border: none !important;
                                 box-shadow: none !important;
-                              "
-                            />
-                            <ngx-material-timepicker
-                              #picker
-                            ></ngx-material-timepicker>
+                              " />
+                            <ngx-material-timepicker #picker></ngx-material-timepicker>
                           </div>
                         </div>
                         <!-- End Datepicker -->
@@ -536,25 +346,17 @@
                   <!----------------------------------->
                   <div class="">
                     <div class="persons">
-                      <div
-                        class="d-flex justify-content-between align-items-center"
-                      >
+                      <div class="d-flex justify-content-between align-items-center">
                         <div>
                           <button (click)="increase()">+</button>
                         </div>
                         <div>
                           <span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="23"
-                              height="23"
-                              viewBox="0 0 23 23"
-                              fill="none"
-                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
+                              fill="none">
                               <path
                                 d="M17.8337 22.0941V19.6247H15.3632C15.125 19.6247 14.8965 19.5301 14.728 19.3618C14.5596 19.1934 14.4649 18.965 14.4649 18.7269C14.4649 18.4888 14.5596 18.2604 14.728 18.092C14.8965 17.9236 15.125 17.829 15.3632 17.829H17.8337V15.3596C17.8337 15.1213 17.9284 14.8928 18.097 14.7243C18.2655 14.5558 18.4942 14.4612 18.7325 14.4612C18.9709 14.4612 19.1996 14.5558 19.3681 14.7243C19.5367 14.8928 19.6314 15.1213 19.6314 15.3596V17.829H22.1018C22.34 17.829 22.5684 17.9236 22.7369 18.092C22.9054 18.2604 23 18.4888 23 18.7269C23 18.965 22.9054 19.1934 22.7369 19.3618C22.5684 19.5301 22.34 19.6247 22.1018 19.6247H19.6314V22.0941C19.6314 22.3323 19.5367 22.5606 19.3683 22.729C19.1998 22.8974 18.9713 22.992 18.7331 22.992C18.4949 22.992 18.2664 22.8974 18.098 22.729C17.9295 22.5606 17.8337 22.3323 17.8337 22.0941ZM2.72566 22.992C2.31982 22.9915 1.91929 22.9005 1.55307 22.7256C1.18686 22.5508 0.86427 22.2966 0.608776 21.9814C0.353281 21.6662 0.171287 21.298 0.0761161 20.9037C-0.0190545 20.5093 -0.0250638 20.0987 0.0585667 19.7018C0.47805 17.6956 1.41841 15.8351 2.78518 14.3073C4.15196 12.7794 5.89701 11.6381 7.84489 10.998C6.81721 10.2301 6.05756 9.15826 5.67354 7.93452C5.28952 6.71078 5.30062 5.39725 5.70541 4.18022C6.11019 2.96318 6.88811 1.90443 7.92871 1.15411C8.9693 0.403794 10.2198 0 11.5029 0C12.786 0 14.0365 0.403794 15.0771 1.15411C16.1177 1.90443 16.8954 2.96318 17.3002 4.18022C17.705 5.39725 17.7163 6.71078 17.3322 7.93452C16.9482 9.15826 16.1884 10.2301 15.1607 10.998C15.6218 11.1513 16.0731 11.3326 16.5122 11.5406C16.7185 11.6482 16.8751 11.8314 16.9491 12.0519C17.0231 12.2725 17.0087 12.513 16.909 12.7232C16.8092 12.9333 16.6319 13.0966 16.4142 13.1788C16.1965 13.2609 15.9554 13.2556 15.7416 13.1639C14.4901 12.5677 13.1263 12.244 11.7403 12.2143C11.6609 12.2143 11.5804 12.2143 11.4999 12.2143C11.4194 12.2143 11.34 12.2143 11.2618 12.2143C9.03324 12.2739 6.88962 13.0815 5.17612 14.5071C3.46261 15.9327 2.27909 17.8933 1.81603 20.0731C1.78721 20.2101 1.78932 20.3518 1.82235 20.4879C1.85539 20.6239 1.91839 20.7508 2.00683 20.8594C2.09276 20.9675 2.20214 21.0547 2.32665 21.1145C2.45116 21.1742 2.58755 21.2049 2.72566 21.2043H13.7911C14.0293 21.2043 14.2577 21.2989 14.4262 21.4673C14.5947 21.6356 14.6893 21.864 14.6893 22.1021C14.6893 22.3403 14.5947 22.5686 14.4262 22.737C14.2577 22.9054 14.0293 23 13.7911 23L2.72566 22.992ZM11.7197 10.4128C12.8435 10.3559 13.9004 9.86224 14.6653 9.03727C15.4302 8.2123 15.8424 7.12124 15.8139 5.99685C15.7854 4.87245 15.3184 3.80371 14.5127 3.01853C13.707 2.23334 12.6263 1.7939 11.5011 1.7939C10.3758 1.7939 9.29513 2.23334 8.48944 3.01853C7.68376 3.80371 7.21691 4.87245 7.1884 5.99685C7.15989 7.12124 7.57198 8.2123 8.33683 9.03727C9.10169 9.86224 10.1588 10.3559 11.2826 10.4128H11.4999H11.7197Z"
-                                fill="#D9D9D9"
-                              />
+                                fill="#D9D9D9" />
                             </svg>
 
                             {{ persons }}
@@ -569,15 +371,10 @@
                   <!-------------------------------->
                 </div>
 
-                <div
-                  class="d-flex btn-content justify-content-center align-items-end"
-                >
+                <div class="d-flex btn-content justify-content-center align-items-end">
                   <div class="">
                     <!-- Input -->
-                    <a
-                      routerLink="../multi-step"
-                      class="text-capitalize submit"
-                    >
+                    <a routerLink="../multi-step" class="text-capitalize submit">
                       See Price
                     </a>
                     <!-- End Input -->
@@ -599,79 +396,46 @@
                 <div class="d-flex flex-column gap-3">
                   <div class="mb-4 mb-lg-0 input-label">
                     <label>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="19"
-                        viewBox="0 0 15 19"
-                        fill="none"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                         <path
                           d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                          fill="#0057FF"
-                        />
+                          fill="#0057FF" />
                       </svg>
                     </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="From"
-                      style="padding-left: 50px"
-                    />
+                    <input type="text" class="form-control" placeholder="From" style="padding-left: 50px" />
                   </div>
 
                   <div class="mb-4 mb-lg-0 input-label">
                     <label>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="19"
-                        viewBox="0 0 15 19"
-                        fill="none"
-                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                         <path
                           d="M6.59224 18.197C6.36474 17.9756 0.931878 12.5314 0.159254 8.90711C0.159254 8.85987 0.14438 8.82753 0.14438 8.79603C0.0533722 8.31604 0.00766624 7.82857 0.00787523 7.34003C-0.0370664 6.39284 0.110692 5.44638 0.442197 4.55797C0.773703 3.66955 1.28206 2.85764 1.93649 2.17142C2.59092 1.4852 3.37781 0.938912 4.24952 0.565674C5.12123 0.192435 6.05962 0 7.00787 0C7.95612 0 8.89452 0.192435 9.76622 0.565674C10.6379 0.938912 11.4248 1.4852 12.0793 2.17142C12.7337 2.85764 13.242 3.66955 13.5735 4.55797C13.9051 5.44638 14.0528 6.39284 14.0079 7.34003C14.0106 7.86097 13.9598 8.38077 13.8565 8.89136C13.8565 8.92286 13.8416 8.95439 13.8416 8.98589C13.069 12.5314 7.66588 17.9599 7.43926 18.197C7.32482 18.306 7.17379 18.3685 7.01575 18.372C6.93685 18.374 6.8584 18.3595 6.78546 18.3293C6.71252 18.2992 6.6467 18.2541 6.59224 18.197ZM1.23287 7.32513C1.2359 7.73922 1.27661 8.15215 1.3545 8.55886C1.36656 8.58357 1.3717 8.61109 1.36937 8.63848C1.94425 11.3291 5.72862 15.4757 7.01487 16.8206C8.30112 15.4757 12.0697 11.3291 12.6446 8.7015V8.65424C12.7368 8.21724 12.7825 7.77174 12.7811 7.32513C12.8143 6.54603 12.6896 5.76824 12.4143 5.03862C12.1391 4.309 11.7191 3.64262 11.1796 3.07959C10.64 2.51655 9.99215 2.06852 9.27492 1.76244C8.55769 1.45636 7.78592 1.29856 7.00611 1.29856C6.2263 1.29856 5.45456 1.45636 4.73733 1.76244C4.0201 2.06852 3.37222 2.51655 2.83269 3.07959C2.29316 3.64262 1.87314 4.309 1.5979 5.03862C1.32266 5.76824 1.19791 6.54603 1.23113 7.32513H1.23287ZM4.66899 6.58049C4.68888 6.12074 4.84342 5.67699 5.11338 5.30431C5.38334 4.93163 5.75683 4.64648 6.18748 4.48427C6.61813 4.32206 7.08693 4.2899 7.53568 4.39187C7.98443 4.49384 8.39333 4.7254 8.71159 5.05779C9.02985 5.39018 9.24344 5.80875 9.32584 6.2615C9.40824 6.71425 9.35582 7.18124 9.17508 7.60444C8.99433 8.02764 8.69323 8.38842 8.30918 8.64196C7.92514 8.89549 7.47505 9.03057 7.01487 9.03048C6.37949 9.0151 5.77608 8.74872 5.33662 8.28958C4.89716 7.83044 4.65743 7.21593 4.66988 6.58049H4.66899ZM5.89399 6.58049C5.90376 6.79983 5.97774 7.01149 6.10673 7.18916C6.23572 7.36683 6.41403 7.50272 6.61956 7.57993C6.82509 7.65714 7.04877 7.67224 7.26283 7.62345C7.47689 7.57467 7.67193 7.46413 7.8237 7.30548C7.97547 7.14683 8.07731 6.94706 8.11657 6.73104C8.15584 6.51503 8.1308 6.29224 8.04456 6.09034C7.95832 5.88843 7.81467 5.71631 7.63146 5.59532C7.44826 5.47433 7.23354 5.40978 7.01399 5.40973C6.86368 5.41314 6.71551 5.44614 6.57796 5.50683C6.4404 5.56751 6.31616 5.65472 6.21231 5.76344C6.10847 5.87216 6.02705 6.00029 5.97273 6.14048C5.91842 6.28068 5.89226 6.43019 5.89575 6.58049H5.89399Z"
-                          fill="#0057FF"
-                        />
+                          fill="#0057FF" />
                       </svg>
                     </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="To"
-                      style="padding-left: 50px"
-                    />
+                    <input type="text" class="form-control" placeholder="To" style="padding-left: 50px" />
                   </div>
                   <div class="mb-4 mb-lg-0">
                     <!-- Input -->
                     <div class="mb-2">
-                      <div
-                        id="datepickerWrapperFromOne d-flex"
-                        class="u-datepicker input-group"
-                      >
+                      <div id="datepickerWrapperFromOne d-flex" class="u-datepicker input-group">
                         <div class="input-group-prepend">
                           <span class="d-flex align-items-center">
                             <!--<img src="assets/custom/Activity/calender.svg"
                                                             alt="Calender Icon">-->
                           </span>
                         </div>
-                        <input
-                          style="
+                        <input style="
                             color: #3b444f;
                             font-family: Lato;
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 700;
                             line-height: normal;
-                          "
-                          placeholder="return"
+                          " placeholder="return"
                           class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                          type="date"
-                          data-rp-wrapper="#datepickerWrapper"
-                          data-rp-type="range"
-                          data-rp-date-format="M d / Y"
-                          data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
-                        />
+                          type="date" data-rp-wrapper="#datepickerWrapper" data-rp-type="range"
+                          data-rp-date-format="M d / Y" data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]' />
                       </div>
                       <!-- End Datepicker -->
                     </div>
@@ -684,26 +448,14 @@
                       <div class="input-label mb-2">
                         <div class="input-group-prepend input-border">
                           <span class="d-flex align-items-center ps-2">
-                            <img
-                              src="assets/custom/Activity/clockBlue.png"
-                              alt="clockBlue"
-                            />
+                            <img src="assets/custom/Activity/clockBlue.png" alt="clockBlue" />
                           </span>
-                          <div
-                            id="datepickerWrapperFromOne"
-                            class="u-datepicker input-group"
-                          >
-                            <input
-                              [ngxTimepicker]="picker"
-                              class="form-control"
-                              style="
+                          <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
+                            <input [ngxTimepicker]="picker" class="form-control" style="
                                 border: none !important;
                                 box-shadow: none !important;
-                              "
-                            />
-                            <ngx-material-timepicker
-                              #picker
-                            ></ngx-material-timepicker>
+                              " />
+                            <ngx-material-timepicker #picker></ngx-material-timepicker>
                           </div>
                         </div>
                         <!-- End Datepicker -->
@@ -714,25 +466,17 @@
                   <!----------------------------------->
                   <div class="">
                     <div class="persons">
-                      <div
-                        class="d-flex justify-content-between align-items-center"
-                      >
+                      <div class="d-flex justify-content-between align-items-center">
                         <div>
                           <button (click)="increase()">+</button>
                         </div>
                         <div>
                           <span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="23"
-                              height="23"
-                              viewBox="0 0 23 23"
-                              fill="none"
-                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"
+                              fill="none">
                               <path
                                 d="M17.8337 22.0941V19.6247H15.3632C15.125 19.6247 14.8965 19.5301 14.728 19.3618C14.5596 19.1934 14.4649 18.965 14.4649 18.7269C14.4649 18.4888 14.5596 18.2604 14.728 18.092C14.8965 17.9236 15.125 17.829 15.3632 17.829H17.8337V15.3596C17.8337 15.1213 17.9284 14.8928 18.097 14.7243C18.2655 14.5558 18.4942 14.4612 18.7325 14.4612C18.9709 14.4612 19.1996 14.5558 19.3681 14.7243C19.5367 14.8928 19.6314 15.1213 19.6314 15.3596V17.829H22.1018C22.34 17.829 22.5684 17.9236 22.7369 18.092C22.9054 18.2604 23 18.4888 23 18.7269C23 18.965 22.9054 19.1934 22.7369 19.3618C22.5684 19.5301 22.34 19.6247 22.1018 19.6247H19.6314V22.0941C19.6314 22.3323 19.5367 22.5606 19.3683 22.729C19.1998 22.8974 18.9713 22.992 18.7331 22.992C18.4949 22.992 18.2664 22.8974 18.098 22.729C17.9295 22.5606 17.8337 22.3323 17.8337 22.0941ZM2.72566 22.992C2.31982 22.9915 1.91929 22.9005 1.55307 22.7256C1.18686 22.5508 0.86427 22.2966 0.608776 21.9814C0.353281 21.6662 0.171287 21.298 0.0761161 20.9037C-0.0190545 20.5093 -0.0250638 20.0987 0.0585667 19.7018C0.47805 17.6956 1.41841 15.8351 2.78518 14.3073C4.15196 12.7794 5.89701 11.6381 7.84489 10.998C6.81721 10.2301 6.05756 9.15826 5.67354 7.93452C5.28952 6.71078 5.30062 5.39725 5.70541 4.18022C6.11019 2.96318 6.88811 1.90443 7.92871 1.15411C8.9693 0.403794 10.2198 0 11.5029 0C12.786 0 14.0365 0.403794 15.0771 1.15411C16.1177 1.90443 16.8954 2.96318 17.3002 4.18022C17.705 5.39725 17.7163 6.71078 17.3322 7.93452C16.9482 9.15826 16.1884 10.2301 15.1607 10.998C15.6218 11.1513 16.0731 11.3326 16.5122 11.5406C16.7185 11.6482 16.8751 11.8314 16.9491 12.0519C17.0231 12.2725 17.0087 12.513 16.909 12.7232C16.8092 12.9333 16.6319 13.0966 16.4142 13.1788C16.1965 13.2609 15.9554 13.2556 15.7416 13.1639C14.4901 12.5677 13.1263 12.244 11.7403 12.2143C11.6609 12.2143 11.5804 12.2143 11.4999 12.2143C11.4194 12.2143 11.34 12.2143 11.2618 12.2143C9.03324 12.2739 6.88962 13.0815 5.17612 14.5071C3.46261 15.9327 2.27909 17.8933 1.81603 20.0731C1.78721 20.2101 1.78932 20.3518 1.82235 20.4879C1.85539 20.6239 1.91839 20.7508 2.00683 20.8594C2.09276 20.9675 2.20214 21.0547 2.32665 21.1145C2.45116 21.1742 2.58755 21.2049 2.72566 21.2043H13.7911C14.0293 21.2043 14.2577 21.2989 14.4262 21.4673C14.5947 21.6356 14.6893 21.864 14.6893 22.1021C14.6893 22.3403 14.5947 22.5686 14.4262 22.737C14.2577 22.9054 14.0293 23 13.7911 23L2.72566 22.992ZM11.7197 10.4128C12.8435 10.3559 13.9004 9.86224 14.6653 9.03727C15.4302 8.2123 15.8424 7.12124 15.8139 5.99685C15.7854 4.87245 15.3184 3.80371 14.5127 3.01853C13.707 2.23334 12.6263 1.7939 11.5011 1.7939C10.3758 1.7939 9.29513 2.23334 8.48944 3.01853C7.68376 3.80371 7.21691 4.87245 7.1884 5.99685C7.15989 7.12124 7.57198 8.2123 8.33683 9.03727C9.10169 9.86224 10.1588 10.3559 11.2826 10.4128H11.4999H11.7197Z"
-                                fill="#D9D9D9"
-                              />
+                                fill="#D9D9D9" />
                             </svg>
 
                             {{ persons }}
@@ -747,15 +491,10 @@
                   <!-------------------------------->
                 </div>
 
-                <div
-                  class="d-flex btn-content justify-content-center align-items-end"
-                >
+                <div class="d-flex btn-content justify-content-center align-items-end">
                   <div class="">
                     <!-- Input -->
-                    <a
-                      routerLink="../multi-step"
-                      class="text-capitalize submit"
-                    >
+                    <a routerLink="../multi-step" class="text-capitalize submit">
                       See Price
                     </a>
                     <!-- End Input -->
@@ -774,10 +513,7 @@
   <section style="margin-top: 80px">
     <div class="container activity">
       <div class="row">
-        <div
-          *ngFor="let feature of transferDetails?.features"
-          class="col-md-3 text-center"
-        >
+        <div *ngFor="let feature of transferDetails?.features" class="col-md-3 text-center">
           <div class="image">
             <!-- <img
               src="../../../../../../assets/images/medical-icon_i-waiting-area.svg"
@@ -796,10 +532,8 @@
         <h3 class="pb-2">Transfer service includes</h3>
         <div class="col-lg-6">
           <div class="position-relative layer-img">
-            <img
-              src="../../../../../../assets/custom/Activity/meet-and-assist-marsa-alam and-hurghada-airport 4.png"
-              alt=""
-            />
+            <img src="../../../../../../assets/custom/Activity/meet-and-assist-marsa-alam and-hurghada-airport 4.png"
+              alt="" />
             <div class="layer">
               <p>
                 Explore one of the world’s best art museums at your own pace
@@ -817,12 +551,7 @@
                 class="pe-3"
                 alt="img"
               /> -->
-              <img
-                [src]="inc?.icon"
-                style="width: 25px; height: 25px"
-                class="me-3"
-                alt="img"
-              />
+              <img [src]="inc?.icon" style="width: 25px; height: 25px" class="me-3" alt="img" />
               {{ inc.desc }}
             </li>
           </ul>
@@ -830,10 +559,7 @@
       </div>
     </div>
   </section>
-  <section
-    class="reviews"
-    [style.background]="'url(' + transferDetails?.pepolesayimage?.[0] + ')'"
-  >
+  <section class="reviews" [style.background]="'url(' + transferDetails?.pepolesayimage?.[0] + ')'">
     <div class="content container">
       <div class="align-self-start">
         <h5>What People Say</h5>
@@ -877,49 +603,34 @@
         <h5 class="font-size-21 font-weight-bold text-dark mb-8">
           Showing 16 verified guest comments
         </h5>
-        <div
-          class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-        >
+        <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4">
           <div class="mr-md-5">
             <a class="d-block" href="#">
-              <img
-                class="img-fluid mb-3 mb-md-0 rounded-circle"
-                src="../../../../../../assets/images/avatar2.jpg"
-                alt="Image Description"
-              />
+              <img class="img-fluid mb-3 mb-md-0 rounded-circle" src="../../../../../../assets/images/avatar2.jpg"
+                alt="Image Description" />
             </a>
           </div>
           <div class="media-body text-center text-md-left">
             <div class="mb-4">
               <h6 class="font-weight-bold text-gray-3">
-                <a
-                  href="#"
-                  style="
+                <a href="#" style="
                     font-family: Lato;
                     font-size: 16px;
                     font-weight: 700;
                     line-height: 19px;
                     letter-spacing: 0em;
                     text-align: left;
-                  "
-                  >Helena</a
-                >
+                  ">Helena</a>
               </h6>
               <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
                 April 25, 2019 at 10:46 am
               </div>
-              <div
-                class="d-flex align-items-center flex-column flex-md-row mb-2"
-              >
-                <button
-                  type="button"
-                  class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0"
-                >
+              <div class="d-flex align-items-center flex-column flex-md-row mb-2">
+                <button type="button"
+                  class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0">
                   4.6 /5
                 </button>
-                <span class="font-weight-bold font-italic text-gray-3"
-                  >The worst hotel ever ”</span
-                >
+                <span class="font-weight-bold font-italic text-gray-3">The worst hotel ever ”</span>
               </div>
               <p class="text-lh-1dot6 mb-0 pr-lg-5">
                 Morbi velit eros, sagittis in facilisis non, rhoncus et erat.
@@ -930,12 +641,9 @@
             <div class="review">
               <div
                 class="row no-gutters justify-content-between align-items-center border border-color-8 border-width-2 rounded-xs p-3 px-md-3 py-md-2 pr-xl-5"
-                style="height: 53px"
-              >
+                style="height: 53px">
                 <div class="col">
-                  <div
-                    class="font-weight-normal font-size-14 text-gray-1 mx-lg-1 my-lg-1 mb-3 mb-md-0"
-                  >
+                  <div class="font-weight-normal font-size-14 text-gray-1 mx-lg-1 my-lg-1 mb-3 mb-md-0">
                     Was This Review...?
                   </div>
                 </div>
@@ -946,12 +654,8 @@
                       <span class="font-size-14 font-weight-normal">Like</span>
                     </a>
                     <a class="text-gray-7" href="#">
-                      <i
-                        class="fa-regular fa-thumbs-down font-size-15 mr-1"
-                      ></i>
-                      <span class="font-size-14 font-weight-normal"
-                        >Dislike</span
-                      >
+                      <i class="fa-regular fa-thumbs-down font-size-15 mr-1"></i>
+                      <span class="font-size-14 font-weight-normal">Dislike</span>
                     </a>
                     <a class="text-red-light-2" href="#">
                       <i class="fa-regular fa-heart font-size-15 mr-1"></i>
@@ -972,30 +676,16 @@
             <div class="col-sm-12 mb-5">
               <div class="js-form-message">
                 <div class="input-group">
-                  <textarea
-                    class="form-control"
-                    rows="6"
-                    cols="77"
-                    name="text"
-                    placeholder="Comment"
-                    aria-label="Hi there, I would like to ..."
-                    required=""
-                    data-msg="Please enter a reason."
-                    data-error-class="u-has-error"
-                    data-success-class="u-has-success"
-                    style="height: 181.18px"
-                  ></textarea>
+                  <textarea class="form-control" rows="6" cols="77" name="text" placeholder="Comment"
+                    aria-label="Hi there, I would like to ..." required="" data-msg="Please enter a reason."
+                    data-error-class="u-has-error" data-success-class="u-has-success"
+                    style="height: 181.18px"></textarea>
                 </div>
               </div>
             </div>
             <!-- End Input -->
-            <div
-              class="col d-flex justify-content-center justify-content-lg-start"
-            >
-              <button
-                type="submit"
-                class="btn rounded-xs text-white p-2 height-51 width-190"
-              >
+            <div class="col d-flex justify-content-center justify-content-lg-start">
+              <button type="submit" class="btn rounded-xs text-white p-2 height-51 width-190">
                 Submit Review
               </button>
             </div>

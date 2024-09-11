@@ -1,3 +1,28 @@
+
+
+::ng-deep{
+  #phone {
+  border: none !important;
+}
+
+.dropdown-menu .country-dropdown .show .ng-star-inserted
+{
+  max-height: 130px !important;
+  overflow-y: auto !important;
+}
+
+}
+.has-error input,
+.has-error textarea {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 15px;
+}
+
+
 h2.title {
     color: #3B444F;
     font-family: Lato;
@@ -9,6 +34,11 @@ h2.title {
     margin-top: 40px;
 }
 
+
+.radio-container input[type="radio"] {
+  transform: scale(1.2);  /* تكبير حجم الـ radio button */
+  cursor: pointer;
+}
 .car {
     border-radius: 14px;
     border: 1px solid #DADADA;

@@ -1,6 +1,22 @@
 #content {
   margin-top: 100px;
 }
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none;
+}
+
+.form-control {
+  padding-left: 26px; /* Adjust padding to make space for the placeholder */
+}
 
 .caption h1 {
   font-family: Poppins;
@@ -256,7 +272,7 @@ input[type="date"] {
   label {
     position: absolute;
     left: 26px;
-    top: 14px;
+    top: 18px;
     z-index: 2;
     color: #d9d9d9;
   }

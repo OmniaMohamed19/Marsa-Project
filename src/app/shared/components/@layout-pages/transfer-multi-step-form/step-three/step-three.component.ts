@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { HttpService } from 'src/app/core/services/http/http.service';
+import { environment } from 'src/environments/environment.prod';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-step-three',
@@ -8,10 +13,63 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class StepThreeComponent {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<void>();
+constructor( private _httpService: HttpService,
 
-  selected:boolean = true;
+  private router: Router,
+  private translate: TranslateService,
+  ){
+
+}
+  selected: boolean = true;
   formData: any = {};
+  activeTab: string = 'pills-one-example2';
+  payment_method: any;
+  fromId: any;
+  toId: any;
+  person: any;
+  carId: any;
+  pickuptime: any;
+  way: any;
+  bookingTime: any;
+  bookingDate: any;
+  returnbookingtime: any;
+  returnbookingdate: any;
+  bookdetail: any;
+  selectedCar: any;
+  ngOnInit() {
+    this.returnbookingdate = localStorage.getItem('returnDate') || '';
+    this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
 
+    this.way = localStorage.getItem('activeSection') || '';
+
+    const bookingDetail = localStorage.getItem('bookdetail');
+    const savedSelectedCar = localStorage.getItem('selectedCar');
+
+
+    if (bookingDetail) {
+      this.bookdetail = JSON.parse(bookingDetail);
+    }
+    this.fromId=this.bookdetail.from_id;
+    this.toId=this.bookdetail.to_id;
+    this.bookingDate=this.bookdetail.date;
+    this.bookingTime=this.bookdetail.pickuptime;
+    this.person=this.bookdetail.person;
+
+    if (savedSelectedCar) {
+      this.selectedCar = JSON.parse(savedSelectedCar);
+    }
+    this.carId=this.selectedCar.id;
+
+    console.log('Return Booking Date:', this.returnbookingdate);
+    console.log('Return Booking Time:', this.returnbookingtime);
+    console.log('Active Section:', this.way);
+    console.log('From ID:', this.fromId);
+    console.log('To ID:', this.toId);
+    console.log('Booking Date:', this.bookingDate);
+    console.log('Booking Time:', this.bookingTime);
+    console.log('Person Count:', this.person);
+    console.log('Car ID:', this.carId);
+  }
   nextStep(): void {
     this.next.emit(this.formData);
   }
@@ -23,4 +81,121 @@ export class StepThreeComponent {
   toggleSelected(): void {
     this.selected = !this.selected;
   }
+
+  confirmBookingByCard(event: any) {
+
+    const model = {
+      from_id: this.fromId,
+      to_id: this.toId,
+      person: this.person,
+      car_id: this.carId,
+      way: this.way,
+      booking_time: this.bookingTime,
+      booking_date: this.bookingDate,
+      return_booking_time: this.returnbookingtime,
+      return_booking_date: this.returnbookingdate,
+      payment_method: this.payment_method ? this.payment_method : 'tap',
+    };
+
+    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+      next: (res: any) => {
+        if (res && res.link) {
+          window.location.href = res.link;
+        } else {
+          const queryParams = {
+            res: JSON.stringify(res),
+            // trip_id: this.tripId,
+          };
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'liveboard', 'confirm'],
+            { queryParams }
+          );
+          Swal.fire(
+            'Your request has been sent successfully.',
+            'Our Team official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
+            'success'
+          );
+        }
+      },
+      error: (err) => {
+        Swal.fire(err.error.message);
+        console.log(err);
+      },
+    });
+  }
+
+
+  confirmBooking() {
+    const bookingOption = [
+      {
+        id: 1, 
+        person: this.person,
+      }
+    ];
+    const model = {
+      from_id: this.fromId,
+      to_id: this.toId,
+      person: this.person,
+      car_id: this.carId,
+      way: this.way,
+      booking_time: this.bookingTime,
+      booking_date: this.bookingDate,
+      return_booking_time: this.returnbookingtime,
+      return_booking_date: this.returnbookingdate,
+      payment_method: this.payment_method ? this.payment_method : 'cash',
+      booking_option : bookingOption,
+
+
+    };
+     this._httpService
+    .post(environment.marsa, 'transfer/book/book', model)
+    .subscribe({
+      next: (res: any) => {
+
+
+        Swal.fire(
+          'Your request has been send successfully.',
+          'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+          'success'
+        );
+      },
+      error(err) {
+        Swal.fire(err.error.message
+        );
+          console.log(err);
+
+      },
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  toggleTab(tabId: string, paymentMethod: string) {
+    this.activeTab = tabId;
+    this.payment_method = paymentMethod;
+  }
+
+  isActiveTab(tabId: string): boolean {
+    return this.activeTab === tabId;
+  }
+
 }

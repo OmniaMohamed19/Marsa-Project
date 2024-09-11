@@ -1,75 +1,25 @@
 <form (ngSubmit)="nextStep()">
   <div>
-    <h2>If you need more options please select it from list </h2>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-      <div class="label">
-        <label class="form-check-label" for="flexCheckDefault1">
-          SIM Card
-        </label>
-        <div class="d-flex gap-3 mt-1">
-          <span>Size : 20 GB</span>
-          <span> free</span>
-        </div>
-      </div>
-    </div>
+    <h2>If you need more options please select from the list</h2>
+    <div class="form-check" *ngFor="let option of responseData.car.option; let i = index">
+      <input class="form-check-input" type="checkbox" [id]="'flexCheckDefault' + i"
+            name="option-{{i}}"
+             (change)="onOptionChange(option, $event)">
 
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
       <div class="label">
-        <label class="form-check-label" for="flexCheckDefault1">
-          SIM Card
+        <label class="form-check-label" [for]="'flexCheckDefault' + i">
+          {{option.name}}
         </label>
         <div class="d-flex gap-3 mt-1">
-          <span>Size : 40 GB</span>
-          <span> free</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-      <div class="label">
-        <label class="form-check-label" for="flexCheckDefault1">
-          SIM Card
-        </label>
-        <div class="d-flex gap-3 mt-1">
-          <span>Size : 30 GB</span>
-          <span> free</span>
-        </div>
-      </div>
-    </div>
- 
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-      <div class="label">
-        <label class="form-check-label" for="flexCheckDefault1">
-          Child Seat
-        </label>
-        <div class="d-flex gap-3 mt-1">
-          <span> free</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-      <div class="label">
-        <label class="form-check-label" for="flexCheckDefault1">
-          Infant Seat
-        </label>
-        <div class="d-flex gap-3 mt-1">
-          <span> free</span>
+          <span>{{option.desc}}</span>
+          <span>{{option.price}}</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="btns">
-
-  </div>
   <div class="btns">
     <button type="button" (click)="previousStep()">Cancel</button>
-  <button type="submit">Continue</button>
+    <button type="submit">Continue</button>
   </div>
 </form>

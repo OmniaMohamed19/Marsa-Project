@@ -1,6 +1,6 @@
 <section class="container">
   <div class="row">
-    <div [class.col-lg-9]="currentStep !==1">
+    <div [class.col-lg-12]="currentStep !==1">
       <ul class="nav">
         <li *ngFor="let tab of tabs" class="nav-item" [class.active]="tab.section === currentStep"
           (click)="setActiveSection(tab.section)">
@@ -29,9 +29,9 @@
       </div>
     </div>
 
-    <div [class.col-lg-3]="currentStep !==1" *ngIf=" currentStep !==1 ">
+    <!-- <div [class.col-lg-3]="currentStep !==1" *ngIf=" currentStep !==1 ">
       <app-car-data></app-car-data>
-    </div>
+    </div> -->
   </div>
 
 </section>

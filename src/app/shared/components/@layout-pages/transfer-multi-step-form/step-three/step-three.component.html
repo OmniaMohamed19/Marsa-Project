@@ -1,98 +1,399 @@
-<form (ngSubmit)="nextStep()">
-  <div class="step3">
+<div class=" mt-2">
+<form (ngSubmit)="nextStep()" >
 
-      <div class="heading">
-        <img src="../../../../../../assets/images/images(1)1.png">
-        <span class="ms-1">
-          Guaranteed safe & secure checkout
-        </span>
+<div class="row">
+  <div class="col-lg-8 ">
+
+    <div class="heading">
+      <img src="../../../../../../assets/images/images(1)1.png">
+      <span class="ms-1">
+        Guaranteed safe & secure checkout
+      </span>
+    </div>
+
+    <section class="mt-3 row align-items-center justify-content-between">
+
+
+      <ul
+              class="nav nav-classic nav-choose border-0 nav-justified border mx-n3"
+              role="tablist"
+            >
+              <li class="nav-item mx-3">
+                <a
+                  class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                  id="pills-one-example2-tab"
+                  [class.active]="isActiveTab('pills-one-example2')"
+                  (click)="toggleTab('pills-one-example2', 'cash')"
+                >
+                  <div
+                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                  >
+                    <i class="fa fa-check text-white font-size-15"></i>
+                  </div>
+                  <div
+                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                  >
+                    <img
+                      class="img-fluid mb-3"
+                      src="../../../../../../assets/custom/Activity/banknotes.png"
+                      alt="Image Description"
+                    />
+                    <div class="w-100 text-dark">Book now Cash</div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item mx-3 mb-4 mb-md-0">
+                <a
+                  class="rounded py-5 border-width-2 border nav-link font-weight-medium"
+                  id="pills-one-example2-tab"
+                  [class.active]="isActiveTab('pills-two-example2')"
+                  (click)="toggleTab('pills-two-example2', 'card')"
+                >
+                  <div
+                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                  >
+                    <i class="fa fa-check text-white font-size-15"></i>
+                  </div>
+                  <div
+                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                  >
+                    <img
+                      class="img-fluid mb-3"
+                      src="../../../../../../assets/custom/Activity/payment.png"
+                      alt="Image Description"
+                    />
+                    <div class="w-100 text-dark">Payment with Card</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+
+    </section>
+    <!--------Bottom Form---------------------->
+
+    <div class="tab-content">
+      <div
+        class="tab-pane fade pt-8 show active"
+        id="pills-two-example2"
+        role="tabpanel"
+        aria-labelledby="pills-two-example2-tab"
+        [class.show]="isActiveTab('pills-two-example2')"
+        [class.active]="isActiveTab('pills-two-example2')"
+      >
+
+        <form class="js-validate" novalidate="novalidate">
+          <div class="row">
+            <div class="col-sm-6 mb-4">
+              <!-- <div class="js-form-message">
+                <label class="form-label"> Card Holder Name </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="Cardname"
+                  placeholder=""
+                  aria-label=""
+                  required=""
+                />
+              </div> -->
+            </div>
+            <div class="col-sm-6 mb-4">
+              <!-- <div class="js-form-message">
+                <label class="form-label"> Card Number </label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  name="Cardnumber"
+                  placeholder=""
+                  aria-label=""
+                  required=""
+                />
+              </div> -->
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col-sm-6 mb-3">
+              <!-- <div class="row">
+                <div class="col-sm-6 mb-4 mb-md-0">
+                  <div class="js-form-message">
+                    <label class="form-label"> Expiry Month </label>
+
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="Expirymonth"
+                      placeholder=""
+                      aria-label=""
+                      required=""
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="js-form-message">
+                    <label class="form-label"> Expiry Year </label>
+
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="Expiryyear"
+                      placeholder=""
+                      aria-label=""
+                      required=""
+                    />
+                  </div>
+                </div>
+              </div> -->
+            </div>
+
+            <div class="col-sm-6 mb-4">
+              <!-- <div class="js-form-message">
+                <label class="form-label"> CCV </label>
+
+                <input
+                  type="number"
+                  class="form-control"
+                  name="ccvnumber"
+                  placeholder=""
+                  aria-label=""
+                  required=""
+                />
+              </div> -->
+            </div>
+
+
+            <div class="w-100"></div>
+
+            <div class="col">
+
+              <div class="js-form-message mb-5">
+                <div
+                  class="custom-control custom-checkbox d-flex align-items-center text-muted"
+                >
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="termsCheckbox"
+                    name="termsCheckbox"
+                    required=""
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="termsCheckbox"
+                  >
+                    <small>
+                      By continuing, you agree to the
+                      <a
+                        routerLink="../../privacy/privacy"
+                        class="link-muted"
+                        style="color: rgba(41, 124, 187, 1)"
+                        >Terms and Conditions</a
+                      >
+                    </small>
+                  </label>
+                </div>
+              </div>
+              <a
+              style="width: 50% !important;
+              margin: auto;"
+              (click)="confirmBookingByCard($event)"
+              class="btn payment text-white w-100 py-3"
+              >CONFIRM BOOKING</a
+            >
+
+            </div>
+          </div>
+        </form>
+
       </div>
 
-      <section class="row align-items-center justify-content-between">    
-        <div class="col-lg-6">
-          
-          <div class="payment" [class.active]="selected">
-            <div class="check">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
-              <path d="M13.8002 0.189575C13.6706 0.0689551 13.5002 0.00195312 13.3232 0.00195312C13.1462 0.00195312 12.9757 0.0689551 12.8462 0.189575L4.75919 7.92761L1.65118 4.95361C1.52158 4.83271 1.35092 4.7655 1.17368 4.7655C0.996429 4.7655 0.825804 4.83271 0.696198 4.95361C0.633805 5.01216 0.584074 5.08286 0.550079 5.16138C0.516085 5.23989 0.498535 5.3246 0.498535 5.41016C0.498535 5.49572 0.516085 5.5803 0.550079 5.65881C0.584074 5.73733 0.633805 5.80803 0.696198 5.86658L4.2822 9.29761C4.4118 9.41852 4.58243 9.48572 4.75967 9.48572C4.93692 9.48572 5.10758 9.41852 5.23718 9.29761L13.8012 1.10266C13.8635 1.04405 13.9132 0.973206 13.9471 0.894653C13.981 0.8161 13.9984 0.731433 13.9983 0.645874C13.9982 0.560315 13.9806 0.475695 13.9465 0.397217C13.9125 0.318738 13.8626 0.248052 13.8002 0.189575Z" fill="white"/>
-            </svg>
+      <div
+        class="tab-pane fade pt-8"
+        id="pills-two-example2"
+        role="tabpanel"
+        [class.show]="isActiveTab('pills-one-example2')"
+        [class.active]="isActiveTab('pills-one-example2')"
+        aria-labelledby="pills-two-example2-tab"
+      >
+        <form class="js-validate" novalidate="novalidate">
+          <div class="row">
+            <div class="col-sm-12 mb-4">
+              <img
+                src="assets/icons/mdi_information-outline.svg"
+                alt=""
+              />
+              <span style="color: #77838f">
+                Explore one of the world’s best art museums at your
+                own pace with your ticket to the Louvre. Skip the line
+                and walk straight inside, after
+              </span>
+            </div>
+            <div class="col-sm-12 mb-4">
+              <p>
+                Once inside the historic palace located on the Right
+                Bank of the Seine, see unmissable and iconic sights
+                such as the Mona Lisa and Venus
+              </p>
+            </div>
+            <div class="col-sm-12 mb-4">
+              <p>
+                de Milo. Discover masterpieces of the Renaissance and
+                ancient Egyptian relics, along with paintings from the
+                13th to 20th centuries,
+              </p>
+            </div>
+            <a
+            style="width: 50% !important;
+              margin: auto;"
+              (click)="confirmBooking()"
+              class="btn payment text-white w-100 py-3"
+              >CONFIRM BOOKING</a
+            >
           </div>
-           <div class="img-container">
-            <img src="../../../../../../assets/images/img4.png">
-            <img src="../../../../../../assets/images/img7.png">
-            <img src="../../../../../../assets/images/img6.png">
-            <img src="../../../../../../assets/images/img5.png">
+        </form>
+      </div>
+    </div>
+
+</div>
+
+<div class="car-data col-lg-4">
+  <div>
+      <div class="img-container">
+          <img style="width: auto !important;" src="../../../../../../assets/images/primary1.png">
+      </div>
+      <div class="row justify-content-center align-items-center">
+          <div class="col-8 col-text">
+              <span>Booking Detail</span>
+          </div>
+          <div class="col-4 col-detail">
+              <a>Edit</a>
+          </div>
+          <!------------------->
+          <div class="col-8  col-text">
+              <span>Pick Up From</span>
+          </div>
+          <div class="col-4 col-detail">
+              <span>Hurghada</span>
+          </div>
+          <!----------------------->
+          <div class="col-8 col-text">
+              <span>Drop off location</span>
+          </div>
+          <div class="col-4 col-detail">
+              <span>Safaga</span>
+          </div>
+          <!--------------------------->
+          <div class="col-8 col-text">
+              <span>Pick Up Date</span>
+          </div>
+          <div class="col-4 col-detail">
+              <span>20-9-2020</span>
+          </div>
+          <!----------------------->
+          <div class="col-8 col-text">
+              <span>Pick Up Time</span>
+          </div>
+          <div class="col-4 col-detail">
+              <span>9:00 AM</span>
+          </div>
+          <!----------------------->
+          <div class="col-8 col-text">
+              <span>Expected drop off time</span>
+          </div>
+          <div class="col-4 col-detail">
+              <span> 10:00 AM</span>
+          </div>
+          <!----------------------->
+      </div>
+      <!------------------------------->
+      <div class="row mt-3 visitors pt-4">
+          <div class="col-3">
+             <span class="person">  Adult </span>
+          </div>
+          <div class="col-4">
+              <span class="age"> Age 18+ </span>
+          </div>
+          <div class="col-4 text-end">
+              <span class="num"> 4 </span>
+          </div>
+          <!---------------------------------->
+      </div>
+
+      <div class="row mt-3">
+          <div class="col-3">
+             <span class="person">Children</span>
+          </div>
+          <div class="col-4">
+              <span class="age"> Age 6-17 </span>
+          </div>
+          <div class="col-4 text-end">
+              <span class="num"> 2 </span>
+          </div>
+          <!---------------------------------->
+      </div>
+
+      <div class="row mt-3 bottom-line pb-4">
+          <div class="col-3">
+             <span class="person">  Infant </span>
+          </div>
+          <div class="col-4">
+              <span class="age"> Age 0-5 </span>
+          </div>
+          <div class="col-4 text-end">
+              <span class="num"> 2 </span>
+          </div>
+          <!---------------------------------->
+      </div>
+
+      <!---------------------------------->
+      <div class="copoun bottom-line">
+          <h3>Coupon Code</h3>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+              <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <span class="input-group-text" id="basic-addon2">Apply</span>
+            </div>
+      </div>
+
+       <!-------------------------------->
+       <div class="mt-3 payment2">
+          <h3>Payment</h3>
+          <div class="d-flex justify-content-between pb-4">
+              <div class="col-6 px-0">
+                  <span class="person">Subtotal </span>
+               </div>
+               <div class="col-4">
+                   <span class="age">200 $</span>
+               </div>
+          </div>
+          <div class="d-flex justify-content-between">
+              <div class="col-6 px-0">
+                  <span class="person">Subtotal </span>
+               </div>
+               <div class="col-4">
+                   <span class="age">200 $</span>
+               </div>
+          </div>
+          <!---------------------------------->
+      </div>
+      <!------------------------->
+      <div class="d-flex justify-content-between mt-5">
+          <div class="col-6 px-0">
+              <span class="person">Total </span>
            </div>
-            <p>Payment with credit card</p>
-          </div>
-        </div>  
-        
-        <div class="col-lg-6">  
-          <div class="payment" [class.active1]="selected">
-            <div class="check">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10" fill="none">
-                <path d="M13.8002 0.189575C13.6706 0.0689551 13.5002 0.00195312 13.3232 0.00195312C13.1462 0.00195312 12.9757 0.0689551 12.8462 0.189575L4.75919 7.92761L1.65118 4.95361C1.52158 4.83271 1.35092 4.7655 1.17368 4.7655C0.996429 4.7655 0.825804 4.83271 0.696198 4.95361C0.633805 5.01216 0.584074 5.08286 0.550079 5.16138C0.516085 5.23989 0.498535 5.3246 0.498535 5.41016C0.498535 5.49572 0.516085 5.5803 0.550079 5.65881C0.584074 5.73733 0.633805 5.80803 0.696198 5.86658L4.2822 9.29761C4.4118 9.41852 4.58243 9.48572 4.75967 9.48572C4.93692 9.48572 5.10758 9.41852 5.23718 9.29761L13.8012 1.10266C13.8635 1.04405 13.9132 0.973206 13.9471 0.894653C13.981 0.8161 13.9984 0.731433 13.9983 0.645874C13.9982 0.560315 13.9806 0.475695 13.9465 0.397217C13.9125 0.318738 13.8626 0.248052 13.8002 0.189575Z" fill="white"/>
-              </svg>
-            </div>
-            <img src="../../../../../../assets/images/Frame.svg">
-            <p>Book now pay later</p>
-          </div>
-        </div>
-      </section>
-      <!--------Bottom Form---------------------->
-      
-      <div class="form">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Card Holder Name</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Card Number</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Expiry Mounth</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Expiry Year</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">CVC</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              By continuing, you agree to the <a>Terms and Conditions</a>.
-            </label>
-          </div>
-        </div>
+           <div class="col-4">
+               <span class="age">200 $</span>
+           </div>
       </div>
- 
+
   </div>
+</div>
+</div>
+
+
+
        <!------------------------------------>
-       <div class="btn-1">
-        <button class="text-uppercase" type="submit">
-          CONFIRM BOOKING
-        </button>
-      </div>
+
   <!--<button type="button" (click)="previousStep()">Previous</button>-->
   <!--<button type="submit">Next</button>-->
 </form>
+</div>

@@ -70,7 +70,6 @@ import { StepOneComponent } from './components/@layout-pages/transfer-multi-step
 import { StepTwoComponent } from './components/@layout-pages/transfer-multi-step-form/step-two/step-two.component';
 import { StepThreeComponent } from './components/@layout-pages/transfer-multi-step-form/step-three/step-three.component';
 import { StepFourComponent } from './components/@layout-pages/transfer-multi-step-form/step-four/step-four.component';
-import { CarDataComponent } from './components/@layout-pages/transfer-multi-step-form/car-data/car-data.component';
 import { TermsAndPrivacyComponent } from './components/@layout-pages/terms-and-privacy/terms-and-privacy.component';
 import { SearchBoatComponent } from './components/@layout-pages/quick-search/search-boat/search-boat.component';
 import { SearchToursComponent } from './components/@layout-pages/quick-search/search-tours/search-tours.component';
@@ -142,7 +141,6 @@ const cardComponents = [
   StepOneComponent,
   StepTwoComponent,
   StepThreeComponent,
-  CarDataComponent,
   StepFourComponent,
   TermsAndPrivacyComponent,
 ];
