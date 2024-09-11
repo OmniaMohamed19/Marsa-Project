@@ -20,8 +20,8 @@
 
 <div class="container">
   <div>
-    <section *ngIf="activeSection === 'all'">
-      <app-tours-table [tours]="tours.data"></app-tours-table>
+    <section *ngIf="activeSection === 'all' && tours">
+      <app-tours-table   [tours]="tours"></app-tours-table>
     </section>
   </div>
 
@@ -30,6 +30,15 @@
       <app-tours-table [tours]="filteredTours"></app-tours-table>
     </section>
   </div>
+
+
+  <div class="pagination align-items-center">
+    <button (click)="prevPage()" class="btn btn-outline-primary   " [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ lastPage }}</span>
+    <button (click)="nextPage()" class="btn btn-outline-primary   " [disabled]="currentPage === lastPage">Next</button>
+  </div>
+
+  
   <!------------------------------->
   <!-- <section *ngIf="activeSection === 'section2'">
     <app-tours-table></app-tours-table>

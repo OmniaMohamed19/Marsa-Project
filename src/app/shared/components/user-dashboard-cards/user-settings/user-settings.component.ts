@@ -56,23 +56,23 @@ export class UserSettingsComponent implements OnInit {
     // Initialize selectedLabel with the first country's label
     this.name = this.userDetails?.name;
     this.phone = this.userDetails?.overviwe?.phonenumber;
-    console.log(this.phone);
+    // console.log(this.phone);
     this.phoneNumber =
       '+' +
       this.userDetails?.overviwe?.countrycode +
       this.phone.replace(/\s/g, '');
-    console.log(this.phoneNumber);
+    // console.log(this.phoneNumber);
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
     if (this.countries.length > 0) {
       let selectedCountry = this.countries.find((item: any) => {
-        console.log(this.userDetails);
-        console.log(
-          item.label == '+' + this.userDetails?.overviwe?.countrycode
-        );
+        // console.log(this.userDetails);
+        // console.log(
+        //   item.label == '+' + this.userDetails?.overviwe?.countrycode
+        // );
         return item.label == '+' + this.userDetails?.overviwe?.countrycode;
       });
-      console.log(selectedCountry);
+      // console.log(selectedCountry);
       this.selectedLabel = selectedCountry?.label;
       this.selectedImg = selectedCountry?.flagUrl;
     }
@@ -133,7 +133,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.phoneNumber);
+    // console.log(this.phoneNumber);
     let body: any = {
       email: this.email,
       fname: this.name,
@@ -145,11 +145,11 @@ export class UserSettingsComponent implements OnInit {
     Object.keys(body).forEach(
       (k: any) => (body[k] == '' || body[k] == null) && delete body[k]
     );
-    console.log(body);
+    // console.log(body);
     this.httpService
       .post(environment.marsa, 'user/update', body,false, true)
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
         this.toastr.success('The Account updated Sucsseful', ' ', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
@@ -161,12 +161,12 @@ export class UserSettingsComponent implements OnInit {
   }
 
   deactivate() {
-    console.log(this.deactivateChaecked);
+    // console.log(this.deactivateChaecked);
     if (this.deactivateChaecked) {
       this.httpService
         .get(environment.marsa, 'user/deactive')
         .subscribe((res: any) => {
-          console.log(res);
+          // console.log(res);
           this.toastr.success('The Account deactive Sucsseful', ' ', {
             disableTimeOut: false,
             titleClass: 'toastr_title',

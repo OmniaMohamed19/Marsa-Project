@@ -100,21 +100,18 @@
   <section *ngIf="activeSection === 'section2'">
     <app-tours
       [types]="types"
-      [tours]="userDetails?.ActivityDetails"
     ></app-tours>
   </section>
 
   <!----------------------------->
   <section *ngIf="activeSection === 'section3'">
     <app-liveboard
-      [liveaboards]="userDetails?.liveboardDetails?.data"
       [types]="types"
     ></app-liveboard>
   </section>
   <!----------------------------->
   <section *ngIf="activeSection === 'section4'">
     <app-packages
-      [packages]="userDetails?.packageDetails?.data"
       [types]="types"
     ></app-packages>
   </section>

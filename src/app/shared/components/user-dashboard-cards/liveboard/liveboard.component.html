@@ -73,7 +73,7 @@
             </td>
             <td>
               <button
-                [routerLink]="'../../liveboard/liveboardDetails/' + live?.id"
+                [routerLink]="'../../liveboard/liveboardDetails/' + live?.id + '/' + live.name"
               >
                 View details
               </button>
@@ -81,6 +81,11 @@
           </tr>
         </tbody>
       </table>
+      <div class="pagination align-items-center">
+        <button (click)="prevPage()" class="btn btn-outline-primary   " [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ lastPage }}</span>
+        <button (click)="nextPage()" class="btn btn-outline-primary   " [disabled]="currentPage === lastPage">Next</button>
+      </div>
     </div>
     <div *ngIf="filterdLiveAboard?.length == 0">
       <div class="booking">
