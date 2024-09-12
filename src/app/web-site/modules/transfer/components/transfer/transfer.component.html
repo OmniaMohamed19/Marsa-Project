@@ -51,7 +51,7 @@
                     <i style="color: #0057FF;" class="fa-solid fa-location-dot"></i>
                   </label>
                   <select class="form-control" [(ngModel)]="toId">
-                    <option *ngFor="let option of transferDetails.airports" [value]="option.id">{{ option.name }}
+                    <option *ngFor="let options of transferDetails.airports" [value]="options.id">{{ options.name }}
                     </option>
                   </select>
                   <div class="custom-placeholder" *ngIf="!toId"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To</div>

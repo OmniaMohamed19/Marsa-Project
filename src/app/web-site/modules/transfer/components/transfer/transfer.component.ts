@@ -63,6 +63,7 @@ export class TransferComponent implements OnInit {
   activeSection = 'section1';
 
   setActiveSection(section: string) {
+    this.activeSection = section;
 
     if (section === 'section1') {
       localStorage.setItem('activeSection', '2');
@@ -81,7 +82,6 @@ export class TransferComponent implements OnInit {
       person: this.persons,
     };
 
-    // Remove empty or null values from the body object
     Object.keys(body).forEach(
       (k: any) => (body[k] === '' || body[k] === null) && delete body[k]
     );
@@ -97,7 +97,6 @@ export class TransferComponent implements OnInit {
     // Save the activeSection value separately
     const activeSectionValue = this.activeSection === 'section1' ? '2' : '1';
     localStorage.setItem('activeSection', activeSectionValue);
-    console.log('Stored Active Section:', localStorage.getItem('activeSection')); // تأكيد التخزين
 
     // Make the HTTP request
     this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({

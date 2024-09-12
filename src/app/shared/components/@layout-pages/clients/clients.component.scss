@@ -53,8 +53,18 @@ div.card{
     &:hover {
         transform: translateY(10px);
     }
-    // margin-top: 10px;
+    .card-img:hover{
+      position: fixed !important;
+    }
+
 }
+// .card-img{
+//   position: fixed !important;
+// }
+.card {
+ overflow:visible !important;
+}
+
 
 .card-img img {
     width: 101px;

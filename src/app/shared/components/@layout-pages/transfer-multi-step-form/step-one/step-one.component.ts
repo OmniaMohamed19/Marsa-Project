@@ -116,7 +116,6 @@ export class StepOneComponent implements OnInit {
       this.selectedCar = selectedCarObject;
       // Save the entire car object in localStorage
       localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
-      console.log('Selected car saved:', this.selectedCar);
     }
   }
 

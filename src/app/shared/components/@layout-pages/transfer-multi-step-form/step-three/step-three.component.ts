@@ -36,6 +36,8 @@ constructor( private _httpService: HttpService,
   returnbookingdate: any;
   bookdetail: any;
   selectedCar: any;
+  selectedOption:any=[{}];
+  selectedOptionID:any=[];
   ngOnInit() {
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
     this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
@@ -44,6 +46,7 @@ constructor( private _httpService: HttpService,
 
     const bookingDetail = localStorage.getItem('bookdetail');
     const savedSelectedCar = localStorage.getItem('selectedCar');
+    const  savedSelectedOption = localStorage.getItem('selectedOptions');
 
 
     if (bookingDetail) {
@@ -57,8 +60,15 @@ constructor( private _httpService: HttpService,
 
     if (savedSelectedCar) {
       this.selectedCar = JSON.parse(savedSelectedCar);
+        
     }
     this.carId=this.selectedCar.id;
+
+    if (savedSelectedOption) {
+      this.selectedOption = JSON.parse(savedSelectedOption);
+
+    }
+    console.log('Options: ', this.selectedOption )
 
     console.log('Return Booking Date:', this.returnbookingdate);
     console.log('Return Booking Time:', this.returnbookingtime);
@@ -125,67 +135,58 @@ constructor( private _httpService: HttpService,
   }
 
 
-  confirmBooking() {
-    const bookingOption = [
-      {
-        id: 1, 
-        person: this.person,
-      }
-    ];
-    const model = {
-      from_id: this.fromId,
-      to_id: this.toId,
-      person: this.person,
-      car_id: this.carId,
-      way: this.way,
-      booking_time: this.bookingTime,
-      booking_date: this.bookingDate,
-      return_booking_time: this.returnbookingtime,
-      return_booking_date: this.returnbookingdate,
-      payment_method: this.payment_method ? this.payment_method : 'cash',
-      booking_option : bookingOption,
 
 
-    };
-     this._httpService
-    .post(environment.marsa, 'transfer/book/book', model)
-    .subscribe({
-      next: (res: any) => {
 
 
-        Swal.fire(
-          'Your request has been send successfully.',
-          'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-          'success'
-        );
-      },
-      error(err) {
-        Swal.fire(err.error.message
-        );
-          console.log(err);
 
-      },
-    });
 
+
+
+
+
+confirmBooking() {
+  // Initialize bookingOption array
+  const bookingOption = [];
+
+  // Loop through selectedOption and extract IDs
+  for (const option of this.selectedOption) {
+    if (option && option.id) {
+      bookingOption.push({
+        id: option.id,
+        persons: this.person,
+      });
+    }
+  }
+
+  const model = {
+    from_id: this.fromId,
+    to_id: this.toId,
+    person: this.person,
+    car_id: this.carId,
+    way: this.way,
+    booking_time: '10:00:00',
+    booking_date: this.bookingDate,
+    return_booking_time: '10:00:00',
+    return_booking_date: this.returnbookingdate,
+    payment_method: this.payment_method ? this.payment_method : 'cash',
+    booking_option: bookingOption,
+  };
+
+  this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+    next: (res: any) => {
+      Swal.fire(
+        'Your request has been sent successfully.',
+        'The Liveboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
+        'success'
+      );
+    },
+    error(err) {
+      Swal.fire(err.error.message);
+      console.log(err);
+    },
+  });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
