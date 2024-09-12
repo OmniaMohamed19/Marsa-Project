@@ -168,6 +168,40 @@ export class PackagePaymentComponent {
     console.log(this.coupon);
     // Coupon
   }
+  confirmBookingByCard(event: Event){
+    if (this.customerForm.valid) {
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      const model = {
+        ...this.model,
+        payment_method: this.payment_method ? this.payment_method : 'tap',
+        ...this.customerForm.value,
+        phone: phoneNumber.replace("+", ""),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+  
+      };
+  
+      console.log(model);
+      
+      this._httpService.post(environment.marsa, 'package/book', model).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res && res.link) {
+            window.location.href = res.link; 
+          } else {
+            Swal.fire(
+              'Booking Confirmed',
+              'Your request has been sent successfully. Please check your email for further instructions.',
+              'success'
+            );
+          }
+        },
+      })
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      this.markFormGroupTouched(this.customerForm);
+    }
+}
 
   confirmBooking() {
     if (this.customerForm.valid) {
