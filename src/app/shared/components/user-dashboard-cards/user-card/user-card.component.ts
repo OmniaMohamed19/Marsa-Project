@@ -63,7 +63,7 @@ export class UserCardComponent {
   ngOnInit() {
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-      // console.log(res.userDashboard);
+      console.log(res.userDashboard);
       this.types = res?.triptypes;
     });
   }

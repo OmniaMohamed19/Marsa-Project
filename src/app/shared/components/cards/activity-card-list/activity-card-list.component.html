@@ -39,17 +39,17 @@
         <p>{{ item?.type }}</p>
         <p>
           <span
-            [style.text-decoration]="item?.discount > 0 ? 'line-through' : ''"
-            [style.color]="item.discount > 0 ? 'red' : ''"
-            >{{ item?.PriceColectiv }} $</span
+          >{{ item?.discount }} %</span
           >
-          <span class="mx-2"  *ngIf="item?.discount > 0" style="font-size: 15px; font-weight: 700"
+          <!-- [style.text-decoration]="item?.discount > 0 ? 'line-through' : ''"
+          [style.color]="item.discount > 0 ? 'red' : ''" -->
+          <!-- <span class="mx-2"  *ngIf="item?.discount > 0" style="font-size: 15px; font-weight: 700"
             >{{
               item?.PriceColectiv - (item?.discount / 100) * item?.PriceColectiv
             }}
             $</span
           >
-          <span style="font-size: 15px !important;">per person</span>        </p>
+          <span style="font-size: 15px !important;">per person</span>        </p> -->
       </div>
       <small class="pe-2 card-desc">
         <span>{{ item?.shortOverviwe?.substr(0, 100) }} </span

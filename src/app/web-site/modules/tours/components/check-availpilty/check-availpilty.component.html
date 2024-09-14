@@ -27,7 +27,7 @@
                       src="assets/icons/hour.svg"
                       class="me-2"
                       alt="cancel"
-                    />{{
+                    /> Duration :{{
                       activityData?.AvailableOption[
                         getAvailableOptionIndexById(avilable_option_id)
                       ]?.Duration
@@ -53,12 +53,18 @@
                   activityData?.TypeOfRepeat === 'd'
                 "
               >
-                <span class="heading">Starting time at : </span>
+                <span class="heading">
+                  <img
+                            src="assets/custom/Activity/timer-start.svg"
+                            class="me-1"
+                            alt="start"
+                          />
+                          Starting time at : </span>
                 <span class="text-dark fs-5 font-weight-bold">{{
                   "1970-01-01T" +
                     activityData?.AvailableOption[
                       getAvailableOptionIndexById(avilable_option_id)
-                    ]?.PickUpTime | date : "h:mm:ss a"
+                    ]?.PickUpTime | date : "h:mm a"
                 }}</span>
               </ng-container>
 
@@ -68,10 +74,16 @@
                   activityData?.TypeOfRepeat === 'm'
                 "
               >
-                <span class="heading">Starting time at : </span>
+                <span class="heading">
+                  <img
+                            src="assets/custom/Activity/timer-start.svg"
+                            class="me-1"
+                            alt="start"
+                          />
+                          Starting time at : </span>
                 <span class="text-dark fs-5 font-weight-bold">{{
                   "1970-01-01T" + (selectedTime || "00:00:00")
-                    | date : "h:mm:ss a"
+                    | date : "h:mm a"
                 }}</span>
               </ng-container>
 
@@ -84,18 +96,18 @@
                   "1970-01-01T" +
                     (activityData?.AvailableOption[
                       getAvailableOptionIndexById(avilable_option_id)
-                    ]?.CancelationtTime || "00:00:00") | date : "h:mm:ss a"
+                    ]?.CancelationtTime ) | date : "h:mm a"
                 }}
                 a full returnd</span
               >
               <span class="d-block mb-5 cancelWallet">
                 <img src="assets/icons/bx_time-five.svg" alt="bx_time-five" />
-                Expected Pick Time from
+                Expected Pick Up Time from
                 {{
                   "1970-01-01T" +
                     (activityData?.AvailableOption[
                       getAvailableOptionIndexById(avilable_option_id)
-                    ]?.EstimatedTime || "00:00:00") | date : "h:mm:ss a"
+                    ]?.EstimatedTime ) | date : "h:mm a"
                 }}
 
                 to
@@ -103,7 +115,7 @@
                   "1970-01-01T" +
                     (activityData?.AvailableOption[
                       getAvailableOptionIndexById(avilable_option_id)
-                    ]?.PickUpTime || "00:00:00") | date : "h:mm:ss a"
+                    ]?.PickUpTime || "00:00:00") | date : "h:mm a"
                 }}
               </span>
 
