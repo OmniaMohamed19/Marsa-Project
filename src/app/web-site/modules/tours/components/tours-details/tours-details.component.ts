@@ -156,11 +156,14 @@ export class ToursDetailsComponent implements AfterViewInit {
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
     const tabElement = document.getElementById(tabId);
-
+  
     if (tabElement) {
-      tabElement.scrollIntoView({
+      const elementRect = tabElement.getBoundingClientRect();
+      const offset = window.scrollY + elementRect.top - 170; // Calculate position 50px above the element
+  
+      window.scrollTo({
+        top: offset,
         behavior: 'smooth',
-        block: 'start',
       });
     }
   }
@@ -336,10 +339,11 @@ export class ToursDetailsComponent implements AfterViewInit {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
-        console.log(res);
+        console.log(this.activityData);
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.PlaceOnMap
         );
+console.log(this.googleIframe);
 
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
@@ -354,7 +358,10 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
         this.relatedtrips = res.Relatedtrips;
         this.happyGustImages = this.activityData?.HappyGust;
+        console.log(typeof(this.happyGustImages));
+        
         this.remainingImages = this.activityData?.HappyGust.slice(1);
+        console.log(this.remainingImages);
         const boat = this.activityData?.Boats.find(
           (boat: any) => boat.id === activityID
         );
@@ -522,6 +529,8 @@ export class ToursDetailsComponent implements AfterViewInit {
   };
 
   addEvent(event: MatDatepickerInputEvent<Date>): void {
+    console.log(event);
+    
     this.formattedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
   }
 
@@ -535,13 +544,17 @@ export class ToursDetailsComponent implements AfterViewInit {
       return;
     }
     this.availabilityChecked = true;
+    if (this.activityData.AvailableOption.length ==1 ) {
+      this.bookNow(this.activityData.AvailableOption[0].id)
+    }
     this.scrollTo('availableOptions');
   }
 
   bookNow(avilable_option_id: number) {
     if (!this.availabilityChecked) {
-      this.toastr.info('Please click on "Check availability" first.');
-      // this.scrollToCheckAvailabilityButton();
+      this.toastr.info('Please Choose a date and click on "Check availability" first.');
+      this.scrollToCheckAvailabilityButton();
+      this.selectedDateControl.markAsTouched();
       return;
     } else {
       this.showBookingOption = !this.showBookingOption;

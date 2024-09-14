@@ -20,8 +20,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { ConnectivityNotificationComponent } from './connectivity-notification/connectivity-notification.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,ConnectivityNotificationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
