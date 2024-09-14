@@ -1,121 +1,216 @@
-<!--<form (ngSubmit)="submit()">
-    <div>
-      <label for="address">Address:</label>
-      <input type="text" id="address" [(ngModel)]="formData.address" name="address" required>
-    </div>
-    <button type="button" (click)="previousStep()">Previous</button>
-    <button type="submit">Submit</button>
-  </form>
-  --->
-  <section class="container">
-    <div class="confirmation">
-      <div class=" thanks-message">
-        <div class="test d-flex justify-content-center align-items-center gap-3">
-          <div class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="19" viewBox="0 0 27 19" fill="none">
-              <path d="M26.6005 0.378418C26.3421 0.135343 26.0007 0 25.646 0C25.2912 0 24.9498 0.135343 24.6915 0.378418L8.51746 15.8545L2.30045 9.90552C2.04196 9.66267 1.70062 9.52734 1.34595 9.52734C0.991273 9.52734 0.649938 9.66267 0.391449 9.90552C0.266637 10.0227 0.167183 10.1642 0.0991821 10.3213C0.0311817 10.4784 -0.00390625 10.6479 -0.00390625 10.8191C-0.00390625 10.9903 0.0311817 11.1595 0.0991821 11.3167C0.167183 11.4738 0.266637 11.6152 0.391449 11.7324L7.56345 18.5945C7.82193 18.8373 8.16327 18.9724 8.51794 18.9724C8.87262 18.9724 9.21395 18.8373 9.47244 18.5945L26.6005 2.20459C26.7251 2.08742 26.8245 1.94584 26.8924 1.78882C26.9603 1.6318 26.9953 1.46258 26.9953 1.2915C26.9953 1.12043 26.9603 0.95121 26.8924 0.794189C26.8245 0.637168 26.7251 0.495585 26.6005 0.378418Z" fill="white"/>
-            </svg>
+
+
+<app-header [background]="'#0DB1FF'"></app-header>
+<section class="container">
+  <div class="row">
+    <div [class.col-lg-12]="">
+      <ul class="nav">
+        <li *ngFor="let tab of tabs" class="nav-item active"
+          (click)="setActiveSection(tab.section)">
+          <span>
+            {{tab.section}}
+          </span>
+          <span>
+            {{ tab.label }}
+          </span>
+        </li>
+      </ul>
+
+      <div class="multi-step-form">
+        <div class="confirmation">
+          <div class=" thanks-message">
+            <div class="test d-flex justify-content-center align-items-center gap-3">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="19" viewBox="0 0 27 19" fill="none">
+                  <path d="M26.6005 0.378418C26.3421 0.135343 26.0007 0 25.646 0C25.2912 0 24.9498 0.135343 24.6915 0.378418L8.51746 15.8545L2.30045 9.90552C2.04196 9.66267 1.70062 9.52734 1.34595 9.52734C0.991273 9.52734 0.649938 9.66267 0.391449 9.90552C0.266637 10.0227 0.167183 10.1642 0.0991821 10.3213C0.0311817 10.4784 -0.00390625 10.6479 -0.00390625 10.8191C-0.00390625 10.9903 0.0311817 11.1595 0.0991821 11.3167C0.167183 11.4738 0.266637 11.6152 0.391449 11.7324L7.56345 18.5945C7.82193 18.8373 8.16327 18.9724 8.51794 18.9724C8.87262 18.9724 9.21395 18.8373 9.47244 18.5945L26.6005 2.20459C26.7251 2.08742 26.8245 1.94584 26.8924 1.78882C26.9603 1.6318 26.9953 1.46258 26.9953 1.2915C26.9953 1.12043 26.9603 0.95121 26.8924 0.794189C26.8245 0.637168 26.7251 0.495585 26.6005 0.378418Z" fill="white"/>
+                </svg>
+              </div>
+              <div class="thanks">
+                <p>
+                  Thank you for choosing  Marsa Waves  Great News ! we have sent your confirmation  to
+                  <span>
+                    info@jessica.com
+                  </span>
+                </p>
+                <p>
+                  Expect  a follow up email or what’s app message shortly
+                  with your scheduled pickup time from your location
+                </p>
+              </div>
+            </div>
+
           </div>
-          <div class="thanks">
+        </div>
+
+        <div class="result">
+          <div class="total">
+            <div class="d-flex  justify-content-between align-items-center mb-4">
+              <h2>
+                Traveler Information
+              </h2>
+              <a>Edit</a>
+            </div>
+            <!------------------------------------------->
+              <div>
+                <div class="result-container">
+                  <div class="result-row d-flex justify-content-between align-items-center">
+                    <span>
+                      Booking number
+                    </span>
+                    <span class="align-self-end">
+                      5784-BD245
+                    </span>
+                  </div>
+
+                  <div class="result-row d-flex justify-content-between align-items-center">
+                    <span>
+                      First name
+                    </span>
+                    <span class="align-self-end">
+                      Jessica
+                    </span>
+                  </div>
+
+                  <div class="result-row d-flex justify-content-between align-items-center">
+                    <span>
+                      Last name
+                    </span>
+                    <span class="align-self-end">
+                      Brown
+                    </span>
+                  </div>
+
+                  <div class="result-row d-flex justify-content-between align-items-center">
+                    <span>
+                      E-mail address
+                    </span>
+                    <span class="align-self-end">
+                      Info@Jessica.com
+                    </span>
+                  </div>
+
+                  <div class="result-row d-flex justify-content-between align-items-center">
+                    <span>
+                      Phone Number
+                    </span>
+                    <span class="align-self-end">
+                      0993847423435
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            <!------------------------------------------>
+          </div>
+
+          <div class="total-1">
+            <div class="d-flex justify-content-between align-items-center">
+              <h2>
+                Payment
+              </h2>
+              <a>Edit</a>
+            </div>
             <p>
-              Thank you for choosing  Marsa Waves  Great News ! we have sent your confirmation  to 
-              <span>
-                info@jessica.com
-              </span>
+              lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna,
             </p>
+          </div>
+
+          <div class="total-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <h2>
+                View Booking Details
+              </h2>
+              <a>Edit</a>
+            </div>
             <p>
-              Expect  a follow up email or what’s app message shortly 
-              with your scheduled pickup time from your location 
+              Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
             </p>
           </div>
         </div>
-     
       </div>
     </div>
 
-    <div class="result">
-      <div class="total">
-        <div class="d-flex  justify-content-between align-items-center mb-4">
-          <h2>
-            Traveler Information
-          </h2>
-          <a>Edit</a>
-        </div>
-        <!------------------------------------------->
-          <div>
-            <div class="result-container">
-              <div class="result-row d-flex justify-content-between align-items-center">
-                <span>
-                  Booking number
-                </span>
-                <span class="align-self-end">
-                  5784-BD245
-                </span>
-              </div>
+    <!-- <div [class.col-lg-3]="currentStep !==1" *ngIf=" currentStep !==1 ">
+      <app-car-data></app-car-data>
+    </div> -->
+  </div>
 
-              <div class="result-row d-flex justify-content-between align-items-center">
-                <span>
-                  First name
-                </span>
-                <span class="align-self-end">
-                  Jessica
-                </span>
-              </div>
+</section>
 
-              <div class="result-row d-flex justify-content-between align-items-center">
-                <span>
-                  Last name
-                </span>
-                <span class="align-self-end">
-                  Brown
-                </span>
-              </div>
 
-              <div class="result-row d-flex justify-content-between align-items-center">
-                <span>
-                  E-mail address
-                </span>
-                <span class="align-self-end">
-                  Info@Jessica.com
-                </span>
-              </div>
 
-              <div class="result-row d-flex justify-content-between align-items-center">
-                <span>
-                  Phone Number
-                </span>
-                <span class="align-self-end">
-                  0993847423435
-                </span>
-              </div>
 
-            </div>
-          </div>
-        <!------------------------------------------>
-      </div>    
 
-      <div class="total-1">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>
-            Payment
-          </h2>
-          <a>Edit</a>
-        </div>
-        <p>
-          lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, 
-        </p>
-      </div>  
 
-      <div class="total-2">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>
-            View Booking Details
-          </h2>
-          <a>Edit</a>
-        </div>
-        <p>
-          Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
-        </p>
-      </div>  
-    </div>
-  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

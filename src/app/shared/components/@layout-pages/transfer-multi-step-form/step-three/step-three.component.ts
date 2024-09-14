@@ -113,9 +113,9 @@ constructor( private _httpService: HttpService,
     person: this.person,
     car_id: this.carId,
     way: this.way,
-    booking_time: '10:00:00',
+    booking_time: this.bookingDate,
     booking_date: this.bookingDate,
-    return_booking_time: '10:00:00',
+    return_booking_time: this.returnbookingtime,
     return_booking_date: this.returnbookingdate,
     payment_method: this.payment_method ? this.payment_method : 'tap',
     booking_option: bookingOption,
@@ -161,26 +161,44 @@ confirmBooking() {
     person: this.person,
     car_id: this.carId,
     way: this.way,
-    booking_time: '10:00:00',
+    booking_time:this.bookingTime,
     booking_date: this.bookingDate,
-    return_booking_time: '10:00:00',
+    return_booking_time: this.returnbookingtime,
     return_booking_date: this.returnbookingdate,
     payment_method: this.payment_method ? this.payment_method : 'cash',
     booking_option: bookingOption,
   };
 
-  this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+  this._httpService.post(environment.marsa, 'transfer/book', model)
+  .subscribe({
     next: (res: any) => {
+      console.log(res);
+      if (res && res.link) {
+        window.location.href = res.link;
+      } else {
+        const queryParams = {
+          res: JSON.stringify(res),
+
+        };
+        this.router.navigate(
+          ['/', this.translate.currentLang, 'transfer', 'confirm'],
+          { queryParams }
+        );
+        Swal.fire(
+          'Your request has been send successfully.',
+          'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
+          'success'
+        );
+      }
+    },
+    error: (err: any) => {
+      console.error('Error during booking:', err);
       Swal.fire(
-        'Your request has been sent successfully.',
-        'The Liveboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
-        'success'
+        'Booking Failed',
+        'An error occurred while processing your booking. Please try again later.',
+        'error'
       );
-    },
-    error(err) {
-      Swal.fire(err.error.message);
-      console.log(err);
-    },
+    }
   });
 }
 
