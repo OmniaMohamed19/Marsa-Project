@@ -202,7 +202,12 @@ confirmBooking() {
   });
 }
 
+goback(){
+  this.router.navigate(
+    ['/', this.translate.currentLang, 'transfer'],
 
+  );
+}
 
   toggleTab(tabId: string, paymentMethod: string) {
     this.activeTab = tabId;

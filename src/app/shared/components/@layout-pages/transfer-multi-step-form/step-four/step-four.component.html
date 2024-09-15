@@ -43,89 +43,68 @@
         </div>
 
         <div class="result">
-          <div class="total">
-            <div class="d-flex  justify-content-between align-items-center mb-4">
-              <h2>
-                Traveler Information
-              </h2>
-              <a>Edit</a>
-            </div>
-            <!------------------------------------------->
-              <div>
-                <div class="result-container">
-                  <div class="result-row d-flex justify-content-between align-items-center">
-                    <span>
-                      Booking number
-                    </span>
-                    <span class="align-self-end">
-                      5784-BD245
-                    </span>
-                  </div>
+          <div class="mb-5  bg-white rounded-sm"
+          style=" margin: 30px auto !important;box-shadow: 0.5px 0.8659999966621399px 4px 0px rgba(27, 32, 50, 0.08);">
+          <div class="pt-4 pb-3 px-5 ">
+              <div class="d-flex justify-content-between">
+                  <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-2">
+                      Traveler Information
+                  </h5>
+                  <!-- <a routerLink="/home/tours/payment" class="text-decoration-underline">Edit</a> -->
+                  <!-- <a class="text-decoration-underline">Edit</a> -->
 
-                  <div class="result-row d-flex justify-content-between align-items-center">
-                    <span>
-                      First name
-                    </span>
-                    <span class="align-self-end">
-                      Jessica
-                    </span>
-                  </div>
-
-                  <div class="result-row d-flex justify-content-between align-items-center">
-                    <span>
-                      Last name
-                    </span>
-                    <span class="align-self-end">
-                      Brown
-                    </span>
-                  </div>
-
-                  <div class="result-row d-flex justify-content-between align-items-center">
-                    <span>
-                      E-mail address
-                    </span>
-                    <span class="align-self-end">
-                      Info@Jessica.com
-                    </span>
-                  </div>
-
-                  <div class="result-row d-flex justify-content-between align-items-center">
-                    <span>
-                      Phone Number
-                    </span>
-                    <span class="align-self-end">
-                      0993847423435
-                    </span>
-                  </div>
-
-                </div>
               </div>
-            <!------------------------------------------>
-          </div>
+              <!-- Fact List -->
+              <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                  <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
+                      <span class="font-weight-medium">Booking number</span>
+                      <span class="text-secondary text-right">{{confirmRequest?.Bookingnumber}}</span>
+                  </li>
 
-          <div class="total-1">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2>
-                Payment
-              </h2>
-              <a>Edit</a>
-            </div>
-            <p>
-              lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna,
-            </p>
-          </div>
+                  <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
+                      <span class="font-weight-medium">Name</span>
+                      <span class="text-secondary text-right">{{confirmRequest?.name}}</span>
+                  </li>
 
-          <div class="total-2">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2>
-                View Booking Details
-              </h2>
-              <a>Edit</a>
-            </div>
-            <p>
-              Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
-            </p>
+                  <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
+                      <span class="font-weight-medium">E-mail address</span>
+                      <span class="text-secondary text-right">{{confirmRequest["E-mail"]}}</span>
+                  </li>
+
+                  <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
+                      <span class="font-weight-medium">Phone Number</span>
+                      <span class="text-secondary text-right">{{confirmRequest?.Phone}}</span>
+                  </li>
+              </ul>
+              <!-- End Fact List -->
           </div>
+          <div class="pt-4 pb-3 px-5 ">
+              <div class="d-flex justify-content-between">
+                  <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-3">
+                      Payment
+                  </h5>
+                  <!-- <a class="text-decoration-underline">Edit</a> -->
+                  <!-- <a href="/home/tours/payment" class="text-decoration-underline">Edit</a> -->
+
+              </div>
+              <p >
+                  Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec
+                  lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi
+                  adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
+              </p>
+
+          </div>
+          <div class="pt-4 px-5">
+              <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-3">
+                  View Booking Details
+              </h5>
+              <p >
+                  Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec
+                  lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi
+                  adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
+              </p>
+          </div>
+      </div>
         </div>
       </div>
     </div>

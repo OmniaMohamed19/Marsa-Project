@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./transfer.component.scss'],
 })
 export class TransferComponent implements OnInit {
+  formData: any = {};
   persons: number = 5;
   transferDetails: any;
   fromId: string = '';
@@ -108,9 +109,33 @@ export class TransferComponent implements OnInit {
         localStorage.setItem('responseData', JSON.stringify(res));
 
         // Navigate to the multi-step page
-        this.router.navigateByUrl('en/transfer/multi-step');
+        this.router.navigate(
+          ['/', this.translate.currentLang, 'transfer','multi-step'],
+
+        );
       },
     });
+  }
+
+  onSelectFrom(event: any): void {
+    const selectedId = event.target.value;
+    const selectedOption = this.transferDetails.hotel.find((option: { id: number; }) => option.id === +selectedId);
+
+    if (selectedOption) {
+      // Save both city and id into formData
+      this.formData.fromCity = selectedOption.city;
+      this.formData.fromId = selectedOption.id;
+    }
+  }
+  onSelectTo(event: any): void {
+    const selectedId = event.target.value;
+    const selectedOption = this.transferDetails.hotel.find((option: { id: number; }) => option.id === +selectedId);
+
+    if (selectedOption) {
+      // Save both city and id into formData
+      this.formData.airport = selectedOption.name;
+      this.formData.toId = selectedOption.id;
+    }
   }
 
 
