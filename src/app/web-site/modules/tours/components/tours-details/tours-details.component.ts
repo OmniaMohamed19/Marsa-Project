@@ -12,7 +12,8 @@ import {
   HostListener,
   TemplateRef,
   ViewChild,
-   Renderer2 } from '@angular/core';
+  Renderer2,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -117,7 +118,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   desplayedGustImages: any[] = [];
   displayBasic: boolean = false;
   displayBoats: boolean = false;
-  displayCustom: boolean =false;
+  displayCustom: boolean = false;
 
   activeIndex: number = 0;
   @ViewChild('galleria') galleria: Galleria | undefined;
@@ -148,19 +149,18 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
-  //   // Initialize the active tab on load
-  this.setupIntersectionObserver();
-
+    //   // Initialize the active tab on load
+    this.setupIntersectionObserver();
   }
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
     const tabElement = document.getElementById(tabId);
-  
+
     if (tabElement) {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Calculate position 50px above the element
-  
+
       window.scrollTo({
         top: offset,
         behavior: 'smooth',
@@ -213,10 +213,10 @@ export class ToursDetailsComponent implements AfterViewInit {
     ).map(([key, value]) => ({ value }));
     console.log(this.desplayedGustImages);
     console.log(index);
-    
+
     this.activeIndex = index;
     this.displayCustom = true;
-}
+  }
   // constructor() {}
   ngOnInit(): void {
     this.responsiveOptions = [
@@ -242,8 +242,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       },
     ];
 
-
-    
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
       this.loadData();
@@ -343,7 +341,8 @@ export class ToursDetailsComponent implements AfterViewInit {
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.PlaceOnMap
         );
-console.log(this.googleIframe);
+        // this.googleIframe=this.activityData.PlaceOnMap
+        console.log(this.googleIframe);
 
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
@@ -358,8 +357,8 @@ console.log(this.googleIframe);
         );
         this.relatedtrips = res.Relatedtrips;
         this.happyGustImages = this.activityData?.HappyGust;
-        console.log(typeof(this.happyGustImages));
-        
+        console.log(typeof this.happyGustImages);
+
         this.remainingImages = this.activityData?.HappyGust.slice(1);
         console.log(this.remainingImages);
         const boat = this.activityData?.Boats.find(
@@ -414,7 +413,7 @@ console.log(this.googleIframe);
   }
 
   openBoatSliderModal(boat: any): void {
-    this.displayBoats=true
+    this.displayBoats = true;
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
@@ -422,10 +421,10 @@ console.log(this.googleIframe);
     //   width: '100%',
     // });
     console.log(this.coverAndImages);
-    
+
     console.log(this.boatImages);
     // console.log(boat.images);
-    
+
     // dialogRef.componentInstance.images = boatImages;
   }
 
@@ -530,7 +529,7 @@ console.log(this.googleIframe);
 
   addEvent(event: MatDatepickerInputEvent<Date>): void {
     console.log(event);
-    
+
     this.formattedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
   }
 
@@ -544,15 +543,17 @@ console.log(this.googleIframe);
       return;
     }
     this.availabilityChecked = true;
-    if (this.activityData.AvailableOption.length ==1 ) {
-      this.bookNow(this.activityData.AvailableOption[0].id)
+    if (this.activityData.AvailableOption.length == 1) {
+      this.bookNow(this.activityData.AvailableOption[0].id);
     }
     this.scrollTo('availableOptions');
   }
 
   bookNow(avilable_option_id: number) {
     if (!this.availabilityChecked) {
-      this.toastr.info('Please Choose a date and click on "Check availability" first.');
+      this.toastr.info(
+        'Please Choose a date and click on "Check availability" first.'
+      );
       this.scrollToCheckAvailabilityButton();
       this.selectedDateControl.markAsTouched();
       return;

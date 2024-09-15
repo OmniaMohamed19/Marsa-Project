@@ -447,7 +447,6 @@
                       {{ exclude.title }}
                       <span
                         class="font-size-9 d-inline-block"
-                        style=""
                       >
                         (Price : {{ exclude?.price }} $ : {{ exclude?.option }})
                       </span>
@@ -684,6 +683,9 @@
           <div id="map" class="tab-pane">
             <h5 class="mt-3" id="showmap">Map</h5>
             <div class="map">
+              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28911.899410467387!2d34.88418815!3d25.068415299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15b4ea245c03b81d%3A0x51ad8e167c79ac32!2sMarsa%20Alam%2C%20Red%20Sea%20Governorate!5e0!3m2!1sen!2seg!4v1716024827840!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+              <!-- <iframe src="" frameborder="0"></iframe> -->
+              <!-- <div class="w-100">{{googleIframe}}</div> -->
               <div [innerHTML]="googleIframe"></div>
             </div>
           </div>

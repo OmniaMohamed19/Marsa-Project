@@ -211,9 +211,17 @@ export class LiveboardDetailsComponent {
   }
 
   scrollTo(tabId: string) {
+    this.activeTabId = tabId;
     const tabElement = document.getElementById(tabId);
+
     if (tabElement) {
-      tabElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const elementRect = tabElement.getBoundingClientRect();
+      const offset = window.scrollY + elementRect.top - 170; // Calculate position 50px above the element
+
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+      });
     }
   }
 

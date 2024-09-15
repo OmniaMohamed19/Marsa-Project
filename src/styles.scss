@@ -309,6 +309,10 @@ body {
   position: sticky !important;
   top: -100px; /* Adjust top value as needed */
 }
+.livboard.sticky-container {
+  top: 20px; /* Adjust top value as needed */
+}
+
 
 .p-galleria-thumbnail-container {
   background: #fff !important;
