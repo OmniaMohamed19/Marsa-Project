@@ -295,7 +295,7 @@ export class PaymentComponent {
         next: (res: any) => {
           console.log(res);
           if (res && res.link) {
-            window.location.href = res.link; 
+            window.location.href = res.link;
           } else {
             Swal.fire(
               'Booking Confirmed',
@@ -376,8 +376,8 @@ export class PaymentComponent {
       .subscribe({
         next: (res: any) => {
           console.log(res);
-          if (res && res.link) {  // افترض أن الباكند يرسل الرابط في المتغير "link"
-            window.location.href = res.link; // إعادة توجيه المستخدم مباشرةً إلى الرابط
+          if (res && res.link) {
+            window.location.href = res.link; 
           } else {
             const queryParams = {
               res: JSON.stringify(res),

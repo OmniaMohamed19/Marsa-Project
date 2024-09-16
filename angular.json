@@ -23,6 +23,11 @@
             "polyfills": [
               "zone.js"
             ],
+           "allowedCommonJsDependencies": [
+            "sweetalert2",
+            "google-libphonenumber",
+        "leaflet"
+     ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [

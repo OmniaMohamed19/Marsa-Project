@@ -57,10 +57,9 @@ export class UserSettingsComponent implements OnInit {
     this.name = this.userDetails?.name;
     this.phone = this.userDetails?.overviwe?.phonenumber;
     // console.log(this.phone);
-    this.phoneNumber =
-      '+' +
-      this.userDetails?.overviwe?.countrycode +
-      this.phone.replace(/\s/g, '');
+    this.phoneNumber = '+' +
+    (this.userDetails?.overviwe?.countrycode || '') +
+    (this.phone ? this.phone.replace(/\s/g, '') : '');
     // console.log(this.phoneNumber);
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
