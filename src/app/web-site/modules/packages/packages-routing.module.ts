@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '', component: LandingPackagesComponent,
     children: [
       { path: 'allPackages', component: AllPackagesComponent},
-      { path: 'packageDetails/:id', component: PackageDetailsComponent },
+      { path: 'packageDetails/:id/:name', component: PackageDetailsComponent },
       { path: 'packagePayment', component: PackagePaymentComponent },
       { path: 'packageConfirm', component: PackageConfirmComponent },
     ]

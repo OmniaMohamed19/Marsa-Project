@@ -53,57 +53,51 @@
                 <span> Time </span>
               </th>
               <th><span> Status </span></th>
-              <th></th>
+              <!-- <th></th> -->
+              <!-- <th></th> -->
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let package of filterdPackages">
               <td>
-                <span> SUV</span>
+                <span>{{ package?.flight }}</span>
               </td>
               <td>
-                <span>20-9-2020</span>
+                <span>{{ package?.
+                  date }}</span>
               </td>
               <td>
-                <span> airport </span>
+                <span>{{ package?.pickup }}</span>
               </td>
               <td>
-                <span> Hotel </span>
+                <span>{{ package?.drop }}</span>
               </td>
               <td>
-                <span> 2:30 </span>
+                <span>{{ package?.time }} </span>
               </td>
               <td>
-                <span class="completed"> Completed</span>
+                <span
+                  *ngIf="package?.payment_status == 'paid'"
+                  class="completed"
+                >
+                  {{ package?.payment_status }}</span
+                >
+                <span *ngIf="package?.payment_status !== 'paid'" class="cancel">
+                  {{ package?.payment_status }}</span
+                >
               </td>
-              <td>
-                <button>View details</button>
-              </td>
-            </tr>
-
-            <!------------------------------>
-            <tr>
-              <td>
-                <span> SUV</span>
-              </td>
-              <td>
-                <span>20-9-2020</span>
-              </td>
-              <td>
-                <span> airport </span>
-              </td>
-              <td>
-                <span> Hotel </span>
-              </td>
-              <td>
-                <span> 2:30 </span>
-              </td>
-              <td>
-                <span class="cancel">Cancelled</span>
-              </td>
-              <td>
-                <button>View details</button>
-              </td>
+              <!-- <td>
+                <button
+                  [routerLink]="
+                    '../../packages/packageDetails/' +
+                    package?.id +
+                    '/' +
+                    package.name
+                  "
+                >
+                  View details
+                </button>
+              </td> -->
             </tr>
             <!------------------------------->
           </tbody>
