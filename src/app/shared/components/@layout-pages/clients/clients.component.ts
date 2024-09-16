@@ -44,16 +44,18 @@ export class ClientsComponent {
   constructor( private _HttpService: HttpService,
     public translate: TranslateService)
 {}
-  ngOnInit(): void {
-    this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.data = response;
-     
-
-      },
-    });
-  }
+ngOnInit(): void {
+  this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
+    next: (response: any) => {
+      console.log(response);
+      this.data = response;
+    },
+    error: (err) => {
+      console.error('Error fetching data', err);
+      // Handle error accordingly
+    }
+  });
+}
   onImgError(event: any) {
     event.target.src = 'assets/custom/user-dasboard/user.jpeg';
   }

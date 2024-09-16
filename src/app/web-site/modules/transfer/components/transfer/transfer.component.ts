@@ -30,13 +30,16 @@ export class TransferComponent implements OnInit {
 
   ) {}
 
-  ngOnInit() {
-    this.httpService
-      .get(environment.marsa, 'transfer')
-      .subscribe((res: any) => {
+  ngOnInit(): void {
+    this.httpService.get(environment.marsa, 'transfer').subscribe({
+      next: (res: any) => {
         this.transferDetails = res;
         console.log(res);
-      });
+      },
+      error: (err) => {
+        console.error('Error fetching transfer details', err);
+      }
+    });
 
     // Retrieve and set the saved values if any
     this.returnDate = localStorage.getItem('returnDate') || '';

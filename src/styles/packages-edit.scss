@@ -1,10 +1,10 @@
 .packages-edit {
-  header {
+  :is(header) {
     margin-top: 49px;
     text-align: center;
   }
 
-  h3 {
+  :is(h3) {
     color: #004796;
     font-family: Poppins;
     font-size: 30px;
@@ -23,7 +23,7 @@
     align-items: center;
     gap: 20px;
 
-    li {
+    :is(li){
       color: var(--Main-Title, #0db1ff);
       font-family: Lato;
       font-size: 20px;
@@ -67,13 +67,13 @@
 
   .first-column {
     .package-list {
-      li {
+      :is(li) {
         display: flex;
         align-items: center;
         gap: 10px;
         margin-bottom: 10px;
 
-        span {
+        :is(span) {
           color: #fff;
           text-align: center;
           font-family: "Rubik", Helvetica, Arial, sans-serif;
@@ -88,7 +88,7 @@
     .trip-details {
       margin-top: 30px;
 
-      h5 {
+      :is(h5) {
         color: #ffca0e;
         font-family: Poppins;
         font-size: 30px;
@@ -97,14 +97,14 @@
         line-height: normal;
       }
 
-      ul {
-        li {
+      :is(ul) {
+        :is(li) {
           display: flex;
           align-items: center;
           gap: 8px;
           margin-bottom: 20px;
 
-          span {
+          :is(span) {
             color: #fff;
             font-family: Poppins;
             font-size: clamp(10px, 16px, 25px);
@@ -115,7 +115,7 @@
         }
       }
 
-      button {
+      :is(button) {
         color: var(--Light-Blue, #3372b8);
         text-align: center;
         font-family: Karma;
@@ -151,7 +151,7 @@
     justify-content: center;
     align-items: center;
 
-    span {
+    :is(span) {
       display: block;
       align-self: flex-end;
       text-transform: uppercase;
@@ -159,7 +159,7 @@
     }
   }
 
-  p {
+  :is(p) {
     width: 123px;
     color: #0072bc;
     font-family: Poppins;
@@ -175,7 +175,7 @@
     }
   }
 
-  span {
+  :is(span) {
     color: #297cbb;
     font-family: Poppins;
     font-size: 20px;
@@ -184,7 +184,7 @@
     line-height: normal;
   }
 
-  img {
+  :is(img) {
     position: absolute;
     top: 406px;
     left: 0;
@@ -199,7 +199,7 @@
   gap: 30px;
   align-items: flex-end;
 
-  div {
+  :is(div) {
     width: 222.531px;
     height: 556.328px;
     position: relative;
@@ -212,7 +212,7 @@
       overflow: hidden;
       height: fit-content;
 
-      img {
+      :is(img) {
         height: 456px;
         transition: all 0.5s ease-in-out;
         filter: none;
@@ -231,7 +231,7 @@
       transform: scale(1.3) translate(30px, 40px);
       height: fit-content;
 
-      img {
+      :is(img) {
         height: 420px;
         transition: all 0.5s ease-in-out;
         filter: none;
@@ -250,7 +250,7 @@
       transform: scale(1.2) translate(50px, 74px);
       height: fit-content;
 
-      img {
+      :is(img) {
         height: 599px;
         transition: all 0.5s ease-in-out;
 
@@ -310,7 +310,7 @@
     margin-top: 15px;
     gap: 5px;
 
-    li {
+    :is(li){
       font-size: 14px;
     }
   }
@@ -321,7 +321,7 @@
     z-index: 5;
     width: 98%;
 
-    button {
+    :is(button) {
       border-radius: 5px;
       background: var(--Main-Title, #0db1ff);
       width: 100%;
@@ -351,7 +351,7 @@
     gap: 0px;
     margin-top: 10px;
     margin-bottom: 4%;
-    div {
+    :is(div) {
       height: 480px;
       width: auto;
     }
@@ -385,7 +385,7 @@
   .btn-container {
     bottom: 10px;
     width: 98%;
-    button {
+    :is(button) {
 
       margin-bottom: -0.59rem;
 
@@ -403,7 +403,7 @@
     gap: 50px;
     margin-top: 10px;
     margin-bottom: 10%;
-    div {
+    :is(div) {
       height: 480px;
       width: auto;
     }
@@ -441,11 +441,11 @@
   }
 
   .discount-small {
-    img {
+    :is(img) {
       height: 104px !important;
     }
 
-    p {
+    :is(p) {
       left: 10px !important;
     }
   }
@@ -455,7 +455,7 @@
     width: 73%;
     left: 15%;
 
-    button {
+    :is(button) {
       width: 95%;
     }
   }
@@ -466,7 +466,7 @@
     position: relative;
     margin-bottom: 10px;
 
-    p {
+    :is(p) {
       position: absolute;
       top: 10px;
       left: 0;
@@ -480,7 +480,7 @@
       line-height: normal;
     }
 
-    img {
+    :is(img) {
       position: absolute;
       top: -27px;
       left: 0px;
@@ -492,7 +492,7 @@
   .packages-img {
     text-align: center;
 
-    img {
+    :is(img) {
       width: 70%;
 
       &:nth-of-type(2) {
@@ -503,7 +503,7 @@
   }
 
   .packages-content .first-column .package-list {
-    li span {
+    :is(li) span {
       font-weight: 500;
     }
   }
@@ -515,7 +515,7 @@
       overflow-x: auto;
       padding-bottom: 10px;
 
-      li {
+      :is(li) {
         width: fit-content;
         display: inline-block;
         color: #67747c;
@@ -555,11 +555,11 @@
       top: 435px;
     }
 
-    img {
+    :is(img) {
       width: 27%;
     }
 
-    p {
+    :is(p) {
       font-size: 25px;
 
       &:nth-of-type(2) {
@@ -567,7 +567,7 @@
       }
     }
 
-    span {
+    :is(span) {
       margin-left: -20px;
     }
   }
