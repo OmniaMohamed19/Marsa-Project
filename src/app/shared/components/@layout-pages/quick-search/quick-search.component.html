@@ -3,7 +3,7 @@
     <!-- Dropdown for small screens -->
     <div class="dropdown">
       <button
-        class="btn btn-violet-light dropdown-toggle w-100"
+        class="btn btn-secondary dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
         data-bs-toggle="dropdown"
@@ -12,7 +12,7 @@
         <!-- Display the currently selected tab -->
         {{ getCurrentTabLabel() }}
       </button>
-      <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
           <a
             class="dropdown-item"
@@ -616,96 +616,82 @@
                     <div class="border-bottom border-color-1 mb-2">
                       <!-- Input -->
                       <span class="d-block text-gray-1 text-left font-weight-normal mb-0">Persons</span>
-                      <a class="dropdown-nav-link dropdown-toggle d-flex py-3" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <div class="input-group-prepend">
-                          <span class="d-flex align-items-center">
-                            <img src="assets/custom/Activity/calender.svg" alt="Calender Icon" />
-                          </span>
-                        </div>
-                        <span style="padding-left: 1rem; color:#3b444f" class=" font-size-16">{{ adultsNumber }} Adults
-                          -
-                          {{ childrenNumber }} Child-{{
-                          infantNumber
-                          }}
-                          Infant</span>
-                      </a>
-                      <div class="dropdown-menu m-0">
-                        <div class="w-100 py-2 px-3">
-                          <div class="js-quantity d-flex align-items-center justify-content-between w-100">
-                            <span class="d-block mx-1 font-size-16 text-secondary font-weight-medium">Adults</span>
-                            <div class="d-flex">
-                              <a (click)="
-                                  adultsNumber > 0
-                                    ? (adultsNumber = adultsNumber - 1)
-                                    : 0
-                                " class="js-minus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
-                                href="javascript:;">
-                                <small class="fas fa-minus btn-icon__inner"></small>
-                              </a>
-                              <input class="js-result form-control h-auto border-0 rounded p-0 max-width-6 text-center"
-                                type="text" [value]="adultsNumber" />
-                              <a (click)="
-                                  adultsNumber < 10
-                                    ? (adultsNumber = adultsNumber + 1)
-                                    : 10
-                                " class="js-plus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
-                                href="javascript:;">
-                                <small class="fas fa-plus btn-icon__inner"></small>
-                              </a>
+                      <div class="dropdown">
+                        <a class="dropdown-nav-link dropdown-toggle d-flex py-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <div class="input-group-prepend">
+                            <span class="d-flex align-items-center">
+                              <img src="assets/custom/Activity/calender.svg" alt="Calender Icon" />
+                            </span>
+                          </div>
+                          <span style="padding-left: 1rem; color:#3b444f" class="font-size-16">{{ adultsNumber }} Adults - {{ childrenNumber }} Child - {{ infantNumber }} Infant</span>
+                        </a>
+
+                        <!-- Dropdown Menu with Custom Content -->
+                        <div class="dropdown-menu m-0">
+                          <div class="w-100 py-2 px-3">
+                            <div class="js-quantity d-flex align-items-center justify-content-between w-100">
+                              <span class="d-block mx-1 font-size-16 text-secondary font-weight-medium">Adults</span>
+                              <div class="d-flex">
+                                <a (click)="adultsNumber > 0 ? (adultsNumber = adultsNumber - 1) : 0"
+                                   class="js-minus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
+                                   href="javascript:;">
+                                  <small class="fas fa-minus btn-icon__inner"></small>
+                                </a>
+                                <input class="js-result form-control h-auto border-0 rounded p-0 max-width-6 text-center"
+                                       type="text" [value]="adultsNumber" />
+                                <a (click)="adultsNumber < 10 ? (adultsNumber = adultsNumber + 1) : 10"
+                                   class="js-plus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
+                                   href="javascript:;">
+                                  <small class="fas fa-plus btn-icon__inner"></small>
+                                </a>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="w-100 py-2 px-3">
-                          <div class="js-quantity d-flex align-items-center justify-content-between w-100">
-                            <span class="d-block font-size-16 mx-1 text-secondary font-weight-medium">Child</span>
-                            <div class="d-flex">
-                              <a (click)="
-                                  childrenNumber > 0
-                                    ? (childrenNumber = childrenNumber - 1)
-                                    : 0
-                                " class="js-minus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
-                                href="javascript:;">
-                                <small class="fas fa-minus btn-icon__inner"></small>
-                              </a>
-                              <input class="js-result form-control h-auto border-0 rounded p-0 max-width-6 text-center"
-                                type="text" [value]="childrenNumber" />
-                              <a class="js-plus btn btn-icon btn-medium btn-outline-secondary rounded-circle" (click)="
-                                  childrenNumber < 10
-                                    ? (childrenNumber = childrenNumber + 1)
-                                    : 10
-                                " href="javascript:;">
-                                <small class="fas fa-plus btn-icon__inner"></small>
-                              </a>
+
+                          <div class="w-100 py-2 px-3">
+                            <div class="js-quantity d-flex align-items-center justify-content-between w-100">
+                              <span class="d-block font-size-16 mx-1 text-secondary font-weight-medium">Child</span>
+                              <div class="d-flex">
+                                <a (click)="childrenNumber > 0 ? (childrenNumber = childrenNumber - 1) : 0"
+                                   class="js-minus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
+                                   href="javascript:;">
+                                  <small class="fas fa-minus btn-icon__inner"></small>
+                                </a>
+                                <input class="js-result form-control h-auto border-0 rounded p-0 max-width-6 text-center"
+                                       type="text" [value]="childrenNumber" />
+                                <a (click)="childrenNumber < 10 ? (childrenNumber = childrenNumber + 1) : 10"
+                                   class="js-plus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
+                                   href="javascript:;">
+                                  <small class="fas fa-plus btn-icon__inner"></small>
+                                </a>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="w-100 py-2 px-3">
-                          <div class="js-quantity d-flex align-items-center justify-content-between w-100">
-                            <span class="d-block mx-1 font-size-16 text-secondary font-weight-medium">Infants</span>
-                            <div class="d-flex">
-                              <a (click)="
-                                  infantNumber > 0
-                                    ? (infantNumber = infantNumber - 1)
-                                    : 0
-                                " class="js-minus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
-                                href="javascript:;">
-                                <small class="fas fa-minus btn-icon__inner"></small>
-                              </a>
-                              <input class="js-result form-control h-auto border-0 rounded p-0 max-width-6 text-center"
-                                type="text" [value]="infantNumber" />
-                              <a (click)="
-                                  infantNumber < 10
-                                    ? (infantNumber = infantNumber + 1)
-                                    : 10
-                                " class="js-plus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
-                                href="javascript:;">
-                                <small class="fas fa-plus btn-icon__inner"></small>
-                              </a>
+
+                          <div class="w-100 py-2 px-3">
+                            <div class="js-quantity d-flex align-items-center justify-content-between w-100">
+                              <span class="d-block mx-1 font-size-16 text-secondary font-weight-medium">Infants</span>
+                              <div class="d-flex">
+                                <a (click)="infantNumber > 0 ? (infantNumber = infantNumber - 1) : 0"
+                                   class="js-minus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
+                                   href="javascript:;">
+                                  <small class="fas fa-minus btn-icon__inner"></small>
+                                </a>
+                                <input class="js-result form-control h-auto border-0 rounded p-0 max-width-6 text-center"
+                                       type="text" [value]="infantNumber" />
+                                <a (click)="infantNumber < 10 ? (infantNumber = infantNumber + 1) : 10"
+                                   class="js-plus btn btn-icon btn-medium btn-outline-secondary rounded-circle"
+                                   href="javascript:;">
+                                  <small class="fas fa-plus btn-icon__inner"></small>
+                                </a>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
+
+
                       <!-- End Input -->
                     </div>
                   </div>
@@ -794,7 +780,7 @@
                           }}
                           Infant</span>
                       </a>
-                      <div class="dropdown-menu m-0">
+                      <div class="dropdown-menu  m-0">
                         <div class="w-100 py-2 px-3">
                           <div class="js-quantity d-flex align-items-center justify-content-between w-100">
                             <span class="d-block mx-1 font-size-16 text-secondary font-weight-medium">Adults</span>

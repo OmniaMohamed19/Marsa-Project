@@ -146,7 +146,8 @@
                         this.translate.currentLang,
                         'packages',
                         'packageDetails',
-                        package?.id
+                        package?.id,
+                        package?.name
                       ]"
                     >
                       Get Offer
@@ -164,20 +165,21 @@
               <div>
                 <img src="../../../../../assets/images/boat2.png" />
               </div>
-              <div>
+              <div class="div2">
                 <img src="../../../../../assets/images/man3.png" />
               </div>
             </div>
 
             <div class="d-block d-lg-none btn-container">
               <button
-                [routerLink]="[
-                  '/',
-                  this.translate.currentLang,
-                  'packages',
-                  'packageDetails',
-                  package?.id
-                ]"
+              [routerLink]="[
+              '/',
+              this.translate.currentLang,
+              'packages',
+              'packageDetails',
+              package?.id,
+              package?.name
+            ]"
               >
                 Get Offer
               </button>

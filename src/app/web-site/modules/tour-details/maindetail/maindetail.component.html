@@ -141,7 +141,14 @@
             <div class="card h-100 d-flex flex-row" style="border: none; padding:0 10px;">
               <div class="img-container position-relative" style="width: 50%; height: auto;">
                 <a
-                  [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
+                [routerLink]="[
+                '/',
+                translate.currentLang,
+                'tours',
+                'details',
+                item?.id,
+                item?.Title
+              ]"
                   class="d-block h-100"
                   style="border-radius: 10px; overflow: hidden; transition: none; position: relative;"
                 >

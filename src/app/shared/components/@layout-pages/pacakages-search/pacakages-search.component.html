@@ -14,7 +14,7 @@
         <div class="tab-content overflow-x-hidden" id="pills-tabContent">
             <div class="tab-pane fade show" [class.active]="selectedTabId === i"
                 *ngFor="let package of packages; let i = index">
-                
+
                 <div class="row pt-5 tabs-bg">
                     <div class="col-lg-6">
                         <div class="images vacation  pl-12 pt-0">
@@ -68,7 +68,9 @@
                                 </ul>
                                 <div class="btns ml-4">
                                     <button class="btn"
-                                        [routerLink]="['/', this.translate.currentLang,'packages' , 'packageDetails' , package?.id]">
+                                        [routerLink]="['/', this.translate.currentLang,'packages' , 'packageDetails' , package?.id , package.name]"
+                                        
+                                       >
                                         Get Offer</button>
                                 </div>
                             </div>

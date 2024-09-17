@@ -43,7 +43,11 @@ export class QuickSearchComponent {
     this.showSearch = value;
     this.scrollToActive(value);
   }
-
+  selectedCategory: string = 'adults';
+  onSelectionChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.selectedCategory = target.value;
+  }
 
   getCurrentTabLabel(): string {
     switch (this.showSearch) {
