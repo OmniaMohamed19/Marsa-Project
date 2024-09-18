@@ -339,7 +339,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         this.activityData = res?.tripDetails;
         console.log(this.activityData);
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
-          this.activityData.PlaceOnMap
+          this.activityData.Map
         );
         // this.googleIframe=this.activityData.PlaceOnMap
         console.log(this.googleIframe);
