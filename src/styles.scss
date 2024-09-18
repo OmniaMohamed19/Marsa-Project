@@ -91,6 +91,7 @@ body {
 .owl-item img {
   object-fit: cover;
   object-position: center;
+  height: 250px !important;
 }
 .owl-item img.bigimg {
   object-fit: cover;
@@ -471,4 +472,8 @@ body {
 
 .navs::-webkit-scrollbar-thumb:hover {
   background: #555; /* Color of the thumb on hover */
+}
+.card-img-top {
+  height: 300px;
+  width: 100%;
 }

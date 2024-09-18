@@ -105,7 +105,7 @@ export class LiveboardPaymentComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
+      // nationality: ['', [Validators.required]],
       note: [''],
       pickup_point: [''],
       locationValue: [''],
@@ -293,6 +293,7 @@ export class LiveboardPaymentComponent implements OnInit {
       };
 
       console.log(model);
+      console.log(this.customerForm.value);
 
       this._httpService.post(environment.marsa, 'liveboard/book', model).subscribe({
         next: (res: any) => {

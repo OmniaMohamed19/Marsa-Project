@@ -282,7 +282,7 @@
                 <div class="w-100"></div>
 
                 <!-- Input -->
-                <div class="col-sm-12 mb-4">
+                <!-- <div class="col-sm-12 mb-4">
                   <div class="js-form-message">
                     <label class="form-label"> Nationality </label>
                     <input
@@ -320,7 +320,7 @@
                       Nationality is required
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- End Input -->
                 <div class="w-100"></div>
                 <p>Do you want a pick up services ?</p>
@@ -983,7 +983,9 @@
                       <span class="font-weighted">Total</span>
                       <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
                     </li> -->
-                    <li
+                    
+                    <ng-container *ngIf="Coupons && Coupons[0]; else elseTemplate2">
+                      <li
                       *ngIf="Coupons && Coupons[0]"
                       class="d-flex justify-content-between py-2 font-size-17"
                       style="font-weight: 700"
@@ -1000,6 +1002,16 @@
                       <span>{{ Total }}</span>
                       <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
                     </li>
+                    </ng-container>
+                    <ng-template #elseTemplate2>
+                      <li
+                      class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                    >
+                      <span class="font-weighted">Total</span>
+                      <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
+                    </li>
+                    </ng-template>
+                    
                   </ul>
                 </ng-container>
                 <!-- End Fact List -->

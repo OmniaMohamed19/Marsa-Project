@@ -261,6 +261,9 @@ export class LiveboardDetailsComponent {
           res?.tripDetails?.Video
         );
         this.happyGustImages = this.liveabourdData?.HappyGust;
+        console.log(this.liveabourdData);
+        console.log(this.liveabourdData?.Terms);
+        
         this.remainingImages = this.liveabourdData?.HappyGust.slice(1);
         const boat = this.liveabourdData?.Boats.find(
           (boat: any) => boat.id === liveabourdID

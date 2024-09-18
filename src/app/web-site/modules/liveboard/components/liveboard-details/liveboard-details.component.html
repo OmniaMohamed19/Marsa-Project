@@ -400,10 +400,17 @@
                       ></i>
                       {{ exclude.title }}
                       <span
+                      *ngIf="exclude?.price>0"
                         class="font-size-9 d-inline-block"
                       >
                         (Price : {{ exclude?.price }} - Option :
                         {{ exclude?.option }})
+                      </span>
+                      <span
+                      *ngIf="exclude?.price==0"
+                        class="font-size-9 d-inline-block"
+                      >
+                        (Price : {{ exclude?.price }} )
                       </span>
                     </li>
                   </ul>
@@ -487,6 +494,14 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-md-5">
+                  <h6>{{ item.name }}</h6>
+                  <ul class="py-3 boat-features list-unstyled">
+                    <li *ngFor="let feature of getOverviewItems(item.overview)">
+                      {{ feature }}
+                    </li>
+                  </ul>
+                </div>
                 <p-galleria
             [value]="boatImages"
             [(visible)]="displayBoats"
@@ -501,14 +516,7 @@
               <img [src]="item?.value" style="width: 100%; height:  480px;" />
             </ng-template>
           </p-galleria>
-                <div class="col-md-5">
-                  <h6>{{ item.name }}</h6>
-                  <ul class="py-3 boat-features list-unstyled">
-                    <li *ngFor="let feature of getOverviewItems(item.overview)">
-                      {{ feature }}
-                    </li>
-                  </ul>
-                </div>
+                
               </div>
             </div>
           </div>
