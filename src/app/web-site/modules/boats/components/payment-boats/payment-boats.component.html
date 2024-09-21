@@ -169,21 +169,45 @@
             <li class="pt-2">From hotel to the marine</li>
           </ul>
           <!-- Input -->
-          <div class="col-sm-6 mb-4">
-            <div class="js-form-message">
-              <label class="form-label"> Pick up Location </label>
+          <ng-container *ngIf="showServices" class="mb-2">
+            <div class="col-sm-6 mb-4">
+              <div class="js-form-message">
+                <label class="form-label"> Pick up Location </label>
+                <input
+                  (click)="openMapModal()"
+                  type="text"
+                  class="form-control location"
+                  aria-describedby="helpId"
+                  [value]="locationValue"
+                  placeholder="Location"
+                  formControlName="locationValue"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="col-sm-6 mb-4">
+              <label class="form-label"> Pick up Place </label>
               <input
-                (click)="openMapModal()"
                 type="text"
-                class="form-control location"
-                aria-describedby="helpId"
-                [value]="locationValue"
-                placeholder="Location"
-                formControlName="locationValue"
-                readonly
+                class="form-control"
+                formControlName="pickup_point"
+                placeholder="Enter Pick up Place"
               />
             </div>
-          </div>
+            <div
+                *ngIf="
+                  customerForm.get('pickup_point')?.invalid &&
+                  (customerForm.get('pickup_point')?.dirty ||
+                    customerForm.get('pickup_point')?.touched)
+                "
+                class="alert alert-danger my-2"
+              >
+              Pick up Place is required
+              </div>
+          </ng-container>
+          
+        </ng-container>
+        <ng-container *ngIf="!showServices" class="mb-2">
           <div class="col-sm-6 mb-4">
             <label class="form-label"> Pick up Place </label>
             <input
@@ -193,6 +217,17 @@
               placeholder="Enter Pick up Place"
             />
           </div>
+          <div
+              *ngIf="
+                customerForm.get('pickup_point')?.invalid &&
+                (customerForm.get('pickup_point')?.dirty ||
+                  customerForm.get('pickup_point')?.touched)
+              "
+              class="alert alert-danger my-2"
+            >
+            Pick up Place is required
+            </div>
+          <p>You must choose location before 24 hours</p>
         </ng-container>
         <!-- End Input -->
         <div class="w-100"></div>

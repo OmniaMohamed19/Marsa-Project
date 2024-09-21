@@ -75,7 +75,7 @@ export class PaymentBoatsComponent {
       phone: ['', [Validators.required]],
       nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: [''],
+      pickup_point: ['',[Validators.required]],
       locationValue: [''],
     })
   }

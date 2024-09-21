@@ -287,8 +287,37 @@
                         placeholder="Enter Pick up Place"
                       />
                     </div>
+                    <div
+                        *ngIf="
+                          customerForm.get('pickup_point')?.invalid &&
+                          (customerForm.get('pickup_point')?.dirty ||
+                            customerForm.get('pickup_point')?.touched)
+                        "
+                        class="alert alert-danger my-2"
+                      >
+                      Pick up Place is required
+                      </div>
                   </ng-container>
                   <ng-container *ngIf="!showServices" class="mb-2">
+                    <div class="col-sm-6 mb-4">
+                      <label class="form-label"> Pick up Place </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="pickup_point"
+                        placeholder="Enter Pick up Place"
+                      />
+                    </div>
+                    <div
+                        *ngIf="
+                          customerForm.get('pickup_point')?.invalid &&
+                          (customerForm.get('pickup_point')?.dirty ||
+                            customerForm.get('pickup_point')?.touched)
+                        "
+                        class="alert alert-danger my-2"
+                      >
+                      Pick up Place is required
+                      </div>
                     <p>You must choose location before 24 hours</p>
                   </ng-container>
                   <!-- End Input -->
