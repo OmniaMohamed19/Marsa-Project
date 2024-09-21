@@ -40,7 +40,7 @@ export class MapModalComponent implements OnInit {
   }
 
   initializeMap(): void {
-    this.map = L.map('leaflet-map').setView(
+    this.map = L.map('googleMap').setView(
       [this.latitudeValue, this.longitudeValue],
       5
     );
