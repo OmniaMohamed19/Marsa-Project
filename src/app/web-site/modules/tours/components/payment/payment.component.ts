@@ -133,8 +133,8 @@ export class PaymentComponent {
       phone: ['', [Validators.required]],
       nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',[Validators.required]],
-      locationValue: ['',[Validators.required]],
+      pickup_point: [''],
+      locationValue: [''],
     });
   }
 
