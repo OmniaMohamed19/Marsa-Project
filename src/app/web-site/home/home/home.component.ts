@@ -121,9 +121,9 @@ export class HomeComponent implements OnInit {
     this.hidesectionfun = false;
   }
 
-  contactWhatsapp() {
-    window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
-  }
+  // contactWhatsapp() {
+  //   window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
+  // }
 
   call(option: any) {
     if (option == 'call') window.open('tel:' + this.social.Call, '_blank');

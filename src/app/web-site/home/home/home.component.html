@@ -300,154 +300,9 @@
         </div>
       </div>
     </div>
-    <!-- End Topbar -->
 
-    <!-- Nav -->
-    <!-- <nav class="navbar navbar-expand-lg bg-transparent d-none d-lg-block">
-      <div class="container-fluid p-0">
-        <a
-          class="navbar-brand me-0"
-          [routerLink]="['/', translate.currentLang]"
-        >
-          <img alt="Marsa Waves" src="assets/images/logo.svg" loading="lazy" />
-        </a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <form
-          class="d-flex pt-0 w-50 position-relative"
-          role="search"
-          style="left: 10px; top: 5px"
-        >
-          <div
-            class="input-append position-absolute"
-            style="top: 13px; left: 17px"
-          >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </div>
-          <input
-            type="text"
-            class="form-control w-50"
-            style="height: 50px; padding-left: 40px"
-            placeholder="{{ 'header.placeholder' | translate }}"
-          />
-          <a type="button" class="btn search">
-            {{ "header.search" | translate }}
-          </a>
-        </form>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul
-            class="navbar-nav me-auto mb-2 mb-lg-0"
-            style="text-align: justify"
-          >
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                [routerLink]="['/', translate.currentLang, 'mainPage']"
-                routerLinkActive="active1"
-              >
-                {{ "header.home" | translate }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                [routerLink]="['/', translate.currentLang, 'tours']"
-                routerLinkActive="active1"
-              >
-                {{ "header.tours-activities" | translate }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                [routerLink]="['/', translate.currentLang, 'liveboard']"
-                routerLinkActive="active1"
-              >
-                {{ "header.liveboard" | translate }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                [routerLink]="['/', translate.currentLang, 'boats']"
-                routerLinkActive="active1"
-              >
-                {{ "header.boat" | translate }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                [routerLink]="['/', translate.currentLang, 'transfer']"
-                routerLinkActive="active1"
-              >
-                {{ "header.transport" | translate }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                [routerLink]="['/', translate.currentLang, 'contactUs']"
-                routerLinkActive="active1"
-              >
-                {{ "header.contact-us" | translate }}
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{ "header.more" | translate }}
-              </a>
-              <ul class="dropdown-menu" id="navbarSupportedContent2">
-                <li>
-                  <a
-                    class="dropdown-item"
-                    [routerLink]="['/', translate.currentLang, 'blogs']"
-                    routerLinkActive="active1"
-                  >
-                    {{ "header.blog" | translate }}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    [routerLink]="['/', translate.currentLang, 'faq']"
-                    routerLinkActive="active1"
-                  >
-                    {{ "header.faq" | translate }}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    [routerLink]="['/', translate.currentLang, 'about']"
-                    routerLinkActive="active1"
-                  >
-                    {{ "header.about" | translate }}
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
-    <!-- End Nav -->
     <app-navbar [isWhiteByDefault]="false"></app-navbar>
-    <div
+    <!-- <div
       style="text-align: start; position: fixed; left: 0px; bottom: 0px"
       class="px-4"
     >
@@ -457,7 +312,7 @@
         style="width: 15%; cursor: pointer"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png"
       />
-    </div>
+    </div> -->
   </div>
 </header>
 <!----
@@ -472,15 +327,15 @@
   [style.background]="'url(' + currentCoverImage + ')'"
 >
   <!-- Info -->
-  <div class="text-center caption">
-    <h1>Let’s The World Together !</h1>
+  <div class="caption" style="margin-bottom:150px ;">
+    <h1 style="padding-top:-50px !important ;">Let’s The World Together !</h1>
     <p>
       Are you planning a vacation to enjoy your free time? Looking for a place
       to explore
     </p>
   </div>
   <!-- End Info -->
-  <div class="container quick-search-form d-none d-lg-block">
+  <div class="container quick-search-form d-none d-lg-block" style="margin-top:-45px ;">
     <app-quick-search [changeStyle]="false"></app-quick-search>
   </div>
 </div>

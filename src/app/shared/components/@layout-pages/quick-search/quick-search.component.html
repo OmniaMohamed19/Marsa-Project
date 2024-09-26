@@ -566,7 +566,7 @@
 
 
   <!-- End Nav Classic -->
-  <div class="tab-content hero-tab-pane">
+  <div class="tab-content hero-tab-pane " >
     <div [ngClass]="{ 'active show': showSearch == 'tour' }" class="tab-pane fade" id="pills-one-example2"
       role="tabpanel" aria-labelledby="pills-one-example2-tab">
       <!-- Search Jobs Form -->
@@ -1043,10 +1043,10 @@
       </div>
       <!-- End Search Jobs Form -->
     </div>
-    <div [ngClass]="{ 'active show': showSearch == 'transfer' }" class="tab-pane fade" id="pills-four-example2"
+    <div [ngClass]="{ 'active show': showSearch == 'transfer' }"  class="tab-pane fade" id="pills-four-example2"
       role="tabpanel" aria-labelledby="pills-four-example2-tab">
       <!-- Search Jobs Form -->
-      <div class="card border-0 tab-shadow px-4">
+      <div class="card border-0 tab-shadow px-4" style="margin-bottom: 0px;padding-bottom: 0px; height: 100%;">
         <div class="card-body ">
           <form class="js-validate">
             <div>
@@ -1085,13 +1085,13 @@
                     <!-- End Select -->
                   </div>
                   <div class="mb-lg-0 nav-select-item col" style="padding-right:0px ; padding-left: 0px;">
-                    <span>Pick Off Location</span>
+                    <span>Drop Off Location</span>
                     <!-- Select -->
                     <div class="d-flex justify-content-center align-items-center">
                       <span><img src="assets/custom/Activity/location.svg" alt="Location Icon" /></span>
                       <select class="form-select border-bottom border-color-1 pb-3" aria-label="Select example"
                         style="font-size: 14px">
-                        <option>Pick Off Location</option>
+                        <option>Drop Off Location</option>
                         <option *ngFor="let dist of destination" [value]="dist.id">
                           {{ dist.name }}
                         </option>
@@ -1216,13 +1216,14 @@
                       <!-- End Input -->
                     </div>
                   </div>
-                  <div style="padding-right:0px ; padding-left: 0px;">
+                  <div style="padding-right:0px ; padding-left: 0px; padding-bottom: 0px;">
                     <button type="submit" class="btn border-radius-3" style="
                         background-color: #0db1ff;
                         width: 166.25px;
                         height: 52.5px;
                         flex-shrink: 0;
                         color: #ffffff;
+                       margin-top: -26px;
                       ">
                       <i class="fa-solid fa-magnifying-glass mr-2"></i>Search
                     </button>

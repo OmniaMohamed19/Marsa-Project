@@ -7,3 +7,21 @@
 <app-connectivity-notification></app-connectivity-notification>
 <!-- <app-connectivity-notification></app-connectivity-notification> -->
 <router-outlet></router-outlet>
+<div
+  style="
+    text-align: start;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    z-index: 9999;
+  "
+  class="px-4"
+>
+  <img
+    (click)="contactWhatsapp()"
+    class="transition-3d-hover"
+    style="width: 15%; cursor: pointer"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png"
+  />
+</div>
+

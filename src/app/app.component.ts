@@ -24,7 +24,9 @@ export class AppComponent {
     }
     this.authService.autoAuth();
   }
-
+  contactWhatsapp() {
+    window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
+  }
   // @HostListener('window:beforeunload', ['$event'])
   // unloadNotification($event: any) {
   //   if (this.authService.getAuthStatus()) {
