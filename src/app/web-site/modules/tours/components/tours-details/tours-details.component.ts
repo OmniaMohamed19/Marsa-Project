@@ -341,8 +341,9 @@ export class ToursDetailsComponent implements AfterViewInit {
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
         );
+        
         // this.googleIframe=this.activityData.PlaceOnMap
-        console.log(this.googleIframe);
+        console.log(this.activityData.TypeOfRepeat);
 
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
@@ -357,7 +358,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
         this.relatedtrips = res.Relatedtrips;
         this.happyGustImages = this.activityData?.HappyGust;
-        console.log(typeof this.happyGustImages);
+        // console.log(typeof this.happyGustImages);
 
         this.remainingImages = this.activityData?.HappyGust.slice(1);
         console.log(this.remainingImages);

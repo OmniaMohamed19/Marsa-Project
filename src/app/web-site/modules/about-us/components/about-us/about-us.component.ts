@@ -6,7 +6,8 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
@@ -22,7 +23,11 @@ export class AboutUsComponent implements OnInit {
   currentBackgroundImage: string = '';
   currentIndex: number = 0;
   interval: any;
+  visible: boolean = false;
 
+  showDialog() {
+      this.visible = true;
+  }
   constructor(
     private _HttpService: HttpService,
     public translate: TranslateService,

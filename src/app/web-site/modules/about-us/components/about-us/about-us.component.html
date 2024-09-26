@@ -3,27 +3,38 @@
 <main id="content">
   <!-- Hero Section -->
   <div
-  class="bg-img-hero text-center mb-1"
-  [style.backgroundImage]="'url(' + currentBackgroundImage + ')'"
->
-  <div class="container space-top-xl-3 py-6 py-xl-0">
-    <div class="row justify-content-center py-xl-4 d-flex justify-content-center align-items-center h-100 flex-column">
-      <div>
-        <h1>About Us</h1>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb breadcrumb-no-gutter justify-content-center mb-0">
-            <li class="breadcrumb-item font-size-14">
-              <a class="text-white" [routerLink]="['/', translate.currentLang]">Home</a>
-            </li>
-            <li class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white active" aria-current="page">
-              About
-            </li>
-          </ol>
-        </nav>
+    class="bg-img-hero text-center mb-1"
+    [style.backgroundImage]="'url(' + currentBackgroundImage + ')'"
+  >
+    <div class="container space-top-xl-3 py-6 py-xl-0">
+      <div
+        class="row justify-content-center py-xl-4 d-flex justify-content-center align-items-center h-100 flex-column"
+      >
+        <div>
+          <h1>About Us</h1>
+          <nav aria-label="breadcrumb">
+            <ol
+              class="breadcrumb breadcrumb-no-gutter justify-content-center mb-0"
+            >
+              <li class="breadcrumb-item font-size-14">
+                <a
+                  class="text-white"
+                  [routerLink]="['/', translate.currentLang]"
+                  >Home</a
+                >
+              </li>
+              <li
+                class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white active"
+                aria-current="page"
+              >
+                About
+              </li>
+            </ol>
+          </nav>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <div class="slider border-bottom border-color-3">
     <div class="container space-1">
@@ -31,15 +42,21 @@
         <h2 class="mb-0 title">{{ data.aboutus?.title }}</h2>
       </div>
       <section class="mx-auto content">
-        <div class="row  mt-2">
+        <div class="row mt-2">
           <div class="col-md-6 p-5">
-           <img [src]="data.aboutus?.story_image" alt="" style="width: 100%;
-           height: 100%;
-          
-           border-radius: 20px;">
+            <img
+              [src]="data.aboutus?.story_image"
+              alt=""
+              style="
+                width: 100%;
+                height: 100%;
+
+                border-radius: 20px;
+              "
+            />
           </div>
           <div class="m-auto col-md-6 p-5">
-            <h2 class=" text-center text-md-left">Our Story</h2>
+            <h2 class="text-center text-md-left">Our Story</h2>
             <p>{{ data.aboutus?.Story }}</p>
           </div>
         </div>
@@ -47,18 +64,23 @@
       <section class="mx-auto content">
         <div class="row">
           <div class="m-auto col-md-6 p-5">
-            <h2 class=" text-center text-md-left">Our mission</h2>
+            <h2 class="text-center text-md-left">Our mission</h2>
             <p>{{ data.aboutus?.mission }}</p>
           </div>
           <div class="col-md-6 p-5">
-            <img [src]="data.aboutus?.mission_image" alt="" style="width: 100%;
-           height: 100%;
-          
-           border-radius: 20px;">
+            <img
+              [src]="data.aboutus?.mission_image"
+              alt=""
+              style="
+                width: 100%;
+                height: 100%;
+
+                border-radius: 20px;
+              "
+            />
           </div>
         </div>
       </section>
-
     </div>
   </div>
   <div class="container text-center space-1">
@@ -95,18 +117,19 @@
     "
   >
     <div
-      class="text-center banner mt-xl-2 h-100 d-flex justify-content-center align-items-center flex-column"
+      class="text-center banner mt-xl-2 h-100 d-flex justify-content-center align-items-center flex-column vid"
     >
       <h5 class="mb-2">Travelling Highlights</h5>
       <h6 class="mb-lg-5 opacity-7">Your New Travelling Idea</h6>
+      <!-- (click)="openVideo()" -->
       <a
         class="js-fancybox d-inline-block u-media-player"
-        (click)="openVideo()"
         data-src="//vimeo.com/167434033"
         data-speed="700"
         data-animate-in="zoomIn"
         data-animate-out="zoomOut"
         data-caption="MyTravel - Responsive Website Template"
+        (click)="showDialog()" 
       >
         <span
           class="u-media-player__icon u-media-player__icon--lg bg-transparent text-white"
@@ -114,13 +137,23 @@
           <img src="../../../../../../assets/images/play.png" alt="play" />
         </span>
       </a>
+
+      <p-dialog
+        [(visible)]="visible"
+        [modal]="true"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        [style]="{ width: '70vw' }"
+        [draggable]="false"
+        [resizable]="false"
+      >
+      <video controls="" style="width: 92% ; max-height:100% " autoplay="" name="media"><source src="https://dev2.marsawaves.com/assets/images/chooseus/video/1727081050.mp4" type="video/mp4"></video>
+        <!-- <video src="//vimeo.com/167434033"></video> -->
+      </p-dialog>
     </div>
   </div>
-  <div class="container" style="    height: 600px !important;">
-    <div >
-
-
-     <app-clients></app-clients>
+  <div class="container" style="height: 600px !important">
+    <div>
+      <app-clients></app-clients>
     </div>
   </div>
   <div class="bg-img-hero-2">

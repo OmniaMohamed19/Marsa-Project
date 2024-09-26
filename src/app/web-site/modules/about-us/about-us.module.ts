@@ -6,7 +6,8 @@ import { LandingAboutUsComponent } from './landing-about-us/landing-about-us.com
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     LandingAboutUsComponent,
@@ -15,7 +16,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     AboutUsRoutingModule,
-    SharedModule
+    SharedModule,
+    ButtonModule,
+    DialogModule
   ]
 })
 export class AboutUsModule { }

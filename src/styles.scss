@@ -483,3 +483,15 @@ body {
   height: 300px;
   width: 100%;
 }
+.mat-mdc-dialog-container .mdc-dialog__content {
+  height: 1000px !important;
+  color: var(--mdc-dialog-supporting-text-color, rgba(0, 0, 0, 0.6));
+}
+.p-dialog-mask{
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.p-dialog .p-dialog-content,.p-dialog-header {
+  background-color: rgba(0, 0, 0, 0.733) !important;
+  padding: 0 !important;
+}
