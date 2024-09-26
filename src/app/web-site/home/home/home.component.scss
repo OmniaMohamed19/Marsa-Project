@@ -1,3 +1,25 @@
+.bg-img-hero-bottom {
+  position: relative;
+  overflow: hidden; /* لضمان عدم ظهور العناصر خارج الحدود */
+}
+
+.bg-img-hero-bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0; /* يبدأ بشكل غير مرئي */
+  transition: opacity 1s ease-in-out; /* تأثير التلاشي */
+}
+
+.bg-img-hero-bottom.active::before {
+  opacity: 1; /* يصبح مرئيًا عند إضافة الكلاس active */
+}
+
 .nav-item a {
   font-family: Lato;
   font-size: 16px;

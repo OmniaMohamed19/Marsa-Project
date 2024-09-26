@@ -21,7 +21,10 @@ export class TransferComponent implements OnInit {
   returnDate: any; // Add for return date
   returnPickuptime: any; // Add for return pickup time
   person: any;
-
+  currentBackgroundImage: string = '';
+  currentIndex: number = 0;
+  interval: any;
+  backgroundImageUrl: any = [];
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -31,6 +34,17 @@ export class TransferComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.httpService.get(environment.marsa, 'Background').subscribe(
+      (res: any) => {
+        this.backgroundImageUrl = res?.transfer || [];
+        console.log(this.backgroundImageUrl);
+        if (this.backgroundImageUrl.length > 0) {
+          this.currentBackgroundImage = this.backgroundImageUrl[0]; // حفظ الصورة الأولى
+        }
+      },
+      (err) => {}
+    );
+
     this.httpService.get(environment.marsa, 'transfer').subscribe({
       next: (res: any) => {
         this.transferDetails = res;
@@ -46,6 +60,25 @@ export class TransferComponent implements OnInit {
     this.returnPickuptime = localStorage.getItem('returnPickuptime') || '';
     console.log('Retrieved returnDate:', this.returnDate);
     console.log('Retrieved returnPickuptime:', this.returnPickuptime);
+  }
+  startImageRotation() {
+    this.interval = setInterval(() => {
+      if (this.backgroundImageUrl.length > 0) {
+        this.currentIndex = (this.currentIndex + 1) % this.backgroundImageUrl.length;
+        this.changeBackgroundImage();
+      }
+    }, 4000); // تغيير الصورة كل 4 ثوانٍ
+  }
+
+  changeBackgroundImage() {
+    const bgElement = document.querySelector('.bg-img-hero');
+    if (bgElement) {
+      bgElement.classList.remove('active'); // إزالة الكلاس active
+      setTimeout(() => {
+        this.currentBackgroundImage = this.backgroundImageUrl[this.currentIndex]; // تغيير الصورة
+        bgElement.classList.add('active'); // إضافة الكلاس active بعد التغيير
+      }, 100); // الانتظار 100 مللي ثانية قبل إضافة الكلاس
+    }
   }
 
   increase() {

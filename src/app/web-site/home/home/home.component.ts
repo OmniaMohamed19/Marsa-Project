@@ -18,7 +18,11 @@ export class HomeComponent implements OnInit {
   social: any;
   userDate: any;
   placesInput: any = [];
-  coverImage: any = '';
+  coverImages: any = []; // Changed to an array of strings
+  currentCoverImage: string = ''; // To hold the current image being displayed
+  currentIndex: number = 0; // To keep track of the current index
+  interval: any;
+
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
@@ -28,21 +32,29 @@ export class HomeComponent implements OnInit {
     this.langService.getCurrentLang().subscribe((lang) => {
       this.selectedLang = lang;
     });
+
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
-        this.coverImage = res?.homecover[0];
+        this.coverImages = res?.homecover || [];
+        if (this.coverImages.length > 0) {
+          this.currentCoverImage = this.coverImages[0];
+        }
         this.social = res?.social;
       },
       (err) => {}
     );
   }
+
   ngOnInit(): void {
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
+
+    this.startImageRotation();
+
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userDate = JSON.parse(data); // Assigning the received object directly
+        this.userDate = JSON.parse(data);
         this.httpService.get('marsa', 'place').subscribe({
           next: (res: any) => {
             this.placesInput = res.places;
@@ -50,10 +62,33 @@ export class HomeComponent implements OnInit {
         });
       },
       (error) => {
-        // Handle error if needed
         console.error('Error:', error);
       }
     );
+  }
+
+  startImageRotation() {
+    this.interval = setInterval(() => {
+      if (this.coverImages.length > 0) {
+        this.currentIndex = (this.currentIndex + 1) % this.coverImages.length;
+        this.changeCoverImage();
+      }
+    }, 4000); // تغيير الصورة كل 4 ثوانٍ
+  }
+
+  changeCoverImage() {
+    const bgElement = document.querySelector('.bg-img-hero-bottom');
+    if (bgElement) {
+      bgElement.classList.remove('active'); // إزالة الكلاس active
+      setTimeout(() => {
+        this.currentCoverImage = this.coverImages[this.currentIndex]; // تغيير الصورة
+        bgElement.classList.add('active'); // إضافة الكلاس active بعد التغيير
+      }, 100); // الانتظار 100 مللي ثانية قبل إضافة الكلاس
+    }
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval); // تنظيف الinterval عند تدمير المكون
   }
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },

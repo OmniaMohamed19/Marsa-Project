@@ -1,3 +1,19 @@
+.bg-img-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0; /* يبدأ بشكل غير مرئي */
+  transition: opacity 1s ease-in-out; /* تأثير التلاشي */
+}
+
+.bg-img-hero.active::before {
+  opacity: 1; /* يصبح مرئيًا عند إضافة الكلاس active */
+}
 #content {
   margin-top: 100px;
 }
