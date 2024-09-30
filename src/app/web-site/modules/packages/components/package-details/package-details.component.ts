@@ -104,25 +104,44 @@ export class PackageDetailsComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const fromTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-    const tabs = this.el.nativeElement.querySelectorAll('.tab-pane');
-    tabs.forEach((tab: any) => {
-      const tabTop = tab.offsetTop;
-      const tabBottom = tabTop + tab.offsetHeight;
-      if (fromTop >= tabTop && fromTop < tabBottom) {
-        this.activeTabId = tab.id;
+    const options = {
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 1.5, // element should be at least 70% visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      console.log(visibleEntries);
+
+      if (visibleEntries.length > 0) {
+        // Set activeTabId to the id of the first visible element
+        this.activeTabId = visibleEntries[0].target.id;
       }
+    }, options);
+
+    const tabs = document.querySelectorAll('.tab-pane');
+    tabs.forEach((tab) => {
+      observer.observe(tab);
     });
   }
 
   scrollTo(tabId: string) {
+    this.activeTabId = tabId;
     const tabElement = document.getElementById(tabId);
+
     if (tabElement) {
-      tabElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const elementRect = tabElement.getBoundingClientRect();
+      const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
+
+      console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
+
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+      });
+    } else {
+      console.error(`Element with ID ${tabId} not found.`);
     }
   }
 

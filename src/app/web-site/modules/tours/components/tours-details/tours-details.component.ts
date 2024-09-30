@@ -159,35 +159,41 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     if (tabElement) {
       const elementRect = tabElement.getBoundingClientRect();
-      const offset = window.scrollY + elementRect.top - 170; // Calculate position 50px above the element
+      const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
+
+      console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
         behavior: 'smooth',
       });
+    } else {
+      console.error(`Element with ID ${tabId} not found.`);
     }
   }
 
   private setupIntersectionObserver() {
     const options = {
-      root: null, // viewport
-      rootMargin: '0px',
-      threshold: 0.5, // element should be at least 50% visible
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 1.5, // element should be at least 70% visible
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          this.activeTabId = entry.target.id;
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+console.log(visibleEntries);
+
+        if (visibleEntries.length > 0) {
+            // Set activeTabId to the id of the first visible element
+            this.activeTabId = visibleEntries[0].target.id;
         }
-      });
     }, options);
 
     const tabs = document.querySelectorAll('.tab-pane');
     tabs.forEach((tab) => {
-      observer.observe(tab);
+        observer.observe(tab);
     });
-  }
+}
 
   @HostListener('window:scroll', ['$event'])
   isScrolledIntoView() {
@@ -341,7 +347,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
         );
-        
+
         // this.googleIframe=this.activityData.PlaceOnMap
         console.log(this.activityData.TypeOfRepeat);
 
