@@ -38,9 +38,9 @@ export class LiveboardPaymentComponent implements OnInit {
   schedules_id: any;
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
-  coupon='';
-  Coupons:any;
-  Total:any;
+  coupon = '';
+  Coupons: any;
+  Total: any;
   nationalities!: Code[];
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
@@ -107,7 +107,7 @@ export class LiveboardPaymentComponent implements OnInit {
       phone: ['', [Validators.required]],
       // nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',[Validators.required]],
+      pickup_point: ['', [Validators.required]],
       locationValue: [''],
     });
   }
@@ -138,7 +138,10 @@ export class LiveboardPaymentComponent implements OnInit {
       this.customerForm.markAllAsTouched(); // Mark all controls as touched
       for (const controlName in this.customerForm.controls) {
         if (this.customerForm.controls[controlName].invalid) {
-          console.log(`Control '${controlName}' is invalid:`, this.customerForm.controls[controlName].errors);
+          console.log(
+            `Control '${controlName}' is invalid:`,
+            this.customerForm.controls[controlName].errors
+          );
         }
       }
 
@@ -223,7 +226,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
-        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
+        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
         adult: this.adult,
         schedules_id: this.schedules_id,
         cabins: this.cabins
@@ -251,15 +254,14 @@ export class LiveboardPaymentComponent implements OnInit {
     stepper.previous();
   }
 
-  applycoupon(){
-    this._httpService
-      .get(environment.marsa, `Coupon`)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
-        this.Total=this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount
-    console.log(this.Total);
-  });
+  applycoupon() {
+    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+      console.log(res);
+      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+      this.Total =
+        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount;
+      console.log(this.Total);
+    });
     console.log(this.coupon);
     // Coupon
   }
@@ -269,10 +271,12 @@ export class LiveboardPaymentComponent implements OnInit {
 
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let nationality = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
         trip_id: this.tripId,
         class: 'collective',
+        nationality:nationality,
         adult: this.adult,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
@@ -295,31 +299,33 @@ export class LiveboardPaymentComponent implements OnInit {
       console.log(model);
       console.log(this.customerForm.value);
 
-      this._httpService.post(environment.marsa, 'liveboard/book', model).subscribe({
-        next: (res: any) => {
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
-            const queryParams = {
-              res: JSON.stringify(res),
-              trip_id: this.tripId,
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'liveboard', 'confirm'],
-              { queryParams }
-            );
-            Swal.fire(
-              'Your request has been sent successfully.',
-              'The Liveaboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
-              'success'
-            );
-          }
-        },
-        error: (err) => {
-          Swal.fire(err.error.message);
-          console.log(err);
-        },
-      });
+      this._httpService
+        .post(environment.marsa, 'liveboard/book', model)
+        .subscribe({
+          next: (res: any) => {
+            if (res && res.link) {
+              window.location.href = res.link;
+            } else {
+              const queryParams = {
+                res: JSON.stringify(res),
+                trip_id: this.tripId,
+              };
+              this.router.navigate(
+                ['/', this.translate.currentLang, 'liveboard', 'confirm'],
+                { queryParams }
+              );
+              Swal.fire(
+                'Your request has been sent successfully.',
+                'The Liveaboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
+                'success'
+              );
+            }
+          },
+          error: (err) => {
+            Swal.fire(err.error.message);
+            console.log(err);
+          },
+        });
     } else {
       this.markFormGroupTouched(this.customerForm);
     }
@@ -328,17 +334,18 @@ export class LiveboardPaymentComponent implements OnInit {
   confirmBooking() {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
-
+      let nationality = this.customerForm.get('phone')?.value['dialCode'];
       const model = {
         trip_id: this.tripId,
         // userid: this.userData?.id,
         class: 'collective',
         adult: this.adult,
         // schedules_id: 4,
+        nationality:nationality,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
-        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
+        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
@@ -352,7 +359,7 @@ export class LiveboardPaymentComponent implements OnInit {
           }))
           .filter((cabin: any) => cabin.persons !== undefined),
       };
-console.log(model);
+      console.log(model);
 
       this._httpService
         .post(environment.marsa, 'liveboard/book', model)
@@ -373,10 +380,8 @@ console.log(model);
             );
           },
           error(err) {
-            Swal.fire(err.error.message
-            );
-              console.log(err);
-
+            Swal.fire(err.error.message);
+            console.log(err);
           },
         });
     } else {
