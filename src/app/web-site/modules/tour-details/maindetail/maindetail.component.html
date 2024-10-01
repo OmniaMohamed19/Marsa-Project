@@ -20,9 +20,9 @@
     </div>
 
     <!---------- Types--------->
-    <div class="day-trip-container" *ngIf="screenWidth > 1023">
-      <div *ngFor="let type of placeDetails?.typeTrip; let i = index" class="day-trip-img" (click)="selectTrip(type.id)">
-        <div class="text-center">
+    <div class="day-trip-container"  *ngIf="screenWidth > 1023">
+      <div   *ngFor="let type of placeDetails?.typeTrip; let i = index" class="day-trip-img" (click)="selectTrip(type.id)">
+        <div class="text-center" >
           <div class="day-trip-img-content" [ngClass]="{
              'selected': selectedTrip === type.id,
              'active': selectedTrip === type.id && selectedTripType === type
@@ -118,7 +118,7 @@
                 <img
                   class="sights-img"
                   [id]="sight?.id"
-                  style="height: auto; width: 100%; max-height: 250px;"
+                  style="height: auto; width: 100%; max-height: 250px; border-radius: 8px;"
                   (onError)="onImgError($event)"
                   [src]="placeDetails?.places.cover"
                   alt=""
