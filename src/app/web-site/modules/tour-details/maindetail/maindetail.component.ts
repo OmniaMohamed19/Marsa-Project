@@ -94,6 +94,7 @@ export class MaindetailComponent implements OnInit {
     public translate: TranslateService
   ) {
     this.screenWidth = window.innerWidth;
+    
   }
   isFirstTripSelected(): boolean {
     const firstTripId = this.placeDetails?.typeTrip?.[0]?.id;
@@ -153,52 +154,48 @@ export class MaindetailComponent implements OnInit {
 
   ngOnInit() {
 
-
-    this.carouselItems = [
-      { title: 'Sight 1', image: '../../../../../assets/images/about-us.png' },
-      { title: 'Sight 2', image: '../../../../../assets/images/about-us.png' },
-      { title: 'Sight 3', image: '../../../../../assets/images/about-us.png' },
-      { title: 'Sight 4', image: '../../../../../assets/images/about-us.png' },
-      { title: 'Sight 5', image: '../../../../../assets/images/about-us.png' },
-      // Add more items
-    ];
     this.tourid = localStorage.getItem('destinationId');
-    this.httpService
-      .get(environment.marsa, 'place/details/' + this.tourid)
-        .subscribe((res:any) => {
-         this.placeDetails = res;
-        this.typetrips = res.typeTrip;
-        if (this.typetrips && this.typetrips.length > 0) {
-          // Select the first trip by default
-          const firstTrip = this.typetrips[0];
-          this.selectTrip(firstTrip.id);
 
-          // Set the first item as active
-          this.selectedTrip = firstTrip.id;
-          this.selectedTripType = firstTrip;
-          this.totalTripsCount = firstTrip.trip.length;
-          this.visibleTrips = firstTrip.trip.slice(0, this.tripsPerRow);
-          this.hiddenTrips = firstTrip.trip.slice(this.tripsPerRow);
-        }
+  this.httpService
+    .get(environment.marsa, 'place/details/' + this.tourid)
+    .subscribe((res: any) => {
+      this.placeDetails = res;
+      this.typetrips = res.typeTrip;
 
-        this.AllActivities = this.placeDetails?.alltrips;
-        console.log(this.AllActivities)
-        this.allTripsFiltered = this.placeDetails.alltrips.filter(
-          (item: any) => {
-            console.log(item.place);
-            if (item.place === this.placeDetails.places.name) {
-              return item;
-            }
+      // فلترة الرحلات بناءً على totalTripsCount
+      if (this.typetrips && this.typetrips.length > 0) {
+        this.typetrips = this.typetrips.filter((trip: any) => trip.trip.length > 0);
+        // تحديد أول رحلة افتراضيًا
+        const firstTrip = this.typetrips[0];
+        this.selectTrip(firstTrip.id);
+
+        // تعيين أول عنصر كعنصر نشط
+        this.selectedTrip = firstTrip.id;
+        this.selectedTripType = firstTrip;
+        this.totalTripsCount = firstTrip.trip.length;
+        this.visibleTrips = firstTrip.trip.slice(0, this.tripsPerRow);
+        this.hiddenTrips = firstTrip.trip.slice(this.tripsPerRow);
+      }
+
+      this.AllActivities = this.placeDetails?.alltrips;
+      console.log(this.AllActivities);
+
+      this.allTripsFiltered = this.placeDetails.alltrips.filter(
+        (item: any) => {
+          if (item.place === this.placeDetails.places.name) {
+            return item;
           }
-        );
-        console.log(this.allTripsFiltered);
-        this.httpService
-          .get(environment.marsa, 'faq')
-          .subscribe((result: any) => {
-            console.log(result);
-            this.questions = result.FAQ;
-          });
-      });
+        }
+      );
+      console.log(this.allTripsFiltered);
+
+      this.httpService
+        .get(environment.marsa, 'faq')
+        .subscribe((result: any) => {
+          console.log(result);
+          this.questions = result.FAQ;
+        });
+    });
 
   }
   filterTripType(event: any) {
