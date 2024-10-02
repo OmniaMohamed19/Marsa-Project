@@ -6,11 +6,13 @@ import { TourDetailsRoutingModule } from './tour-details-routing.module';
 import { MaindetailComponent } from './maindetail/maindetail.component';
 import { CarouselModule } from 'primeng/carousel';
 import { DropdownModule } from 'primeng/dropdown';
+import { AllTicketsComponent } from './all-tickets/all-tickets.component';
 
 @NgModule({
 
   declarations: [
     MaindetailComponent,
+    AllTicketsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [

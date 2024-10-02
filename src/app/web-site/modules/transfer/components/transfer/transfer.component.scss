@@ -20,7 +20,16 @@
 .custom-select-wrapper {
   position: relative;
 }
-
+.btnReview,
+.check {
+  background-color: #0db1ff;
+  transition: all 0.5s ease-in-out;
+}
+.btnReview:hover {
+  opacity: 0.8;
+  transform: translateY(3px);
+  cursor: pointer;
+}
 .custom-placeholder {
   position: absolute;
   top: 50%;
@@ -112,7 +121,8 @@ h3 {
 .layer-img {
   img {
     width: 100%;
-    height: auto;
+    height: 334px !important;
+    border-radius: 10px;
   }
 }
 
@@ -128,8 +138,8 @@ h3 {
 }
 
 li {
-  font-family: Lato;
-  font-size: 20px;
+
+  font-size: 15px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
