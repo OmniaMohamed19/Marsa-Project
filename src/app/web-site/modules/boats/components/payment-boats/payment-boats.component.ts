@@ -73,7 +73,7 @@ export class PaymentBoatsComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
+      // nationality: ['', [Validators.required]],
       note: [''],
       pickup_point: ['',[Validators.required]],
       locationValue: [''],
@@ -105,8 +105,10 @@ export class PaymentBoatsComponent {
   bookNow() {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
+        code:code,
         ...this.model,
         ...this.customerForm.value,
         phone: phoneNumber.replace("+", ""),

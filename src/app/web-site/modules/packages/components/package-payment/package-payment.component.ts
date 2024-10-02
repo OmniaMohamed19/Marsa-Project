@@ -100,7 +100,6 @@ export class PackagePaymentComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
       note: [''],
       pickup_point: ['',[Validators.required]],
       // locationValue: [''],
@@ -171,7 +170,10 @@ export class PackagePaymentComponent {
   confirmBookingByCard(event: Event){
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
+
       const model = {
+        code:code,
         ...this.model,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
@@ -205,8 +207,11 @@ export class PackagePaymentComponent {
 
   confirmBooking() {
     if (this.customerForm.valid) {
-    let phoneNumber = this.customerForm.get('phone')?.value['number'];
-    const model = {
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
+
+      const model = {
+        code:code,
       ...this.model,
       payment_method: this.payment_method ? this.payment_method : 'cash',
       ...this.customerForm.value,

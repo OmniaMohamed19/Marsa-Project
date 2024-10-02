@@ -131,7 +131,6 @@ export class PaymentComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
       note: [''],
       pickup_point: ['',[Validators.required]],
       locationValue: [''],
@@ -255,9 +254,10 @@ export class PaymentComponent {
         'yyyy/MM/dd'
       );
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
-      console.log(phoneNumber);
-      
+      let code = this.customerForm.get('phone')?.value['dialCode'];
+
       const model = {
+        code:code,
         trip_id: this.tripId,
         userid: this.userData?.id,
         avilable_option_id: this.avilable_option_id,
@@ -334,9 +334,10 @@ export class PaymentComponent {
         'yyyy/MM/dd'
       );
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
-      console.log(phoneNumber);
+      let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
+        code:code,
         trip_id: this.tripId,
         userid: this.userData?.id,
         avilable_option_id: this.avilable_option_id,
