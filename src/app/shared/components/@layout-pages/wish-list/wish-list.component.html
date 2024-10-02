@@ -30,8 +30,8 @@
                     <h4>Your Wish list</h4>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
                 </header> -->
-                <div class="card p-4 my-5" *ngFor="let item of result">
-                    <ng-container *ngIf="item.trips.length > 0">
+                <div  *ngFor="let item of result">
+                    <ng-container class="card p-4 my-5" *ngIf="item.trips.length > 0">
                       <p-carousel
                         [value]="item.trips"
                         [numVisible]="3"
