@@ -1,83 +1,87 @@
 <section class="wishlist">
-    <div class="container">
-        <div *ngIf="whishlistEmpty">
-            <section class="wishlist-empty ">
-                <div class="d-flex justify-content-center align-items-start gap-4 flex-column flex-md-row">
-                    <div>
-                        <img src="../../../../../assets/images/whislist.png" class="img-fluid">
-                    </div>
-                    <div class="whishlist-content">
-                        <h3>
-                            Your wish list is empty
-                        </h3>
-                        <p>
-                            Save favorites to your wish list by clicking on the heart icon
-                        </p>
-                        <!-- <button>
+  <div class="container">
+    <div *ngIf="whishlistEmpty">
+      <section class="wishlist-empty">
+        <div
+          class="d-flex justify-content-center align-items-start gap-4 flex-column flex-md-row"
+        >
+          <div>
+            <img
+              src="../../../../../assets/images/whislist.png"
+              class="img-fluid"
+            />
+          </div>
+          <div class="whishlist-content">
+            <h3>Your wish list is empty</h3>
+            <p>
+              Save favorites to your wish list by clicking on the heart icon
+            </p>
+            <!-- <button>
                             Find your favorites
                         </button> -->
-                    </div>
-                </div>
-            </section>
+          </div>
         </div>
-        <!-------------------------------------->
-        <div *ngIf="!whishlistEmpty">
-            <section class="wishlist-notempty">
-                <!-- <header class="d-flex justify-content-between align-items-center">
+      </section>
+    </div>
+    <!-------------------------------------->
+    <div *ngIf="!whishlistEmpty">
+      <section class="wishlist-notempty">
+        <!-- <header class="d-flex justify-content-between align-items-center">
                     <h4>Your Wish list</h4>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
                 </header> -->
                 <div class="card p-4 my-5" *ngFor="let item of result">
-                    <p-carousel
+                    <ng-container *ngIf="item.trips.length > 0">
+                      <p-carousel
                         [value]="item.trips"
                         [numVisible]="3"
                         [numScroll]="1"
                         [showIndicators]="false"
-                        [responsiveOptions]="responsiveOptions">
-                            <ng-template pTemplate="header">
-                                <p class="fs-3 text-dark fw-bold   ">{{item.category}}</p>
-                            </ng-template>
-                            <!-- <a  class="d-block"> -->
-                            <ng-template let-trips pTemplate="item">
-                                <div class="border-1 surface-border border-round m-2 p-3">
-                                    <div class="mb-3">
-                                        <div class="relative mx-auto">
-                                            <img
-                                                [src]="trips?.trip?.[0]?.cover"
-                                                [alt]="trips?.trip?.[0]?.name"
-                                                class="w-full border-round w-100 "
-                                                height="200px"
-                                                 />
-                                            <!-- <p-tag
-                                                [value]="product.inventoryStatus"
-                                                [severity]="getSeverity(product.inventoryStatus)"
-                                                class="absolute"
-                                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" /> -->
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 font-medium">{{ trips?.trip?.[0]?.Title }}</div>
-                                    <div class="flex justify-content-between align-items-center">
-                                        <div class="mt-0 font-semibold text-xl">
-                                            <!-- {{ '$' + product.price }} -->
-                                        </div>
-                                        <span class="d-flex  gap-4 align-items-center justify-content-evenly ">
-                                            <button [routerLink]="['../../tours/details/'+trips?.trip?.[0]?.id]" class=" border-radius-5 " styleClass="ml-2" >
-                                                View Details
-                                            </button>
-                                            <button icon="pi pi-shopping-cart" (click)="RemoveFromWishlist(trips?.id)" class=" border-radius-5 w-25 text-danger border-danger " styleClass="ml-2" >
-                                                remove
-                                                <!-- <i class="fa fa-heart fs-2" aria-hidden="true"></i> -->
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </ng-template>
-<!-- </a> -->
-                    </p-carousel>
-                </div>
-                <div class="d-flex flex-column whishlist-card-content">
-                    <!-- <a routerLink="../wishname" class="d-block"> -->
-                    <!-- <div class="whishlist-card" >
+                        [responsiveOptions]="responsiveOptions"
+                      >
+                        <ng-template pTemplate="header">
+                          <p class="fs-3 text-dark fw-bold">{{ item.category }}</p>
+                        </ng-template>
+                        <ng-template let-trips pTemplate="item">
+                          <div class="border-1 surface-border border-round m-2 p-3">
+                            <div class="mb-3">
+                              <div class="relative mx-auto">
+                                <img
+                                  [src]="trips?.trip?.[0]?.cover"
+                                  [alt]="trips?.trip?.[0]?.name"
+                                  class="w-full border-round w-100"
+                                  height="200px"
+                                />
+                              </div>
+                            </div>
+                            <div class="mb-3 font-medium">
+                              {{ trips?.trip?.[0]?.Title }}
+                            </div>
+                            <div class="flex justify-content-between align-items-center">
+                              <span class="d-flex gap-4 align-items-center justify-content-evenly">
+                                <button
+                                  [routerLink]="['../../tours/details/' + trips?.trip?.[0]?.id]"
+                                  class="border-radius-5"
+                                >
+                                  View Details
+                                </button>
+                                <button
+                                  icon="pi pi-shopping-cart"
+                                  (click)="RemoveFromWishlist(trips?.id)"
+                                  class="border-radius-5 w-25 text-danger border-danger"
+                                >
+                                  Remove
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </p-carousel>
+                    </ng-container>
+                  </div>
+        <div class="d-flex flex-column whishlist-card-content">
+          <!-- <a routerLink="../wishname" class="d-block"> -->
+          <!-- <div class="whishlist-card" >
                         <div class="d-flex gap-4 img-container">
                             <div>
                                 <img src="../../../../../assets/images/wish-1.jpg">
@@ -89,35 +93,41 @@
                         <h5>Hurghada </h5>
                         <span>2 Activities & Tours</span>
                     </div> -->
-                    <!-- </a> -->
-
-
-
-                </div>
-                <!----------------------------->
-            </section>
+          <!-- </a> -->
         </div>
-        <!---------------------------------->
+        <!----------------------------->
+      </section>
     </div>
+    <!---------------------------------->
+  </div>
 </section>
 
-
 <!----------Create new List Model--------------------->
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-            <h5 class="modal-title" id="exampleModalLabel">Create New List</h5>
-          <input type="text" class="form-control" placeholder="Wish list name">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="done">Done</button>
-        </div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <h5 class="modal-title" id="exampleModalLabel">Create New List</h5>
+        <input type="text" class="form-control" placeholder="Wish list name" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="done">Done</button>
       </div>
     </div>
   </div>
+</div>
