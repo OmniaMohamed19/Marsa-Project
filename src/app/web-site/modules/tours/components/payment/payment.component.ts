@@ -255,7 +255,8 @@ export class PaymentComponent {
         'yyyy/MM/dd'
       );
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
-
+      console.log(phoneNumber);
+      
       const model = {
         trip_id: this.tripId,
         userid: this.userData?.id,
@@ -333,6 +334,7 @@ export class PaymentComponent {
         'yyyy/MM/dd'
       );
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      console.log(phoneNumber);
 
       const model = {
         trip_id: this.tripId,

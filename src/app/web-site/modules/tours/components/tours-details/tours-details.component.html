@@ -411,7 +411,7 @@
             </div>
             <div class="d-flex gap-5 mt-5">
               <div class="row mt-5">
-                <div class="col-md-6 dirction col-sm-12 d-flex gap-5">
+                <div class="col-md-6 dirction col-sm-12 d-flex gap-2">
                   <div class="w-25">
                     <h6 class="fw-bold">Includes</h6>
                   </div>
@@ -419,7 +419,7 @@
                     class="list-group list-group-borderless list-group-flush no-gutters"
                   >
                     <li
-                      class="mb-3 text-gray-1"
+                      class="mb-3 text-gray-1 d-flex align-items-center"
                       *ngFor="let include of activityData?.Includes"
                     >
                       <i
@@ -440,7 +440,7 @@
                     class="list-group list-group-borderless list-group-flush no-gutters"
                   >
                     <li
-                      class="mb-3 text-gray-1"
+                      class="mb-3 text-gray-1 d-flex align-items-center"
                       *ngFor="let exclude of activityData?.Excludes"
                     >
                       <i
@@ -448,11 +448,12 @@
                         style="color: #ff681a"
                       ></i>
 
-                      {{ exclude.title }}
+                      
                       <span
-                        class="font-size-9 d-inline-block"
+                        class="font-size-9 d-inline-block "
                       >
-                        (Price : {{ exclude?.price }} $ : {{ exclude?.option }})
+                      {{ exclude.title }}  <br>
+                        (  {{ exclude?.price }} $ per person  : {{ exclude?.option }})
                       </span>
                     </li>
                   </ul>
