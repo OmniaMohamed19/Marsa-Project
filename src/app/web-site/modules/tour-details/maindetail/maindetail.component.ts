@@ -94,8 +94,57 @@ export class MaindetailComponent implements OnInit {
     public translate: TranslateService
   ) {
     this.screenWidth = window.innerWidth;
-    
+
   }
+  ngOnInit() {
+
+
+    this.tourid = localStorage.getItem('destinationId');
+
+    this.httpService
+      .get(environment.marsa, 'place/details/' + this.tourid)
+      .subscribe((res: any) => {
+        this.placeDetails = res;
+        console.log(res);
+
+        // Set the first sight as the selected one
+        if (this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
+          this.selectedSight = this.placeDetails.places.placesshigts[0]; // Automatically select the first sight
+        }
+
+        this.typetrips = res.typeTrip;
+
+        // Filter trips based on totalTripsCount
+        if (this.typetrips && this.typetrips.length > 0) {
+          this.typetrips = this.typetrips.filter((trip: any) => trip.trip.length > 0);
+          const firstTrip = this.typetrips[0];
+          this.selectTrip(firstTrip.id);
+
+          // Set the first trip as selected
+          this.selectedTrip = firstTrip.id;
+          this.selectedTripType = firstTrip;
+          this.totalTripsCount = firstTrip.trip.length;
+          this.visibleTrips = firstTrip.trip.slice(0, this.tripsPerRow);
+          this.hiddenTrips = firstTrip.trip.slice(this.tripsPerRow);
+        }
+
+        this.AllActivities = this.placeDetails?.alltrips;
+        this.allTripsFiltered = this.placeDetails.alltrips.filter(
+          (item: any) => item.place === this.placeDetails.places.name
+        );
+
+        this.httpService
+          .get(environment.marsa, 'faq')
+          .subscribe((result: any) => {
+            this.questions = result.FAQ;
+          });
+      });
+
+    }
+
+
+
+
   isFirstTripSelected(): boolean {
     const firstTripId = this.placeDetails?.typeTrip?.[0]?.id;
     return this.selectedTrip === firstTripId;
@@ -116,24 +165,28 @@ export class MaindetailComponent implements OnInit {
   @Input() item: any;
 
 
-  addtoFavorits(btn: any,event:any) {
-
+  addtoFavorits(btn: any, event: any, tripId: number) {
     if (btn.classList.contains('bg-primary')) {
-
-      } else {
-        // Add to favorites/wishlist
-        this.httpService
-        .post(environment.marsa,'Wishlist/add', { trip_id: this.item?.id })
+    } else {
+    
+      this.httpService
+        .post(environment.marsa, 'Wishlist/add', {
+          trip_id: tripId,
+        })
         .subscribe({
           next: (res: any) => {
-            console.log(res);
+           
             btn.classList.add('bg-primary');
             event.target.classList.add('text-white');
             event.target.classList.remove('text-dark');
+            
           }
         });
     }
   }
+  
+
+ 
 
   showMore(): void {
     this.loading = true;
@@ -151,53 +204,18 @@ export class MaindetailComponent implements OnInit {
   hideShowMoreButton(): void {
     this.hiddenTrips = [];
   }
-
-  ngOnInit() {
-
-    this.tourid = localStorage.getItem('destinationId');
-
-  this.httpService
-    .get(environment.marsa, 'place/details/' + this.tourid)
-    .subscribe((res: any) => {
-      this.placeDetails = res;
-      this.typetrips = res.typeTrip;
-
-      // فلترة الرحلات بناءً على totalTripsCount
-      if (this.typetrips && this.typetrips.length > 0) {
-        this.typetrips = this.typetrips.filter((trip: any) => trip.trip.length > 0);
-        // تحديد أول رحلة افتراضيًا
-        const firstTrip = this.typetrips[0];
-        this.selectTrip(firstTrip.id);
-
-        // تعيين أول عنصر كعنصر نشط
-        this.selectedTrip = firstTrip.id;
-        this.selectedTripType = firstTrip;
-        this.totalTripsCount = firstTrip.trip.length;
-        this.visibleTrips = firstTrip.trip.slice(0, this.tripsPerRow);
-        this.hiddenTrips = firstTrip.trip.slice(this.tripsPerRow);
-      }
-
-      this.AllActivities = this.placeDetails?.alltrips;
-      console.log(this.AllActivities);
-
-      this.allTripsFiltered = this.placeDetails.alltrips.filter(
-        (item: any) => {
-          if (item.place === this.placeDetails.places.name) {
-            return item;
-          }
-        }
-      );
-      console.log(this.allTripsFiltered);
-
-      this.httpService
-        .get(environment.marsa, 'faq')
-        .subscribe((result: any) => {
-          console.log(result);
-          this.questions = result.FAQ;
-        });
-    });
-
+  getIndex(array: any[], item: any): number {
+    return array.indexOf(item);
   }
+  storeSelectedSight(): void {
+    localStorage.setItem('selectedSight', JSON.stringify(this.selectedSight));
+
+    this.router.navigate(['/', this.translate.currentLang, 'search', 'all-tickets']);
+  }
+
+
+
+
   filterTripType(event: any) {
     this.TypeTrip = event.target.value;
     this.filter();

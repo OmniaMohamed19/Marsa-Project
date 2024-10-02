@@ -1,10 +1,16 @@
 @import url(../../../../shared/components/cards/activity-card/activity-card.component.scss);
+.images .city-dis {
+  width: 30%;
+}
+.images .city-svg{
+  width: 60%;
+}
 .images {
-  text-align: center;
-  position: relative;
-  height: 362.733px;
+  // text-align: center;
+  // position: relative;
+  // height: 362.733px;
   padding-top: 1rem;
-  margin-left: 10%;
+  // margin-left: 10%;
   p:nth-of-type(1) {
     font-size: 35px;
     font-weight: bold;
@@ -271,16 +277,16 @@ h4 {
 
 #sights .sights-span {
   display: block;
-  width: 181px;
+  width: 229px;
   //   height: 42px;
-  background: rgba(255, 255, 255, 0.72);
+  background: #1a2b49;
   border-radius: 5px;
   font-family: Lato;
-  font-size: 24px;
+  font-size: 19px;
   font-weight: 700;
   line-height: 26.8px;
   text-align: left;
-  color: rgba(255, 104, 26, 1);
+  color: white;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -709,6 +715,17 @@ select.form-control {
 }
 
 @media screen and (max-width: 1200px) {
+  .images .city-dis {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .desktop-svg {
+    display: none;
+    width: 0%;
+  }
+.images{
+  height: auto;
+}
   .content {
     margin-top: 10px;
   }

@@ -39,7 +39,7 @@ export class TransferComponent implements OnInit {
         this.backgroundImageUrl = res?.transfer || [];
         console.log(this.backgroundImageUrl);
         if (this.backgroundImageUrl.length > 0) {
-          this.currentBackgroundImage = this.backgroundImageUrl[0]; // حفظ الصورة الأولى
+          this.currentBackgroundImage = this.backgroundImageUrl[0]; 
         }
       },
       (err) => {}

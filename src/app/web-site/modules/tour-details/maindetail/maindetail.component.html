@@ -1,14 +1,28 @@
 <app-header [background]="'#008CCF'"></app-header>
 <section class="content">
   <div class="container">
-    <div class="images">
-      <img src="../../../../../assets/images/Ellipse1(1).png" alt="" style="width: 100%; max-width: 50%;
-    height: 70%;" />
-      <div class="text-container">
-        <p style="font-size:3vw;">What to do in</p>
-        <p style="font-size:4vw;" class="info">{{ placeDetails?.places.name }}</p>
+    <div class="images d-flex">
+      <!-- <img src="../../../../../assets/images/Ellipse1(1).png" alt="" style="width: 100%; max-width: 50%;
+    height: 70%;" /> -->
+      <div class="city-dis">
+        <p>What to do in</p>
+        <p class="info">{{ placeDetails?.places.name }}</p>
       </div>
+
+      <div class="city-svg">
+        <svg width="650" height="180" viewBox="0 0 912 158" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="desktop-svg" data-v-b98b6f42="">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M867.209 659.249L869.23 650.479C882.23 594.057 888.069 558.079 885.427 522.351C882.784 486.619 871.605 450.449 849.135 393.819C825.39 333.978 837.485 290.578 854.862 250.193C858.092 242.688 861.451 235.361 864.783 228.097C879.436 196.142 893.536 165.393 893.536 126C893.536 102.24 887.353 84.4929 878.092 71.6569C868.811 58.7957 856.068 50.3482 842.11 45.8088C830.55 42.0496 818.445 41.0337 807.095 42.2963C809.509 52.256 808.737 63.636 804.546 76.3232C794.386 107.076 769.724 120.269 750.532 111.591C740.974 107.269 734.824 97.8714 734.958 86.0716C735.087 74.6821 740.963 61.9472 752.855 48.9297C759.904 41.2142 768.95 35.1911 779.121 30.9784C777.316 29.5891 775.305 28.3099 773.096 27.1389C757.825 19.0415 735.208 17.3098 716.757 19.9118C698.788 22.446 680.436 30.5451 657.789 40.5405L657.634 40.6088C635.266 50.4806 609.467 61.7954 578.081 69.2561C545.716 76.9494 505.982 73.0182 466.466 67.6042C458.595 66.5258 450.723 65.3871 442.881 64.2529C410.634 59.5884 378.913 55 350 55C317.938 55 297.574 58.6748 274.334 62.8688C271.606 63.3611 268.838 63.8605 266.008 64.3621C238.797 69.1827 206.636 74.0001 150 74.0001C93.4453 74.0001 59.7602 69.6987 31.6836 65.3962C28.2201 64.8655 24.8555 64.3373 21.5552 63.8192C-1.77271 60.1573 -21.8859 57 -51 57C-73.4721 57 -97.9923 60.3685 -125.253 64.1134C-138.525 65.9367 -152.447 67.8491 -167.098 69.5056C-211.178 74.4892 -260.239 76.8432 -312.848 65.8083L-321.656 63.9607L-317.961 46.3441L-309.152 48.1917C-259.26 58.6569 -212.384 56.5109 -169.12 51.6195C-155.62 50.0932 -142.3 48.2669 -129.296 46.484C-101.268 42.6411 -74.7114 39 -51 39C-20.4124 39 1.03246 42.3708 24.4002 46.0439C27.6885 46.5608 31.0149 47.0837 34.4101 47.6039C61.8025 51.8015 94.5549 56.0001 150 56.0001C205.365 56.0001 236.454 51.3175 262.868 46.6381C265.663 46.1429 268.415 45.6457 271.146 45.1523C294.482 40.9366 316.273 37 350 37C380.344 37 413.729 41.8363 446.074 46.5219C453.763 47.6358 461.393 48.741 468.909 49.7708C508.768 55.2318 545.284 58.5507 573.919 51.744C603.533 44.7046 627.984 34.0194 650.366 24.1413L652.01 23.4153C673.436 13.9552 693.776 4.97459 714.243 2.08824C734.792 -0.809708 761.675 0.708605 781.529 11.2362C788.138 14.741 794.171 19.3607 798.85 25.3065C814.765 22.5351 831.871 23.5513 847.676 28.6913C864.852 34.277 880.931 44.8295 892.688 61.1244C904.464 77.4448 911.536 99.0098 911.536 126C911.536 169.694 895.455 204.616 880.653 236.762C877.449 243.72 874.305 250.548 871.397 257.307C854.997 295.422 844.574 333.522 865.866 387.181C888.432 444.051 900.52 482.381 903.378 521.024C906.236 559.672 899.806 597.943 886.77 654.521L884.749 663.291L867.209 659.249ZM789.534 46.2751C780.148 49.5969 772.009 54.6511 766.145 61.0704C755.94 72.2403 753.017 80.9115 752.957 86.2759C752.9 91.23 755.169 93.9335 757.948 95.1899C763.429 97.6684 779.114 95.9244 787.454 70.6769C790.883 60.2978 791.067 52.3597 789.534 46.2751Z"
+            fill="#FF5533"></path>
+        </svg>
+
+
+      </div>
+
+
     </div>
+
     <div id="about" style="margin-bottom: 2rem;">
       <h4>About The City</h4>
       <p>
@@ -20,9 +34,10 @@
     </div>
 
     <!---------- Types--------->
-    <div class="day-trip-container"  *ngIf="screenWidth > 1023">
-      <div   *ngFor="let type of placeDetails?.typeTrip; let i = index" class="day-trip-img" (click)="selectTrip(type.id)">
-        <div class="text-center" >
+    <div class="day-trip-container" *ngIf="screenWidth > 1023">
+      <div *ngFor="let type of placeDetails?.typeTrip; let i = index" class="day-trip-img"
+        (click)="selectTrip(type.id)">
+        <div class="text-center">
           <div class="day-trip-img-content" [ngClass]="{
              'selected': selectedTrip === type.id,
              'active': selectedTrip === type.id && selectedTripType === type
@@ -40,14 +55,9 @@
 
     <!-- Carousel -->
 
-    <p-carousel *ngIf="screenWidth <= 1023"
-    [value]="placeDetails?.typeTrip"
-     [numVisible]="1" [numScroll]="1"
-      [responsiveOptions]="custom"
-       [circular]="true"
-        [autoplayInterval]="2000"
-        [showIndicators]="false"
-        [showNavigators]="true">
+    <p-carousel *ngIf="screenWidth <= 1023" [value]="placeDetails?.typeTrip" [numVisible]="1" [numScroll]="1"
+      [responsiveOptions]="custom" [circular]="true" [autoplayInterval]="2000" [showIndicators]="false"
+      [showNavigators]="true">
       <ng-template pTemplate="item" let-type>
         <div class="day-trip-img me-3"
           [ngClass]="{ 'selected': selectedTrip === type.id, 'full-width': screenWidth <= 560 }"
@@ -102,127 +112,125 @@
     <div class="top-sights mb-5" *ngIf="isFirstTripSelected()">
       <div id="sights">
         <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
-        <p-carousel
-          [value]="placeDetails?.places?.placesshigts"
-          [numVisible]="3"
-          [responsiveOptions2]="responsiveOptions2"
-          [circular]="true"
-          [showIndicators]="true"
-          [showNavigateButtons]="false"
-          [showThumbnails]="false"
-          [showItemNavigators]="false"
-        >
-          <ng-template pTemplate="item" let-sight>
+        <p-carousel [value]="placeDetails?.places?.placesshigts" [numVisible]="3"
+          [responsiveOptions2]="responsiveOptions2" [circular]="true" [showIndicators]="true"
+          [showNavigateButtons]="false" [showThumbnails]="false" [showItemNavigators]="false">
+          <ng-template pTemplate="item" let-sight let-index="index">
             <div class="sights-container text-center position-relative">
               <div class="position-relative">
-                <img
-                  class="sights-img"
-                  [id]="sight?.id"
+                <img class="sights-img" [id]="sight?.id"
                   style="height: auto; width: 100%; max-height: 250px; border-radius: 8px;"
-                  (onError)="onImgError($event)"
-                  [src]="placeDetails?.places.cover"
-                  alt=""
-                />
-                <span class="sights-span">{{ sight?.name }}</span>
-                <p class="sights-p" style="cursor: pointer" (click)="setActiveSight(sight)">
+                  (onError)="onImgError($event)" [src]="placeDetails?.places.cover" alt="" />
+                <!-- عرض الفهرس -->
+
+                <span class="sights-span ">
+
+                  {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
+                </span>
+
+
+                <!-- <p class="sights-p" style="cursor: pointer" (click)="setActiveSight(sight)">
                   {{ sight?.TripCount }} Activities
-                </p>
+                </p> -->
               </div>
             </div>
-
-
           </ng-template>
-
-
         </p-carousel>
 
-        <div *ngIf="selectedSight" class="row mt-3" style="border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
-          <div *ngFor="let item of selectedSight.trips" class="col-lg-6 col-md-6 col-sm-12 mb-5">
-            <div class="card h-100 d-flex flex-row" style="border: none; padding:0 10px;">
-              <div class="img-container position-relative" style="width: 50%; height: auto;">
-                <a
-                [routerLink]="[
-                '/',
-                translate.currentLang,
-                'tours',
-                'details',
-                item?.id,
-                item?.Title
-              ]"
-                  class="d-block h-100"
-                  style="border-radius: 10px; overflow: hidden; transition: none; position: relative;"
-                >
-                  <img
-                    class="w-100 h-100"
-                    [src]="item?.cover"
-                    alt="img"
-                    style="object-fit: cover; border-radius: 10px; height: auto; aspect-ratio: 1 / 1; transition: none;"
-                  />
-                </a>
-              </div>
-              <div class="card-body p-2" style="width: 70%; font-size: 0.875rem; display: flex; flex-direction: column; justify-content: space-between;">
-                <a
-                  [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]"
-                  class="d-block mb-2"
-                >
-                  <h5 class="card-title mb-1" style="font-size: 17px; font-weight: bold;">{{ item?.Title }}</h5>
-                  <p class="card-text mb-2" style="font-size: 0.75rem; color: #555;">{{ item?.type }}</p>
-                </a>
-                <div class="my-2">
-                  <div class="d-inline-flex align-items-center review" style="font-size: 0.75rem; color: yellow;">
-                    <span class="stars">
-                      <i
-                        *ngFor="let star of [1,2,3,4,5]"
-                        class="fa-solid fa-star"
-                        style="color: #bfbfbf; font-size: 0.875rem;"
-                        [ngClass]="{
-                          'fa-star-filled': star <= getRoundedRate(item?.rate),
-                          'yellow-star': star <= getRoundedRate(item?.rate)
-                        }"
-                      ></i>
-                    </span>
-                    <span style="font-size: 17px;">{{ item?.Review }} Reviews</span>
-                  </div>
-                  <div class="d-flex align-items-center gap-2 pt-2">
-                    <img
-                      src="../../../../../assets/custom/Activity/time.png"
-                      style="width: 12px;"
-                      alt="icon"
-                    />
-                    <span class="pb-0" style="font-size: 0.75rem;">{{ item.duration }} {{ item.durationType }}</span>
-                  </div>
-                </div>
 
-                <h2 class="h5 mb-0" style="font-size: 0.875rem;">
-                  <small class="mr-2">From</small>
-                  <span
-                    [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
-                    [style.color]="item.discount > 0 ? 'red' : ''"
-                    >{{ item?.PriceColectiv }} $</span
-                  >
-                  <span class="mx-2" *ngIf="item.discount > 0" style="font-size: 0.875rem;">
-                    {{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }} $
-                  </span>
-                  <span style="font-size: 0.75rem;">per person</span>
-                </h2>
-                <div class="position-absolute top-0 right-0 pt-2 ps-5">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-icon text-white rounded-circle"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Save for later"
-                    aria-label="Save for later"
-                    #btn
-                    (click)="addtoFavorits(btn, $event)"
-                  >
-                    <span class=" font-size-20" style="color:#297cbb"><i class="fa-regular fa-heart"></i></span>
-                  </button>
+
+        <div class="row mt-3" style="border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
+          <div class="col-lg-4 col-md-4 col-sm-12 mt-lg-3 mb-5">
+            <div>
+              <h5 class="card-title mb-1" style="line-height: 26px; font-size: 17px; font-weight: bold;">
+                {{selectedSight.short_overveiw}}
+              </h5>
+
+            </div>
+
+            <button type="button" style="border-radius: 20px !important; width: 80% !important;"
+              class="btn btn-outline-primary mt-4" (click)="storeSelectedSight()">
+              See more tickets & tours&nbsp;
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-12">
+            <div *ngIf="selectedSight" class="row ">
+              <div *ngFor="let item of selectedSight.trips.slice(1)" class="col-lg-6 col-md-6 col-sm-12 mb-5">
+
+                <div class="card h-100 d-flex flex-row" style="border: none; padding:0 10px;">
+                  <div class="img-container position-relative" style="width: 50%; height: auto;">
+                    <a [routerLink]="[
+                    '/',
+                    translate.currentLang,
+                    'tours',
+                    'details',
+                    item?.id,
+                    item?.Title
+                  ]" class="d-block h-100"
+                      style="border-radius: 10px; overflow: hidden; transition: none; position: relative;">
+                      <img class="" [src]="item?.cover" alt="img"
+                        style="width: 88% !important;
+        height: 60% !important; object-fit: cover; border-radius: 10px; height: auto; aspect-ratio: 1 / 1; transition: none;" />
+                    </a>
+                  </div>
+                  <div class="card-body p-2"
+                    style="width: 70%; font-size: 0.875rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <a [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]" class="d-block">
+                      <h5 class="card-title mb-1" style="font-size: 17px; font-weight: bold;">{{ item?.Title }}</h5>
+                      <p class="card-text" style="font-size: 0.75rem; color: #555;">{{ item?.type }}</p>
+                    </a>
+                    <div class="">
+                      <div class="d-inline-flex align-items-center review" style="font-size: 0.75rem; color: yellow;">
+                        <span class="stars">
+                          <i *ngFor="let star of [1,2,3]" class="fa-solid fa-star"
+                            style="color: #bfbfbf; font-size: 0.875rem;" [ngClass]="{
+                              'fa-star-filled': star <= getRoundedRate(item?.rate),
+                              'yellow-star': star <= getRoundedRate(item?.rate)
+                            }"></i>
+                        </span>
+                        <span class="mt-1" style="font-size: 17px;">{{ item?.Review }} Reviews</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <img src="../../../../../assets/custom/Activity/time.png" style="width: 12px;" alt="icon" />
+                        <span class="pb-0" style="font-size: 0.75rem;">{{ item.duration }} {{ item.durationType
+                          }}</span>
+                      </div>
+                    </div>
+
+                    <h2 class="h5 mb-0" style="font-size: 0.875rem;">
+                      <small class="mr-2">From</small>
+                      <span [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
+                        [style.color]="item.discount > 0 ? 'red' : ''">{{ item?.PriceColectiv }} $</span>
+                      <span class="mx-2" *ngIf="item.discount > 0" style="font-size: 0.875rem;">
+                        {{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }} $
+                      </span>
+                      <span style="font-size: 0.75rem;">per person</span>
+                    </h2>
+                    <div class="position-absolute top-0 right-0 pt-2 ps-5">
+                      <button type="button" class="btn btn-sm btn-icon text-white rounded-circle" data-toggle="tooltip"
+                      data-placement="top" title="Save for later" aria-label="Save for later" #btn
+                      (click)="addtoFavorits(btn, $event, item?.id)">
+                      <span class="font-size-20" [ngClass]="{'text-white': item.isFavorite, 'text-dark': !item.isFavorite}">
+                        <i  style="color:#297cbb" class="fa-regular fa-heart"></i>
+                      </span>
+                    </button>
+                    
+
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+
+
         </div>
+
+
 
 
 
