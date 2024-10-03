@@ -56,9 +56,13 @@ footer {
 }
 
 @media (max-width: 768px) {
-  // .animation{
-  //   margin:15px auto !important;
-  // }
+  .download {
+    display: block !important;
+  }
+  .download img {
+    margin-bottom: 1rem ;
+
+  }
 }
 
 .footer-payments {

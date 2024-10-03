@@ -181,6 +181,13 @@ span {
 .top-margin {
   margin-top: 50px;
 }
+@media (max-width: 768px) {
+  h3 {
+
+    font-size: 19px;
+
+  }
+}
 @media (max-width: 1200px) {
   .container {
     margin-top: 10px !important;

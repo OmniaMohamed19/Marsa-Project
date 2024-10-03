@@ -334,14 +334,14 @@ export class LiveboardPaymentComponent implements OnInit {
   confirmBooking() {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
-      let nationality = this.customerForm.get('phone')?.value['dialCode'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
       const model = {
         trip_id: this.tripId,
         // userid: this.userData?.id,
         class: 'collective',
         adult: this.adult,
         // schedules_id: 4,
-        nationality:nationality,
+        code:code,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,

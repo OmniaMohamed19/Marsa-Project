@@ -471,13 +471,13 @@ h4 {
     padding-left: 10px;
   }
 }
-@media screen and (max-width: 1400px) {
-  .place-card {
-    .first-place .trip {
-      flex-direction: column;
-      .trip-rating {
-        height: auto;
-      }
-    }
-  }
-}
+// @media screen and (max-width: 1400px) {
+//   .place-card {
+//     .first-place .trip {
+//       flex-direction: column;
+//       .trip-rating {
+//         height: auto;
+//       }
+//     }
+//   }
+// }
