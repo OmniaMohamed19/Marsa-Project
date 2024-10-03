@@ -174,26 +174,26 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   private setupIntersectionObserver() {
     const options = {
-        root: null, // viewport
-        rootMargin: '0px',
-        threshold: 1.5, // element should be at least 70% visible
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 0.99, // element should be at least 70% visible
     };
 
     const observer = new IntersectionObserver((entries) => {
-        const visibleEntries = entries.filter(entry => entry.isIntersecting);
-console.log(visibleEntries);
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      console.log(visibleEntries);
 
-        if (visibleEntries.length > 0) {
-            // Set activeTabId to the id of the first visible element
-            this.activeTabId = visibleEntries[0].target.id;
-        }
+      if (visibleEntries.length > 0) {
+        // Set activeTabId to the id of the first visible element
+        this.activeTabId = visibleEntries[0].target.id;
+      }
     }, options);
 
     const tabs = document.querySelectorAll('.tab-pane');
     tabs.forEach((tab) => {
-        observer.observe(tab);
+      observer.observe(tab);
     });
-}
+  }
 
   @HostListener('window:scroll', ['$event'])
   isScrolledIntoView() {
