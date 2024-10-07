@@ -53,11 +53,12 @@ input::placeholder {
 .bg-img-hero-bottom {
     background-image: url(../../../../../../assets/images/cover.webp);
     background-size: cover;
-    height: 729px;
+    height: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 
     .caption {
         h1 {

@@ -18,11 +18,14 @@
       <ng-template pTemplate="item" let-dist>
         <mat-card
           cdkDrag
-          class="dist-card"
+          class="dist-card gradient-overlay-half-bg-charcoal-gray"
           style="height: 250px; margin-left: 1.2rem;"
           [routerLink]="'search'"
+          [style.background]="'url(' + dist?.cover + ')'" 
+          [style.background-size]="'cover !important'"
+
           (click)="logId(dist.id)">
-          <img class="card-image" [src]="replaceSpace(dist?.cover)" alt="{{ dist?.name }}">
+          <!-- <img class="card-image " [src]="replaceSpace(dist?.cover)" alt="{{ dist?.name }}"> -->
           <mat-card-content>
             <div class="destination-title text-white font-weight-bold font-size-21 pb-3 mb-3 text-lh-1 d-block">
               {{ dist?.name }}

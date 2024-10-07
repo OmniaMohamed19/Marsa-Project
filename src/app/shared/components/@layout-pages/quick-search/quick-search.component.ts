@@ -39,6 +39,11 @@ export class QuickSearchComponent {
     private router: Router,
     private translate: TranslateService
   ) {}
+  dropdownOpen = false;
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
   showSearchForm(value: string) {
     this.showSearch = value;
     this.scrollToActive(value);

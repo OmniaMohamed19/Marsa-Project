@@ -51,6 +51,7 @@ export class UpcomingComponent {
       .get(environment.marsa, 'upcoming')
       .subscribe((res: any) => {
         this.upcoming = res['Liveaboard'];
+        console.log(this.upcoming);
       });
   }
 }

@@ -577,7 +577,10 @@ select.form-control {
   }
 
 }
+@media screen and (max-width: 360.9px){
 
+
+}
 @media screen and (min-width: 360.9px) and (max-width: 570px) {
   .dropdown-container {
     width: 100%;
@@ -606,7 +609,7 @@ select.form-control {
     }
 
     P:nth-of-type(2) {
-      font-size: 32px;
+      font-size: 25px;
     }
 
     P:nth-of-type(1) {
@@ -642,6 +645,7 @@ select.form-control {
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
+
   // .mobile-hide-image {
   //   display: none;
   // }

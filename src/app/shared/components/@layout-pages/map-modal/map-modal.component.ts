@@ -45,13 +45,27 @@ export class MapModalComponent implements OnInit {
       5
     );
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-    }).addTo(this.map);
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; OpenStreetMap contributors',
+    // }).addTo(this.map);
+  //   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  // }).addTo(this.map);
+
+
+L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://hot.openstreetmap.org/">Humanitarian OpenStreetMap Team</a>',
+}).addTo(this.map);
+
+
+
+
+
+
 
     const customIcon = L.icon({
-      iconUrl: 'assets/images/transport-location.png',
-      iconSize: [50, 50], // Adjust size as needed
+      iconUrl: 'assets/images/locatio.svg',
+      iconSize: [37, 37], // Adjust size as needed
     });
 
     this.marker = L.marker([this.latitudeValue, this.longitudeValue], {

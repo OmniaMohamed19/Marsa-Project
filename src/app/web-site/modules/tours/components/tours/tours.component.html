@@ -507,7 +507,7 @@
           style="padding-left: 2px !important;"
         >
           <li
-            class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
+            class="nav-item d-flex  align-items-center flex-shrink-0 flex-xl-shrink-1"
             role="presentation"
           >
             <button
@@ -525,7 +525,7 @@
             </button>
           </li>
           <li
-            class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
+            class="nav-item d-flex  align-items-center flex-shrink-0 flex-xl-shrink-1"
             role="presentation"
             *ngFor="let item of types"
           >
@@ -535,6 +535,7 @@
               data-bs-toggle="pill"
               type="button"
               role="tab"
+              style="padding-right: 2.7px !important; padding-left: 2.7px !important ;"
               aria-selected="false"
             >
               {{ item?.type }}

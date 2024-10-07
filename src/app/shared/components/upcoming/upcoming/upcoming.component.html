@@ -5,55 +5,42 @@
   </div>
   <div class="row m-0 container mobile-cont">
     <div *ngFor="let card of upcoming" class="col">
-      <div class="card transition-3d-hover shadow-hover-2 tab-card h-100">
+      <div class="card transition-3d-hover shadow-hover-2 tab-card h-100" style="overflow:visible !important">
         <div class="position-relative h-100">
-          <div
-            class="w-100 h-100 top-0 pt-5"
-            style="border-radius: 10px"
-            [style.background]="'url(' + card?.cover + ')'"
-            [style.background-size]="'100% 100% !important'"
-          >
-            <div class="sale" style="margin-left: 0.9rem !important; ">
-              <img src="../../../../../assets/images/Group48096786.png" /><span
-                ><small>Up to &nbsp;</small>{{ card?.discount }}% OFF</span
-              >
+          <div class="w-100 h-100 top-0 pt-5  gradient-overlay-half-black-gradient" style="border-radius: 10px"
+            [style.background]="'url(' + card?.cover + ')'" [style.background-size]="'100% 100% !important'">
+            <div class="sale" style="margin-left: 0.9rem !important; position: absolute;
+            bottom: 100%;
+            top: 33px;
+            left: -98px;
+            transform: translateX(60px);">
+              <img src="../../../../../assets/images/Group48096786.png" /><span><small>Up to &nbsp;</small>{{
+                card?.discount }}% OFF</span>
             </div>
             <br />
             <div class="pl-3 pt-4 d-flex justify-content-between center-place">
-              <a
-                href="../tour/tour-single-v1.html"
-                style="min-height: 100px; align-content: center"
-                class="card-title font-size-30 text-white font-weight-bold mb-0 text-name"
-                >{{ card.Title }}</a
-              >
-              <span class="text-price font-size-20 text-white" style="bottom: 73px;
+              <a href="../tour/tour-single-v1.html" style="min-height: 100px; align-content: center"
+                class="card-title font-size-30 text-white font-weight-bold mb-0 text-name">{{ card.Title }}</a>
+              <span class="text-price font-size-20 text-white" style="
               position: absolute;
               right: 39px;">
                 <span class="font-size-14">From</span> ${{
-                  card.PriceColectiv
-                }}</span
-              >
+                card.PriceColectiv
+                }}</span>
             </div>
             <a href="../tour/tour-single-v1.html" class="d-block pl-3 pt-4">
-              <div
-                class="mb-1 d-flex align-items-center font-size-18 text-white"
-              >
+              <div class="mb-1 d-flex align-items-center font-size-18 text-white">
                 <i class="fa-solid fa-location-dot mx-2"></i>
                 {{ card.place }}
               </div>
             </a>
-            <div
-              class="pl-3 pt-4 mb-1 d-flex align-items-center font-size-18 text-white"
-            >
+            <div class="pl-3 pt-4 mb-1 d-flex align-items-center font-size-18 text-white">
               <i class="fa-regular fa-clock mx-2"></i>
               {{ 9 }} nights
             </div>
             <div class="pr-3 pt-4 mb-1 d-flex justify-content-end">
-              <button
-                [routerLink]="'liveboard/liveboardDetails/' + card.id"
-                type="submit"
-                class="btn btn-primary w-25 border-radius-3 mb-2 transition-3d-hover"
-              >
+              <button [routerLink]="'liveboard/liveboardDetails/' + card.id" type="submit"
+                class="btn btn-primary w-25 border-radius-3 mb-2 transition-3d-hover">
                 Explore
               </button>
             </div>

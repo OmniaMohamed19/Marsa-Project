@@ -78,6 +78,7 @@ import { SearchLiveComponent } from './components/@layout-pages/quick-search/sea
 import { CarouselModule as CarouselModule2 } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 const layoutPages = [
   QuickSearchComponent,
@@ -165,6 +166,7 @@ const slider = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
+    GoogleMapsModule,
     CommonModule,
     CarouselModule,
     ButtonModule ,

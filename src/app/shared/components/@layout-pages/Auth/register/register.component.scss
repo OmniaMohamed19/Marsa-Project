@@ -6,6 +6,13 @@ h3 {
   letter-spacing: 0em;
   color: #0db1ff;
 }
+::ng-deep{
+  .country-dropdown{
+    width: 100% !important;
+    padding-top: 16px !important;
+  }
+
+}
 
 .input-group {
   height: 48px !important;
