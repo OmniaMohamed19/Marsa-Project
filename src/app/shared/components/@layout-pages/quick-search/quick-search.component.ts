@@ -34,16 +34,30 @@ export class QuickSearchComponent {
   @ViewChild('transfer', { static: true }) transfer: ElementRef | undefined;
   @ViewChild('boat', { static: true }) boat: ElementRef | undefined;
 
+
   constructor(
     private httpService: HttpService,
     private router: Router,
     private translate: TranslateService
   ) {}
   dropdownOpen = false;
+  dropdownOpen2= false;
+  dropdownOpen3= false;
+  dropdownOpen4= false;
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
+  toggleDropdown2() {
+    this.dropdownOpen2 = !this.dropdownOpen2;
+  }
+  toggleDropdown3() {
+    this.dropdownOpen3 = !this.dropdownOpen3;
+  }
+  toggleDropdown4() {
+    this.dropdownOpen4 = !this.dropdownOpen4;
+  }
+
   showSearchForm(value: string) {
     this.showSearch = value;
     this.scrollToActive(value);
