@@ -710,8 +710,8 @@ export class ToursDetailsComponent implements AfterViewInit {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            btn.classList.add('bg-primary');
-            event.target.classList.add('text-white');
+            // btn.classList.add('bg-primary');
+            event.target.classList.add('text-danger');
             event.target.classList.remove('text-dark');
           },
         });

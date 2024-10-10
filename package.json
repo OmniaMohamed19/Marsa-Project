@@ -42,6 +42,7 @@
     "express": "^4.15.2",
     "google-libphonenumber": "^3.2.34",
     "intl-tel-input": "^20.3.0",
+    "leaflet": "^1.9.4",
     "localstorage-polyfill": "^1.0.1",
     "luxon": "^3.4.4",
     "ngx-bootstrap": "^12.0.0",

@@ -37,9 +37,10 @@ export class ActivityCardComponent {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            btn.classList.add('bg-primary');
-            event.target.classList.add('text-white');
-            event.target.classList.remove('text-dark');
+            // btn.classList.add('bg-primary');
+            event.target.classList.add('text-danger');
+            event.target.classList.remove('text-white');
+            // event.target.classList.remove('text-dark');
           }
         });
     }

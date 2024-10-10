@@ -28,6 +28,7 @@ export class ActivityCardListComponent implements OnInit{
     }
   }
   addtoFavorits(btn: any,event:any) {
+    
     if (btn.classList.contains('text-red')) {
       
       } else {
@@ -37,11 +38,32 @@ export class ActivityCardListComponent implements OnInit{
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            // btn.classList.add('bg-primary');
-            event.target.classList.add('text-red');
+            event.target.classList.add('text-danger');
             event.target.classList.remove('text-dark');
+            event.target.classList.remove('fa-regular');
+            event.target.classList.add('fa');
           }
         });
     }
   }
+  // addtoFavorits(btn: any,event:any) {
+    
+  //   if (btn.classList.contains('bg-primary')) {
+      
+  //     } else {
+  //       // Add to favorites/wishlist
+  //       this._httpService
+  //       .post(environment.marsa,'Wishlist/add', { trip_id: this.item?.id })
+  //       .subscribe({
+  //         next: (res: any) => {
+  //           console.log(res);
+  //           // btn.classList.add('bg-primary');
+  //           event.target.classList.add('text-danger');
+  //           event.target.classList.remove('text-white');
+  //           // event.target.classList.remove('text-dark');
+  //         }
+  //       });
+  //   }
+  // }
+
 }

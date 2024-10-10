@@ -6,27 +6,18 @@ import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-boat-card',
   templateUrl: './boat-card.component.html',
-  styleUrls: ['./boat-card.component.scss']
+  styleUrls: ['./boat-card.component.scss'],
 })
 export class BoatCardComponent {
   @Input() item: any;
-  constructor(public translate: TranslateService,
-    private _httpService: HttpService,
+  constructor(
+    public translate: TranslateService,
+    private _httpService: HttpService
   ) {}
   addtoFavorits(btn: any,event:any) {
+    
     if (btn.classList.contains('bg-primary')) {
-      // Remove from favorites/wishlist
-      this._httpService
-        .get(environment.marsa, 'Wishlist/delete/'+this.item?.id)
-        .subscribe({
-          next: (res: any) => {
-            console.log(res);
-            // console.log(event.target);
-            btn.classList.remove('bg-primary');
-            event.target.classList.add('text-dark');
-            event.target.classList.remove('text-white');
-          }
-        });
+      
       } else {
         // Add to favorites/wishlist
         this._httpService
@@ -34,9 +25,10 @@ export class BoatCardComponent {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            btn.classList.add('bg-primary');
-            event.target.classList.add('text-white');
-            event.target.classList.remove('text-dark');
+            // btn.classList.add('bg-primary');
+            event.target.classList.add('text-danger');
+            event.target.classList.remove('text-white');
+            // event.target.classList.remove('text-dark');
           }
         });
     }

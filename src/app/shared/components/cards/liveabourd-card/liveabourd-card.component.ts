@@ -42,9 +42,8 @@ export class LiveabourdCardComponent {
           next: (res: any) => {
             console.log(res);
             // console.log(event.target);
-            btn.classList.remove('bg-primary');
-            event.target.classList.add('text-dark');
-            event.target.classList.remove('text-danger');
+            event.target.classList.add('text-danger');
+            event.target.classList.remove('text-dark');
           }
         });
       } else {
