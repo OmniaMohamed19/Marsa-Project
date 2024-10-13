@@ -111,7 +111,7 @@ h5 {
   font-family: Lato;
   font-size: 16px;
   font-weight: 700;
-  background-color: #1d508d !important;
+  background-color: #0db1ff !important;
   border-radius: 25px;
   color: #fff;
 }
@@ -229,7 +229,7 @@ h3.highlighting {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  background-color: #1d508d !important;
+  background-color: #0db1ff !important;
   border-radius: 25px;
 }
 .nav-link {
@@ -270,11 +270,15 @@ h3.highlighting {
 }
 
 .book1 {
-  width: 100%;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   border: 1px solid #297cbb;
   color: #297cbb;
-  font-size: 14px;
-  padding: 5%;
+  font-size: 13px;
+  // padding: 5%;
 }
 .boat-features {
   padding: 0;
