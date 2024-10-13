@@ -155,7 +155,7 @@ export class BoatDetailsComponent {
     ).map(([key, value]) => ({ value }));
     console.log(this.desplayedGustImages);
     console.log(index);
-    
+
     this.activeIndex = index;
     this.displayCustom = true;
 }
@@ -263,17 +263,17 @@ export class BoatDetailsComponent {
           rootMargin: '0px',
           threshold: 1.5, // element should be at least 70% visible
       };
-  
+
       const observer = new IntersectionObserver((entries) => {
           const visibleEntries = entries.filter(entry => entry.isIntersecting);
   console.log(visibleEntries);
-  
+
           if (visibleEntries.length > 0) {
               // Set activeTabId to the id of the first visible element
               this.activeTabId = visibleEntries[0].target.id;
           }
       }, options);
-  
+
       const tabs = document.querySelectorAll('.tab-pane');
       tabs.forEach((tab) => {
           observer.observe(tab);
@@ -346,11 +346,11 @@ export class BoatDetailsComponent {
           []
         );
         this.isSingleImage = this.images.length === 1;
-        this.seoService.updateSEO(
-          this.boatData?.MetaTitle,
-          this.boatData?.MetaDesc,
-          this.boatData?.Seo
-        );
+        // this.seoService.updateSEO(
+        //   this.boatData?.MetaTitle,
+        //   this.boatData?.MetaDesc,
+        //   this.boatData?.Seo
+        // );
       });
   }
 
@@ -397,10 +397,10 @@ export class BoatDetailsComponent {
     //   width: '100%',
     // });
     console.log(this.coverAndImages);
-    
+
     console.log(this.boatImages);
     // console.log(boat.images);
-    
+
     // dialogRef.componentInstance.images = boatImages;
   }
 
@@ -507,7 +507,7 @@ export class BoatDetailsComponent {
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('bg-primary')) {
       // Remove from favorites/wishlist
-      
+
       } else {
         // Add to favorites/wishlist
         this._httpService

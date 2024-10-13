@@ -126,7 +126,7 @@ export class LiveboardDetailsComponent {
       }
     }
   }
-  
+
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
     console.log(this.happyGustImages);
@@ -135,7 +135,7 @@ export class LiveboardDetailsComponent {
     ).map(([key, value]) => ({ value }));
     console.log(this.desplayedGustImages);
     console.log(index);
-    
+
     this.activeIndex = index;
     this.displayCustom = true;
 }
@@ -204,17 +204,17 @@ export class LiveboardDetailsComponent {
           rootMargin: '0px',
           threshold: 1.5, // element should be at least 70% visible
       };
-  
+
       const observer = new IntersectionObserver((entries) => {
           const visibleEntries = entries.filter(entry => entry.isIntersecting);
   console.log(visibleEntries);
-  
+
           if (visibleEntries.length > 0) {
               // Set activeTabId to the id of the first visible element
               this.activeTabId = visibleEntries[0].target.id;
           }
       }, options);
-  
+
       const tabs = document.querySelectorAll('.tab-pane');
       tabs.forEach((tab) => {
           observer.observe(tab);
@@ -274,7 +274,7 @@ export class LiveboardDetailsComponent {
         this.happyGustImages = this.liveabourdData?.HappyGust;
         console.log(this.liveabourdData);
         console.log(this.liveabourdData?.Terms);
-        
+
         this.remainingImages = this.liveabourdData?.HappyGust.slice(1);
         const boat = this.liveabourdData?.Boats.find(
           (boat: any) => boat.id === liveabourdID
@@ -295,11 +295,11 @@ export class LiveboardDetailsComponent {
         );
 
         this.isSingleImage = this.images.length === 1;
-        this.seoService.updateSEO(
-          this.liveabourdData?.MetaTitle,
-          this.liveabourdData?.MetaDesc,
-          this.liveabourdData?.Seo
-        );
+        // this.seoService.updateSEO(
+        //   this.liveabourdData?.MetaTitle,
+        //   this.liveabourdData?.MetaDesc,
+        //   this.liveabourdData?.Seo
+        // );
       });
   }
 
@@ -344,10 +344,10 @@ export class LiveboardDetailsComponent {
     //   width: '100%',
     // });
     console.log(this.coverAndImages);
-    
+
     console.log(this.boatImages);
     // console.log(boat.images);
-    
+
     // dialogRef.componentInstance.images = boatImages;
   }
 
@@ -446,7 +446,7 @@ export class LiveboardDetailsComponent {
         };
         // let x=this.selectedDateControl.value
         // console.log(this.schedules_id);
-        
+
 
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)
@@ -475,7 +475,7 @@ export class LiveboardDetailsComponent {
   }
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('bg-primary')) {
-      
+
       } else {
         // Add to favorites/wishlist
         this._httpService

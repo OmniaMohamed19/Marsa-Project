@@ -1,6 +1,6 @@
 <app-header [background]="'#0DB1FF'"></app-header>
 
-<main id="content">
+<div id="content">
   <!-- Hero Section -->
   <div
     class="bg-img-hero text-center mb-1"
@@ -42,24 +42,26 @@
         <h2 class="mb-0 title">{{ data.aboutus?.title }}</h2>
       </div>
       <section class="mx-auto content">
-        <div class="row mt-2">
-          <div class="col-md-6 p-5">
-            <img
-              [src]="data.aboutus?.story_image"
-              alt=""
-              style="
-                width: 100%;
-                height: 100%;
-
-                border-radius: 20px;
-              "
-            />
-          </div>
-          <div class="m-auto col-md-6 p-5">
-            <h2 class="text-center text-md-left">Our Story</h2>
-            <p>{{ data.aboutus?.Story }}</p>
+        <div class="container">
+          <div class="row mt-2">
+            <div class="col-md-7 p-5">
+              <img
+                [src]="data.aboutus?.story_image"
+                alt=""
+                style="
+                  width: 80%;
+                  height: 100%;
+                  border-radius: 20px;
+                "
+              />
+            </div>
+            <div class="m-auto col-md-5 p-5">
+              <h2 class="text-center text-md-left">Our Story</h2>
+              <p>{{ data.aboutus?.Story }}</p>
+            </div>
           </div>
         </div>
+
       </section>
       <section class="mx-auto content">
         <div class="row">
@@ -129,7 +131,7 @@
         data-animate-in="zoomIn"
         data-animate-out="zoomOut"
         data-caption="MyTravel - Responsive Website Template"
-        (click)="showDialog()" 
+        (click)="showDialog()"
       >
         <span
           class="u-media-player__icon u-media-player__icon--lg bg-transparent text-white"
@@ -214,7 +216,7 @@
       </div>
     </div>
   </div>
-</main>
+</div>
 <ng-template #videoModal>
   <div mat-dialog-content>
     <iframe
@@ -222,7 +224,7 @@
       height="315"
       [src]="videoUrl"
       frameborder="0"
-      allow="autoplay; encrypted-media"
+      allow="encrypted-media"
       allowfullscreen
     ></iframe>
   </div>

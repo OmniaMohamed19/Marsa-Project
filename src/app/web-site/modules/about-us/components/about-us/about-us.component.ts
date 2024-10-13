@@ -77,22 +77,22 @@ export class AboutUsComponent implements OnInit {
         this.currentIndex = (this.currentIndex + 1) % this.backgroundImageUrl.length;
         this.changeBackgroundImage();
       }
-    }, 4000); // تغيير الصورة كل 4 ثوانٍ
+    }, 4000);
   }
 
   changeBackgroundImage() {
     const bgElement = document.querySelector('.bg-img-hero');
     if (bgElement) {
-      bgElement.classList.remove('active'); // إزالة الكلاس active
+      bgElement.classList.remove('active');
       setTimeout(() => {
-        this.currentBackgroundImage = this.backgroundImageUrl[this.currentIndex]; // تغيير الصورة
-        bgElement.classList.add('active'); // إضافة الكلاس active بعد التغيير
-      }, 100); // الانتظار 100 مللي ثانية قبل إضافة الكلاس
+        this.currentBackgroundImage = this.backgroundImageUrl[this.currentIndex];
+        bgElement.classList.add('active');
+      }, 100);
     }
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval); // تنظيف الinterval عند تدمير المكون
+    clearInterval(this.interval);
   }
 
   openVideo(): void {

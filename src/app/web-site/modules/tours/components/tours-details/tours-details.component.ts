@@ -378,11 +378,11 @@ export class ToursDetailsComponent implements AfterViewInit {
 
         this.isSingleImage = this.images.length === 1;
 
-        this.seoService.updateSEO(
-          this.activityData?.MetaTitle,
-          this.activityData?.MetaDesc,
-          this.activityData?.Seo
-        );
+        // this.seoService.updateSEO(
+        //   this.activityData?.MetaTitle,
+        //   this.activityData?.MetaDesc,
+        //   this.activityData?.Seo
+        // );
       });
   }
 

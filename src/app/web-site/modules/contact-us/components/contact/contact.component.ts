@@ -25,7 +25,7 @@ export class ContactComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService
   ) { }
-  
+
   ngOnInit(): void {
     this.getContact()
     this.contactForm = this.fb.group({
@@ -38,9 +38,10 @@ export class ContactComponent implements OnInit {
 
     this._HttpService.get(environment.marsa, 'ContactUs').subscribe({
       next: (response: any) => {
+        console.log(response);
         this.contactus = response.contactus
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(this.contactus.google);
-        this.backgroundImageUrl = this.contactus.cover;    
+        this.backgroundImageUrl = this.contactus.cover[0];
 
       }
     })

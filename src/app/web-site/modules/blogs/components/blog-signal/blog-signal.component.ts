@@ -86,11 +86,11 @@ export class BlogSignalComponent implements OnInit {
         this.blog = res.Blog[0];
 
         this.getAdjacentBlogs(blogID);
-        this.seoService.updateSEO(
-          this.blog?.metatitle,
-          this.blog?.metadesc,
-          this.blog?.seo
-        );
+        // this.seoService.updateSEO(
+        //   this.blog?.metatitle,
+        //   this.blog?.metadesc,
+        //   this.blog?.seo
+        // );
       },
     });
   }

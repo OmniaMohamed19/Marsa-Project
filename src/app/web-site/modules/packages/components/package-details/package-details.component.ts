@@ -166,11 +166,11 @@ export class PackageDetailsComponent {
       .subscribe((res: any) => {
         this.rows = res?.tripDetails;
         this.duration = this.rows.duration;
-        this.seoService.updateSEO(
-          this.rows.MetaTitle,
-          this.rows.MetaDesc,
-          this.rows.Seo
-        );
+        // this.seoService.updateSEO(
+        //   this.rows.MetaTitle,
+        //   this.rows.MetaDesc,
+        //   this.rows.Seo
+        // );
         this.duration = res?.tripDetails.duration;
         this.calculateEndDate();
       });
