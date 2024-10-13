@@ -39,7 +39,7 @@ export class ActivityCardComponent {
             console.log(res);
             // btn.classList.add('bg-primary');
             event.target.classList.add('text-danger');
-            event.target.classList.remove('text-white');
+            event.target.classList.remove('text-black-50');
             // event.target.classList.remove('text-dark');
           }
         });

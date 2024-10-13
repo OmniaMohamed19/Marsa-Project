@@ -712,7 +712,7 @@ export class ToursDetailsComponent implements AfterViewInit {
             console.log(res);
             // btn.classList.add('bg-primary');
             event.target.classList.add('text-danger');
-            event.target.classList.remove('text-dark');
+            event.target.classList.remove('text-black-50');
           },
         });
     }

@@ -43,7 +43,7 @@ export class LiveabourdCardComponent {
             console.log(res);
             // console.log(event.target);
             event.target.classList.add('text-danger');
-            event.target.classList.remove('text-dark');
+            event.target.classList.remove('text-black-50');
           }
         });
       } else {

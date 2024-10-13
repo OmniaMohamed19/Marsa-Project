@@ -503,7 +503,7 @@ export class BoatDetailsComponent {
       }
     }
   }
-
+  
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('bg-primary')) {
       // Remove from favorites/wishlist
@@ -515,9 +515,8 @@ export class BoatDetailsComponent {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            btn.classList.add('bg-primary');
-            event.target.classList.add('text-white');
-            event.target.classList.remove('text-dark');
+            event.target.classList.add('text-danger');
+            event.target.classList.remove('text-black-50');
           }
         });
     }

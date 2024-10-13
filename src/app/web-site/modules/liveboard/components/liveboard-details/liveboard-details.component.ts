@@ -483,9 +483,9 @@ export class LiveboardDetailsComponent {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            btn.classList.add('bg-primary');
-            event.target.classList.add('text-white');
-            event.target.classList.remove('text-dark');
+            
+            event.target.classList.add('text-danger');
+            event.target.classList.remove('text-black-50');
           }
         });
     }
