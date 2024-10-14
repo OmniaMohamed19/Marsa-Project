@@ -35,6 +35,10 @@ h2::after {
 .caption {
   padding-top: 10px;
 }
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
+}
 
 h5 {
   font-family: Poppins;

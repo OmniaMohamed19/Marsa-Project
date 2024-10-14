@@ -574,70 +574,32 @@
         <h5 class="font-size-21 font-weight-bold text-dark mb-8">
           Showing 16 verified guest comments
         </h5>
-        <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4">
+        <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4" *ngFor="let review of reviews">
           <div class="mr-md-5">
             <a class="d-block" href="#">
-              <img class="img-fluid mb-3 mb-md-0 rounded-circle" src="../../../../../../assets/images/avatar2.jpg"
-                alt="Image Description" />
+              <img class="img-fluid mb-3 mb-md-0 rounded-circle" [src]="review.avatar" alt="Image Description" />
             </a>
           </div>
           <div class="media-body text-center text-md-left">
             <div class="mb-4">
               <h6 class="font-weight-bold text-gray-3">
-                <a href="#" style="
-                    font-family: Lato;
-                    font-size: 16px;
-                    font-weight: 700;
-                    line-height: 10;
-                    letter-spacing: 0em;
-                    text-align: left;
-                  ">Helena</a>
+                <a href="#" style="font-family: Lato; font-size: 16px; font-weight: 700; line-height: 10; letter-spacing: 0em; text-align: left;">
+                  {{review.name}}
+                </a>
               </h6>
               <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
-                April 25, 2019 at 10:46 am
+                {{review.date | date:'medium'}}
               </div>
               <div class="d-flex align-items-center flex-column flex-md-row mb-2">
-                <button type="button"
-                  class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0">
-                  4.6 /5
+                <button type="button" class="btn btn-xs btn-primary rounded-xs font-size-14 py-1 px-2 mr-2 mb-2 mb-md-0">
+                  {{review.rate}} / 5
                 </button>
-                <span class="font-weight-bold font-italic text-gray-3">The worst hotel ever ”</span>
-              </div>
-              <p class="text-lh-1dot6 mb-0 pr-lg-5">
-                Morbi velit eros, sagittis in facilisis non, rhoncus et erat.
-                Nam posuere ultricies tortor imperdiet vitae. Curabitur lacinia
-                neque non metus
-              </p>
-            </div>
-            <div class="review">
-              <div
-                class="row no-gutters justify-content-between align-items-center border border-color-8 border-width-2 rounded-xs p-3 px-md-3 py-md-2 pr-xl-5"
-                style="height: 53px">
-                <div class="col">
-                  <div class="font-weight-normal font-size-14 text-gray-1 mx-lg-1 my-lg-1 mb-3 mb-md-0">
-                    Was This Review...?
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-4">
-                  <div class="d-flex justify-content-between my-lg-1">
-                    <a class="text-indigo-light">
-                      <i class="fa-regular fa-thumbs-up font-size-15 mr-1"></i>
-                      <span class="font-size-14 font-weight-normal">Like</span>
-                    </a>
-                    <a class="text-gray-7" href="#">
-                      <i class="fa-regular fa-thumbs-down font-size-15 mr-1"></i>
-                      <span class="font-size-14 font-weight-normal">Dislike</span>
-                    </a>
-                    <a class="text-red-light-2" href="#">
-                      <i class="fa-regular fa-heart font-size-15 mr-1"></i>
-                      <span class="font-size-14 font-weight-normal">Love</span>
-                    </a>
-                  </div>
-                </div>
+                <span class="font-weight-bold font-italic text-gray-3">{{review.comment}}</span>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
       <div class="py-4">
         <h5 class="mb-3">Write a Review</h5>

@@ -516,7 +516,7 @@
               <img [src]="item?.value" style="width: 100%; height:  480px;" />
             </ng-template>
           </p-galleria>
-                
+
               </div>
             </div>
           </div>
@@ -701,7 +701,7 @@
                       </div>
                       <i
                         *ngFor="let star of [1, 2, 3, 4, 5]"
-                        class="fa-solid fa-star"
+                        class="fa-solid fa-star text-black-50"
                         [ngClass]="{
                           'fa-star-filled': star <= liveabourdData?.rate,
                           'yellow-star': star <= liveabourdData?.rate

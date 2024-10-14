@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -15,8 +14,11 @@ import { environment } from 'src/environments/environment.prod';
 export class ContactComponent implements OnInit {
   contactus: any = [];
   googleIframe!: SafeHtml;
-  contactForm !: FormGroup;
-  backgroundImageUrl:string='';
+  contactForm!: FormGroup;
+  backgroundImages: string[] = [];
+  backgroundImageUrl: string = '';
+  currentImageIndex: number = 0;
+  intervalId: any;
 
   constructor(
     private _HttpService: HttpService,
@@ -24,60 +26,80 @@ export class ContactComponent implements OnInit {
     public translate: TranslateService,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.getContact()
+    this.getContact();
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       message: ['', [Validators.required]],
-    })
+    });
   }
-  getContact() {
 
+  getContact() {
     this._HttpService.get(environment.marsa, 'ContactUs').subscribe({
       next: (response: any) => {
         console.log(response);
-        this.contactus = response.contactus
+        this.contactus = response.contactus;
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(this.contactus.google);
-        this.backgroundImageUrl = this.contactus.cover[0];
+        this.backgroundImages = this.contactus.cover; // توقع أن الصور هي مصفوفة
 
+        if (this.backgroundImages.length > 0) {
+          this.backgroundImageUrl = this.backgroundImages[0]; // تعيين الصورة الأولى كبداية
+          this.startImageRotation(); // بدء تغيير الصور
+        }
       }
-    })
+    });
   }
+
+  startImageRotation() {
+    this.intervalId = setInterval(() => {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.backgroundImages.length;
+      this.backgroundImageUrl = this.backgroundImages[this.currentImageIndex];
+    }, 4000); // كل 4 ثواني
+  }
+
   contact() {
     if (this.contactForm.invalid) {
-      this.toastr.info("please enter all required fields" , ' ' ,{
+      this.toastr.info("please enter all required fields", '', {
         disableTimeOut: false,
         titleClass: "toastr_title",
-        messageClass:"toastr_message",
-        timeOut:5000,
-        closeButton:true,
-        })
-    }
-    else {
+        messageClass: "toastr_message",
+        timeOut: 5000,
+        closeButton: true,
+      });
+    } else {
       this._HttpService.post(environment.marsa, 'contactus/store', this.contactForm.value).subscribe({
         next: (res: any) => {
-          this.toastr.success(res.message,'',{
+          this.toastr.success(res.message, '', {
             disableTimeOut: false,
             titleClass: "toastr_title",
-            messageClass:"toastr_message",
-            timeOut:5000,
-            closeButton:true,
-            });
+            messageClass: "toastr_message",
+            timeOut: 5000,
+            closeButton: true,
+          });
           this.contactForm.reset();
         }
-      })
+      });
     }
   }
+
   get name() {
     return this.contactForm.get('name')!;
   }
+
   get email() {
     return this.contactForm.get('email')!;
   }
+
   get message() {
     return this.contactForm.get('message')!;
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId); 
+    }
   }
 }

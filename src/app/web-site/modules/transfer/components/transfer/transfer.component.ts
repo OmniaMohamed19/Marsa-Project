@@ -17,7 +17,8 @@ export class TransferComponent implements OnInit {
   fromId: string = '';
   toId: any;
   date: any;
-  pickuptime: any;
+  reviews:any;
+  pickuptime:any;
   returnDate: any; // Add for return date
   returnPickuptime: any; // Add for return pickup time
   person: any;
@@ -39,7 +40,7 @@ export class TransferComponent implements OnInit {
         this.backgroundImageUrl = res?.transfer || [];
         console.log(this.backgroundImageUrl);
         if (this.backgroundImageUrl.length > 0) {
-          this.currentBackgroundImage = this.backgroundImageUrl[0]; 
+          this.currentBackgroundImage = this.backgroundImageUrl[0];
         }
       },
       (err) => {}
@@ -48,6 +49,9 @@ export class TransferComponent implements OnInit {
     this.httpService.get(environment.marsa, 'transfer').subscribe({
       next: (res: any) => {
         this.transferDetails = res;
+        if (this.transferDetails?.reviwe) {
+          this.reviews = Object.values(this.transferDetails.reviwe);
+        }
         console.log(res);
       },
       error: (err) => {

@@ -11,6 +11,12 @@
     <a [routerLink]="'/'" class="navbar-brand me-0">
       <img alt="Marsa Waves" src="assets/images/logo.svg" />
     </a>
+    <div class="input-group" style="width: 320px !important; margin-left: 1rem; ">
+     
+      <input type="search" style="height: 44px;border-bottom-right-radius: 0px !important;border-top-right-radius: 0px !important;" class="form-control rounded" placeholder="Where are you going?" aria-label="Search" aria-describedby="search-addon" />
+      <button type="button" style=" background-color: #0db1ff;color: #ffffff;padding-top: 0.5rem; height: 44px;" class="btn " data-mdb-ripple-init>search</button>
+    </div>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul
         class="navbar-nav me-auto mb-2 mb-lg-0 w-100"
@@ -27,6 +33,7 @@
             {{ "header.home" | translate }}
           </a>
         </li>
+
         <li class="nav-item">
           <a
             class="nav-link"

@@ -74,14 +74,14 @@ div.title h3::after {
 }
 .destination-title {
   position: absolute; /* Position the title absolutely within the card */
-  bottom: 20px; /* Adjust the position as needed */
+  // bottom: 3px; /* Adjust the position as needed */
   left: 20px; /* Adjust the position as needed */
   color: #FFFFFF; /* Bright white color for the text */
   font-weight: bold;
   font-size: 21px;
   z-index: 2; /* Ensure it appears above the image */
   margin: 0;
-  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color change and position */
+ // transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color change and position */
 }
 
 .destination-dropdown {
@@ -102,7 +102,7 @@ div.title h3::after {
 
 .dist-card:hover .destination-title {
   color: white; /* Ensure text color remains white on hover */
-  transform: translateY(-40px); /* Move the text slightly upwards */
+
 }
 
 .dist-card:hover .card-image {
@@ -110,7 +110,7 @@ div.title h3::after {
 }
 
 .dropdown-item {
-  font-size: 1rem !important;
+  font-size: 1.2rem !important;
   color: white;
   background-color: transparent; /* Ensure no background */
 }

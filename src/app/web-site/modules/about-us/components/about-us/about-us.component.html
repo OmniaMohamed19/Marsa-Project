@@ -2,31 +2,19 @@
 
 <div id="content">
   <!-- Hero Section -->
-  <div
-    class="bg-img-hero text-center mb-1"
-    [style.backgroundImage]="'url(' + currentBackgroundImage + ')'"
-  >
+  <div class="bg-img-hero text-center mb-1 gradient-overlay-half-black-gradient"
+    [style.backgroundImage]="'url(' + currentBackgroundImage + ')'">
     <div class="container space-top-xl-3 py-6 py-xl-0">
       <div
-        class="row justify-content-center py-xl-4 d-flex justify-content-center align-items-center h-100 flex-column"
-      >
+        class="row justify-content-center py-xl-4 d-flex justify-content-center align-items-center h-100 flex-column">
         <div>
           <h1>About Us</h1>
           <nav aria-label="breadcrumb">
-            <ol
-              class="breadcrumb breadcrumb-no-gutter justify-content-center mb-0"
-            >
+            <ol class="breadcrumb breadcrumb-no-gutter justify-content-center mb-0">
               <li class="breadcrumb-item font-size-14">
-                <a
-                  class="text-white"
-                  [routerLink]="['/', translate.currentLang]"
-                  >Home</a
-                >
+                <a class="text-white" [routerLink]="['/', translate.currentLang]">Home</a>
               </li>
-              <li
-                class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white active"
-                aria-current="page"
-              >
+              <li class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white active" aria-current="page">
                 About
               </li>
             </ol>
@@ -45,15 +33,11 @@
         <div class="container">
           <div class="row mt-2">
             <div class="col-md-7 p-5">
-              <img
-                [src]="data.aboutus?.story_image"
-                alt=""
-                style="
+              <img [src]="data.aboutus?.story_image" alt="" style="
                   width: 80%;
                   height: 100%;
                   border-radius: 20px;
-                "
-              />
+                " />
             </div>
             <div class="m-auto col-md-5 p-5">
               <h2 class="text-center text-md-left">Our Story</h2>
@@ -70,16 +54,12 @@
             <p>{{ data.aboutus?.mission }}</p>
           </div>
           <div class="col-md-6 p-5">
-            <img
-              [src]="data.aboutus?.mission_image"
-              alt=""
-              style="
+            <img [src]="data.aboutus?.mission_image" alt="" style="
                 width: 100%;
                 height: 100%;
 
                 border-radius: 20px;
-              "
-            />
+              " />
           </div>
         </div>
       </section>
@@ -90,70 +70,61 @@
       <h2 class="booking">Why Why Book With Us?</h2>
     </div>
     <div class="mb-8">
-      <div class="row">
-        <div class="col-md-4" *ngFor="let item of data.Why_chosse_us">
-          <img
-            [src]="item.icon"
-            alt="Competitive Pricing"
-            class="Why_chosse_us"
-          />
-          <h5 class="mb-2 mt-3">
-            <a class="heading">
-              {{ item.title }}
-            </a>
-          </h5>
-          <p class="desc px-xl-2 px-uw-7">
-            {{ item.desc }}
-          </p>
-        </div>
+
+      <div class="">
+        <owl-carousel-o [options]="aboutOptions" class="my-destination">
+          <ng-container *ngFor="let item of data.Why_chosse_us">
+            <ng-template carouselSlide>
+              <div style="display: flex;
+    justify-content: center;">
+                <img [src]="item.icon" alt="Competitive Pricing" class="Why_chosse_us text-center" />
+              </div>
+
+              <div>
+                <h5 class="mb-2 mt-3">
+                  <a class="heading">
+                    {{ item.title }}
+                  </a>
+                </h5>
+                <p class="desc px-xl-2 px-uw-7">
+                  {{ item.desc }}
+                </p>
+              </div>
+
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
       </div>
     </div>
   </div>
-  <div
-    class="bg-img-hero space-3 space-top-lg-4 space-bottom-lg-3"
-    style="
+  <div class="bg-img-hero space-3 space-top-lg-4 space-bottom-lg-3" style="
       background-image: url(../../../../../../assets/images/about.png);
       background-position: center center;
       background-size: cover;
       height: 406px;
-    "
-  >
-    <div
-      class="text-center banner mt-xl-2 h-100 d-flex justify-content-center align-items-center flex-column vid"
-    >
+    ">
+    <div class="text-center banner mt-xl-2 h-100 d-flex justify-content-center align-items-center flex-column vid">
       <h5 class="mb-2">Travelling Highlights</h5>
       <h6 class="mb-lg-5 opacity-7">Your New Travelling Idea</h6>
       <!-- (click)="openVideo()" -->
-      <a
-        class="js-fancybox d-inline-block u-media-player"
-        data-src="//vimeo.com/167434033"
-        data-speed="700"
-        data-animate-in="zoomIn"
-        data-animate-out="zoomOut"
-        data-caption="MyTravel - Responsive Website Template"
-        (click)="showDialog()"
-      >
-        <span
-          class="u-media-player__icon u-media-player__icon--lg bg-transparent text-white"
-        >
+      <a class="js-fancybox d-inline-block u-media-player" data-src="//vimeo.com/167434033" data-speed="700"
+        data-animate-in="zoomIn" data-animate-out="zoomOut" data-caption="MyTravel - Responsive Website Template"
+        (click)="showDialog()">
+        <span class="u-media-player__icon u-media-player__icon--lg bg-transparent text-white">
           <img src="../../../../../../assets/images/play.png" alt="play" />
         </span>
       </a>
 
-      <p-dialog
-        [(visible)]="visible"
-        [modal]="true"
-        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-        [style]="{ width: '70vw' }"
-        [draggable]="false"
-        [resizable]="false"
-      >
-      <video controls="" style="width: 92% ; max-height:100% " autoplay="" name="media"><source src="https://dev2.marsawaves.com/assets/images/chooseus/video/1727081050.mp4" type="video/mp4"></video>
+      <p-dialog [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+        <video controls="" style="width: 92% ; max-height:100% " autoplay="" name="media">
+          <source src="https://dev2.marsawaves.com/assets/images/chooseus/video/1727081050.mp4" type="video/mp4">
+        </video>
         <!-- <video src="//vimeo.com/167434033"></video> -->
       </p-dialog>
     </div>
   </div>
-  <div class="container" style="height: 600px !important">
+  <div class="container mb-5">
     <div>
       <app-clients></app-clients>
     </div>
@@ -161,13 +132,27 @@
   <div class="bg-img-hero-2">
     <div class="container text-center space-1">
       <div class="row icon-block justify-content-center align-items-center">
-        <div class="col-md-3 mb-3 mb-md-0" *ngFor="let item of data.counter">
-          <img [src]="item.icon" alt="img-description" />
-          <h5 class="mb-2 pt-3">{{ item.title }}</h5>
-          <p class="px-uw-3">{{ item.desc }}</p>
-        </div>
+
+        <owl-carousel-o [options]="aboutOptions2" class="my-destination">
+          <ng-container *ngFor="let item of data.counter">
+            <ng-template carouselSlide>
+              <div style="display: flex;
+    justify-content: center;">
+                <img [src]="item.icon" alt="img-description" class="Why_chosse_us text-center" />
+              </div>
+
+              <div>
+                <h5 class="mb-2 pt-3">{{ item.title }}</h5>
+                <p class="px-uw-3">{{ item.desc }}</p>
+              </div>
+
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
       </div>
     </div>
+
+
   </div>
   <div class="team">
     <div class="container space-top-1">
@@ -179,11 +164,7 @@
           <owl-carousel-o [options]="aboutOptions" class="my-destination">
             <ng-container *ngFor="let imagePath of partnerPaths">
               <ng-template carouselSlide>
-                <img
-                  [src]="imagePath"
-                  alt="Partner Image"
-                  class="partner_img"
-                />
+                <img [src]="imagePath" alt="Partner Image" class="partner_img" />
               </ng-template>
             </ng-container>
           </owl-carousel-o>
@@ -197,14 +178,9 @@
         <h2 class="title mb-0">Deticated Team</h2>
       </div>
       <div class="row text-center pb-2 pt-5">
-        <div
-          class="col-lg-4 col-md-6 inner-right inner-bottom-sm inner-left"
-          *ngFor="let item of data.team"
-        >
+        <!-- <div class="col-lg-4 col-md-6 inner-right inner-bottom-sm inner-left" *ngFor="let item of data.team">
           <div class="pb-3">
-            <figure
-              class="d-inline-block u-avatar-image rounded-circle overflow-hidden"
-            >
+            <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
               <img [src]="item.icon" alt="Image-Descrition" />
             </figure>
           </div>
@@ -212,20 +188,34 @@
           <span class="l">
             {{ item.desc }}
           </span>
-        </div>
+        </div> -->
+
+        <owl-carousel-o [options]="aboutOptions" class="my-destination">
+          <ng-container *ngFor="let item of data.team">
+            <ng-template carouselSlide>
+              <div style="display: flex;
+    justify-content: center;">
+                <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
+                  <img [src]="item.icon" alt="Image-Descrition" />
+                </figure>
+              </div>
+
+              <div>
+                <h6 class="mb-0">{{ item.title }}</h6>
+                <span class="l">
+                  {{ item.desc }}
+                </span>
+              </div>
+
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
       </div>
     </div>
   </div>
 </div>
 <ng-template #videoModal>
   <div mat-dialog-content>
-    <iframe
-      width="560"
-      height="315"
-      [src]="videoUrl"
-      frameborder="0"
-      allow="encrypted-media"
-      allowfullscreen
-    ></iframe>
+    <iframe width="560" height="315" [src]="videoUrl" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
   </div>
 </ng-template>

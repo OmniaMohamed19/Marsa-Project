@@ -10,6 +10,10 @@
   opacity: 0; /* يبدأ بشكل غير مرئي */
   transition: opacity 1s ease-in-out; /* تأثير التلاشي */
 }
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
+}
 
 .bg-img-hero.active::before {
   opacity: 1; /* يصبح مرئيًا عند إضافة الكلاس active */

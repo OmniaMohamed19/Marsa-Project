@@ -133,6 +133,47 @@ export class AboutUsComponent implements OnInit {
         items: 4,
       },
     },
-    nav: true,
+    nav: false,
   };
+  get aboutOptions2(): OwlOptions {
+    return {
+      loop: this.data.counter?.length > 4,
+      mouseDrag: false,
+      touchDrag: false,
+      pullDrag: false,
+      dots: true,
+      margin: 10,
+      autoplay: true,
+      navSpeed: 700,
+      nav: false,
+      // navText: [
+      //   "<i class='fa fa-angle-left'></i>",
+      //   "<i class='fa fa-angle-right'></i>",
+      // ],
+      responsive: {
+        0: {
+          items: 1,
+          center: true,
+        },
+        400: {
+          items: 1,
+          center: true,
+        },
+        740: {
+          items: 4,
+        },
+        940: {
+          items: 4,
+        },
+        1200: {
+          items: 4,
+        },
+      },
+     
+    };
+  }
+  
+  
+ 
+  
 }

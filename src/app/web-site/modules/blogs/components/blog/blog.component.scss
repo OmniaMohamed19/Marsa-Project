@@ -14,9 +14,13 @@ h5 a{
     color: rgba(59, 68, 79, 1);
 }
 .bg-img-hero {
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center center;
+}
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
 }
 a span {
     font-family: Lato;

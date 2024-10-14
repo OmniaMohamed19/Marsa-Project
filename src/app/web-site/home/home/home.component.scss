@@ -187,8 +187,9 @@
 @media screen and (max-width: 550px) {
   .bg-img-hero-bottom {
     background-size: 100%;
-    height: fit-content;
+    height: 192px !important;
     .caption {
+      padding-top: 140px ;
       h1 {
         font-size: 20px;
       }
@@ -219,9 +220,7 @@
       font-size: 14px;
     }
   }
-  .bg-img-hero-bottom {
-    height: fit-content !important;
-  }
+ 
 }
 @media (max-width: 600px) {
   .u-header__hide-content {

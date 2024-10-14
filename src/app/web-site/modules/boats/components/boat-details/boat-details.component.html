@@ -622,7 +622,8 @@
                       </div>
                       <i
                         *ngFor="let star of [1, 2, 3, 4, 5]"
-                        class="fa-solid fa-star"
+                        class="fa-solid fa-star text-black-50"
+
                         [ngClass]="{
                           'fa-star-filled': star <= boatData?.rate,
                           'yellow-star': star <= boatData?.rate
@@ -790,30 +791,35 @@
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(1)"
+
                         (click)="onStarClick(1)"
                         [ngClass]="{ selected: selectedStar >= 1 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(2)"
+
                         (click)="onStarClick(2)"
                         [ngClass]="{ selected: selectedStar >= 2 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(3)"
+
                         (click)="onStarClick(3)"
                         [ngClass]="{ selected: selectedStar >= 3 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(4)"
+
                         (click)="onStarClick(4)"
                         [ngClass]="{ selected: selectedStar >= 4 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(5)"
+
                         (click)="onStarClick(5)"
                         [ngClass]="{ selected: selectedStar >= 5 }"
                       ></i>

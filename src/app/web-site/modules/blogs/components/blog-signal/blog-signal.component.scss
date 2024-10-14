@@ -82,6 +82,15 @@ p,
   text-align: left;
   color: $color-dark;
 }
+.bg-img-hero {
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center center;
+}
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
+}
 
 .activeLink {
   color: $color-active !important;
