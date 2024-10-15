@@ -46,8 +46,8 @@
                   />
                   <a class="location">{{ boatData?.Place }}</a>
                   <a
-                  (click)="scrollTo('showmap')"
-                  [class.active]="activeTabId === 'showmap'"
+                    (click)="scrollTo('showmap')"
+                    [class.active]="activeTabId === 'showmap'"
                     class="ml-1 d-block d-md-inline location text-primary"
                   >
                     - View on map</a
@@ -127,34 +127,36 @@
             </owl-carousel-o> -->
 
             <p-galleria
-            [value]="coverAndImages"
-            [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'width': '100%' }"
-            [numVisible]="6">
-                <ng-template pTemplate="item" let-item>
-                  <img [src]="item?.value" style="width: 100%; height:  480px;" />
-                </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
-                  <div class="grid grid-nogutter justify-content-center">
-                    <img [src]="item?.value" />
-                  </div>
-                </ng-template>
-              </p-galleria>
-      <p-galleria
-          [value]="coverAndImages"
-          [(visible)]="displayBasic"
-          [responsiveOptions]="responsiveOptions"
-          [containerStyle]="{ 'max-width': '850px' }"
-          [numVisible]="7"
-          [circular]="true"
-          [fullScreen]="true"
-          [showItemNavigators]="true"
-          [showThumbnails]="false">
-          <ng-template pTemplate="item" let-item>
-            <img [src]="item?.value" style="width: 100%; height:  480px;" />
-          </ng-template>
-        </p-galleria>
-                <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
+              [value]="coverAndImages"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ width: '100%' }"
+              [numVisible]="6"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item?.value" style="width: 100%; height: 480px" />
+              </ng-template>
+              <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                  <img [src]="item?.value" />
+                </div>
+              </ng-template>
+            </p-galleria>
+            <p-galleria
+              [value]="coverAndImages"
+              [(visible)]="displayBasic"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '850px' }"
+              [numVisible]="7"
+              [circular]="true"
+              [fullScreen]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="false"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item?.value" style="width: 100%; height: 480px" />
+              </ng-template>
+            </p-galleria>
+            <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
             <div
               class="flex-horizontal-center position-absolute video-gallery"
               style="bottom: 18%; right: 25px; z-index: 1"
@@ -334,11 +336,9 @@
                         style="color: #ff681a"
                       ></i>
                       {{ exclude.title }}
-                      <span
-                        class="font-size-9 d-inline-block"
-                        style="font-weight: 800"
-                      >
-                        (Price : {{ exclude?.price }} - Option :
+                      <span class="font-size-9 d-inline-block">
+                        {{ exclude.title }} <br />
+                        ( {{ exclude?.price }} $ per person :
                         {{ exclude?.option }})
                       </span>
                     </li>
@@ -423,19 +423,23 @@
                   </div>
                 </div>
                 <p-galleria
-            [value]="boatImages"
-            [(visible)]="displayBoats"
-            [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '850px' }"
-            [numVisible]="7"
-            [circular]="true"
-            [fullScreen]="true"
-            [showItemNavigators]="true"
-            [showThumbnails]="false">
-            <ng-template pTemplate="item" let-item>
-              <img [src]="item?.value" style="width: 100%; height:  480px;" />
-            </ng-template>
-          </p-galleria>
+                  [value]="boatImages"
+                  [(visible)]="displayBoats"
+                  [responsiveOptions]="responsiveOptions"
+                  [containerStyle]="{ 'max-width': '850px' }"
+                  [numVisible]="7"
+                  [circular]="true"
+                  [fullScreen]="true"
+                  [showItemNavigators]="true"
+                  [showThumbnails]="false"
+                >
+                  <ng-template pTemplate="item" let-item>
+                    <img
+                      [src]="item?.value"
+                      style="width: 100%; height: 480px"
+                    />
+                  </ng-template>
+                </p-galleria>
                 <div class="col-md-5">
                   <h6>{{ item.name }}</h6>
                   <ul class="py-3 boat-features list-unstyled">
@@ -504,10 +508,11 @@
             <div class="row Traveler g-5">
               <div class="col-md-5">
                 <img
-                [src]="happyGustImages[0]"
-                [alt]=""
-                style="cursor: pointer; max-width:100% ; height:100%"
-                (click)="imageClick(0)" />
+                  [src]="happyGustImages[0]"
+                  [alt]=""
+                  style="cursor: pointer; max-width: 100%; height: 100%"
+                  (click)="imageClick(0)"
+                />
                 <!-- <img
                   class="w-100 h-100"
                   [src]="happyGustImages[0]"
@@ -517,17 +522,18 @@
                 <div class="row g-3">
                   <!-- Display first three images -->
                   <div
-                    class="col-md-6 position-relative "
+                    class="col-md-6 position-relative"
                     *ngFor="
                       let image of remainingImages.slice(0, 3);
                       let index = index
                     "
                   >
-                  <img
-                [src]="image"
-                [alt]="image"
-                style="cursor: pointer; max-width:100% ; height:100%"
-                (click)="imageClick(index+1)" />
+                    <img
+                      [src]="image"
+                      [alt]="image"
+                      style="cursor: pointer; max-width: 100%; height: 100%"
+                      (click)="imageClick(index + 1)"
+                    />
                     <!-- <img
                       class="w-100 "
                       [src]="image"
@@ -544,11 +550,12 @@
                     class="col-md-6 position-relative pt-1"
                     *ngIf="remainingImages.length > 3"
                   >
-                  <img
-                [src]="remainingImages[3]"
-                alt="tour"
-                style="cursor: pointer; max-width:100% ; height:100%"
-                (click)="imageClick(4)" />
+                    <img
+                      [src]="remainingImages[3]"
+                      alt="tour"
+                      style="cursor: pointer; max-width: 100%; height: 100%"
+                      (click)="imageClick(4)"
+                    />
                     <!-- <img
                       class="w-100 remainingImages"
                       [src]="remainingImages[3]"
@@ -561,10 +568,7 @@
                         <!-- Overlay -->
                         <div class="overlay"></div>
                         <!-- Button -->
-                        <button
-                          class="see-more-button"
-                          (click)="imageClick(4)"
-                        >
+                        <button class="see-more-button" (click)="imageClick(4)">
                           See More
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -586,23 +590,22 @@
               </div>
             </div>
           </div>
-        <p-galleria
-      [value]="desplayedGustImages"
-      [(visible)]="displayCustom"
-      [(activeIndex)]="activeIndex"
-      [responsiveOptions]="responsiveOptions"
-      [containerStyle]="{ 'max-width': '850px' }"
-      [numVisible]="7"
-      [circular]="true"
-      [fullScreen]="true"
-      [showItemNavigators]="true"
-      [showThumbnails]="false">
-      <ng-template pTemplate="item" let-item>
-          <img
-              [src]="item?.value"
-              style="width: 100%; display: block;" />
-      </ng-template>
-  </p-galleria>
+          <p-galleria
+            [value]="desplayedGustImages"
+            [(visible)]="displayCustom"
+            [(activeIndex)]="activeIndex"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '850px' }"
+            [numVisible]="7"
+            [circular]="true"
+            [fullScreen]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false"
+          >
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item?.value" style="width: 100%; display: block" />
+            </ng-template>
+          </p-galleria>
           <div id="review" class="tab-pane">
             <div class="border-bottom py-4">
               <h5 id="scroll-reviews">Average Reviews</h5>
@@ -623,7 +626,6 @@
                       <i
                         *ngFor="let star of [1, 2, 3, 4, 5]"
                         class="fa-solid fa-star text-black-50"
-
                         [ngClass]="{
                           'fa-star-filled': star <= boatData?.rate,
                           'yellow-star': star <= boatData?.rate
@@ -791,35 +793,30 @@
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(1)"
-
                         (click)="onStarClick(1)"
                         [ngClass]="{ selected: selectedStar >= 1 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(2)"
-
                         (click)="onStarClick(2)"
                         [ngClass]="{ selected: selectedStar >= 2 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(3)"
-
                         (click)="onStarClick(3)"
                         [ngClass]="{ selected: selectedStar >= 3 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(4)"
-
                         (click)="onStarClick(4)"
                         [ngClass]="{ selected: selectedStar >= 4 }"
                       ></i>
                       <i
                         class="fa-solid fa-star text-black-50"
                         (mouseenter)="onStarHover(5)"
-
                         (click)="onStarClick(5)"
                         [ngClass]="{ selected: selectedStar >= 5 }"
                       ></i>
@@ -888,10 +885,10 @@
             <li class="list-group-item px-1">
               <a
                 #btn
-                (click)="addtoFavorits(btn,$event)"
-                class="height-45   text-black-50 width-45 border rounded border-width-2 flex-content-center"
+                (click)="addtoFavorits(btn, $event)"
+                class="height-45 text-black-50 width-45 border rounded border-width-2 flex-content-center"
               >
-              <i class="fa fa-heart fs-3"></i>
+                <i class="fa fa-heart fs-3"></i>
               </a>
             </li>
             <li class="list-group-item px-1">
@@ -928,15 +925,14 @@
 
               <div class="mb-4">
                 <div
-                class="priceTitle d-flex justify-content-between"
-                *ngIf="price"
-              >
-                <span
-                  class="d-block text-gray-1 font-weight-normal  text-left"
-                  >Price</span
+                  class="priceTitle d-flex justify-content-between"
+                  *ngIf="price"
                 >
-                <p>From {{ price }} $</p>
-              </div>
+                  <span class="d-block text-gray-1 font-weight-normal text-left"
+                    >Price</span
+                  >
+                  <p>From {{ price }} $</p>
+                </div>
                 <div class="border-bottom border-width-2 border-color-1 pb-1">
                   <span class="d-block">Date</span>
                   <div

@@ -78,7 +78,7 @@
     <div class="row">
       <div class="col-lg-6 first-column">
         <div class="packages-img">
-          <img src="../../../../../assets/images/Vacation.svg"  />
+          <img src="../../../../../assets/images/Vacation.svg" />
           <img src="../../../../../assets/images/Packages.svg" />
         </div>
         <div>
@@ -333,12 +333,9 @@
                   </span>
 
                   {{ exclude.title }}
-                  <span
-                    class="font-size-9 d-inline-block"
-                    style="font-weight: 800"
-                  >
-                    (Price : {{ exclude?.price }} - Option :
-                    {{ exclude?.option }})
+                  <span class="font-size-9 d-inline-block">
+                    {{ exclude.title }} <br />
+                    ( {{ exclude?.price }} $ per person : {{ exclude?.option }})
                   </span>
                 </li>
               </ul>
