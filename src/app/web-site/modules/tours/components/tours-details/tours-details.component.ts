@@ -143,6 +143,20 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.isMobile = true;
     }
   }
+  showFullDescription = false;
+
+  toggleDescription() {
+    this.showFullDescription = !this.showFullDescription;
+  }
+
+  get displayedDescription(): string {
+    const words = this.activityData?.Description.split(' ');
+    if (this.showFullDescription || words.length <= 150) {
+      return this.activityData?.Description;
+    } else {
+      return words.slice(0, 150).join(' ') + '...';
+    }
+  }
   @ViewChild('myDiv') myDiv!: ElementRef;
 
   scrollToTop() {

@@ -294,7 +294,10 @@
             <h5 class="font-size-21 font-weight-bold text-dark mb-4">
               Description
             </h5>
-            <p [innerHTML]="liveabourdData?.Description"></p>
+            <p [innerHTML]="displayedDescription"></p>
+            <a (click)="toggleDescription()" class=" fw-bold mb-5 d-inline-block    ">
+              {{ showFullDescription ? "See Less" : "See More" }}
+            </a>
 
             <!-- <mat-accordion>
                             <mat-expansion-panel >
@@ -361,7 +364,7 @@
             <h5 class="font-size-21 font-weight-bold text-dark mb-4">
               Experience
             </h5>
-            <div class="d-flex flex-wrap  gap-5 mt-4">
+            <div class="d-flex flex-wrap gap-5 mt-4">
               <h6>Highlights</h6>
               <ul
                 class="list-group list-group-borderless list-group-flush no-gutters"
@@ -1418,11 +1421,8 @@
   *ngIf="isMobile && !hideMobileFooter"
   class="text-center w-100"
 >
-  <div
-    class="d-flex justify-content-between p-2"
-    style="background: white; "
-  >
-    <div class="priceTitle d-flex justify-content-evenly align-items-center  ">
+  <div class="d-flex justify-content-between p-2" style="background: white">
+    <div class="priceTitle d-flex justify-content-evenly align-items-center">
       <!-- <span class="d-block text-gray-1 font-weight-normal mb-2 text-left"
         >Price</span
       > -->
@@ -1462,11 +1462,11 @@
     </div>
     <div class="w-50">
       <a
-      class="btn check text-white d-flex align-items-center justify-content-center height-50 w-100 mb-xl-0 mb-lg-1 fw-bold"
-      (click)="scrollToCabin()"
-    >
-      Select Cabin
-    </a>
+        class="btn check text-white d-flex align-items-center justify-content-center height-50 w-100 mb-xl-0 mb-lg-1 fw-bold"
+        (click)="scrollToCabin()"
+      >
+        Select Cabin
+      </a>
     </div>
   </div>
 </div>

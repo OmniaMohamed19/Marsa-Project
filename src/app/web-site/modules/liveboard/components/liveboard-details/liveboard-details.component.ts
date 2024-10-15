@@ -126,7 +126,20 @@ export class LiveboardDetailsComponent {
       }
     }
   }
+  showFullDescription = false;
 
+  toggleDescription() {
+    this.showFullDescription = !this.showFullDescription;
+  }
+
+  get displayedDescription(): string {
+    const words = this.liveabourdData?.Description.split(' ');
+    if (this.showFullDescription || words.length <= 150) {
+      return this.liveabourdData?.Description;
+    } else {
+      return words.slice(0, 150).join(' ') + '...';
+    }
+  }
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
     console.log(this.happyGustImages);

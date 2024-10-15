@@ -263,7 +263,10 @@
       </div>
       <div id="description" class="tab-pane">
         <h5 class="heading">Description</h5>
-        <p [innerHTML]="rows?.Description"></p>
+        <p [innerHTML]="displayedDescription"></p>
+            <a (click)="toggleDescription()" class=" fw-bold mb-5 d-inline-block    ">
+              {{ showFullDescription ? "See Less" : "See More" }}
+            </a>
       </div>
 
       <div id="experience" class="tab-pane">
