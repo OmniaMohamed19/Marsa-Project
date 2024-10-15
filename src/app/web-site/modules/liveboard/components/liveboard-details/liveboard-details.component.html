@@ -143,19 +143,20 @@
               <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
             </p-galleria>
             <p-galleria
-          [value]="coverAndImages"
-          [(visible)]="displayBasic"
-          [responsiveOptions]="responsiveOptions"
-          [containerStyle]="{ 'max-width': '850px' }"
-          [numVisible]="7"
-          [circular]="true"
-          [fullScreen]="true"
-          [showItemNavigators]="true"
-          [showThumbnails]="false">
-          <ng-template pTemplate="item" let-item>
-            <img [src]="item" style="width: 100%; height:  480px;" />
-          </ng-template>
-        </p-galleria>
+              [value]="coverAndImages"
+              [(visible)]="displayBasic"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '850px' }"
+              [numVisible]="7"
+              [circular]="true"
+              [fullScreen]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="false"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img [src]="item" style="width: 100%; height: 480px" />
+              </ng-template>
+            </p-galleria>
             <div
               class="flex-horizontal-center position-absolute video-gallery"
               style="bottom: 18%; right: 25px; z-index: 1"
@@ -293,7 +294,10 @@
             <h5 class="font-size-21 font-weight-bold text-dark mb-4">
               Description
             </h5>
-            <p [innerHTML]="liveabourdData?.Description"></p>
+            <p [innerHTML]="displayedDescription"></p>
+            <a (click)="toggleDescription()" class=" fw-bold mb-5 d-inline-block    ">
+              {{ showFullDescription ? "See Less" : "See More" }}
+            </a>
 
             <!-- <mat-accordion>
                             <mat-expansion-panel >
@@ -360,7 +364,7 @@
             <h5 class="font-size-21 font-weight-bold text-dark mb-4">
               Experience
             </h5>
-            <div class="d-flex gap-5 mt-4">
+            <div class="d-flex flex-wrap gap-5 mt-4">
               <h6>Highlights</h6>
               <ul
                 class="list-group list-group-borderless list-group-flush no-gutters"
@@ -399,18 +403,10 @@
                         style="color: #ff681a"
                       ></i>
                       {{ exclude.title }}
-                      <span
-                      *ngIf="exclude?.price>0"
-                        class="font-size-9 d-inline-block"
-                      >
-                        (Price : {{ exclude?.price }} - Option :
+                      <span class="font-size-9 d-inline-block">
+                        {{ exclude.title }} <br />
+                        ( {{ exclude?.price }} $ per person :
                         {{ exclude?.option }})
-                      </span>
-                      <span
-                      *ngIf="exclude?.price==0"
-                        class="font-size-9 d-inline-block"
-                      >
-                        (Price : {{ exclude?.price }} )
                       </span>
                     </li>
                   </ul>
@@ -503,20 +499,23 @@
                   </ul>
                 </div>
                 <p-galleria
-            [value]="boatImages"
-            [(visible)]="displayBoats"
-            [responsiveOptions]="responsiveOptions"
-            [containerStyle]="{ 'max-width': '850px' }"
-            [numVisible]="7"
-            [circular]="true"
-            [fullScreen]="true"
-            [showItemNavigators]="true"
-            [showThumbnails]="false">
-            <ng-template pTemplate="item" let-item>
-              <img [src]="item?.value" style="width: 100%; height:  480px;" />
-            </ng-template>
-          </p-galleria>
-
+                  [value]="boatImages"
+                  [(visible)]="displayBoats"
+                  [responsiveOptions]="responsiveOptions"
+                  [containerStyle]="{ 'max-width': '850px' }"
+                  [numVisible]="7"
+                  [circular]="true"
+                  [fullScreen]="true"
+                  [showItemNavigators]="true"
+                  [showThumbnails]="false"
+                >
+                  <ng-template pTemplate="item" let-item>
+                    <img
+                      [src]="item?.value"
+                      style="width: 100%; height: 480px"
+                    />
+                  </ng-template>
+                </p-galleria>
               </div>
             </div>
           </div>
@@ -580,13 +579,14 @@
             <h5 class="font-size-21 font-weight-bold text-dark mb-4">
               Traveler Photos
             </h5>
-            <div class="row  Traveler g-5">
+            <div class="row Traveler g-5">
               <div class="col-md-5">
                 <img
-                [src]="happyGustImages[0]"
-                [alt]=""
-                style="cursor: pointer; max-width:100% ; height:100%"
-                (click)="imageClick(0)" />
+                  [src]="happyGustImages[0]"
+                  [alt]=""
+                  style="cursor: pointer; max-width: 100%; height: 100%"
+                  (click)="imageClick(0)"
+                />
                 <!-- <img
                   class="w-100 h-100"
                   [src]="happyGustImages[0]"
@@ -602,11 +602,12 @@
                       let index = index
                     "
                   >
-                  <img
-                  [src]="image"
-                  [alt]="image"
-                  style="cursor: pointer; max-width:100% ; height:100%"
-                  (click)="imageClick(index+1)" />
+                    <img
+                      [src]="image"
+                      [alt]="image"
+                      style="cursor: pointer; max-width: 100%; height: 100%"
+                      (click)="imageClick(index + 1)"
+                    />
                     <!-- <img
                       class="w-100 "
                       [src]="image"
@@ -623,11 +624,12 @@
                     class="col-md-6 position-relative pt-1"
                     *ngIf="remainingImages.length > 3"
                   >
-                  <img
-                  [src]="remainingImages[3]"
-                  alt="tour"
-                  style="cursor: pointer; max-width:100% ; height:100%"
-                  (click)="imageClick(4)" />
+                    <img
+                      [src]="remainingImages[3]"
+                      alt="tour"
+                      style="cursor: pointer; max-width: 100%; height: 100%"
+                      (click)="imageClick(4)"
+                    />
                     <!-- <img
                       class="w-100 remainingImages"
                       [src]="remainingImages[3]"
@@ -640,10 +642,7 @@
                         <!-- Overlay -->
                         <div class="overlay"></div>
                         <!-- Button -->
-                        <button
-                          class="see-more-button"
-                          (click)="imageClick(4)"
-                        >
+                        <button class="see-more-button" (click)="imageClick(4)">
                           See More
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -666,22 +665,21 @@
             </div>
           </div>
           <p-galleria
-      [value]="desplayedGustImages"
-      [(visible)]="displayCustom"
-      [(activeIndex)]="activeIndex"
-      [responsiveOptions]="responsiveOptions"
-      [containerStyle]="{ 'max-width': '850px' }"
-      [numVisible]="7"
-      [circular]="true"
-      [fullScreen]="true"
-      [showItemNavigators]="true"
-      [showThumbnails]="false">
-      <ng-template pTemplate="item" let-item>
-          <img
-              [src]="item?.value"
-              style="width: 100%; display: block;" />
-      </ng-template>
-  </p-galleria>
+            [value]="desplayedGustImages"
+            [(visible)]="displayCustom"
+            [(activeIndex)]="activeIndex"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '850px' }"
+            [numVisible]="7"
+            [circular]="true"
+            [fullScreen]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false"
+          >
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item?.value" style="width: 100%; display: block" />
+            </ng-template>
+          </p-galleria>
           <div id="review" class="tab-pane">
             <div class="border-bottom py-4">
               <h5 id="scroll-reviews">Average Reviews</h5>
@@ -965,7 +963,7 @@
                 (click)="addtoFavorits(btn, $event)"
                 class="height-45 width-45 border rounded border-width-2 flex-content-center"
               >
-                <i class="fa fa-heart fs-3 text-black-50 "></i>
+                <i class="fa fa-heart fs-3 text-black-50"></i>
               </a>
             </li>
             <li class="list-group-item px-1">
@@ -1423,11 +1421,8 @@
   *ngIf="isMobile && !hideMobileFooter"
   class="text-center w-100"
 >
-  <div
-    class="d-flex justify-content-between"
-    style="background: white; padding: 5%"
-  >
-    <div class="priceTitle d-flex justify-content-between">
+  <div class="d-flex justify-content-between p-2" style="background: white">
+    <div class="priceTitle d-flex justify-content-evenly align-items-center">
       <!-- <span class="d-block text-gray-1 font-weight-normal mb-2 text-left"
         >Price</span
       > -->
@@ -1465,12 +1460,14 @@
         >
       </p>
     </div>
-    <a
-      class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
-      (click)="scrollToCabin()"
-    >
-      Select Cabin
-    </a>
+    <div class="w-50">
+      <a
+        class="btn check text-white d-flex align-items-center justify-content-center height-50 w-100 mb-xl-0 mb-lg-1 fw-bold"
+        (click)="scrollToCabin()"
+      >
+        Select Cabin
+      </a>
+    </div>
   </div>
 </div>
 

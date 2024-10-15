@@ -133,6 +133,20 @@ export class BoatDetailsComponent {
     }
   }
 
+  showFullDescription = false;
+
+  toggleDescription() {
+    this.showFullDescription = !this.showFullDescription;
+  }
+
+  get displayedDescription(): string {
+    const words = this.boatData?.Description.split(' ');
+    if (this.showFullDescription || words.length <= 150) {
+      return this.boatData?.Description;
+    } else {
+      return words.slice(0, 150).join(' ') + '...';
+    }
+  }
   @HostListener('document:scroll', ['$event'])
   isScrolledIntoView() {
     if (this.selectCabinButton) {
