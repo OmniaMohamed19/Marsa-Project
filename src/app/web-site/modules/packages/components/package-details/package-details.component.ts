@@ -109,11 +109,11 @@ export class PackageDetailsComponent {
   }
 
   get displayedDescription(): string {
-    const words = this.rows?.Description.split(' ');
-    if (this.showFullDescription || words.length <= 150) {
+    const words = this.rows?.Description?.split(' ');
+    if (this.showFullDescription || words?.length <= 150) {
       return this.rows?.Description;
     } else {
-      return words.slice(0, 150).join(' ') + '...';
+      return words?.slice(0, 150).join(' ') + '...';
     }
   }
   @HostListener('window:scroll', [])
