@@ -55,6 +55,8 @@ h3::after {
 
 .text-price {
   flex: 1;
+  position: absolute;
+  right: 39px;
 }
 
 .center-place {
@@ -76,8 +78,27 @@ h3::after {
 .back {
   height: 100%;
 }
+@media screen and (max-width:992px){
+  h3 {
+
+    font-size: 24px;
+
+}
+
+h3::after {
+
+    left: 40%;
+
+
+}
+
+}
 
 @media (max-width: 768px) {
+  .text-price {
+    bottom: 91px;
+    right: 5px;
+  }
   .top-0 {
     background-repeat: no-repeat !important;
     background-size: cover !important;

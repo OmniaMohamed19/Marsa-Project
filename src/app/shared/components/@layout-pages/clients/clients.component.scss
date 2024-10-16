@@ -79,6 +79,24 @@ div.card{
         overflow: visible !important;
     }
 }
+@media screen and (max-width:992px){
+  h3 {
+
+    font-size: 23px;
+
+}
+.title{
+  margin-bottom: 4rem;
+}
+
+h3::after {
+
+    left: 40%;
+
+
+}
+
+}
 @media only screen  and (min-width : 1824px) {
     .container {
         max-width: 96%;

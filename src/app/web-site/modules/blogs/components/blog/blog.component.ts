@@ -124,8 +124,8 @@ export class BlogComponent implements OnInit {
     margin: 0,
     navSpeed: 900,
     navText: [
-      "<i class='fa fa-angle-left'></i>",
-      "<i class='fa fa-angle-right'></i>",
+      "<div class='nav-button nav-left'><i class='fas fa-chevron-left'></i></div>",
+      "<div class='nav-button nav-right'><i class='fas fa-chevron-right'></i></div>"
     ],
     responsive: {
       0: {
@@ -143,4 +143,5 @@ export class BlogComponent implements OnInit {
     },
     nav: true,
   };
+
 }
