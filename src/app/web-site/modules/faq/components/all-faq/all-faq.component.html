@@ -3,7 +3,7 @@
 <main id="content">
   <!-- Hero Section -->
   <div
-    class="bg-img-hero text-center mb-5 mb-lg-8"
+    class="bg-img-hero text-center mb-5 mb-lg-8 gradient-overlay-half-black-gradient"
     [style.backgroundImage]="'url(' + cover + ')'"
   >
     <div class="container py-lg-6 py-xl-0">
@@ -59,34 +59,37 @@
               id="pills-tab"
               role="tablist"
             >
-              <li class="list-item">
-                <a
-                  class="d-block"
-                  (click)="filterByCategory('all')"
-                  [class.activeLink]="activeCategory === 'all'"
-                >
-                  <span
-                    class="font-weight-normal ps-5"
-                    style="padding: 0.475rem 1.7rem !important"
-                    >All</span
-                  >
-                </a>
-              </li>
 
-              <li *ngFor="let topic of topics" class="list-item">
-                <a
-                  class="d-block"
-                  (click)="filterByCategory(topic)"
-                  [class.activeLink]="activeCategory === topic.id"
+            <li class="list-item">
+              <a class="d-block">
+                <span
+                  class="font-weight-normal ps-5"
+                  (click)="filterByCategory('all')"
+                  [ngClass]="{'activeLink': activeCategory === 'all'}"
                 >
-                  <span
-                    class="font-weight-normal ps-5"
-                    style="padding: 0.475rem 1.7rem !important"
-                    >{{ topic?.name }}</span
-                  >
-                </a>
-              </li>
+                  All
+                </span>
+              </a>
+            </li>
+            <li class="list-item" *ngFor="let topic of topics">
+              <a class="d-block">
+                <span
+                  class="font-weight-normal ps-5"
+                  (click)="filterByCategory(topic)"
+                  [ngClass]="{'activeLink': activeCategory === topic.id}"
+                >
+                  {{ topic.name }}
+                </span>
+              </a>
+            </li>
+
+
+
             </ul>
+
+
+
+
           </div>
         </div>
         <div class="col-md-8 col-xl-9">
@@ -95,7 +98,7 @@
             <mat-expansion-panel #panel hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <div class="me-5 faq">
+                  <div class="me-md-5 me-3 faq">
                     <i *ngIf="panel.expanded" class="fa-solid fa-minus"></i>
                     <i *ngIf="!panel.expanded" class="fa-solid fa-plus"></i>
                   </div>
@@ -103,7 +106,7 @@
                   {{ question?.Question }}
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <p style="padding-left: 90px">
+              <p >
                 {{ question?.desc }}
               </p>
             </mat-expansion-panel>

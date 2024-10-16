@@ -53,6 +53,10 @@ p,
   text-align: left;
   color: $color-light;
 }
+#sidebarNav {
+  max-height: 200px;
+  overflow-y: auto;
+}
 
 .head {
   font-family: $font-family;
@@ -141,12 +145,12 @@ p,
 }
 
 .image-container {
-  height: 458px;
+  // height: 458px;
   overflow: hidden;
 
   img {
     width: 100%;
-    height: 100%;
+    // height: 100%;
     object-fit: fill;
   }
 }

@@ -33,6 +33,21 @@ p {
     letter-spacing: 0em;
     color: #67747C;
 }
+@media screen and (max-width:992px){
+  h3 {
+
+    font-size:25px;
+
+}
+// .title{
+//   margin-bottom: 4rem;
+// }
+
+h3::after {
+    left: 40%;
+}
+
+}
 @media screen and (max-width: 768px){
     .booking-card{
         width: 90%;

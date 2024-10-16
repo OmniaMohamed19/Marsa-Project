@@ -28,21 +28,27 @@ export class AllFaqComponent {
         this.filteredQuestions = this.questions;
         this.cover = res?.cover;
         this.topics = res?.Topic;
+        console.log(this.topics[0].id);
+        console.log(this.questions);
       },
       (err) => {}
     );
   }
 
-  filterByCategory(categoryId: any) {
-    this.activeCategory = categoryId;
-    if (categoryId === 'all') {
+  filterByCategory(category: any) {
+    this.activeCategory = category === 'all' ? 'all' : category.id;
+
+    if (category === 'all') {
       this.filteredQuestions = this.questions;
       this.selectedCategory = 'All';
     } else {
-      this.selectedCategory = categoryId.name;
+      this.selectedCategory = category.name;
       this.filteredQuestions = this.questions.filter(
-        (question: any) => question.topic_id === categoryId.id
+        (question: any) => question.topic_id === category.id
       );
     }
   }
+  
+
+
 }

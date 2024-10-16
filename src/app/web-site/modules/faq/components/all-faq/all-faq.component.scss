@@ -19,6 +19,7 @@ h6 {
   text-align: left;
 }
 a span {
+  cursor: pointer;
   font-family: Lato;
   font-size: 16px;
   font-weight: 400;
@@ -27,6 +28,11 @@ a span {
   text-align: left;
   color: rgba(59, 68, 79, 1);
 }
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
+}
+
 p {
   font-family: Lato;
   font-size: 16px;
@@ -84,9 +90,13 @@ h5 {
 .activeLink {
   color: rgba(41, 124, 187, 1) !important;
   position: relative;
+  cursor: pointer;
+}
+mat-expansion-panel p{
+  padding-left: 90px
 }
 .activeLink::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 2px;
   height: 40px;
@@ -111,6 +121,9 @@ h5 {
   mat-expansion-panel {
     margin-bottom: 10px;
     padding: 5px;
+  }
+  mat-expansion-panel p{
+    padding-left: 40px
   }
 
   mat-expansion-panel-header {

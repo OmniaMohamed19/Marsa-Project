@@ -15,7 +15,7 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1s ease-in-out; 
+  transition: opacity 1s ease-in-out;
 }
 .gradient-overlay-half-black-gradient::before {
   background-color: #18181a !important;
@@ -78,7 +78,7 @@ iframe {
 }
 
 .content {
-    margin: 50px auto !important;
+    margin:auto !important;
     text-align: justify;
 }
 
@@ -86,7 +86,7 @@ iframe {
     font-family: Lato;
     font-size: 16px;
     font-weight: 400;
-    line-height: 19px;
+    line-height: 28px;
     letter-spacing: 0em;
     color: rgba(103, 116, 124, 1);
 }
@@ -275,20 +275,20 @@ figure.u-avatar-image img {
 }
 @media screen and (max-width:992px){
   .title {
-   
+
     font-size: 23px;
-   
+
 }
   .booking {
-    
+
     font-size:24px;
   }
   .booking::after, .title::after {
-    
+
     left: 40%;
 
 }
-   
+
 .bg-img-hero {
     background-size: cover;
     height: auto;

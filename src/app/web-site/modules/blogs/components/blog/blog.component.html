@@ -35,7 +35,7 @@
 <div class="mb-6 mb-lg-8 pt-lg-1">
   <div class="container mb-5 mb-lg-9 pb-lg-1">
     <div class="row">
-      <div class="col-lg-8 col-xl-9">
+      <div class="col-lg-8 col-xl-9 order-2 order-md-1">
         <div class="mb-5 pb-1">
           <div class="mb-4" *ngFor="let blog of filteredBlogs">
             <owl-carousel-o [options]="carouselOptions" class="trending">
@@ -148,19 +148,10 @@
             </svg>
           </button>
         </div>
-        <!-- </nav> -->
 
-        <!-- <nav aria-label="Page navigation">
-                    <ul
-                        class="list-pagination-1 pagination border border-color-4 rounded-sm mb-5 mb-lg-0 overflow-auto overflow-xl-visible justify-content-md-center align-items-center py-2">
-                        <li class="page-item" *ngFor="let page of pages">
-                            <a class="page-link font-size-14" (click)="onPageChange(page)"
-                                [class.active]="currentPage === page">{{ page }}</a>
-                        </li>
-                    </ul>
-                </nav> -->
+
       </div>
-      <div class="col-lg-4 col-xl-3">
+      <div class="col-lg-4 col-xl-3 order-1 order-md-2">
         <form class="input-group input-group-borderless mb-5">
           <!-- Input -->
           <div class="js-focus-state w-100">
@@ -184,15 +175,16 @@
           </div>
           <!-- End Input -->
         </form>
+        <h5 class="ps-2 pb-2">All Categories</h5>
         <ul
           id="sidebarNav"
           class="custom-dropdown list-unstyled border border-color-7 rounded pt-4 pb-1 mb-5"
         >
-          <h5 class="ps-4">All Categories</h5>
+
           <li class="list-item">
             <a class="d-block">
               <span
-                class="font-weight-normal ps-5"
+                class="font-weight-normal ps-3"
                 (click)="filterByCategory('all')"
                 [class.activeLink]="activeCategory === 'all'"
                 >All</span
@@ -202,12 +194,23 @@
           <li class="list-item" *ngFor="let item of allCategories">
             <a class="d-block">
               <span
-                class="font-weight-normal ps-5"
+                class="font-weight-normal ps-3"
                 (click)="filterByCategory(item.id)"
                 [class.activeLink]="activeCategory === item.id"
                 >{{ item.name }}</span
               >
             </a>
+            <!-- <a class="d-block">
+              <span
+                class="font-weight-normal ps-3"
+                (click)="filterByCategory(item.id)"
+                [class.activeLink]="activeCategory === item.id"
+                >{{ item.name }}</span
+              >
+            </a> -->
+
+
+
           </li>
         </ul>
 
@@ -236,9 +239,12 @@
           <div class="d-flex flex-wrap">
             <ng-container *ngFor="let tag of getUniqueTags()">
               <a
-                class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 height-35 width-auto mr-2 mb-2"
-                >{{ tag }}</a
-              >
+              class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
+              style="white-space: normal; word-break: break-word;"
+            >
+              {{ tag }}
+            </a>
+
             </ng-container>
           </div>
         </div>

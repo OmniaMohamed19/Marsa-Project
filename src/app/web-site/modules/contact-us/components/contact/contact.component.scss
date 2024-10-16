@@ -70,7 +70,7 @@ p,
   font-family: Poppins;
   font-size: 32px;
   font-weight: 700;
-  line-height: 48px;
+  line-height: 38px;
   letter-spacing: 0em;
   color: rgba(7, 44, 80, 1);
 }
@@ -130,4 +130,14 @@ textarea {
   #content {
     margin-top: 0px;
   }
+
+
+}
+@media screen and (max-width: 992px) {
+  .caption h5 {
+
+    font-size: 23px;
+
+  }
+
 }

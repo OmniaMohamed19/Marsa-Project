@@ -25,7 +25,7 @@
 <div class="mb-6 mb-lg-8 pt-lg-1">
     <div class="container mb-5 mb-lg-9 pb-lg-1">
         <div class="row">
-            <div class="col-lg-8 col-xl-9">
+            <div class="col-lg-8 col-xl-9 order-2 order-md-1">
                 <div class="mb-5 pb-1" *ngIf="!showBlogByCategory">
                     <div class="mb-4">
                         <div id="blog">
@@ -114,8 +114,8 @@
 
                 </div>
                 <ng-container  *ngIf="showBlogByCategory">
-                
-                
+
+
                     <div class="mb-4" *ngFor="let blog of filteredBlogs">
                         <owl-carousel-o [options]="carouselOptions" class="trending">
                             <ng-container *ngFor="let img of blog.image">
@@ -130,7 +130,7 @@
                               </ng-template>
                             </ng-container>
                           </owl-carousel-o>
-                          
+
                         <h5 class="font-weight-bold font-size-21 text-gray-3">
                             <a (click)="navigateToBlog(blog.id)">{{ blog.title }}</a>
                         </h5>
@@ -149,7 +149,7 @@
                 </ng-container>
 
             </div>
-            <div class="col-lg-4 col-xl-3">
+            <div class="col-lg-4 col-xl-3 order-1 order-md-2">
                 <form class="input-group input-group-borderless mb-5">
                     <!-- Input -->
                     <div class="js-focus-state w-100">
@@ -166,17 +166,18 @@
                     <!-- End Input -->
                 </form>
                 <!-- List -->
-                <ul id="sidebarNav" class="custom-dropdown list-unstyled border border-color-7 rounded pt-4 pb-1 mb-5">
-                    <h5 class="ps-4">All Categories</h5>
+                <h5 class="ps-2 pb-2">All Categories</h5>
+                  <ul id="sidebarNav" class="custom-dropdown list-unstyled border border-color-7 rounded pt-4 pb-1 mb-5">
+
                     <li class="list-item">
                         <a class="d-block">
-                            <span class="font-weight-normal ps-5" (click)="filterBlogsByCategory(null)"
+                            <span class="font-weight-normal ps-3" (click)="filterBlogsByCategory(null)"
                                 [class.activeLink]="activeCategory === null">All</span>
                         </a>
                     </li>
                     <li class="list-item" *ngFor="let category of allCategories">
                         <a class="d-block">
-                            <span class="font-weight-normal ps-5" (click)="filterBlogsByCategory(category.id)"
+                            <span class="font-weight-normal ps-3" (click)="filterBlogsByCategory(category.id)"
                                 [class.activeLink]="activeCategory === category.id">{{
                                 category.name }}</span>
                         </a>
@@ -201,7 +202,9 @@
                     <div class="d-flex flex-wrap">
                         <ng-container *ngFor="let tag of getUniqueTags()">
                             <a
-                                class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 height-35 width-auto mr-2 mb-2">{{
+                            class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
+                            style="white-space: normal; word-break: break-word;">
+                                {{
                                 tag }}</a>
                         </ng-container>
                     </div>

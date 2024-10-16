@@ -27,41 +27,50 @@
   <div class="slider border-bottom border-color-3">
     <div class="container space-1">
       <div class="w-md-80 w-lg-70 text-center mx-md-auto mb-5 mt-3">
-        <h2 class="mb-0 title">{{ data.aboutus?.title }}</h2>
+        <h2 class="mb-0 title ">{{ data.aboutus?.title }}</h2>
       </div>
       <section class="mx-auto content">
         <div class="container">
           <div class="row mt-2">
-            <div class="col-md-7 p-5">
+            <div class="col-md-6 p-5">
               <img [src]="data.aboutus?.story_image" alt="" style="
-                  width: 80%;
+                  width: 100%;
                   height: 100%;
                   border-radius: 20px;
                 " />
             </div>
-            <div class="m-auto col-md-5 p-5">
-              <h2 class="text-center text-md-left">Our Story</h2>
-              <p>{{ data.aboutus?.Story }}</p>
+            <div class="m-auto col-md-6 p-5">
+              <h2 class="text-center text-md-left pb-lg-4">Our Story</h2>
+              <div style="width: 100%;">
+                <p>{{ data.aboutus?.Story }}</p>
+              </div>
+
             </div>
           </div>
         </div>
 
       </section>
       <section class="mx-auto content">
-        <div class="row">
-          <div class="m-auto col-md-6 p-5">
-            <h2 class="text-center text-md-left">Our mission</h2>
-            <p>{{ data.aboutus?.mission }}</p>
-          </div>
-          <div class="col-md-6 p-5">
-            <img [src]="data.aboutus?.mission_image" alt="" style="
-                width: 100%;
-                height: 100%;
-
-                border-radius: 20px;
-              " />
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 p-5 order-2 order-md-1">
+              <h2 class="text-center text-md-left pb-lg-4">Our mission</h2>
+              <div style="width: 100%;">
+                <p>{{ data.aboutus?.mission }}</p>
+              </div>
+            </div>
+            <div class="col-md-6 p-5 order-1 order-md-2">
+              <img
+                [src]="data.aboutus?.mission_image"
+                alt=""
+                style="width: 100%; height: 100%; border-radius: 20px;"
+              />
+            </div>
           </div>
         </div>
+
+
+
       </section>
     </div>
   </div>
