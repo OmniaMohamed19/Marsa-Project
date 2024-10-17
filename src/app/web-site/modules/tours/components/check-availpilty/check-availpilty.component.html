@@ -139,18 +139,18 @@
                 >
                   <ul class="list-unstyled price-list">
                     <li class="pt-3">Adult {{ avilableOptions?.Adult }}</li>
-                    <li class="pt-3">
+                    <li class="pt-3" *ngIf=" avilableOptions?.TotalChildern!=='0$'" >
                       Children {{ avilableOptions?.TotalChildern=='0$'?'':avilableOptions?.Childern }}
                     </li>
-                    <li class="pt-3">Infant {{  avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.Infant }}</li>
+                    <li class="pt-3" *ngIf="avilableOptions?.TotalInfant!=='0$'">Infant {{  avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.Infant }}</li>
                     <li class="pt-3">
                       {{ avilableOptions?.AddetionalCost[0]?.Exclude }}
                     </li>
                   </ul>
                   <ul class="list-unstyled price-list">
                     <li class="pt-3">{{ avilableOptions?.TotalAdult }}</li>
-                    <li class="pt-3">{{ avilableOptions?.TotalChildern=='0$'?'0':avilableOptions?.TotalChildern }}</li>
-                    <li class="pt-3">{{  avilableOptions?.TotalInfant=='0$'?'0':avilableOptions?.TotalInfant }}</li>
+                    <li class="pt-3" *ngIf=" avilableOptions?.TotalChildern!=='0$'">{{ avilableOptions?.TotalChildern=='0$'?'':avilableOptions?.TotalChildern }}</li>
+                    <li class="pt-3" *ngIf=" avilableOptions?.TotalInfant!=='0$'">{{  avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.TotalInfant }}</li>
                     <li class="pt-3">
                       {{ avilableOptions?.AddetionalCost[0]?.Total }}
                     </li>
