@@ -75,8 +75,11 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.Cancellation > 0"
             >
-              <img src="assets/custom/Activity/free.svg" alt="icon" />
-              <div class="ml-1 text-gray-1">Free Cancelation</div>
+            <img
+            src="assets/custom/Activity/free.svg"
+            class="pe-2"
+            alt="free"
+          />              <div class="ml-1 text-gray-1">Free Cancelation</div>
             </li>
             <li
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
@@ -102,7 +105,7 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.CollectPhysicalTicket > 0"
             >
-              <img src="assets/custom/Activity/pickup.svg" alt="icon" />
+            <img src="../../../../../../assets/icons/pickUp.svg" width="24" height="24">
               <div class="ml-1 text-gray-1">Collect Physical Ticket</div>
             </li>
           </ul>
