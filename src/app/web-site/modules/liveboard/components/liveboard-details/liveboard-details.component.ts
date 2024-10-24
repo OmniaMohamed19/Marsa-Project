@@ -387,6 +387,21 @@ export class LiveboardDetailsComponent {
         this.cdr.detectChanges();
       });
     }
+    else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getValue(
+          'Avilabile'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
   }
 
   decrementAdult() {
