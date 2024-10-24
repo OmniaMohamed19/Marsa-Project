@@ -74,10 +74,10 @@
                 />
               </svg> -->
               <img
-              src="assets/custom/Activity/free.svg"
-              class="pe-2"
-              alt="free"
-            />
+                src="assets/custom/Activity/free.svg"
+                class="pe-2"
+                alt="free"
+              />
               <div class="ml-2 text-gray-1 list">
                 <!-- <span>
                   <img width="17.6px" height="25.9px" src="../../../../../../assets/images/Free Cancelation.svg">
@@ -91,11 +91,11 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2 pl-3"
               *ngIf="activityData?.Cancellation == 0"
             >
-            <img
-            src="assets/custom/Activity/free.svg"
-            class="pe-2"
-            alt="free"
-          />
+              <img
+                src="assets/custom/Activity/free.svg"
+                class="pe-2"
+                alt="free"
+              />
               <!-- <img src="../../../../../../assets/icons/free.svg" width="24" height="24"> -->
               <div class="ml-2 text-gray-1 list">Free Cancellation</div>
             </li>
@@ -131,7 +131,11 @@
                   fill="#297CBB"
                 />
               </svg> -->
-              <img src="../../../../../../assets/icons/duration.svg" width="24" height="24">
+              <img
+                src="../../../../../../assets/icons/duration.svg"
+                width="24"
+                height="24"
+              />
 
               <div class="ml-2 text-gray-1 list">
                 Duration {{ activityData?.AvailableOption[0]?.Duration }}
@@ -157,7 +161,11 @@
             <li
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2 pl-3"
             >
-            <img src="../../../../../../assets/icons/pickUp.svg" width="24" height="24">
+              <img
+                src="../../../../../../assets/icons/pickUp.svg"
+                width="24"
+                height="24"
+              />
 
               <div class="ml-2 text-gray-1 list">Pick Up Including</div>
             </li>
@@ -381,10 +389,10 @@
           <!-- Content Sections -->
           <div id="description" class="tab-pane">
             <h5 class="heading">Description</h5>
-            <p [innerHTML]="displayedDescription"></p>
-            <a (click)="toggleDescription()" class=" fw-bold mb-5 d-inline-block    ">
+            <p [innerHTML]="displayedDescription" class="d-inline"></p>
+            <!-- <span (click)="toggleDescription()" class="  d-inline    ">
               {{ showFullDescription ? "See Less" : "See More" }}
-            </a>
+            </span> -->
           </div>
 
           <div id="experience" class="tab-pane">
@@ -403,8 +411,8 @@
                 ></li>
               </ul>
             </div>
-            <div class="d-flex gap-5 mt-5">
-              <div class="row mt-5">
+            <div class="d-flex gap-5 mt-5 w-100">
+              <div class="row mt-5 w-100">
                 <div class="col-md-6 dirction col-sm-12 d-flex gap-2">
                   <div class="w-25">
                     <h6 class="fw-bold">Includes</h6>
@@ -423,9 +431,8 @@
                     </li>
                   </ul>
                 </div>
-                <div
-                  class="col-md-5 dirction offset-md-1 col-sm-12 d-flex gap-5"
-                >
+                <!-- offset-md-1 -->
+                <div class="col-md-6 dirction col-sm-12 d-flex gap-5">
                   <div class="">
                     <h6 class="fw-bold">Excludes</h6>
                   </div>
@@ -442,7 +449,7 @@
                         style="color: #ff681a"
                       ></i>
 
-                      <span class="font-size-9 d-inline-block">
+                      <span class="font-size-9 d-inline-block" *ngIf="exclude?.price > 0">
                         {{ exclude.title }} <br />
                         ( {{ exclude?.price }} $ per person :
                         {{ exclude?.option }})
@@ -456,13 +463,13 @@
           <div id="availableOptions" class="tab-pane p mx-2">
             <h6 class="heading">Available Options</h6>
             <div
-              class="card p-2 my-5"
+              class="card p-5 my-5"
               *ngFor="let availableOption of activityData?.AvailableOption"
             >
               <div class="row">
-                <div class="col-md-9 option border-end">
+                <div class="col-md-9 option">
                   <h3 class="highlighting">{{ availableOption?.Title }}</h3>
-                  <div class="content row d-flex justify-content-between">
+                  <div class="content row d-flex flex-column">
                     <div class="col-md-6 col-sm-12">
                       <ul class="list-unstyled highlighting-list">
                         <li [innerHTML]="availableOption?.Overview"></li>
@@ -501,7 +508,7 @@
                             class="me-1"
                             alt="start"
                           />
-                          Starting
+                          Starting at
                           {{
                             (availableOption?.PickUpTime | slice : 0 : 5) +
                               (availableOption?.PickUpTime &&
@@ -514,6 +521,222 @@
                     </div>
                   </div>
                 </div>
+                <div
+                  class="col-md-3 mt-5 text-center bookDetails"
+                  *ngIf="selectedOption === 'Private'"
+                >
+                  <span
+                    class="badge-sale"
+                    *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
+                  >
+                    Save {{ availableOption?.PricePrivte.AdultDiscount }} %
+                    Today</span
+                  >
+                  <div
+                    class="w-100"
+                    *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
+                  >
+                    <small class="text-center d-inline-block"
+                      >From
+                      <span>
+                        {{
+                          selectedOption === "Private"
+                            ? getMinAdultPrice()?.PricePrivte.Adult
+                            : ""
+                        }}
+                        $
+                      </span>
+                      <span
+                        class="mx-2 font-size-18 fw-bold text-dark"
+                        *ngIf="
+                          selectedOption === 'Private' &&
+                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0
+                        "
+                        style="font-weight: 700"
+                        >{{
+                          selectedOption === "Private"
+                            ? getRoundedRate(
+                                getMinAdultPrice()?.PricePrivte.Adult -
+                                  (getMinAdultPrice()?.PricePrivte
+                                    .AdultDiscount /
+                                    100) *
+                                    getMinAdultPrice()?.PricePrivte.Adult
+                              )
+                            : ""
+                        }}
+                        $</span
+                      >
+                      per person</small
+                    >
+                  </div>
+                  <div
+                    class="w-100 mt-5"
+                    *ngIf="availableOption?.PriceColective.AdultDiscount == 0"
+                  >
+                    <small class="text-center d-inline-block mt-5"
+                      >From
+                      <span>
+                        {{
+                          selectedOption === "Private"
+                            ? getMinAdultPrice()?.PricePrivte.Adult
+                            : ""
+                        }}
+                        $
+                      </span>
+                      per person
+                    </small>
+                  </div>
+                  <div class="btns d-flex justify-content-center">
+                    <button
+                      class="book1 d-flex align-items-center fw-bold"
+                      (click)="bookNow(availableOption?.id)"
+                    >
+                      <img
+                        style="width: 25px; height: 15px"
+                        [ngStyle]="{
+                          transform:
+                            bookedOptionId == availableOption?.id &&
+                            showBookingOption
+                              ? 'rotate(180deg)'
+                              : ''
+                        }"
+                        src="assets/custom/Activity/arrowdoen.svg"
+                        alt="arrowdoen"
+                      />
+                    </button>
+                  </div>
+
+                  
+                </div>
+                <div
+                  class="col-md-3 mt-5 pt-5 text-center bookDetails"
+                  *ngIf="selectedOption === 'Collective'"
+                >
+                  <span
+                    *ngIf="availableOption?.PriceColective.AdultDiscount != 0"
+                    class="badge-sale"
+                  >
+                    Save {{ availableOption?.PriceColective.AdultDiscount }} %
+                    Today</span
+                  >
+                  <div
+                    class="w-100"
+                    *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
+                  >
+                    <small class="text-center d-inline-block"
+                      >From
+                      <span
+                        class="price"
+                        [style.text-decoration]="'line-through'"
+                        [style.color]="'red !important'"
+                      >
+                        {{
+                          selectedOption === "Collective"
+                            ? getMinAdultPrice()?.PriceColective.Adult
+                            : selectedOption === "Private"
+                            ? getMinAdultPrice()?.PricePrivte.Adult
+                            : ""
+                        }}$</span
+                      >
+
+                      <span
+                        class="mx-2 font-size-18 fw-bold text-dark"
+                        *ngIf="
+                          selectedOption === 'Collective' &&
+                          getMinAdultPrice()?.PriceColective.AdultDiscount > 0
+                        "
+                        style="font-weight: 700"
+                        >{{
+                          selectedOption === "Collective"
+                            ? getRoundedRate(
+                                getMinAdultPrice()?.PriceColective.Adult -
+                                  (getMinAdultPrice()?.PriceColective
+                                    .AdultDiscount /
+                                    100) *
+                                    getMinAdultPrice()?.PriceColective.Adult
+                              )
+                            : selectedOption === "Private"
+                            ? getRoundedRate(
+                                getMinAdultPrice()?.PricePrivte.Adult -
+                                  (getMinAdultPrice()?.PricePrivte
+                                    .AdultDiscount /
+                                    100) *
+                                    getMinAdultPrice()?.PricePrivte.Adult
+                              )
+                            : ""
+                        }}
+                        $</span
+                      >
+                      per person
+                    </small>
+                  </div>
+                  <div
+                    class="w-100"
+                    *ngIf="availableOption?.PriceColective.AdultDiscount == 0"
+                  >
+                    <small class="text-center d-inline-block"
+                      >From
+                      <span>
+                        {{
+                          selectedOption === "Collective"
+                            ? getMinAdultPrice()?.PriceColective.Adult
+                            : ""
+                        }}
+                        $
+                      </span>
+                      per person
+                    </small>
+                  </div>
+                </div>
+                <div
+                    *ngIf="!showBookingOption"
+                    class="d-flex w-50 justify-content-between align-items-center"
+                  >
+                    <h5>Total Price</h5>
+                    <h5>{{ getMinAdultPrice()?.PriceColective.Adult }} $</h5>
+                  </div>
+                <div
+                  *ngIf="selectedOption === 'Private'; else elseTemplate"
+                >
+                  <button
+                    class="book1 d-flex align-items-center fw-bold"
+                    (click)="bookNow(availableOption?.id)"
+                  >
+                    <img
+                      style="width: 25px; height: 15px"
+                      [ngStyle]="{
+                        transform:
+                          bookedOptionId == availableOption?.id &&
+                          showBookingOption
+                            ? 'rotate(180deg)'
+                            : ''
+                      }"
+                      src="assets/custom/Activity/arrowdoen.svg"
+                      alt="arrowdoen"
+                    />
+                  </button>
+                </div>
+                <ng-template #elseTemplate>
+                  <button
+                    class="book1 d-flex align-items-center fw-bold"
+                    (click)="bookNow(availableOption?.id)"
+                  >
+                    <img
+                      style="width: 25px; height: 15px"
+                      [ngStyle]="{
+                        transform:
+                          bookedOptionId == availableOption?.id &&
+                          showBookingOption
+                            ? 'rotate(180deg)'
+                            : ''
+                      }"
+                      src="assets/custom/Activity/arrowdoen.svg"
+                      alt="arrowdoen"
+                    />
+                  </button>
+                </ng-template>
+
+                <!-- 
                 <div
                   class="col-md-3 mt-5 text-center bookDetails"
                   *ngIf="selectedOption === 'Private'"
@@ -688,7 +911,7 @@
                       />
                     </button>
                   </div>
-                </div>
+                </div> -->
                 <app-check-availpilty
                   *ngIf="
                     bookedOptionId == availableOption?.id && showBookingOption

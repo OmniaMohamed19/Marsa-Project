@@ -103,7 +103,11 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="liveabourdData?.CollectPhysicalTicket > 0"
             >
-            <img src="../../../../../../assets/icons/pickUp.svg" width="24" height="24">
+              <img
+                src="../../../../../../assets/icons/pickUp.svg"
+                width="24"
+                height="24"
+              />
               <div class="ml-1 text-gray-1">Collect Physical Ticket</div>
             </li>
           </ul>
@@ -295,7 +299,10 @@
               Description
             </h5>
             <p [innerHTML]="displayedDescription"></p>
-            <a (click)="toggleDescription()" class=" fw-bold mb-5 d-inline-block    ">
+            <a
+              (click)="toggleDescription()"
+              class="fw-bold mb-5 d-inline-block"
+            >
               {{ showFullDescription ? "See Less" : "See More" }}
             </a>
 
@@ -371,10 +378,12 @@
                 [innerHTML]="liveabourdData?.Highlights"
               ></ul>
             </div>
-            <div class="d-flex gap-5 mt-5">
-              <div class="row">
-                <div class="col-md-6 col-sm-12">
-                  <h6>Includes</h6>
+            <div class="d-flex gap-5 mt-5 w-100">
+              <div class="row mt-5 w-100">
+                <div class="col-md-6 dirction col-sm-12 d-flex gap-2">
+                  <div class="w-25">
+                    <h6 class="fw-bold">Includes</h6>
+                  </div>
                   <ul
                     class="list-group list-group-borderless list-group-flush no-gutters"
                   >
@@ -389,25 +398,30 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                  <h6>Excludes</h6>
+                <!-- offset-md-1 -->
+                <div class="col-md-5 dirction col-sm-12 d-flex gap-5">
+                  <div class="">
+                    <h6 class="fw-bold">Excludes</h6>
+                  </div>
                   <ul
                     class="list-group list-group-borderless list-group-flush no-gutters"
                   >
                     <li
-                      class="mb-3 text-gray-1"
+                      class="mb-3 text-gray-1 d-flex align-items-center"
                       *ngFor="let exclude of liveabourdData?.Excludes"
                     >
-                      <i
-                        class="fa fa-times fs-4 mr-3 font-size-8"
-                        style="color: #ff681a"
-                      ></i>
-                      {{ exclude.title }}
-                      <span class="font-size-9 d-inline-block">
-                        {{ exclude.title }} <br />
-                        ( {{ exclude?.price }} $ per person :
-                        {{ exclude?.option }})
-                      </span>
+                      <ng-container *ngIf="exclude?.price > 0">
+                        <i
+                          class="fa fa-times fs-4 mr-3 font-size-8"
+                          style="color: #ff681a"
+                        ></i>
+
+                        <span class="font-size-9 d-inline-block">
+                          {{ exclude.title }} <br />
+                          ( {{ exclude?.price }} $ per person :
+                          {{ exclude?.option }})
+                        </span>
+                      </ng-container>
                     </li>
                   </ul>
                 </div>
@@ -993,7 +1007,7 @@
 
           <div
             *ngIf="!isMobile"
-            class="border border-color-7 rounded mb-5"
+            class="border border-color-7 p-3 rounded mb-5"
             #selectCabinButton
           >
             <div class="p-1">

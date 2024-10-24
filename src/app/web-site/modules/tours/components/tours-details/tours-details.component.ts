@@ -154,7 +154,10 @@ export class ToursDetailsComponent implements AfterViewInit {
     if (this.showFullDescription || words.length <= 150) {
       return this.activityData?.Description;
     } else {
-      return words.slice(0, 150).join(' ') + '...';
+      return (
+        words.slice(0, 150).join(' ') +
+        '...' 
+      );
     }
   }
   @ViewChild('myDiv') myDiv!: ElementRef;
@@ -307,6 +310,20 @@ export class ToursDetailsComponent implements AfterViewInit {
   incrementAdult() {
     if (this.adults < this.getMaxValue('AdultMax')) {
       this.adults++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+          'AdultMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
 
@@ -320,6 +337,20 @@ export class ToursDetailsComponent implements AfterViewInit {
   incrementChildren() {
     if (this.children < this.getMaxValue('childernMax')) {
       this.children++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+          'childernMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
 
@@ -332,6 +363,20 @@ export class ToursDetailsComponent implements AfterViewInit {
   incrementInfant() {
     if (this.infant < this.getMaxValue('infantMax')) {
       this.infant++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+          'infantMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
 

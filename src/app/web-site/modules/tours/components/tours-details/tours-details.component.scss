@@ -8,7 +8,7 @@ h4,
   font-weight: 700;
 }
 .image-container {
-  width: 100%;  /* Make the container full width */
+  width: 100%; /* Make the container full width */
   height: 265px; /* Fixed height for the container */
   overflow: hidden; /* Hide overflow if necessary */
 }
@@ -222,10 +222,9 @@ h3.highlighting {
   }
 }
 ::ng-deep {
-  .p-image-preview-container
- {
-  width: 100% !important;
- }
+  .p-image-preview-container {
+    width: 100% !important;
+  }
 }
 .active {
   font-family: Lato;
@@ -278,12 +277,21 @@ h3.highlighting {
 }
 
 .book1 {
+  padding: 2rem !important;
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  position: absolute;
+  top: 0px;
+  margin-left: 0.4rem;
+  right: 20px;
+  cursor: pointer;
   // width: 70%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  border: 1px solid #297cbb;
+  // border: 1px solid #297cbb;
   color: #297cbb;
   font-size: 13px;
   // padding: 5%;
@@ -320,7 +328,7 @@ h3.highlighting {
   line-height: 17px !important;
   letter-spacing: 0em !important;
   position: absolute;
-  top: -30px;
+  top: 0px;
   background: #ff681a;
   padding: 5px;
   border-radius: 5px;
