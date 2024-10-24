@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 
@@ -13,21 +14,20 @@ export class WishListComponent {
   result: any = [];
   constructor(private httpService: HttpService) {}
   responsiveOptions: any[] | undefined;
-
-
+ 
   ngOnInit() {
     this.httpService
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {
         console.log(res);
-        
+
         this.wishlist = res.wishlist;
         this.result = res.categorys.map((category:any) => ({
           category: category.name,
           categoryId: category.id,
           trips: res.wishlist.filter((wish :any) => wish.trip.some((trip:any) => trip.category_id === category.id))
         }));
-        
+
         console.log(this.result);
 
         if (this.wishlist.length > 0) {
@@ -56,7 +56,7 @@ export class WishListComponent {
   }
   RemoveFromWishlist(id:any){
     console.log(id);
-    
+
     this.httpService
         .get(environment.marsa,'Wishlist/delete/'+id)
         .subscribe({
@@ -65,14 +65,14 @@ export class WishListComponent {
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {
         console.log(res);
-        
+
         this.wishlist = res.wishlist;
         this.result = res.categorys.map((category:any) => ({
           category: category.name,
           categoryId: category.id,
           trips: res.wishlist.filter((wish :any) => wish.trip.some((trip:any) => trip.category_id === category.id))
         }));
-        
+
         console.log(this.result);
 
         if (this.wishlist.length > 0) {
@@ -80,10 +80,10 @@ export class WishListComponent {
         }
 
       });
-            
+
           }
         });
-    
+
   }
 
 }

@@ -1,3 +1,33 @@
+.custom-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none; /* إزالة الخلفية الافتراضية */
+  padding-right: 40px; /* ترك مساحة للسهم الجديد */
+  position: relative;
+}
+
+/* إضافة أيقونة السهم */
+.custom-dropdown::after {
+  content: '\25BC'; /* Unicode للسهم */
+  position: absolute;
+  right: 10px; /* التحكم في المسافة اليمنى */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* منع التفاعل مع الأيقونة */
+  font-size: 12px;
+  color: #333; /* لون الأيقونة */
+}
+.icon-inside-dropdown {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
+
 .card {
   overflow: visible !important;
 }

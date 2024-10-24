@@ -19,18 +19,19 @@ export class StepTwoComponent implements OnInit {
     const savedResponseData = localStorage.getItem('responseData');
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
-      console.log('Retrieved response data:', this.responseData);
-    } else {
-      console.log('No response data found in localStorage');
     }
-      console.log(this.responseData.car.option)
-   const  savedSelectedOptions = localStorage.getItem('selectedCar');
-   console.log(savedSelectedOptions)
+
+    const savedSelectedOptions = localStorage.getItem('selectedCar');
     if (savedSelectedOptions) {
       this.savedSelectedOpti = JSON.parse(savedSelectedOptions);
-
+    } else {
+      this.savedSelectedOpti = { option: [] }; // تعيين خيار فارغ إذا لم يكن موجودًا
     }
+
+    this.formData.selectedOptions = {}; // تأكد من أن selectedOptions يبدأ ككائن فارغ
   }
+
+
   onOptionChange(option: any, event: any): void {
     if (event.target.checked) {
       this.formData.selectedOptions[option.name] = option;

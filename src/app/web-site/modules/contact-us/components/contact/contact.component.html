@@ -167,7 +167,7 @@
                         class="alert alert-danger my-2"
                         *ngIf="name.errors?.['required']"
                       >
-                        <p class="mb-0">Name is required</p>
+                        <p class="mb-0"  >Name is required</p>
                       </div>
                     </ng-container>
                   </div>
@@ -190,7 +190,7 @@
                         class="alert alert-danger my-2"
                         *ngIf="email.errors?.['required']"
                       >
-                        <p class="mb-0">
+                        <p class="mb-0" >
                           Email is required You must enter valid email
                         </p>
                       </div>
@@ -210,15 +210,19 @@
                         [class.is-invalid]="message.errors && message.touched"
                         required
                       ></textarea>
+
                       <ng-container *ngIf="message.errors && message.touched">
-                        <div
-                          class="alert alert-danger my-2"
-                          *ngIf="message.errors?.['required']"
-                        >
-                          <p class="mb-0">Message is required</p>
+                        <div class="w-100"> 
+                          <div
+                            class="alert alert-danger my-2"
+                            *ngIf="message.errors?.['required']"
+                          >
+                            <p class="mb-0" >Message is required</p>
+                          </div>
                         </div>
                       </ng-container>
                     </div>
+
                   </div>
                 </div>
                 <!-- End Input -->

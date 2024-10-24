@@ -119,6 +119,7 @@ export class QuickSearchComponent {
     this.httpService.get('marsa', 'place').subscribe({
       next: (res: any) => {
         this.destination = res.places;
+        console.log(this.destination)
       },
     });
   }

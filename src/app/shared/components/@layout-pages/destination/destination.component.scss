@@ -22,6 +22,28 @@ div.title h3::after {
   left: 45%;
   margin-bottom: 20px;
 }
+.gradient-overlay-half-bg-gradient::before {
+  background: linear-gradient(180deg, #1e2022 0%, transparent 60%);
+}
+
+// .gradient-overlay-half-bg-gradient:hover:before {
+//   background: linear-gradient(180deg, #1e2022 0%, transparent 75%);
+// }
+.transition-3d-hover {
+  transition: all .2s ease-in-out;
+}
+.gradient-overlay-half-bg-gradient:hover::before {
+  background: linear-gradient(to top, #1e2022 0%, transparent 75%);
+}
+.shadow-hover-2:hover,
+.shadow-hover-2:active,
+.shadow-hover-2:focus {
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-hover-2.tab-card:hover {
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+}
 
 /* Container settings for carousel */
 .carousel {
@@ -39,6 +61,7 @@ div.title h3::after {
 }
 
 .dist-card {
+  border-radius: 15px;
   flex: 0 0 22%; /* Display four cards per view on large screens */
   margin: 0 10px;
   transition: transform 0.5s ease;
@@ -72,16 +95,20 @@ div.title h3::after {
   padding: 10px;
   display: flex !important ;
 }
+.dist-card {
+  position: relative; /* Ensure the card has relative positioning */
+}
+
 .destination-title {
   position: absolute; /* Position the title absolutely within the card */
-  // bottom: 3px; /* Adjust the position as needed */
+  bottom: 150px; /* Adjust the position as needed */
   left: 20px; /* Adjust the position as needed */
   color: #FFFFFF; /* Bright white color for the text */
   font-weight: bold;
   font-size: 21px;
   z-index: 2; /* Ensure it appears above the image */
   margin: 0;
- // transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color change and position */
+  transition: bottom 0.3s ease, color 0.3s ease; /* Smooth transition for position and color */
 }
 
 .destination-dropdown {
@@ -102,7 +129,7 @@ div.title h3::after {
 
 .dist-card:hover .destination-title {
   color: white; /* Ensure text color remains white on hover */
-
+  bottom: 41px; /* Move title up when hovering */
 }
 
 .dist-card:hover .card-image {

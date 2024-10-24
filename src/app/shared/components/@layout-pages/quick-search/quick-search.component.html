@@ -579,9 +579,9 @@
                   <div class="mb-lg-0 nav-select-item">
                     <span>Destination</span>
                     <!-- Select -->
-                    <div class="d-flex justify-content-center align-items-center">
-                      <span><img src="assets/custom/Activity/location.svg" alt="Location Icon" /></span>
-                      <select (change)="setplace($event)" class="form-select border-bottom border-color-1 pb-3"
+                    <div class="d-flex justify-content-center align-items-center position-relative">
+                      <img src="assets/custom/Activity/location.svg" alt="Location Icon" class="icon-inside-dropdown" />
+                      <select (change)="setplace($event)" class="form-select custom-dropdown border-bottom border-color-1 pb-3 ps-5"
                         aria-label="Select example">
                         <option>Where are you going?</option>
                         <option *ngFor="let dist of destination" [value]="dist.id">
@@ -589,6 +589,9 @@
                         </option>
                       </select>
                     </div>
+
+
+
 
                     <!-- End Select -->
                   </div>
@@ -621,7 +624,7 @@
                         <a class="dropdown-nav-link dropdown-toggle d-flex py-3" role="button" (click)="toggleDropdown()" aria-expanded="false">
                           <div class="input-group-prepend">
                             <span class="d-flex align-items-center">
-                              <img src="assets/custom/Activity/calender.svg" alt="Calender Icon" />
+                              <img src="assets/custom/Activity/calender.svg" alt="Calender Icon"/>
                             </span>
                           </div>
                           <span style="padding-left: 1rem; color:#3b444f" class="font-size-16">{{ adultsNumber }} Adults - {{ childrenNumber }} Child - {{ infantNumber }} Infant</span>
@@ -729,9 +732,9 @@
                   <div class="mb-lg-0 nav-select-item">
                     <span>Destination</span>
                     <!-- Select -->
-                    <div class="d-flex justify-content-center align-items-center">
-                      <span><img src="assets/custom/Activity/location.svg" alt="Location Icon" /></span>
-                      <select (change)="setplace($event)" class="form-select border-bottom border-color-1 pb-3"
+                    <div class="d-flex justify-content-center align-items-center position-relative">
+                      <img src="assets/custom/Activity/location.svg" alt="Location Icon" class="icon-inside-dropdown" />
+                      <select (change)="setplace($event)" class="form-select custom-dropdown border-bottom border-color-1 pb-3 ps-5"
                         aria-label="Select example">
                         <option>Where are you going?</option>
                         <option *ngFor="let dist of destination" [value]="dist.id">
@@ -895,9 +898,9 @@
                   <div class="mb-lg-0 nav-select-item">
                     <span>Destination</span>
                     <!-- Select -->
-                    <div class="d-flex justify-content-center align-items-center">
-                      <span><img src="assets/custom/Activity/location.svg" alt="Location Icon" /></span>
-                      <select (change)="setplace($event)" class="form-select border-bottom border-color-1 pb-3"
+                    <div class="d-flex justify-content-center align-items-center position-relative">
+                      <img src="assets/custom/Activity/location.svg" alt="Location Icon" class="icon-inside-dropdown" />
+                      <select (change)="setplace($event)" class="form-select custom-dropdown border-bottom border-color-1 pb-3 ps-5"
                         aria-label="Select example">
                         <option>Where are you going?</option>
                         <option *ngFor="let dist of destination" [value]="dist.id">
@@ -1057,15 +1060,16 @@
           <form class="js-validate">
             <div>
               <div class="destination-content">
-                <div class="nav-select option w-100 row">
+                <div class="nav-select option w-100">
 
-                  <div class="mb-lg-0 nav-select-item col" style="padding-right:0px ; padding-left: 0px;">
+                  <div class="mb-lg-0 nav-select-item" style="padding-right:0px ; padding-left: 0px;">
                     <span>Pick up Location</span>
                     <!-- Select -->
-                    <div class="d-flex justify-content-center align-items-center">
-                      <span><img src="assets/custom/Activity/location.svg" alt="Location Icon" /></span>
-                      <select class="form-select border-bottom border-color-1 pb-3" aria-label="Select example"
-                        style="font-size: 14px">
+
+                    <div class="d-flex justify-content-center align-items-center position-relative">
+                      <img src="assets/custom/Activity/location.svg" alt="Location Icon" class="icon-inside-dropdown" />
+                      <select (change)="setplace($event)" class="form-select custom-dropdown border-bottom border-color-1 pb-3 ps-5"
+                        aria-label="Select example">
                         <option>Pick up Location</option>
                         <option *ngFor="let dist of destination" [value]="dist.id">
                           {{ dist.name }}
@@ -1075,13 +1079,14 @@
 
                     <!-- End Select -->
                   </div>
-                  <div class="mb-lg-0 nav-select-item col" style="padding-right:0px ; padding-left: 0px;">
+                  <div class="mb-lg-0 nav-select-item" style="padding-right:0px ; padding-left: 0px;">
                     <span>Drop Off Location</span>
                     <!-- Select -->
-                    <div class="d-flex justify-content-center align-items-center">
-                      <span><img src="assets/custom/Activity/location.svg" alt="Location Icon" /></span>
-                      <select class="form-select border-bottom border-color-1 pb-3" aria-label="Select example"
-                        style="font-size: 14px">
+
+                    <div class="d-flex justify-content-center align-items-center position-relative">
+                      <img src="assets/custom/Activity/location.svg" alt="Location Icon" class="icon-inside-dropdown" />
+                      <select (change)="setplace($event)" class="form-select custom-dropdown border-bottom border-color-1 pb-3 ps-5"
+                        aria-label="Select example">
                         <option>Drop Off Location</option>
                         <option *ngFor="let dist of destination" [value]="dist.id">
                           {{ dist.name }}
@@ -1091,7 +1096,7 @@
 
                     <!-- End Select -->
                   </div>
-                  <div class="mb-4 mb-lg-0 nav-select-item col" style="padding-right:0px ; padding-left: 0px;">
+                  <div class="mb-4 mb-lg-0 nav-select-item " style="padding-right:0px ; padding-left: 0px;">
                     <!-- Input -->
                     <span class="d-block text-gray-1 text-left font-weight-normal mb-0">Date</span>
                     <div class="border-bottom border-color-1 mb-2">
@@ -1110,7 +1115,7 @@
                     <!-- End Input -->
                   </div>
 
-                  <div class="mb-4 mb-lg-0 nav-select-item col">
+                  <div class="mb-4 mb-lg-0 nav-select-item ">
                     <div class="border-bottom border-color-1 mb-2">
                       <!-- Input -->
                       <span class="d-block text-gray-1 text-left font-weight-normal mb-0">Persons</span>
@@ -1209,14 +1214,26 @@
                       <!-- End Input -->
                     </div>
                   </div>
-                  <div style="padding-right:0px ; padding-left: 0px; padding-bottom: 0px;">
+                  <!-- <div class="mb-4 mb-lg-0 nav-select-item col" style="padding-right:0px ; padding-left: 0px; padding-bottom: 0px;">
                     <button type="submit" class="btn border-radius-3" style="
                         background-color: #0db1ff;
                         width: 166.25px;
                         height: 52.5px;
                         flex-shrink: 0;
                         color: #ffffff;
-                       margin-top: -26px;
+
+                      ">
+                      <i class="fa-solid fa-magnifying-glass mr-2"></i>Search
+                    </button>
+                  </div> -->
+
+                  <div class="btn-container">
+                    <button (click)="search('/boats/allBoats')" type="submit" class="btn border-radius-3" style="
+                        background-color: #0db1ff;
+                        width: 166.25px;
+                        height: 52.5px;
+                        flex-shrink: 0;
+                        color: #ffffff;
                       ">
                       <i class="fa-solid fa-magnifying-glass mr-2"></i>Search
                     </button>

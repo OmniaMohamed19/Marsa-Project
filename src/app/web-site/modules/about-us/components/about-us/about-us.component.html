@@ -53,7 +53,7 @@
       <section class="mx-auto content">
         <div class="container">
           <div class="row">
-            <div class="col-md-6 p-5 order-2 order-md-1">
+            <div class="m-auto col-md-6 p-5 order-2 order-md-1">
               <h2 class="text-center text-md-left pb-lg-4">Our mission</h2>
               <div style="width: 100%;">
                 <p>{{ data.aboutus?.mission }}</p>
@@ -126,7 +126,7 @@
 
       <p-dialog [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
         [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
-        <video controls="" style="width: 92% ; max-height:100% " autoplay="" name="media">
+        <video controls="" style="width: 92% ; max-height:100% " muted name="media">
           <source src="https://dev2.marsawaves.com/assets/images/chooseus/video/1727081050.mp4" type="video/mp4">
         </video>
         <!-- <video src="//vimeo.com/167434033"></video> -->
@@ -141,24 +141,24 @@
   <div class="bg-img-hero-2">
     <div class="container text-center space-1">
       <div class="row icon-block justify-content-center align-items-center">
-
-        <owl-carousel-o [options]="aboutOptions2" class="my-destination">
-          <ng-container *ngFor="let item of data.counter">
-            <ng-template carouselSlide>
-              <div style="display: flex;
-    justify-content: center;">
-                <img [src]="item.icon" alt="img-description" class="Why_chosse_us text-center" />
-              </div>
-
-              <div>
-                <h5 class="mb-2 pt-3">{{ item.title }}</h5>
-                <p class="px-uw-3">{{ item.desc }}</p>
-              </div>
-
-            </ng-template>
-          </ng-container>
-        </owl-carousel-o>
+        <div
+          class="col-6 col-sm-6 col-md-3 mb-4"
+          *ngFor="let item of data.counter"
+        >
+          <div class="d-flex justify-content-center">
+            <img
+              [src]="item.icon"
+              alt="img-description"
+              class="Why_chosse_us text-center"
+            />
+          </div>
+          <div>
+            <h5 class="mb-2 pt-3">{{ item.title }}</h5>
+            <p class="px-uw-3">{{ item.desc }}</p>
+          </div>
+        </div>
       </div>
+
     </div>
 
 

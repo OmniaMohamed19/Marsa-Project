@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import { DataService } from '../../dataService';
 import { TranslateService } from '@ngx-translate/core';
+import { HeaderService } from 'src/app/shared/services/header.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-transfer',
   templateUrl: './transfer.component.html',
   styleUrls: ['./transfer.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransferComponent implements OnInit {
+export class TransferComponent implements OnInit,AfterViewInit {
   formData: any = {};
   persons: number = 5;
   transferDetails: any;
   fromId: string = '';
   toId: any;
-  date: any;
+  date: string | null = null; // Initialize the date variable
+  minDate: string;
   reviews:any;
   pickuptime:any;
   returnDate: any; // Add for return date
@@ -26,15 +32,39 @@ export class TransferComponent implements OnInit {
   currentIndex: number = 0;
   interval: any;
   backgroundImageUrl: any = [];
+  isLogin: boolean = false;
+  comment: any;
+  searchFrom: string = ''; // Holds the search term for the first dropdown (From)
+searchTo: string = ''; // Holds the search term for the second dropdown (To)
+
+filteredFromAirports: any[] = []; // Filtered airports for the first dropdown
+filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
+filteredToOptions: any[] = []; // Filtered options for the second dropdown
   constructor(
     private httpService: HttpService,
     private router: Router,
     private dataService: DataService,
     private translate: TranslateService,
+    private headerService: HeaderService,
+    private _AuthService: AuthService,
+    private toastr: ToastrService,
+  ) { const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];}
 
-  ) {}
-
+    ngAfterViewInit(): void {
+      const pickerInline = document.querySelector('.timepicker-inline-12');
+      const timepickerMaxMin = new (window as any).mdb.Timepicker(pickerInline, {
+        format12: true,
+        inline: true
+      });
+    }
   ngOnInit(): void {
+    this.filteredFromAirports = this.transferDetails?.airports || [];
+    this.filteredFromHotels = this.transferDetails?.hotel || [];
+    this.filteredToOptions = [];
+    this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+      this.isLogin = isAuth;
+    });
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
         this.backgroundImageUrl = res?.transfer || [];
@@ -131,6 +161,7 @@ export class TransferComponent implements OnInit {
     // Save the body object in localStorage
     localStorage.setItem('bookdetail', JSON.stringify(body));
 
+
     // Save the return date and return pickup time separately
     localStorage.setItem('returnDate', this.returnDate || '');
     localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
@@ -158,7 +189,7 @@ export class TransferComponent implements OnInit {
   }
 
   onSelectFrom(event: any): void {
-    const selectedId = event.target.value;
+    const selectedId = event.target?.value;
     const selectedOption = this.transferDetails.hotel.find((option: { id: number; }) => option.id === +selectedId);
 
     if (selectedOption) {
@@ -168,7 +199,7 @@ export class TransferComponent implements OnInit {
     }
   }
   onSelectTo(event: any): void {
-    const selectedId = event.target.value;
+    const selectedId = event.target?.value;
     const selectedOption = this.transferDetails.hotel.find((option: { id: number; }) => option.id === +selectedId);
 
     if (selectedOption) {
@@ -177,6 +208,148 @@ export class TransferComponent implements OnInit {
       this.formData.toId = selectedOption.id;
     }
   }
+
+  addReview(): void {
+    const model = {
+
+      comment: this.comment,
+      transfer_id:1,
+      rating:3,
+    };
+    if (!this.isLogin) {
+      this.toastr.info('Please login first', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      window.scroll(0, 0);
+      this.headerService.toggleDropdown();
+    } else {
+      this.httpService
+        .post(environment.marsa, 'Review/addreview', model)
+        .subscribe({
+          next: (res: any) => {
+            this.toastr.success(res.message);
+            // this.loadData();
+            // this.starNumber = 0;
+            this.comment = '';
+            // this.selectedStar = 0;
+          },
+        });
+    }
+  }
+
+  selectedOptionName: string | null = null;
+
+  selectedFromName: string | null = null;
+
+  availableToOptions: any[] = []; // This will hold the filtered options for the second dropdown
+
+  filterFromOptions() {
+    // Filter the airports based on the search term for "From"
+    this.filteredFromAirports = this.transferDetails?.airports?.filter((airport: { name: string; }) =>
+      airport.name.toLowerCase().includes(this.searchFrom.toLowerCase())
+    );
+
+    // Filter the hotels based on the search term for "From"
+    this.filteredFromHotels = this.transferDetails?.hotel?.filter((hotel: { city: string; }) =>
+      hotel.city.toLowerCase().includes(this.searchFrom.toLowerCase())
+    );
+  }
+
+  filterToOptions() {
+    // Filter the options (airports or hotels) in the second dropdown based on the search term for "To"
+    this.filteredToOptions = this.availableToOptions?.filter(option =>
+      (option.name || option.city).toLowerCase().includes(this.searchTo.toLowerCase())
+    );
+  }
+
+  selectFromOption(option: any) {
+    if (option.name) {
+      // If an airport is selected
+      this.selectedFromName = option.name;
+      this.fromId = option.id;
+      // Show hotels in the second dropdown
+      this.availableToOptions = this.transferDetails?.hotel || [];
+    } else if (option.city) {
+      // If a hotel is selected
+      this.selectedFromName = option.city;
+      this.fromId = option.id;
+      // Show airports in the second dropdown
+      this.availableToOptions = this.transferDetails?.airports || [];
+    }
+    // Reset the search and filtered options for the second dropdown
+    this.searchTo = '';
+    this.filterToOptions();
+  }
+
+  selectOption(option: any) {
+    if (option.name) {
+      this.selectedOptionName = option.name; // If an airport is selected
+    } else if (option.city) {
+      this.selectedOptionName = option.city; // If a hotel is selected
+    }
+    this.toId = option.id;
+  }
+
+
+  carouselOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: true,
+    margin: 10,
+    autoplay: false,
+    navSpeed: 700,
+    nav: true,
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 2
+      },
+      1000: {
+        items: 2
+      }
+    }
+  };
+  isExpanded: boolean = false;
+
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  carouselOptions2 = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: false,
+
+    autoplay: true,
+    navSpeed: 700,
+    nav: false,
+    items: 1, // Display one item per slide
+    responsive: {
+      0: {
+        items: 2,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 2,
+      }
+    }
+  };
 
 
 

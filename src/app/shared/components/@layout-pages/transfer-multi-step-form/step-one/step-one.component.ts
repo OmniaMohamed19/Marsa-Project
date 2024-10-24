@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { DataService } from 'src/app/web-site/modules/transfer/dataService';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment.prod';
 export class StepOneComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<any>();
-
+  // @ViewChild('radio') radio!: ElementRef;
   activeSection = 'section1';
   responseData: any;
   selectedItemId: number | null = null;
@@ -25,7 +25,7 @@ export class StepOneComponent implements OnInit {
   infantCount = 0;
   selectedCarId: any;
   selectedCar: any = null;  // To store the selected car object
-
+details:any;
   customOptions: any = {
     loop: true,
     mouseDrag: true,
@@ -55,6 +55,7 @@ export class StepOneComponent implements OnInit {
 
   formData: any = {
     from: '',
+    from_id:'',
     to: '',
     flightNumber: '',
     phoneNumber: '',
@@ -85,7 +86,12 @@ export class StepOneComponent implements OnInit {
     const savedResponseData = localStorage.getItem('responseData');
     const bookingDetail = localStorage.getItem('bookdetail');
     const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
+    const details= localStorage.getItem('bookdetail');
 
+    if (details) {
+      this.details = JSON.parse(details);
+    }
+    this.formData.from_id=this.details?.from_id|| '';
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
     }
@@ -108,17 +114,15 @@ export class StepOneComponent implements OnInit {
   onCarClick(event: any, carId: number): void {
     this.selectedCarId = carId;
     this.formData.selectedCarId = carId;
-        console.log(this.selectedCarId)
-    // Find the selected car object from responseData
+    console.log(this.selectedCarId);
+    // this.radio.nativeElement.checked = true;
     const selectedCarObject = this.responseData?.car?.find((car: any) => car.id === carId);
 
     if (selectedCarObject) {
       this.selectedCar = selectedCarObject;
-      // Save the entire car object in localStorage
       localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
     }
   }
-
   // Function to proceed to the next step
   saveFormData(form: NgForm): void {
     if (form.valid) {

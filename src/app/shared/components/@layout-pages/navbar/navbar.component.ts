@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { LoginComponent } from '../Auth/login/login.component';
 import { HostListener } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
+import { HttpService } from 'src/app/core/services/http/http.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -22,17 +25,47 @@ export class NavbarComponent {
   isOffCanvasOpen = false;
   showSearch: boolean = false;
   userDate: any;
-
+  keyword:any;
+  results: any= [];
+  showDropdown: boolean = false;
   constructor(
     public translate: TranslateService,
     private langService: LanguageService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _HttpService: HttpService,
   ) {
     this.langService.getCurrentLang().subscribe((lang) => {
       this.selectedLang = lang;
     });
+  }
+
+
+  onSearch() {
+    if (this.keyword.trim()) {
+      this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
+        (data) => {
+          console.log('Search Results:', data);
+          this.results = data;
+          this.showDropdown = this.results.trip.length > 0;
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    } else {
+      Swal.fire('Error', 'Please enter a Keyword', 'error');
+    }
+  }
+  navigateTo(link: string) {
+    window.location.href = link;
+  }
+
+  hideDropdown() {
+    setTimeout(() => {
+      this.showDropdown = false;
+    }, 200);
   }
   search(input: HTMLInputElement) {
     const currentLang = this.translate.currentLang;
@@ -112,7 +145,7 @@ export class NavbarComponent {
   callLogout(): void {
     this._AuthService.logout();
   }
- 
+
 
 
   closeOffcanvas() {

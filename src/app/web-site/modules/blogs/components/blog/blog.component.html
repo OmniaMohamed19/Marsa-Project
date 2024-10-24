@@ -64,7 +64,7 @@
                 </ng-template>
               </ng-container>
             </owl-carousel-o>
-
+          
             <h5 class="font-weight-bold font-size-21 text-gray-3 mt-2">
               <a
                 [routerLink]="[
@@ -79,9 +79,7 @@
             </h5>
             <div class="mb-3">
               <a class="mr-3 pr-1">
-                <span class="font-weight-normal text-gray-3">{{
-                  blog?.date
-                }}</span>
+                <span class="font-weight-normal text-gray-3">{{ blog?.date }}</span>
               </a>
               <a>
                 <span
@@ -96,6 +94,7 @@
             </div>
             <p class="mb-0" [innerHTML]="blog?.overview"></p>
           </div>
+          
         </div>
 
         <!-- Pagination -->

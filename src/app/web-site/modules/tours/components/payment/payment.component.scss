@@ -13,6 +13,11 @@
   color: rgba(13, 177, 255, 1);
   background-color: rgba(13, 177, 255, 1);
 }
+::ng-deep{
+  .mat-step-header{
+    width: 100% !important;
+  }
+}
 
 label {
   font-family: Lato;

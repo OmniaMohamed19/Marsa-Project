@@ -12,63 +12,54 @@
     </div>
 
     <section class="mt-3 row align-items-center justify-content-between">
-
-
-      <ul
-              class="nav nav-classic nav-choose border-0 nav-justified border mx-n3"
-              role="tablist"
+      <ul class="nav nav-classic nav-choose border-0 nav-justified border flex-column flex-md-row">
+        <li class="nav-item mx-3 mb-3 mb-md-0">
+          <a
+            class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+            id="pills-one-example2-tab"
+            [class.active]="isActiveTab('pills-one-example2')"
+            (click)="toggleTab('pills-one-example2', 'cash')"
+          >
+            <div
+              class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
             >
-              <li class="nav-item mx-3">
-                <a
-                  class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
-                  id="pills-one-example2-tab"
-                  [class.active]="isActiveTab('pills-one-example2')"
-                  (click)="toggleTab('pills-one-example2', 'cash')"
-                >
-                  <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                  >
-                    <i class="fa fa-check text-white font-size-15"></i>
-                  </div>
-                  <div
-                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                  >
-                    <img
-                      class="img-fluid mb-3"
-                      src="../../../../../../assets/custom/Activity/banknotes.png"
-                      alt="Image Description"
-                    />
-                    <div class="w-100 text-dark">Book now Cash</div>
-                  </div>
-                </a>
-              </li>
-              <li class="nav-item mx-3 mb-4 mb-md-0">
-                <a
-                  class="rounded py-5 border-width-2 border nav-link font-weight-medium"
-                  id="pills-one-example2-tab"
-                  [class.active]="isActiveTab('pills-two-example2')"
-                  (click)="toggleTab('pills-two-example2', 'card')"
-                >
-                  <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                  >
-                    <i class="fa fa-check text-white font-size-15"></i>
-                  </div>
-                  <div
-                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                  >
-                    <img
-                      class="img-fluid mb-3"
-                      src="../../../../../../assets/custom/Activity/payment.png"
-                      alt="Image Description"
-                    />
-                    <div class="w-100 text-dark">Payment with Card</div>
-                  </div>
-                </a>
-              </li>
-            </ul>
-
+              <i class="fa fa-check text-white font-size-15"></i>
+            </div>
+            <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+              <img
+                class="img-fluid mb-3"
+                src="../../../../../../assets/custom/Activity/banknotes.png"
+                alt="Image Description"
+              />
+              <div class="w-100 text-dark">Book now Cash</div>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item mx-3 mb-3 mb-md-0">
+          <a
+            class="rounded py-5 border-width-2 border nav-link font-weight-medium"
+            id="pills-two-example2-tab"
+            [class.active]="isActiveTab('pills-two-example2')"
+            (click)="toggleTab('pills-two-example2', 'card')"
+          >
+            <div
+              class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+            >
+              <i class="fa fa-check text-white font-size-15"></i>
+            </div>
+            <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+              <img
+                class="img-fluid mb-3"
+                src="../../../../../../assets/custom/Activity/payment.png"
+                alt="Image Description"
+              />
+              <div class="w-100 text-dark">Payment with Card</div>
+            </div>
+          </a>
+        </li>
+      </ul>
     </section>
+
     <!--------Bottom Form---------------------->
 
     <div class="tab-content">
@@ -265,61 +256,59 @@
           <div class="col-8 col-text">
               <span>Booking Detail</span>
           </div>
-          <div class="col-4 col-detail">
+          <!-- <div class="col-4 col-detail">
               <a (click)="goback()">Edit</a>
-          </div>
+          </div> -->
           <!------------------->
-          <div class="col-8  col-text">
+          <div class="col-7  col-text">
               <span>Pick Up From</span>
           </div>
-          <div class="col-4 col-detail">
-              <span>{{fromId}}</span>
+          <div class="col-5 col-detail">
+              <span>{{fromName}}</span>
           </div>
           <!----------------------->
-          <div class="col-8 col-text">
+          <div class="col-7 col-text">
               <span>Drop off location</span>
           </div>
-          <div class="col-4 col-detail">
-              <span>Safaga</span>
+          <div class="col-5 col-detail">
+            <span>{{toName}}</span>
           </div>
           <!--------------------------->
-          <div class="col-8 col-text">
+          <div class="col-7 col-text">
               <span>Pick Up Date</span>
           </div>
-          <div class="col-4 col-detail">
-              <span>20-9-2020</span>
+          <div class="col-5 col-detail">
+            <span>{{bookingDate}}</span>
           </div>
           <!----------------------->
-          <div class="col-8 col-text">
+          <div class="col-7 col-text">
               <span>Pick Up Time</span>
           </div>
-          <div class="col-4 col-detail">
-              <span>9:00 AM</span>
+          <div class="col-5 col-detail">
+            <span>{{bookingTime}}</span>
           </div>
           <!----------------------->
-          <div class="col-8 col-text">
-              <span>Expected drop off time</span>
+          <!-- <div class="col-7 col-text">
+              <span>Return Date</span>
           </div>
-          <div class="col-4 col-detail">
-              <span> 10:00 AM</span>
-          </div>
+          <div class="col-5 col-detail">
+              <span> {{returnbookingdate}}</span>
+          </div> -->
           <!----------------------->
       </div>
       <!------------------------------->
       <div class="row mt-3 visitors pt-4">
-          <div class="col-3">
-             <span class="person">  Adult </span>
+          <div class="col-8">
+             <span class="person"> Number of people</span>
           </div>
-          <div class="col-4">
-              <span class="age"> Age 18+ </span>
-          </div>
+
           <div class="col-4 text-end">
-              <span class="num"> 4 </span>
+              <span class="num">{{person}}</span>
           </div>
           <!---------------------------------->
       </div>
 
-      <div class="row mt-3">
+      <!-- <div class="row mt-3">
           <div class="col-3">
              <span class="person">Children</span>
           </div>
@@ -329,10 +318,9 @@
           <div class="col-4 text-end">
               <span class="num"> 2 </span>
           </div>
-          <!---------------------------------->
-      </div>
+      </div> -->
 
-      <div class="row mt-3 bottom-line pb-4">
+      <!-- <div class="row mt-3 bottom-line pb-4">
           <div class="col-3">
              <span class="person">  Infant </span>
           </div>
@@ -342,16 +330,45 @@
           <div class="col-4 text-end">
               <span class="num"> 2 </span>
           </div>
-          <!---------------------------------->
-      </div>
+      </div> -->
 
       <!---------------------------------->
       <div class="copoun bottom-line">
           <h3>Coupon Code</h3>
           <div class="d-flex justify-content-between align-items-center mb-3">
-              <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2">
-              <span class="input-group-text" id="basic-addon2">Apply</span>
+            <input
+            type="text"
+            class="form-control"
+
+            name="email"
+            id="CouponCodeExample1"
+            placeholder=""
+            aria-label=""
+            aria-describedby="CouponCodeExample2"
+            required=""
+            [(ngModel)]="coupon"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn py-2 "
+              type="button"
+              id="CouponCodeExample2"
+              (click)="applycoupon()"
+              style="
+                background-color: rgb(13, 177, 255);
+                font-family: Lato;
+                font-size: 16px;
+                font-weight: 700;
+                letter-spacing: 0em;
+                text-align: left;
+                color: white;
+              "
+            >
+              Apply
+            </button>
+          </div>
             </div>
+
       </div>
 
        <!-------------------------------->
@@ -362,17 +379,10 @@
                   <span class="person">Subtotal </span>
                </div>
                <div class="col-4">
-                   <span class="age">200 $</span>
+                   <span class="age"></span>
                </div>
           </div>
-          <div class="d-flex justify-content-between">
-              <div class="col-6 px-0">
-                  <span class="person">Subtotal </span>
-               </div>
-               <div class="col-4">
-                   <span class="age">200 $</span>
-               </div>
-          </div>
+
           <!---------------------------------->
       </div>
       <!------------------------->
@@ -381,9 +391,19 @@
               <span class="person">Total </span>
            </div>
            <div class="col-4">
-               <span class="age">200 $</span>
+               <span class="age">{{price}}</span>
            </div>
       </div>
+      <li
+      *ngIf="Coupons&&Coupons[0]"
+        class="d-flex justify-content-between py-2 font-size-17"
+        style="font-weight: 700"
+      >
+        <span style="font-weight: 700">Coupon</span>
+        <span style="font-weight: 700">{{
+          Coupons[0]?.amount
+        }}</span>
+      </li>
 
   </div>
 </div>

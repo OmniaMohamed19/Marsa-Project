@@ -234,7 +234,7 @@
                   <!-- End Input -->
                   <div class="w-100"></div>
                   <p>Do you want a pick up services ?</p>
-                  <div class="d-flex gap-3 flex-wrap justify-content-between mb-2">
+                  <div class="d-flex gap-3 flex-wrap  mb-2">
                     <div class="form-check">
                       <input
                         class="form-check-input"
@@ -372,25 +372,18 @@
                 Your Card Information
               </h5>
               <!-- Nav Classic -->
-              <ul
-                class="nav nav-classic nav-choose border-0 nav-justified border mx-n3"
-                role="tablist"
-              >
-                <li class="nav-item mx-3">
+              <ul class="nav nav-classic nav-choose border-0 nav-justified border mx-n3 flex-column flex-md-row" role="tablist">
+                <li class="nav-item  w-100 mb-2 mb-md-0">
                   <a
                     class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
                     id="pills-one-example2-tab"
                     [class.active]="isActiveTab('pills-one-example2')"
                     (click)="toggleTab('pills-one-example2', 'cash')"
                   >
-                    <div
-                      class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                    >
+                    <div class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
                       <i class="fa fa-check text-white font-size-15"></i>
                     </div>
-                    <div
-                      class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                    >
+                    <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                       <img
                         class="img-fluid mb-3"
                         src="../../../../../../assets/custom/Activity/banknotes.png"
@@ -400,21 +393,17 @@
                     </div>
                   </a>
                 </li>
-                <li class="nav-item mx-3 mb-4 mb-md-0">
+                <li class="nav-item  w-100">
                   <a
                     class="rounded py-5 border-width-2 border nav-link font-weight-medium"
                     id="pills-one-example2-tab"
                     [class.active]="isActiveTab('pills-two-example2')"
                     (click)="toggleTab('pills-two-example2', 'card')"
                   >
-                    <div
-                      class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                    >
+                    <div class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
                       <i class="fa fa-check text-white font-size-15"></i>
                     </div>
-                    <div
-                      class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                    >
+                    <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                       <img
                         class="img-fluid mb-3"
                         src="../../../../../../assets/custom/Activity/payment.png"
@@ -425,6 +414,7 @@
                   </a>
                 </li>
               </ul>
+
               <!-- End Nav Classic -->
               <div class="tab-content">
                 <div
@@ -801,7 +791,7 @@
                       <input
                         type="text"
                         class="form-control"
-                        style=""
+
                         name="email"
                         id="CouponCodeExample1"
                         placeholder=""

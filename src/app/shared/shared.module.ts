@@ -79,6 +79,8 @@ import { CarouselModule as CarouselModule2 } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const layoutPages = [
   QuickSearchComponent,
@@ -166,6 +168,9 @@ const slider = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    NgxMaterialTimepickerModule,
     GoogleMapsModule,
     CommonModule,
     CarouselModule,
@@ -177,7 +182,7 @@ const slider = [
     RouterModule,
     MaterialModule,
     TranslateModule,
-    NgxMaterialTimepickerModule,
+
     NgSelectModule,
     NgxIntlTelInputModule,
   ],

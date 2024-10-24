@@ -17,7 +17,10 @@ import { MultiStepComponent } from './components/multi-step/multi-step.component
   imports: [
     CommonModule,
     TransferRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+
+
+  ],
+ 
 })
 export class TransferModule { }

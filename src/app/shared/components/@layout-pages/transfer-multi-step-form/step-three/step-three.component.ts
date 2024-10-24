@@ -13,6 +13,11 @@ import Swal from 'sweetalert2';
 export class StepThreeComponent {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<void>();
+  Coupons: any;
+  Total: any;
+  coupon: any;
+  price: any;
+  kilometr: any;
 constructor( private _httpService: HttpService,
 
   private router: Router,
@@ -38,6 +43,10 @@ constructor( private _httpService: HttpService,
   selectedCar: any;
   selectedOption:any=[{}];
   selectedOptionID:any=[];
+  responseData:any;
+  fromName:any;
+  toName:any;
+
   ngOnInit() {
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
     this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
@@ -47,7 +56,13 @@ constructor( private _httpService: HttpService,
     const bookingDetail = localStorage.getItem('bookdetail');
     const savedSelectedCar = localStorage.getItem('selectedCar');
     const  savedSelectedOption = localStorage.getItem('selectedOptions');
+    const savedResponseData = localStorage.getItem('responseData');
 
+    if (savedResponseData) {
+      this.responseData = JSON.parse(savedResponseData);
+    }
+    this.fromName = this.responseData?.booking?.from || '';
+    this.toName = this.responseData?.booking?.to || '';
 
     if (bookingDetail) {
       this.bookdetail = JSON.parse(bookingDetail);
@@ -57,6 +72,8 @@ constructor( private _httpService: HttpService,
     this.bookingDate=this.bookdetail.date;
     this.bookingTime=this.bookdetail.pickuptime;
     this.person=this.bookdetail.person;
+    this.price=this.bookdetail.price;
+    this.kilometr=this.bookdetail.this.bookdetail;
 
     if (savedSelectedCar) {
       this.selectedCar = JSON.parse(savedSelectedCar);
@@ -78,6 +95,19 @@ constructor( private _httpService: HttpService,
     console.log('Booking Time:', this.bookingTime);
     console.log('Person Count:', this.person);
     console.log('Car ID:', this.carId);
+  }
+
+  applycoupon(){
+    this._httpService
+      .get(environment.marsa, `Coupon`)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
+        this.Total=this.Total - this.Coupons[0].amount
+    console.log(this.Coupons);
+  });
+    console.log(this.coupon);
+    // Coupon
   }
   nextStep(): void {
     this.next.emit(this.formData);
@@ -119,6 +149,7 @@ constructor( private _httpService: HttpService,
     return_booking_date: this.returnbookingdate,
     payment_method: this.payment_method ? this.payment_method : 'tap',
     booking_option: bookingOption,
+    coupon_code:123,
   };
 
   this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({

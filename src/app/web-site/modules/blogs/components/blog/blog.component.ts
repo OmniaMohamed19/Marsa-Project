@@ -143,5 +143,6 @@ export class BlogComponent implements OnInit {
     },
     nav: true,
   };
+  
 
 }

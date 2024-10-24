@@ -6,10 +6,10 @@
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
             <div class="d-flex flex-column car" (click)="onCarClick($event, item.id)"
-            [class.active]="formData.selectedCarId === item.id">
+              [class.active]="formData.selectedCarId === item.id">
 
               <div class="radio-container" style="position: absolute; top: 10px; left: 10px;">
-                <input type="radio" name="selectedCar" [value]="item.id" [checked]="selectedItemId === item.id" required>
+                <input type="radio" name="selectedCar" [value]="item.id"  #radio [checked]="selectedCarId === item.id" required>
               </div>
 
               <h2 class="text-center">{{ item.name }}</h2>
@@ -38,6 +38,7 @@
                 <span class="meet">Meet and Greet</span>
               </div>
             </div>
+
           </ng-template>
         </ng-container>
       </owl-carousel-o>
@@ -52,9 +53,11 @@
             <i class="fa-solid fa-location-dot"></i>
           </label>
         </div>
-        <input type="text" name="from" [(ngModel)]="formData.from" [value]="formData.from" placeholder="From" required #fromInput="ngModel">
-       <br> <div *ngIf="fromInput.invalid && fromInput.touched" class="error-message">
-         From Location is required
+        <input type="text" name="from" [(ngModel)]="formData.from" [value]="formData.from" placeholder="From" required
+          #fromInput="ngModel">
+        <br>
+        <div *ngIf="fromInput.invalid && fromInput.touched" class="error-message">
+          From Location is required
         </div>
 
       </div>
@@ -64,24 +67,27 @@
             <i class="fa-solid fa-location-dot"></i>
           </label>
         </div>
-        <input type="text" name="to" [(ngModel)]="formData.to" [value]="formData.to" placeholder="To" required #toInput="ngModel">
-         <br>
-       <br> <div *ngIf="toInput.invalid && toInput.touched" class="error-message">
+        <input type="text" name="to" [(ngModel)]="formData.to" [value]="formData.to" placeholder="To" required
+          #toInput="ngModel">
+        <br>
+        <br>
+        <div *ngIf="toInput.invalid && toInput.touched" class="error-message">
           To Location is required
         </div>
       </div>
 
-      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.flightNumber }">
+      <div class="input-content">
         <div class="icon">
           <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
             <i class="fa-solid fa-plane-departure"></i>
           </label>
         </div>
-        <input type="text" name="flightNumber" [(ngModel)]="formData.flightNumber" placeholder="Flight Number" required #flightNumberInput="ngModel">
-
+        <input type="text" name="flightNumber" [(ngModel)]="formData.flightNumber" placeholder="Flight Number"
+          #flightNumberInput="ngModel">
+        <!--
        <br> <div *ngIf="flightNumberInput.invalid && flightNumberInput.touched" class="error-message">
           Flight Number is required
-        </div>
+        </div> -->
       </div>
 
       <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.phoneNumber }">
@@ -92,25 +98,15 @@
         </div>
         <div class="border-bottom-1 border-black">
           <div class="d-flex ms-2 position-relative">
-            <ngx-intl-tel-input
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
-              [searchCountryFlag]="true"
-              [separateDialCode]="true"
-              [selectFirstCountry]="true"
-              [maxLength]="20"
-              name="phoneNumber"
-              [phoneValidation]="false"
-              [customPlaceholder]="'Enter phone number'"
-              [preferredCountries]="['de']"
-              [(ngModel)]="formData.phoneNumber"
-              class="custom-tel-input"
-              required
-              #phoneNumberInput="ngModel"
-            ></ngx-intl-tel-input>
+            <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
+              [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
+              [(ngModel)]="formData.phoneNumber" class="custom-tel-input" required
+              #phoneNumberInput="ngModel"></ngx-intl-tel-input>
           </div>
         </div>
-       <br> <div *ngIf="phoneNumberInput.invalid && phoneNumberInput.touched" class="error-message">
+        <br>
+        <div *ngIf="phoneNumberInput.invalid && phoneNumberInput.touched" class="error-message">
           Phone Number is required
         </div>
       </div>
@@ -121,7 +117,8 @@
             <i class="fa-solid fa-calendar-days"></i>
           </label>
         </div>
-        <input type="date" name="date" [(ngModel)]="formData.date" [value]="formData.date" required #dateInput="ngModel">
+        <input type="date" name="date" [(ngModel)]="formData.date" [value]="formData.date" required
+          #dateInput="ngModel">
 
         <div *ngIf="dateInput.invalid && dateInput.touched" class="error-message">
           Date is required
@@ -136,7 +133,8 @@
         </div>
         <div id="datepickerWrapperFromOne" class="u-datepicker">
           <label class="ms-2">Pickup time</label>
-          <input [ngxTimepicker]="picker" class="form-control time-input" name="pickuptime" [(ngModel)]="formData.pickuptime" [value]="formData.pickuptime" required #pickuptimeInput="ngModel">
+          <input [ngxTimepicker]="picker" class="form-control time-input" name="pickuptime"
+            [(ngModel)]="formData.pickuptime" [value]="formData.pickuptime" required #pickuptimeInput="ngModel">
           <ngx-material-timepicker #picker></ngx-material-timepicker>
         </div>
         <div *ngIf="pickuptimeInput.invalid && pickuptimeInput.touched" class="error-message">
@@ -241,7 +239,8 @@
         <label>
           Special Requirements
         </label>
-        <textarea class="form-control" name="specialRequirements" [(ngModel)]="formData.specialRequirements" rows="8" ></textarea>
+        <textarea class="form-control" name="specialRequirements" [(ngModel)]="formData.specialRequirements"
+          rows="8"></textarea>
       </div>
 
     </div>
@@ -250,7 +249,7 @@
       <button type="button" (click)="previousStep()">Cancel</button>
       <button type="submit">Book Now</button>
     </div>
-</form>
+  </form>
 
 
 

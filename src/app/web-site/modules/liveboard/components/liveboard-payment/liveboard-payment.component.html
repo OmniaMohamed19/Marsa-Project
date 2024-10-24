@@ -460,49 +460,38 @@
               Your Card Information
             </h5>
             <!-- Nav Classic -->
-            <ul
-              class="nav nav-classic nav-choose border-0 nav-justified border mx-n3"
-              role="tablist"
-            >
-            <li class="nav-item mx-3">
-              <a
-                class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
-                id="pills-one-example2-tab"
-                [class.active]="isActiveTab('pills-one-example2')"
-                (click)="toggleTab('pills-one-example2', 'cash')"
-              >
-                <div
-                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+            <ul class="nav nav-classic nav-choose border-0 nav-justified border mx-n3 flex-column flex-md-row" role="tablist">
+              <li class="nav-item w-100 mb-2 mb-md-0">
+                <a
+                  class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                  id="pills-one-example2-tab"
+                  [class.active]="isActiveTab('pills-one-example2')"
+                  (click)="toggleTab('pills-one-example2', 'cash')"
                 >
-                  <i class="fa fa-check text-white font-size-15"></i>
-                </div>
-                <div
-                  class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                >
-                  <img
-                    class="img-fluid mb-3"
-                    src="../../../../../../assets/custom/Activity/banknotes.png"
-                    alt="Image Description"
-                  />
-                  <div class="w-100 text-dark">Book now Cash</div>
-                </div>
-              </a>
-            </li>
-              <li class="nav-item mx-3 mb-4 mb-md-0">
+                  <div class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
+                    <i class="fa fa-check text-white font-size-15"></i>
+                  </div>
+                  <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+                    <img
+                      class="img-fluid mb-3"
+                      src="../../../../../../assets/custom/Activity/banknotes.png"
+                      alt="Image Description"
+                    />
+                    <div class="w-100 text-dark">Book now Cash</div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item  w-100 mb-md-0">
                 <a
                   class="rounded py-5 border-width-2 border nav-link font-weight-medium"
-                  id="pills-one-example2-tab"
+                  id="pills-two-example2-tab"
                   [class.active]="isActiveTab('pills-two-example2')"
                   (click)="toggleTab('pills-two-example2', 'card')"
                 >
-                  <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                  >
+                  <div class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
                     <i class="fa fa-check text-white font-size-15"></i>
                   </div>
-                  <div
-                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                  >
+                  <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                     <img
                       class="img-fluid mb-3"
                       src="../../../../../../assets/custom/Activity/payment.png"
@@ -512,8 +501,8 @@
                   </div>
                 </a>
               </li>
-
             </ul>
+
             <!-- End Nav Classic -->
             <div class="tab-content">
               <div
@@ -529,8 +518,8 @@
                 <form class="js-validate" novalidate="novalidate">
                   <div class="row">
                     <!-- Input -->
-                    <div class="col-sm-6 mb-4">
-                      <!-- <div class="js-form-message">
+                    <!-- <div class="col-sm-6 mb-4">
+                      <div class="js-form-message">
                         <label class="form-label"> Card Holder Name </label>
                         <input
                           type="text"
@@ -540,13 +529,13 @@
                           aria-label=""
                           required=""
                         />
-                      </div> -->
-                    </div>
+                      </div>
+                    </div> -->
                     <!-- End Input -->
 
                     <!-- Input -->
-                    <div class="col-sm-6 mb-4">
-                      <!-- <div class="js-form-message">
+                    <!-- <div class="col-sm-6 mb-4">
+                      <div class="js-form-message">
                         <label class="form-label"> Card Number </label>
 
                         <input
@@ -557,17 +546,17 @@
                           aria-label=""
                           required=""
                         />
-                      </div> -->
-                    </div>
+                      </div>
+                    </div> -->
                     <!-- End Input -->
 
-                    <div class="w-100"></div>
+                    <!-- <div class="w-100"></div> -->
 
                     <!-- Input -->
-                    <div class="col-sm-6 mb-4">
+                    <!-- <div class="col-sm-6 mb-4">
                       <div class="row">
                         <div class="col-sm-6 mb-4 mb-md-0">
-                          <!-- <div class="js-form-message">
+                          <div class="js-form-message">
                             <label class="form-label"> Expiry Month </label>
 
                             <input
@@ -578,10 +567,10 @@
                               aria-label=""
                               required=""
                             />
-                          </div> -->
+                          </div>
                         </div>
                         <div class="col-sm-6">
-                          <!-- <div class="js-form-message">
+                          <div class="js-form-message">
                             <label class="form-label"> Expiry Year </label>
 
                             <input
@@ -592,15 +581,15 @@
                               aria-label=""
                               required=""
                             />
-                          </div> -->
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <!-- End Input -->
 
                     <!-- Input -->
-                    <div class="col-sm-6 mb-4">
-                      <!-- <div class="js-form-message">
+                    <!-- <div class="col-sm-6 mb-4">
+                      <div class="js-form-message">
                         <label class="form-label"> CCV </label>
 
                         <input
@@ -611,11 +600,11 @@
                           aria-label=""
                           required=""
                         />
-                      </div> -->
-                    </div>
+                      </div>
+                    </div> -->
                     <!-- End Input -->
 
-                    <div class="w-100"></div>
+                    <!-- <div class="w-100"></div> -->
 
                     <div class="col">
                       <!-- Checkbox -->
@@ -1014,7 +1003,7 @@
                       <span class="font-weighted">Total</span>
                       <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
                     </li> -->
-                    
+
                     <ng-container *ngIf="Coupons && Coupons[0]; else elseTemplate2">
                       <li
                       *ngIf="Coupons && Coupons[0]"
@@ -1042,7 +1031,7 @@
                       <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
                     </li>
                     </ng-template>
-                    
+
                   </ul>
                 </ng-container>
                 <!-- End Fact List -->
