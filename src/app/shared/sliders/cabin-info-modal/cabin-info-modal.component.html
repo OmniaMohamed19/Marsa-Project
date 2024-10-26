@@ -13,7 +13,7 @@
                 <owl-carousel-o [options]="imagesOptions" class="my-tours w-100">
                     <ng-container *ngFor="let img of images" class="w-100">
                         <ng-template carouselSlide class="w-100">
-                            <img [src]="img" alt="item" loading="lazy" class="pe-3" />
+                            <img [src]="img" style="max-height: 400px;" alt="item" loading="lazy" class="pe-3" />
                         </ng-template>
                     </ng-container>
                 </owl-carousel-o>

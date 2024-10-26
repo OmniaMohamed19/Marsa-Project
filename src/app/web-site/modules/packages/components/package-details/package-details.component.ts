@@ -241,6 +241,21 @@ export class PackageDetailsComponent {
     if (this.adults < this.getMaxValue('adultsMax')) {
       this.adults++;
     }
+    else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+          'adultsMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
   }
 
   // Decrement the number of adults
@@ -254,6 +269,21 @@ export class PackageDetailsComponent {
     if (this.children < this.getMaxValue('childrenMax')) {
       this.children++;
     }
+    else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+          'childrenMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
   }
 
   decrementChildren() {
@@ -265,6 +295,20 @@ export class PackageDetailsComponent {
   incrementInfant() {
     if (this.infant < this.getMaxValue('infantsMax')) {
       this.infant++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+          'infantsMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
 

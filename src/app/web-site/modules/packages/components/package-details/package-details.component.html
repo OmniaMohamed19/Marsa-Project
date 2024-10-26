@@ -279,7 +279,7 @@
           ></ul>
         </div>
         <div class="d-flex gap-5 mt-5">
-          <div class="row">
+          <div class="row w-100">
             <div class="col-md-6 col-sm-12 d-flex gap-5">
               <h6>Includes</h6>
               <ul
@@ -309,36 +309,28 @@
                 </li>
               </ul>
             </div>
-            <div class="col-md-6 col-sm-12 d-flex gap-5">
-              <h6>Excludes</h6>
+            <!-- offset-md-1 -->
+            <div class="col-md-6 dirction col-sm-12 d-flex gap-5">
+              <div class="">
+                <h6 class="fw-bold">Excludes</h6>
+              </div>
+
               <ul
                 class="list-group list-group-borderless list-group-flush no-gutters"
               >
                 <li
-                  class="mb-3 text-gray-1"
+                  class="mb-3 text-gray-1 d-flex align-items-center"
                   *ngFor="let exclude of rows?.Excludes"
                 >
-                  <span
-                    class="d-inline-flex justify-content-center align-items-center me-2"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="17"
-                      height="15"
-                      viewBox="0 0 17 15"
-                      fill="none"
-                    >
-                      <path
-                        d="M3.96627 2.00014C3.82128 2.00014 3.67612 2.04887 3.56562 2.14663L2.43229 3.14663C2.21072 3.34213 2.21072 3.65866 2.43229 3.85366L6.56497 7.50014L2.43229 11.1466C2.21072 11.3421 2.21072 11.6587 2.43229 11.8537L3.56562 12.8537C3.78719 13.0492 4.14592 13.0492 4.36692 12.8537L8.49961 9.20717L12.6323 12.8537C12.8533 13.0492 13.2126 13.0492 13.4336 12.8537L14.5669 11.8537C14.7885 11.6582 14.7885 11.3416 14.5669 11.1466L10.4342 7.50014L14.5669 3.85366C14.7885 3.65866 14.7885 3.34162 14.5669 3.14663L13.4336 2.14663C13.212 1.95112 12.8533 1.95112 12.6323 2.14663L8.49961 5.79311L4.36692 2.14663C4.25614 2.04887 4.11127 2.00014 3.96627 2.00014Z"
-                        fill="#FF681A"
-                      />
-                    </svg>
-                  </span>
+                  <i
+                    class="fa fa-times fs-4 mr-3 font-size-8"
+                    style="color: #ff681a"
+                  ></i>
 
-                  {{ exclude.title }}
-                  <span class="font-size-9 d-inline-block">
+                  <span class="font-size-9 d-inline-block" *ngIf="exclude?.price > 0">
                     {{ exclude.title }} <br />
-                    ( {{ exclude?.price }} $ per person : {{ exclude?.option }})
+                    ( {{ exclude?.price }} $ per person :
+                    {{ exclude?.option }})
                   </span>
                 </li>
               </ul>
