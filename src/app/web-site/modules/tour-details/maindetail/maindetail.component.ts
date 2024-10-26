@@ -168,25 +168,25 @@ export class MaindetailComponent implements OnInit {
   addtoFavorits(btn: any, event: any, tripId: number) {
     if (btn.classList.contains('bg-primary')) {
     } else {
-    
+
       this.httpService
         .post(environment.marsa, 'Wishlist/add', {
           trip_id: tripId,
         })
         .subscribe({
           next: (res: any) => {
-           
-            btn.classList.add('bg-primary');
-            event.target.classList.add('text-white');
-            event.target.classList.remove('text-dark');
-            
+
+           // btn.classList.add('bg-primary');
+            event.target.classList.add('text-danger');
+            event.target.classList.remove('text-black-50');
+
           }
         });
     }
   }
-  
 
- 
+
+
 
   showMore(): void {
     this.loading = true;
