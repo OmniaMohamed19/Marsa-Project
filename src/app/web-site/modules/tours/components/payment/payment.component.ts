@@ -78,6 +78,12 @@ export class PaymentComponent {
       const trip_id = params['tripId'];
       this.tripId = trip_id;
       this.avilableOptions = parsedRes;
+
+      console.log(this.avilableOptions);
+      const addetionalCost = this.avilableOptions?.AddetionalCost;
+// const exclude = addetionalCost?.Exclude;
+      console.log(addetionalCost);
+      
       this.Total=this.avilableOptions?.TotlaPrice;
       this.booking_date = params['booking_date'];
       this.class = params['class'];
