@@ -35,7 +35,7 @@ export class ConfirmPaymentComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.relatedtrips = res.Relatedtrips;
-
+        console.log(res);
       });
   }
 

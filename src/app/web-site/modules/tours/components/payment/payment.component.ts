@@ -78,6 +78,12 @@ export class PaymentComponent {
       const trip_id = params['tripId'];
       this.tripId = trip_id;
       this.avilableOptions = parsedRes;
+
+      console.log(this.avilableOptions);
+      const addetionalCost = this.avilableOptions?.AddetionalCost;
+// const exclude = addetionalCost?.Exclude;
+      console.log(addetionalCost);
+      
       this.Total=this.avilableOptions?.TotlaPrice;
       this.booking_date = params['booking_date'];
       this.class = params['class'];
@@ -132,8 +138,8 @@ export class PaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',[Validators.required]],
-      locationValue: [''],
+      pickup_point: ['',this.showServices?Validators.required:''],
+      locationValue: ['',this.showServices?Validators.required:''],
     });
   }
 
@@ -211,6 +217,8 @@ export class PaymentComponent {
       .subscribe({
         next: (res: any) => {
           this.responseFromAvailableOption = res;
+          console.log(res);
+          
         },
       });
   }
@@ -299,9 +307,7 @@ export class PaymentComponent {
             window.location.href = res.link;
           } else {
             Swal.fire(
-              'Booking Confirmed',
-              'Your request has been sent successfully. Please check your email for further instructions.',
-              'success'
+              res?.Bookinginstraction
             );
           }
         },
@@ -391,9 +397,7 @@ export class PaymentComponent {
               { queryParams }
             );
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
-              'success'
+              res?.Bookinginstraction
             );
           }
         },

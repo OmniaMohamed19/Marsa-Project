@@ -262,7 +262,7 @@
                     </div>
                   </div>
                   <!-- Input -->
-                  <ng-container *ngIf="showServices" class="mb-2">
+                  <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Pick up Location </label>
@@ -276,10 +276,20 @@
                           formControlName="locationValue"
                           readonly
                         />
+                        <div
+                        *ngIf="
+                          customerForm.get('locationValue')?.invalid &&
+                          (customerForm.get('locationValue')?.dirty ||
+                            customerForm.get('locationValue')?.touched)
+                        "
+                        class="alert alert-danger my-2"
+                      >
+                      Pick up Location is required
+                      </div>
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
-                      <label class="form-label"> Pick up Place </label>
+                      <label class="form-label"> Name your place </label>
                       <input
                         type="text"
                         class="form-control"
@@ -298,7 +308,14 @@
                       Pick up Place is required
                       </div>
                   </ng-container>
-                  <ng-container *ngIf="!showServices" class="mb-2">
+                <ng-template #elseTemplate>
+                  <div class="col-sm-6 mb-4">
+                    <div class="js-form-message">
+                      <label class="form-label"><p>You must choose location before 24 hours</p></label>
+                    </div>
+                  </div>
+                </ng-template>
+                  <!-- <ng-container *ngIf="showServices" class="mb-2">
                     <div class="col-sm-6 mb-4">
                       <label class="form-label"> Pick up Place </label>
                       <input
@@ -319,7 +336,7 @@
                       Pick up Place is required
                       </div>
                     <p>You must choose location before 24 hours</p>
-                  </ng-container>
+                  </ng-container> -->
                   <!-- End Input -->
                   <div class="w-100"></div>
                   <!-- Input -->
@@ -418,7 +435,7 @@
               <!-- End Nav Classic -->
               <div class="tab-content">
                 <div
-                  class="tab-pane fade pt-8 show active"
+                  class="tab-pane fade  show active"
                   id="pills-two-example2"
                   role="tabpanel"
                   aria-labelledby="pills-two-example2-tab"
@@ -491,7 +508,7 @@
                         </div> -->
                       </div>
 
-                      <div class="col-sm-6 mb-4">
+                      <!-- <div class="col-sm-6 mb-4"> -->
                         <!-- <div class="js-form-message">
                           <label class="form-label"> CCV </label>
 
@@ -504,15 +521,15 @@
                             required=""
                           />
                         </div> -->
-                      </div>
+                      <!-- </div> -->
 
 
                       <div class="w-100"></div>
 
                       <div class="col">
 
-                        <div class="js-form-message mb-5">
-                          <div
+                      <div class="col-sm-12 mb-4"[innerHTML]="avilableOptions?.Bookingpayment">
+                          <!-- <div
                             class="custom-control custom-checkbox d-flex align-items-center text-muted"
                           >
                             <input
@@ -536,7 +553,7 @@
                                 >
                               </small>
                             </label>
-                          </div>
+                          </div> -->
                         </div>
                         <a
                         href="#"
@@ -561,8 +578,8 @@
                 >
                   <form class="js-validate" novalidate="novalidate">
                     <div class="row">
-                      <div class="col-sm-12 mb-4">
-                        <img
+                      <div class="col-sm-12 mb-4" [innerHTML]="avilableOptions.Bookingpayment">
+                        <!-- <img
                           src="assets/icons/mdi_information-outline.svg"
                           alt=""
                         />
@@ -584,8 +601,8 @@
                           de Milo. Discover masterpieces of the Renaissance and
                           ancient Egyptian relics, along with paintings from the
                           13th to 20th centuries,
-                        </p>
-                      </div>
+                        </p>-->
+                      </div> 
                       <a
                         (click)="confirmBooking()"
                         class="btn payment text-white w-100 py-3"
@@ -678,7 +695,7 @@
                     >
                       {{ class }}
                     </h4>
-                    <li class="d-flex justify-content-between py-2">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalAdult!=='0$'">
                       <span class="font-weight-medium">Adult </span>
                       <span class="text-secondary">
                         {{ avilableOptions?.Adult }}</span
@@ -688,7 +705,7 @@
                       }}</span>
                       <!-- <span class="text-secondary"> </span> -->
                     </li>
-                    <li class="d-flex justify-content-between py-2">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalChildern!=='0$'">
                       <span class="font-weight-medium">Children </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Childern
@@ -697,7 +714,7 @@
                         avilableOptions?.TotalChildern
                       }}</span>
                     </li>
-                    <li class="d-flex justify-content-between py-2">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalInfant!=='0$'">
                       <span class="font-weight-medium">Infant </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Infant

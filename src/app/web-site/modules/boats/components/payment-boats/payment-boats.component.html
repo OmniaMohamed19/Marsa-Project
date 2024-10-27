@@ -169,7 +169,7 @@
             <li class="pt-2">From hotel to the marine</li>
           </ul>
           <!-- Input -->
-          <ng-container *ngIf="showServices" class="mb-2">
+          <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
             <div class="col-sm-6 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Pick up Location </label>
@@ -183,10 +183,20 @@
                   formControlName="locationValue"
                   readonly
                 />
+                <div
+                *ngIf="
+                  customerForm.get('locationValue')?.invalid &&
+                  (customerForm.get('locationValue')?.dirty ||
+                    customerForm.get('locationValue')?.touched)
+                "
+                class="alert alert-danger my-2"
+              >
+              Pick up Location is required
+              </div>
               </div>
             </div>
             <div class="col-sm-6 mb-4">
-              <label class="form-label"> Pick up Place </label>
+              <label class="form-label"> Name your place </label>
               <input
                 type="text"
                 class="form-control"
@@ -205,30 +215,14 @@
               Pick up Place is required
               </div>
           </ng-container>
-          
         </ng-container>
-        <ng-container *ngIf="!showServices" class="mb-2">
+        <ng-template #elseTemplate>
           <div class="col-sm-6 mb-4">
-            <label class="form-label"> Pick up Place </label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="pickup_point"
-              placeholder="Enter Pick up Place"
-            />
-          </div>
-          <div
-              *ngIf="
-                customerForm.get('pickup_point')?.invalid &&
-                (customerForm.get('pickup_point')?.dirty ||
-                  customerForm.get('pickup_point')?.touched)
-              "
-              class="alert alert-danger my-2"
-            >
-            Pick up Place is required
+            <div class="js-form-message">
+              <label class="form-label"><p>You must choose location before 24 hours</p></label>
             </div>
-          <p>You must choose location before 24 hours</p>
-        </ng-container>
+          </div>
+        </ng-template>
         <!-- End Input -->
         <div class="w-100"></div>
         <!-- Input -->

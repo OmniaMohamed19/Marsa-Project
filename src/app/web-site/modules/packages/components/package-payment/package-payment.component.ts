@@ -101,8 +101,8 @@ export class PackagePaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',[Validators.required]],
-      // locationValue: [''],
+      pickup_point: ['',this.showServices?Validators.required:''],
+      locationValue: ['',this.showServices?Validators.required:''],
     })
   }
 
