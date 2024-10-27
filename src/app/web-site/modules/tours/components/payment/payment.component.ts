@@ -138,8 +138,8 @@ export class PaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: [''],
-      locationValue: [''],
+      pickup_point: ['',this.showServices?Validators.required:''],
+      locationValue: ['',this.showServices?Validators.required:''],
     });
   }
 

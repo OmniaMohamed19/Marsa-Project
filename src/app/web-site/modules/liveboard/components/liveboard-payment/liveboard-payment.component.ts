@@ -107,8 +107,8 @@ export class LiveboardPaymentComponent implements OnInit {
       phone: ['', [Validators.required]],
       // nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['', [Validators.required]],
-      locationValue: [''],
+      pickup_point: ['',this.showServices?Validators.required:''],
+      locationValue: ['',this.showServices?Validators.required:''],
     });
   }
 

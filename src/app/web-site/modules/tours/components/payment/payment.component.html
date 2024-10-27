@@ -276,6 +276,16 @@
                           formControlName="locationValue"
                           readonly
                         />
+                        <div
+                        *ngIf="
+                          customerForm.get('locationValue')?.invalid &&
+                          (customerForm.get('locationValue')?.dirty ||
+                            customerForm.get('locationValue')?.touched)
+                        "
+                        class="alert alert-danger my-2"
+                      >
+                      Pick up Location is required
+                      </div>
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
@@ -518,7 +528,7 @@
 
                       <div class="col">
 
-                      <div class="col-sm-12 mb-4"[innerHTML]="avilableOptions[1]?.Bookingpayment">
+                      <div class="col-sm-12 mb-4"[innerHTML]="avilableOptions?.Bookingpayment">
                           <!-- <div
                             class="custom-control custom-checkbox d-flex align-items-center text-muted"
                           >
@@ -568,7 +578,7 @@
                 >
                   <form class="js-validate" novalidate="novalidate">
                     <div class="row">
-                      <div class="col-sm-12 mb-4" [innerHTML]="avilableOptions[1]?.Bookingpayment">
+                      <div class="col-sm-12 mb-4" [innerHTML]="avilableOptions.Bookingpayment">
                         <!-- <img
                           src="assets/icons/mdi_information-outline.svg"
                           alt=""
@@ -878,10 +888,10 @@
 
                       <li class="d-flex justify-content-between py-2">
                         <span class="font-weight-medium">{{
-                          avilableOptions[0]?.AddetionalCost[0]?.Exclude
+                          avilableOptions?.AddetionalCost[0]?.Exclude
                         }}</span>
                         <span class="text-secondary">{{
-                          avilableOptions[0]?.AddetionalCost[0]?.Total
+                          avilableOptions?.AddetionalCost[0]?.Total
                         }}</span>
                       </li>
 

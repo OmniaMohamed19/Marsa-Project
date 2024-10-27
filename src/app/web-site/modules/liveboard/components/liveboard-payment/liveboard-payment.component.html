@@ -351,7 +351,7 @@
                     </label>
                   </div>
                 </div>
-                <ng-container *ngIf="showServices" class="mb-2">
+                <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
                   <div class="col-sm-6 mb-4">
                     <div class="js-form-message">
                       <label class="form-label"> Pick up Location </label>
@@ -365,10 +365,20 @@
                         formControlName="locationValue"
                         readonly
                       />
+                      <div
+                      *ngIf="
+                        customerForm.get('locationValue')?.invalid &&
+                        (customerForm.get('locationValue')?.dirty ||
+                          customerForm.get('locationValue')?.touched)
+                      "
+                      class="alert alert-danger my-2"
+                    >
+                    Pick up Location is required
+                    </div>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-4">
-                    <label class="form-label"> Pick up Place </label>
+                    <label class="form-label"> Name your place </label>
                     <input
                       type="text"
                       class="form-control"
@@ -377,38 +387,23 @@
                     />
                   </div>
                   <div
-                    *ngIf="
-                      customerForm.get('pickup_point')?.invalid &&
-                      (customerForm.get('pickup_point')?.dirty ||
-                        customerForm.get('pickup_point')?.touched)
-                    "
-                    class="alert alert-danger my-2"
-                  >
+                      *ngIf="
+                        customerForm.get('pickup_point')?.invalid &&
+                        (customerForm.get('pickup_point')?.dirty ||
+                          customerForm.get('pickup_point')?.touched)
+                      "
+                      class="alert alert-danger my-2"
+                    >
                     Pick up Place is required
-                  </div>
+                    </div>
                 </ng-container>
-                <ng-container *ngIf="!showServices" class="mb-2">
-                  <div class="col-sm-6 mb-4">
-                    <label class="form-label"> Pick up Place </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="pickup_point"
-                      placeholder="Enter Pick up Place"
-                    />
+              <ng-template #elseTemplate>
+                <div class="col-sm-6 mb-4">
+                  <div class="js-form-message">
+                    <label class="form-label"><p>You must choose location before 24 hours</p></label>
                   </div>
-                  <div
-                    *ngIf="
-                      customerForm.get('pickup_point')?.invalid &&
-                      (customerForm.get('pickup_point')?.dirty ||
-                        customerForm.get('pickup_point')?.touched)
-                    "
-                    class="alert alert-danger my-2"
-                  >
-                    Pick up Place is required
-                  </div>
-                  <p>You must choose location before 24 hours</p>
-                </ng-container>
+                </div>
+              </ng-template>
                 <div class="w-100"></div>
                 <!-- Input -->
                 <div class="col-sm-12 mb-4">
@@ -622,8 +617,9 @@
                       <div class="js-form-message mb-5">
                         <div
                           class="custom-control custom-checkbox d-flex align-items-center text-muted"
+                          [innerHTML]="liveabourdData?.Bookingpayment"
                         >
-                          <input
+                          <!-- <input
                             type="checkbox"
                             class="custom-control-input"
                             id="termsCheckbox"
@@ -643,7 +639,7 @@
                                 >Terms and Conditions</a
                               >
                             </small>
-                          </label>
+                          </label> -->
                         </div>
                       </div>
                       <!-- End Checkbox -->
@@ -672,8 +668,8 @@
                   <!-- Login form content goes here -->
                   <div class="row">
                     <!-- Input -->
-                    <div class="col-sm-12 mb-4">
-                      <img
+                    <div class="col-sm-12 mb-4" [innerHTML]="liveabourdData?.Bookingpayment">
+                      <!-- <img
                         src="assets/icons/mdi_information-outline.svg"
                         alt=""
                       />
@@ -695,7 +691,7 @@
                         de Milo. Discover masterpieces of the Renaissance and
                         ancient Egyptian relics, along with paintings from the
                         13th to 20th centuries,
-                      </p>
+                      </p> -->
                     </div>
                     <a
                       (click)="confirmBooking()"
