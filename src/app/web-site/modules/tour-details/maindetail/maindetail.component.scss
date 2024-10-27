@@ -465,9 +465,9 @@ select.form-control {
 
 }
 .day-trip-img-content:hover{
-  opacity: 1;  /* Remove opacity when selected */
-  transform: scale(1.05); /* Slightly enlarge the selected item */
-  z-index: 1; /* Bring the selected item forward */
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 1;
   cursor: pointer;
   border-bottom: 5px solid #0db1ff;
   transform: scale(1.1);
