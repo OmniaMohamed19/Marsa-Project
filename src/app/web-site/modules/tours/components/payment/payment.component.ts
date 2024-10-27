@@ -307,9 +307,7 @@ export class PaymentComponent {
             window.location.href = res.link;
           } else {
             Swal.fire(
-              'Booking Confirmed',
-              'Your request has been sent successfully. Please check your email for further instructions.',
-              'success'
+              res?.Bookinginstraction
             );
           }
         },
@@ -399,9 +397,7 @@ export class PaymentComponent {
               { queryParams }
             );
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
-              'success'
+              res?.Bookinginstraction
             );
           }
         },
