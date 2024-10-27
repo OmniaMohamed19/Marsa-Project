@@ -262,7 +262,7 @@
                     </div>
                   </div>
                   <!-- Input -->
-                  <ng-container *ngIf="showServices" class="mb-2">
+                  <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Pick up Location </label>
@@ -279,7 +279,7 @@
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
-                      <label class="form-label"> Pick up Place </label>
+                      <label class="form-label"> Name your place </label>
                       <input
                         type="text"
                         class="form-control"
@@ -298,7 +298,14 @@
                       Pick up Place is required
                       </div>
                   </ng-container>
-                  <ng-container *ngIf="!showServices" class="mb-2">
+                <ng-template #elseTemplate>
+                  <div class="col-sm-6 mb-4">
+                    <div class="js-form-message">
+                      <label class="form-label"><p>You must choose location before 24 hours</p></label>
+                    </div>
+                  </div>
+                </ng-template>
+                  <!-- <ng-container *ngIf="showServices" class="mb-2">
                     <div class="col-sm-6 mb-4">
                       <label class="form-label"> Pick up Place </label>
                       <input
@@ -319,7 +326,7 @@
                       Pick up Place is required
                       </div>
                     <p>You must choose location before 24 hours</p>
-                  </ng-container>
+                  </ng-container> -->
                   <!-- End Input -->
                   <div class="w-100"></div>
                   <!-- Input -->
@@ -678,7 +685,7 @@
                     >
                       {{ class }}
                     </h4>
-                    <li class="d-flex justify-content-between py-2">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalAdult!=='0$'">
                       <span class="font-weight-medium">Adult </span>
                       <span class="text-secondary">
                         {{ avilableOptions?.Adult }}</span
@@ -688,7 +695,7 @@
                       }}</span>
                       <!-- <span class="text-secondary"> </span> -->
                     </li>
-                    <li class="d-flex justify-content-between py-2">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalChildern!=='0$'">
                       <span class="font-weight-medium">Children </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Childern
@@ -697,7 +704,7 @@
                         avilableOptions?.TotalChildern
                       }}</span>
                     </li>
-                    <li class="d-flex justify-content-between py-2">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalInfant!=='0$'">
                       <span class="font-weight-medium">Infant </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Infant

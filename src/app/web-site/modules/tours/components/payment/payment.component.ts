@@ -132,7 +132,7 @@ export class PaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',[Validators.required]],
+      pickup_point: [''],
       locationValue: [''],
     });
   }
@@ -211,6 +211,8 @@ export class PaymentComponent {
       .subscribe({
         next: (res: any) => {
           this.responseFromAvailableOption = res;
+          console.log(res);
+          
         },
       });
   }
