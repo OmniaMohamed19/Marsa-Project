@@ -1,16 +1,16 @@
 @import url(../../../../shared/components/cards/activity-card/activity-card.component.scss);
-.images .city-dis {
-  width: 30%;
-}
-.images .city-svg{
-  width: 60%;
-}
+// .images .city-dis {
+//   width: 30%;
+// }
+// .images .city-svg{
+//   width: 60%;
+// }
 .images {
-  // text-align: center;
-  // position: relative;
-  // height: 362.733px;
+  text-align: center;
+  position: relative;
+  height: 362.733px;
   padding-top: 1rem;
-  // margin-left: 10%;
+  margin-left: 10%;
   p:nth-of-type(1) {
     font-size: 35px;
     font-weight: bold;
@@ -31,7 +31,7 @@
   .text-container {
     position: absolute;
     left: 10%;
-    margin-top: -213px;
+    margin-top: -242px;
   }
 
   img {
@@ -219,14 +219,43 @@ h4 {
 // ::ng-deep .p-carousel-next {
 //   display: none ;
 // }
+// ::ng-deep{
+//   .p-carousel-items-content{
+//     margin-bottom: -3rem;
+//   }
+// }
+.sights-container {
+  position: relative;
+  padding-bottom: 30px; /* إضافة مساحة أسفل العنصر للسهم */
+}
+
+.carousel-arrow {
+  position: relative;
+  bottom: -4px;
+  // left: 50%; /* في منتصف العنصر أفقياً */
+  transform: translateX(-50%);
+  width: 40% !important; /* حجم السهم */
+  height:40% !important;
+  // opacity: 0; /* إخفاء السهم في البداية */
+  transition: opacity 0.3s ease-in-out;
+  z-index: 10;
+}
+
+/* إظهار السهم عند العنصر النشط أو عند التفاعل */
+.sights-container:hover .carousel-arrow,
+.sights-container.active .carousel-arrow {
+  opacity: 1;
+}
+
+
 
 /*******************sights******************************/
 #sights {
   margin-top: 64px;
 
-  img {
-    width: 100%;
-  }
+  // img {
+  //   width: 100%;
+  // }
 
   .sights-p {
     color: var(--d-9-d-9-d-9, #000);
@@ -263,16 +292,13 @@ h4 {
       left: 5px;
     }
   }
-
-.sights-img {
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.2);
-      border-radius: 8px;
-    }
-  }
 }
+// .sights-container:hover .sights-img {
+
+//   transform: scale(1.2);
+
+// }
+
 
 
 #sights .sights-span {
@@ -466,10 +492,16 @@ select.form-control {
   }
 }
 @media screen and (max-width: 768px) {
-  // .mobile-hide-image {
-  //   display: none;
-  // }
-
+ .images{
+  height: 200px;
+  img {
+    display: none;
+   }
+   .text-container {
+    left: 0;
+    margin-top: 1rem;
+  }
+ }
   .content {
     margin-top: 0;
   }
@@ -493,6 +525,7 @@ select.form-control {
 }
 
 @media screen and (min-width: 992px) {
+
   h4 {
     font-family: Lato;
     font-size: 30px;
@@ -558,20 +591,21 @@ select.form-control {
 
     .text-container {
       left: 0;
-      margin-top: -128px;
+      margin-top: 1rem;
     }
 
-    img {
-      width: 250px;
-      padding-top: 39px;
-    }
+
+      img {
+        display: none;
+       }
+
 
     P:nth-of-type(2) {
-      font-size: 30px;
+      font-size: 35px;
     }
 
     P:nth-of-type(1) {
-      font-size: 20px;
+      font-size: 26px;
       margin-bottom: 0;
     }
   }
@@ -600,20 +634,21 @@ select.form-control {
 
     .text-container {
       left: 4%;
-      margin-top: -173px;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      // margin: inherit;
     }
 
     img {
-      width: 360px;
-      padding-top: 39px;
+    display: none;
     }
 
     P:nth-of-type(2) {
-      font-size: 25px;
+      font-size: 35px;
     }
 
     P:nth-of-type(1) {
-      font-size: 20px;
+      font-size: 26px;
       margin-bottom: 0;
     }
   }
@@ -646,18 +681,16 @@ select.form-control {
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
 
-  // .mobile-hide-image {
-  //   display: none;
-  // }
+
   .images {
     .text-container {
       left: 0%;
+      margin-top: -11rem;
     }
 
-    img {
-      width: 500px;
-      padding-top: 39px;
-    }
+    // img {
+    //  display: none;
+    // }
   }
 
   h4 {
@@ -719,16 +752,13 @@ select.form-control {
 }
 
 @media screen and (max-width: 1200px) {
-  .images .city-dis {
-    width: 100%;
-    margin-bottom: 2rem;
-  }
+
   .desktop-svg {
     display: none;
     width: 0%;
   }
 .images{
-  height: auto;
+  height: 200px
 }
   .content {
     margin-top: 10px;
