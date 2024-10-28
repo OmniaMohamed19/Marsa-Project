@@ -21,7 +21,7 @@ export class PaymentBoatsComponent {
   data: any;
   userData: any;
   customerForm!: FormGroup;
-  showServices: boolean = false;
+  showServices: boolean = true;
   filteredNationalities: Observable<Code[]> | undefined;
 
   nationalities!: Code[];
