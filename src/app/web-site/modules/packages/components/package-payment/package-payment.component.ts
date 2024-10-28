@@ -101,8 +101,8 @@ export class PackagePaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',this.showServices?Validators.required:''],
-      locationValue: ['',this.showServices?Validators.required:''],
+      pickup_point: ['',!this.showServices?[Validators.required]:[]],
+      locationValue: [''],
     })
   }
 
@@ -120,12 +120,27 @@ export class PackagePaymentComponent {
 
 
   goToPayment(stepper: MatStepper) {
-    if (this.customerForm.valid) {
-      stepper.next();
-    } else {
-      this.markFormGroupTouched(this.customerForm);
+    console.log(this.customerForm.valid);
+
+    if (!this.showServices) {
+        this.locationValue = "ddd";
     }
-  }
+
+    // Update pickup_point validator based on showServices
+    if (this.showServices) {
+        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+    } else {
+        this.customerForm.get('pickup_point')?.clearValidators();
+        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
+
+    // Adjusted conditional to handle TypeScript's type checking
+    if (this.customerForm.valid && (this.locationValue && ( this.locationValue != ''))) {
+        stepper.next();
+    } else {
+        this.markFormGroupTouched(this.customerForm);
+    }
+}
 
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -192,7 +207,7 @@ export class PackagePaymentComponent {
             window.location.href = res.link; 
           } else {
             Swal.fire(
-              'Booking Confirmed',
+              'Your request has been send successfully',
               'Your request has been sent successfully. Please check your email for further instructions.',
               'success'
             );

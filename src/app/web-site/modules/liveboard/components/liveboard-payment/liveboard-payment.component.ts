@@ -107,7 +107,7 @@ export class LiveboardPaymentComponent implements OnInit {
       phone: ['', [Validators.required]],
       // nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',this.showServices?Validators.required:''],
+      pickup_point: ['',!this.showServices?[Validators.required]:[]],
       locationValue: ['',this.showServices?Validators.required:''],
     });
   }
@@ -129,26 +129,27 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   goToPayment(stepper: MatStepper) {
-    if (this.customerForm.valid) {
-      // Your logic to navigate to the next step
-      stepper.next();
-    } else {
-      console.log('Form is invalid!');
-      // Log the invalid controls
-      this.customerForm.markAllAsTouched(); // Mark all controls as touched
-      for (const controlName in this.customerForm.controls) {
-        if (this.customerForm.controls[controlName].invalid) {
-          console.log(
-            `Control '${controlName}' is invalid:`,
-            this.customerForm.controls[controlName].errors
-          );
-        }
-      }
+    console.log(this.customerForm.valid);
 
-      // Mark all form controls as touched to trigger validation messages
-      this.markFormGroupTouched(this.customerForm);
+    if (!this.showServices) {
+        this.locationValue = "ddd";
     }
-  }
+
+    // Update pickup_point validator based on showServices
+    if (this.showServices) {
+        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+    } else {
+        this.customerForm.get('pickup_point')?.clearValidators();
+        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
+
+    // Adjusted conditional to handle TypeScript's type checking
+    if (this.customerForm.valid && (this.locationValue && ( this.locationValue != ''))) {
+        stepper.next();
+    } else {
+        this.markFormGroupTouched(this.customerForm);
+    }
+}
 
   // markFormGroupTouched(formGroup: FormGroup) {
   //   Object.values(formGroup.controls).forEach(control => {
@@ -315,7 +316,7 @@ export class LiveboardPaymentComponent implements OnInit {
                 { queryParams }
               );
               Swal.fire(
-                'Your request has been sent successfully.',
+                'Your request has been send successfully.',
                 'The Liveaboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
                 'success'
               );
