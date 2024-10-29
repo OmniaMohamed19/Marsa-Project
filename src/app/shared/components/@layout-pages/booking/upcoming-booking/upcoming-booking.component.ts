@@ -52,9 +52,10 @@ export class UpcomingBookingComponent {
       this.tabs[2].category='Private Boats'
 
       // console.log(this.tabs);
-      
-      this.upcoming = res?.userDashboard?.upcomming?.data;
-      console.log(this.upcoming);
+
+      this.upcoming = res?.userDashboard?.upcomming;
+
+      console.log(res);
       this.allUpcoming = this.upcoming;
     });
   }

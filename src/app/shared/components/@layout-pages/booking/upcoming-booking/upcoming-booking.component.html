@@ -26,7 +26,7 @@
         <div class="col-lg-9">
           <section>
             <!------#1 First card------------------------>
-            <div *ngIf="this.upcoming.length > 0">
+            <div *ngIf="this.upcoming.length != 0">
               <div *ngFor="let trip of upcoming" class="d-flex place-card">
                 <section class="first-place">
                   <div class="position-relative img-content">
@@ -67,11 +67,11 @@
                       <div class="d-flex city">
                         <h5 class="mb-0">{{ trip?.trip }}</h5>
                         <span>
-                          <span class="mb-2 d-inline-block">
+                          <span class=" d-inline-block">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="19"
+                              width="22"
+                              height="22"
                               viewBox="0 0 16 19"
                               fill="none"
                             >
@@ -81,7 +81,7 @@
                               />
                             </svg>
                           </span>
-                          <span class="place-name"> Hurghada </span>
+                          <span class="place-name"> {{ trip?.Place}} </span>
                         </span>
                       </div>
 
@@ -120,14 +120,14 @@
                           <span>{{ trip?.adult }} Adult (+18)</span>
 
                         </li>
-                        <li>
+                        <li *ngIf="trip?.childern > 0">
                           <span>
                             <img
                               src="../../../../../assets/images/profile-2user.svg"
                             />
                           </span>
 
-                          <span *ngIf="trip?.childern > 0"> {{ trip?.childern }} Children (5-10) </span>
+                          <span > {{ trip?.childern }} Children (5-10) </span>
                         </li>
                         <li>
                           <span>
