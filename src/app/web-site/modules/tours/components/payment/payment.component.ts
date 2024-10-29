@@ -138,8 +138,8 @@ export class PaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',this.showServices?Validators.required:''],
-      locationValue: ['',this.showServices?Validators.required:''],
+      pickup_point: ['',this.showServices?[Validators.required]:[]],
+      locationValue: [''],
     });
   }
 
@@ -224,12 +224,29 @@ export class PaymentComponent {
   }
 
   goToPayment(stepper: MatStepper) {
-    if (this.customerForm.valid) {
-      stepper.next();
-    } else {
-      this.markFormGroupTouched(this.customerForm);
+    console.log(this.customerForm.valid);
+
+    if (!this.showServices) {
+        this.locationValue = "ddd";
     }
-  }
+
+    // Update pickup_point validator based on showServices
+    if (this.showServices) {
+        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+    } else {
+        this.customerForm.get('pickup_point')?.clearValidators();
+        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
+
+    // Adjusted conditional to handle TypeScript's type checking
+    if (this.customerForm.valid && (this.locationValue && ( this.locationValue != ''))) {
+        stepper.next();
+    } else {
+        this.markFormGroupTouched(this.customerForm);
+    }
+}
+
+
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
@@ -248,7 +265,6 @@ export class PaymentComponent {
   }
   confirmBookingByCard(event: Event) {
     event.preventDefault();
-
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
@@ -307,8 +323,10 @@ export class PaymentComponent {
             window.location.href = res.link;
           } else {
             Swal.fire(
-              res?.Bookinginstraction
-            );
+              'Your request has been send successfully.',
+              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'success'
+            );;
           }
         },
         error: (err: any) => {
@@ -397,8 +415,10 @@ export class PaymentComponent {
               { queryParams }
             );
             Swal.fire(
-              res?.Bookinginstraction
-            );
+              'Your request has been send successfully.',
+              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'success'
+            );;
           }
         },
         error: (err: any) => {

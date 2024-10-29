@@ -40,8 +40,8 @@
                     style=" margin: 30px auto !important;">
                     <div class="py-6 px-5 border-bottom d-flex justify-content-center"
                         style="background: rgba(235, 240, 247, 1);                ">
-                        <div class="flex-horizontal-center  flex-column flex-sm-row ">
-                            <div class="height-50 width-50 flex-shrink-0 flex-content-center bg-primary rounded-circle">
+                        <div class="flex-horizontal-center  flex-column flex-sm-row" [innerHTML]="confirmRequest?.Bookinginstraction">
+                            <!-- <div class="height-50 width-50 flex-shrink-0 flex-content-center bg-primary rounded-circle">
                                 <i class="fa-solid fa-check text-white font-size-24"></i>
                             </div>
                             <div class="ml-3">
@@ -50,10 +50,10 @@
                                         [href]="'mailto:'+confirmRequest['E-mail']"
                                         style="font-family: Lato;font-size: 21px;font-weight: 700;line-height: 25px;letter-spacing: 0em;color: rgba(54, 153, 255, 1);">
                                         {{confirmRequest["E-mail"]}}<br></a>
-                                    Expect a follow up email or what’s app message shortly with your scheduled pick up
+                                    Expect a follow up email or what’s app message shortly with your scheduled pickup
                                     time from your location
                                 </h3>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 

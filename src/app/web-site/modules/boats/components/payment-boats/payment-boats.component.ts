@@ -21,7 +21,7 @@ export class PaymentBoatsComponent {
   data: any;
   userData: any;
   customerForm!: FormGroup;
-  showServices: boolean = false;
+  showServices: boolean = true;
   filteredNationalities: Observable<Code[]> | undefined;
 
   nationalities!: Code[];
@@ -75,7 +75,7 @@ export class PaymentBoatsComponent {
       phone: ['', [Validators.required]],
       // nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',[Validators.required]],
+      pickup_point: ['',!this.showServices?[Validators.required]:[]],
       locationValue: [''],
     })
   }

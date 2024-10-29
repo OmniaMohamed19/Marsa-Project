@@ -1,5 +1,5 @@
 <app-header [background]="'#0DB1FF'"></app-header>
-<main id="content" class=" top-155" >
+<main id="content" class="top-155">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-xl-9">
@@ -234,7 +234,7 @@
                   <!-- End Input -->
                   <div class="w-100"></div>
                   <p>Do you want a pick up services ?</p>
-                  <div class="d-flex gap-3 flex-wrap  mb-2">
+                  <div class="d-flex gap-3 flex-wrap mb-2">
                     <div class="form-check">
                       <input
                         class="form-check-input"
@@ -262,7 +262,10 @@
                     </div>
                   </div>
                   <!-- Input -->
-                  <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
+                  <ng-container
+                    *ngIf="showServices; else elseTemplate"
+                    class="mb-2"
+                  >
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Pick up Location </label>
@@ -277,15 +280,14 @@
                           readonly
                         />
                         <div
-                        *ngIf="
-                          customerForm.get('locationValue')?.invalid &&
-                          (customerForm.get('locationValue')?.dirty ||
-                            customerForm.get('locationValue')?.touched)
-                        "
-                        class="alert alert-danger my-2"
-                      >
-                      Pick up Location is required
-                      </div>
+                          *ngIf="
+                            !locationValue &&
+                            customerForm.get('locationValue')?.touched
+                          "
+                          class="alert alert-danger my-2"
+                        >
+                          Pick up Location is required
+                        </div>
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
@@ -298,23 +300,27 @@
                       />
                     </div>
                     <div
-                        *ngIf="
-                          customerForm.get('pickup_point')?.invalid &&
-                          (customerForm.get('pickup_point')?.dirty ||
-                            customerForm.get('pickup_point')?.touched)
-                        "
-                        class="alert alert-danger my-2"
-                      >
+                      *ngIf="
+                        customerForm.get('pickup_point')?.invalid &&
+                        (customerForm.get('pickup_point')?.dirty ||
+                          customerForm.get('pickup_point')?.touched)
+                      "
+                      class="alert alert-danger my-2"
+                    >
                       Pick up Place is required
-                      </div>
-                  </ng-container>
-                <ng-template #elseTemplate>
-                  <div class="col-sm-6 mb-4">
-                    <div class="js-form-message">
-                      <label class="form-label"><p>You must choose location before 24 hours</p></label>
                     </div>
-                  </div>
-                </ng-template>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <div class="col-sm-6 mb-4">
+                      <div class="js-form-message">
+                        <label class="form-label"
+                          ><p>
+                            You must choose location before 24 hours
+                          </p></label
+                        >
+                      </div>
+                    </div>
+                  </ng-template>
                   <!-- <ng-container *ngIf="showServices" class="mb-2">
                     <div class="col-sm-6 mb-4">
                       <label class="form-label"> Pick up Place </label>
@@ -389,18 +395,25 @@
                 Your Card Information
               </h5>
               <!-- Nav Classic -->
-              <ul class="nav nav-classic nav-choose border-0 nav-justified border mx-n3 flex-column flex-md-row" role="tablist">
-                <li class="nav-item  w-100 mb-2 mb-md-0">
+              <ul
+                class="nav nav-classic nav-choose border-0 nav-justified border mx-n3 flex-column flex-md-row"
+                role="tablist"
+              >
+                <li class="nav-item w-100 mb-2 mb-md-0">
                   <a
                     class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
                     id="pills-one-example2-tab"
                     [class.active]="isActiveTab('pills-one-example2')"
                     (click)="toggleTab('pills-one-example2', 'cash')"
                   >
-                    <div class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
+                    <div
+                      class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                    >
                       <i class="fa fa-check text-white font-size-15"></i>
                     </div>
-                    <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+                    <div
+                      class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                    >
                       <img
                         class="img-fluid mb-3"
                         src="../../../../../../assets/custom/Activity/banknotes.png"
@@ -410,17 +423,21 @@
                     </div>
                   </a>
                 </li>
-                <li class="nav-item  w-100">
+                <li class="nav-item w-100">
                   <a
                     class="rounded py-5 border-width-2 border nav-link font-weight-medium"
                     id="pills-one-example2-tab"
                     [class.active]="isActiveTab('pills-two-example2')"
                     (click)="toggleTab('pills-two-example2', 'card')"
                   >
-                    <div class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
+                    <div
+                      class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                    >
                       <i class="fa fa-check text-white font-size-15"></i>
                     </div>
-                    <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+                    <div
+                      class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                    >
                       <img
                         class="img-fluid mb-3"
                         src="../../../../../../assets/custom/Activity/payment.png"
@@ -435,14 +452,13 @@
               <!-- End Nav Classic -->
               <div class="tab-content">
                 <div
-                  class="tab-pane fade  show active"
+                  class="tab-pane fade show active"
                   id="pills-two-example2"
                   role="tabpanel"
                   aria-labelledby="pills-two-example2-tab"
                   [class.show]="isActiveTab('pills-two-example2')"
                   [class.active]="isActiveTab('pills-two-example2')"
                 >
-
                   <form class="js-validate" novalidate="novalidate">
                     <div class="row">
                       <div class="col-sm-6 mb-4">
@@ -509,7 +525,7 @@
                       </div>
 
                       <!-- <div class="col-sm-6 mb-4"> -->
-                        <!-- <div class="js-form-message">
+                      <!-- <div class="js-form-message">
                           <label class="form-label"> CCV </label>
 
                           <input
@@ -523,12 +539,13 @@
                         </div> -->
                       <!-- </div> -->
 
-
                       <div class="w-100"></div>
 
                       <div class="col">
-
-                      <div class="col-sm-12 mb-4"[innerHTML]="avilableOptions?.Bookingpayment">
+                        <div
+                          class="col-sm-12 mb-4"
+                          [innerHTML]="avilableOptions?.Bookingpayment"
+                        >
                           <!-- <div
                             class="custom-control custom-checkbox d-flex align-items-center text-muted"
                           >
@@ -556,16 +573,14 @@
                           </div> -->
                         </div>
                         <a
-                        href="#"
-                        (click)="confirmBookingByCard($event)"
-                        class="btn payment text-white w-100 py-3"
-                        >CONFIRM BOOKING</a
-                      >
-
+                          href="#"
+                          (click)="confirmBookingByCard($event)"
+                          class="btn payment text-white w-100 py-3"
+                          >CONFIRM BOOKING</a
+                        >
                       </div>
                     </div>
                   </form>
-
                 </div>
 
                 <div
@@ -578,7 +593,10 @@
                 >
                   <form class="js-validate" novalidate="novalidate">
                     <div class="row">
-                      <div class="col-sm-12 mb-4" [innerHTML]="avilableOptions.Bookingpayment">
+                      <div
+                        class="col-sm-12 mb-4"
+                        [innerHTML]="avilableOptions.Bookingpayment"
+                      >
                         <!-- <img
                           src="assets/icons/mdi_information-outline.svg"
                           alt=""
@@ -602,7 +620,7 @@
                           ancient Egyptian relics, along with paintings from the
                           13th to 20th centuries,
                         </p>-->
-                      </div> 
+                      </div>
                       <a
                         (click)="confirmBooking()"
                         class="btn payment text-white w-100 py-3"
@@ -695,7 +713,10 @@
                     >
                       {{ class }}
                     </h4>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalAdult!=='0$'">
+                    <li
+                      class="d-flex justify-content-between py-2"
+                      *ngIf="avilableOptions?.TotalAdult !== '0$'"
+                    >
                       <span class="font-weight-medium">Adult </span>
                       <span class="text-secondary">
                         {{ avilableOptions?.Adult }}</span
@@ -705,7 +726,10 @@
                       }}</span>
                       <!-- <span class="text-secondary"> </span> -->
                     </li>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalChildern!=='0$'">
+                    <li
+                      class="d-flex justify-content-between py-2"
+                      *ngIf="avilableOptions?.TotalChildern !== '0$'"
+                    >
                       <span class="font-weight-medium">Children </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Childern
@@ -714,7 +738,10 @@
                         avilableOptions?.TotalChildern
                       }}</span>
                     </li>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalInfant!=='0$'">
+                    <li
+                      class="d-flex justify-content-between py-2"
+                      *ngIf="avilableOptions?.TotalInfant !== '0$'"
+                    >
                       <span class="font-weight-medium">Infant </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Infant
@@ -808,7 +835,6 @@
                       <input
                         type="text"
                         class="form-control"
-
                         name="email"
                         id="CouponCodeExample1"
                         placeholder=""
@@ -819,7 +845,7 @@
                       />
                       <div class="input-group-append">
                         <button
-                          class="btn py-2 "
+                          class="btn py-2"
                           type="button"
                           id="CouponCodeExample2"
                           (click)="applycoupon()"
@@ -910,7 +936,7 @@
                         }}</span>
                       </li>
                       <li
-                      *ngIf="Coupons&&Coupons[0]"
+                        *ngIf="Coupons && Coupons[0]"
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
@@ -924,9 +950,7 @@
                         style="font-weight: 700"
                       >
                         <span style="font-weight: 700">Total</span>
-                        <span style="font-weight: 700">{{
-                          Total
-                        }}</span>
+                        <span style="font-weight: 700">{{ Total }}</span>
                       </li>
                     </ul>
                   </ng-container>
