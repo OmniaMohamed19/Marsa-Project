@@ -80,7 +80,7 @@ export class FooterComponent {
         error: (err) => {
           // Check if the error contains an email error
           if (err.errors && err.errors.email && err.errors.email.length > 0) {
-            Swal.fire('Error', err.errors.email[0], 'error'); // عرض الرسالة من الـ API
+            Swal.fire('Error', err.errors.email[0], 'error'); 
           } else {
             Swal.fire('Error', 'The email has already been taken.', 'error');
           }

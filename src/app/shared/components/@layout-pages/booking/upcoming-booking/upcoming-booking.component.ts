@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
-
+import { catchError, finalize } from 'rxjs/operators';
+import { of } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-upcoming-booking',
   templateUrl: './upcoming-booking.component.html',
@@ -64,21 +66,36 @@ export class UpcomingBookingComponent {
     this.activeBooking = bookingId;
   }
 
+
   cancelBooking() {
     console.log(this.activeBooking);
     this.httpService
       .post(environment.marsa, 'user/book/cancel', {
         id: this.activeBooking,
-        reason:
-          this.choosenReason.id != 4 ? this.choosenReason.label : this.other,
+        reason: this.choosenReason.id !== 4 ? this.choosenReason.label : this.other,
       })
-      .subscribe(
-        (res: any) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
+      .pipe(
+        catchError((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: err.error || 'An unexpected error occurred, please try again.',
+            confirmButtonText: 'Ok'
+          });
+          return of(null); 
+        }),
+        finalize(() => {
+        })
+      )
+      .subscribe((res: any) => {
+        if (res) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Your tour has been cancelled successfully!',
+            confirmButtonText: 'Ok'
+          });
         }
-      );
+      });
   }
 }
