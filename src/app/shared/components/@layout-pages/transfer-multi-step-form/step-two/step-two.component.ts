@@ -16,6 +16,7 @@ export class StepTwoComponent implements OnInit {
   savedSelectedOpti:any;
 
   ngOnInit() {
+ 
     const savedResponseData = localStorage.getItem('responseData');
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
@@ -25,10 +26,10 @@ export class StepTwoComponent implements OnInit {
     if (savedSelectedOptions) {
       this.savedSelectedOpti = JSON.parse(savedSelectedOptions);
     } else {
-      this.savedSelectedOpti = { option: [] }; // تعيين خيار فارغ إذا لم يكن موجودًا
+      this.savedSelectedOpti = { option: [] }; 
     }
 
-    this.formData.selectedOptions = {}; // تأكد من أن selectedOptions يبدأ ككائن فارغ
+    this.formData.selectedOptions = {}; 
   }
 
 

@@ -134,13 +134,9 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
   activeSection = 'section1';
 
   setActiveSection(section: string) {
+  
     this.activeSection = section;
-
-    if (section === 'section1') {
-      localStorage.setItem('activeSection', '2');
-    } else if (section === 'section2') {
-      localStorage.setItem('activeSection', '1');
-    }
+    localStorage.setItem('activeSection', section);
   }
 
   seePrice() {
@@ -273,17 +269,24 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       this.fromId = option.id;
       // Show hotels in the second dropdown
       this.availableToOptions = this.transferDetails?.hotel || [];
+      
+      // Store the word "airport" in local storage
+      localStorage.setItem('selectedFromType', 'airport');
     } else if (option.city) {
       // If a hotel is selected
       this.selectedFromName = option.city;
       this.fromId = option.id;
       // Show airports in the second dropdown
       this.availableToOptions = this.transferDetails?.airports || [];
+      
+      // Store the word "hotel" in local storage (if needed)
+      localStorage.setItem('selectedFromType', 'hotel');
     }
     // Reset the search and filtered options for the second dropdown
     this.searchTo = '';
     this.filterToOptions();
   }
+  
 
   selectOption(option: any) {
     if (option.name) {

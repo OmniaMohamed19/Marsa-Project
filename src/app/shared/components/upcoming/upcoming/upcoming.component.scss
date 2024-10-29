@@ -57,6 +57,12 @@ h3::after {
   flex: 1;
   position: absolute;
   right: 39px;
+  top: 45px;
+  font-size: 23px;
+}
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
 }
 
 .center-place {

@@ -18,13 +18,13 @@ export class StepThreeComponent {
   coupon: any;
   price: any;
   kilometr: any;
-constructor( private _httpService: HttpService,
+  constructor(private _httpService: HttpService,
 
-  private router: Router,
-  private translate: TranslateService,
-  ){
+    private router: Router,
+    private translate: TranslateService,
+  ) {
 
-}
+  }
   selected: boolean = true;
   formData: any = {};
   activeTab: string = 'pills-one-example2';
@@ -41,11 +41,13 @@ constructor( private _httpService: HttpService,
   returnbookingdate: any;
   bookdetail: any;
   selectedCar: any;
-  selectedOption:any=[{}];
-  selectedOptionID:any=[];
-  responseData:any;
-  fromName:any;
-  toName:any;
+  selectedOption: any = [{}];
+  selectedOptionID: any = [];
+  responseData: any;
+  fromName: any;
+  toName: any;
+  formData1: any;
+  flightNumper:any;
 
   ngOnInit() {
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
@@ -55,8 +57,9 @@ constructor( private _httpService: HttpService,
 
     const bookingDetail = localStorage.getItem('bookdetail');
     const savedSelectedCar = localStorage.getItem('selectedCar');
-    const  savedSelectedOption = localStorage.getItem('selectedOptions');
+    const savedSelectedOption = localStorage.getItem('selectedOptions');
     const savedResponseData = localStorage.getItem('responseData');
+    const savedFlightNumper = localStorage.getItem('formData');
 
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
@@ -66,48 +69,43 @@ constructor( private _httpService: HttpService,
 
     if (bookingDetail) {
       this.bookdetail = JSON.parse(bookingDetail);
+      console.log(this.bookdetail);
     }
-    this.fromId=this.bookdetail.from_id;
-    this.toId=this.bookdetail.to_id;
-    this.bookingDate=this.bookdetail.date;
-    this.bookingTime=this.bookdetail.pickuptime;
-    this.person=this.bookdetail.person;
-    this.price=this.bookdetail.price;
-    this.kilometr=this.bookdetail.this.bookdetail;
-
+  console.log("hiiiioo");
+    if (savedFlightNumper) {
+      this.formData1 = JSON.parse(savedFlightNumper);
+      this.flightNumper=this.formData1?.flightNumber;
+     console.log(this.formData1)
+      console.log(this.flightNumper);
+    }
     if (savedSelectedCar) {
       this.selectedCar = JSON.parse(savedSelectedCar);
-
+      this.carId = this.selectedCar.id;
     }
-    this.carId=this.selectedCar.id;
     if (savedSelectedOption) {
       this.selectedOption = JSON.parse(savedSelectedOption);
-
+      console.log(this.selectedOption)
     }
-    console.log('Options: ', this.selectedOptionID )
+    this.fromId = this.bookdetail.from_id;
+    this.toId = this.bookdetail.to_id;
+    this.bookingDate = this.bookdetail.date;
+    this.bookingTime = this.bookdetail.pickuptime;
+    this.person = this.bookdetail.person;
+    this.price = this.bookdetail.price;
+    this.kilometr = this.bookdetail.this.bookdetail;
 
-    console.log('Return Booking Date:', this.returnbookingdate);
-    console.log('Return Booking Time:', this.returnbookingtime);
-    console.log('Active Section:', this.way);
-    console.log('From ID:', this.fromId);
-    console.log('To ID:', this.toId);
-    console.log('Booking Date:', this.bookingDate);
-    console.log('Booking Time:', this.bookingTime);
-    console.log('Person Count:', this.person);
-    console.log('Car ID:', this.carId);
   }
 
-  applycoupon(){
+  applycoupon() {
     this._httpService
       .get(environment.marsa, `Coupon`)
       .subscribe((res: any) => {
         console.log(res);
-        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
-        this.Total=this.Total - this.Coupons[0].amount
-    console.log(this.Coupons);
-  });
+        this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon)
+        this.Total = this.Total - this.Coupons[0].amount
+        console.log(this.Coupons);
+      });
     console.log(this.coupon);
-    // Coupon
   }
   nextStep(): void {
     this.next.emit(this.formData);
@@ -123,122 +121,125 @@ constructor( private _httpService: HttpService,
 
   confirmBookingByCard(event: any) {
 
-  const bookingOption = [];
+    const bookingOption = [];
 
-  for (const key in this.selectedOption) {
-    if (this.selectedOption.hasOwnProperty(key)) {
-      const option = this.selectedOption[key];
-      // Extract the ID and push it to idArray
-      if (option && option.id) {
-        bookingOption.push({
-          id: option.id,
-          persons: this.person,
-        });
+    for (const key in this.selectedOption) {
+      if (this.selectedOption.hasOwnProperty(key)) {
+        const option = this.selectedOption[key];
+        // Extract the ID and push it to idArray
+        if (option && option.id) {
+          bookingOption.push({
+            id: option.id,
+            persons: this.person,
+          });
+        }
       }
     }
-  }
-  const model = {
-    from_id: this.fromId,
-    to_id: this.toId,
-    person: this.person,
-    car_id: this.carId,
-    way: this.way,
-    booking_time: this.bookingDate,
-    booking_date: this.bookingDate,
-    return_booking_time: this.returnbookingtime,
-    return_booking_date: this.returnbookingdate,
-    payment_method: this.payment_method ? this.payment_method : 'tap',
-    booking_option: bookingOption,
-    coupon_code:123,
-  };
+    const model = {
+      from_id: this.fromId,
+      to_id: this.toId,
+      person: this.person,
+      car_id: this.carId,
+      way: this.way,
+      booking_time: this.bookingDate,
+      booking_date: this.bookingDate,
+      return_booking_time: this.returnbookingtime,
+      return_booking_date: this.returnbookingdate,
+      payment_method: this.payment_method ? this.payment_method : 'tap',
+      booking_option: bookingOption,
+      flight_n:this.flightNumper,
+      coupon_code:'123'
+    };
 
-  this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
-    next: (res: any) => {
-      Swal.fire(
-        'Your request has been sent successfully.',
-        'The Liveboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
-        'success'
-      );
-    },
-    error(err) {
-      Swal.fire(err.error.message);
-      console.log(err);
-    },
-  });
-}
-
-
-confirmBooking() {
-  // Initialize bookingOption array
-  const bookingOption = [];
-
-  for (const key in this.selectedOption) {
-    if (this.selectedOption.hasOwnProperty(key)) {
-      const option = this.selectedOption[key];
-      // Extract the ID and push it to idArray
-      if (option && option.id) {
-        bookingOption.push({
-          id: option.id,
-          persons: this.person,
-        });
-      }
-    }
-  }
-
-
-  const model = {
-    from_id: this.fromId,
-    to_id: this.toId,
-    person: this.person,
-    car_id: this.carId,
-    way: this.way,
-    booking_time:this.bookingTime,
-    booking_date: this.bookingDate,
-    return_booking_time: this.returnbookingtime,
-    return_booking_date: this.returnbookingdate,
-    payment_method: this.payment_method ? this.payment_method : 'cash',
-    booking_option: bookingOption,
-  };
-
-  this._httpService.post(environment.marsa, 'transfer/book', model)
-  .subscribe({
-    next: (res: any) => {
-      console.log(res);
-      if (res && res.link) {
-        window.location.href = res.link;
-      } else {
-        const queryParams = {
-          res: JSON.stringify(res),
-
-        };
-        this.router.navigate(
-          ['/', this.translate.currentLang, 'transfer', 'confirm'],
-          { queryParams }
-        );
+    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+      next: (res: any) => {
         Swal.fire(
-          'Your request has been send successfully.',
-          'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
+          'Your request has been sent successfully.',
+          'The Liveboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
           'success'
         );
+      },
+      error(err) {
+        Swal.fire(err.error.message);
+        console.log(err);
+      },
+    });
+  }
+
+
+  confirmBooking() {
+    // Initialize bookingOption array
+    const bookingOption = [];
+
+    for (const key in this.selectedOption) {
+      if (this.selectedOption.hasOwnProperty(key)) {
+        const option = this.selectedOption[key];
+        // Extract the ID and push it to idArray
+        if (option && option.id) {
+          bookingOption.push({
+            id: option.id,
+            persons: this.person,
+          });
+        }
       }
-    },
-    error: (err: any) => {
-      console.error('Error during booking:', err);
-      Swal.fire(
-        'Booking Failed',
-        'An error occurred while processing your booking. Please try again later.',
-        'error'
-      );
     }
-  });
-}
 
-goback(){
-  this.router.navigate(
-    ['/', this.translate.currentLang, 'transfer'],
 
-  );
-}
+    const model = {
+      from_id: this.fromId,
+      to_id: this.toId,
+      person: this.person,
+      car_id: this.carId,
+      way: this.way,
+      booking_time: this.bookingTime,
+      booking_date: this.bookingDate,
+      return_booking_time: this.returnbookingtime,
+      return_booking_date: this.returnbookingdate,
+      payment_method: this.payment_method ? this.payment_method : 'cash',
+      booking_option: bookingOption,
+      flight_n:this.flightNumper,
+      coupon_code:'123'
+    };
+
+    this._httpService.post(environment.marsa, 'transfer/book', model)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res && res.link) {
+            window.location.href = res.link;
+          } else {
+            const queryParams = {
+              res: JSON.stringify(res),
+
+            };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'transfer', 'confirm'],
+              { queryParams }
+            );
+            Swal.fire(
+              'Your request has been send successfully.',
+              'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
+              'success'
+            );
+          }
+        },
+        error: (err: any) => {
+          console.error('Error during booking:', err);
+          Swal.fire(
+            'Booking Failed',
+            'An error occurred while processing your booking. Please try again later.',
+            'error'
+          );
+        }
+      });
+  }
+
+  goback() {
+    this.router.navigate(
+      ['/', this.translate.currentLang, 'transfer'],
+
+    );
+  }
 
   toggleTab(tabId: string, paymentMethod: string) {
     this.activeTab = tabId;

@@ -151,6 +151,9 @@
                 />
               </div> -->
             </div>
+            <div class="col-sm-6 mb-4" [innerHTML]="responseData.booking.Bookingpayment">
+              
+            </div>
 
 
             <div class="w-100"></div>
@@ -208,18 +211,19 @@
       >
         <form class="js-validate" novalidate="novalidate">
           <div class="row">
-            <div class="col-sm-12 mb-4">
-              <img
+            <div class="col-sm-12 mb-4" [innerHTML]="responseData.booking.Bookingpayment">
+              <!-- <img
                 src="assets/icons/mdi_information-outline.svg"
                 alt=""
-              />
-              <span style="color: #77838f">
+              /> -->
+              <!-- <span style="color: #77838f">
                 Explore one of the world’s best art museums at your
                 own pace with your ticket to the Louvre. Skip the line
                 and walk straight inside, after
-              </span>
+              </span> -->
+              
             </div>
-            <div class="col-sm-12 mb-4">
+            <!-- <div class="col-sm-12 mb-4">
               <p>
                 Once inside the historic palace located on the Right
                 Bank of the Seine, see unmissable and iconic sights
@@ -232,7 +236,7 @@
                 ancient Egyptian relics, along with paintings from the
                 13th to 20th centuries,
               </p>
-            </div>
+            </div> -->
             <a
             style="width: 50% !important;
               margin: auto;"

@@ -33,10 +33,12 @@ h4 {
     border-radius: 5px;
 
     .img {
-      img {
-        width: 100%;
-        height: auto;
-      }
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 350px;
+      height: 330px;
+
     }
     .img-content {
       margin-left: 0px;
@@ -374,6 +376,9 @@ h4 {
 }
 .modal-body {
   padding: 20px;
+}
+.modal-dialog-centered{
+  max-width: 570px;
 }
 // #flexCheckChecked {
 //   width: 23px;

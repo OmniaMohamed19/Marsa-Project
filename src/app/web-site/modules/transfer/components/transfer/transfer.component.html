@@ -297,10 +297,11 @@
       <!--------------->
       <ul class="small-nav">
         <li *ngFor="let tab of tabs" class="nav-item" [class.active]="tab.section === activeSection"
-          (click)="setActiveSection(tab.section)">
+            (click)="setActiveSection(tab.section)">
           {{ tab.label }}
         </li>
       </ul>
+      
       <!---------------->
       <section *ngIf="activeSection === 'section1'">
         <div class="card border-0 tab-shadow px-1">

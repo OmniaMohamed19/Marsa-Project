@@ -39,6 +39,7 @@ export class PackageEditComponent implements OnInit {
       next: (res: any) => {
         this.packages = res.Packeges;
         console.log(res);
+
         // console.log('package?.Trips.slice(0, 3)' , this.packages?.Trips.slice(0, 3));
       },
       error: (error: any) => {

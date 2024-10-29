@@ -12,8 +12,7 @@ import { environment } from 'src/environments/environment.prod';
 export class StepOneComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<any>();
-  // @ViewChild('radio') radio!: ElementRef;
-  activeSection = 'section1';
+
   responseData: any;
   selectedItemId: number | null = null;
   userDetails: any;
@@ -24,6 +23,10 @@ export class StepOneComponent implements OnInit {
   childCount = 0;
   infantCount = 0;
   selectedCarId: any;
+  return_date:any;
+  return_time:any;
+  activeSection:any;
+  Isairport:boolean=false;
   selectedCar: any = null;  // To store the selected car object
 details:any;
   customOptions: any = {
@@ -63,16 +66,19 @@ details:any;
     pickuptime: '',
     personsTotal: 0,
     specialRequirements: '',
-    selectedCarId: null  // Store the selected car ID
+    selectedCarId: null ,
+   
   };
   countries: any;
 
   constructor(private dataService: DataService, private httpService: HttpService) {}
-
+ 
   ngOnInit() {
+
     // Fetch user details and country data
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
+      console.log(this.userDetails);
       this.phone = this.userDetails?.overviwe?.phonenumber;
       this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
       this.formData.phoneNumber = this.phoneNumber || '';
@@ -86,17 +92,28 @@ details:any;
     const savedResponseData = localStorage.getItem('responseData');
     const bookingDetail = localStorage.getItem('bookdetail');
     const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
-    const details= localStorage.getItem('bookdetail');
-
-    if (details) {
-      this.details = JSON.parse(details);
+    this.return_date= localStorage.getItem('returnDate');
+    this.return_time= localStorage.getItem('returnPickuptime');
+    const savedSection = localStorage.getItem('activeSection');
+    if (savedSection) {
+      this.activeSection = savedSection;
+      console.log( this.activeSection)
     }
+    const selectedFromType = localStorage.getItem('selectedFromType');
+    if (selectedFromType === 'airport') {
+      this.Isairport=true;
+      console.log("User selected an airport");
+    }
+
+
     this.formData.from_id=this.details?.from_id|| '';
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
+      console.log( this.responseData);
     }
     if (bookingDetail) {
       this.bookdetail = JSON.parse(bookingDetail);
+      console.log( this.bookdetail);
     }
     if (savedSelectedCar) {
       this.selectedCar = JSON.parse(savedSelectedCar);  // Load the saved car object
@@ -133,30 +150,6 @@ details:any;
       console.log('Form is not valid');
     }
   }
-
-  // Additional methods (increase, decrease, etc.) remain the same
-  increase(type: string) {
-    if (type === 'adult') {
-      this.adultCount++;
-    } else if (type === 'child') {
-      this.childCount++;
-    } else if (type === 'infant') {
-      this.infantCount++;
-    }
-    this.updatePersonsTotal();
-  }
-
-  decrease(type: string) {
-    if (type === 'adult' && this.adultCount > 0) {
-      this.adultCount--;
-    } else if (type === 'child' && this.childCount > 0) {
-      this.childCount--;
-    } else if (type === 'infant' && this.infantCount > 0) {
-      this.infantCount--;
-    }
-    this.updatePersonsTotal();
-  }
-
   updatePersonsTotal() {
     this.formData.personsTotal = this.adultCount + this.childCount + this.infantCount;
   }

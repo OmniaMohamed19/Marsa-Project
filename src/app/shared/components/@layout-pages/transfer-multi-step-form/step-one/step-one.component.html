@@ -5,30 +5,32 @@
       <owl-carousel-o [options]="customOptions" class="owl-theme">
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
-            <div class="d-flex flex-column car" (click)="onCarClick($event, item.id)"
-              [class.active]="formData.selectedCarId === item.id">
+            <div class="d-flex flex-column car custom-carousel-item"
+                 (click)="onCarClick($event, item.id)"
+                 [class.active]="formData.selectedCarId === item.id">
 
               <div class="radio-container" style="position: absolute; top: 10px; left: 10px;">
-                <input type="radio" name="selectedCar" [value]="item.id"  #radio [checked]="selectedCarId === item.id" required>
+                <input type="radio" name="selectedCar" [value]="item.id"  #radio
+                       [checked]="selectedCarId === item.id" required>
               </div>
 
-              <h2 class="text-center">{{ item.name }}</h2>
               <img [src]="item.cover" alt="{{item.name}}" class="img-fluid">
+              <h2 class="text-center">{{ item.name }}</h2>
 
-              <div class="d-flex align-items-center gap-3 flex-column flex-lg-row">
-                <div class="car-data">
+                <div class="car-data mb-3 mt-1">
                   <span>
                     <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-user"></i>
                   </span>
-                  <span>Up to {{item.people}}</span>
+                  <span>Up to {{item.people}} people</span>
                 </div>
 
-                <div class="car-data">
-                  <span>
-                    <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-briefcase"></i>
-                  </span>
-                  <span>{{item.bags}} bags</span>
-                </div>
+
+
+              <div class="car-data">
+                <span>
+                  <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-briefcase"></i>
+                </span>
+                <span> Fits {{item.bags}} medium suitcases</span>
               </div>
 
               <div class="car-data mt-3">
@@ -38,7 +40,6 @@
                 <span class="meet">Meet and Greet</span>
               </div>
             </div>
-
           </ng-template>
         </ng-container>
       </owl-carousel-o>
@@ -47,195 +48,170 @@
 
     <!-- Start of Car Details Section -->
     <div class="car1">
-      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.from }">
-        <div class="icon text-center">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-location-dot"></i>
-          </label>
+      <div class="row">
+        <div class="col">
+          <div class="thin-heading">Starting From:</div>
+          <div class="bold-heading">{{formData.from}}	</div>
         </div>
-        <input type="text" name="from" [(ngModel)]="formData.from" [value]="formData.from" placeholder="From" required
-          #fromInput="ngModel">
-        <br>
-        <div *ngIf="fromInput.invalid && fromInput.touched" class="error-message">
-          From Location is required
-        </div>
+        <div class="col">
+          <div class="row">
+            <div class="col" *ngIf="Isairport">
+              <div class="thin-heading">Flight Number</div>
 
-      </div>
-      <div class="input-content">
-        <div class="icon text-center">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-location-dot"></i>
-          </label>
-        </div>
-        <input type="text" name="to" [(ngModel)]="formData.to" [value]="formData.to" placeholder="To" required
-          #toInput="ngModel">
-        <br>
-        <br>
-        <div *ngIf="toInput.invalid && toInput.touched" class="error-message">
-          To Location is required
-        </div>
-      </div>
+              <div class="form-outline" data-mdb-input-init>
+                <form class="example-form">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Arrival flight number</mat-label>
+                    <input matInput placeholder="e.g. EK 213"name="flightNumber" [(ngModel)]="formData.flightNumber">
+                  </mat-form-field>
+                  
 
-      <div class="input-content">
-        <div class="icon">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-plane-departure"></i>
-          </label>
-        </div>
-        <input type="text" name="flightNumber" [(ngModel)]="formData.flightNumber" placeholder="Flight Number"
-          #flightNumberInput="ngModel">
-        <!--
-       <br> <div *ngIf="flightNumberInput.invalid && flightNumberInput.touched" class="error-message">
-          Flight Number is required
-        </div> -->
-      </div>
+                </form>
 
-      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.phoneNumber }">
-        <div class="icon icon-1">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-phone"></i>
-          </label>
-        </div>
-        <div class="border-bottom-1 border-black">
-          <div class="d-flex ms-2 position-relative">
-            <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-              [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
-              [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
-              [(ngModel)]="formData.phoneNumber" class="custom-tel-input" required
-              #phoneNumberInput="ngModel"></ngx-intl-tel-input>
-          </div>
-        </div>
-        <br>
-        <div *ngIf="phoneNumberInput.invalid && phoneNumberInput.touched" class="error-message">
-          Phone Number is required
-        </div>
-      </div>
 
-      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.date }">
-        <div class="icon">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-calendar-days"></i>
-          </label>
-        </div>
-        <input type="date" name="date" [(ngModel)]="formData.date" [value]="formData.date" required
-          #dateInput="ngModel">
 
-        <div *ngIf="dateInput.invalid && dateInput.touched" class="error-message">
-          Date is required
-        </div>
-      </div>
-
-      <div class="input-content" [ngClass]="{ 'has-error': bookingForm.submitted && !formData.pickuptime }">
-        <div class="icon">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-clock"></i>
-          </label>
-        </div>
-        <div id="datepickerWrapperFromOne" class="u-datepicker">
-          <label class="ms-2">Pickup time</label>
-          <input [ngxTimepicker]="picker" class="form-control time-input" name="pickuptime"
-            [(ngModel)]="formData.pickuptime" [value]="formData.pickuptime" required #pickuptimeInput="ngModel">
-          <ngx-material-timepicker #picker></ngx-material-timepicker>
-        </div>
-        <div *ngIf="pickuptimeInput.invalid && pickuptimeInput.touched" class="error-message">
-          Pickup time is required
-        </div>
-      </div>
-
-      <!-- <div class="input-content">
-        <div class="icon">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-user-plus"></i>
-          </label>
-        </div>
-        <div id="person-num">
-          <label class="ms-2">Passengers (Age +18)</label>
-          <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
-            <div class="persons">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <button (click)="increase('adult')" type="button"> + </button>
-                </div>
-                <div>
-                  <span>{{adultCount}}</span>
-                </div>
-                <div>
-                  <button (click)="decrease('adult')" type="button"> - </button>
-                </div>
               </div>
             </div>
+            <div class="col">
+              <div class="thin-heading">Landing Time</div>
+              <mat-form-field appearance="outline">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input [(ngModel)]="formData.pickuptime"  [value]="formData.pickuptime" #pickuptimeInput="ngModel" matInput readonly>
+                <mat-icon matSuffix>access_time</mat-icon>
+
+              </mat-form-field>
+            </div>
           </div>
+
         </div>
       </div>
 
-      <div class="input-content">
-        <div class="icon icon-1">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-user-group"></i>
-          </label>
+      <div class="row mt-4">
+        <div class="col">
+          <div class="thin-heading">Going to:</div>
+          <div class="bold-heading">{{formData.to}}	</div>
         </div>
-        <div id="person-num">
-          <label class="ms-2">Children (Age 6-18)</label>
-          <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
-            <div class="persons">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <button (click)="increase('child')" type="button"> + </button>
-                </div>
-                <div>
-                  <span>{{childCount}}</span>
-                </div>
-                <div>
-                  <button (click)="decrease('child')" type="button"> - </button>
-                </div>
+        <div class="col">
+          <div class="row">
+            <div class="col" *ngIf="!Isairport">
+              <div class="thin-heading">Flight Number</div>
+
+              <div class="form-outline" data-mdb-input-init>
+                <form class="example-form">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Arrival flight number</mat-label>
+                    <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber">
+                  </mat-form-field>
+                  
+
+                </form>
+
+
+
               </div>
             </div>
+           
           </div>
+
+        </div>
+
+
+      </div>
+
+      
+      <div *ngIf="activeSection == 2" >
+        <hr class="horizontal-line">
+
+        <div class="row">
+          <div class="col">
+            <div class="thin-heading">Returning To:</div>
+            <div class="bold-heading">{{formData.to}}	</div>
+          </div>
+          <div class="col ">
+            <div class="row">
+              <div class="col">
+                <div class="thin-heading">Return Date:</div>
+                <div class="form-outline" data-mdb-input-init>
+                  <form class="example-form">
+                    <mat-form-field appearance="outline">
+                      <!-- <mat-label>Outline form field</mat-label> -->
+                      <input [(ngModel)]="return_date" [value]="return_date" #returndateInput="ngModel" matInput readonly>
+                      <mat-icon matSuffix>calendar_today</mat-icon>
+                    </mat-form-field>
+                  </form>
+  
+                </div>
+              </div>
+              <div class="col">
+                <div class="thin-heading">Pick up Time:</div>
+                <mat-form-field appearance="outline" class="custom-border-radius">
+                  <input [(ngModel)]="return_time" [value]="return_time" #returntimeInput="ngModel" matInput readonly>
+                  <mat-icon matSuffix>access_time</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+        <div class="row mt-5">
+          <div class="col">
+            <div class="thin-heading">Returning To:</div>
+            <div class="bold-heading">{{formData.from}}	</div>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="col" *ngIf="Isairport">
+                <div class="thin-heading">Flight Number</div>
+  
+                <div class="form-outline" data-mdb-input-init>
+                  <form class="example-form">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Departure flight number (optional)</mat-label>
+                      <input matInput placeholder="e.g. EK 213">
+                    </mat-form-field>
+  
+  
+                  </form>
+  
+                </div>
+              </div>
+              <!-- <div class="col">
+                <div class="thin-heading">Departure flight time</div>
+                <mat-form-field appearance="outline">
+                  <input [(ngModel)]="formData.pickuptime" [value]="formData.pickuptime" #pickuptimeInput="ngModel" matInput readonly>
+                  <mat-icon matSuffix>access_time</mat-icon>
+  
+                </mat-form-field>
+              </div> -->
+            </div>
+  
+          </div>
+  
         </div>
       </div>
 
-      <div class="input-content">
-        <div class="icon">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-wheelchair"></i>
-          </label>
-        </div>
-        <div id="person-num">
-          <label class="ms-2">Infants (Age 0-5)</label>
-          <div class="d-flex justify-content-start align-items-center gap-3 ms-2">
-            <div class="persons">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <button (click)="increase('infant')" type="button"> + </button>
-                </div>
-                <div>
-                  <span>{{infantCount}}</span>
-                </div>
-                <div>
-                  <button (click)="decrease('infant')" type="button"> - </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
+      
 
-      <!-- Display total persons -->
-      <!-- <div class="input-content" class="d-none">
-        <div class="icon">
-          <label style="margin: auto; font-size: 24px; color: #0DB1FF;">
-            <i class="fa-solid fa-users"></i>
-          </label>
+      <hr class="horizontal-line">
+      <div class="row mb-5">
+        <div class="col">
+          <div class="bold-heading">Phone Number </div>
         </div>
-        <div id="total-persons">
-          <label class="ms-2">Total Persons</label>
-          <div class="persons-total">
-            <span>{{formData.personsTotal}}</span>
-          </div>
+        <div class="col mt-2 ">
+        <div class="d-flex ms-2 position-relative">
+          <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+            [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
+            [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
+            [(ngModel)]="formData.phoneNumber" class="custom-tel-input" required
+            #phoneNumberInput="ngModel"></ngx-intl-tel-input>
         </div>
-      </div> -->
+      </div>
+      </div>
 
-      <div class="message">
+
+
+      <div class="message mt-5">
         <label>
           Special Requirements
         </label>

@@ -30,7 +30,7 @@ export class PacakagesSearchComponent implements OnInit {
       next: (res: any) => {
         this.packages = res.Packeges;
         // console.log('package?.Trips.slice(0, 3)' , this.packages?.Trips.slice(0, 3));
-
+        console.log(this.packages);
       },
       error: (error: any) => {
         console.error('Error fetching data:', error);
