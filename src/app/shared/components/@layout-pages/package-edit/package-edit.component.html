@@ -50,20 +50,25 @@
             <div>
               <ul class="list-unstyled package-list">
                 <li
-                  *ngFor="let trip of package.Trips.slice(0, 3); let j = index"
+                *ngFor="let trip of package.trips; let j = index"
+              >
+
+
+              <div *ngIf="j < 3">
+                <img src="assets/custom/list.svg" alt="list" loading="lazy" />
+                <span>
+                  {{ trip?.title }}
+                </span>
+                <!-- Show "See more" button only for the last item -->
+                <button
+                  *ngIf="j === 2 && package.Trips.length > 3"
+                  class="p-0 m-0 btn text-white btn-outline-primary"
+                  (click)="openPackModal(package.id)"
                 >
-                  <img src="assets/custom/list.svg" alt="list" loading="lazy" />
-                  <span>
-                    {{ trip?.title }}
-                  </span>
-                  <!-- Show "See more" button only for the last item -->
-                  <button
-                    *ngIf="j === 2 && package.Trips.length > 3"
-                    class="p-0 m-0 btn text-white btn-outline-primary"
-                    (click)="openPackModal(package.id)"
-                  >
-                    See More ...
-                  </button>
+                  See More ...
+                </button>
+              </div>
+
                 </li>
               </ul>
             </div>
