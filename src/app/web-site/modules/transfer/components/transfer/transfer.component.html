@@ -301,7 +301,7 @@
           {{ tab.label }}
         </li>
       </ul>
-      
+
       <!---------------->
       <section *ngIf="activeSection === 'section1'">
         <div class="card border-0 tab-shadow px-1">
@@ -320,10 +320,22 @@
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                      <li *ngFor="let option of transferDetails?.hotel" (click)="selectFromOption(option)"
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                      style="width: 100%; max-height: 200px; overflow-y: auto;">
+                      <!-- Search input for the first dropdown -->
+                      <li>
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
+                          (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                      </li>
+                      <!-- Show filtered airports -->
+                      <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.city }}</a>
+                        <a class="dropdown-item">{{ airport.name }}</a>
+                      </li>
+                      <!-- Show filtered hotels -->
+                      <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
+                        style="cursor: pointer;">
+                        <a class="dropdown-item">{{ hotel.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -331,20 +343,27 @@
 
                   <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                     <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
-                      type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
-                      style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
-                      <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
-                        {{ selectedOptionName || 'To' }}
-                      </span>
-                      <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                      <li *ngFor="let option of transferDetails?.airports" (click)="selectOption(option)"
-                        style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.name }}</a>
-                      </li>
-                    </ul>
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
+                    <span class="d-flex align-items-center">
+                      <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                      {{ selectedOptionName || 'To' }}
+                    </span>
+                    <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                    style="width: 100%;max-height: 200px; overflow-y: auto;">
+                    <!-- Search input for the second dropdown -->
+                    <li>
+                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
+                        (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                    </li>
+                    <!-- Show filtered To options -->
+                    <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
+                      style="cursor: pointer;">
+                      <a class="dropdown-item">{{ option.name || option.city }}</a>
+                    </li>
+                  </ul>
                   </div>
 
 
@@ -457,39 +476,58 @@
 
                   <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                     <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
-                      type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                      style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
-                      <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
-                        {{ selectedFromName || 'From' }}
-                      </span>
-                      <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                      <li *ngFor="let option of transferDetails?.hotel" (click)="selectFromOption(option)"
-                        style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.city }}</a>
-                      </li>
-                    </ul>
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
+                    <span class="d-flex align-items-center">
+                      <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                      {{ selectedFromName || 'From' }}
+                    </span>
+                    <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                    style="width: 100%; max-height: 200px; overflow-y: auto;">
+                    <!-- Search input for the first dropdown -->
+                    <li>
+                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
+                        (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                    </li>
+                    <!-- Show filtered airports -->
+                    <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
+                      style="cursor: pointer;">
+                      <a class="dropdown-item">{{ airport.name }}</a>
+                    </li>
+                    <!-- Show filtered hotels -->
+                    <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
+                      style="cursor: pointer;">
+                      <a class="dropdown-item">{{ hotel.city }}</a>
+                    </li>
+                  </ul>
                   </div>
 
 
                   <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                     <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
-                      type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
-                      style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
-                      <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
-                        {{ selectedOptionName || 'To' }}
-                      </span>
-                      <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                      <li *ngFor="let option of transferDetails?.airports" (click)="selectOption(option)"
-                        style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.name }}</a>
-                      </li>
-                    </ul>
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
+                    <span class="d-flex align-items-center">
+                      <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                      {{ selectedOptionName || 'To' }}
+                    </span>
+                    <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                    style="width: 100%;max-height: 200px; overflow-y: auto;">
+                    <!-- Search input for the second dropdown -->
+                    <li>
+                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
+                        (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                    </li>
+                    <!-- Show filtered To options -->
+                    <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
+                      style="cursor: pointer;">
+                      <a class="dropdown-item">{{ option.name || option.city }}</a>
+                    </li>
+                  </ul>
                   </div>
 
 

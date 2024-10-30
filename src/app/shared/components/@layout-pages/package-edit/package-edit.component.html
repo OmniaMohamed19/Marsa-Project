@@ -50,7 +50,7 @@
             <div>
               <ul class="list-unstyled package-list">
                 <li
-                *ngFor="let trip of package.trips; let j = index"
+                *ngFor="let trip of package?.trips; let j = index"
               >
 
 
@@ -61,7 +61,7 @@
                 </span>
                 <!-- Show "See more" button only for the last item -->
                 <button
-                  *ngIf="j === 2 && package.Trips.length > 3"
+                  *ngIf="j === 2 && package.trips?.length > 3"
                   class="p-0 m-0 btn text-white btn-outline-primary"
                   (click)="openPackModal(package.id)"
                 >
@@ -164,14 +164,14 @@
           </div>
           <div class="col-lg-6 position-relative">
             <div class="diving-images">
-              <div>
-                <img src="../../../../../assets/images/dolphin1.png" />
+              <div >
+                <img [src]="package?.cover1" />
               </div>
               <div>
-                <img src="../../../../../assets/images/boat2.png" />
+                <img [src]="package?.cover2" />
               </div>
               <div class="div2">
-                <img src="../../../../../assets/images/man3.png" />
+                <img [src]="package?.cover3" />
               </div>
             </div>
 
