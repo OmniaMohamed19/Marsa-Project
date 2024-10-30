@@ -2,8 +2,13 @@
     <div class="position-relative mb-2" style="overflow: hidden;">
         <a [routerLink]="['/',translate.currentLang ,'tours','details', item.id, item.name]"
             class="d-block gradient-overlay-half-bg-gradient-v5">
-            <img style="filter: brightness(0.7);" class="w-100" width="312" height="247" [src]="item.cover" [alt]="item.title">
-        </a>
+            <img
+                style="filter: brightness(1); height: 200px"
+                class="w-100"
+                [src]="item?.cover"
+                alt="img"
+                />
+            </a>
 
         <div class="position-absolute top-0 right-0 pt-4 pr-2" style="margin-top: -0.8rem;">
             <button type="button" class="btn btn-sm btn-icon text-white rounded-circle" data-toggle="tooltip"
