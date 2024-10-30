@@ -179,6 +179,7 @@ export class PackageDetailsComponent {
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
         this.rows = res?.tripDetails;
+        console.log(this.rows);
         this.duration = this.rows.duration;
         // this.seoService.updateSEO(
         //   this.rows.MetaTitle,
