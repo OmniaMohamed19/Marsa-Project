@@ -641,16 +641,40 @@
       <div class="border border-color-7 rounded mb-5">
         <div class="p-4" #checkAvailabilityButton>
           <div class="priceTitle d-flex justify-content-between">
-            <span class="d-block text-gray-1 font-weight-normal mb-2 text-left"
-              >Price</span
-            >
-            <p>
-              From
-              <span class="font-size-20 text-dark">
-                {{ this.rows?.price }} $
-              </span>
+            <span class="d-block text-gray-1 font-weight-normal mb-2 text-left">Price</span>
+            <p style="font-weight: 700">
+              <ng-container *ngIf="hasDiscount(rows)">
+                <!-- Original Price with Strikethrough -->
+                <span
+                  class="font-size-18 fw-bold text-dark"
+                  style="text-decoration: line-through; color: red !important"
+                >
+                  From {{ rows?.Price.Adult }} $
+                </span>
+          
+                <!-- Discounted Price -->
+                <span
+                  class="mx-2 font-size-18 fw-bold text-dark"
+                  style="font-weight: 700"
+                >
+                  {{
+                    calculateDiscountedPrice(rows?.Price.Adult, rows?.Price.AdultDiscount)
+                  }} $
+                </span>
+              </ng-container>
+          
+              <ng-container *ngIf="!hasDiscount(rows)">
+                <!-- Display only the price if no discount is available -->
+                <span
+                  class="font-size-18 fw-bold text-dark"
+                  style="font-weight: 700"
+                >
+                  From {{ rows?.Price.Adult }} $
+                </span>
+              </ng-container>
             </p>
           </div>
+          
           <div class="mb-4">
             <div class="border-bottom border-width-2 border-color-1 pb-1">
               <span class="d-block">Date</span>

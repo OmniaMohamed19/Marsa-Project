@@ -189,8 +189,18 @@ export class PackageDetailsComponent {
         this.duration = res?.tripDetails.duration;
         this.calculateEndDate();
       });
+      
   }
-
+  hasDiscount(packageData: any): boolean {
+    // Check if a discount is present for adults
+    return packageData?.Price?.AdultDiscount > 0;
+  }
+  
+  calculateDiscountedPrice(price: number, discount: number): number {
+    // Calculate the discounted price
+    return Math.round(price - (discount / 100) * price);
+  }
+  
   calculateEndDate() {
     if (!this.startDate || !this.duration) {
       return;
