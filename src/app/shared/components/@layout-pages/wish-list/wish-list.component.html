@@ -30,55 +30,57 @@
                     <h4>Your Wish list</h4>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
                 </header> -->
-                <div  *ngFor="let item of result">
-                    <ng-container class="card p-4 my-5" *ngIf="item.trips.length > 0">
-                      <p-carousel
-                        [value]="item.trips"
-                        [numVisible]="3"
-                        [numScroll]="1"
-                        [showIndicators]="false"
-                        [responsiveOptions]="responsiveOptions"
-                      >
-                        <ng-template pTemplate="header">
-                          <p class="fs-3 text-dark fw-bold">{{ item.category }}</p>
-                        </ng-template>
-                        <ng-template let-trips pTemplate="item">
-                          <div class="border-1  surface-border border-round m-2 p-3">
-                            <div class="mb-3">
-                              <div class="relative mx-auto">
-                                <img
-                                  [src]="trips?.trip?.[0]?.cover"
-                                  [alt]="trips?.trip?.[0]?.name"
-                                  class="w-full border-round w-100"
-                                  height="200px"
-                                />
-                              </div>
-                            </div>
-                            <div class="mb-3 font-medium">
-                              {{ trips?.trip?.[0]?.Title }}
-                            </div>
-                            <div class="flex justify-content-between align-items-center">
-                              <span class="d-flex gap-4 align-items-center justify-content-evenly">
-                                <button
-                                  [routerLink]="['../../tours/details/' + trips?.trip?.[0]?.id]"
-                                  class="border-radius-5"
-                                >
-                                  View Details
-                                </button>
-                                <button
-                                  icon="pi pi-shopping-cart"
-                                  (click)="RemoveFromWishlist(trips?.id)"
-                                  class="border-radius-5 "
-                                >
-                                  Remove
-                                </button>
-                              </span>
-                            </div>
-                          </div>
-                        </ng-template>
-                      </p-carousel>
-                    </ng-container>
+        <div *ngFor="let item of result">
+          <ng-container class="card p-4 my-5" *ngIf="item.trips.length > 0">
+            <p-carousel
+              [value]="item.trips"
+              [numVisible]="3"
+              [numScroll]="1"
+              [showIndicators]="false"
+              [responsiveOptions]="responsiveOptions"
+            >
+              <ng-template pTemplate="header">
+                <p class="fs-3 text-dark fw-bold">{{ item.category }}</p>
+              </ng-template>
+              <ng-template let-trips pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                  <div class="mb-3">
+                    <div class="relative mx-auto">
+                      <img
+                        [src]="trips?.trip?.[0]?.cover"
+                        [alt]="trips?.trip?.[0]?.name"
+                        class="w-full border-round w-100"
+                        height="200px"
+                      />
+                    </div>
                   </div>
+                  <div class="mb-3 font-medium">
+                    {{ trips?.trip?.[0]?.Title }}
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <span
+                      class="d-flex gap-4 align-items-center justify-content-evenly"
+                    >
+                      <button
+                        [routerLink]="['../../tours/details/' + trips?.trip?.[0]?.id]"
+                        class="border-radius-5"
+                      >
+                        View Details
+                      </button>
+                      <button
+                        icon="pi pi-shopping-cart"
+                        (click)="RemoveFromWishlist(trips?.id)"
+                        class="border-radius-5"
+                      >
+                        Remove
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </ng-container>
+        </div>
         <div class="d-flex flex-column whishlist-card-content">
           <!-- <a routerLink="../wishname" class="d-block"> -->
           <!-- <div class="whishlist-card" >
