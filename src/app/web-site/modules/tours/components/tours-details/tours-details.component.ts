@@ -119,7 +119,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   displayBasic: boolean = false;
   displayBoats: boolean = false;
   displayCustom: boolean = false;
-
+  
   activeIndex: number = 0;
   @ViewChild('galleria') galleria: Galleria | undefined;
   constructor(
@@ -143,15 +143,18 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.isMobile = true;
     }
   }
+  seeMore: boolean = false;
   showFullDescription = false;
 
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
+    this.seeMore = !this.seeMore;
   }
 
   get displayedDescription(): string {
     const words = this.activityData?.Description.split(' ');
     if (this.showFullDescription || words.length <= 150) {
+      this.seeMore = !this.seeMore;
       return this.activityData?.Description;
     } else {
       return (
