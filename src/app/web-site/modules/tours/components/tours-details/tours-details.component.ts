@@ -119,8 +119,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   displayBasic: boolean = false;
   displayBoats: boolean = false;
   displayCustom: boolean = false;
-  seeMore: boolean = false;
-
+  
   activeIndex: number = 0;
   @ViewChild('galleria') galleria: Galleria | undefined;
   constructor(
@@ -144,6 +143,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.isMobile = true;
     }
   }
+  seeMore: boolean = false;
   showFullDescription = false;
 
   toggleDescription() {

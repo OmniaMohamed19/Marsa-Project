@@ -299,12 +299,9 @@
               Description
             </h5>
             <p [innerHTML]="displayedDescription"></p>
-            <a
-              (click)="toggleDescription()"
-              class="fw-bold mb-5 d-inline-block"
-            >
+            <span style="color:#0db1ff" (click)="toggleDescription()" class="  d-inline" *ngIf="!seeMore" >
               {{ showFullDescription ? "See Less" : "See More" }}
-            </a>
+            </span>
 
             <!-- <mat-accordion>
                             <mat-expansion-panel >

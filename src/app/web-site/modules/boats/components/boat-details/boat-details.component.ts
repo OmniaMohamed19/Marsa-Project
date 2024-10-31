@@ -133,18 +133,24 @@ export class BoatDetailsComponent {
     }
   }
 
+  seeMore: boolean = false;
   showFullDescription = false;
 
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
+    this.seeMore = !this.seeMore;
   }
 
   get displayedDescription(): string {
     const words = this.boatData?.Description.split(' ');
     if (this.showFullDescription || words.length <= 150) {
+      this.seeMore = !this.seeMore;
       return this.boatData?.Description;
     } else {
-      return words.slice(0, 150).join(' ') + '...';
+      return (
+        words.slice(0, 150).join(' ') +
+        '...' 
+      );
     }
   }
   @HostListener('document:scroll', ['$event'])
