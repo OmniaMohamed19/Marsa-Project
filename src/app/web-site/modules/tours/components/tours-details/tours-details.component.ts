@@ -119,6 +119,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   displayBasic: boolean = false;
   displayBoats: boolean = false;
   displayCustom: boolean = false;
+  seeMore: boolean = false;
 
   activeIndex: number = 0;
   @ViewChild('galleria') galleria: Galleria | undefined;
@@ -147,11 +148,13 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
+    this.seeMore = !this.seeMore;
   }
 
   get displayedDescription(): string {
     const words = this.activityData?.Description.split(' ');
     if (this.showFullDescription || words.length <= 150) {
+      this.seeMore = !this.seeMore;
       return this.activityData?.Description;
     } else {
       return (
