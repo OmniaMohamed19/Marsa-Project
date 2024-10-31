@@ -67,6 +67,7 @@ h3::after {
 
 .center-place {
   place-items: center;
+  width: 450px;
 }
 
 .card {
@@ -85,6 +86,9 @@ h3::after {
   height: 100%;
 }
 @media screen and (max-width:992px){
+  .center-place {
+    width: 100%;
+  }
   h3 {
 
     font-size: 24px;
