@@ -75,7 +75,7 @@
         <form class="js-validate" novalidate="novalidate">
           <div class="row">
             <div class="col-sm-6 mb-4">
-              <!-- <div class="js-form-message">
+              <div class="js-form-message">
                 <label class="form-label"> Card Holder Name </label>
                 <input
                   type="text"
@@ -84,11 +84,13 @@
                   placeholder=""
                   aria-label=""
                   required=""
+                  [(ngModel)]="cardholderName"
+                  name="cardholderName"
                 />
-              </div> -->
+              </div>
             </div>
             <div class="col-sm-6 mb-4">
-              <!-- <div class="js-form-message">
+              <div class="js-form-message">
                 <label class="form-label"> Card Number </label>
 
                 <input
@@ -98,14 +100,16 @@
                   placeholder=""
                   aria-label=""
                   required=""
+                  [(ngModel)]="cardNumber"
+                  name="cardNumber"
                 />
-              </div> -->
+              </div>
             </div>
 
             <div class="w-100"></div>
 
             <div class="col-sm-6 mb-3">
-              <!-- <div class="row">
+               <div class="row">
                 <div class="col-sm-6 mb-4 mb-md-0">
                   <div class="js-form-message">
                     <label class="form-label"> Expiry Month </label>
@@ -117,6 +121,8 @@
                       placeholder=""
                       aria-label=""
                       required=""
+                      [(ngModel)]="expiryMonth"
+                  name="expiryMonth"
                     />
                   </div>
                 </div>
@@ -131,14 +137,16 @@
                       placeholder=""
                       aria-label=""
                       required=""
+                      [(ngModel)]="expirYear"
+                  name="expirYear"
                     />
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
 
             <div class="col-sm-6 mb-4">
-              <!-- <div class="js-form-message">
+              <div class="js-form-message">
                 <label class="form-label"> CCV </label>
 
                 <input
@@ -148,16 +156,21 @@
                   placeholder=""
                   aria-label=""
                   required=""
+                  [(ngModel)]="cvv"
+                  name="cvv"
                 />
-              </div> -->
+              </div>
             </div>
-            <div class="col-sm-6 mb-4" [innerHTML]="responseData.booking.Bookingpayment">
-              
-            </div>
+
 
 
             <div class="w-100"></div>
+            <div class="col">
+              <div  [innerHTML]="responseData.booking.Bookingpayment">
 
+              </div>
+            </div>
+            <div class="w-100"></div>
             <div class="col">
 
               <div class="js-form-message mb-5">
@@ -211,7 +224,7 @@
       >
         <form class="js-validate" novalidate="novalidate">
           <div class="row">
-            <div class="col-sm-12 mb-4" [innerHTML]="responseData.booking.Bookingpayment">
+            <div class="col-sm-12  mb-4" [innerHTML]="responseData.booking.Bookingpayment">
               <!-- <img
                 src="assets/icons/mdi_information-outline.svg"
                 alt=""
@@ -221,7 +234,7 @@
                 own pace with your ticket to the Louvre. Skip the line
                 and walk straight inside, after
               </span> -->
-              
+
             </div>
             <!-- <div class="col-sm-12 mb-4">
               <p>

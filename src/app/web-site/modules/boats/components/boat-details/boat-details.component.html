@@ -458,7 +458,7 @@
                     />
                   </ng-template>
                 </p-galleria>
-                
+
               </div>
             </div>
           </div>
@@ -952,10 +952,7 @@
                     <div id="datepickerWrapperFromOne" class="w-100">
                       <mat-form-field class="w-100 mt-2">
                         <mat-label>Enter a date range</mat-label>
-                        <mat-date-range-input
-                          [formGroup]="range"
-                          [rangePicker]="picker"
-                        >
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
                           <input
                             matStartDate
                             formControlName="start"
@@ -968,15 +965,15 @@
                             formControlName="end"
                             placeholder="End date"
                             (dateInput)="onEndDateChanged()"
+                            [min]="range.get('start')?.value || today"
                           />
                         </mat-date-range-input>
                         <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle
-                          matSuffix
-                          [for]="picker"
-                        ></mat-datepicker-toggle>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
                       </mat-form-field>
+
+
                     </div>
                   </div>
                 </div>

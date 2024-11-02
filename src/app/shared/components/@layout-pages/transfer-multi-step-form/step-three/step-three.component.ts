@@ -49,6 +49,11 @@ export class StepThreeComponent {
   formData1: any;
   flightNumper:any;
 
+  cardholderName:any;
+  cvv:any;
+  expirYear:any;
+  expiryMonth:any;
+  cardNumber:any;
   ngOnInit() {
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
     this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
@@ -148,21 +153,43 @@ export class StepThreeComponent {
       payment_method: this.payment_method ? this.payment_method : 'tap',
       booking_option: bookingOption,
       flight_n:this.flightNumper,
-      coupon_code:'123'
+      coupon_code:'123',
+      cardholder_name:this.cardholderName,
+      cvv:this.cvv,
+      expiry_year:this.expirYear,
+      expiry_month:this.expiryMonth,
+      card_number:this.cardNumber
     };
 
-    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+
+
+
+    this._httpService.post(environment.marsa, 'transfer/book', model)
+    .subscribe({
       next: (res: any) => {
+        console.log(res);
+        const queryParams = {
+          res: JSON.stringify(res),
+
+        };
+        this.router.navigate(
+          ['/', this.translate.currentLang, 'transfer', 'confirm'],
+          { queryParams }
+        );
         Swal.fire(
-          'Your request has been sent successfully.',
-          'The Liveboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
+          'Your request has been send successfully.',
+          'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
           'success'
         );
       },
-      error(err) {
-        Swal.fire(err.error.message);
-        console.log(err);
-      },
+      error: (err: any) => {
+        console.error('Error during booking:', err);
+        Swal.fire(
+          'Booking Failed',
+          'An error occurred while processing your booking. Please try again later.',
+          'error'
+        );
+      }
     });
   }
 

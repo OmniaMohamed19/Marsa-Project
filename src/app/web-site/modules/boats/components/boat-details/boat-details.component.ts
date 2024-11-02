@@ -149,7 +149,7 @@ export class BoatDetailsComponent {
     } else {
       return (
         words.slice(0, 150).join(' ') +
-        '...' 
+        '...'
       );
     }
   }
@@ -258,8 +258,10 @@ export class BoatDetailsComponent {
     if (startDate) {
       const selectedStartDate = new Date(startDate);
       if (selectedStartDate < this.today) {
-        this.range.get('start')?.setValue(this.today); // Set start date to today if selected date is in the past
+        this.range.get('start')?.setValue(this.today);
       }
+      // Automatically set minimum date for end date
+      this.range.get('end')?.setValue(null); // Reset end date when start date changes
     }
   }
 
@@ -267,10 +269,11 @@ export class BoatDetailsComponent {
     const endDate = this.range.get('end')?.value;
     const formattedDate = this.datePipe.transform(endDate, 'yyyy/MM/dd');
     this.endDate = formattedDate;
+
     if (endDate) {
       const selectedEndDate = new Date(endDate);
       if (selectedEndDate < this.today) {
-        this.range.get('end')?.setValue(this.today); // Set end date to today if selected date is in the past
+        this.range.get('end')?.setValue(this.today);
       }
     }
   }
@@ -523,7 +526,7 @@ export class BoatDetailsComponent {
       }
     }
   }
-  
+
   addtoFavorits(btn: any,event:any) {
     if (btn.classList.contains('bg-primary')) {
       // Remove from favorites/wishlist

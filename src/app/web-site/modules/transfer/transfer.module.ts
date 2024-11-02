@@ -6,6 +6,8 @@ import { LandingTransferComponent } from './landing-transfer/landing-transfer.co
 import { TransferComponent } from './components/transfer/transfer.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MultiStepComponent } from './components/multi-step/multi-step.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -18,9 +20,10 @@ import { MultiStepComponent } from './components/multi-step/multi-step.component
     CommonModule,
     TransferRoutingModule,
     SharedModule,
-
+    MatDialogModule,
+    NgxMaterialTimepickerModule,
 
   ],
- 
+
 })
 export class TransferModule { }

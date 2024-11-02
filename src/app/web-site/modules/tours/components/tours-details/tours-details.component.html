@@ -606,7 +606,7 @@
                     </button>
                   </div>
 
-                  
+
                 </div>
                 <div
                   class="col-md-3 mt-5 pt-5 text-center bookDetails"
@@ -736,7 +736,7 @@
                   </button>
                 </ng-template>
 
-                <!-- 
+                <!--
                 <div
                   class="col-md-3 mt-5 text-center bookDetails"
                   *ngIf="selectedOption === 'Private'"
@@ -1596,21 +1596,21 @@
               <div class="mb-1">
                 <div class="border-bottom border-width-2 border-color-1 pb-1">
                   <span class="d-block">Date</span>
+
                   <mat-form-field class="w-100">
                     <input
                       matInput
                       [matDatepicker]="picker"
                       placeholder="Choose a date"
                       [formControl]="selectedDateControl"
+                      [matDatepickerFilter]="dateFilter"
                       (dateInput)="addEvent($event)"
                     />
-                    <!-- (dateInput)="addEvent($event)" -->
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
+
+
 
                   <!-- Show time picker for TypeOfRepeat = 'h' or 'm' -->
                   <ng-container *ngIf="selectedDateControl.value">
@@ -2026,13 +2026,10 @@
                       [matDatepicker]="picker"
                       placeholder="Choose a date"
                       [formControl]="selectedDateControl"
-                      [matDatepickerFilter]="filterDates"
+                      [matDatepickerFilter]="dateFilter"
                       (dateInput)="addEvent($event)"
                     />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
 

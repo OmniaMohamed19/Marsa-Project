@@ -216,6 +216,7 @@
         height: 456px;
         transition: all 0.5s ease-in-out;
         filter: none;
+        width: 200px;
 
         &:hover {
           cursor: pointer;
@@ -235,6 +236,7 @@
         height: 420px;
         transition: all 0.5s ease-in-out;
         filter: none;
+        width: 200px;
 
         &:hover {
           cursor: pointer;
@@ -253,6 +255,7 @@
       :is(img) {
         height: 599px;
         transition: all 0.5s ease-in-out;
+        width: 200px;
 
         filter: none;
         &:hover {

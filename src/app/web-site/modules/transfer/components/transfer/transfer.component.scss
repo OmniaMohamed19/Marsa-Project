@@ -1,4 +1,19 @@
 
+
+
+::ng-deep{
+
+  // .mdc-notched-outline{
+  //  border: 1px red solid !important;
+  // }
+
+  .mat-datepicker-toggle button svg {
+    color: #0057FF !important; /* لون الأيقونة */
+  }
+
+}
+
+
 .media-body a{
   font-family: Lato;
   font-size: 16px;

@@ -89,6 +89,10 @@ h3::after {
   .center-place {
     width: 100%;
   }
+  .card-title {
+    font-size: 22px;
+    margin-top: 1rem;
+  }
   h3 {
 
     font-size: 24px;
@@ -105,6 +109,10 @@ h3::after {
 }
 
 @media (max-width: 768px) {
+  // .card-title {
+  //   font-size: 22px;
+  //   margin-top: 1rem;
+  // }
   .text-price {
     bottom: 91px;
     right: 5px;

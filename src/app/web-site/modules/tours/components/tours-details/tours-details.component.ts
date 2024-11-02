@@ -67,6 +67,14 @@ import { ButtonModule } from 'primeng/button';
   ],
 })
 export class ToursDetailsComponent implements AfterViewInit {
+  today = new Date();
+
+  // This function disables dates before today
+  dateFilter = (date: Date | null): boolean => {
+    const selectedDate = (date || new Date());
+    // Compare only the date part (ignoring time)
+    return selectedDate >= new Date(this.today.setHours(0, 0, 0, 0));
+  };
   activityID: any;
   isMobile = false;
   activityData: any;
@@ -119,7 +127,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   displayBasic: boolean = false;
   displayBoats: boolean = false;
   displayCustom: boolean = false;
-  
+
   activeIndex: number = 0;
   @ViewChild('galleria') galleria: Galleria | undefined;
   constructor(
@@ -159,7 +167,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     } else {
       return (
         words.slice(0, 150).join(' ') +
-        '...' 
+        '...'
       );
     }
   }
