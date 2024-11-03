@@ -85,5 +85,8 @@ export class WishListComponent {
         });
 
   }
+  get carouselClass() {
+    return this.result.length === 1 ? 'single-item' : 'multiple-items';
+  }
 
 }

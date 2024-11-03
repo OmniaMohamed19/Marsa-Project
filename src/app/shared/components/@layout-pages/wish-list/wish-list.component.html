@@ -38,6 +38,8 @@
               [numScroll]="1"
               [showIndicators]="false"
               [responsiveOptions]="responsiveOptions"
+              [showNavigators]="item.trips.length > 1" 
+              [ngClass]="item.trips.length ===  1 ? 'single-item' : 'multiple-items'"
             >
               <ng-template pTemplate="header">
                 <p class="fs-3 text-dark fw-bold">{{ item.category }}</p>

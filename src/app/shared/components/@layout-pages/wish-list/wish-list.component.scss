@@ -166,7 +166,33 @@
         }
     }
 }
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px; /* Add padding as needed */
+  }
+  
+  /* Customize the carousel width for one item */
+  :host ::ng-deep .p-carousel {
+    width: auto; /* Set to 'auto' instead of '100%' */
+  }
+  
+  /* If the number of items is one */
+  :host ::ng-deep .p-carousel .p-carousel-item {
+    // width: 300px; /* Set specific width or use a percentage */
+    margin: 0 auto; /* Center the item */
+  }
+.single-item {
+  display: inline-block;
+    width: auto !important; /* Adjust width for single item */
+  }
 
+  
+  .multiple-items {
+    width: 100% !important; /* Full width for multiple items */
+  }
 /***********************************/
 @media screen and (max-width: 575.98px){
     .wishlist{
