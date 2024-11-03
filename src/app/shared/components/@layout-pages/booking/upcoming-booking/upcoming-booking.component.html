@@ -85,7 +85,7 @@
                         </span>
                       </div>
 
-                      <span class="d-flex">
+                      <span class="d-flex mt-3">
                         <span class="d-inline-block"> 4.6 /5 </span>
                         <img src="../../../../../assets/images/star1.svg" />
                         <img src="../../../../../assets/images/star1.svg" />
@@ -129,7 +129,7 @@
 
                           <span > {{ trip?.childern }} Children (5-10) </span>
                         </li>
-                        <li>
+                        <li *ngIf="trip?.infant > 0">
                           <span>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@
                               />
                             </svg>
                           </span>
-                          <span  *ngIf="trip?.infant > 0"> {{ trip?.infant }} Infant (+18) </span>
+                          <span  > {{ trip?.infant }} Infant (+18) </span>
                         </li>
                       </ul>
                     </div>

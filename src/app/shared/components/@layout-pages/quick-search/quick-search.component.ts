@@ -18,7 +18,7 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 })
 export class QuickSearchComponent {
 
-
+  transferDetails:any;
   showSearch: string = 'tour';
   @Input() changeStyle: boolean = false;
   destination: any = [];
@@ -122,7 +122,12 @@ export class QuickSearchComponent {
         console.log(this.destination)
       },
     });
+
+    
   }
+
+
+
 
   setplace(ev: any) {
     this.placeTours = ev.target.value;
