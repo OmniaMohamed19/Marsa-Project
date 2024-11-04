@@ -19,7 +19,7 @@ export class MapModalComponent implements OnInit {
   marker!: L.Marker;
   searchControl = new FormControl();
   filteredOptions!: Observable<any[]>;
-
+  currentCountry: string = '';
   constructor(
     private ngZone: NgZone,
     public dialogRef: MatDialogRef<MapModalComponent>,
@@ -40,32 +40,14 @@ export class MapModalComponent implements OnInit {
   }
 
   initializeMap(): void {
-    this.map = L.map('googleMap').setView(
-      [this.latitudeValue, this.longitudeValue],
-      5
-    );
-
-    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //   attribution: '&copy; OpenStreetMap contributors',
-    // }).addTo(this.map);
-  //   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-  //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  // }).addTo(this.map);
-
-
-L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://hot.openstreetmap.org/">Humanitarian OpenStreetMap Team</a>',
-}).addTo(this.map);
-
-
-
-
-
-
+    this.map = L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 5);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(this.map);
 
     const customIcon = L.icon({
       iconUrl: 'assets/images/locatio.svg',
-      iconSize: [37, 37], // Adjust size as needed
+      iconSize: [37, 37],
     });
 
     this.marker = L.marker([this.latitudeValue, this.longitudeValue], {
@@ -91,10 +73,19 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
           this.longitudeValue = position.coords.longitude;
           this.map.setView([this.latitudeValue, this.longitudeValue], 10);
           this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+
+          // الحصول على اسم الدولة باستخدام Nominatim API
+          const reverseGeocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${this.latitudeValue}&lon=${this.longitudeValue}&accept-language=en`;
+          this.http.get<any>(reverseGeocodeUrl).subscribe((result) => {
+            if (result && result.address && result.address.country) {
+              this.currentCountry = result.address.country;
+            }
+          });
         });
       });
     }
   }
+
 
   closeDialog(): void {
     this.dialogRef.close({
@@ -108,7 +99,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 
     this.latitudeValue = location.lat;
     this.longitudeValue = location.lon;
-    // Update map view and marker position as needed
     this.map.setView([this.latitudeValue, this.longitudeValue], 10);
     this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
   }
@@ -116,9 +106,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
   private _filter(name: string): Observable<any[]> {
     this.spinner.hide();
 
+    // إذا كان اسم الدولة الحالية موجود ولم يكتب المستخدم دولة أخرى
+    const query = this.currentCountry && !name.toLowerCase().includes(this.currentCountry.toLowerCase())
+      ? `${name} ${this.currentCountry}`
+      : name;
+
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-      name
+      query
     )}&accept-language=en`;
+
     return this.http.get<any[]>(url).pipe(
       map((results) => {
         if (results && results.length > 0) {
@@ -137,6 +133,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       })
     );
   }
+
+
 
   displayFn(location: any): string {
     return location && location.name ? location.name : '';

@@ -467,7 +467,7 @@
               *ngFor="let availableOption of activityData?.AvailableOption"
             >
               <div class="row">
-                <div class="col-md-9 option">
+                <div class="col-md-8 option">
                   <h3 class="highlighting">{{ availableOption?.Title }}</h3>
                   <div class="content row d-flex flex-column">
                     <div class="col-md-6 col-sm-12">
@@ -522,21 +522,21 @@
                   </div>
                 </div>
                 <div
-                  class="col-md-3 mt-5 text-center bookDetails"
+                  class="col-md-4 mt-5 text-center bookDetails"
                   *ngIf="selectedOption === 'Private'"
                 >
                   <span
-                    class="badge-sale"
+                    class="badge-sale mb-2 ms-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
                   >
                     Save {{ availableOption?.PricePrivte.AdultDiscount }} %
                     Today</span
                   >
                   <div
-                    class="w-100"
+                    class="w-100 mt-3 ms-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
                   >
-                    <small class="text-center d-inline-block"
+                    <small class="text-center d-inline-block mt-5"
                       >From
                       <span>
                         {{
@@ -570,10 +570,10 @@
                     >
                   </div>
                   <div
-                    class="w-100 mt-5"
+                    class="w-100 mt-3 ms-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount == 0"
                   >
-                    <small class="text-center d-inline-block mt-5"
+                    <small class="text-center d-inline-block"
                       >From
                       <span>
                         {{
@@ -609,7 +609,7 @@
 
                 </div>
                 <div
-                  class="col-md-3 mt-5 pt-5 text-center bookDetails"
+                  class="col-md-4 mt-5 pt-5 text-center bookDetails"
                   *ngIf="selectedOption === 'Collective'"
                 >
                   <span
@@ -620,7 +620,7 @@
                     Today</span
                   >
                   <div
-                    class="w-100"
+                    class="w-100 mt-3 ms-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
                   >
                     <small class="text-center d-inline-block"
@@ -671,7 +671,7 @@
                     </small>
                   </div>
                   <div
-                    class="w-100"
+                    class="w-100 mt-3 ms-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount == 0"
                   >
                     <small class="text-center d-inline-block"
