@@ -22,8 +22,9 @@ export class HttpService {
   public urlApiFile = environment;
   private BaseUrls: any = new Map();
   headers = new HttpHeaders({
-   'Content-Type': 'multipart/form-data'
-
+  'Content-Type': 'multipart/form-data',
+//   'Content-Type': 'application/json',
+// 'Accept':'application/json'
   })
   constructor(
     private http: HttpClient,
