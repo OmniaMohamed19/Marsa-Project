@@ -304,10 +304,10 @@ export class PaymentComponent {
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         booking_time: this.time,
         cardholder_name: this.cardholderName,
-        cvv: this.cvv,
+        cvv: this.cvv.toString(),
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth,
-        card_number: this.cardNumber,
+        card_number: this.cardNumber.toString(),
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
             if (this.checkboxStatus[index]) {
@@ -335,6 +335,14 @@ export class PaymentComponent {
             if (res && res.link) {
               window.location.href = res.link;
             } else {
+              const queryParams = {
+                res: JSON.stringify(res),
+                trip_id: this.tripId,
+              };
+              this.router.navigate(
+                ['/', this.translate.currentLang, 'tours', 'confirm'],
+                { queryParams }
+              );
               Swal.fire(
                 'Your request has been send successfully.',
                 'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
