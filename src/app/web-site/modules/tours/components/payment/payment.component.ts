@@ -42,10 +42,15 @@ export class PaymentComponent {
   activeTab: string = 'pills-one-example2';
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
-  coupon:any;
-  Coupons:any;
-  Total:any;
+  coupon: any;
+  Coupons: any;
+  Total: any;
   nationalities!: Code[];
+  cardholderName: any;
+  cvv: any;
+  expirYear: any;
+  expiryMonth: any;
+  cardNumber: any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
 
@@ -81,10 +86,10 @@ export class PaymentComponent {
 
       console.log(this.avilableOptions);
       const addetionalCost = this.avilableOptions?.AddetionalCost;
-// const exclude = addetionalCost?.Exclude;
+      // const exclude = addetionalCost?.Exclude;
       console.log(addetionalCost);
-      
-      this.Total=this.avilableOptions?.TotlaPrice;
+
+      this.Total = this.avilableOptions?.TotlaPrice;
       this.booking_date = params['booking_date'];
       this.class = params['class'];
       this.avilable_option_id = params['avilable_option_id'];
@@ -111,15 +116,13 @@ export class PaymentComponent {
 
     this.getNationality();
   }
-  applycoupon(){
-    this._httpService
-      .get(environment.marsa, `Coupon`)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
-        this.Total=this.Total - this.Coupons[0].amount
-    console.log(this.Coupons);
-  });
+  applycoupon() {
+    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+      console.log(res);
+      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+      this.Total = this.Total - this.Coupons[0].amount;
+      console.log(this.Coupons);
+    });
     console.log(this.coupon);
     // Coupon
   }
@@ -138,7 +141,7 @@ export class PaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',this.showServices?[Validators.required]:[]],
+      pickup_point: ['', this.showServices ? [Validators.required] : []],
       locationValue: [''],
     });
   }
@@ -218,7 +221,6 @@ export class PaymentComponent {
         next: (res: any) => {
           this.responseFromAvailableOption = res;
           console.log(res);
-          
         },
       });
   }
@@ -227,26 +229,30 @@ export class PaymentComponent {
     console.log(this.customerForm.valid);
 
     if (!this.showServices) {
-        this.locationValue = "ddd";
+      this.locationValue = 'ddd';
     }
 
     // Update pickup_point validator based on showServices
     if (this.showServices) {
-        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
     } else {
-        this.customerForm.get('pickup_point')?.clearValidators();
-        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
 
     // Adjusted conditional to handle TypeScript's type checking
-    if (this.customerForm.valid && (this.locationValue && ( this.locationValue != ''))) {
-        stepper.next();
+    if (
+      this.customerForm.valid &&
+      this.locationValue &&
+      this.locationValue != ''
+    ) {
+      stepper.next();
     } else {
-        this.markFormGroupTouched(this.customerForm);
+      this.markFormGroupTouched(this.customerForm);
     }
-}
-
-
+  }
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
@@ -281,7 +287,7 @@ export class PaymentComponent {
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code:code,
+        code: code,
         trip_id: this.tripId,
         userid: this.userData?.id,
         avilable_option_id: this.avilable_option_id,
@@ -297,6 +303,11 @@ export class PaymentComponent {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         booking_time: this.time,
+        cardholder_name: this.cardholderName,
+        cvv: this.cvv,
+        expiry_year: this.expirYear,
+        expiry_month: this.expiryMonth,
+        card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
             if (this.checkboxStatus[index]) {
@@ -316,28 +327,30 @@ export class PaymentComponent {
       );
       console.log(model);
 
-      this._httpService.post(environment.marsa, 'Activtes/book', model).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
+      this._httpService
+        .post(environment.marsa, 'Activtes/book', model)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            if (res && res.link) {
+              window.location.href = res.link;
+            } else {
+              Swal.fire(
+                'Your request has been send successfully.',
+                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+                'success'
+              );
+            }
+          },
+          error: (err: any) => {
+            console.error('Error during booking:', err);
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-              'success'
-            );;
-          }
-        },
-        error: (err: any) => {
-          console.error('Error during booking:', err);
-          Swal.fire(
-            'Booking Failed',
-            'An error occurred while processing your booking. Please try again later.',
-            'error'
-          );
-        }
-      });
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            );
+          },
+        });
     } else {
       this.markFormGroupTouched(this.customerForm);
     }
@@ -361,7 +374,7 @@ export class PaymentComponent {
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code:code,
+        code: code,
         trip_id: this.tripId,
         userid: this.userData?.id,
         avilable_option_id: this.avilable_option_id,
@@ -371,7 +384,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'cash',
-        coupon_id:this.Coupons?this.Coupons[0]?.id:'',
+        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
@@ -399,38 +412,37 @@ export class PaymentComponent {
       console.log(model);
 
       this._httpService
-      .post(environment.marsa, 'Activtes/book', model)
-      .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res && res.link) {
-            window.location.href = res.link; 
-          } else {
-            const queryParams = {
-              res: JSON.stringify(res),
-              trip_id: this.tripId,
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'tours', 'confirm'],
-              { queryParams }
-            );
+        .post(environment.marsa, 'Activtes/book', model)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            if (res && res.link) {
+              window.location.href = res.link;
+            } else {
+              const queryParams = {
+                res: JSON.stringify(res),
+                trip_id: this.tripId,
+              };
+              this.router.navigate(
+                ['/', this.translate.currentLang, 'tours', 'confirm'],
+                { queryParams }
+              );
+              Swal.fire(
+                'Your request has been send successfully.',
+                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+                'success'
+              );
+            }
+          },
+          error: (err: any) => {
+            console.error('Error during booking:', err);
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-              'success'
-            );;
-          }
-        },
-        error: (err: any) => {
-          console.error('Error during booking:', err);
-          Swal.fire(
-            'Booking Failed',
-            'An error occurred while processing your booking. Please try again later.',
-            'error'
-          );
-        }
-      });
-
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            );
+          },
+        });
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);

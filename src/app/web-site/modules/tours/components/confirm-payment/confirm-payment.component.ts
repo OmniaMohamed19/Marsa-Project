@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
@@ -13,10 +14,11 @@ export class ConfirmPaymentComponent implements OnInit {
   tripId: any;
   confirmRequest: any;
   relatedtrips: any[] = [];
-
+  tripletails:any
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
+    public translate: TranslateService,
   ) { }
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -34,6 +36,7 @@ export class ConfirmPaymentComponent implements OnInit {
         `Activtes/details/` + activityID
       )
       .subscribe((res: any) => {
+        this.tripletails=res.tripDetails
         this.relatedtrips = res.Relatedtrips;
         console.log(res);
       });
