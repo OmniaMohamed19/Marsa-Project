@@ -179,6 +179,7 @@ export class PackageDetailsComponent {
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
         this.rows = res?.tripDetails;
+        
         console.log(this.rows);
         this.duration = this.rows.duration;
         // this.seoService.updateSEO(
@@ -189,18 +190,18 @@ export class PackageDetailsComponent {
         this.duration = res?.tripDetails.duration;
         this.calculateEndDate();
       });
-      
+
   }
   hasDiscount(packageData: any): boolean {
     // Check if a discount is present for adults
     return packageData?.Price?.AdultDiscount > 0;
   }
-  
+
   calculateDiscountedPrice(price: number, discount: number): number {
     // Calculate the discounted price
     return Math.round(price - (discount / 100) * price);
   }
-  
+
   calculateEndDate() {
     if (!this.startDate || !this.duration) {
       return;

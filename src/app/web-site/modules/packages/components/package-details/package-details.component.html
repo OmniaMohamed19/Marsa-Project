@@ -159,14 +159,14 @@
       <div class="col-lg-6 position-relative">
         <div class="diving-images">
           <div>
-            <img src="../../../../../assets/images/dolphin1.png" />
+            <img [src]="rows?.cover1" />
           </div>
           <div>
-            <img src="../../../../../assets/images/boat2.png" />
-          </div>
+            <img [src]="rows?.cover2" />
+            </div>
           <div>
-            <img src="../../../../../assets/images/man3.png" />
-          </div>
+            <img [src]="rows?.cover3" />
+         </div>
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@
     <div class="percent">
       <div>
         <p>UP TO</p>
-        <p>15%</p>
+        <p>{{rows?.discount}}</p>
       </div>
       <span>discount</span>
     </div>
