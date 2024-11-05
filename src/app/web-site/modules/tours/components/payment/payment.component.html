@@ -462,7 +462,7 @@
                   <form class="js-validate" novalidate="novalidate">
                     <div class="row">
                       <div class="col-sm-6 mb-4">
-                        <!-- <div class="js-form-message">
+                        <div class="js-form-message">
                           <label class="form-label"> Card Holder Name </label>
                           <input
                             type="text"
@@ -471,11 +471,12 @@
                             placeholder=""
                             aria-label=""
                             required=""
+                            [(ngModel)]="cardholderName"
                           />
-                        </div> -->
+                        </div>
                       </div>
                       <div class="col-sm-6 mb-4">
-                        <!-- <div class="js-form-message">
+                        <div class="js-form-message">
                           <label class="form-label"> Card Number </label>
 
                           <input
@@ -485,14 +486,15 @@
                             placeholder=""
                             aria-label=""
                             required=""
+                            [(ngModel)]="cardNumber"
                           />
-                        </div> -->
+                        </div>
                       </div>
 
                       <div class="w-100"></div>
 
                       <div class="col-sm-6 mb-4">
-                        <!-- <div class="row">
+                        <div class="row">
                           <div class="col-sm-6 mb-4 mb-md-0">
                             <div class="js-form-message">
                               <label class="form-label"> Expiry Month </label>
@@ -503,6 +505,7 @@
                                 name="Expirymonth"
                                 placeholder=""
                                 aria-label=""
+                                [(ngModel)]="expiryMonth"
                                 required=""
                               />
                             </div>
@@ -515,17 +518,18 @@
                                 type="number"
                                 class="form-control"
                                 name="Expiryyear"
+                                [(ngModel)]="expirYear"
                                 placeholder=""
                                 aria-label=""
                                 required=""
                               />
                             </div>
                           </div>
-                        </div> -->
+                        </div>
                       </div>
 
-                      <!-- <div class="col-sm-6 mb-4"> -->
-                      <!-- <div class="js-form-message">
+                      <div class="col-sm-6 mb-4">
+                      <div class="js-form-message">
                           <label class="form-label"> CCV </label>
 
                           <input
@@ -535,9 +539,10 @@
                             placeholder=""
                             aria-label=""
                             required=""
+                            [(ngModel)]="cvv"
                           />
-                        </div> -->
-                      <!-- </div> -->
+                        </div>
+                      </div>
 
                       <div class="w-100"></div>
 

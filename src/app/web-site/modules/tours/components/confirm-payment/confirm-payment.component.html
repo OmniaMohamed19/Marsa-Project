@@ -65,7 +65,8 @@
                             <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-2">
                                 Traveler Information
                             </h5>
-                            <!-- <a routerLink="/home/tours/payment" class="text-decoration-underline">Edit</a> -->
+                            <a [routerLink]="['/', translate.currentLang, 'tours', 'details',tripletails?.id,
+                            tripletails?.Name]"class="btn payment text-white w-100 py-3">Edit</a>
                             <!-- <a class="text-decoration-underline">Edit</a> -->
 
                         </div>

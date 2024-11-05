@@ -25,8 +25,8 @@ export class TokenInterceptor implements HttpInterceptor {
     const authRequest = req.clone({
       setHeaders: {
         Authorization: `Bearer ${authToken ? authToken : ''}`,
-        'Accept': '*',
-        'App-Language': this.Language ? this.Language:'en',
+        'Accept': 'application/json',
+        // 'App-Language': this.Language ? this.Language:'en',
       }
     });
     return next.handle(authRequest);
