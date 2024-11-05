@@ -352,12 +352,16 @@ export class PaymentComponent {
           },
           error: (err: any) => {
             console.error('Error during booking:', err);
+
+            // Extract and display error details if available
+            const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
+
             Swal.fire(
               'Booking Failed',
-              'An error occurred while processing your booking. Please try again later.',
+              errorMessage,
               'error'
             );
-          },
+          }
         });
     } else {
       this.markFormGroupTouched(this.customerForm);
