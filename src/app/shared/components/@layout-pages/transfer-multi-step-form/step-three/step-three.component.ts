@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { catchError, finalize } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2';
@@ -124,71 +126,7 @@ export class StepThreeComponent {
     this.selected = !this.selected;
   }
 
-  // confirmBookingByCard() {
 
-  //   const bookingOption = [];
-
-  //   for (const key in this.selectedOption) {
-  //     if (this.selectedOption.hasOwnProperty(key)) {
-  //       const option = this.selectedOption[key];
-  //       // Extract the ID and push it to idArray
-  //       if (option && option.id) {
-  //         bookingOption.push({
-  //           id: option.id,
-  //           persons: this.person,
-  //         });
-  //       }
-  //     }
-  //   }
-  //   const model = {
-  //     from_id: this.fromId,
-  //     to_id: this.toId,
-  //     person: this.person,
-  //     car_id: this.carId,
-  //     way: this.way,
-  //     booking_time: this.bookingDate,
-  //     booking_date: this.bookingDate,
-  //     return_booking_time: this.returnbookingtime,
-  //     return_booking_date: this.returnbookingdate,
-  //     payment_method: this.payment_method ? this.payment_method : 'tap',
-  //     booking_option: bookingOption,
-  //     flight_n:this.flightNumper,
-  //     coupon_code:'123',
-  //     cardholder_name:this.cardholderName,
-  //     cvv:this.cvv,
-  //     expiry_year:this.expirYear,
-  //     expiry_month:this.expiryMonth,
-  //     card_number:this.cardNumber
-  //   };
-
-  //   this._httpService.post(environment.marsa, 'transfer/book', model)
-  //   .subscribe({
-  //     next: (res: any) => {
-  //       console.log(res);
-  //       const queryParams = {
-  //         res: JSON.stringify(res),
-
-  //       };
-  //       this.router.navigate(
-  //         ['/', this.translate.currentLang, 'transfer', 'confirm'],
-  //         { queryParams }
-  //       );
-  //       Swal.fire(
-  //         'Your request has been send successfully.',
-  //         'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
-  //         'success'
-  //       );
-  //     },
-  //     error: (err: any) => {
-  //       console.error('Error during booking:', err);
-  //       Swal.fire(
-  //         'Booking Failed',
-  //         'An error occurred while processing your booking. Please try again later.',
-  //         'error'
-  //       );
-  //     }
-  //   });
-  // }
 
   confirmBookingByCard() {
     // Initialize bookingOption array
@@ -207,7 +145,6 @@ export class StepThreeComponent {
       }
     }
 
-
     const model = {
       from_id: this.fromId,
       to_id: this.toId,
@@ -220,13 +157,13 @@ export class StepThreeComponent {
       return_booking_date: this.returnbookingdate,
       payment_method: this.payment_method ? this.payment_method : 'tab',
       booking_option: bookingOption,
-      flight_n:this.flightNumper,
-      coupon_code:'123',
-      cardholder_name:this.cardholderName,
-      cvv:this.cvv,
-      expiry_year:this.expirYear,
-      expiry_month:this.expiryMonth,
-      card_number:this.cardNumber
+      flight_n: this.flightNumper,
+      coupon_code: '123',
+      cardholder_name: this.cardholderName,
+      cvv: this.cvv.toString(),
+      expiry_year: this.expirYear,
+      expiry_month: this.expiryMonth,
+      card_number: this.cardNumber.toString()
     };
 
     this._httpService.post(environment.marsa, 'transfer/book', model)
@@ -238,29 +175,33 @@ export class StepThreeComponent {
           } else {
             const queryParams = {
               res: JSON.stringify(res),
-
             };
             this.router.navigate(
               ['/', this.translate.currentLang, 'transfer', 'confirm'],
               { queryParams }
             );
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
+              'Your request has been sent successfully.',
+              'The Tour official will contact you as soon as possible. For any further assistance, please contact us at info@marsawaves.com.',
               'success'
             );
           }
         },
         error: (err: any) => {
           console.error('Error during booking:', err);
+
+          // Extract and display error details if available
+          const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
+
           Swal.fire(
             'Booking Failed',
-            'An error occurred while processing your booking. Please try again later.',
+            errorMessage,
             'error'
           );
         }
       });
   }
+
 
 
   confirmBooking() {
@@ -347,3 +288,6 @@ export class StepThreeComponent {
   }
 
 }
+
+
+
