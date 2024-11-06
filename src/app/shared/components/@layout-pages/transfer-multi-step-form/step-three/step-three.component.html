@@ -396,31 +396,31 @@
                   <span class="person">Subtotal </span>
                </div>
                <div class="col-4">
-                   <span class="age"></span>
+                   <span class="age">{{price}}$</span>
                </div>
           </div>
 
           <!---------------------------------->
       </div>
       <!------------------------->
-      <div class="d-flex justify-content-between mt-5">
-          <div class="col-6 px-0">
-              <span class="person">Total </span>
-           </div>
-           <div class="col-4">
-               <span class="age">{{price}}</span>
-           </div>
-      </div>
       <li
       *ngIf="Coupons&&Coupons[0]"
-        class="d-flex justify-content-between py-2 font-size-17"
-        style="font-weight: 700"
+      class="d-flex justify-content-between py-2 font-size-17"
+      style="font-weight: 700"
       >
-        <span style="font-weight: 700">Coupon</span>
-        <span style="font-weight: 700">{{
-          Coupons[0]?.amount
-        }}</span>
-      </li>
+      <span style="font-weight: 700">Coupon</span>
+      <span style="font-weight: 700">{{
+        Coupons[0]?.amount
+      }}$</span>
+    </li>
+    <div class="d-flex justify-content-between mt-5">
+        <div class="col-6 px-0">
+            <span class="person">Total </span>
+         </div>
+         <div class="col-4">
+             <span class="age">{{Coupons?price - Coupons[0].amount:price}}$</span>
+         </div>
+    </div>
 
   </div>
 </div>
