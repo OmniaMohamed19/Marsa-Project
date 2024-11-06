@@ -99,7 +99,7 @@ export class StepThreeComponent {
     this.bookingDate = this.bookdetail.date;
     this.bookingTime = this.bookdetail.pickuptime;
     this.person = this.bookdetail.person;
-    this.price = this.bookdetail.price;
+    this.price = this.responseData?.booking?.price;
     this.kilometr = this.bookdetail.this.bookdetail;
 
   }
@@ -159,7 +159,7 @@ export class StepThreeComponent {
       payment_method: this.payment_method ? this.payment_method : 'tab',
       booking_option: bookingOption,
       flight_n: this.flightNumper,
-      coupon_code: '123',
+      coupon_code: this.Coupons[0].code,
       cardholder_name: this.cardholderName,
       cvv: this.cvv.toString(),
       expiry_year: this.expirYear,
