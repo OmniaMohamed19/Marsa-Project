@@ -52,7 +52,13 @@ export class PackagePaymentComponent {
     packege_id: ''
   }
   end_date : string='';
-
+  tripletails: any;
+  edit: boolean=false;
+  cardholderName: any;
+  cvv: any;
+  expirYear: any;
+  expiryMonth: any;
+  cardNumber: any;
   constructor(
     private location: Location,
     private _httpService: HttpService,
@@ -67,6 +73,7 @@ export class PackagePaymentComponent {
 
   ngOnInit(): void {
     this.initForm();
+    this.edit=localStorage['edit']?localStorage['edit']:false
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       console.log('params', params);
@@ -94,7 +101,61 @@ export class PackagePaymentComponent {
     });
 
   }
+  getTripById(activityID: any) {
+    this._httpService
+      .get(
+        environment.marsa,
+        `Activtes/details/` + activityID
+      )
+      .subscribe((res: any) => {
+        this.tripletails=res.tripDetails
+        // console.log(res);
+      });
+  }
+  confirmEdit(event: Event){
+    if (this.customerForm.valid) {
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
 
+      const model = {
+        code:code,
+        ...this.model,
+        payment_method: this.payment_method ? this.payment_method : 'tap',
+        ...this.customerForm.value,
+        phone: phoneNumber.replace("+", ""),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+  
+      };
+  
+      console.log(model);
+      
+      this._httpService.post(environment.marsa, 'bookinfo/'+'8', model).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          // if (res && res.link) {
+          //   window.location.href = res.link; 
+          // } else {
+            this.getTripById(this.model.packege_id)
+            this.router.navigate(
+            ['/', this.translate.currentLang, 'packages', 'packageDetails',this.tripletails?.id,
+                            this.tripletails?.Name]
+              );
+              localStorage.removeItem('edit')
+              localStorage.removeItem('queryParams')
+            Swal.fire(
+              'Your request has been send successfully',
+              'Your request has been sent successfully. Please check your email for further instructions.',
+              'success'
+            );
+          }
+        // },
+      })
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      this.markFormGroupTouched(this.customerForm);
+    }
+  }
   initForm() {
     this.customerForm = this.fb.group({
       name: ['', Validators.required],
@@ -195,7 +256,11 @@ export class PackagePaymentComponent {
         phone: phoneNumber.replace("+", ""),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-  
+        cardholder_name: this.cardholderName,
+        cvv: this.cvv.toString(),
+        expiry_year: this.expirYear,
+        expiry_month: this.expiryMonth,
+        card_number: this.cardNumber.toString(),
       };
   
       console.log(model);

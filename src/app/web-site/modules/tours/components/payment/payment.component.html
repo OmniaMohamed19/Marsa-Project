@@ -578,10 +578,15 @@
                           </div> -->
                         </div>
                         <a
-                          href="#"
-                          (click)="confirmBookingByCard($event)"
+                          (click)="edit?confirmEdit($event)
+                          :confirmBookingByCard($event)"
                           class="btn payment text-white w-100 py-3"
-                          >CONFIRM BOOKING</a
+                          >
+                          {{
+                            edit?'CONFIRM EDIT'
+                            :'CONFIRM BOOKING'
+                          }}
+                          </a
                         >
                       </div>
                     </div>
@@ -627,9 +632,15 @@
                         </p>-->
                       </div>
                       <a
-                        (click)="confirmBooking()"
+                        (click)="edit?confirmEdit($event)
+                        :confirmBooking()"
                         class="btn payment text-white w-100 py-3"
-                        >CONFIRM BOOKING</a
+                        >
+                        {{
+                          edit?'CONFIRM EDIT'
+                          :'CONFIRM BOOKING'
+                        }}
+                        </a
                       >
                     </div>
                   </form>

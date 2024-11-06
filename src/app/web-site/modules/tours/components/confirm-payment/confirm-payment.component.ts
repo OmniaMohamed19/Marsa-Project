@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -19,13 +19,13 @@ export class ConfirmPaymentComponent implements OnInit {
     private _httpService: HttpService,
     private route: ActivatedRoute,
     public translate: TranslateService,
+    private router: Router,
   ) { }
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
       const res = JSON.parse(params['res']);
       this.confirmRequest = res;
       this.tripId = params['trip_id'];
-
       this.getTripById(this.tripId)
     })
   }
@@ -67,5 +67,18 @@ export class ConfirmPaymentComponent implements OnInit {
       }
     },
     nav: true
+  }
+  ReturnToPayment(){
+    const storedQueryParams = localStorage.getItem('queryParams');
+if (storedQueryParams) {
+    const queryParams = JSON.parse(storedQueryParams);
+    console.log(queryParams);
+    // Now you can access the properties of queryParams
+    localStorage['edit']=true
+    this.router.navigate(
+      ['/', this.translate.currentLang, 'tours', 'payment'],
+      { queryParams }
+    );
+}
   }
 }

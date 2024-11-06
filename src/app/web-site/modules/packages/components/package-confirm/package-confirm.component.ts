@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-package-confirm',
   templateUrl: './package-confirm.component.html',
@@ -17,6 +17,8 @@ export class PackageConfirmComponent {
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
+    private router: Router,
+    public translate: TranslateService,
   ) { }
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -39,6 +41,19 @@ export class PackageConfirmComponent {
       });
   }
 
+  ReturnToPayment(){
+    const storedQueryParams = localStorage.getItem('queryParams');
+    if (storedQueryParams) {
+        const queryParams = JSON.parse(storedQueryParams);
+        console.log(queryParams);
+        // Now you can access the properties of queryParams
+        localStorage['edit']=true
+        this.router.navigate(
+          ['/', this.translate.currentLang, 'packages', 'packagePayment'],
+          { queryParams }
+        );
+    }
+  }
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,

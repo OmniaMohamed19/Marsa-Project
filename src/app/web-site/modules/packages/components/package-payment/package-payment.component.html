@@ -210,33 +210,36 @@
                 [class.active]="isActiveTab('pills-two-example2')">
                 <form class="js-validate" novalidate="novalidate">
                   <div class="row">
-                    <!-- <div class="col-sm-6 mb-4">
+                    <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label">
                           Card Holder Name
                         </label>
-                        <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
+                        <input 
+                        [(ngModel)]="cardholderName" type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
                           required="">
                       </div>
-                    </div> -->
-                    <!-- <div class="col-sm-6 mb-4">
+                    </div>
+                    <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label">
                           Card Number
                         </label>
-                        <input type="number" class="form-control" name="Cardnumber" placeholder="" aria-label=""
+                        <input 
+                        [(ngModel)]="cardNumber" type="number" class="form-control" name="Cardnumber" placeholder="" aria-label=""
                           required="">
                       </div>
-                    </div> -->
+                    </div>
                     <div class="w-100"></div>
-                    <!-- <div class="col-sm-6 mb-4">
+                    <div class="col-sm-6 mb-4">
                       <div class="row">
                         <div class="col-sm-6 mb-4 mb-md-0">
                           <div class="js-form-message">
                             <label class="form-label">
                               Expiry Month
                             </label>
-                            <input type="number" class="form-control" name="Expirymonth" placeholder="" aria-label=""
+                            <input 
+                            [(ngModel)]="expiryMonth" type="number" class="form-control" name="Expirymonth" placeholder="" aria-label=""
                               required="">
                           </div>
                         </div>
@@ -245,21 +248,23 @@
                             <label class="form-label">
                               Expiry Year
                             </label>
-                            <input type="number" class="form-control" name="Expiryyear" placeholder="" aria-label=""
+                            <input
+                            [(ngModel)]="expirYear" type="number" class="form-control" name="Expiryyear" placeholder="" aria-label=""
                               required="">
                           </div>
                         </div>
                       </div>
-                    </div> -->
-                    <!-- <div class="col-sm-6 mb-4">
+                    </div> 
+                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label">
                           CCV
                         </label>
-                        <input type="number" class="form-control" name="ccvnumber" placeholder="" aria-label=""
+                        <input type="number"
+                        [(ngModel)]="cvv" class="form-control" name="ccvnumber" placeholder="" aria-label=""
                           required="">
                       </div>
-                    </div> -->
+                    </div>
                     <div class="w-100"></div>
                     <div class="col">
                       <div class="js-form-message mb-5" [innerHTML]="responseFromAvailableOption?.Bookingpayment">
@@ -275,7 +280,18 @@
                           </label>
                         </div> -->
                       </div>
-                      <a (click)="confirmBookingByCard($event)" class="btn  payment text-white w-100 py-3">CONFIRM BOOKING</a>
+                      
+                      <a
+                          (click)="edit?confirmEdit($event)
+                          :confirmBookingByCard($event)"
+                          class="btn payment text-white w-100 py-3"
+                          >
+                          {{
+                            edit?'CONFIRM EDIT'
+                            :'CONFIRM BOOKING'
+                          }}
+                          </a
+                        >
                     </div>
                   </div>
                 </form>
@@ -307,8 +323,19 @@
                         centuries,
                       </p> -->
                     </div>
-                    <a (click)="confirmBooking()" class="btn  payment text-white w-100 py-3">CONFIRM
-                      BOOKING</a>
+                    <a
+                          (click)="edit?confirmEdit($event)
+                          :confirmBooking()"
+                          class="btn payment text-white w-100 py-3"
+                          >
+                          {{
+                            edit?'CONFIRM EDIT'
+                            :'CONFIRM BOOKING'
+                          }}
+                          </a
+                        >
+                    <!-- <a (click)="confirmBooking()" class="btn  payment text-white w-100 py-3">CONFIRM
+                      BOOKING</a> -->
                   </div>
                 </form>
               </div>

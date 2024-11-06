@@ -65,13 +65,23 @@
                             <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-2">
                                 Traveler Information
                             </h5>
-                            <a [routerLink]="['/', translate.currentLang, 'tours', 'details',tripletails?.id,
-                            tripletails?.Name]"class="btn payment text-white w-100 py-3">Edit</a>
+                            <!-- <a 
+                            href="#"
+                            (click)="ReturnToPayment()"
+                            class=" payment text-white  ">Edit</a> -->
+                            <!-- ,tripletails?.id,
+                            [routerLink]="['/', translate.currentLang, 'tours', 'payment']
+                            tripletails?.Name] -->
                             <!-- <a class="text-decoration-underline">Edit</a> -->
 
                         </div>
                         <!-- Fact List -->
                         <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                            <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
+                                <span class="text-secondary text-right"></span>
+                                <span (click)="ReturnToPayment()"
+                                class=" payment text-white  ">Edit</span>
+                            </li>
                             <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
                                 <span class="font-weight-medium">Booking number</span>
                                 <span class="text-secondary text-right">{{confirmRequest?.Bookingnumber}}</span>
