@@ -63,6 +63,7 @@ export class StepThreeComponent {
     this.way = localStorage.getItem('activeSection') || '';
 
     const bookingDetail = localStorage.getItem('bookdetail');
+    
     const savedSelectedCar = localStorage.getItem('selectedCar');
     const savedSelectedOption = localStorage.getItem('selectedOptions');
     const savedResponseData = localStorage.getItem('responseData');
