@@ -71,7 +71,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   // This function disables dates before today
   dateFilter = (date: Date | null): boolean => {
-    const selectedDate = (date || new Date());
+    const selectedDate = date || new Date();
     // Compare only the date part (ignoring time)
     return selectedDate >= new Date(this.today.setHours(0, 0, 0, 0));
   };
@@ -153,22 +153,20 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
   seeMore: boolean = false;
   showFullDescription = false;
-
+  
+  // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
-    this.seeMore = !this.seeMore;
+    // No need to toggle seeMore; it can be derived from showFullDescription
   }
-
-  get displayedDescription(): string {
-    const words = this.activityData?.Description.split(' ');
-    if (this.showFullDescription || words.length <= 150) {
-      this.seeMore = !this.seeMore;
+  
+  // Method to get the displayed description
+  getDisplayedDescription(): string {
+    const words = this.activityData?.Description?.split(' ');
+    if (this.showFullDescription || words?.length <= 150) {
       return this.activityData?.Description;
     } else {
-      return (
-        words.slice(0, 150).join(' ') +
-        '...'
-      );
+      return words?.slice(0, 150).join(' ') + '...';
     }
   }
   @ViewChild('myDiv') myDiv!: ElementRef;
@@ -189,7 +187,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-      console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
+      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
@@ -209,7 +207,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      console.log(visibleEntries);
+      // console.log(visibleEntries);
 
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
@@ -226,27 +224,25 @@ export class ToursDetailsComponent implements AfterViewInit {
   @HostListener('window:scroll', ['$event'])
   isScrolledIntoView() {
     if (this.checkAvailabilityButton) {
-      const rect =
-        this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
-      const topShown = rect.top >= 0;
-      const bottomShown = rect.bottom <= window.innerHeight;
+      const rect = this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
+      const topShown = rect.top >= 0 && rect.top < window.innerHeight;
+      const bottomShown = rect.bottom > 0 && rect.bottom <= window.innerHeight;
+
       this.isTestDivScrolledIntoView = topShown && bottomShown;
-      if (this.isTestDivScrolledIntoView) {
-        this.hideMobileFooter = true;
-      } else {
-        this.hideMobileFooter = false;
-      }
+
+      // Set hideMobileFooter based on visibility
+      this.hideMobileFooter = this.isTestDivScrolledIntoView;
     }
   }
 
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
-    console.log(this.happyGustImages);
+    // console.log(this.happyGustImages);
     this.desplayedGustImages = Array.from(
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
-    console.log(this.desplayedGustImages);
-    console.log(index);
+    // console.log(this.desplayedGustImages);
+    // console.log(index);
 
     this.activeIndex = index;
     this.displayCustom = true;
@@ -402,10 +398,18 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   scrollToCheckAvailabilityButton() {
-    this.checkAvailabilityButton.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
+      if (this.checkAvailabilityButton) {
+        // Get the position of the button
+        const rect = this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
+        const scrollToY = rect.top + window.scrollY - 70; // Adjusting 50px from the top
+    
+        // Smoothly scroll to the adjusted position
+        window.scrollTo({
+          top: scrollToY,
+          behavior: 'smooth'
+        });
+      }
+    this.hideMobileFooter =false
   }
 
   getActivityById(activityID: any) {
@@ -413,13 +417,13 @@ export class ToursDetailsComponent implements AfterViewInit {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
-        console.log(this.activityData);
+        // console.log(this.activityData);
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
         );
 
         // this.googleIframe=this.activityData.PlaceOnMap
-        console.log(this.activityData.TypeOfRepeat);
+        // console.log(this.activityData.TypeOfRepeat);
 
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
@@ -434,10 +438,10 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
         this.relatedtrips = res.Relatedtrips;
         this.happyGustImages = this.activityData?.HappyGust;
-        // console.log(typeof this.happyGustImages);
+        console.log(typeof this.happyGustImages);
 
         this.remainingImages = this.activityData?.HappyGust.slice(1);
-        console.log(this.remainingImages);
+        // console.log(this.remainingImages);
         const boat = this.activityData?.Boats.find(
           (boat: any) => boat.id === activityID
         );
@@ -497,10 +501,10 @@ export class ToursDetailsComponent implements AfterViewInit {
     // const dialogRef = this.dialog.open(BoatSliderModalComponent, {
     //   width: '100%',
     // });
-    console.log(this.coverAndImages);
+    // console.log(this.coverAndImages);
 
-    console.log(this.boatImages);
-    // console.log(boat.images);
+    // console.log(this.boatImages);
+    console.log(boat.images);
 
     // dialogRef.componentInstance.images = boatImages;
   }
@@ -605,7 +609,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   };
 
   addEvent(event: MatDatepickerInputEvent<Date>): void {
-    console.log(event);
+    // console.log(event);
 
     this.formattedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
   }
@@ -779,7 +783,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         })
         .subscribe({
           next: (res: any) => {
-            console.log(res);
+            // console.log(res);
             // btn.classList.add('bg-primary');
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
