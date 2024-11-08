@@ -63,6 +63,7 @@ export class StepThreeComponent {
     this.way = localStorage.getItem('activeSection') || '';
 
     const bookingDetail = localStorage.getItem('bookdetail');
+
     const savedSelectedCar = localStorage.getItem('selectedCar');
     const savedSelectedOption = localStorage.getItem('selectedOptions');
     const savedResponseData = localStorage.getItem('responseData');
@@ -74,15 +75,17 @@ export class StepThreeComponent {
     this.fromName = this.responseData?.booking?.from || '';
     this.toName = this.responseData?.booking?.to || '';
 
-    if (bookingDetail) {
+    if (bookingDetail)
+     {
       this.bookdetail = JSON.parse(bookingDetail);
       console.log(this.bookdetail);
-    }
-  console.log("hiiiioo");
-    if (savedFlightNumper) {
+     }
+
+    if (savedFlightNumper)
+    {
       this.formData1 = JSON.parse(savedFlightNumper);
       this.flightNumper=this.formData1?.flightNumber;
-     console.log(this.formData1)
+      console.log(this.formData1)
       console.log(this.flightNumper);
     }
     if (savedSelectedCar) {
