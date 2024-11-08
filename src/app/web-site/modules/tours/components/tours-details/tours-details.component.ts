@@ -632,15 +632,20 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   bookNow(avilable_option_id: number) {
     if (!this.availabilityChecked) {
-      this.toastr.info(
-        'Please Choose a date and click on "Check availability" first.'
-      );
-      this.scrollToCheckAvailabilityButton();
-      this.selectedDateControl.markAsTouched();
-      return;
-    } else {
-      this.showBookingOption = !this.showBookingOption;
-      this.bookedOptionId = avilable_option_id;
+              this.toastr.info('Please Choose a date and click on "Check availability" first.');
+              this.scrollToCheckAvailabilityButton();
+              this.selectedDateControl.markAsTouched();
+              return;
+          }
+      
+          // If the clicked option is the same as the previously booked option, toggle it
+          if (this.bookedOptionId === avilable_option_id) {
+              this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
+          } else {
+              // If a different option is clicked, open the new booking option
+              this.bookedOptionId = avilable_option_id; // Update to the new option
+              this.showBookingOption = true; // Open the booking details
+      
       const model = {
         trip_id: this.activityData.id,
         avilable_option_id: avilable_option_id,
@@ -691,6 +696,74 @@ export class ToursDetailsComponent implements AfterViewInit {
         });
     }
   }
+//   bookNow(available_option_id: number) {
+//     if (!this.availabilityChecked) {
+//         this.toastr.info('Please Choose a date and click on "Check availability" first.');
+//         this.scrollToCheckAvailabilityButton();
+//         this.selectedDateControl.markAsTouched();
+//         return;
+//     }
+
+//     // If the clicked option is the same as the previously booked option, toggle it
+//     if (this.bookedOptionId === available_option_id) {
+//         this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
+//     } else {
+//         // If a different option is clicked, open the new booking option
+//         this.bookedOptionId = available_option_id; // Update to the new option
+//         this.showBookingOption = true; // Open the booking details
+
+//         const model = {
+//             trip_id: this.activityData.id,
+//             available_option_id: available_option_id,
+//             class: '',
+//             adult: this.adults,
+//             children: this.children,
+//             infant: this.infant,
+//         };
+
+//         if (this.selectedOption === 'Collective') {
+//             model.class = 'collective';
+//         } else if (this.selectedOption === 'Private') {
+//             model.class = 'private';
+//         }
+
+//         // Make the API call to fetch booking details
+//         this._httpService
+//               .post(environment.marsa, 'Activtes/AvailableOption/price', model)
+//               .subscribe({
+//                 next: (res: any) => {
+//                   this.dataCheck = {
+//                     res: JSON.stringify(res),
+//                     trip_id: this.activityData.id,
+//                     booking_date: this.formattedDate,
+//                     class: model.class,
+//                     time: this.selectedTime,
+//                     avilable_option_id: available_option_id,
+//                     adult: this.adults,
+//                     childern: this.children,
+//                     infant: this.infant,
+//                   };
+//                   // const dialogRef = this.dialog.open(CheckAvailpiltyComponent, {
+//                   //   width: '80%',
+//                   //   data: {
+//                   //     res: JSON.stringify(res),
+//                   //     trip_id: this.activityData.id,
+//                   //     booking_date: this.formattedDate,
+//                   //     class: model.class,
+//                   //     time: this.selectedTime,
+//                   //     avilable_option_id: avilable_option_id,
+//                   //     adult: this.adults,
+//                   //     childern: this.children,
+//                   //     infant: this.infant,
+//                   //   },
+//                   // });
+//                   // dialogRef.afterClosed().subscribe(() => {
+//                   //   window.scroll(0, 0); // Scroll after the dialog is fully closed
+//                   // });
+//                 },
+//               });
+//     }
+// }
 
   showImage(img: string) {
     this.coverAndImages = [{ value: img }];
