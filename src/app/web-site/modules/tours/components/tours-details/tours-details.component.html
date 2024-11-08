@@ -389,10 +389,14 @@
           <!-- Content Sections -->
           <div id="description" class="tab-pane">
             <h5 class="heading">Description</h5>
-            <p [innerHTML]="displayedDescription" class="d-inline"></p>
-            <span style="color:#0db1ff" (click)="toggleDescription()" class="  d-inline" *ngIf="!seeMore" >
+            <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
+            <span style="color:#0db1ff" (click)="toggleDescription()" class="d-inline" *ngIf="!seeMore">
               {{ showFullDescription ? "See Less" : "See More" }}
             </span>
+            
+            <!-- <p>
+              {{ getDisplayedDescription() }}
+            </p> -->
           </div>
 
           <div id="experience" class="tab-pane">
@@ -1505,29 +1509,31 @@
               >
             </li>
           </ul>
-          <span
-            class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
-            [ngClass]="{
-              'border collective': selectedOption === 'Collective',
-              'private collective': selectedOption !== 'Collective'
-            }"
-            (click)="changeOption('Collective')"
-            >Collective</span
-          >
+          <div #checkAvailabilityButton>
+            <span
+              class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
+              [ngClass]="{
+                'border collective': selectedOption === 'Collective',
+                'private collective': selectedOption !== 'Collective'
+              }"
+              (click)="changeOption('Collective')"
+              >Collective</span
+            >
+  
+            <span
+              class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
+              *ngIf="activityData?.Privete > 0"
+              [ngClass]="{
+                'border private': selectedOption === 'Private',
+                'collective private': selectedOption !== 'Private'
+              }"
+              (click)="changeOption('Private')"
+              >Private</span
+            >
 
-          <span
-            class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
-            *ngIf="activityData?.Privete > 0"
-            [ngClass]="{
-              'border private': selectedOption === 'Private',
-              'collective private': selectedOption !== 'Private'
-            }"
-            (click)="changeOption('Private')"
-            >Private</span
-          >
 
-          <div class="border border-color-7 rounded mb-5">
-            <div class="p-1 px-4" #checkAvailabilityButton>
+          <div class="border border-color-7 rounded mb-5"  >
+            <div class="p-1 px-4">
               <div class="priceTitle d-flex justify-content-between">
                 <span class="d-block text-gray-1 font-weight-normal text-left"
                   >Price</span
@@ -1867,6 +1873,8 @@
               </div>
             </div>
           </div>
+        </div>
+
           <div class="border border-color-7 rounded p-4 mb-5">
             <h6 class="book">Why Book With Us?</h6>
             <div
