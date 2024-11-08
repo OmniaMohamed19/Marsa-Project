@@ -21,13 +21,13 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        this.toastr.error(error.message , '' ,{
-          disableTimeOut: false,
-          titleClass: "toastr_title",
-          messageClass:"toastr_message",
-          timeOut:5000,
-          closeButton:true,
-          })
+        // this.toastr.error(error.message , '' ,{
+        //   disableTimeOut: false,
+        //   titleClass: "toastr_title",
+        //   messageClass:"toastr_message",
+        //   timeOut:5000,
+        //   closeButton:true,
+        //   })
         if(error.error.message == "jwt expired" || error.error.message == "jwt must provide") {
           this.router.navigate(['/login']);
           localStorage.removeItem("token");

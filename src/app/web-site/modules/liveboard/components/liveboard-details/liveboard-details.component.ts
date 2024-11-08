@@ -128,22 +128,20 @@ export class LiveboardDetailsComponent {
   }
   seeMore: boolean = false;
   showFullDescription = false;
-
+  
+  // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
-    this.seeMore = !this.seeMore;
+    // No need to toggle seeMore; it can be derived from showFullDescription
   }
-
-  get displayedDescription(): string {
-    const words = this.liveabourdData?.Description.split(' ');
-    if (this.showFullDescription || words.length <= 150) {
-      this.seeMore = !this.seeMore;
+  
+  // Method to get the displayed description
+  getDisplayedDescription(): string {
+    const words = this.liveabourdData?.Description?.split(' ');
+    if (this.showFullDescription || words?.length <= 150) {
       return this.liveabourdData?.Description;
     } else {
-      return (
-        words.slice(0, 150).join(' ') +
-        '...' 
-      );
+      return words?.slice(0, 150).join(' ') + '...';
     }
   }
   responsiveOptions: any[] | undefined;

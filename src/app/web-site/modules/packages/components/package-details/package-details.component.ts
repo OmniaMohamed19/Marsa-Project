@@ -102,13 +102,17 @@ export class PackageDetailsComponent {
     private seoService: SEOService
   ) {}
 
+  seeMore: boolean = false;
   showFullDescription = false;
-
+  
+  // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
+    // No need to toggle seeMore; it can be derived from showFullDescription
   }
-
-  get displayedDescription(): string {
+  
+  // Method to get the displayed description
+  getDisplayedDescription(): string {
     const words = this.rows?.Description?.split(' ');
     if (this.showFullDescription || words?.length <= 150) {
       return this.rows?.Description;

@@ -153,16 +153,16 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
   seeMore: boolean = false;
   showFullDescription = false;
-
+  
   // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
-    this.seeMore = !this.seeMore; // This change is fine
+    // No need to toggle seeMore; it can be derived from showFullDescription
   }
-
+  
   // Method to get the displayed description
   getDisplayedDescription(): string {
-    const words = this.activityData?.Description.split(' ');
+    const words = this.activityData?.Description?.split(' ');
     if (this.showFullDescription || words?.length <= 150) {
       return this.activityData?.Description;
     } else {

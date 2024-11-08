@@ -390,10 +390,14 @@
           <div id="description" class="tab-pane">
             <h5 class="heading">Description</h5>
             <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
-            <span style="color:#0db1ff" (click)="toggleDescription()" class="d-inline" *ngIf="!seeMore">
+            <span
+              style="color: #0db1ff"
+              (click)="toggleDescription()"
+              class="d-inline"
+            >
               {{ showFullDescription ? "See Less" : "See More" }}
             </span>
-            
+
             <!-- <p>
               {{ getDisplayedDescription() }}
             </p> -->
@@ -453,7 +457,10 @@
                         style="color: #ff681a"
                       ></i>
 
-                      <span class="font-size-9 d-inline-block" *ngIf="exclude?.price > 0">
+                      <span
+                        class="font-size-9 d-inline-block"
+                        *ngIf="exclude?.price > 0"
+                      >
                         {{ exclude.title }} <br />
                         ( {{ exclude?.price }} $ per person :
                         {{ exclude?.option }})
@@ -609,8 +616,6 @@
                       />
                     </button>
                   </div>
-
-
                 </div>
                 <div
                   class="col-md-4 mt-5 pt-5 text-center bookDetails"
@@ -693,15 +698,13 @@
                   </div>
                 </div>
                 <div
-                    *ngIf="!showBookingOption"
-                    class="d-flex w-50 justify-content-between align-items-center"
-                  >
-                    <h5>Total Price</h5>
-                    <h5>{{ getMinAdultPrice()?.PriceColective.Adult }} $</h5>
-                  </div>
-                <div
-                  *ngIf="selectedOption === 'Private'; else elseTemplate"
+                  *ngIf="!showBookingOption"
+                  class="d-flex w-50 justify-content-between align-items-center"
                 >
+                  <h5>Total Price</h5>
+                  <h5>{{ getMinAdultPrice()?.PriceColective.Adult }} $</h5>
+                </div>
+                <div *ngIf="selectedOption === 'Private'; else elseTemplate">
                   <button
                     class="book1 d-flex align-items-center fw-bold"
                     (click)="bookNow(availableOption?.id)"
@@ -1040,7 +1043,7 @@
                           {{ faqItem.Question }}
                         </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <p >
+                      <p>
                         {{ faqItem.Answer }}
                       </p>
                     </mat-expansion-panel>
@@ -1519,7 +1522,7 @@
               (click)="changeOption('Collective')"
               >Collective</span
             >
-  
+
             <span
               class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
               *ngIf="activityData?.Privete > 0"
@@ -1531,318 +1534,325 @@
               >Private</span
             >
 
-
-          <div class="border border-color-7 rounded mb-5"  >
-            <div class="p-1 px-4">
-              <div class="priceTitle d-flex justify-content-between">
-                <span class="d-block text-gray-1 font-weight-normal text-left"
-                  >Price</span
-                >
-                <p style="font-weight: 700">
-                  <span
-                    class="font-size-18 fw-bold text-dark"
-                    [style.text-decoration]="
-                      (selectedOption === 'Collective' &&
-                        getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
-                      (selectedOption === 'Private' &&
-                        getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
-                        ? 'line-through'
-                        : ''
-                    "
-                    [style.color]="
-                      (selectedOption === 'Collective' &&
-                        getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
-                      (selectedOption === 'Private' &&
-                        getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
-                        ? 'red !important'
-                        : ''
-                    "
+            <div class="border border-color-7 rounded mb-5">
+              <div class="p-1 px-4">
+                <div class="priceTitle d-flex justify-content-between">
+                  <span class="d-block text-gray-1 font-weight-normal text-left"
+                    >Price</span
                   >
-                    From
-                    {{
-                      selectedOption === "Collective"
-                        ? getMinAdultPrice()?.PriceColective.Adult
-                        : selectedOption === "Private"
-                        ? getMinAdultPrice()?.PricePrivte.Adult
-                        : ""
-                    }}
-                    $</span
-                  >
-                  <span
-                    class="mx-2 font-size-18 fw-bold text-dark"
-                    *ngIf="
-                      (selectedOption === 'Collective' &&
-                        getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
-                      (selectedOption === 'Private' &&
-                        getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
-                    "
-                    style="font-weight: 700"
-                    >{{
-                      selectedOption === "Collective"
-                        ? getRoundedRate(
-                            getMinAdultPrice()?.PriceColective.Adult -
-                              (getMinAdultPrice()?.PriceColective
-                                .AdultDiscount /
-                                100) *
-                                getMinAdultPrice()?.PriceColective.Adult
-                          )
-                        : selectedOption === "Private"
-                        ? getRoundedRate(
-                            getMinAdultPrice()?.PricePrivte.Adult -
-                              (getMinAdultPrice()?.PricePrivte.AdultDiscount /
-                                100) *
-                                getMinAdultPrice()?.PricePrivte.Adult
-                          )
-                        : ""
-                    }}
-                    $</span
-                  >
-                </p>
-              </div>
-              <div class="mb-1">
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <span class="d-block">Date</span>
-
-                  <mat-form-field class="w-100">
-                    <input
-                      matInput
-                      [matDatepicker]="picker"
-                      placeholder="Choose a date"
-                      [formControl]="selectedDateControl"
-                      [matDatepickerFilter]="dateFilter"
-                      (dateInput)="addEvent($event)"
-                    />
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-
-
-
-                  <!-- Show time picker for TypeOfRepeat = 'h' or 'm' -->
-                  <ng-container *ngIf="selectedDateControl.value">
-                    <div
-                      *ngIf="
-                        activityData?.TypeOfRepeat === 'h' ||
-                        activityData?.TypeOfRepeat === 'm'
+                  <p style="font-weight: 700">
+                    <span
+                      class="font-size-18 fw-bold text-dark"
+                      [style.text-decoration]="
+                        (selectedOption === 'Collective' &&
+                          getMinAdultPrice()?.PriceColective.AdultDiscount >
+                            0) ||
+                        (selectedOption === 'Private' &&
+                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                          ? 'line-through'
+                          : ''
+                      "
+                      [style.color]="
+                        (selectedOption === 'Collective' &&
+                          getMinAdultPrice()?.PriceColective.AdultDiscount >
+                            0) ||
+                        (selectedOption === 'Private' &&
+                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                          ? 'red !important'
+                          : ''
                       "
                     >
-                      <mat-form-field class="w-100">
-                        <mat-label>Select time</mat-label>
-                        <mat-select
-                          [formControl]="selectedTimeControl"
-                          (valueChange)="onTimeSelection($event)"
-                        >
-                          <mat-option
-                            *ngFor="let time of getTimeOptions()"
-                            [value]="time"
-                            >{{ time }}</mat-option
+                      From
+                      {{
+                        selectedOption === "Collective"
+                          ? getMinAdultPrice()?.PriceColective.Adult
+                          : selectedOption === "Private"
+                          ? getMinAdultPrice()?.PricePrivte.Adult
+                          : ""
+                      }}
+                      $</span
+                    >
+                    <span
+                      class="mx-2 font-size-18 fw-bold text-dark"
+                      *ngIf="
+                        (selectedOption === 'Collective' &&
+                          getMinAdultPrice()?.PriceColective.AdultDiscount >
+                            0) ||
+                        (selectedOption === 'Private' &&
+                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                      "
+                      style="font-weight: 700"
+                      >{{
+                        selectedOption === "Collective"
+                          ? getRoundedRate(
+                              getMinAdultPrice()?.PriceColective.Adult -
+                                (getMinAdultPrice()?.PriceColective
+                                  .AdultDiscount /
+                                  100) *
+                                  getMinAdultPrice()?.PriceColective.Adult
+                            )
+                          : selectedOption === "Private"
+                          ? getRoundedRate(
+                              getMinAdultPrice()?.PricePrivte.Adult -
+                                (getMinAdultPrice()?.PricePrivte.AdultDiscount /
+                                  100) *
+                                  getMinAdultPrice()?.PricePrivte.Adult
+                            )
+                          : ""
+                      }}
+                      $</span
+                    >
+                  </p>
+                </div>
+                <div class="mb-1">
+                  <div class="border-bottom border-width-2 border-color-1 pb-1">
+                    <span class="d-block">Date</span>
+
+                    <mat-form-field class="w-100">
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        placeholder="Choose a date"
+                        [formControl]="selectedDateControl"
+                        [matDatepickerFilter]="dateFilter"
+                        (dateInput)="addEvent($event)"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <!-- Show time picker for TypeOfRepeat = 'h' or 'm' -->
+                    <ng-container *ngIf="selectedDateControl.value">
+                      <div
+                        *ngIf="
+                          activityData?.TypeOfRepeat === 'h' ||
+                          activityData?.TypeOfRepeat === 'm'
+                        "
+                      >
+                        <mat-form-field class="w-100">
+                          <mat-label>Select time</mat-label>
+                          <mat-select
+                            [formControl]="selectedTimeControl"
+                            (valueChange)="onTimeSelection($event)"
                           >
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                  </ng-container>
+                            <mat-option
+                              *ngFor="let time of getTimeOptions()"
+                              [value]="time"
+                              >{{ time }}</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </ng-container>
 
-                  <div
-                    *ngIf="
-                      selectedDateControl.invalid &&
-                      (selectedDateControl.dirty || selectedDateControl.touched)
-                    "
-                    class="text-danger"
-                  >
-                    <div *ngIf="selectedDateControl.errors?.['required']">
-                      Date is required.
+                    <div
+                      *ngIf="
+                        selectedDateControl.invalid &&
+                        (selectedDateControl.dirty ||
+                          selectedDateControl.touched)
+                      "
+                      class="text-danger"
+                    >
+                      <div *ngIf="selectedDateControl.errors?.['required']">
+                        Date is required.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <span
-                class="d-block text-gray-1 font-weight-normal mb-1 text-left"
-                *ngIf="selectedOption === 'Collective'"
-                >Adults</span
-              >
-              <div class="mb-4" *ngIf="selectedOption === 'Collective'">
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <div
-                    class="js-quantity flex-center-between text-dark fw-bold"
-                  >
-                    <span class="d-block"
-                      >Age
-                      {{ getMinAdultPrice()?.PriceColective.AdultAge }}</span
+                <span
+                  class="d-block text-gray-1 font-weight-normal mb-1 text-left"
+                  *ngIf="selectedOption === 'Collective'"
+                  >Adults</span
+                >
+                <div class="mb-4" *ngIf="selectedOption === 'Collective'">
+                  <div class="border-bottom border-width-2 border-color-1 pb-1">
+                    <div
+                      class="js-quantity flex-center-between text-dark fw-bold"
                     >
-                    <div class="flex-horizontal-center">
-                      <a class="js-minus font-size-10 text-dark">
-                        <img
-                          (click)="decrementAdult()"
-                          src="assets/custom/Activity/Indeterminate check box.svg"
-                          alt="image"
-                          loading="lazy"
+                      <span class="d-block"
+                        >Age
+                        {{ getMinAdultPrice()?.PriceColective.AdultAge }}</span
+                      >
+                      <div class="flex-horizontal-center">
+                        <a class="js-minus font-size-10 text-dark">
+                          <img
+                            (click)="decrementAdult()"
+                            src="assets/custom/Activity/Indeterminate check box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                        <input
+                          class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
+                          type="text"
+                          [attr.min]="1"
+                          [attr.max]="getMaxValue('AdultMax')"
+                          [(ngModel)]="adults"
+                          disabled
                         />
-                      </a>
-                      <input
-                        class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
-                        type="text"
-                        [attr.min]="1"
-                        [attr.max]="getMaxValue('AdultMax')"
-                        [(ngModel)]="adults"
-                        disabled
-                      />
 
-                      <a class="js-plus font-size-10 text-dark">
-                        <img
-                          (click)="incrementAdult()"
-                          src="assets/custom/Activity/Add box.svg"
-                          alt="image"
-                          loading="lazy"
-                        />
-                      </a>
+                        <a class="js-plus font-size-10 text-dark">
+                          <img
+                            (click)="incrementAdult()"
+                            src="assets/custom/Activity/Add box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <span
-                class="d-block text-gray-1 font-weight-normal mb-1 text-left"
-                *ngIf="selectedOption === 'Collective'"
-                >Children</span
-              >
-              <div class="mb-1" *ngIf="selectedOption === 'Collective'">
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <div
-                    class="js-quantity flex-center-between mb-1 text-dark fw-bold"
-                  >
-                    <span class="d-inline-block"
-                      >Age
-                      {{ getMinAdultPrice()?.PriceColective.childernAge }}</span
+                <span
+                  class="d-block text-gray-1 font-weight-normal mb-1 text-left"
+                  *ngIf="selectedOption === 'Collective'"
+                  >Children</span
+                >
+                <div class="mb-1" *ngIf="selectedOption === 'Collective'">
+                  <div class="border-bottom border-width-2 border-color-1 pb-1">
+                    <div
+                      class="js-quantity flex-center-between mb-1 text-dark fw-bold"
                     >
+                      <span class="d-inline-block"
+                        >Age
+                        {{
+                          getMinAdultPrice()?.PriceColective.childernAge
+                        }}</span
+                      >
 
-                    <span class="badge bg-orange p-2 sale">
-                      {{
-                        selectedOption === "Collective"
-                          ? getMinAdultPrice()?.PriceColective.childernDiscount
-                          : ""
-                      }}% OFF</span
-                    >
-                    <div class="flex-horizontal-center">
-                      <a class="js-minus font-size-10 text-dark">
-                        <img
-                          (click)="decrementChildren()"
-                          src="assets/custom/Activity/Indeterminate check box.svg"
-                          alt="image"
-                          loading="lazy"
+                      <span class="badge bg-orange p-2 sale">
+                        {{
+                          selectedOption === "Collective"
+                            ? getMinAdultPrice()?.PriceColective
+                                .childernDiscount
+                            : ""
+                        }}% OFF</span
+                      >
+                      <div class="flex-horizontal-center">
+                        <a class="js-minus font-size-10 text-dark">
+                          <img
+                            (click)="decrementChildren()"
+                            src="assets/custom/Activity/Indeterminate check box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                        <input
+                          class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
+                          type="text"
+                          [attr.min]="0"
+                          [(ngModel)]="children"
+                          [attr.max]="getMaxValue('ChildernMax')"
+                          disabled
                         />
-                      </a>
-                      <input
-                        class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
-                        type="text"
-                        [attr.min]="0"
-                        [(ngModel)]="children"
-                        [attr.max]="getMaxValue('ChildernMax')"
-                        disabled
-                      />
-                      <a class="js-plus font-size-10 text-dark">
-                        <img
-                          (click)="incrementChildren()"
-                          src="assets/custom/Activity/Add box.svg"
-                          alt="image"
-                          loading="lazy"
-                        />
-                      </a>
+                        <a class="js-plus font-size-10 text-dark">
+                          <img
+                            (click)="incrementChildren()"
+                            src="assets/custom/Activity/Add box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <span
-                class="d-block text-gray-1 font-weight-normal mb-2 text-left"
-                *ngIf="selectedOption === 'Collective'"
-                >Infant</span
-              >
-              <div class="mb-4" *ngIf="selectedOption === 'Collective'">
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <div
-                    class="js-quantity flex-center-between mb-1 text-dark fw-bold"
-                  >
-                    <span class="d-block"
-                      >Age
-                      {{ getMinAdultPrice()?.PriceColective.infantAge }}</span
+                <span
+                  class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                  *ngIf="selectedOption === 'Collective'"
+                  >Infant</span
+                >
+                <div class="mb-4" *ngIf="selectedOption === 'Collective'">
+                  <div class="border-bottom border-width-2 border-color-1 pb-1">
+                    <div
+                      class="js-quantity flex-center-between mb-1 text-dark fw-bold"
                     >
-                    <span class="badge bg-green p-2 sale">
-                      {{
-                        selectedOption === "Collective"
-                          ? getMinAdultPrice()?.PriceColective.infantDiscount
-                          : ""
-                      }}% OFF</span
-                    >
-                    <div class="flex-horizontal-center">
-                      <a class="js-minus font-size-10 text-dark">
-                        <img
-                          (click)="decrementInfant()"
-                          src="assets/custom/Activity/Indeterminate check box.svg"
-                          alt="image"
-                          loading="lazy"
+                      <span class="d-block"
+                        >Age
+                        {{ getMinAdultPrice()?.PriceColective.infantAge }}</span
+                      >
+                      <span class="badge bg-green p-2 sale">
+                        {{
+                          selectedOption === "Collective"
+                            ? getMinAdultPrice()?.PriceColective.infantDiscount
+                            : ""
+                        }}% OFF</span
+                      >
+                      <div class="flex-horizontal-center">
+                        <a class="js-minus font-size-10 text-dark">
+                          <img
+                            (click)="decrementInfant()"
+                            src="assets/custom/Activity/Indeterminate check box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                        <input
+                          class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
+                          type="text"
+                          [attr.min]="0"
+                          [(ngModel)]="infant"
+                          [attr.max]="getMaxValue('InfantMax')"
+                          disabled
                         />
-                      </a>
-                      <input
-                        class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
-                        type="text"
-                        [attr.min]="0"
-                        [(ngModel)]="infant"
-                        [attr.max]="getMaxValue('InfantMax')"
-                        disabled
-                      />
-                      <a class="js-plus font-size-10 text-dark">
-                        <img
-                          (click)="incrementInfant()"
-                          src="assets/custom/Activity/Add box.svg"
-                          alt="image"
-                          loading="lazy"
-                        />
-                      </a>
+                        <a class="js-plus font-size-10 text-dark">
+                          <img
+                            (click)="incrementInfant()"
+                            src="assets/custom/Activity/Add box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- choose private -->
-              <span
-                class="d-block text-gray-1 font-weight-normal mb-2 text-left"
-                *ngIf="selectedOption === 'Private'"
-                >Persons</span
-              >
-              <div class="mb-4" *ngIf="selectedOption === 'Private'">
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <div
-                    class="js-quantity flex-center-between mb-1 text-dark fw-bold"
-                  >
-                    <span class="d-block">Number of persons</span>
-                    <div class="flex-horizontal-center">
-                      <a class="js-minus font-size-10 text-dark">
-                        <img
-                          (click)="decrementAdult()"
-                          src="assets/custom/Activity/Indeterminate check box.svg"
-                          alt="image"
-                          loading="lazy"
+                <!-- choose private -->
+                <span
+                  class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                  *ngIf="selectedOption === 'Private'"
+                  >Persons</span
+                >
+                <div class="mb-4" *ngIf="selectedOption === 'Private'">
+                  <div class="border-bottom border-width-2 border-color-1 pb-1">
+                    <div
+                      class="js-quantity flex-center-between mb-1 text-dark fw-bold"
+                    >
+                      <span class="d-block">Number of persons</span>
+                      <div class="flex-horizontal-center">
+                        <a class="js-minus font-size-10 text-dark">
+                          <img
+                            (click)="decrementAdult()"
+                            src="assets/custom/Activity/Indeterminate check box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                        <input
+                          class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
+                          type="text"
+                          [attr.min]="1"
+                          [attr.max]="getMaxValue('AdultMax')"
+                          [(ngModel)]="adults"
+                          disabled
                         />
-                      </a>
-                      <input
-                        class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
-                        type="text"
-                        [attr.min]="1"
-                        [attr.max]="getMaxValue('AdultMax')"
-                        [(ngModel)]="adults"
-                        disabled
-                      />
 
-                      <a class="js-plus font-size-10 text-dark">
-                        <img
-                          (click)="incrementAdult()"
-                          src="assets/custom/Activity/Add box.svg"
-                          alt="image"
-                          loading="lazy"
-                        />
-                      </a>
+                        <a class="js-plus font-size-10 text-dark">
+                          <img
+                            (click)="incrementAdult()"
+                            src="assets/custom/Activity/Add box.svg"
+                            alt="image"
+                            loading="lazy"
+                          />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- <div *ngIf="selectedDateControl.value" [@fadeInOut]>
+                <!-- <div *ngIf="selectedDateControl.value" [@fadeInOut]>
                 <div class="alert alert-info my-2 text-white">
                   <p class="mb-0" style="font-weight: 700">
                     Adult Max : {{ getMaxValue("AdultMax") }}
@@ -1863,17 +1873,17 @@
                   </p>
                 </div>
               </div> -->
-              <div class="text-center">
-                <a
-                  class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
-                  (click)="addAvailableOptions()"
-                >
-                  Check availability
-                </a>
+                <div class="text-center">
+                  <a
+                    class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
+                    (click)="addAvailableOptions()"
+                  >
+                    Check availability
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
           <div class="border border-color-7 rounded p-4 mb-5">
             <h6 class="book">Why Book With Us?</h6>
@@ -2037,7 +2047,10 @@
                       [matDatepickerFilter]="dateFilter"
                       (dateInput)="addEvent($event)"
                     />
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
 
