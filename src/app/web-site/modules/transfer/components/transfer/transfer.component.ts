@@ -17,7 +17,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class TransferComponent implements OnInit,AfterViewInit {
   formData: any = {};
-  persons: number = 5;
+  persons: number = 2;
   transferDetails: any;
   fromId: string = '';
   toId: any;
@@ -128,10 +128,11 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
   }
 
   tabs = [
-    { label: 'with return', section: 'section1' },
+
     { label: 'one way', section: 'section2' },
+    { label: 'with return', section: 'section1' },
   ];
-  activeSection = 'section1';
+  activeSection = 'section2';
 
   setActiveSection(section: string) {
 
@@ -261,7 +262,7 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       (option.name || option.city).toLowerCase().includes(this.searchTo.toLowerCase())
     );
   }
-  
+
 
   selectFromOption(option: any) {
     if (option.name) {

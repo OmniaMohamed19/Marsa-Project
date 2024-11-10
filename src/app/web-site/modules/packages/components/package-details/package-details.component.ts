@@ -59,6 +59,7 @@ export class PackageDetailsComponent {
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
 
   rows: any;
+  faq:any;
   packageID: any;
   relatedtrips: any[] = [];
   Why_chosse_us: any;
@@ -104,13 +105,13 @@ export class PackageDetailsComponent {
 
   seeMore: boolean = false;
   showFullDescription = false;
-  
+
   // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
-  
+
   // Method to get the displayed description
   getDisplayedDescription(): string {
     const words = this.rows?.Description?.split(' ');
@@ -183,7 +184,9 @@ export class PackageDetailsComponent {
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
         this.rows = res?.tripDetails;
-        
+        this.faq=res?.tripDetails?.FAQ;
+        console.log(res?.tripDetails?.FAQ)
+
         console.log(this.rows);
         this.duration = this.rows.duration;
         // this.seoService.updateSEO(
