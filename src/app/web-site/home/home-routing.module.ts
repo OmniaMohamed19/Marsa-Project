@@ -99,7 +99,7 @@ const routes: Routes = [
       import(`../modules/faq/faq.module`).then((m) => m.FaqModule),
   },
   {
-    path: 'search',
+    path: 'destination/:name',
     loadChildren: () =>
       import(`../modules/tour-details/tour-details.module`).then((m) => m.TourDetailsModule),
   },

@@ -1,22 +1,29 @@
-.group-tour li,
-.cancelWallet {
-  font-family: Lato;
+.group-tour li p,
+.cancelWallet p,
+.headingTime p {
+
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
+  margin-top: 1rem;
+  color: rgb(33, 37, 41);
+}
+.cancelWallet p{
+  margin-left:0.4rem ;
 }
 .modal-body {
   overflow-y: auto !important;
 }
 .price-list li {
-  font-family: Lato;
+
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
+
 }
 
 .location {
@@ -24,17 +31,17 @@
 }
 
 .heading {
-  font-family: Lato;
+
   font-size: 20px;
-  font-weight: 700;
-  line-height: 29px;
+    font-weight: 700;
+   line-height: 29px;
   letter-spacing: 0em;
   text-align: left;
-  color: rgba(59, 68, 79, 1);
+ //  color: rgba(59, 68, 79, 1);
 }
 
 .desc {
-  font-family: Lato;
+
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
@@ -51,7 +58,7 @@ select {
 
 .total-price h6 {
   color: #3b444f;
-  font-family: Lato;
+
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -60,7 +67,7 @@ select {
 
 .total-price small {
   color: #3b444f;
-  font-family: Lato;
+
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -69,7 +76,7 @@ select {
 
 .total-price span {
   color: #3b444f;
-  font-family: Lato;
+
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -78,7 +85,6 @@ select {
 
 h5 {
   color: #3b444f;
-  font-family: Lato;
   font-size: 22px;
   font-style: normal;
   font-weight: 700;
@@ -88,7 +94,7 @@ h5 {
 .check {
   background: #0db1ff;
   color: #fff;
-  font-family: Lato;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -100,7 +106,7 @@ h5 {
 .cart {
   border: 1px solid #0db1ff;
   color: var(--Main-Title, #0db1ff);
-  font-family: Lato;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -117,4 +123,13 @@ h5 {
   margin: 0px;
   font-size: 25px;
   padding: 0px;
+}
+@media (max-width: 992px){
+  .group-tour li p,
+.cancelWallet p ,
+.headingTime p{
+
+  font-size: 16.1px;
+}
+
 }

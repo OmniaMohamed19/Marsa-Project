@@ -210,7 +210,7 @@ export class MaindetailComponent implements OnInit {
   storeSelectedSight(): void {
     localStorage.setItem('selectedSight', JSON.stringify(this.selectedSight));
 
-    this.router.navigate(['/', this.translate.currentLang, 'search', 'all-tickets']);
+    //this.router.navigate(['/', this.translate.currentLang, 'destination', 'all-tickets']);
   }
 
 

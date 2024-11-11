@@ -9,10 +9,10 @@
                  (click)="onCarClick($event, item.id)"
                  [class.active]="formData.selectedCarId === item.id">
 
-              <div class="radio-container" style="position: absolute; top: 10px; left: 10px;">
+              <!-- <div class="radio-container" style="position: absolute; top: 10px; left: 10px;">
                 <input type="radio" name="selectedCar" [value]="item.id"  #radio
                        [checked]="selectedCarId === item.id" required>
-              </div>
+              </div> -->
 
               <img [src]="item.cover" alt="{{item.name}}" class="img-fluid">
               <h2 class="text-center">{{ item.name }}</h2>
@@ -64,7 +64,7 @@
                     <mat-label>Arrival flight number</mat-label>
                     <input matInput placeholder="e.g. EK 213"name="flightNumber" [(ngModel)]="formData.flightNumber">
                   </mat-form-field>
-                  
+
 
                 </form>
 
@@ -102,7 +102,7 @@
                     <mat-label>Arrival flight number</mat-label>
                     <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber">
                   </mat-form-field>
-                  
+
 
                 </form>
 
@@ -110,7 +110,7 @@
 
               </div>
             </div>
-           
+
           </div>
 
         </div>
@@ -118,7 +118,7 @@
 
       </div>
 
-      
+
       <div *ngIf="activeSection == 2" >
         <hr class="horizontal-line">
 
@@ -139,7 +139,7 @@
                       <mat-icon matSuffix>calendar_today</mat-icon>
                     </mat-form-field>
                   </form>
-  
+
                 </div>
               </div>
               <div class="col">
@@ -150,10 +150,10 @@
                 </mat-form-field>
               </div>
             </div>
-  
+
           </div>
         </div>
-  
+
         <div class="row mt-5">
           <div class="col">
             <div class="thin-heading">Returning To:</div>
@@ -163,17 +163,17 @@
             <div class="row">
               <div class="col" *ngIf="Isairport">
                 <div class="thin-heading">Flight Number</div>
-  
+
                 <div class="form-outline" data-mdb-input-init>
                   <form class="example-form">
                     <mat-form-field appearance="outline">
                       <mat-label>Departure flight number (optional)</mat-label>
                       <input matInput placeholder="e.g. EK 213">
                     </mat-form-field>
-  
-  
+
+
                   </form>
-  
+
                 </div>
               </div>
               <!-- <div class="col">
@@ -181,17 +181,17 @@
                 <mat-form-field appearance="outline">
                   <input [(ngModel)]="formData.pickuptime" [value]="formData.pickuptime" #pickuptimeInput="ngModel" matInput readonly>
                   <mat-icon matSuffix>access_time</mat-icon>
-  
+
                 </mat-form-field>
               </div> -->
             </div>
-  
+
           </div>
-  
+
         </div>
       </div>
 
-      
+
 
       <hr class="horizontal-line">
       <div class="row mb-5">

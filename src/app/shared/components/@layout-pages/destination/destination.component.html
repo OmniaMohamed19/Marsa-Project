@@ -20,7 +20,8 @@
           cdkDrag
           class="dist-card gradient-overlay-half-bg-gradient transition-3d-hover shadow-hover-2"
           style="height: 250px; margin-left: 1.2rem;"
-          [routerLink]="'search'"
+
+          [routerLink]="['destination', dist?.name]"
           [style.background]="'url(' + dist?.cover + ')'"
           [style.background-size]="'cover !important'"
 
@@ -35,7 +36,7 @@
                 class="text-white font-weight-bold font-size-21 text-lh-1 d-block">
                 {{ dist?.name }}
               </a> -->
-              <a class="dropdown-item" [routerLink]="'search'" [queryParams]="{ id: dist.id }" (click)="logId(dist.id)">View Tours</a>
+              <a class="dropdown-item"[routerLink]="['destination', dist?.name]"  [queryParams]="{ id: dist.id }" (click)="logId(dist.id)">View Tours</a>
             </div>
           </mat-card-content>
         </mat-card>

@@ -7,6 +7,8 @@ h3 {
     position: relative;
 }
 
+
+
 h3::after {
     content: "";
     position: absolute;
@@ -73,6 +75,7 @@ h2 {
 .card:hover .gradient-overlay-half-bg-gradient-v5  {
   transform: scale(1.2);
 }
+
 
 .card-title {
     font-family: Lato;

@@ -201,6 +201,10 @@ h3.highlighting {
 }
 
 @media (max-width: 992px) {
+  h3.highlighting{
+    font-size: 19px;
+    margin-top: 2rem;
+  }
   .sticky-nav {
     display: none;
   }
