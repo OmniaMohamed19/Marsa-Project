@@ -491,6 +491,7 @@ export class LiveboardDetailsComponent {
                 adult: this.persons,
                 schedules_id: this.schedules_id,
               };
+              localStorage.setItem('queryParamsliveaboard', JSON.stringify(queryParams));
               this._Router.navigate(
                 [
                   '/',

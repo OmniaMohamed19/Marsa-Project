@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
@@ -17,6 +18,8 @@ export class ConfirmPaymentLiveabourdComponent {
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
+    private router: Router,
+    public translate: TranslateService,
   )
   {}
 
@@ -43,7 +46,19 @@ export class ConfirmPaymentLiveabourdComponent {
 
       });
   }
-
+  ReturnToPayment(){
+    const storedQueryParams = localStorage.getItem('queryParamsliveaboard');
+if (storedQueryParams) {
+    const queryParams = JSON.parse(storedQueryParams);
+    console.log(queryParams);
+    // Now you can access the properties of queryParams
+    localStorage['edit']=true
+    this.router.navigate(
+      ['/', this.translate.currentLang, 'liveboard', 'liveboard-payment'],
+      { queryParams }
+    );
+}
+  }
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,

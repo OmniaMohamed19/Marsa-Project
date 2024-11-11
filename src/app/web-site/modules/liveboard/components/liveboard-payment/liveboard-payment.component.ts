@@ -42,6 +42,11 @@ export class LiveboardPaymentComponent implements OnInit {
   Coupons: any;
   Total: any;
   nationalities!: Code[];
+  cardholderName: any;
+  cvv: any;
+  expirYear: any;
+  expiryMonth: any;
+  cardNumber: any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
   locationValue = '';
@@ -53,7 +58,9 @@ export class LiveboardPaymentComponent implements OnInit {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
   };
-
+  liveabourd: any;
+  edit: boolean=false;
+  tripletails: any;
   constructor(
     private location: Location,
     private _httpService: HttpService,
@@ -266,6 +273,101 @@ export class LiveboardPaymentComponent implements OnInit {
     console.log(this.coupon);
     // Coupon
   }
+  confirmEdit(event: Event){
+    if (this.customerForm.valid) {
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
+
+      const model = {
+        trip_id: this.tripId,
+        class: 'collective',
+        code:code,
+        adult: this.adult,
+        schedules_id: this.schedules_id,
+        payment_method: this.payment_method ? this.payment_method : 'tap',
+        ...this.customerForm.value,
+        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+        phone: phoneNumber.replace('+', ''),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        cardholder_name: this.cardholderName,
+        cvv: this.cvv.toString(),
+        expiry_year: this.expirYear,
+        expiry_month: this.expiryMonth,
+        card_number: this.cardNumber.toString(),
+        cabins: this.cabins
+          .map((cabin: any) => ({
+            id: cabin.id,
+            persons:
+              this.personsMap[cabin.id] !== 0
+                ? this.personsMap[cabin.id]
+                : undefined,
+          }))
+          .filter((cabin: any) => cabin.persons !== undefined),
+      };
+      // if (model.booking_option.length == 0) {
+      //   model.booking_option = null;
+      // }
+      Object.keys(model).forEach(
+        (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
+      );
+      console.log(model);
+
+      this._httpService
+        .post(environment.marsa, 'bookinfo/'+this.tripId, model)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this._httpService.get(environment.marsa,'liveboard/details/'+this.tripId)
+            .subscribe({
+              next: (res: any) => {
+                this.liveabourd = res?.tripDetails;
+            this.router.navigate(
+              [
+                '/',
+                this.translate.currentLang,
+                'liveboard',
+                'liveboardDetails',
+                this.liveabourd?.id,
+                this.liveabourd?.Title
+              ]
+              );
+              localStorage.removeItem('edit')
+              localStorage.removeItem('queryParams')
+            }})
+
+            // if (res && res.link) {
+            //   window.location.href = res.link;
+            // } else {
+            //   const queryParams = {
+            //     res: JSON.stringify(res),
+            //     trip_id: this.tripId,
+            //   };
+            //   this.router.navigate(
+            //     ['/', this.translate.currentLang, 'tours', 'confirm'],
+            //     { queryParams }
+            //   );
+              Swal.fire(
+                'Your request has been send successfully.',
+                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+                'success'
+              );
+            // }
+          },
+          error: (err: any) => {
+            console.error('Error during booking:', err);
+            Swal.fire(
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            );
+          },
+        });
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      this.markFormGroupTouched(this.customerForm);
+    }
+  }
 
   confirmBookingByCard(event: Event) {
     event.preventDefault();
@@ -286,6 +388,11 @@ export class LiveboardPaymentComponent implements OnInit {
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        cardholder_name: this.cardholderName,
+        cvv: this.cvv.toString(),
+        expiry_year: this.expirYear,
+        expiry_month: this.expiryMonth,
+        card_number: this.cardNumber.toString(),
         cabins: this.cabins
           .map((cabin: any) => ({
             id: cabin.id,

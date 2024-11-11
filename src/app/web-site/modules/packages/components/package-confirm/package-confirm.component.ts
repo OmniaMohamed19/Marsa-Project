@@ -42,7 +42,7 @@ export class PackageConfirmComponent {
   }
 
   ReturnToPayment(){
-    const storedQueryParams = localStorage.getItem('queryParams');
+    const storedQueryParams = localStorage.getItem('queryParamsPackages');
     if (storedQueryParams) {
         const queryParams = JSON.parse(storedQueryParams);
         console.log(queryParams);

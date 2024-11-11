@@ -71,6 +71,11 @@
                         </div>
                         <!-- Fact List -->
                         <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                            <li class="d-flex justify-content-between py-2  flex-column flex-sm-row">
+                                <span class="text-secondary text-right"></span>
+                                <span (click)="ReturnToPayment()"
+                                class=" payment text-white  ">Edit</span>
+                            </li>
                             <li class="d-flex justify-content-between py-2">
                                 <span class="font-weight-medium">Booking number</span>
                                 <span class="text-secondary text-right">{{confirmRequest?.Bookingnumber}}</span>

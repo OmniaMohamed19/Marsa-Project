@@ -453,7 +453,7 @@ export class PackageDetailsComponent {
                 booking_date: this.formattedStartDate,
                 end_date: this.formattedEndDate,
               };
-              localStorage.setItem('queryParams', JSON.stringify(queryParams));
+              localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
               this.router.navigate(
                 ['/', this.translate.currentLang, 'packages', 'packagePayment'],
                 { queryParams }
