@@ -651,7 +651,7 @@
                       <!-- End Checkbox -->
                       <a
                         (click)="edit?confirmEdit($event)
-                        :confirmBooking()"
+                        :confirmBookingByCard($event)"
                         class="btn payment text-white w-100 py-3"
                         >
                         {{
@@ -706,7 +706,7 @@
                     </div>
                     <a
                           (click)="edit?confirmEdit($event)
-                          :confirmBookingByCard($event)"
+                          :confirmBooking()"
                           class="btn payment text-white w-100 py-3"
                           >
                           {{

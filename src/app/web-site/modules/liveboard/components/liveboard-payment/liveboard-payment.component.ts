@@ -83,6 +83,7 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.edit=localStorage['edit']
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
@@ -114,8 +115,8 @@ export class LiveboardPaymentComponent implements OnInit {
       phone: ['', [Validators.required]],
       // nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',!this.showServices?[Validators.required]:[]],
-      locationValue: ['',this.showServices?Validators.required:''],
+      pickup_point: ['', this.showServices ? [Validators.required] : []],
+      locationValue: [''],
     });
   }
 
