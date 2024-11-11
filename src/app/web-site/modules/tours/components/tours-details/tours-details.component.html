@@ -1619,12 +1619,13 @@
                         [matDatepickerFilter]="dateFilter"
                         (dateInput)="addEvent($event)"
                       />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="picker"
-                      ></mat-datepicker-toggle>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
+                    
+                    <!-- <div *ngIf="selectedDateControl.errors?.matDatepickerFilter">
+                      <p style="color: red;">Please select a date that is not a Saturday or Sunday.</p>
+                    </div> -->
 
                     <!-- Show time picker for TypeOfRepeat = 'h' or 'm' -->
                     <ng-container *ngIf="selectedDateControl.value">
@@ -2049,12 +2050,13 @@
                       [matDatepickerFilter]="dateFilter"
                       (dateInput)="addEvent($event)"
                     />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
+                  
+                  <!-- <div *ngIf="selectedDateControl.errors?.matDatepickerFilter">
+                    <p style="color: red;">Please select a valid date.</p>
+                  </div> -->
 
                   <!-- Show time picker for TypeOfRepeat = 'h' or 'm' -->
                   <ng-container *ngIf="selectedDateControl.value">
@@ -2359,7 +2361,8 @@
   </div>
 </ng-template>
 <ng-template #videoModal>
-  <div class="h-100" mat-dialog-content>
+  <video #videoElement class="w-100 h-100" [src]="videoUrl" controls autoplay name="media"></video>
+  <!-- <div class="h-100 vid" mat-dialog-content>
     <iframe
       [src]="videoUrl"
       id="inneriframe"
@@ -2368,7 +2371,7 @@
       scrolling="no"
       allowfullscreen
     ></iframe>
-  </div>
+  </div> -->
 </ng-template>
 
 <div

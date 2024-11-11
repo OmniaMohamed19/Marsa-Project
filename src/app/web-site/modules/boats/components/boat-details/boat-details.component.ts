@@ -637,6 +637,8 @@ export class BoatDetailsComponent {
   };
 
   getOverviewItems(overview: string): string[] {
+    console.log(overview);
+    
     return overview.split('\n');
   }
 
