@@ -468,9 +468,9 @@
                 <div class="col-md-5">
                   <h6>{{ item.name }}</h6>
                   <ul class="py-3 boat-features list-unstyled">
-                    <li *ngFor="let feature of getOverviewItems(item.overview)">
-                      {{ feature }}
-                    </li>
+                    <!-- <li *ngFor="let feature of getOverviewItems(item.overview)"> -->
+                      <!-- {{ feature }} -->  <div [innerHTML]="item.overview"></div>
+                    <!-- </li> -->
                   </ul>
                 </div>
                 <p-galleria

@@ -97,16 +97,11 @@
                 <img src="assets/icons/empty-wallet-tick.svg" alt="" />
                 <p>
                   Cancel before {{
-                  "1970-01-01T" +
-                  (activityData?.AvailableOption[
-                  getAvailableOptionIndexById(avilable_option_id)
-                  ]?.CancelationtTime ) | date : "h:mm a"
+                    activityData?.CancelationtTime
+                  
                   }}
-                  a full returnd
+                  hour a full returnd
                 </p>
-
-
-
               </span>
               <span class="d-block mb-5 cancelWallet d-flex">
                 <img src="assets/icons/bx_time-five.svg" alt="bx_time-five" />
@@ -116,7 +111,7 @@
                 "1970-01-01T" +
                 (activityData?.AvailableOption[
                 getAvailableOptionIndexById(avilable_option_id)
-                ]?.EstimatedTime ) | date : "h:mm a"
+                ]?.EstimatedTimeFrom ) | date : "h:mm a"
                 }}
 
                 to
@@ -124,7 +119,7 @@
                 "1970-01-01T" +
                 (activityData?.AvailableOption[
                 getAvailableOptionIndexById(avilable_option_id)
-                ]?.PickUpTime || "00:00:00") | date : "h:mm a"
+                ]?.EstimatedTimeTo || "00:00:00") | date : "h:mm a"
                 }}
                </p>
 
