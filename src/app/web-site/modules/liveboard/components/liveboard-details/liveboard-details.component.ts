@@ -282,6 +282,9 @@ export class LiveboardDetailsComponent {
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.liveabourdData.Map
         );
+        console.log(this.liveabourdData.Schedules);
+        console.log(typeof(this.liveabourdData.Schedules));
+        
         this.images = res?.tripDetails?.Images;
         this.cover = res?.tripDetails?.Cover;
         this.coverAndImages = [...this.images, this.cover];

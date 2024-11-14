@@ -314,6 +314,20 @@ h3.highlighting {
     line-height: normal;
   }
 }
+
+.vid{
+  iframe{
+    #document
+    html{
+      body{
+        video{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
 .boat-features {
   display: flex;
   flex-direction: column;

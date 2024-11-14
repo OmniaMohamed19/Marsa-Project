@@ -46,6 +46,7 @@ import {
 import { Galleria } from 'primeng/galleria';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
+import {  SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-tours-details',
   templateUrl: './tours-details.component.html',
@@ -69,12 +70,7 @@ import { ButtonModule } from 'primeng/button';
 export class ToursDetailsComponent implements AfterViewInit {
   today = new Date();
 
-  // This function disables dates before today
-  dateFilter = (date: Date | null): boolean => {
-    const selectedDate = date || new Date();
-    // Compare only the date part (ignoring time)
-    return selectedDate >= new Date(this.today.setHours(0, 0, 0, 0));
-  };
+
   activityID: any;
   isMobile = false;
   activityData: any;
@@ -93,12 +89,13 @@ export class ToursDetailsComponent implements AfterViewInit {
   videoBoatUrl!: SafeHtml;
   dataCheck: any;
   bookedOptionId: any;
-  videoUrl!: SafeHtml;
+  videoUrl!: SafeResourceUrl;
   selectedImage: string | null = null;
   selectedOption: string = 'Collective';
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   @ViewChild('videoBoatModal') videoBoatModal!: TemplateRef<any>;
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
+  @ViewChild('videoElement', { static: true }) videoElement: ElementRef<HTMLVideoElement> | null = null;
   isTestDivScrolledIntoView: any;
   showAllReviews: boolean = false;
   isLogin: boolean = false;
@@ -169,15 +166,21 @@ export class ToursDetailsComponent implements AfterViewInit {
       return words?.slice(0, 150).join(' ') + '...';
     }
   }
+  
   @ViewChild('myDiv') myDiv!: ElementRef;
 
   scrollToTop() {
     this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
+      if (this.videoElement?.nativeElement) {
+        this.videoElement.nativeElement.style.width = '100%';
+        this.videoElement.nativeElement.style.height = '100%';
+      }
     //   // Initialize the active tab on load
     this.setupIntersectionObserver();
   }
+  
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -302,7 +305,11 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   getRatingDescription(rate: number): string {
-    if (rate >= 3 && rate < 4) {
+    if (rate >= 1 && rate < 2) {
+      return 'Poor';
+    } else if (rate >= 2 && rate < 3) {
+      return 'Fair';
+    } else if (rate >= 3 && rate < 4) {
       return 'Good';
     } else if (rate >= 4 && rate < 5) {
       return 'Very Good';
@@ -366,6 +373,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.children--;
     }
   }
+  
 
   incrementInfant() {
     if (this.infant < this.getMaxValue('infantMax')) {
@@ -411,13 +419,15 @@ export class ToursDetailsComponent implements AfterViewInit {
       }
     this.hideMobileFooter =false
   }
+  disabledDays: number[] = [];
 
   getActivityById(activityID: any) {
     this._httpService
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
-        // console.log(this.activityData);
+        console.log(this.activityData);
+        this.disabledDays = this.getDisabledDays(this.activityData.TimeOfRepeat);
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
         );
@@ -459,6 +469,17 @@ export class ToursDetailsComponent implements AfterViewInit {
         // );
       });
   }
+    // This function disables dates before today
+    // Date filter function
+      // Create an array for days to disable
+      dateFilter = (date: Date | null): boolean => {
+        if (!date) {
+            return true; // Allow all dates if date is null
+        }
+    
+        const day = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+        return !this.disabledDays.includes(day); // Check if the day is not in the disabledDays
+    };
 
   getAbout() {
     this._httpService.get(environment.marsa, 'Aboutus').subscribe({
@@ -522,6 +543,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   getOverviewItems(overview: string): string[] {
     return overview.split('\n');
   }
+  
   // showMap(): void {
   //   this.showMapFrame = !this.showMapFrame;
   // }
@@ -608,6 +630,20 @@ export class ToursDetailsComponent implements AfterViewInit {
     return timeOptions;
   };
 
+  // Function to get disabled days from the TimeOfRepeat string
+  private getDisabledDays(timeOfRepeat: string): number[] {
+    const daysMap: { [key: string]: number } = {
+      Sunday: 0,
+      Monday: 1,
+      Tuesday: 2,
+      Wednesday: 3,
+      Thursday: 4,
+      Friday: 5,
+      Saturday: 6
+    };
+
+    return timeOfRepeat.split('/').map(day => daysMap[day.trim()]).filter(day => day !== undefined);
+  }
   addEvent(event: MatDatepickerInputEvent<Date>): void {
     // console.log(event);
 
