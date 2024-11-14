@@ -112,13 +112,22 @@ export class BlogSignalComponent implements OnInit {
 
   getUniqueTags() {
     const uniqueTags = new Set<string>();
-    this.allBlogs.forEach((blog: any) => {
-      blog.seo.forEach((tag: any) => {
-        uniqueTags.add(tag);
+
+    // Check if this.allBlogs exists and is an array
+    if (this.allBlogs && Array.isArray(this.allBlogs)) {
+      this.allBlogs.forEach((blog: any) => {
+        // Check if blog.seo exists and is an array
+        if (blog.seo && Array.isArray(blog.seo)) {
+          blog.seo.forEach((tag: any) => {
+            uniqueTags.add(tag);
+          });
+        }
       });
-    });
+    }
+
     return Array.from(uniqueTags);
   }
+
 
   filterBlogsByCategory(categoryId: any) {
     this.activeCategory = categoryId;

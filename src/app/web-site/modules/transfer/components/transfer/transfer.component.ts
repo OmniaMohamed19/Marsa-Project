@@ -8,6 +8,9 @@ import { HeaderService } from 'src/app/shared/services/header.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/shared/components/@layout-pages/Auth/login/login.component';
 
 @Component({
   selector: 'app-transfer',
@@ -15,7 +18,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./transfer.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransferComponent implements OnInit,AfterViewInit {
+export class TransferComponent implements OnInit {
   formData: any = {};
   persons: number = 2;
   transferDetails: any;
@@ -34,6 +37,7 @@ export class TransferComponent implements OnInit,AfterViewInit {
   backgroundImageUrl: any = [];
   isLogin: boolean = false;
   comment: any;
+  highestRatedReview:any;
   searchFrom: string = ''; // Holds the search term for the first dropdown (From)
 searchTo: string = ''; // Holds the search term for the second dropdown (To)
 
@@ -48,16 +52,11 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     private headerService: HeaderService,
     private _AuthService: AuthService,
     private toastr: ToastrService,
+    private dialog: MatDialog,
   ) { const today = new Date();
     this.minDate = today.toISOString().split('T')[0];}
 
-    ngAfterViewInit(): void {
-      const pickerInline = document.querySelector('.timepicker-inline-12');
-      const timepickerMaxMin = new (window as any).mdb.Timepicker(pickerInline, {
-        format12: true,
-        inline: true
-      });
-    }
+
   ngOnInit(): void {
     this.filteredFromAirports = this.transferDetails?.airports || [];
     this.filteredFromHotels = this.transferDetails?.hotel || [];
@@ -75,19 +74,34 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       },
       (err) => {}
     );
-
+    interface Review {
+      rate: any;
+    }
     this.httpService.get(environment.marsa, 'transfer').subscribe({
       next: (res: any) => {
         this.transferDetails = res;
+
+        // التحقق من وجود البيانات الخاصة بالمراجعات
         if (this.transferDetails?.reviwe) {
           this.reviews = Object.values(this.transferDetails.reviwe);
+
+          // العثور على الريفيو الأعلى تقييمًا
+          if (this.reviews.length > 0) {
+            const highestRatedReview = this.reviews.reduce((prev: Review, current: Review) => {
+              return (prev.rate > current.rate) ? prev : current;
+            });
+
+            // حفظ الريفيو الأعلى تقييمًا
+            this.highestRatedReview  = highestRatedReview;
+            console.log('Highest Rated Review:', this.highestRatedReview);
+          }
         }
-        console.log(res);
       },
       error: (err) => {
         console.error('Error fetching transfer details', err);
       }
     });
+
 
     // Retrieve and set the saved values if any
     this.returnDate = localStorage.getItem('returnDate') || '';
@@ -107,11 +121,11 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
   changeBackgroundImage() {
     const bgElement = document.querySelector('.bg-img-hero');
     if (bgElement) {
-      bgElement.classList.remove('active'); // إزالة الكلاس active
+      bgElement.classList.remove('active');
       setTimeout(() => {
-        this.currentBackgroundImage = this.backgroundImageUrl[this.currentIndex]; // تغيير الصورة
-        bgElement.classList.add('active'); // إضافة الكلاس active بعد التغيير
-      }, 100); // الانتظار 100 مللي ثانية قبل إضافة الكلاس
+        this.currentBackgroundImage = this.backgroundImageUrl[this.currentIndex];
+        bgElement.classList.add('active');
+      }, 100);
     }
   }
 
@@ -141,48 +155,63 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
   }
 
   seePrice() {
+    if (!this.isLogin) {
+      // this.dialogRef.close();
+      this.toastr.info('Please login first ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      this.headerService.toggleDropdown();
+    }
+
+    else{
+      let body: any = {
+        from_id: this.fromId,
+        to_id: this.toId,
+        date: this.date,
+        pickuptime: this.pickuptime,
+        person: this.persons,
+      };
+
+      Object.keys(body).forEach(
+        (k: any) => (body[k] === '' || body[k] === null) && delete body[k]
+      );
+      console.log(body);
+
+      // Save the body object in localStorage
+      localStorage.setItem('bookdetail', JSON.stringify(body));
+
+
+      // Save the return date and return pickup time separately
+      localStorage.setItem('returnDate', this.returnDate || '');
+      localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
+
+      // Save the activeSection value separately
+      const activeSectionValue = this.activeSection === 'section1' ? '2' : '1';
+      localStorage.setItem('activeSection', activeSectionValue);
+
+      // Make the HTTP request
+      this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({
+        next: (res: any) => {
+          console.log(res);
+
+          // Store the response data in both the service and localStorage
+          this.dataService.setResponseData(res);
+          localStorage.setItem('responseData', JSON.stringify(res));
+
+          // Navigate to the multi-step page
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'transfer','multi-step'],
+
+          );
+        },
+      });
+    }
     // Construct the body object
-    let body: any = {
-      from_id: this.fromId,
-      to_id: this.toId,
-      date: this.date,
-      pickuptime: this.pickuptime,
-      person: this.persons,
-    };
 
-    Object.keys(body).forEach(
-      (k: any) => (body[k] === '' || body[k] === null) && delete body[k]
-    );
-    console.log(body);
-
-    // Save the body object in localStorage
-    localStorage.setItem('bookdetail', JSON.stringify(body));
-
-
-    // Save the return date and return pickup time separately
-    localStorage.setItem('returnDate', this.returnDate || '');
-    localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
-
-    // Save the activeSection value separately
-    const activeSectionValue = this.activeSection === 'section1' ? '2' : '1';
-    localStorage.setItem('activeSection', activeSectionValue);
-
-    // Make the HTTP request
-    this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        // Store the response data in both the service and localStorage
-        this.dataService.setResponseData(res);
-        localStorage.setItem('responseData', JSON.stringify(res));
-
-        // Navigate to the multi-step page
-        this.router.navigate(
-          ['/', this.translate.currentLang, 'transfer','multi-step'],
-
-        );
-      },
-    });
   }
 
   onSelectFrom(event: any): void {
@@ -307,7 +336,7 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     pullDrag: false,
     dots: true,
     margin: 10,
-    autoplay: false,
+    autoplay: true,
     navSpeed: 700,
     nav: true,
     navText: [

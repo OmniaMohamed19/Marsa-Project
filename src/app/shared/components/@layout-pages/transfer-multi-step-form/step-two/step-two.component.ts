@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-step-two',
@@ -12,11 +13,13 @@ export class StepTwoComponent implements OnInit {
     selectedOptions: {} // To store the selected options
   };
   responseData: any;
-  // savedSelectedOptions:any;
-  savedSelectedOpti:any;
+  savedSelectedOpti: any;
+  numberOfOption: any;
+
+  constructor(private toastr: ToastrService) {}
 
   ngOnInit() {
- 
+    // Retrieve stored data
     const savedResponseData = localStorage.getItem('responseData');
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
@@ -26,12 +29,11 @@ export class StepTwoComponent implements OnInit {
     if (savedSelectedOptions) {
       this.savedSelectedOpti = JSON.parse(savedSelectedOptions);
     } else {
-      this.savedSelectedOpti = { option: [] }; 
+      this.savedSelectedOpti = { option: [] };
     }
 
-    this.formData.selectedOptions = {}; 
+    this.formData.selectedOptions = {};
   }
-
 
   onOptionChange(option: any, event: any): void {
     if (event.target.checked) {
@@ -40,12 +42,28 @@ export class StepTwoComponent implements OnInit {
       delete this.formData.selectedOptions[option.name];
     }
     localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
+  }
 
+  savenumberOfOption(): void {
+    const value = Math.max(0, this.numberOfOption);
+    localStorage.setItem('numberOption', this.numberOfOption.toString()); // Save input value to localStorage
   }
 
   nextStep(): void {
+    if (Object.keys(this.formData.selectedOptions).length > 0 && (!this.numberOfOption || this.numberOfOption <= 0)) {
+      this.toastr.info('Please enter a valid number for the selected option! ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return;
+    }
+
     localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions)); // Save selected options
-    this.next.emit(this.formData); // Emit the formData to the next step
+    this.next.emit(this.formData);
+    window.scrollTo(0, 0);
   }
 
   previousStep(): void {

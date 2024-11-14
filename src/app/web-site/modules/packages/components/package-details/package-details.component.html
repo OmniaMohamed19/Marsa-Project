@@ -84,6 +84,7 @@
         <div>
           <ul class="list-unstyled package-list">
             <li
+
               *ngFor="let trip of rows?.PackageTrips.slice(0, 3); let j = index"
             >
               <img
@@ -157,7 +158,27 @@
         </div>
       </div>
       <div class="col-lg-6 position-relative">
-        <div class="diving-images">
+
+        <div *ngIf="isSmallScreen; else normalImages" class="diving-carousel">
+          <owl-carousel-o [options]="carouselOptions">
+            <ng-container *ngFor="let img of [rows?.cover1, rows?.cover2, rows?.cover3]">
+              <ng-template carouselSlide>
+                <div class="carousel-card" [ngStyle]="{'background-image': 'url(' + img + ')'}">
+                </div>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+
+        </div>
+
+        <ng-template #normalImages>
+          <div class="diving-images">
+            <div><img [src]="rows?.cover1" /></div>
+            <div><img [src]="rows?.cover2" /></div>
+            <div class="div2"><img [src]="rows?.cover3" /></div>
+          </div>
+        </ng-template>
+        <!-- <div class="diving-images">
           <div>
             <img [src]="rows?.cover1" />
           </div>
@@ -167,7 +188,7 @@
           <div>
             <img [src]="rows?.cover3" />
          </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -365,7 +386,7 @@
                       <div class="me-4 faq">
                         <i class="fa-solid fa-minus"></i>
                       </div>
-                      {{ faqItem.Question }}
+                      {{ faqItem }}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <p style="padding-left: 55px">

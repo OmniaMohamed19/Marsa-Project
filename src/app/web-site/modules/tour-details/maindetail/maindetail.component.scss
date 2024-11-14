@@ -1,9 +1,7 @@
 @import url(../../../../shared/components/cards/activity-card/activity-card.component.scss);
-// .images .city-dis {
-//   width: 30%;
-// }
-// .images .city-svg{
-//   width: 60%;
+// .sights-container{
+//  // width: 400px ;
+//  margin: 0.5rem;
 // }
 .images {
   text-align: center;
@@ -123,7 +121,7 @@ button.btn-outline-primary {
 
 /***********************/
 h4 {
-  font-family: Lato;
+
   font-size: 26px;
   font-weight: 700;
   line-height: 32px;
@@ -133,7 +131,7 @@ h4 {
 }
 #about {
   h4 {
-    font-family: Lato;
+
     font-size: 26px;
     font-weight: 700;
     line-height: 32px;
@@ -154,7 +152,7 @@ h4 {
 
   p {
     color: #3b444f;
-    font-family: Lato;
+
     font-size: clamp(24px, 16px, 24px);
     font-style: normal;
     font-weight: 500;
@@ -177,7 +175,7 @@ h4 {
 
 
 #about h6 {
-  font-family: Lato;
+
   font-size: 16px;
   font-weight: 700;
   line-height: 22px;
@@ -197,7 +195,7 @@ h4 {
   h4 {
     position: relative;
     color: #1a2b49;
-    font-family: Lato;
+
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -215,37 +213,24 @@ h4 {
     left: 0;
   }
 }
-// ::ng-deep .p-carousel-prev,
-// ::ng-deep .p-carousel-next {
-//   display: none ;
-// }
-// ::ng-deep{
-//   .p-carousel-items-content{
-//     margin-bottom: -3rem;
-//   }
-// }
+
 .sights-container {
   position: relative;
-  padding-bottom: 30px; /* إضافة مساحة أسفل العنصر للسهم */
+  padding-bottom: 10rem;
 }
 
 .carousel-arrow {
-  position: relative;
-  bottom: -4px;
-  // left: 50%; /* في منتصف العنصر أفقياً */
+  position: absolute;
+  top: 93%;
+  left: 50%;
   transform: translateX(-50%);
-  width: 40% !important; /* حجم السهم */
-  height:40% !important;
-  // opacity: 0; /* إخفاء السهم في البداية */
+width:20% !important;
+  height: 40% !important;
   transition: opacity 0.3s ease-in-out;
   z-index: 10;
 }
 
-/* إظهار السهم عند العنصر النشط أو عند التفاعل */
-.sights-container:hover .carousel-arrow,
-.sights-container.active .carousel-arrow {
-  opacity: 1;
-}
+
 
 
 
@@ -259,7 +244,7 @@ h4 {
 
   .sights-p {
     color: var(--d-9-d-9-d-9, #000);
-    font-family: Lato;
+
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
@@ -274,7 +259,7 @@ h4 {
 
   h4 {
     color: #1a2b49;
-    font-family: Lato;
+
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -293,21 +278,17 @@ h4 {
     }
   }
 }
-// .sights-container:hover .sights-img {
 
-//   transform: scale(1.2);
-
-// }
 
 
 
 #sights .sights-span {
   display: block;
-  width: 229px;
+  width: 245px;
   //   height: 42px;
   background: #1a2b49;
   border-radius: 5px;
-  font-family: Lato;
+
   font-size: 19px;
   font-weight: 700;
   line-height: 26.8px;
@@ -326,7 +307,7 @@ h4 {
 }
 
 #all-activity select {
-  font-family: Lato;
+
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -360,7 +341,7 @@ select.form-control {
 }
 /************************************************/
 .mat-expansion-panel-header {
-  font-family: Lato;
+
   font-size: 12px;
   font-weight: 500;
   line-height: 17.2px;
@@ -368,7 +349,7 @@ select.form-control {
 }
 .mat-expansion-panel-header-title {
   color: #3b444f;
-  font-family: Lato;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -383,7 +364,7 @@ select.form-control {
   margin-bottom: 70px;
   a {
 
-    font-family: Lato;
+
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -397,7 +378,7 @@ select.form-control {
   h6 {
     padding-left: 30px;
     color: #3b444f;
-    font-family: Lato;
+
    // font-size: 22px;
     font-style: normal;
     font-weight: 700;
@@ -407,7 +388,7 @@ select.form-control {
   }
   p {
     color: #67747c;
-    font-family: Lato;
+
 //font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -527,42 +508,42 @@ select.form-control {
 @media screen and (min-width: 992px) {
 
   h4 {
-    font-family: Lato;
+
     font-size: 30px;
     font-weight: 700;
     line-height: 36px;
   }
 
   p {
-    font-family: Lato;
+
     font-size: 24px;
     font-weight: 500;
     line-height: 28.8px;
   }
 
   #about h6 {
-    font-family: Lato;
+
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
   }
 
   #sights span {
-    font-family: Lato;
+
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
   }
 
   #sights p {
-    font-family: Lato;
+
     font-size: 24px;
     font-weight: 700;
     line-height: 28.8px;
   }
 
   #faq h6 {
-    font-family: Lato;
+
     font-size: 22px;
     font-weight: 700;
     line-height: 26.4px;
@@ -570,7 +551,7 @@ select.form-control {
   }
 
   .mat-expansion-panel-header {
-    font-family: Lato;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
@@ -616,6 +597,7 @@ select.form-control {
 
 }
 @media screen and (min-width: 360.9px) and (max-width: 570px) {
+
   .dropdown-container {
     width: 100%;
   }
@@ -631,12 +613,13 @@ select.form-control {
     padding-top: 0;
     margin-bottom: 0;
     height: 300px;
+    margin-left: 0px;
 
     .text-container {
-      left: 4%;
+      //left: 15%;
       margin-top: 1rem;
       margin-bottom: 2rem;
-      // margin: inherit;
+      width: 100%;
     }
 
     img {
@@ -656,8 +639,10 @@ select.form-control {
 }
 
 @media screen and (min-width: 570.98px) and (max-width: 767.8px) {
+
   .images {
     padding-top: 0;
+    margin-left: 0px;
 
     .text-container {
       left: -7%;
@@ -678,6 +663,21 @@ select.form-control {
   }
 
 }
+@media (max-width: 767px) {
+  .mobile-full-width {
+    width: 100%;
+    display: block;
+    margin-top: 10px; 
+  }
+  .recommend-text {
+    order: 2;
+  }
+  .fixed-size-img {
+    order: 1;
+    width: 100%;
+  }
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
 
@@ -694,28 +694,28 @@ select.form-control {
   }
 
   h4 {
-    font-family: Lato;
+
     font-size: 30px;
     font-weight: 700;
     line-height: 36px;
   }
 
   p {
-    font-family: Lato;
+
     font-size: 24px;
     font-weight: 500;
     line-height: 28.8px;
   }
 
   #about h6 {
-    font-family: Lato;
+
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
   }
 
   #sights span {
-    font-family: Lato;
+
     font-size: 14px;
     font-weight: 700;
     line-height: 24px;
@@ -723,7 +723,7 @@ select.form-control {
   }
 
   #sights p {
-    font-family: Lato;
+
     font-size: 14px;
     font-weight: 700;
     line-height: normal;
@@ -731,7 +731,7 @@ select.form-control {
   }
 
   #faq h6 {
-    font-family: Lato;
+
     font-size: 22px;
     font-weight: 700;
     line-height: 26.4px;
@@ -739,7 +739,7 @@ select.form-control {
   }
 
   .mat-expansion-panel-header {
-    font-family: Lato;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
@@ -785,7 +785,7 @@ h3::after {
 
 .featured {
   width: 97px;
-  font-family: Lato;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 16.8px;
@@ -795,7 +795,7 @@ h3::after {
 
 .sale {
   width: 60px;
-  font-family: Lato;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 16.8px;
@@ -805,7 +805,7 @@ h3::after {
 }
 
 small {
-  font-family: Lato;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 16.8px;
@@ -813,14 +813,14 @@ small {
 }
 
 h2 {
-  font-family: Lato;
+
   font-size: 17px;
   font-weight: 700;
   line-height: 20.4px;
 }
 
 .title {
-  font-family: Lato;
+
   font-size: 17px;
   font-weight: 700;
   line-height: 20.4px;
@@ -836,7 +836,7 @@ h2 {
 }
 
 .card-title {
-  font-family: Lato;
+
   font-size: 17px;
   font-weight: 700;
   line-height: 20.4px;
@@ -852,7 +852,7 @@ h2 {
  /* height: 22px;*/
   background: #FF681A;
   border-radius: 5px;
-  font-family: Lato;
+
   font-size: 13px;
   font-weight: 400;
   align-content: center;
@@ -862,7 +862,7 @@ h2 {
 }
 
 .review span {
-  font-family: Lato;
+
   font-size: 14px;
   font-weight: 400;
   line-height: 16.8px;
@@ -872,7 +872,7 @@ h2 {
 
 .nav-pills li {
   color: #008CCF;
-  font-family: Lato;
+
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -884,8 +884,23 @@ h2 {
   background-color: #0DB1FF !important;
   color: #FFFFFF !important;
 }
-@media screen and (min-width: 1200px){
-  .sights-container{
-    width: 320px !important;
+@media screen and (max-width: 992px){
+.img-container{
+  margin-top: 2rem;
+}
+.card-contant{
+  margin-top: 2rem;
+}
+#about{
+  p {
+
+
+    &:nth-of-type(2) {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: inherit;
+    }
   }
+}
 }

@@ -2,7 +2,7 @@
 <form (ngSubmit)="nextStep()" >
 
 <div class="row">
-  <div class="col-lg-8 ">
+  <div class="col-lg-8  order-2 order-md-1">
 
     <div class="heading">
       <img src="../../../../../../assets/images/images(1)1.png">
@@ -86,6 +86,7 @@
                   required=""
                   [(ngModel)]="cardholderName"
                   name="cardholderName"
+                  required
                 />
               </div>
             </div>
@@ -102,6 +103,7 @@
                   required=""
                   [(ngModel)]="cardNumber"
                   name="cardNumber"
+                  required
                 />
               </div>
             </div>
@@ -123,6 +125,7 @@
                       required=""
                       [(ngModel)]="expiryMonth"
                   name="expiryMonth"
+                  required
                     />
                   </div>
                 </div>
@@ -139,6 +142,7 @@
                       required=""
                       [(ngModel)]="expirYear"
                   name="expirYear"
+                  required
                     />
                   </div>
                 </div>
@@ -158,6 +162,7 @@
                   required=""
                   [(ngModel)]="cvv"
                   name="cvv"
+                  required
                 />
               </div>
             </div>
@@ -264,28 +269,29 @@
 
 </div>
 
-<div class="car-data col-lg-4">
+<div class="car-data col-lg-4 order-1 order-md-2">
   <div>
       <div class="img-container">
-          <img style="width: auto !important;" src="../../../../../../assets/images/primary1.png">
+          <img style="width: auto !important; height: 200px;" [src]="selectedCar.cover" >
       </div>
       <div class="row justify-content-center align-items-center">
-          <div class="col-8 col-text">
-              <span>Booking Detail</span>
+          <div class="col-12 col-text text-center">
+              <span style="font-weight: 700; font-size: 20px;">Booking Detail</span>
           </div>
           <!-- <div class="col-4 col-detail">
               <a (click)="goback()">Edit</a>
           </div> -->
           <!------------------->
+
           <div class="col-7  col-text">
-              <span>Pick Up From</span>
+              <span>Starting From :</span>
           </div>
           <div class="col-5 col-detail">
               <span>{{fromName}}</span>
           </div>
           <!----------------------->
           <div class="col-7 col-text">
-              <span>Drop off location</span>
+              <span>Going to :</span>
           </div>
           <div class="col-5 col-detail">
             <span>{{toName}}</span>
@@ -305,6 +311,42 @@
             <span>{{bookingTime}}</span>
           </div>
           <!----------------------->
+          <hr class="horizontal-line">
+
+          <div class="row" *ngIf="activeSection == 2">
+            <div class="col-12 col-text text-center" style="color: #297CBB;">
+              <span>Returning trip</span>
+          </div>
+
+            <div class="col-7  col-text">
+              <span>Returning From:</span>
+          </div>
+          <div class="col-5 col-detail">
+              <span>{{toName}}</span>
+          </div>
+          <!----------------------->
+          <div class="col-7  col-text">
+            <span>Returning To:</span>
+        </div>
+        <div class="col-5 col-detail">
+            <span>{{fromName}}</span>
+        </div>
+          <!--------------------------->
+          <div class="col-7 col-text">
+              <span>Return Date:</span>
+          </div>
+          <div class="col-5 col-detail">
+            <span>{{returnbookingdate}}</span>
+          </div>
+          <!----------------------->
+          <div class="col-7 col-text">
+              <span>Return Time:</span>
+          </div>
+          <div class="col-5 col-detail">
+            <span>{{returnbookingtime}}</span>
+          </div>
+          </div>
+
           <!-- <div class="col-7 col-text">
               <span>Return Date</span>
           </div>
@@ -408,7 +450,7 @@
       class="d-flex justify-content-between py-2 font-size-17"
       style="font-weight: 700"
       >
-      
+
 
       <span style="font-weight: 700">Coupon</span>
       <span style="font-weight: 700">{{

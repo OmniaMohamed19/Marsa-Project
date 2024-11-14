@@ -1,36 +1,30 @@
 <div class="container">
   <h2 class="title">From {{responseData.booking.from }} Hotel to {{responseData.booking.to }} </h2>
-  <form #bookingForm="ngForm" (ngSubmit)="saveFormData(bookingForm)">
+  <form #bookingForm="ngForm" (ngSubmit)="saveFormData(bookingForm)" novalidate>
     <div class="cars">
+
       <owl-carousel-o [options]="customOptions" class="owl-theme">
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
             <div class="d-flex flex-column car custom-carousel-item"
                  (click)="onCarClick($event, item.id)"
-                 [class.active]="formData.selectedCarId === item.id">
+                 [class.active]="selectedCarId === item.id">
 
-              <!-- <div class="radio-container" style="position: absolute; top: 10px; left: 10px;">
-                <input type="radio" name="selectedCar" [value]="item.id"  #radio
-                       [checked]="selectedCarId === item.id" required>
-              </div> -->
+              <img [src]="item.cover" alt="{{item.name}}" class="img-fluid" style="height: 200px;">
+              <h2 class="text-center mt-3">{{ item.name }}</h2>
 
-              <img [src]="item.cover" alt="{{item.name}}" class="img-fluid">
-              <h2 class="text-center">{{ item.name }}</h2>
-
-                <div class="car-data mb-3 mt-1">
-                  <span>
-                    <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-user"></i>
-                  </span>
-                  <span>Up to {{item.people}} people</span>
-                </div>
-
-
+              <div class="car-data mb-3 mt-1">
+                <span>
+                  <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-user"></i>
+                </span>
+                <span>Up to {{item.people}} people</span>
+              </div>
 
               <div class="car-data">
                 <span>
                   <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-briefcase"></i>
                 </span>
-                <span> Fits {{item.bags}} medium suitcases</span>
+                <span>Fits {{item.bags}} medium suitcases</span>
               </div>
 
               <div class="car-data mt-3">
@@ -57,20 +51,32 @@
           <div class="row">
             <div class="col" *ngIf="Isairport">
               <div class="thin-heading">Flight Number</div>
-
               <div class="form-outline" data-mdb-input-init>
-                <form class="example-form">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Arrival flight number</mat-label>
-                    <input matInput placeholder="e.g. EK 213"name="flightNumber" [(ngModel)]="formData.flightNumber">
-                  </mat-form-field>
-
-
-                </form>
-
-
-
+                <mat-form-field appearance="outline">
+                  <mat-label>Arrival flight number</mat-label>
+                  <input
+                    matInput
+                    placeholder="e.g. EK 213"
+                    name="flightNumber"
+                    [(ngModel)]="formData.flightNumber"
+                    required
+                  />
+                </mat-form-field>
+                <div *ngIf="formData.flightNumber.invalid && formData.flightNumber.touched" class="error-message">
+                This field is required.
               </div>
+                <!-- <ng-container *ngIf="formData.flightNumber.errors && formData.flightNumber.touched">
+                  <div
+                    class="alert alert-danger my-2"
+                    *ngIf="formData.flightNumber.errors?.['required']"
+                  >
+                    <p class="mb-0" >
+                      Email is required You must enter valid email
+                    </p>
+                  </div>
+                </ng-container> -->
+              </div>
+
             </div>
             <div class="col">
               <div class="thin-heading">Landing Time</div>
@@ -99,8 +105,8 @@
               <div class="form-outline" data-mdb-input-init>
                 <form class="example-form">
                   <mat-form-field appearance="outline">
-                    <mat-label>Arrival flight number</mat-label>
-                    <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber">
+                    <mat-label>Departure flight number (optional)</mat-label>
+                    <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber" required>
                   </mat-form-field>
 
 
@@ -124,7 +130,7 @@
 
         <div class="row">
           <div class="col">
-            <div class="thin-heading">Returning To:</div>
+            <div class="thin-heading">Returning From:</div>
             <div class="bold-heading">{{formData.to}}	</div>
           </div>
           <div class="col ">
@@ -143,7 +149,7 @@
                 </div>
               </div>
               <div class="col">
-                <div class="thin-heading">Pick up Time:</div>
+                <div class="thin-heading">Return Time:</div>
                 <mat-form-field appearance="outline" class="custom-border-radius">
                   <input [(ngModel)]="return_time" [value]="return_time" #returntimeInput="ngModel" matInput readonly>
                   <mat-icon matSuffix>access_time</mat-icon>
@@ -195,16 +201,16 @@
 
       <hr class="horizontal-line">
       <div class="row mb-5">
-        <div class="col">
+        <div class="col-md col-12">
           <div class="bold-heading">Phone Number </div>
         </div>
-        <div class="col mt-2 ">
+        <div class="col-md col-12 mt-2 ">
         <div class="d-flex ms-2 position-relative">
           <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
             [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
             [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
             [(ngModel)]="formData.phoneNumber" class="custom-tel-input" required
-            #phoneNumberInput="ngModel"></ngx-intl-tel-input>
+            #phoneNumberInput="ngModel" required></ngx-intl-tel-input>
         </div>
       </div>
       </div>

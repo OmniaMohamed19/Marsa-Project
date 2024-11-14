@@ -53,11 +53,13 @@ export class BlogComponent implements OnInit {
   }
 
   getBlogs() {
-    this.blogs = [];
+    //this.blogs = [];
     this.pages = [];
     this._httpService.get('marsa', `blog`, { page: this.page }).subscribe({
       next: (response: any) => {
+        console.log(response);
         this.blogs = response?.Blogs?.data;
+        console.log( this.blogs);
         this.cover = response?.cover;
         this.filteredBlogs = this.blogs;
         this.allCategories = response?.allCategory;
@@ -106,13 +108,18 @@ export class BlogComponent implements OnInit {
 
   getUniqueTags() {
     const uniqueTags = new Set<string>();
-    this.filteredBlogs.forEach((blog: any) => {
-      blog.seo.forEach((tag: any) => {
-        uniqueTags.add(tag);
+    if (this.filteredBlogs && Array.isArray(this.filteredBlogs)) {
+      this.filteredBlogs.forEach((blog: any) => {
+        if (blog.seo && Array.isArray(blog.seo)) {
+          blog.seo.forEach((tag: any) => {
+            uniqueTags.add(tag);
+          });
+        }
       });
-    });
+    }
     return Array.from(uniqueTags);
   }
+
 
   carouselOptions: OwlOptions = {
     loop: true,
@@ -143,6 +150,6 @@ export class BlogComponent implements OnInit {
     },
     nav: true,
   };
-  
+
 
 }

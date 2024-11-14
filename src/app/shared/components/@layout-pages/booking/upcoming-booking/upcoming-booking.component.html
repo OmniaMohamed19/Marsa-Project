@@ -108,7 +108,8 @@
                             <img src="../../../../../assets/images/clock.svg" />
                           </span>
                           <span>
-                            Starting Time : {{ trip?.booking_time }}
+                            Starting Time : {{ "1970-01-01T" + trip?.booking_time | date : "h:mm a"
+                        }}
                           </span>
                         </li>
                         <li>

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./maindetail.component.scss']
 })
 export class MaindetailComponent implements OnInit {
+  selectedSightId:any;
   tourid: any;
   placeDetails: any;
   TypeTrip: any = null;
@@ -27,6 +28,7 @@ export class MaindetailComponent implements OnInit {
    visibleTrips: any[] = [];
    tripsPerRow: number = 3;
    rowsToShow: number = 1;
+   showFullText: boolean = false;
 
    selectedTrip: number | null = null;
    selectedTripType: any = null;
@@ -70,20 +72,34 @@ export class MaindetailComponent implements OnInit {
     }
   ];
 
-  responsiveOptions2 = [
-    {
-      breakpoint: '1024px',
-      numVisible: 3
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 2
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1
+  carouselOptions = {
+    loop: false,
+    margin: 10,
+    dots: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    autoplay: false,
+    navSpeed: 900,
+    nav: true,
+    navText: [
+      "<div class='nav-button nav-left'><i class='fas fa-chevron-left'></i></div>",
+      "<div class='nav-button nav-right'><i class='fas fa-chevron-right'></i></div>"
+    ],
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 2
+      },
+      1000: {
+        items: 3
+      }
     }
-  ];
+  };
+
+
 
 
 
@@ -96,6 +112,10 @@ export class MaindetailComponent implements OnInit {
     this.screenWidth = window.innerWidth;
 
   }
+
+toggleText() {
+  this.showFullText = !this.showFullText;
+}
   ngOnInit() {
 
 
@@ -109,8 +129,9 @@ export class MaindetailComponent implements OnInit {
 
         // Set the first sight as the selected one
         if (this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
-          this.selectedSight = this.placeDetails.places.placesshigts[0]; // Automatically select the first sight
-        }
+          this.selectedSight = this.placeDetails.places.placesshigts[0];
+          this.selectedSightId = this.selectedSight.id;
+                }
 
         this.typetrips = res.typeTrip;
 
@@ -133,25 +154,29 @@ export class MaindetailComponent implements OnInit {
           (item: any) => item.place === this.placeDetails.places.name
         );
 
-        this.httpService
-          .get(environment.marsa, 'faq')
-          .subscribe((result: any) => {
-            this.questions = result.FAQ;
-          });
+
+      });
+      this.httpService
+      .get(environment.marsa, 'faq')
+      .subscribe((result: any) => {
+        this.questions = result.FAQ;
       });
 
     }
 
 
 
+    toggleSeeMore(rec: any) {
+      rec.seeMore = !rec.seeMore;
+
+    }
+
 
   isFirstTripSelected(): boolean {
     const firstTripId = this.placeDetails?.typeTrip?.[0]?.id;
     return this.selectedTrip === firstTripId;
   }
-  toggleSeeMore(rec: any) {
-    rec.seeMore = !rec.seeMore;
-  }
+
   selectTrip(tripId: number): void {
     this.selectedTrip = tripId;
     this.selectedTripType = this.placeDetails?.typeTrip.find((type: { id: number; }) => type.id === tripId);
@@ -265,8 +290,9 @@ export class MaindetailComponent implements OnInit {
   onResize(event: any) {
     this.screenWidth = event.target.innerWidth;
   }
-  setActiveSight(item: any) {
-    this.selectedSight = item;
+  setActiveSight(sight: any) {
+    this.selectedSight = sight;
+    this.selectedSightId = sight.id;
   }
   getRoundedRate(rate: number | null): number {
     if (rate !== null && !isNaN(Number(rate))) {

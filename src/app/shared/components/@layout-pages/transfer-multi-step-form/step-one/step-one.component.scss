@@ -5,11 +5,12 @@
 
   border: 1px solid #77838f !important;
 }
-
-.dropdown-menu .country-dropdown .show .ng-star-inserted
-{
-  max-height: 130px !important;
-  overflow-y: auto !important;
+.country-dropdown{
+  height: 220px !important;
+  overflow: auto !important;
+}
+.iti__country-list{
+  overflow: auto !important;
 }
 
 .iti--allow-dropdown .iti__flag-container{
@@ -188,10 +189,8 @@ h2.title {
     }
 }
 
-// input:focus {}
-.custom-carousel-item {
-  width: 350px; /* Adjust this value as needed */
-}
+
+
 .persons {
     margin-bottom: 9px;
     padding-left: 10px;

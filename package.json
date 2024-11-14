@@ -52,7 +52,7 @@
     "ngx-spinner": "^16.0.2",
     "ngx-toastr": "^18.0.0",
     "primeicons": "^7.0.0",
-    "primeng": "^17.18.9",
+    "primeng": "^17.18.11",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.8",
     "tslib": "^2.3.0",

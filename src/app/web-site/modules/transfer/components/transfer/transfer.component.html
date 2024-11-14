@@ -36,11 +36,12 @@
                   <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
                     <!-- First dropdown (From) with search -->
                     <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
-                      <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
+                      <button
+                        class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false"
                         style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                         <span class="d-flex align-items-center">
-                          <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                          <i style="color: #0057FF;  margin-right: 0.5rem; margin-left: -0.5rem; " class="fa-solid fa-location-dot"></i>
                           {{ selectedFromName || 'From' }}
                         </span>
                         <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -69,11 +70,12 @@
                   <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
                     <!-- Second dropdown (To) with search -->
                     <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
-                      <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
+                      <button
+                        class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false"
                         style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                         <span class="d-flex align-items-center">
-                          <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                          <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
                           {{ selectedOptionName || 'To' }}
                         </span>
                         <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -104,6 +106,22 @@
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
                         type="date" />
                     </div>
+
+                    <!-- <mat-form-field class="w-100 custom-datepicker">
+                      <mat-label>Pickup Date</mat-label>
+                      <input
+                        matInput
+                        placeholder="Start date"
+                        [(ngModel)]="date"
+                        [min]="minDate"
+                        [matDatepicker]="startPicker"
+                        [readonly]="true"
+                      />
+                      <mat-datepicker-toggle matSuffix [for]="startPicker" class="left-icon"></mat-datepicker-toggle>
+                      <mat-datepicker #startPicker></mat-datepicker>
+                    </mat-form-field> -->
+
+
                   </div>
 
                   <!-- Pickup Time -->
@@ -167,7 +185,7 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
                         {{ selectedFromName || 'From' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -200,7 +218,7 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
                         {{ selectedOptionName || 'To' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -326,7 +344,7 @@
       <!--------------->
       <ul class="small-nav">
         <li *ngFor="let tab of tabs" class="nav-item" [class.active]="tab.section === activeSection"
-            (click)="setActiveSection(tab.section)">
+          (click)="setActiveSection(tab.section)">
           {{ tab.label }}
         </li>
       </ul>
@@ -341,58 +359,58 @@
 
                   <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                     <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
-                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
-                    <span class="d-flex align-items-center">
-                      <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
-                      {{ selectedFromName || 'From' }}
-                    </span>
-                    <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                    style="width: 100%; max-height: 200px; overflow-y: auto;">
-                    <!-- Search input for the first dropdown -->
-                    <li>
-                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
-                        (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
-                    </li>
-                    <!-- Show filtered airports -->
-                    <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
-                      style="cursor: pointer;">
-                      <a class="dropdown-item">{{ airport.name }}</a>
-                    </li>
-                    <!-- Show filtered hotels -->
-                    <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
-                      style="cursor: pointer;">
-                      <a class="dropdown-item">{{ hotel.city }}</a>
-                    </li>
-                  </ul>
+                      type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                      style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
+                      <span class="d-flex align-items-center">
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        {{ selectedFromName || 'From' }}
+                      </span>
+                      <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                      style="width: 100%; max-height: 200px; overflow-y: auto;">
+                      <!-- Search input for the first dropdown -->
+                      <li>
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
+                          (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                      </li>
+                      <!-- Show filtered airports -->
+                      <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
+                        style="cursor: pointer;">
+                        <a class="dropdown-item">{{ airport.name }}</a>
+                      </li>
+                      <!-- Show filtered hotels -->
+                      <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
+                        style="cursor: pointer;">
+                        <a class="dropdown-item">{{ hotel.city }}</a>
+                      </li>
+                    </ul>
                   </div>
 
 
                   <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                     <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
-                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
-                    <span class="d-flex align-items-center">
-                      <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
-                      {{ selectedOptionName || 'To' }}
-                    </span>
-                    <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                    style="width: 100%;max-height: 200px; overflow-y: auto;">
-                    <!-- Search input for the second dropdown -->
-                    <li>
-                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
-                        (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
-                    </li>
-                    <!-- Show filtered To options -->
-                    <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
-                      style="cursor: pointer;">
-                      <a class="dropdown-item">{{ option.name || option.city }}</a>
-                    </li>
-                  </ul>
+                      type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                      style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
+                      <span class="d-flex align-items-center">
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        {{ selectedOptionName || 'To' }}
+                      </span>
+                      <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                      style="width: 100%;max-height: 200px; overflow-y: auto;">
+                      <!-- Search input for the second dropdown -->
+                      <li>
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
+                          (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                      </li>
+                      <!-- Show filtered To options -->
+                      <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
+                        style="cursor: pointer;">
+                        <a class="dropdown-item">{{ option.name || option.city }}</a>
+                      </li>
+                    </ul>
                   </div>
 
 
@@ -487,7 +505,7 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
                         {{ selectedFromName || 'From' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -515,27 +533,27 @@
 
                   <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                     <button class="btn btn-secondary dropdown-toggle d-flex justify-content-between align-items-center"
-                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
-                    <span class="d-flex align-items-center">
-                      <i style="color: #0057FF; margin-right: 0.5rem;" class="fa-solid fa-location-dot"></i>
-                      {{ selectedOptionName || 'To' }}
-                    </span>
-                    <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                    style="width: 100%;max-height: 200px; overflow-y: auto;">
-                    <!-- Search input for the second dropdown -->
-                    <li>
-                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
-                        (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
-                    </li>
-                    <!-- Show filtered To options -->
-                    <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
-                      style="cursor: pointer;">
-                      <a class="dropdown-item">{{ option.name || option.city }}</a>
-                    </li>
-                  </ul>
+                      type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                      style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
+                      <span class="d-flex align-items-center">
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        {{ selectedOptionName || 'To' }}
+                      </span>
+                      <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                      style="width: 100%;max-height: 200px; overflow-y: auto;">
+                      <!-- Search input for the second dropdown -->
+                      <li>
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
+                          (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                      </li>
+                      <!-- Show filtered To options -->
+                      <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
+                        style="cursor: pointer;">
+                        <a class="dropdown-item">{{ option.name || option.city }}</a>
+                      </li>
+                    </ul>
                   </div>
 
 
@@ -684,7 +702,7 @@
         <h3 class="pb-2">Transfer service includes</h3>
         <div class="col-lg-6">
           <div class="position-relative layer-img">
-            <img src={{transferDetails.includeimage}} alt="" />
+            <img src={{transferDetails?.includeimage}} alt="" />
             <div class="layer">
               <p>
                 Explore one of the world’s best art museums at your own pace
@@ -704,7 +722,7 @@
               /> -->
 
               <img [src]="inc?.icon" style="width: 40px; height: 40px" class="me-3" alt="img" />
-              <div>
+              <div style="margin-top:0.5rem">
                 {{ inc.desc }}
               </div>
 
@@ -715,22 +733,20 @@
     </div>
   </section>
   <section class="reviews gradient-overlay-half-black-gradient"
-         [style.background]="'url(' + transferDetails?.pepolesayimage?.[0] + ') no-repeat center center / cover'">
-  <div class="content container">
-    <div class="align-self-start">
-      <h5>What People Say</h5>
+    [style.background]="'url(' + transferDetails?.pepolesayimage?.[0] + ') no-repeat center center / cover'">
+    <div class="content container">
+      <div class="align-self-start">
+        <h5>What People Say</h5>
+      </div>
+      <div class="layer-card">
+        <h5>{{highestRatedReview.name}}</h5>
+        <span>Client</span>
+        <p >
+          {{highestRatedReview.comment}}
+        </p>
+      </div>
     </div>
-    <div class="layer-card">
-      <h6>Jessica Brown</h6>
-      <span>Client</span>
-      <p>
-        This is the 3rd time I’ve used Travelo website and telling you the
-        truth their services are always reliable and it only takes few
-        minutes to plan and finalize.
-      </p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <section style="margin-top: 30px">
     <div class="container">
@@ -758,7 +774,7 @@
     <div class="container">
       <div class="border-top py-4">
         <h5 class="font-size-21 font-weight-bold text-dark mb-8">
-          Showing {{reviews.length}} verified guest comments
+          Showing {{reviews?.length}} verified guest comments
         </h5>
 
         <div class="container">

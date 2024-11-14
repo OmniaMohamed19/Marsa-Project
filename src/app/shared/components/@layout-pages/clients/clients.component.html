@@ -25,8 +25,9 @@
                                         </svg>
                                     </figure>
                                 </div>
-                                <p class="mb-0 ">
-                                    {{ item.reviews }}
+                                <p class="mb-0 " [innerHTML]=" (item.reviews | slice:0:90) + '...'">
+
+
                                 </p>
                             </div>
                             <div class="card-img z-index-2 mb-3">

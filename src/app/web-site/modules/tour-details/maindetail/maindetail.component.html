@@ -2,11 +2,11 @@
 <section class="content">
   <div class="container">
     <div class="images">
-        <img src="../../../../../assets/images/Ellipse1(1).png" alt="" style="width: 100%; max-width: 50%;" />
-        <div class="text-container">
-          <p>What to do in</p>
-          <p class="info">{{ placeDetails?.places.name }}</p>
-        </div>
+      <img src="../../../../../assets/images/Ellipse1(1).png" alt="" style="width: 100%; max-width: 50%;" />
+      <div class="text-container">
+        <p>What to do in</p>
+        <p class="info">{{ placeDetails?.places.name }}</p>
+      </div>
 
 
     </div>
@@ -17,8 +17,15 @@
         {{ placeDetails?.places?.overview }}
       </p>
       <p>
-        {{ placeDetails?.places?.short_overview }}
+        {{ showFullText ? placeDetails?.places?.short_overview : (placeDetails?.places?.short_overview | slice:0:200) + '...' }}
+
+        <button *ngIf="placeDetails?.places?.short_overview?.length > 200" class="btn btn-link p-0" (click)="toggleText()">
+          {{ showFullText ? 'See Less' : 'See More' }}
+        </button>
       </p>
+
+
+
     </div>
 
     <!---------- Types--------->
@@ -43,9 +50,8 @@
 
     <!-- Carousel -->
 
-    <p-carousel  [value]="placeDetails?.typeTrip" [numVisible]="9" [numScroll]="9"
-      [responsiveOptions]="custom" [showIndicators]="false"
-      [showNavigators]="true">
+    <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="9" [numScroll]="9" [responsiveOptions]="custom"
+      [showIndicators]="false" [showNavigators]="true">
       <ng-template pTemplate="item" let-type>
         <div class="day-trip-img me-3"
           [ngClass]="{ 'selected': selectedTrip === type.id, 'full-width': screenWidth <= 560 }"
@@ -100,40 +106,63 @@
     <div class="top-sigh1ts" *ngIf="isFirstTripSelected() && placeDetails?.places?.placesshigts.length!=0">
       <div id="sights">
         <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
-        <p-carousel [value]="placeDetails?.places?.placesshigts" [numVisible]="3"
-        [responsiveOptions2]="responsiveOptions2" [circular]="true" [showIndicators]="true"
-        [showNavigateButtons]="false" [showThumbnails]="false" [showItemNavigators]="false">
+        <!-- <p-carousel [value]="placeDetails?.places?.placesshigts" [numVisible]="3"
+          [responsiveOptions2]="responsiveOptions" [circular]="true" [showIndicators]="false"
+          [showNavigateButtons]="false" [showThumbnails]="false" [showItemNavigators]="false">
+          <ng-template pTemplate="item" let-sight let-index="index">
+            <div class="sights-container text-center position-relative" (click)="setActiveSight(sight)">
+              <div class="position-relative">
+                <img class="sights-img" [id]="sight?.id"
+                  style="height: auto; width: 100%; max-height: 250px; border-radius: 8px;"
+                  (onError)="onImgError($event)" [src]="placeDetails?.places.cover" alt="" />
 
-        <ng-template pTemplate="item" let-sight let-index="index">
-          <div class="sights-container text-center position-relative">
-            <div class="position-relative">
-              <img class="sights-img" [id]="sight?.id"
-                style="height: auto; width: 100%; max-height: 250px; border-radius: 8px;"
-                (onError)="onImgError($event)" [src]="placeDetails?.places.cover" alt="" />
+                <img *ngIf="sight === selectedSight &&  selectedSight?.trips?.length>0 " class="carousel-arrow"
+                  src="../../../../../assets/icons/down-arrow.svg" alt="arrow" />
 
-              <span class="sights-span">
-                {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
-              </span>
+                <span class="sights-span">
+                  {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
+                </span>
+              </div>
             </div>
+          </ng-template>
+        </p-carousel> -->
 
-            <!-- السهم أسفل العنصر -->
-            <img class="carousel-arrow" src="../../../../../assets/icons/down-arrow.svg" alt="arrow" />
-          </div>
-        </ng-template>
-      </p-carousel>
+        <owl-carousel-o [options]="carouselOptions">
+          <ng-container *ngFor="let sight of placeDetails?.places?.placesshigts">
+            <ng-template carouselSlide>
+              <div class="sights-container text-center position-relative" (click)="setActiveSight(sight)">
+                <div class="position-relative">
+                  <img class="sights-img" [id]="sight?.id"
+                       style="height: auto; width: 100%; max-height: 250px; border-radius: 8px;"
+                       (error)="onImgError($event)" [src]="placeDetails?.places.cover" alt="" />
+
+                  <img *ngIf="sight === selectedSight && selectedSight?.trips?.length > 0" class="carousel-arrow"
+                       src="../../../../../assets/icons/down-arrow.svg" alt="arrow" />
+
+                  <span class="sights-span">
+                    {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
 
 
 
 
 
 
-        <div class="row mb-4" style="margin-top: -6rem; border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
+
+
+
+        <div *ngIf="selectedSight && selectedSight.id === selectedSightId &&  selectedSight?.trips?.length>0 "
+          class="row mb-4" style="margin-top: -6rem; border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
           <div class="col-lg-4 col-md-4 col-sm-12 mt-lg-3 mb-5">
             <div>
               <h5 class="card-title mb-1" style="line-height: 26px; font-size: 17px; font-weight: bold;">
                 {{selectedSight.short_overveiw}}
               </h5>
-
             </div>
 
             <button type="button" style="border-radius: 20px !important; width: 80% !important;"
@@ -145,7 +174,7 @@
           </div>
           <div class="col-lg-8 col-md-8 col-sm-12">
             <div *ngIf="selectedSight" class="row ">
-              <div *ngFor="let item of selectedSight.trips;let i = index" class="col-lg-6 col-md-6 col-sm-12 mb-5">
+              <div *ngFor="let item of selectedSight?.trips;let i = index" class="col-lg-6 col-md-6 col-sm-12 mb-5">
                 <div *ngIf="i < 2">
                   <div class="card h-100 d-flex flex-row" style="border: none; padding:0 10px;">
                     <div class="img-container position-relative" style="width: 50%; height: auto;">
@@ -163,7 +192,7 @@
           height: 60% !important; object-fit: cover; border-radius: 10px; height: auto; aspect-ratio: 1 / 1; transition: none;" />
                       </a>
                     </div>
-                    <div class="card-body p-2"
+                    <div class="card-body card-contant p-2"
                       style="width: 70%; font-size: 0.875rem; display: flex; flex-direction: column; justify-content: space-between;">
                       <a [routerLink]="['/', translate.currentLang, 'tours', 'details', item?.id]" class="d-block">
                         <h5 class="card-title mb-1" style="font-size: 17px; font-weight: bold;">{{ item?.Title }}</h5>
@@ -197,13 +226,13 @@
                         <span style="font-size: 0.75rem;">per person</span>
                       </h2>
                       <div class="position-absolute top-0 right-0 pt-2 ps-5">
-                        <button type="button" class="btn btn-sm btn-icon text-white rounded-circle" data-toggle="tooltip"
-                        data-placement="top" title="Save for later" aria-label="Save for later" #btn
-                        (click)="addtoFavorits(btn, $event, item?.id)">
-                        <span   [ngClass]="{'text-white': item.isFavorite, 'text-dark': !item.isFavorite}">
-                          <i style="font-size: 20px !important;" class="fa fa-heart fs-3 "></i>
-                        </span>
-                      </button>
+                        <button type="button" class="btn btn-sm btn-icon text-white rounded-circle"
+                          data-toggle="tooltip" data-placement="top" title="Save for later" aria-label="Save for later"
+                          #btn (click)="addtoFavorits(btn, $event, item?.id)">
+                          <span [ngClass]="{'text-white': item.isFavorite, 'text-dark': !item.isFavorite}">
+                            <i style="font-size: 20px !important;" class="fa fa-heart fs-3 "></i>
+                          </span>
+                        </button>
 
 
 
@@ -296,12 +325,16 @@
           Our most recommended things to do in {{ placeDetails?.places?.name }}
         </h4>
         <div class="row">
-          <div *ngFor="let rec of placeDetails?.recomended" class="mb-5 d-flex align-items-start"
-            [ngClass]="{'col-12': rec.seeMore, 'col-lg-6 col-xl-6 col-12': !rec.seeMore}">
-            <div [ngClass]="{'col-md-4': rec.seeMore, 'col-md-6': !rec.seeMore}">
+          <div *ngFor="let rec of placeDetails?.recomended" class="mb-5 d-md-flex d-block align-items-start" [ngClass]="{
+                 'col-12': rec.seeMore,
+                 'col-lg-6 col-xl-6 col-12': !rec.seeMore
+               }">
+            <div [ngClass]="{'col-md-4 col-12': rec.seeMore, 'col-md-6': !rec.seeMore}">
               <img [src]="rec.images" class="img-fluid rounded-2 fixed-size-img zoom-effect" />
             </div>
-            <div [ngClass]="{'col-md-8': rec.seeMore, 'col-md-6': !rec.seeMore}" class="details">
+            <div
+            class="details"
+            [ngClass]="{'col-md-8 col-12': rec.seeMore, 'col-md-6': !rec.seeMore, 'mobile-full-width': rec.seeMore }" >
               <h5 class="font-weight-bold" style="font-size: 20px; color: #1a2b49; margin-bottom: 0px !important;">
                 {{ rec?.title }}
               </h5>
@@ -311,15 +344,18 @@
                   {{ rec?.Category }}
                 </span>
               </p>
-              <p [innerHTML]="rec?.seeMore ? rec?.overview : (rec?.overview | slice:0:100)" [style.color]="'#1a2b49'"
+              <p [innerHTML]="rec?.seeMore ? rec?.overview : (rec?.overview | slice:0:120) + '...'" [style.color]="'#1a2b49'"
                 [style.font-size]="rec?.seeMore ? '16px' : '13px'" style="margin-bottom: 0px !important;">
+
               </p>
               <button *ngIf="rec?.overview.length > 100" class="btn btn-link p-0" (click)="toggleSeeMore(rec)">
                 {{ rec?.seeMore ? 'See Less' : 'See More' }}
               </button>
+
             </div>
           </div>
         </div>
+
       </div>
 
 

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { DataService } from 'src/app/web-site/modules/transfer/dataService';
 import { environment } from 'src/environments/environment.prod';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-step-one',
@@ -35,7 +36,7 @@ details:any;
     touchDrag: true,
     pullDrag: true,
     center: false,
-    dots: true,
+    dots: false,
     margin: 10,
     rtl: false,
     nav: true,
@@ -67,19 +68,20 @@ details:any;
     personsTotal: 0,
     specialRequirements: '',
     selectedCarId: null ,
-   
+
   };
   countries: any;
 
-  constructor(private dataService: DataService, private httpService: HttpService) {}
- 
+  constructor(private toastr: ToastrService,private dataService: DataService, private httpService: HttpService) {}
+
   ngOnInit() {
 
     // Fetch user details and country data
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-      console.log(this.userDetails);
+
       this.phone = this.userDetails?.overviwe?.phonenumber;
+
       this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
       this.formData.phoneNumber = this.phoneNumber || '';
     });
@@ -97,23 +99,23 @@ details:any;
     const savedSection = localStorage.getItem('activeSection');
     if (savedSection) {
       this.activeSection = savedSection;
-      console.log( this.activeSection)
+
     }
     const selectedFromType = localStorage.getItem('selectedFromType');
     if (selectedFromType === 'airport') {
       this.Isairport=true;
-      console.log("User selected an airport");
+
     }
 
 
     this.formData.from_id=this.details?.from_id|| '';
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
-      console.log( this.responseData);
+
     }
     if (bookingDetail) {
       this.bookdetail = JSON.parse(bookingDetail);
-      console.log( this.bookdetail);
+
     }
     if (savedSelectedCar) {
       this.selectedCar = JSON.parse(savedSelectedCar);  // Load the saved car object
@@ -128,11 +130,10 @@ details:any;
   }
 
   // Save selected car in local storage when a car is clicked
-  onCarClick(event: any, carId: number): void {
+  onCarClick(event:any, carId: number): void {
     this.selectedCarId = carId;
     this.formData.selectedCarId = carId;
-    console.log(this.selectedCarId);
-    // this.radio.nativeElement.checked = true;
+
     const selectedCarObject = this.responseData?.car?.find((car: any) => car.id === carId);
 
     if (selectedCarObject) {
@@ -142,13 +143,38 @@ details:any;
   }
   // Function to proceed to the next step
   saveFormData(form: NgForm): void {
-    if (form.valid) {
+
+    if (form.valid && this.selectedCarId!=undefined) {
       // Save the entire formData to localStorage
       localStorage.setItem('formData', JSON.stringify(this.formData));
       this.next.emit();
-    } else {
-      console.log('Form is not valid');
+      window.scrollTo(0, 0);
     }
+    else{
+      if (form.valid==false) {
+        this.toastr.info('Please enter all required fields. ', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+
+      }
+      if (this.selectedCarId==undefined) {
+
+        this.toastr.info('Please choose a car before booking. ', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      }
+
+    }
+
+
   }
   updatePersonsTotal() {
     this.formData.personsTotal = this.adultCount + this.childCount + this.infantCount;

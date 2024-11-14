@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -10,6 +10,28 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./package-edit.component.scss'],
 })
 export class PackageEditComponent implements OnInit {
+  isSmallScreen = window.innerWidth <= 768; // تتحقق من حجم الشاشة عند التحميل
+
+  carouselOptions = {
+    loop: true,
+    autoplay:true,
+    margin: 10,
+    nav: false,
+    dots: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    responsive: {
+      0: {
+        items: 1
+      }
+    }
+  };
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.isSmallScreen = window.innerWidth <= 768;
+  }
   tabs = [
     { label: 'Marsa Alam', section: 'section1' },
     { label: 'Hurghada', section: 'section2' },
@@ -64,3 +86,5 @@ export class PackageEditComponent implements OnInit {
       : [];
   }
 }
+
+

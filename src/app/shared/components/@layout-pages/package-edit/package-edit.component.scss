@@ -1,1 +1,10 @@
 @import url(../../../../../styles/packages-edit.scss);
+.carousel-card {
+  width: 100%;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  margin-bottom: 3.1rem;
+}

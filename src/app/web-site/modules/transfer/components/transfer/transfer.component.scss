@@ -3,9 +3,9 @@
 
 ::ng-deep{
 
-  // .mdc-notched-outline{
-  //  border: 1px red solid !important;
-  // }
+  .owl-item{
+    width: 630px !important;
+  }
 
   .mat-datepicker-toggle button svg {
     color: #0057FF !important; /* لون الأيقونة */
@@ -270,9 +270,9 @@ h5 {
     }
   }
 }
-.layer-card h6 {
+.layer-card h5 {
   font-family: Lato;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 20px;
   letter-spacing: 0em;
@@ -292,9 +292,9 @@ h5 {
 
 .layer-card p {
   font-family: Lato;
-  font-size: 16px;
+  font-size: 17px;
+   font-weight: 600;
   font-style: italic;
-  font-weight: 400;
   line-height: 19px;
   letter-spacing: 0em;
   text-align: left;

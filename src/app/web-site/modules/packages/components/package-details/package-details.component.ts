@@ -74,6 +74,23 @@ export class PackageDetailsComponent {
   children: number = 0;
   infant: number = 0;
   showAllReviews = false;
+  isSmallScreen = window.innerWidth <= 768; 
+
+  carouselOptions = {
+    loop: true,
+    autoplay:true,
+    margin: 10,
+    nav: false,
+    dots: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    responsive: {
+      0: {
+        items: 1
+      }
+    }
+  };
   // duration: any;
   @ViewChild('startPicker') startPicker!: MatDatepicker<Date>;
   @ViewChild('endPicker') endPicker!: MatDatepicker<Date>;
@@ -183,9 +200,10 @@ export class PackageDetailsComponent {
     this.httpService
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
+        console.log(res);
         this.rows = res?.tripDetails;
-        this.faq=res?.tripDetails?.FAQ;
-        console.log(res?.tripDetails?.FAQ)
+        this.faq=res?.tripDetails?.faq;
+        console.log(res?.tripDetails?.faq)
 
         console.log(this.rows);
         this.duration = this.rows.duration;

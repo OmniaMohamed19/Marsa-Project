@@ -107,7 +107,7 @@
           :is(span) {
             color: #fff;
             font-family: Poppins;
-            font-size: clamp(10px, 16px, 25px);
+            font-size: 20px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
@@ -216,7 +216,7 @@
         height: 456px;
         transition: all 0.5s ease-in-out;
         filter: none;
-        width: 200px;
+        width: 215px;
 
         &:hover {
           cursor: pointer;
@@ -236,7 +236,7 @@
         height: 420px;
         transition: all 0.5s ease-in-out;
         filter: none;
-        width: 200px;
+        width: 210px;
 
         &:hover {
           cursor: pointer;
@@ -255,7 +255,7 @@
       :is(img) {
         height: 599px;
         transition: all 0.5s ease-in-out;
-        width: 200px;
+        width: 210px;
 
         filter: none;
         &:hover {
@@ -282,6 +282,17 @@
     height: fit-content;
     overflow-y: visible;
 
+    .trip-details {
+
+
+      :is(ul) {
+        display: block;
+        margin-left: 2rem;
+
+      }
+
+
+    }
     .packages-img {
       margin-top: 50px;
     }
@@ -297,6 +308,17 @@
 
       .package-list {
         padding-left: 30px;
+      }
+      :is(ul) {
+        :is(li) {
+
+
+          :is(span) {
+
+            font-size: 19px;
+
+          }
+        }
       }
     }
 
@@ -473,13 +495,13 @@
 
     :is(p) {
       position: absolute;
-      top: 10px;
-      left: 0;
+      top: 7px;
+      left: 10px;
       z-index: 3;
       color: #0072bc;
       text-align: center;
       font-family: Poppins;
-      font-size: 20px;
+      font-size: 22px;
       font-style: normal;
       font-weight: 700;
       line-height: normal;
@@ -510,6 +532,7 @@
   .packages-content .first-column .package-list {
     :is(li) span {
       font-weight: 500;
+      font-size: 19px;
     }
   }
 

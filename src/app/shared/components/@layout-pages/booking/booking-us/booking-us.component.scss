@@ -5,6 +5,14 @@ h3 {
     line-height: 45px;
     position: relative;
 }
+::ng-deep {
+  .booking-owl .owl-carousel .owl-item img {
+    display: inline !important;
+    width: auto !important;
+  }
+
+}
+
 
 h3::after {
     content: '';
