@@ -31,15 +31,21 @@
         >
           <div class="mb-1">
             <div class="mb-2 mb-md-0 d-flex align-items-center">
-              <h4 class="mb-1 mr-3">{{ activityData?.Name }}
-                <div class="d-inline-block   fw-bold  fs-5  mx-4  "
-                style="
-                border: 1px solid gray;
-    padding: 0px 30px;
-    border-radius: 30px;
-    color:#297cbb;
-    font-size:10px
-    " *ngIf="activityData?.trending != 0">Popular</div>
+              <h4 class="mb-1 mr-3">
+                {{ activityData?.Name }}
+                <div
+                  class="d-inline-block fw-bold fs-5 mx-4"
+                  style="
+                    border: 1px solid gray;
+                    padding: 0px 30px;
+                    border-radius: 30px;
+                    color: #297cbb;
+                    font-size: 10px;
+                  "
+                  *ngIf="activityData?.trending != 0"
+                >
+                  Popular
+                </div>
               </h4>
               <!-- <button class="btn popular">Popular</button> -->
             </div>
@@ -92,8 +98,8 @@
                   <img width="17.6px" height="25.9px" src="../../../../../../assets/images/Free Cancelation.svg">
 
                 </span> -->
-                Free Cancellation Up to {{ activityData?.CancelationtTime }} hours in 
-                advance
+                Free Cancellation Up to
+                {{ activityData?.CancelationtTime }} hours in advance
               </div>
             </li>
             <li
@@ -466,15 +472,12 @@
                         style="color: #ff681a"
                       ></i>
 
-                      <span
-                        class="font-size-9 d-inline-block"
-
-                      >
+                      <span class="font-size-9 d-inline-block">
                         {{ exclude.title }} <br />
-                       <p *ngIf="exclude?.price > 0">
-                        ( {{ exclude?.price }} $ per person :
-                        {{ exclude?.option }})
-                       </p>
+                        <p *ngIf="exclude?.price > 0">
+                          ( {{ exclude?.price }} $ per person :
+                          {{ exclude?.option }})
+                        </p>
                       </span>
                     </li>
                   </ul>
@@ -489,16 +492,15 @@
               *ngFor="let availableOption of activityData?.AvailableOption"
             >
               <div class="row" (click)="bookNow(availableOption?.id)">
-                <div class="col-md-8 option ">
-                  <h3 class="highlighting">{{ availableOption?.Title }}
-                  </h3>
+                <div class="col-md-8 option">
+                  <h3 class="highlighting">{{ availableOption?.Title }}</h3>
                   <div class="content row d-flex">
-                    <div class=" col-sm-12">
+                    <div class="col-sm-12">
                       <ul class="list-unstyled highlighting-list">
                         <li [innerHTML]="availableOption?.Overview"></li>
                       </ul>
                     </div>
-                    <div class=" col-sm-12">
+                    <div class="col-sm-12">
                       <ul class="list-unstyled logos">
                         <li *ngIf="availableOption?.Cancelation === 1">
                           <img
@@ -545,7 +547,7 @@
                   </div>
                 </div>
                 <div
-                  class="col-md-4 mt-5 text-center bookDetails "
+                  class="col-md-4 mt-5 text-center bookDetails"
                   *ngIf="selectedOption === 'Private'"
                 >
                   <span
@@ -630,7 +632,7 @@
                   </div> -->
                 </div>
                 <div
-                  class="col-md-4 mt-5 pt-5 text-center bookDetails "
+                  class="col-md-4 mt-5 pt-5 text-center bookDetails"
                   *ngIf="selectedOption === 'Collective'"
                 >
                   <span
@@ -711,7 +713,7 @@
                 </div>
                 <div
                   *ngIf="!showBookingOption"
-                  class="d-flex w-100 w-md-50 justify-content-between align-items-center "
+                  class="d-flex w-100 w-md-50 justify-content-between align-items-center"
                 >
                   <h5>Total Price</h5>
                   <h5>{{ getMinAdultPrice()?.PriceColective.Adult }} $</h5>
@@ -1516,10 +1518,10 @@
               </span>
             </li>
             <li class="list-group-item px-1 d-flex flex-column">
-              <span class="top fw-bold" style="color:#297cbb">{{
+              <span class="top fw-bold" style="color: #297cbb">{{
                 getRatingDescription(activityData?.rate)
               }}</span>
-              
+
               <small class="d-block"
                 >({{ activityData?.CountReview }} Reviews)</small
               >
@@ -1630,10 +1632,13 @@
                         [matDatepickerFilter]="dateFilter"
                         (dateInput)="addEvent($event)"
                       />
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
-                    
+
                     <!-- <div *ngIf="selectedDateControl.errors?.matDatepickerFilter">
                       <p style="color: red;">Please select a date that is not a Saturday or Sunday.</p>
                     </div> -->
@@ -2061,10 +2066,13 @@
                       [matDatepickerFilter]="dateFilter"
                       (dateInput)="addEvent($event)"
                     />
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
-                  
+
                   <!-- <div *ngIf="selectedDateControl.errors?.matDatepickerFilter">
                     <p style="color: red;">Please select a valid date.</p>
                   </div> -->
@@ -2372,7 +2380,14 @@
   </div>
 </ng-template>
 <ng-template #videoModal>
-  <video #videoElement class="w-100 h-100" [src]="videoUrl" controls autoplay name="media"></video>
+  <video
+    #videoElement
+    class="w-100 h-100"
+    [src]="videoUrl"
+    controls
+    autoplay
+    name="media"
+  ></video>
   <!-- <div class="h-100 vid" mat-dialog-content>
     <iframe
       [src]="videoUrl"
