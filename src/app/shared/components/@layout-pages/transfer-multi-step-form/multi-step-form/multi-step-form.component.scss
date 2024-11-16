@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
-   
+
     li{
         cursor: pointer;
         display: flex;
@@ -41,12 +41,39 @@
                 background-color: #0057FF;
             }
             span:nth-of-type(2){
-                color: #0057FF;   
+                color: #0057FF;
             }
         }
     }
   }
-  
+  .thanks-message{
+    background: #EBF0F7;
+    .test{
+        width: 80%;
+        margin: 10px auto;
+        padding-top: 21px;
+        padding-bottom: 21px;
+        .thanks{
+            width: 80%;
+            margin-top: 20px;
+        }
+    }
+}
+  .thanks{
+    padding: 21px;
+    margin-bottom: 21px;
+    p{
+        color: #297CBB;
+        text-align: center;
+        font-family: Lato;
+        font-size: 21px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+    }
+}
+
 
  @media screen and (max-width:992px){
     .nav{

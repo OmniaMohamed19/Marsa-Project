@@ -1,7 +1,7 @@
 <form
   [formGroup]="otpForm"
   (ngSubmit)="submit(otpForm)"
-  *ngIf="showDoneForm && !showLogin"
+  *ngIf="showDoneForm && !showLogin && showRegisterForm"
 >
   <div
     id="otp"
@@ -43,7 +43,7 @@
       <div style="margin: auto" class="element-width">
         <p>A 6-digit verification code has been sent to your email</p>
       </div>
-      <!-- <div style="width: 379px;margin: auto;"> 
+      <!-- <div style="width: 379px;margin: auto;">
             <p ><u style="color: #1E1E1E !important;">+01200629422</u> <a  style="color: #0DB1FF;"> Change Number</a></p>
         </div> -->
       <div class="text-center code-time">
@@ -129,16 +129,36 @@
         >
         <a
           class="sign-up"
-          style="color: #0db1ff !important; cursor: pointer"
+          style="color: #008ccf !important; cursor: pointer"
           data-link-group="idForm"
           data-animation-in="fadeIn"
           (click)="sendCode()"
           >Re-Send Code
         </a>
       </div>
+      <div class="p-0 mt-2">
+        <div class="text-center font-size-14">
+          <span class="dark-text" style="color: #000000 !important"
+            >Back to </span
+          >
+          <a
+            (click)="toggleForm()"
+            class="sign-up"
+            data-target="#signup"
+            data-link-group="idForm"
+            style="cursor: pointer"
+            data-animation-in="fadeIn"
+          >
+            Login</a
+          >
+        </div>
+      </div>
     </div>
   </div>
 </form>
+<!-- <div *ngIf="!showRegisterForm">
+  <app-login (close)="closeForm()"></app-login>
+</div> -->
 <div *ngIf="!showDoneForm && !showLogin">
   <app-done (close)="closeForm()"></app-done>
 </div>

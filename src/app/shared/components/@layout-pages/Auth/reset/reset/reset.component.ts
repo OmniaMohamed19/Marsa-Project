@@ -24,7 +24,7 @@ export class ResetComponent implements OnInit {
     private dialog: MatDialog,
     private codeService: CodeService,
     private toastr: ToastrService
-  ) {}
+  ) { }
   initialForm() {
     this.resetForm = this._FormBuilder.group({
       email: ['', Validators.required],
@@ -33,7 +33,7 @@ export class ResetComponent implements OnInit {
   get email() {
     return this.resetForm.get('email')!;
   }
-  submit() {}
+  submit() { }
   changeReqister(value: string) {
     this._AuthService.updateRegisterBehavoir(value);
   }
@@ -63,7 +63,8 @@ export class ResetComponent implements OnInit {
           this.codeService.setUserData(res.user_id);
         },
         error: (err) => {
-          this.toastr.error('An error occurred', '', {
+          const errorMessage = err?.error?.message || 'An unexpected error occurred.';
+          this.toastr.error(errorMessage, '', {
             disableTimeOut: false,
             titleClass: 'toastr_title',
             messageClass: 'toastr_message',
@@ -73,5 +74,10 @@ export class ResetComponent implements OnInit {
         },
       });
     }
+  }
+  showRegisterForm: boolean = true;
+
+  toggleForm(): void {
+    this.showRegisterForm = !this.showRegisterForm;
   }
 }

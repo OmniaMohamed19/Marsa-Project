@@ -23,8 +23,20 @@
         <div class="step" *ngIf="currentStep === 3">
           <app-step-three (previous)="goToPreviousStep()" (next)="goToNextStep($event)"></app-step-three>
         </div>
-        <div class="step" *ngIf="currentStep === 4">
-          <app-step-four (previous)="goToPreviousStep()" (submitForm)="submitForm($event)"></app-step-four>
+        <div class="step" >
+          <!-- <app-step-four (previous)="goToPreviousStep()"></app-step-four> -->
+          <div class=" thanks-message">
+            <div class="test d-flex justify-content-center align-items-center gap-3">
+
+              <div class="thanks">
+                <p>
+                  Please complete all previous steps so that we can confirm your reservation
+                </p>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

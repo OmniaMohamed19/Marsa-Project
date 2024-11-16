@@ -1,19 +1,19 @@
 
 
 ::ng-deep{
-  #phone {
+  .phone #phone {
 
   border: 1px solid #77838f !important;
 }
-.country-dropdown{
+.phone .country-dropdown{
   height: 220px !important;
   overflow: auto !important;
 }
-.iti__country-list{
+.phone .iti__country-list{
   overflow: auto !important;
 }
 
-.iti--allow-dropdown .iti__flag-container{
+.phone .iti--allow-dropdown .iti__flag-container{
   border: 1px solid #77838f !important;
   color: #2d303c;
   border-radius: 0.3125rem;
@@ -24,12 +24,12 @@
   border-right: none !important;
   background-color: rgba(0, 0, 0, .05);
   }
-.iti--allow-dropdown .iti__flag-container:hover{
+.phone .iti--allow-dropdown .iti__flag-container:hover{
   background-color:  #77838f !important;
   color:#EBF0F7;
 }
 
-.iti.separate-dial-code .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2 .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag {
+.phone .iti.separate-dial-code .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2 .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag {
   width: 82px !important;
 }
 

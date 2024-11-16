@@ -84,7 +84,7 @@ export class CodeSignComponent implements OnInit {
             }
           },
           error: (err) => {
-            this.toastr.error('An error occurred', ' ', {
+            this.toastr.error(err.message, ' ', {
               disableTimeOut: false,
               titleClass: 'toastr_title',
               messageClass: 'toastr_message',
@@ -96,7 +96,11 @@ export class CodeSignComponent implements OnInit {
       }
     }
   }
+  showRegisterForm: boolean = true;
 
+  toggleForm(): void {
+    this.showLogin = !this.showLogin;
+  }
   sendCode() {
     const userId = this.codeService.getUserData();
 

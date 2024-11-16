@@ -1,4 +1,4 @@
-<form *ngIf="showResetForm" [formGroup]="resetForm">
+<form *ngIf="showRegisterForm && showResetForm" [formGroup]="resetForm">
   <div
     id="reset"
     style="opacity: 1"
@@ -115,10 +115,30 @@
           </a>
         </div>
       </div>
+      <div class="p-0">
+        <div class="text-center font-size-14">
+          <span class="dark-text" style="color: #000000 !important"
+            >Back to </span
+          >
+          <a
+            (click)="toggleForm()"
+            class="sign-up"
+            data-target="#signup"
+            data-link-group="idForm"
+            style="cursor: pointer"
+            data-animation-in="fadeIn"
+          >
+            Login</a
+          >
+        </div>
+      </div>
     </div>
   </div>
 </form>
 
+<div *ngIf="!showRegisterForm">
+  <app-login (close)="closeReset()"></app-login>
+</div>
 <div *ngIf="!showCodeSignForm">
   <app-code-sign [newPass]="true" (close)="closeReset()"></app-code-sign>
 </div>

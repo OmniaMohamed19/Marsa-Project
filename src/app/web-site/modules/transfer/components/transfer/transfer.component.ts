@@ -165,6 +165,20 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
         closeButton: true,
       });
       this.headerService.toggleDropdown();
+      return;
+    }
+
+    if(this.fromId==undefined ||this.toId == undefined || this.date==undefined || this.pickuptime ==undefined
+       ||this.returnDate ==undefined||this.returnPickuptime ==undefined)
+       {
+        this.toastr.info('Please enter a valid number for the selected option! ', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+        return;
     }
 
     else{
@@ -334,9 +348,9 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    dots: true,
+    dots: false,
     margin: 10,
-    autoplay: true,
+    autoplay: false,
     navSpeed: 700,
     nav: true,
     navText: [
@@ -374,13 +388,13 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     items: 1, // Display one item per slide
     responsive: {
       0: {
-        items: 2,
+        items: 1,
       },
       600: {
-        items: 2,
+        items: 1,
       },
       1000: {
-        items: 2,
+        items: 1,
       }
     }
   };

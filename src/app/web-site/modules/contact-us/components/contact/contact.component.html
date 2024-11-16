@@ -186,16 +186,18 @@
                       [class.is-invalid]="email.errors && email.touched"
                     />
                     <ng-container *ngIf="email.errors && email.touched">
-                      <div
-                        class="alert alert-danger my-2"
-                        *ngIf="email.errors?.['required']"
-                      >
-                        <p class="mb-0" >
-                          Email is required You must enter valid email
-                        </p>
+                      <div class="alert alert-danger my-2" *ngIf="email.errors?.['required']">
+                        <p class="mb-0">Email is required</p>
                       </div>
+                      <div class="alert alert-danger my-2" *ngIf="email.errors?.['email']">
+                        <p class="mb-0">Please enter a valid email address in the format XXX@XX.XX.</p>
+                      </div>
+                      <!-- <div class="alert alert-danger my-2" *ngIf="email.errors?.['pattern']">
+                        <p class="mb-0">Email must be in the format XXX@XX.XX</p>
+                      </div> -->
                     </ng-container>
                   </div>
+
                 </div>
                 <!-- End Input -->
                 <div class="col-sm-12 mb-5">

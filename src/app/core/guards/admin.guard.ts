@@ -17,5 +17,5 @@ export class AdminGuard implements CanActivateChild {
         return false;
       }
   }
-  
+
 }

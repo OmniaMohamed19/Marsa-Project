@@ -42,8 +42,18 @@ export class LoginComponent implements OnInit {
       }
     });
     this.authService.$loginError.subscribe((res: any) => {
-      if (res) {
-        this.toastr.error(res.message, '', {
+      if (res && this.loginForm.valid) {
+        let errorMessage = '';
+
+        if (res.code === 'INVALID_EMAIL') {
+          errorMessage = 'Email is incorrect.';
+        } else if (res.code === 'INVALID_PASSWORD') {
+          errorMessage = 'The password is incorrect.';
+        } else {
+          errorMessage = 'Incorrect email or password.';
+        }
+
+        this.toastr.error(errorMessage, '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
           messageClass: 'toastr_message',
@@ -52,6 +62,7 @@ export class LoginComponent implements OnInit {
         });
       }
     });
+
   }
 
   toggleVisibility() {
@@ -64,7 +75,11 @@ export class LoginComponent implements OnInit {
     } else if (value == 'reset') {
       this.showResetComponent = true;
       this.loginForm.get('showForm')?.setValue(false);
-    } else {
+    }else if (value == 'otp'){
+      this.loginForm.get('showForm')?.setValue(false);
+
+    }
+    else {
       this.showRegisterComponent = false;
       this.loginForm.get('showForm')?.setValue(true);
     }
@@ -78,10 +93,48 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    this.authService.authenticate(this.loginForm.value);
+    // if(this.loginForm.invalid){
+    //   this.toastr.error('Incorrect email or password.', '', {
+    //     disableTimeOut: false,
+    //     titleClass: 'toastr_title',
+    //     messageClass: 'toastr_message',
+    //     timeOut: 5000,
+    //     closeButton: true,
+    //   });
+
+    // }
+    if (this.email.invalid){
+      this.toastr.error('please enter a valid email address', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+    }
+   // console.log(this.email)
+    if (this.email ==null &&  this.password==null){
+      this.toastr.error('Please enter your email and password', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+    }
+    else {
+      this.authService.authenticate(this.loginForm.value);
+
+    }
   }
 
   closeDiv() {
+    this.loginForm.reset({
+      email: '',
+      password: '',
+      rememberMe: false,
+      showForm: true,
+    });
     this.dialog?.closeAll();
     this.close.emit();
   }

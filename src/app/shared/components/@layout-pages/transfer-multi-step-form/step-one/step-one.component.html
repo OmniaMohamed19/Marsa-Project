@@ -6,7 +6,7 @@
       <owl-carousel-o [options]="customOptions" class="owl-theme">
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
-            <div class="d-flex flex-column car custom-carousel-item"
+            <div class=" car custom-carousel-item"
                  (click)="onCarClick($event, item.id)"
                  [class.active]="selectedCarId === item.id">
 
@@ -205,7 +205,7 @@
           <div class="bold-heading">Phone Number </div>
         </div>
         <div class="col-md col-12 mt-2 ">
-        <div class="d-flex ms-2 position-relative">
+        <div class="d-flex ms-2 position-relative phone">
           <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
             [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
             [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"

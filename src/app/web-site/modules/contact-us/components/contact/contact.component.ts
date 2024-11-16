@@ -32,9 +32,10 @@ export class ContactComponent implements OnInit {
     this.getContact();
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      message: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
+      message: ['', Validators.required],
     });
+
   }
 
   getContact() {
@@ -99,7 +100,7 @@ export class ContactComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.intervalId) {
-      clearInterval(this.intervalId); 
+      clearInterval(this.intervalId);
     }
   }
 }

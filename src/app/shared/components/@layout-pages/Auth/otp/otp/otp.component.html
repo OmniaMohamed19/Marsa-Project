@@ -1,7 +1,7 @@
 <form [formGroup]="otp">
     <div id="otp" style="opacity: 1;" data-target-group="idForm" class="animated fadeIn card p-2 py-4">
       <!-- Header -->
-      
+
       <!-- End Header -->
       <div>
         <div class=" text-center pb-2">
@@ -13,10 +13,10 @@
           </div>
           <h3 class="h5 mb-0">OTP Code</h3>
         </div>
-        <div style="width: 379px;margin: auto;"> 
+        <div style="width: 379px;margin: auto;">
           <p >A 6-digit verification code has been sent to your email</p>
         </div>
-        <!-- <div style="width: 379px;margin: auto;"> 
+        <!-- <div style="width: 379px;margin: auto;">
             <p ><u style="color: #1E1E1E !important;">+01200629422</u> <a  style="color: #0DB1FF;"> Change Number</a></p>
         </div> -->
         <div class="text-center code-time">
@@ -39,7 +39,7 @@
                </div>
         </div>
         <!-- End Form Group -->
-       
+
         <div class="pb-1 d-flex justify-content-center">
           <button (click)="changeReqister('confirmCode')" type="submit" class="btn login-btn" [disabled]="otp.invalid">Confirm</button>
         </div>
@@ -48,7 +48,9 @@
             <a  class="sign-up" style="color: #0DB1FF !important;"
               data-link-group="idForm" data-animation-in="fadeIn">Re-Send Code </a>
         </div>
+
       </div>
-     
+
     </div>
 </form>
+

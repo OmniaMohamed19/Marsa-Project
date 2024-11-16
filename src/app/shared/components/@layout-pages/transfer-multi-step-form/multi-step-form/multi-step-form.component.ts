@@ -47,6 +47,7 @@ export class MultiStepFormComponent {
   }
 
   goToPreviousStep(): void {
+    
     if (this.currentStep > 1) {
       this.currentStep--;
     }

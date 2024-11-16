@@ -10,7 +10,16 @@ import { ToastrService } from 'ngx-toastr';
 import { CodeService } from '../services/code.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { TranslateService } from '@ngx-translate/core';
 declare const google: any;
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+// Custom email validator
+export function emailFormatValidator(control: AbstractControl): ValidationErrors | null {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const isValid = emailRegex.test(control.value);
+  return isValid ? null : { invalidEmail: true };
+}
 
 @Component({
   selector: 'app-register',
@@ -34,6 +43,7 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private _Router: Router,
+    public translate: TranslateService,
     private codeService: CodeService,
     private toastr: ToastrService,
     private dialog: MatDialog
@@ -45,22 +55,30 @@ export class RegisterComponent implements OnInit {
   initialForm(): void {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, emailFormatValidator]], // Use the custom email validator
       phone: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: [
-        '',
-        [Validators.required, Validators.minLength(8)],
-      ],
+      password_confirmation: ['', [Validators.required, Validators.minLength(8)]],
       country_code: [''],
       role: [0, [Validators.required, Validators.min(1)]],
-    });
+    },
+    { validators: this.passwordMatchValidator });
 
     this.signupForm.get('role')?.valueChanges.subscribe((value) => {
       this.signupForm
         .get('role')
         ?.setValue(value ? 1 : 0, { emitEvent: false });
     });
+  }
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('password_confirmation')?.value;
+
+    if (password !== confirmPassword) {
+      control.get('password_confirmation')?.setErrors({ mismatch: true });
+    } else {
+      control.get('password_confirmation')?.setErrors(null);
+    }
   }
   checkTerms(event: any) {
     this.terms = event.target.checked;
@@ -106,44 +124,58 @@ export class RegisterComponent implements OnInit {
   }
 
   register(form: FormGroup) {
-    if (form.valid) {
-      const model = {
-        ...this.signupForm.value,
-        phone: this.signupForm.get('phone')?.value['number'],
-        country_code: this.signupForm.get('phone')?.value['dialCode'],
-      };
-      this.authService.register(model).subscribe({
-        next: (res: any) => {
-          this.showCodeSignForm = !this.showCodeSignForm;
-          this.toastr.success(res.message, ' ', {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          });
-          this.codeService.setUserData(res.user_id);
-        },
-        error: (err) => {
-          this.toastr.error('An error occurred', '', {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          });
-        },
-      });
-    } else {
-      this.toastr.error('Check Missing Fields', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+    if (form.invalid) {
+      if (this.email.errors && this.email.errors['invalidEmail']) {
+        this.toastr.error('Please enter a valid email address.', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      } else {
+        this.toastr.error('Check Missing Fields', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      }
+      return;
     }
+
+    const model = {
+      ...this.signupForm.value,
+      phone: this.signupForm.get('phone')?.value['number'],
+      country_code: this.signupForm.get('phone')?.value['dialCode'],
+    };
+
+    this.authService.register(model).subscribe({
+      next: (res: any) => {
+        this.showCodeSignForm = !this.showCodeSignForm;
+        this.toastr.success(res.message, ' ', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+        this.codeService.setUserData(res.user_id);
+      },
+      error: (err) => {
+        this.toastr.error('An error occurred', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      },
+    });
   }
+
+
   toggleForm(): void {
     this.showRegisterForm = !this.showRegisterForm;
   }

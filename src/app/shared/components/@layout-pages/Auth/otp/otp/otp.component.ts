@@ -1,6 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { AuthService } from './../../../../../services/auth.service';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-otp',
@@ -9,13 +10,23 @@ import { Component } from '@angular/core';
 })
 
 export class OtpComponent {
+  @Output() close: EventEmitter<void> = new EventEmitter<void>();
+
   otp!: FormGroup
-  constructor(private _AuthService:AuthService){}
-  submit(){} 
+  constructor(private dialog: MatDialog,
+    private _AuthService:AuthService){}
+  submit(){}
   changeReqister(value:string){
     this._AuthService.updateRegisterBehavoir(value)
   }
   get code() {
     return this.otp.get('code')!;
   }
+ 
+  closeReset() {
+    this.dialog?.closeAll();
+    this.close.emit(); // Emit the close event
+  }
 }
+
+
