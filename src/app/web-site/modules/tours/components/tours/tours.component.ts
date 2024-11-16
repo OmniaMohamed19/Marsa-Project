@@ -21,6 +21,7 @@ export class ToursComponent {
   place_id: any = null;
   TypeTrip: any = null;
   start_d: any = null;
+  minDate: string;
   rate: any = null;
   min_price = 0;
   min_priceChoosen: any = null;
@@ -36,6 +37,12 @@ export class ToursComponent {
       this.isMobile = true;
       this.showFilter = false;
     }
+    const today = new Date();
+    const dd: string = String(today.getDate()).padStart(2, '0');
+    const mm: string = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy: number = today.getFullYear();
+     // Set minDate to today's date
+    this.minDate = `${yyyy}-${mm}-${dd}`;
   }
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -57,7 +64,7 @@ export class ToursComponent {
         this.time = response.time;
         this.types = response.types;
         // console.log(this.rows?.trips?.data);
-        
+
         this.getPlaces();
       },
     });

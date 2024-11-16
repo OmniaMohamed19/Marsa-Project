@@ -42,10 +42,12 @@
                       <select
                         (change)="searchDestination($event)"
                         [(ngModel)]="place_id"
-                        class="form-select border-0 border-bottom mb-3"
+                        class="form-select border-0 border-bottom"
                         aria-label="Select example"
                       >
-                        <option [value]="null">Where are you going?</option>
+                        <option selected disabled [value]="null" hidden>
+                          Where are you going?
+                        </option>
                         <option
                           *ngFor="let dist of destination"
                           [value]="dist.id"
@@ -80,6 +82,7 @@
                       <input
                         [(ngModel)]="start_d"
                         (change)="filterByDate($event)"
+                        [min]="minDate"
                         class="js-range-datepicker font-size-16 ml-1 shadow-none font-weight-bold form-control hero-form bg-transparent border-0 flatpickr-input p-0"
                         type="date"
                         data-rp-wrapper="#datepickerWrapperFromOne"
@@ -478,19 +481,19 @@
         </h3>
         <div class="d-flex align-items-center gap-3">
           <div
-            class="list-view "
+            class="list-view"
             (click)="activeView = 'list'"
             [class.active]="activeView == 'list'"
           >
-          <!-- d-none d-lg-block d-xl-block -->
+            <!-- d-none d-lg-block d-xl-block -->
             <i class="fa fa-list"></i>
           </div>
           <div
-            class="grid-view "
+            class="grid-view"
             (click)="activeView = 'grid'"
             [class.active]="activeView == 'grid'"
           >
-          <!-- d-none d-lg-block d-xl-block -->
+            <!-- d-none d-lg-block d-xl-block -->
             <i class="fa fa-th"></i>
           </div>
         </div>
@@ -499,15 +502,13 @@
 
       <div>
         <ul
-          class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border
-
-           border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
+          class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
           id="pills-tab"
           role="tablist"
-          style="padding-left: 2px !important;"
+          style="padding-left: 2px !important"
         >
           <li
-            class="nav-item d-flex  align-items-center flex-shrink-0 flex-xl-shrink-1"
+            class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
             role="presentation"
           >
             <button
@@ -525,7 +526,7 @@
             </button>
           </li>
           <li
-            class="nav-item d-flex  align-items-center flex-shrink-0 flex-xl-shrink-1"
+            class="nav-item d-flex align-items-center flex-shrink-0 flex-xl-shrink-1"
             role="presentation"
             *ngFor="let item of types"
           >
@@ -535,26 +536,27 @@
               data-bs-toggle="pill"
               type="button"
               role="tab"
-              style="padding-right: 2.7px !important; padding-left: 2.7px !important ;"
+              style="
+                padding-right: 2.7px !important;
+                padding-left: 2.7px !important ;
+              "
               aria-selected="false"
             >
               {{ item?.type }}
             </button>
           </li>
         </ul>
-        <select name=""
-        class=" form-select-fill-pill form-select form-select-lg mb-3 " aria-label="form-select-lg example"
-        #option id="" (change)="searchByType({ target: { value: option.value } })">
-          <option value="null"
-          selected
-          >
-          All
-          </option>
-          <option value="item.id"
-          *ngFor="let item of types"
-
-          >
-          {{ item?.type }}
+        <select
+          name=""
+          class="form-select-fill-pill form-select form-select-lg mb-3"
+          aria-label="form-select-lg example"
+          #option
+          id=""
+          (change)="searchByType({ target: { value: option.value } })"
+        >
+          <option value="null" selected>All</option>
+          <option value="item.id" *ngFor="let item of types">
+            {{ item?.type }}
           </option>
         </select>
         <div class="tab-content">
@@ -576,7 +578,7 @@
                 </div>
               </div>
             </div>
-            <div class="row g-4 p-4 " *ngIf="activeView == 'grid'">
+            <div class="row g-4 p-4" *ngIf="activeView == 'grid'">
               <div
                 class="col-12 col-xl-4 col-lg-6 col-md-6"
                 *ngFor="let item of rows?.trips?.data"
