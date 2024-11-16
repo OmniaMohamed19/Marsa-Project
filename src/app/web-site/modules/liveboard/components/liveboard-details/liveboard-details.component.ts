@@ -128,13 +128,13 @@ export class LiveboardDetailsComponent {
   }
   seeMore: boolean = false;
   showFullDescription = false;
-  
+
   // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
-  
+
   // Method to get the displayed description
   getDisplayedDescription(): string {
     const words = this.liveabourdData?.Description?.split(' ');
@@ -267,7 +267,19 @@ export class LiveboardDetailsComponent {
       block: 'start',
     });
   }
+  shareLiveaboard(id: string) {
+    const shareUrl = `${window.location}`;
 
+    // Example for sharing via social media
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+    const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`;
+
+    // Open share options (this can be customized as needed)
+    console.log(facebookShareUrl);
+
+    window.open(facebookShareUrl, '_blank');
+    // window.open(twitterShareUrl, '_blank');
+  }
   getOverviewItems(overview: string): string[] {
     return overview.split('\n');
   }
@@ -284,7 +296,7 @@ export class LiveboardDetailsComponent {
         );
         console.log(this.liveabourdData.Schedules);
         console.log(typeof(this.liveabourdData.Schedules));
-        
+
         this.images = res?.tripDetails?.Images;
         this.cover = res?.tripDetails?.Cover;
         this.coverAndImages = [...this.images, this.cover];
@@ -519,7 +531,7 @@ export class LiveboardDetailsComponent {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            
+
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
           }

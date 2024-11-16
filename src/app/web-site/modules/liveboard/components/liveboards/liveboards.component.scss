@@ -27,6 +27,16 @@ ul li button {
   line-height: normal;
 }
 
+.input-field {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.input-field {
+  min-width: 100px; /* Set a minimum width */
+  max-width: 100%;  /* Allow it to expand up to the container's width */
+  width: auto;
+}
 // .card h5 {
 //     color: #297CBB;
 //     font-family: Lato;
@@ -36,6 +46,11 @@ ul li button {
 //     line-height: normal;
 // }
 
+@media (max-width:1480px) {
+  select{
+    font-size: .9rem;
+  }
+}
 .fa-heart {
   color: #ff681a;
   font-size: 20px;

@@ -394,11 +394,11 @@
           </div>
 
           <div id="amenitiesDetails" class="tab-pane">
-            <h5 class="font-size-21 font-weight-bold text-dark mb-4">
+            <h5 class="font-size-21 fw-bold text-dark mb-4">
               Experience
             </h5>
             <div class="d-flex flex-wrap gap-5 mt-4">
-              <h6>Highlights</h6>
+              <h6 class="fw-bold">Highlights</h6>
               <ul
                 class="list-group list-group-borderless list-group-flush no-gutters"
                 [innerHTML]="liveabourdData?.Highlights"
@@ -573,7 +573,7 @@
 
           <div id="faq" class="tab-pane">
             <div class="py-4">
-              <h5 class="font-size-21 font-weight-bold text-dark mb-4">Faq</h5>
+              <h5 class="font-size-21 font-weight-bold text-dark mb-4">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
                 <div class="card border-0 mb-4 pb-1">
@@ -1012,7 +1012,7 @@
             </li>
             <li class="list-group-item px-1">
               <a
-                href="#"
+                (click)="shareLiveaboard(liveabourdID)"
                 class="height-45 width-45 border rounded border-width-2 flex-content-center"
               >
                 <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
@@ -1050,7 +1050,7 @@
 
                 <p style="font-weight: 500">
                   <span
-                    class="font-size-16 fw-bold text-dark"
+                    class="font-size-15 fw-bold text-dark"
                     [style.text-decoration]="
                       liveabourdData?.PriceColective?.AdultDiscount > 0
                         ? 'line-through'

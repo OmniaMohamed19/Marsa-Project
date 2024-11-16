@@ -17,6 +17,7 @@ export class LiveboardsComponent implements OnInit {
   place_id: any = null;
   TypeTrip: any = null;
   start_d: any = null;
+  minDate: string;
   rate: any = null;
   min_price = 0;
   min_priceChoosen: any = null;
@@ -24,6 +25,18 @@ export class LiveboardsComponent implements OnInit {
   max_price = 400;
   isMobile = false;
   showFilter = true;
+  minSelected: number = this.min_price; // To store selected min price
+  maxSelected: number = this.max_price; // To store selected max price
+
+  onSliderInput(event: any): void {
+    // Retrieve the current values from the event
+    this.minSelected = event.value[0]; // Assuming you're using a range slider
+    this.maxSelected = event.value[1];
+
+    // Call your functions with the current values
+    this.setMinPrice(this.minSelected);
+    this.setMaxPrice(this.maxSelected);
+  }
   constructor(
     private httpservices: HttpService,
     private route: ActivatedRoute
@@ -32,6 +45,12 @@ export class LiveboardsComponent implements OnInit {
       this.isMobile = true;
       this.showFilter = false;
     }
+    const today = new Date();
+    const dd: string = String(today.getDate()).padStart(2, '0');
+    const mm: string = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy: number = today.getFullYear();
+    // Set minDate to today's date
+    this.minDate = `${yyyy}-${mm}-${dd}`;
   }
 
   ngOnInit(): void {
@@ -49,6 +68,7 @@ export class LiveboardsComponent implements OnInit {
   getAllLiveboard() {
     this.httpservices.get(environment.marsa, 'liveboard').subscribe({
       next: (response: any) => {
+        console.log(response);
         this.rows = response.trips;
         this.search = response.search;
         this.types = response.types;
@@ -72,8 +92,26 @@ export class LiveboardsComponent implements OnInit {
   }
 
   searchByType(ev: any) {
-    console.log(ev);
+    if (!ev.target.value) {
+      this.httpservices.get(environment.marsa, 'liveboard').subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.rows = response.trips;
+          this.search = response.search;
+          this.types = response.types;
+          if (this.destination?.length == 0) {
+            this.getPlace();
+          }
+        },
+      });
+    }
     this.TypeTrip = ev.target.value;
+    this.place_id = 'null';
+    this.start_d = null;
+    this.rate = null;
+    this.min_priceChoosen = null;
+    this.max_priceChoosen = null;
+
     this.filter();
   }
 
@@ -99,6 +137,8 @@ export class LiveboardsComponent implements OnInit {
           : this.max_price.toString(),
       })
       .subscribe((response: any) => {
+        console.log(response);
+
         this.rows = response.trips;
         if (this.types?.length == 0) {
           console.log('Set tyoes');
