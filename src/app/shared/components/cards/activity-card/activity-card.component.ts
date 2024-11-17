@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { HeaderService } from 'src/app/shared/services/header.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -9,12 +12,17 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./activity-card.component.scss'],
 })
 export class ActivityCardComponent {
-    
+
+  isLogin: boolean = false;
+
   constructor(public translate: TranslateService,
+    private _AuthService: AuthService,
+    private toastr: ToastrService,
+    private headerService: HeaderService,
     private _httpService: HttpService,
   ) {}
   @Input() item: any;
-  
+
   getRoundedRate(rate: number | null): number {
     if (rate !== null && !isNaN(Number(rate))) {
       return parseFloat(Number(rate).toFixed(1));
@@ -27,9 +35,20 @@ export class ActivityCardComponent {
     // console.log(this.item);
   }
   addtoFavorits(btn: any,event:any) {
-    
+    if (!this.isLogin) {
+      this.toastr.info('Please login first', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      window.scroll(0, 0);
+      this.headerService.toggleDropdown();
+    }
+    else {
     if (btn.classList.contains('bg-primary')) {
-      
+
       } else {
         // Add to favorites/wishlist
         this._httpService
@@ -44,5 +63,6 @@ export class ActivityCardComponent {
           }
         });
     }
+  }
   }
 }
