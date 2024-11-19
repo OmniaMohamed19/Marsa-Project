@@ -16,7 +16,7 @@ export class ClientsComponent {
     touchDrag: true,
     pullDrag: true,
     center: false,
-    dots: true,
+    dots: false,
     margin:60,
     // autoplay: true,
     navSpeed: 700,

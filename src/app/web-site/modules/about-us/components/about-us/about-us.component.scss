@@ -247,9 +247,13 @@ figure.u-avatar-image img {
 }
 
 
-.Why_chosse_us {
-    width: 75px !important;
-    height: auto;
+::ng-deep{
+  .my-destination .owl-carousel .owl-item img {
+    display: block;
+    width: fit-content !important;
+    height: 85px !important;
+
+  }
 }
 
 .bg-img-hero{

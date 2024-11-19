@@ -108,7 +108,7 @@ export class AboutUsComponent implements OnInit {
     pullDrag: false,
     dots: true,
     margin: 10,
-    autoplay: true,
+    autoplay: false,
     navSpeed: 700,
     navText: [
       "<i class='fa fa-angle-left'></i>",
@@ -169,11 +169,11 @@ export class AboutUsComponent implements OnInit {
           items: 4,
         },
       },
-     
+
     };
   }
-  
-  
- 
-  
+
+
+
+
 }

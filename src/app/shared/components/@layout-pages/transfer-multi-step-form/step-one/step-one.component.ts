@@ -159,8 +159,19 @@ details:any;
           timeOut: 5000,
           closeButton: true,
         });
+        // if (this.formData.phoneNumber==null) {
+        //   this.toastr.info('Please enter your Phone Number. ', '', {
+        //     disableTimeOut: false,
+        //     titleClass: 'toastr_title',
+        //     messageClass: 'toastr_message',
+        //     timeOut: 5000,
+        //     closeButton: true,
+        //   });
+
+        // }
 
       }
+
       if (this.selectedCarId==undefined) {
 
         this.toastr.info('Please choose a car before booking. ', '', {

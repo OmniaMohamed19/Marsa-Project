@@ -49,7 +49,9 @@ export class ResetComponent implements OnInit {
   reset(form: FormGroup) {
     this.changeReqister('otp');
     if (form.valid) {
-      this._AuthService.sendEmail(this.resetForm.value).subscribe({
+      const email = this.resetForm.value.email;
+      localStorage.setItem('userEmail', email);
+      this._AuthService.sendEmail({ email }).subscribe({
         next: (res: any) => {
           this.showResetForm = false;
           this.showCodeSignForm = !this.showCodeSignForm;

@@ -19,6 +19,7 @@ export class CodeSignComponent implements OnInit {
   showLogin = false;
   @Output() close: EventEmitter<void> = new EventEmitter<void>();
   err: any = '';
+  email:any;
   constructor(
     private _AuthService: AuthService,
     private fb: FormBuilder,
@@ -37,6 +38,8 @@ export class CodeSignComponent implements OnInit {
 
   ngOnInit(): void {
     this.startTimer();
+this.email=localStorage.getItem('userEmail');
+console.log(this.email);
   }
 
   closeForm() {
@@ -105,7 +108,7 @@ export class CodeSignComponent implements OnInit {
     const userId = this.codeService.getUserData();
 
     const model = {
-      user_id: userId,
+      email: this.email,
     };
     this._AuthService.resendCode(model).subscribe({
       next: (res: any) => {

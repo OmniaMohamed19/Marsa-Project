@@ -63,6 +63,8 @@ export class ContactComponent implements OnInit {
 
   contact() {
     if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+
       this.toastr.info("please enter all required fields", '', {
         disableTimeOut: false,
         titleClass: "toastr_title",
@@ -85,6 +87,7 @@ export class ContactComponent implements OnInit {
       });
     }
   }
+
 
   get name() {
     return this.contactForm.get('name')!;

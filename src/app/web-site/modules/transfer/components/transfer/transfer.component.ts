@@ -168,10 +168,9 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       return;
     }
 
-    if(this.fromId==undefined ||this.toId == undefined || this.date==undefined || this.pickuptime ==undefined
-       ||this.returnDate ==undefined||this.returnPickuptime ==undefined)
+    if(this.fromId==undefined ||this.toId == undefined )
        {
-        this.toastr.info('Please enter a valid number for the selected option! ', '', {
+        this.toastr.info('Please choose the location first ', '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
           messageClass: 'toastr_message',
@@ -180,6 +179,18 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
         });
         return;
     }
+    if( this.date==undefined || this.pickuptime ==undefined
+      ||this.returnDate ==undefined||this.returnPickuptime ==undefined)
+      {
+       this.toastr.info('Please enter date and time ', '', {
+         disableTimeOut: false,
+         titleClass: 'toastr_title',
+         messageClass: 'toastr_message',
+         timeOut: 5000,
+         closeButton: true,
+       });
+       return;
+   }
 
     else{
       let body: any = {
@@ -250,6 +261,7 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
   }
 
   addReview(): void {
+
     const model = {
 
       comment: this.comment,
