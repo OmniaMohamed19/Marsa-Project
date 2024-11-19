@@ -264,7 +264,7 @@
                 [class.active]="activeTabId === 'amenitiesDetails'"
               >
                 <button class="nav-link" (click)="scrollTo('amenitiesDetails')">
-                  Amenities Details
+                  Experience
                 </button>
               </li>
               <!-- Add more tabs for other sections -->
@@ -394,7 +394,7 @@
           </div>
 
           <div id="amenitiesDetails" class="tab-pane">
-            <h5 class="font-size-21 fw-bold text-dark mb-4">
+            <h5 class="font-size-21 fw-bold text-black mb-4">
               Experience
             </h5>
             <div class="d-flex flex-wrap gap-5 mt-4">
@@ -493,7 +493,7 @@
           </div>
 
           <div id="boat" class="tab-pane">
-            <h5 class="font-size-21 font-weight-bold text-dark mb-4">
+            <h5 class="font-size-21 fw-bold text-black mb-4">
               Available Boats
             </h5>
             <div class="card p-3" *ngFor="let item of liveabourdData?.Boats">
@@ -565,7 +565,7 @@
           </div>
 
           <div id="importantInformation" class="tab-pane">
-            <h5 class="font-size-21 font-weight-bold text-dark mb-4">
+            <h5 class="font-size-21 fw-bold text-black mb-4">
               Important Information
             </h5>
             <div [innerHTML]="liveabourdData?.ImportantInformation"></div>
@@ -573,7 +573,7 @@
 
           <div id="faq" class="tab-pane">
             <div class="py-4">
-              <h5 class="font-size-21 font-weight-bold text-dark mb-4">FAQ</h5>
+              <h5 class="font-size-21 fw-bold text-black mb-4">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
                 <div class="card border-0 mb-4 pb-1">

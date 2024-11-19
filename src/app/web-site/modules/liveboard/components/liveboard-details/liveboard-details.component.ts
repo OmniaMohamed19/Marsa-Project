@@ -99,6 +99,7 @@ export class LiveboardDetailsComponent {
     private sanitizer: DomSanitizer,
     public translate: TranslateService,
     private toastr: ToastrService,
+    private router: Router,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private _AuthService: AuthService,
@@ -268,16 +269,20 @@ export class LiveboardDetailsComponent {
     });
   }
   shareLiveaboard(id: string) {
-    const shareUrl = `${window.location}`;
+    window.navigator.share({
+      title: this.liveabourdData?.Name,
+      url: this.router.url,
+    });
+    // const shareUrl = `${window.location}`;
 
-    // Example for sharing via social media
-    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-    const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`;
+    // // Example for sharing via social media
+    // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+    // const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`;
 
-    // Open share options (this can be customized as needed)
-    console.log(facebookShareUrl);
+    // // Open share options (this can be customized as needed)
+    // console.log(facebookShareUrl);
 
-    window.open(facebookShareUrl, '_blank');
+    // window.open(facebookShareUrl, '_blank');
     // window.open(twitterShareUrl, '_blank');
   }
   getOverviewItems(overview: string): string[] {

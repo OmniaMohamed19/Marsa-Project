@@ -267,6 +267,7 @@ export class PaymentComponent {
   }
 
   goToPreviousStep(stepper: MatStepper) {
+    this.goBack()
     stepper.previous();
   }
   preventStepNavigation(stepper: MatStepper, stepIndex: number) {
