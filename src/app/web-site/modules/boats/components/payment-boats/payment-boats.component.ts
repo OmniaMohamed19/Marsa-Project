@@ -116,7 +116,7 @@ export class PaymentBoatsComponent {
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
       };
       console.log(model);
-      
+
       this._httpService.post(environment.marsa, 'Boats/book', model).subscribe({
         next: (res: any) => {
           const queryParams = {
@@ -125,8 +125,8 @@ export class PaymentBoatsComponent {
           }
           this.router.navigate(['/', this.translate.currentLang, 'boats', 'confirm'], { queryParams });
           Swal.fire(
-            'Your request has been send successfully.',
-            'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+            'Your request has been sent successfully.',
+            'The boat representative will contact you shortly. For further communication, please reach us at info@marsawaves.com.',
             'success'
           );
         }
@@ -168,7 +168,7 @@ export class PaymentBoatsComponent {
   }
 
   private _filterNationalities(value: any): Code[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : ''; 
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
     return this.nationalities.filter(nationality => nationality.name.toLowerCase().includes(filterValue));
   }
 

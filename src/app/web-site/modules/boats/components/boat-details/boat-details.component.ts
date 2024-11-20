@@ -135,13 +135,13 @@ export class BoatDetailsComponent {
 
   seeMore: boolean = false;
   showFullDescription = false;
-  
+
   // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
-  
+
   // Method to get the displayed description
   getDisplayedDescription(): string {
     const words = this.boatData?.Description?.split(' ');
@@ -179,6 +179,7 @@ export class BoatDetailsComponent {
 }
     // constructor() {}
   ngOnInit(): void {
+    
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -638,7 +639,7 @@ export class BoatDetailsComponent {
 
   getOverviewItems(overview: string): string[] {
     console.log(overview);
-    
+
     return overview.split('\n');
   }
 

@@ -406,6 +406,7 @@
             <h5 class="heading">Description</h5>
             <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
             <span
+            *ngIf="activityData?.Description?.length > 1000"
               style="color: #0db1ff"
               (click)="toggleDescription()"
               class="d-inline"
@@ -475,7 +476,7 @@
                       <span class="font-size-9 d-inline-block">
                         {{ exclude.title }} <br />
                         <p *ngIf="exclude?.price > 0">
-                          ( {{ exclude?.price }} $ per person :
+                          ( ${{ exclude?.price }}  per person :
                           {{ exclude?.option }})
                         </p>
                       </span>
@@ -564,12 +565,12 @@
                     <small>From</small>
                     <small class="text-center d-inline-block mt-5">
                       <span>
-                        {{
+                        ${{
                           selectedOption === "Private"
                             ? getMinAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}
-                        $
+
                       </span>
                       <span
                         class="mx-2 font-size-18 fw-bold text-dark"
@@ -578,7 +579,7 @@
                           getMinAdultPrice()?.PricePrivte.AdultDiscount > 0
                         "
                         style="font-weight: 700"
-                        >{{
+                        >${{
                           selectedOption === "Private"
                             ? getRoundedRate(
                                 getMinAdultPrice()?.PricePrivte.Adult -
@@ -589,7 +590,7 @@
                               )
                             : ""
                         }}
-                        $</span
+                        </span
                       >
                       per person</small
                     >
@@ -601,12 +602,12 @@
                     <small>From</small>
                     <small class="text-center d-inline-block">
                       <span>
-                        {{
+                        ${{
                           selectedOption === "Private"
                             ? getMinAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}
-                        $
+
                       </span>
                       per person
                     </small>
@@ -653,13 +654,13 @@
                         [style.text-decoration]="'line-through'"
                         [style.color]="'red !important'"
                       >
-                        {{
+                        ${{
                           selectedOption === "Collective"
                             ? getMinAdultPrice()?.PriceColective.Adult
                             : selectedOption === "Private"
                             ? getMinAdultPrice()?.PricePrivte.Adult
                             : ""
-                        }}$</span
+                        }}</span
                       >
 
                       <span
@@ -669,7 +670,7 @@
                           getMinAdultPrice()?.PriceColective.AdultDiscount > 0
                         "
                         style="font-weight: 700"
-                        >{{
+                        >${{
                           selectedOption === "Collective"
                             ? getRoundedRate(
                                 getMinAdultPrice()?.PriceColective.Adult -
@@ -688,7 +689,7 @@
                               )
                             : ""
                         }}
-                        $</span
+                        </span
                       >
                       per person
                     </small>
@@ -700,12 +701,12 @@
                     <small>From</small>
                     <small class="text-center d-inline-block">
                       <span>
-                        {{
+                        ${{
                           selectedOption === "Collective"
                             ? getMinAdultPrice()?.PriceColective.Adult
                             : ""
                         }}
-                        $
+
                       </span>
                       per person
                     </small>
@@ -716,7 +717,7 @@
                   class="d-flex w-100 w-md-50 justify-content-between align-items-center"
                 >
                   <h5>Total Price</h5>
-                  <h5>{{ getMinAdultPrice()?.PriceColective.Adult }} $</h5>
+                  <h5>${{ getMinAdultPrice()?.PriceColective.Adult }} </h5>
                 </div>
                 <div *ngIf="selectedOption === 'Private'; else elseTemplate">
                   <button
@@ -1032,7 +1033,7 @@
           </div>
           <div id="faq" class="tab-pane">
             <div class="py-4">
-              <h5 class="heading text-uppercase">Faq</h5>
+              <h5 class="heading text-uppercase">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
                 <div class="card border-0 mb-4 pb-1">
@@ -1353,7 +1354,7 @@
                 </h5>
                 <div
                   class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-                  *ngFor="let review of activityData?.Reviwe"
+                  *ngFor="let review of activityData?.Reviwe.reverse()"
                 >
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
@@ -1587,14 +1588,14 @@
                       "
                     >
                       <!-- From -->
-                      {{
+                      ${{
                         selectedOption === "Collective"
                           ? getMinAdultPrice()?.PriceColective.Adult
                           : selectedOption === "Private"
                           ? getMinAdultPrice()?.PricePrivte.Adult
                           : ""
                       }}
-                      $</span
+                      </span
                     >
                     <span
                       class="mx-2 font-size-18 fw-bold text-dark"
@@ -1606,7 +1607,7 @@
                           getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
                       "
                       style="font-weight: 700"
-                      >{{
+                      >${{
                         selectedOption === "Collective"
                           ? getRoundedRate(
                               getMinAdultPrice()?.PriceColective.Adult -
@@ -1624,7 +1625,7 @@
                             )
                           : ""
                       }}
-                      $</span
+                      </span
                     >
                   </p>
                 </div>
@@ -2035,14 +2036,14 @@
                     "
                   >
                     From
-                    {{
+                    ${{
                       selectedOption === "Collective"
                         ? getMinAdultPrice()?.PriceColective.Adult
                         : selectedOption === "Private"
                         ? getMinAdultPrice()?.PricePrivte.Adult
                         : ""
                     }}
-                    $</span
+                    </span
                   >
                   <span
                     class="mx-2 font-size-18 fw-bold text-dark"
@@ -2053,7 +2054,7 @@
                         getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
                     "
                     style="font-weight: 700"
-                    >{{
+                    >${{
                       selectedOption === "Collective"
                         ? getRoundedRate(
                             getMinAdultPrice()?.PriceColective.Adult -
@@ -2071,7 +2072,7 @@
                           )
                         : ""
                     }}
-                    $</span
+                    </span
                   >
                 </p>
               </div>
@@ -2453,14 +2454,14 @@
           "
         >
           From
-          {{
+          ${{
             selectedOption === "Collective"
               ? getMinAdultPrice()?.PriceColective.Adult
               : selectedOption === "Private"
               ? getMinAdultPrice()?.PricePrivte.Adult
               : ""
           }}
-          $</span
+          </span
         >
         <span
           class="mx-1 font-size-16 fw-bold text-dark"
@@ -2471,7 +2472,7 @@
               getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
           "
           style="font-weight: 500"
-          >{{
+          >${{
             selectedOption === "Collective"
               ? getRoundedRate(
                   getMinAdultPrice()?.PriceColective.Adult -
@@ -2486,7 +2487,7 @@
                 )
               : ""
           }}
-          $</span
+          </span
         >
       </p>
     </div>

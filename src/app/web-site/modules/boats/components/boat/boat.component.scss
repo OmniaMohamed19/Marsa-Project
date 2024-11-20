@@ -16,6 +16,16 @@ ul {
   height: 51px;
   margin-bottom: 20px !important;
 }
+.input-field {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.input-field {
+  min-width: 100px;
+  max-width: 100%;
+  width: auto;
+}
 
 ul li button {
   font-family: "Lato", sans-serif;
@@ -27,28 +37,12 @@ ul li button {
   line-height: normal;
 }
 
-// .card h5 {
-//     color: #297CBB;
-//     font-family: Lato;
-//     font-size: 17px;
-//     font-style: normal;
-//     font-weight: 700;
-//     line-height: normal;
-// }
 
 .fa-heart {
   color: #ff681a;
   font-size: 20px;
 }
 
-// .card p {
-//     color: #3B444F;
-//     font-family: Lato;
-//     font-size: 17px;
-//     font-style: normal;
-//     font-weight: 700;
-//     line-height: normal;
-// }
 
 .btns button {
   color: #0057ff;
@@ -177,6 +171,22 @@ span {
 }
 .top-margin {
   margin-top: 50px;
+}
+.truncate-select {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.truncate-select option {
+  white-space: normal; 
+}
+
+@media (max-width:1480px) {
+  select{
+    font-size: .9rem;
+  }
 }
 @media (max-width: 1200px) {
   .container {

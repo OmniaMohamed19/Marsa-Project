@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
@@ -10,7 +11,8 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class UpcomingComponent {
   upcoming: any = [{}, {}];
-  constructor(private httpService: HttpService) {}
+  constructor(public translatee: TranslateService,
+    private httpService: HttpService) {}
 
   customOptions: OwlOptions = {
     loop: false,

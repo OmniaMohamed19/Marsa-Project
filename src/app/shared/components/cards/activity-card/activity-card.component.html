@@ -44,13 +44,13 @@
             [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
             [style.color]="item.discount > 0 ? '#0db1ff' : ''"
           >
-            {{ item?.PriceColectiv }} $
+            ${{ item?.PriceColectiv }}
           </span>
           <span class="mx-2" *ngIf="item.discount > 0">
-            {{
+            ${{
               getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100))
             }}
-            $
+
           </span>
           <span>per person</span>
         </h2>

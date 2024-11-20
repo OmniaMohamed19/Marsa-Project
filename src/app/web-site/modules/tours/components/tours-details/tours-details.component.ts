@@ -161,6 +161,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   getDisplayedDescription(): string {
     const words = this.activityData?.Description?.split(' ');
     if (this.showFullDescription || words?.length <= 150) {
+      console.log(this.activityData?.Description?.length)
       return this.activityData?.Description;
     } else {
       return words?.slice(0, 150).join(' ') + '...';

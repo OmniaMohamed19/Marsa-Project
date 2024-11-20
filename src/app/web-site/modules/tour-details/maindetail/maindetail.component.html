@@ -219,9 +219,9 @@
                       <h2 class="h5 mb-0" style="font-size: 0.875rem;">
                         <small class="mr-2">From</small>
                         <span [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
-                          [style.color]="item.discount > 0 ? 'red' : ''">{{ item?.PriceColectiv }} $</span>
+                          [style.color]="item.discount > 0 ? 'red' : ''">${{ item?.PriceColectiv }} </span>
                         <span class="mx-2" *ngIf="item.discount > 0" style="font-size: 0.875rem;">
-                          {{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }} $
+                          ${{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }}
                         </span>
                         <span style="font-size: 0.75rem;">per person</span>
                       </h2>

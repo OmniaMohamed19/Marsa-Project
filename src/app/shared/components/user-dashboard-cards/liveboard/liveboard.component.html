@@ -63,7 +63,7 @@
               <span>{{ live?.type }}</span>
             </td> -->
             <td>
-              <span>{{ live?.price?.toFixed(2) }} $</span>
+              <span>${{ live?.price?.toFixed(2) }} </span>
             </td>
             <td>
               <span *ngIf="live?.status == 'paid'" class="completed">

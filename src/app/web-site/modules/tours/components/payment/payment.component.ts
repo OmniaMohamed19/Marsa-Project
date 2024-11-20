@@ -604,7 +604,15 @@ export class PaymentComponent {
       this.mapModalDeatails.nativeElement.closeModal();
     }
   }
+  onInputChange() {
+    // استبدال أي شيء غير رقمي بحرف فارغ
+    this.expirYear = this.expirYear.replace(/[^0-9]/g, '');
 
+    // التأكد من أن المدخل لا يتجاوز 4 أرقام
+    if (this.expirYear.length > 4) {
+      this.expirYear = this.expirYear.slice(0, 4);  // أخذ أول 4 أرقام فقط
+    }
+  }
   getNationality() {
     this._httpService.get('marsa', 'countrycode').subscribe({
       next: (nationalities: any) => {

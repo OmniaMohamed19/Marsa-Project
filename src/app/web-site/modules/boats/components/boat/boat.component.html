@@ -41,11 +41,11 @@
                       <select
                         [(ngModel)]="place_id"
                         (change)="searchDestination($event)"
-                        class="form-select border-0 border-bottom mb-3"
+                        class="form-select border-0 border-bottom"
                         aria-label="Select example"
                       >
-                        <option [value]="null">Where are you going?</option>
-                        <option
+                      <option class="input-field" selected disabled [value]="null" hidden>Where are you going?</option>
+                      <option
                           *ngFor="let dist of destination"
                           [value]="dist.id"
                         >
@@ -77,15 +77,16 @@
                         </span>
                       </div>
                       <input
-                        [(ngModel)]="start_d"
-                        (change)="filterByDate($event)"
-                        class="js-range-datepicker font-size-16 ml-1 shadow-none font-weight-bold form-control hero-form bg-transparent border-0 flatpickr-input p-0"
-                        type="date"
-                        data-rp-wrapper="#datepickerWrapperFromOne"
-                        data-rp-type="range"
-                        data-rp-date-format="M d / Y"
-                        data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
-                      />
+                      [(ngModel)]="start_d"
+                      (change)="filterByDate($event)"
+                      [min]="minDate"
+                      class="js-range-datepicker font-size-16 ml-1 shadow-none font-weight-bold form-control hero-form bg-transparent border-0 flatpickr-input p-0"
+                      type="date"
+                      data-rp-wrapper="#datepickerWrapperFromOne"
+                      data-rp-type="range"
+                      data-rp-date-format="M d / Y"
+                      data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
+                    />
                     </div>
                     <!-- End Datepicker -->
                   </div>
@@ -106,16 +107,15 @@
                         alt="type"
                       />
                       <select
-                        (change)="searchByType($event)"
-                        class="form-select js-select selectpicker dropdown-select bootstrap-select__custom-nav"
-                        data-style="btn-sm mt-1 py-0 px-0  text-black font-size-16 font-weight-semi-bold d-flex align-items-center"
-                      >
-                        <option [value]="null" selected>All</option>
+                      class="form-select js-select selectpicker dropdown-select bootstrap-select__custom-nav truncate-select"
+                      (change)="searchByType($event)"
+                    >
+                      <option [value]="null" selected>All</option>
+                      <option *ngFor="let item of types" [value]="item.id">
+                        {{ item.type }}
+                      </option>
+                    </select>
 
-                        <option *ngFor="let item of types" [value]="item.id">
-                          {{ item.type }}
-                        </option>
-                      </select>
                     </div>
                   </div>
                 </div>
@@ -329,7 +329,7 @@
 
       <ul
           class="nav nav-pills mb-3 d-flex justify-content-between flex-nowrap border
-          
+
            border-radius-3 m-auto tab-nav align-items-center py-2 px-0"
           id="pills-tab"
           role="tablist"
@@ -371,7 +371,7 @@
           </li>
         </ul>
         <select name=""
-        
+
         class=" form-select-fill-pill form-select form-select-lg mb-3 " aria-label=".form-select-lg example"
         #option id="" (change)="searchByType({ target: { value: option.value } })">
           <option value="null"
@@ -381,7 +381,7 @@
           </option>
           <option value="item.id"
           *ngFor="let item of types"
-          
+
           >
           {{ item?.type }}
           </option>

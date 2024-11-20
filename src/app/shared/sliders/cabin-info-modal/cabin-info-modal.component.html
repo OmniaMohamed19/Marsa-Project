@@ -31,27 +31,27 @@
                         {{data?.max_occupancy}}
                     </span>
                 </li>
-                <li *ngIf="data?.bedding != null">Bedding :  
+                <li *ngIf="data?.bedding != null">Bedding :
                     <span class="text-dark">
                         {{data?.bedding}}
                     </span>
                 </li>
-                <li *ngIf="data?.ensuite_bathroom != null">Ensuite Bathroom : 
+                <li *ngIf="data?.ensuite_bathroom != null">Ensuite Bathroom :
                     <span class="text-dark">
                         {{data?.ensuite_bathroom}}
                     </span>
                 </li>
-                <li *ngIf="data?.aircon != null">Aircon : 
+                <li *ngIf="data?.aircon != null">Aircon :
                     <span class="text-dark">
                         {{data?.aircon}}
                     </span>
                 </li>
-                <li *ngIf="data?.price != null">Price : 
+                <li *ngIf="data?.price != null">Price :
                     <span class="text-success">
-                        {{data?.price}}
+                        ${{data?.price}}
                     </span>
                 </li>
-                <li *ngIf="data?.discount > 0">Discount : 
+                <li *ngIf="data?.discount > 0">Discount :
                     <span class="text-danger">
                         {{data?.discount}}
                     </span>

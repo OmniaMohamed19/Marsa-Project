@@ -37,14 +37,17 @@ ul li button {
   max-width: 100%;  /* Allow it to expand up to the container's width */
   width: auto;
 }
-// .card h5 {
-//     color: #297CBB;
-//     font-family: Lato;
-//     font-size: 17px;
-//     font-style: normal;
-//     font-weight: 700;
-//     line-height: normal;
-// }
+.truncate-select {
+  max-width: 200px; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.truncate-select option {
+  white-space: normal; /* يُظهر النص الكامل عند فتح القائمة */
+}
+
 
 @media (max-width:1480px) {
   select{

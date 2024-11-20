@@ -109,16 +109,15 @@
                         alt="type"
                       />
                       <select
-                        (change)="searchByType($event)"
-                        class="form-select js-select selectpicker dropdown-select bootstrap-select__custom-nav"
-                        data-style="btn-sm mt-1 py-0 px-0  text-black font-size-16 font-weight-semi-bold d-flex align-items-center"
-                      >
-                        <option [value]="null" selected>All</option>
+                      class="form-select js-select selectpicker dropdown-select bootstrap-select__custom-nav truncate-select"
+                      (change)="searchByType($event)"
+                    >
+                      <option [value]="null" selected>All</option>
+                      <option *ngFor="let item of types" [value]="item.id">
+                        {{ item.type }}
+                      </option>
+                    </select>
 
-                        <option *ngFor="let item of types" [value]="item.id">
-                          {{ item.type }}
-                        </option>
-                      </select>
                     </div>
                   </div>
                 </div>

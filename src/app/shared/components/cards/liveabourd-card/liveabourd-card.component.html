@@ -206,19 +206,19 @@
                     item?.discount > 0 ? 'line-through' : ''
                   "
                   [style.color]="item.discount > 0 ? 'red' : ''"
-                  >{{ item?.PriceColectiv }} $</span
+                  >${{ item?.PriceColectiv }} </span
                 >
                 <span
                   class="mx-2"
                   *ngIf="item?.discount > 0"
                   style="font-weight: 700; font-size: 15px; color: #3b444f"
-                  >{{
+                  >${{
                     getRoundedRate(
                       item?.PriceColectiv -
                         (item?.discount / 100) * item?.PriceColectiv
                     )
                   }}
-                  $</span
+                  </span
                 >
                 <span style="font-weight: 700; font-size: 15px; color: #3b444f">
                   / per trip</span
@@ -290,7 +290,7 @@
           Only one space left {{ schedule?.Avilabile }}
         </li>
 
-        <li class="list-board">From {{ item?.PriceColectiv }} $</li>
+        <li class="list-board">From ${{ item?.PriceColectiv }}</li>
       </ul>
     </div>
   </div>

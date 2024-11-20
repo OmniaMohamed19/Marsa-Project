@@ -19,6 +19,8 @@ export class BoatComponent {
   start_d: any = null;
   rate: any = null;
   min_price = 0;
+  minDate: string;
+
   min_priceChoosen: any = null;
   max_priceChoosen: any = null;
   max_price = 400;
@@ -33,6 +35,12 @@ export class BoatComponent {
       this.isMobile = true;
       this.showFilter = false;
     }
+    const today = new Date();
+    const dd: string = String(today.getDate()).padStart(2, '0');
+    const mm: string = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy: number = today.getFullYear();
+    // Set minDate to today's date
+    this.minDate = `${yyyy}-${mm}-${dd}`;
   }
 
   ngOnInit(): void {

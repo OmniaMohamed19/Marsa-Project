@@ -322,6 +322,7 @@
             <h5 class="heading">Description</h5>
             <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
             <span
+            *ngIf="boatData?.Description?.length > 1000"
               style="color: #0db1ff"
               (click)="toggleDescription()"
               class="d-inline"
@@ -337,7 +338,7 @@
           <div id="amenitiesDetails" class="tab-pane">
             <h5 class="heading">Experience</h5>
             <div class="d-flex gap-5 mt-4">
-              <h6>Highlights</h6>
+              <h6 class="fw-bold">Highlights</h6>
               <ul
                 class="list-group list-group-borderless list-group-flush no-gutters"
                 [innerHTML]="boatData?.Highlights"
@@ -346,7 +347,7 @@
             <div class="d-flex gap-5 mt-5 w-100">
               <div class="row w-100">
                 <div class="col-md-6 col-sm-12">
-                  <h6>Includes</h6>
+                  <h6 class="fw-bold">Includes</h6>
                   <ul
                     class="list-group list-group-borderless list-group-flush no-gutters"
                   >
@@ -380,7 +381,7 @@
 
                         <span class="font-size-9 d-inline-block">
                           {{ exclude.title }} <br />
-                          ( {{ exclude?.price }} $ per person :
+                          ( ${{ exclude?.price }}  per person :
                           {{ exclude?.option }})
                         </span>
                       </ng-container>
@@ -503,7 +504,7 @@
 
           <div id="faq" class="tab-pane">
             <div class="py-4">
-              <h5 class="heading">Faq</h5>
+              <h5 class="heading">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
                 <div class="card border-0 mb-4 pb-1">
@@ -786,7 +787,7 @@
                 </h5>
                 <div
                   class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-                  *ngFor="let review of boatData?.Reviwe"
+                  *ngFor="let review of boatData?.Reviwe.reverse()"
                 >
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
@@ -950,8 +951,8 @@
                 >
               </a>
             </li>
-            <li class="list-group-item flex-content-center px-1">
-              <span class="top">{{
+            <li class="list-group-item px-1 d-flex flex-column">
+              <span class="top fw-bold" style="color: #297cbb">{{
                 getRatingDescription(boatData?.rate)
               }}</span>
               <small class="d-block"
@@ -975,7 +976,7 @@
                   <span class="d-block text-gray-1 font-weight-normal text-left"
                     >Price</span
                   >
-                  <p>From {{ price }} $</p>
+                  <p>From ${{ price }}</p>
                 </div>
                 <div class="border-bottom border-width-2 border-color-1 pb-1">
                   <span class="d-block">Date</span>
@@ -1023,7 +1024,7 @@
                         (selectionChange)="onSelectionChange($event)"
                         (valueChange)="onValueChange($event)"
                       >
-                        <mat-option value="0" disabled
+                        <mat-option selected disabled [value]="null" hidden
                           >Where are you going</mat-option
                         >
                         <mat-option

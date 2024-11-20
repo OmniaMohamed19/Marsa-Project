@@ -16,6 +16,17 @@ ul {
   height: 51px;
   margin-bottom: 20px !important;
 }
+.truncate-select {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.truncate-select option {
+  white-space: normal; 
+}
+
 
 ul li button {
   font-family: "Lato", sans-serif;

@@ -286,6 +286,7 @@
         <h5 class="heading">Description</h5>
         <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
         <span
+        *ngIf="rows?.Description?.length > 1000"
           style="color: #0db1ff"
           (click)="toggleDescription()"
           class="d-inline"
@@ -358,7 +359,7 @@
 
                   <span class="font-size-9 d-inline-block" *ngIf="exclude?.price > 0">
                     {{ exclude.title }} <br />
-                    ( {{ exclude?.price }} $ per person :
+                    ( ${{ exclude?.price }}  per person :
                     {{ exclude?.option }})
                   </span>
                 </li>
@@ -678,7 +679,7 @@
                   class="font-size-18 fw-bold text-dark"
                   style="text-decoration: line-through; color: red !important"
                 >
-                  From {{ rows?.Price.Adult }} $
+                  From ${{ rows?.Price.Adult }}
                 </span>
 
                 <!-- Discounted Price -->
@@ -686,9 +687,9 @@
                   class="mx-2 font-size-18 fw-bold text-dark"
                   style="font-weight: 700"
                 >
-                  {{
+                  ${{
                     calculateDiscountedPrice(rows?.Price.Adult, rows?.Price.AdultDiscount)
-                  }} $
+                  }}
                 </span>
               </ng-container>
 
@@ -698,7 +699,7 @@
                   class="font-size-18 fw-bold text-dark"
                   style="font-weight: 700"
                 >
-                  From {{ rows?.Price.Adult }} $
+                  From ${{ rows?.Price.Adult }}
                 </span>
               </ng-container>
             </p>

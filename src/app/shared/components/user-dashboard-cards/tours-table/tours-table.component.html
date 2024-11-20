@@ -62,7 +62,7 @@
             <span>{{ tour?.tripType }}</span>
           </td>
           <td>
-            <span>{{ tour?.price?.toFixed(2) }} $</span>
+            <span>${{ tour?.price?.toFixed(2) }}</span>
           </td>
           <td>
             <span *ngIf="tour?.status == 'paid'" class="completed">

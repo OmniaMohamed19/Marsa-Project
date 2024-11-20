@@ -37,7 +37,15 @@
               {{ 9 }} nights
             </div>
             <div class="pr-3 pt-4 mb-1 d-flex justify-content-end">
-              <button [routerLink]="'liveboard/liveboardDetails/' + card.id" type="submit"
+              <button [routerLink]="'liveboard/liveboardDetails/' + card.id"
+              [routerLink]="[
+              '/',
+              translatee.currentLang,
+              'liveboard',
+              'liveboardDetails',
+              card?.id,
+              card?.Title
+            ]"type="submit"
                 class="btn btn-primary w-50 w-md-25 border-radius-3 mb-2 transition-3d-hover">
                 Explore
               </button>

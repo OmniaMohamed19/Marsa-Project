@@ -65,6 +65,11 @@ export class LiveboardsComponent implements OnInit {
       }
     });
   }
+  displaySelectedType: string = 'All'; // النص المعروض في الخيار الافتراضي
+
+  
+
+
   getAllLiveboard() {
     this.httpservices.get(environment.marsa, 'liveboard').subscribe({
       next: (response: any) => {
