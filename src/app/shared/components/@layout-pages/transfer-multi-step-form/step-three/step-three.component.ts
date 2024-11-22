@@ -312,6 +312,29 @@ export class StepThreeComponent {
   isActiveTab(tabId: string): boolean {
     return this.activeTab === tabId;
   }
+  letterOnly(event: any) {
+    var charCode = event.keyCode;
+
+    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+      return true;
+    else
+      return false;
+  }
+
+  public OnlyNumbers(event: any) {
+    let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
+    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    if (specialKeys.indexOf(event.key) !== -1) {
+      return;
+    } else {
+      if (regex.test(event.key)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 
 }
 

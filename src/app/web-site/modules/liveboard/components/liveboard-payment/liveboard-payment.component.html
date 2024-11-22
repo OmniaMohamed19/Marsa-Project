@@ -48,7 +48,7 @@
                         {{ item?.accommodation_title }}
                       </span>
                     </a>
-                    <span
+                    <span *ngIf="item?.discount>0"
                       class="font-weight-normal font-size-15 pl-2"
                       style="color: #ff681a"
                       >{{ item?.discount }}% special deal</span
@@ -143,7 +143,7 @@
                       </div>
                       <div class="alert alert-info my-2 text-white">
                         <p class="mb-0 text-dark">
-                          Avilabile is {{ getValue(item?.available) }}
+                          Available is {{ getValue(item?.available) }}
                         </p>
                       </div>
                       <!-- <a class="btn outline-button mt-5 d-flex align-items-center justify-content-center font-weight-bold min-height-50 border-radius-3 border-width-2 px-2 px-5 py-2">Select</a> -->
@@ -522,60 +522,33 @@
 
                 <form class="js-validate" novalidate="novalidate">
                   <div class="row">
-                    <!-- Input -->
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Card Holder Name </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="Cardname"
-                          placeholder=""
-                          aria-label=""
-                          required=""
-                          [(ngModel)]="cardholderName"
-                        />
+                        <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
+                          required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
                       </div>
                     </div>
-                    <!-- End Input -->
-
-                    <!-- Input -->
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Card Number </label>
 
-                        <input
-                          type="number"
-                          class="form-control"
-                          name="Cardnumber"
-                          placeholder=""
-                          aria-label=""
-                          required=""
-                          [(ngModel)]="cardNumber"
-
-                        />
+                        <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
+                          required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
                       </div>
                     </div>
-                    <!-- End Input -->
 
-                    <!-- <div class="w-100"></div> -->
+                    <div class="w-100"></div>
 
-                    <!-- Input -->
                     <div class="col-sm-6 mb-4">
                       <div class="row">
                         <div class="col-sm-6 mb-4 mb-md-0">
                           <div class="js-form-message">
                             <label class="form-label"> Expiry Month </label>
 
-                            <input
-                              type="number"
-                              class="form-control"
-                              name="Expirymonth"
-                              placeholder=""
-                              aria-label=""
-                              required=""
-                              [(ngModel)]="expiryMonth"
-                            />
+                            <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
+                              [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
+                              inputmode="numeric" />
                           </div>
                         </div>
                         <div class="col-sm-6">
@@ -583,40 +556,41 @@
                             <label class="form-label"> Expiry Year </label>
 
                             <input
-                              type="number"
-                              class="form-control"
-                              name="Expiryyear"
-                              placeholder=""
-                              aria-label=""
-                              required=""
+                            type="text"
+                            class="form-control"
+                            name="Expiryyear"
                             [(ngModel)]="expirYear"
-                            />
+                            placeholder="xxxx"
+                            aria-label=""
+                            required=""
+                            maxlength="4"
+
+                            inputmode="numeric"
+                            (keypress)="OnlyNumbers($event)"
+                          />
+
+
+
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- End Input -->
 
-                    <!-- Input -->
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
-                        <label class="form-label"> CCV </label>
+                        <label class="form-label"> CVV </label>
 
-                        <input
-                          type="number"
-                          class="form-control"
-                          name="ccvnumber"
-                          placeholder=""
-                          aria-label=""
-                          required=""
-                          [(ngModel)]="cvv"
+                        <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
+                          required="" [(ngModel)]="cvv" maxlength="3"
 
-                        />
+                          autocomplete="cc-number"
+                         inputmode="numeric"
+                         (keypress)="OnlyNumbers($event)" />
+
                       </div>
                     </div>
-                    <!-- End Input -->
 
-                    <!-- <div class="w-100"></div> -->
+                    <div class="w-100"></div>
 
                     <div class="col">
                       <!-- Checkbox -->

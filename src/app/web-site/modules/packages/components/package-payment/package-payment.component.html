@@ -212,59 +212,72 @@
                   <div class="row">
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
-                        <label class="form-label">
-                          Card Holder Name
-                        </label>
-                        <input 
-                        [(ngModel)]="cardholderName" type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
-                          required="">
+                        <label class="form-label"> Card Holder Name </label>
+                        <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
+                          required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
-                        <label class="form-label">
-                          Card Number
-                        </label>
-                        <input 
-                        [(ngModel)]="cardNumber" type="number" class="form-control" name="Cardnumber" placeholder="" aria-label=""
-                          required="">
+                        <label class="form-label"> Card Number </label>
+
+                        <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
+                          required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
                       </div>
                     </div>
+
                     <div class="w-100"></div>
+
                     <div class="col-sm-6 mb-4">
                       <div class="row">
                         <div class="col-sm-6 mb-4 mb-md-0">
                           <div class="js-form-message">
-                            <label class="form-label">
-                              Expiry Month
-                            </label>
-                            <input 
-                            [(ngModel)]="expiryMonth" type="number" class="form-control" name="Expirymonth" placeholder="" aria-label=""
-                              required="">
+                            <label class="form-label"> Expiry Month </label>
+
+                            <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
+                              [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
+                              inputmode="numeric" />
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="js-form-message">
-                            <label class="form-label">
-                              Expiry Year
-                            </label>
+                            <label class="form-label"> Expiry Year </label>
+
                             <input
-                            [(ngModel)]="expirYear" type="number" class="form-control" name="Expiryyear" placeholder="" aria-label=""
-                              required="">
+                            type="text"
+                            class="form-control"
+                            name="Expiryyear"
+                            [(ngModel)]="expirYear"
+                            placeholder="xxxx"
+                            aria-label=""
+                            required=""
+                            maxlength="4"
+
+                            inputmode="numeric"
+                            (keypress)="OnlyNumbers($event)"
+                          />
+
+
+
                           </div>
                         </div>
                       </div>
-                    </div> 
-                     <div class="col-sm-6 mb-4">
+                    </div>
+
+                    <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
-                        <label class="form-label">
-                          CCV
-                        </label>
-                        <input type="number"
-                        [(ngModel)]="cvv" class="form-control" name="ccvnumber" placeholder="" aria-label=""
-                          required="">
+                        <label class="form-label"> CVV </label>
+
+                        <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
+                          required="" [(ngModel)]="cvv" maxlength="3"
+
+                          autocomplete="cc-number"
+                         inputmode="numeric"
+                         (keypress)="OnlyNumbers($event)" />
+
                       </div>
                     </div>
+
                     <div class="w-100"></div>
                     <div class="col">
                       <div class="js-form-message mb-5" [innerHTML]="responseFromAvailableOption?.Bookingpayment">
@@ -280,7 +293,7 @@
                           </label>
                         </div> -->
                       </div>
-                      
+
                       <a
                           (click)="edit?confirmEdit($event)
                           :confirmBookingByCard($event)"
@@ -442,7 +455,7 @@
                     <div class="input-group-append">
                       <button   style="
                       background-color: #0DB1FF;
-                    
+
                       color: #FFF;
                       font-family: Lato;
                       font-size: 16px;
@@ -451,7 +464,7 @@
                       line-height: normal;
                       display: inline-flex;
                       align-items: center;
-                      
+
                   " (click)="applycoupon()" class="btn bg-main py-2 " type="button"
                         id="CouponCodeExample2">
                        Apply
