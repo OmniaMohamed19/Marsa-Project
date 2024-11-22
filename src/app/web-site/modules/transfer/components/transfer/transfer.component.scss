@@ -3,9 +3,9 @@
 
 ::ng-deep{
 
-  .owl-item{
-    width: 630px !important;
-  }
+  // .review-carousel .owl-item{
+  //   width: 630px !important;
+  // }
 
   .mat-datepicker-toggle button svg {
     color: #0057FF !important; /* لون الأيقونة */
@@ -479,8 +479,28 @@ label,
 }
 }
 @media screen and (max-width: 1200px) {
+  ::ng-deep{
+    .feature-carousel .owl-theme{
+      height: 200px;
+    }
+  }
+
   #content {
     margin-top: 0px;
   }
+}
+  @media screen and (min-width: 1200px) {
+    ::ng-deep{
+
+      .review-carousel .owl-theme{
+        height: 292px !important;
+      }
+      .review-carousel .ng-tns-c556756694-8{
+        height: 200px;
+      }
+      .review-carousel .owl-item{
+        width: 630px !important;
+      }
+    }
 }
 

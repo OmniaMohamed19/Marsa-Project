@@ -400,13 +400,13 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     items: 1, // Display one item per slide
     responsive: {
       0: {
-        items: 1,
+        items:2,
       },
       600: {
-        items: 1,
+        items: 2,
       },
       1000: {
-        items: 1,
+        items: 2,
       }
     }
   };
