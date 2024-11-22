@@ -323,14 +323,14 @@
                     <div class="row">
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
-                          <label class="form-label"> Card Holder Name </label>
+                          <label class="form-label"> Card Holder Name* </label>
                           <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
                             required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
                         </div>
                       </div>
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
-                          <label class="form-label"> Card Number </label>
+                          <label class="form-label"> Card Number* </label>
 
                           <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
                             required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
@@ -343,7 +343,7 @@
                         <div class="row">
                           <div class="col-sm-6 mb-4 mb-md-0">
                             <div class="js-form-message">
-                              <label class="form-label"> Expiry Month </label>
+                              <label class="form-label"> Expiry Month*</label>
 
                               <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
                                 [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
@@ -352,7 +352,7 @@
                           </div>
                           <div class="col-sm-6">
                             <div class="js-form-message">
-                              <label class="form-label"> Expiry Year </label>
+                              <label class="form-label"> Expiry Year* </label>
 
                               <input
                               type="text"
@@ -377,7 +377,7 @@
 
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
-                          <label class="form-label"> CVV </label>
+                          <label class="form-label"> CVV* </label>
 
                           <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
                             required="" [(ngModel)]="cvv" maxlength="3"
