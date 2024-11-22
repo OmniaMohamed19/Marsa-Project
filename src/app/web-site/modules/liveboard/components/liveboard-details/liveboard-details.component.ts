@@ -406,7 +406,7 @@ export class LiveboardDetailsComponent {
   }
 
   incrementAdult() {
-    if (this.persons < this.getValue('Avilabile')) {
+    if (this.persons < this.getValue('Available')) {
       setTimeout(() => {
         this.persons++;
         this.cdr.detectChanges();
@@ -415,7 +415,7 @@ export class LiveboardDetailsComponent {
     else {
       this.toastr.info(
         `Sorry, you cannot exceed the maximum limit of ${this.getValue(
-          'Avilabile'
+          'Available'
         )}. Please adjust the number.`,
         '',
         {
@@ -436,10 +436,25 @@ export class LiveboardDetailsComponent {
         this.cdr.detectChanges();
       });
     }
+    else{
+      this.toastr.info(
+        `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
   }
 
   getValue(key: any): any {
     if (this.selectedDateControl && this.selectedDateControl.value) {
+      console.log(this.selectedDateControl);
+
       return this.selectedDateControl.value[key] || 0;
     }
     return 0;

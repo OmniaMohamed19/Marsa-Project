@@ -256,7 +256,13 @@
                           Available
                         </li>
                         <li class="list-board">
-                          From ${{ liveabourdData?.PriceColective?.Adult }}
+                          From $
+                          {{getRoundedRate(
+                            liveabourdData?.PriceColective?.Adult -
+                            (liveabourdData?.PriceColective.AdultDiscount / 100) *
+                            liveabourdData?.PriceColective.Adult
+                            )}}
+                          <!-- From ${{ liveabourdData?.PriceColective?.Adult }} -->
                         </li>
                         <li class="list-board">
                           <button
@@ -700,14 +706,27 @@
         <div class="mb-4 sticky-container livboard">
           <ul class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3">
             <li class="list-group-item px-1">
-              <a #btn (click)="addtoFavorits(btn, $event)"
-                class="height-45 width-45 border rounded border-width-2 flex-content-center">
+              <a #btn
+
+              type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
+                (click)="addtoFavorits(btn, $event)"
+                class="h-100 text-black-50 width-45 border rounded border-width-2 flex-content-center"
+                >
                 <i class="fa fa-heart fs-3 text-black-50"></i>
               </a>
             </li>
             <li class="list-group-item px-1">
-              <a (click)="shareLiveaboard(liveabourdID)"
-                class="height-45 width-45 border rounded border-width-2 flex-content-center">
+              <a
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Share Trip"
+                (click)="shareLiveaboard(liveabourdID)"
+                class="height-45 width-45 border rounded border-width-2 flex-content-center"
+              >
                 <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
               </a>
             </li>
@@ -844,12 +863,25 @@
         <div class="mb-4 sticky-container">
           <ul class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3">
             <li class="list-group-item px-1">
-              <a href="#" class="height-45 width-45 border rounded border-width-2 flex-content-center">
+              <a type="button"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Save for later"
+              #btn
+              (click)="addtoFavorits(btn, $event)"
+              class="h-100 text-black-50 width-45 border rounded border-width-2 flex-content-center">
                 <i class="fa-regular fa-heart font-size-18 text-dark"></i>
               </a>
             </li>
             <li class="list-group-item px-1">
-              <a href="#" class="height-45 width-45 border rounded border-width-2 flex-content-center">
+              <a
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Share Trip"
+                (click)="shareLiveaboard(liveabourdID)"
+                class="height-45 width-45 border rounded border-width-2 flex-content-center"
+              >
                 <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
               </a>
             </li>

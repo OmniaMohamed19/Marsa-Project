@@ -196,8 +196,21 @@ export class LiveboardPaymentComponent implements OnInit {
     if (!this.personsMap[item.id]) {
       this.personsMap[item.id] = 0; // Initialize persons value for the item if not already set
     }
-    if (this.personsMap[item.id] > 1) {
+    if (this.personsMap[item.id] > 0) {
       this.personsMap[item.id]--;
+    }
+    else{
+      this.toastr.info(
+        `Sorry, you cannot exceed the minimum cant be 0. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
 
