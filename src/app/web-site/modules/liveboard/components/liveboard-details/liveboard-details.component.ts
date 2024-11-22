@@ -331,6 +331,7 @@ export class LiveboardDetailsComponent {
           },
           []
         );
+        console.log(this.flattenedCabin);
 
         this.isSingleImage = this.images.length === 1;
         // this.seoService.updateSEO(

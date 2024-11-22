@@ -315,7 +315,7 @@
               </ul>
 
               <!-- End Nav Classic -->
-              <div class="tab-content">
+              <div class="tab-content mt-4">
                 <div class="tab-pane fade show active" id="pills-two-example2" role="tabpanel"
                   aria-labelledby="pills-two-example2-tab" [class.show]="isActiveTab('pills-two-example2')"
                   [class.active]="isActiveTab('pills-two-example2')">
@@ -325,15 +325,15 @@
                         <div class="js-form-message">
                           <label class="form-label"> Card Holder Name </label>
                           <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
-                            required="" [(ngModel)]="cardholderName" />
+                            required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
                         </div>
                       </div>
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
                           <label class="form-label"> Card Number </label>
 
-                          <input type="number" class="form-control" name="Cardnumber" placeholder="" aria-label=""
-                            required="" [(ngModel)]="cardNumber" />
+                          <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
+                            required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
                         </div>
                       </div>
 
@@ -345,8 +345,8 @@
                             <div class="js-form-message">
                               <label class="form-label"> Expiry Month </label>
 
-                              <input type="text" class="form-control" name="Expirymonth" placeholder="" aria-label=""
-                                [(ngModel)]="expiryMonth" required="" maxlength="2" pattern="\d{2}"
+                              <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
+                                [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
                                 inputmode="numeric" />
                             </div>
                           </div>
@@ -359,13 +359,13 @@
                               class="form-control"
                               name="Expiryyear"
                               [(ngModel)]="expirYear"
-                              placeholder=""
+                              placeholder="xxxx"
                               aria-label=""
                               required=""
                               maxlength="4"
-                              pattern="^[0-9]{4}$"
+
                               inputmode="numeric"
-                              (input)="onInputChange()"
+                              (keypress)="OnlyNumbers($event)"
                             />
 
 
@@ -377,10 +377,14 @@
 
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
-                          <label class="form-label"> CCV </label>
+                          <label class="form-label"> CVV </label>
 
-                          <input type="text" class="form-control" name="ccvnumber" placeholder="" aria-label=""
-                            required="" [(ngModel)]="cvv" maxlength="3" pattern="\d{3}" inputmode="numeric" />
+                          <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
+                            required="" [(ngModel)]="cvv" maxlength="3"
+
+                            autocomplete="cc-number"
+                           inputmode="numeric"
+                           (keypress)="OnlyNumbers($event)" />
 
                         </div>
                       </div>

@@ -77,56 +77,30 @@
             <div class="col-sm-6 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Card Holder Name </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="Cardname"
-                  placeholder=""
-                  aria-label=""
-                  required=""
-                  [(ngModel)]="cardholderName"
-                  name="cardholderName"
-                  required
-                />
+                <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
+                  required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
               </div>
             </div>
             <div class="col-sm-6 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Card Number </label>
 
-                <input
-                  type="number"
-                  class="form-control"
-                  name="Cardnumber"
-                  placeholder=""
-                  aria-label=""
-                  required=""
-                  [(ngModel)]="cardNumber"
-                  name="cardNumber"
-                  required
-                />
+                <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
+                  required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
               </div>
             </div>
 
             <div class="w-100"></div>
 
-            <div class="col-sm-6 mb-3">
-               <div class="row">
+            <div class="col-sm-6 mb-4">
+              <div class="row">
                 <div class="col-sm-6 mb-4 mb-md-0">
                   <div class="js-form-message">
                     <label class="form-label"> Expiry Month </label>
 
-                    <input
-                      type="number"
-                      class="form-control"
-                      name="Expirymonth"
-                      placeholder=""
-                      aria-label=""
-                      required=""
-                      [(ngModel)]="expiryMonth"
-                  name="expiryMonth"
-                  required
-                    />
+                    <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
+                      [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
+                      inputmode="numeric" />
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -134,16 +108,21 @@
                     <label class="form-label"> Expiry Year </label>
 
                     <input
-                      type="number"
-                      class="form-control"
-                      name="Expiryyear"
-                      placeholder=""
-                      aria-label=""
-                      required=""
-                      [(ngModel)]="expirYear"
-                  name="expirYear"
-                  required
-                    />
+                    type="text"
+                    class="form-control"
+                    name="Expiryyear"
+                    [(ngModel)]="expirYear"
+                    placeholder="xxxx"
+                    aria-label=""
+                    required=""
+                    maxlength="4"
+
+                    inputmode="numeric"
+                    (keypress)="OnlyNumbers($event)"
+                  />
+
+
+
                   </div>
                 </div>
               </div>
@@ -151,19 +130,15 @@
 
             <div class="col-sm-6 mb-4">
               <div class="js-form-message">
-                <label class="form-label"> CCV </label>
+                <label class="form-label"> CVV </label>
 
-                <input
-                  type="number"
-                  class="form-control"
-                  name="ccvnumber"
-                  placeholder=""
-                  aria-label=""
-                  required=""
-                  [(ngModel)]="cvv"
-                  name="cvv"
-                  required
-                />
+                <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
+                  required="" [(ngModel)]="cvv" maxlength="3"
+
+                  autocomplete="cc-number"
+                 inputmode="numeric"
+                 (keypress)="OnlyNumbers($event)" />
+
               </div>
             </div>
 

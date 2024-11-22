@@ -62,7 +62,7 @@ export class PaymentComponent {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
   };
-  edit: boolean=false;
+  edit: boolean = false;
   tripletails: any;
 
   constructor(
@@ -76,11 +76,11 @@ export class PaymentComponent {
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
-    this.edit=localStorage['edit']
+    this.edit = localStorage['edit']
     this.route.queryParams.subscribe((params: any) => {
       const parsedRes = JSON.parse(params['avilableOptions']);
       const trip_id = params['tripId'];
@@ -280,11 +280,11 @@ export class PaymentComponent {
         `Activtes/details/` + activityID
       )
       .subscribe((res: any) => {
-        this.tripletails=res.tripDetails
+        this.tripletails = res.tripDetails
         // console.log(res);
       });
   }
-  confirmEdit(event: Event){
+  confirmEdit(event: Event) {
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
@@ -345,17 +345,17 @@ export class PaymentComponent {
       console.log(model);
 
       this._httpService
-        .post(environment.marsa, 'bookinfo/'+this.tripId, model)
+        .post(environment.marsa, 'bookinfo/' + this.tripId, model)
         .subscribe({
           next: (res: any) => {
             console.log(res);
             this.getTripById(this.tripId)
             this.router.navigate(
-            ['/', this.translate.currentLang, 'tours', 'details',this.tripletails?.id,
-                            this.tripletails?.Name]
-              );
-              localStorage.removeItem('edit')
-              localStorage.removeItem('queryParams')
+              ['/', this.translate.currentLang, 'tours', 'details', this.tripletails?.id,
+                this.tripletails?.Name]
+            );
+            localStorage.removeItem('edit')
+            localStorage.removeItem('queryParams')
 
             // if (res && res.link) {
             //   window.location.href = res.link;
@@ -368,11 +368,11 @@ export class PaymentComponent {
             //     ['/', this.translate.currentLang, 'tours', 'confirm'],
             //     { queryParams }
             //   );
-              Swal.fire(
-                'Your request has been send successfully.',
-                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-                'success'
-              );
+            Swal.fire(
+              'Your request has been send successfully.',
+              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'success'
+            );
             // }
           },
           error: (err: any) => {
@@ -604,13 +604,27 @@ export class PaymentComponent {
       this.mapModalDeatails.nativeElement.closeModal();
     }
   }
-  onInputChange() {
-    // استبدال أي شيء غير رقمي بحرف فارغ
-    this.expirYear = this.expirYear.replace(/[^0-9]/g, '');
+  letterOnly(event: any) {
+    var charCode = event.keyCode;
 
-    // التأكد من أن المدخل لا يتجاوز 4 أرقام
-    if (this.expirYear.length > 4) {
-      this.expirYear = this.expirYear.slice(0, 4);  // أخذ أول 4 أرقام فقط
+    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+      return true;
+    else
+      return false;
+  }
+
+  public OnlyNumbers(event: any) {
+    let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
+    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    if (specialKeys.indexOf(event.key) !== -1) {
+      return;
+    } else {
+      if (regex.test(event.key)) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
   getNationality() {

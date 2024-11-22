@@ -80,7 +80,7 @@ export class PackagePaymentComponent {
       const parsedRes = JSON.parse(params['res']);
       this.responseFromAvailableOption = parsedRes;
       console.log('this.responseFromDetails' ,this.responseFromAvailableOption);
-      
+
       this.model.adult = params['adult'];
       this.model.booking_date = params['booking_date'];
       this.model.childern = params['childern'];
@@ -125,16 +125,16 @@ export class PackagePaymentComponent {
         phone: phoneNumber.replace("+", ""),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-  
+
       };
-  
+
       console.log(model);
-      
+
       this._httpService.post(environment.marsa, 'bookinfo/'+'8', model).subscribe({
         next: (res: any) => {
           console.log(res);
           // if (res && res.link) {
-          //   window.location.href = res.link; 
+          //   window.location.href = res.link;
           // } else {
             this.getTripById(this.model.packege_id)
             this.router.navigate(
@@ -262,14 +262,14 @@ export class PackagePaymentComponent {
         expiry_month: this.expiryMonth,
         card_number: this.cardNumber.toString(),
       };
-  
+
       console.log(model);
-      
+
       this._httpService.post(environment.marsa, 'package/book', model).subscribe({
         next: (res: any) => {
           console.log(res);
           if (res && res.link) {
-            window.location.href = res.link; 
+            window.location.href = res.link;
           } else {
             Swal.fire(
               'Your request has been send successfully',
@@ -302,7 +302,7 @@ export class PackagePaymentComponent {
     };
 
     console.log(model);
-    
+
     this._httpService.post(environment.marsa, 'package/book', model).subscribe({
       next: (res: any) => {
         const queryParams = {
@@ -369,7 +369,30 @@ export class PackagePaymentComponent {
   }
 
   private _filterNationalities(value: any): Code[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : ''; 
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
     return this.nationalities.filter(nationality => nationality.name.toLowerCase().includes(filterValue));
+  }
+  letterOnly(event: any) {
+    var charCode = event.keyCode;
+
+    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+      return true;
+    else
+      return false;
+  }
+
+  public OnlyNumbers(event: any) {
+    let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
+    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    if (specialKeys.indexOf(event.key) !== -1) {
+      return;
+    } else {
+      if (regex.test(event.key)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }
