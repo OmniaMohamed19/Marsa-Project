@@ -86,11 +86,11 @@ export class LiveboardDetailsComponent {
   isMobile = false;
   isTestDivScrolledIntoView: any;
   showScrollToTopButton: boolean = false;
-  schedules_id:any;
+  schedules_id: any;
   desplayedGustImages: any[] = [];
   displayBasic: boolean = false;
   displayBoats: boolean = false;
-  displayCustom: boolean =false;
+  displayCustom: boolean = false;
   activeIndex: number = 0;
   boatImages: any[] = [];
   constructor(
@@ -140,7 +140,6 @@ export class LiveboardDetailsComponent {
   getDisplayedDescription(): string {
     const words = this.liveabourdData?.Description?.split(' ');
     if (this.showFullDescription || words?.length <= 150) {
-
       return this.liveabourdData?.Description;
     } else {
       return words?.slice(0, 150).join(' ') + '...';
@@ -157,31 +156,31 @@ export class LiveboardDetailsComponent {
 
     this.activeIndex = index;
     this.displayCustom = true;
-}
+  }
 
   ngOnInit(): void {
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
-        numVisible: 6
-    },
-    {
-      breakpoint: '1200px',
-      numVisible: 6
-  },
-      {
-          breakpoint: '1024px',
-          numVisible: 6
+        numVisible: 6,
       },
       {
-          breakpoint: '768px',
-          numVisible: 5
+        breakpoint: '1200px',
+        numVisible: 6,
       },
       {
-          breakpoint: '560px',
-          numVisible: 3
-      }
-  ];
+        breakpoint: '1024px',
+        numVisible: 6,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 5,
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 3,
+      },
+    ];
     this.activatedRoute.params.subscribe((params: any) => {
       this.liveabourdID = params.id;
       this.loadData();
@@ -216,29 +215,29 @@ export class LiveboardDetailsComponent {
     }
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-      const options = {
-          root: null, // viewport
-          rootMargin: '0px',
-          threshold: 1.5, // element should be at least 70% visible
-      };
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
+  //     const options = {
+  //         root: null, // viewport
+  //         rootMargin: '0px',
+  //         threshold: .7, // element should be at least 70% visible
+  //     };
 
-      const observer = new IntersectionObserver((entries) => {
-          const visibleEntries = entries.filter(entry => entry.isIntersecting);
-  console.log(visibleEntries);
+  //     const observer = new IntersectionObserver((entries) => {
+  //         const visibleEntries = entries.filter(entry => entry.isIntersecting);
+  // // console.log(visibleEntries);
 
-          if (visibleEntries.length > 0) {
-              // Set activeTabId to the id of the first visible element
-              this.activeTabId = visibleEntries[0].target.id;
-          }
-      }, options);
+  //         if (visibleEntries.length > 0) {
+  //             // Set activeTabId to the id of the first visible element
+  //             this.activeTabId = visibleEntries[0].target.id;
+  //         }
+  //     }, options);
 
-      const tabs = document.querySelectorAll('.tab-pane');
-      tabs.forEach((tab) => {
-          observer.observe(tab);
-      });
-  }
+  //     const tabs = document.querySelectorAll('.tab-pane');
+  //     tabs.forEach((tab) => {
+  //         observer.observe(tab);
+  //     });
+  // }
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -246,15 +245,47 @@ export class LiveboardDetailsComponent {
 
     if (tabElement) {
       const elementRect = tabElement.getBoundingClientRect();
-      const offset = window.scrollY + elementRect.top - 170; // Calculate position 50px above the element
+      const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
+
+      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
         behavior: 'smooth',
       });
+    } else {
+      console.error(`Element with ID ${tabId} not found.`);
     }
   }
 
+  private setupIntersectionObserver() {
+    const options = {
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 0.5, // element should be at least 70% visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      // console.log(visibleEntries);
+
+      if (visibleEntries.length > 0) {
+        // Set activeTabId to the id of the first visible element
+        this.activeTabId = visibleEntries[0].target.id;
+      }
+    }, options);
+
+    const tabs = document.querySelectorAll('.tab-pane');
+    tabs.forEach((tab) => {
+      observer.observe(tab);
+    });
+  }
+
+
+  ngAfterViewInit() {
+  //   // Initialize the active tab on load
+  this.setupIntersectionObserver();
+}
   scrollToselectCabinButton() {
     this.bookNow();
     // this.selectCabinButton.nativeElement.scrollIntoView({
@@ -301,7 +332,7 @@ export class LiveboardDetailsComponent {
           this.liveabourdData.Map
         );
         console.log(this.liveabourdData.Schedules);
-        console.log(typeof(this.liveabourdData.Schedules));
+        console.log(typeof this.liveabourdData.Schedules);
 
         this.images = res?.tripDetails?.Images;
         this.cover = res?.tripDetails?.Cover;
@@ -375,7 +406,7 @@ export class LiveboardDetailsComponent {
   }
 
   openBoatSliderModal(boat: any): void {
-    this.displayBoats=true
+    this.displayBoats = true;
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
@@ -412,8 +443,7 @@ export class LiveboardDetailsComponent {
         this.persons++;
         this.cdr.detectChanges();
       });
-    }
-    else {
+    } else {
       this.toastr.info(
         `Sorry, you cannot exceed the maximum limit of ${this.getValue(
           'Available'
@@ -436,8 +466,7 @@ export class LiveboardDetailsComponent {
         this.persons--;
         this.cdr.detectChanges();
       });
-    }
-    else{
+    } else {
       this.toastr.info(
         `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
         '',
@@ -516,7 +545,6 @@ export class LiveboardDetailsComponent {
         // let x=this.selectedDateControl.value
         // console.log(this.schedules_id);
 
-
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)
           .subscribe({
@@ -528,7 +556,10 @@ export class LiveboardDetailsComponent {
                 adult: this.persons,
                 schedules_id: this.schedules_id,
               };
-              localStorage.setItem('queryParamsliveaboard', JSON.stringify(queryParams));
+              localStorage.setItem(
+                'queryParamsliveaboard',
+                JSON.stringify(queryParams)
+              );
               this._Router.navigate(
                 [
                   '/',
@@ -543,20 +574,21 @@ export class LiveboardDetailsComponent {
       }
     }
   }
-  addtoFavorits(btn: any,event:any) {
+  addtoFavorits(btn: any, event: any) {
     if (btn.classList.contains('bg-primary')) {
-
-      } else {
-        // Add to favorites/wishlist
-        this._httpService
-        .post(environment.marsa,'Wishlist/add', { trip_id: this.liveabourdData?.id })
+    } else {
+      // Add to favorites/wishlist
+      this._httpService
+        .post(environment.marsa, 'Wishlist/add', {
+          trip_id: this.liveabourdData?.id,
+        })
         .subscribe({
           next: (res: any) => {
             console.log(res);
 
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
-          }
+          },
         });
     }
   }

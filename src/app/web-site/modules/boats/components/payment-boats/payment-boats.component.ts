@@ -75,7 +75,7 @@ export class PaymentBoatsComponent {
       phone: ['', [Validators.required]],
       // nationality: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',!this.showServices?[Validators.required]:[]],
+      pickup_point: ['', this.showServices ? [Validators.required] : []],
       locationValue: [''],
     })
   }
@@ -103,6 +103,14 @@ export class PaymentBoatsComponent {
   }
 
   bookNow() {
+    if (this.showServices) {
+        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+    } else {
+        this.customerForm.get('pickup_point')?.clearValidators();
+        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
+    console.log(this.customerForm.valid);
+
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];

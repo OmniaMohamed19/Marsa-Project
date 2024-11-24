@@ -179,7 +179,7 @@ export class BoatDetailsComponent {
 }
     // constructor() {}
   ngOnInit(): void {
-    
+
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -277,31 +277,31 @@ export class BoatDetailsComponent {
     }
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
 
-      const options = {
-          root: null, // viewport
-          rootMargin: '0px',
-          threshold: 1.5, // element should be at least 70% visible
-      };
+  //     const options = {
+  //         root: null, // viewport
+  //         rootMargin: '0px',
+  //         threshold: 1.5, // element should be at least 70% visible
+  //     };
 
-      const observer = new IntersectionObserver((entries) => {
-          const visibleEntries = entries.filter(entry => entry.isIntersecting);
-  console.log(visibleEntries);
+  //     const observer = new IntersectionObserver((entries) => {
+  //         const visibleEntries = entries.filter(entry => entry.isIntersecting);
+  // console.log(visibleEntries);
 
-          if (visibleEntries.length > 0) {
-              // Set activeTabId to the id of the first visible element
-              this.activeTabId = visibleEntries[0].target.id;
-          }
-      }, options);
+  //         if (visibleEntries.length > 0) {
+  //             // Set activeTabId to the id of the first visible element
+  //             this.activeTabId = visibleEntries[0].target.id;
+  //         }
+  //     }, options);
 
-      const tabs = document.querySelectorAll('.tab-pane');
-      tabs.forEach((tab) => {
-          observer.observe(tab);
-      });
+  //     const tabs = document.querySelectorAll('.tab-pane');
+  //     tabs.forEach((tab) => {
+  //         observer.observe(tab);
+  //     });
 
-  }
+  // }
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -311,7 +311,7 @@ export class BoatDetailsComponent {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-      console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
+      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
@@ -321,6 +321,35 @@ export class BoatDetailsComponent {
       console.error(`Element with ID ${tabId} not found.`);
     }
   }
+
+  private setupIntersectionObserver() {
+    const options = {
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 0.5, // element should be at least 70% visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      // console.log(visibleEntries);
+
+      if (visibleEntries.length > 0) {
+        // Set activeTabId to the id of the first visible element
+        this.activeTabId = visibleEntries[0].target.id;
+      }
+    }, options);
+
+    const tabs = document.querySelectorAll('.tab-pane');
+    tabs.forEach((tab) => {
+      observer.observe(tab);
+    });
+  }
+
+
+  ngAfterViewInit() {
+  //   // Initialize the active tab on load
+  this.setupIntersectionObserver();
+}
 
   share() {
     window.navigator.share({

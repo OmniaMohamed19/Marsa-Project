@@ -929,6 +929,10 @@
           >
             <li class="list-group-item px-1">
               <a
+              type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
                 #btn
                 (click)="addtoFavorits(btn, $event)"
                 class="height-45 text-black-50 width-45 border rounded border-width-2 flex-content-center"
@@ -938,6 +942,10 @@
             </li>
             <li class="list-group-item px-1">
               <a
+              type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Share Trip"
                 (click)="share()"
                 class="height-45 width-45 border rounded border-width-2 flex-content-center"
               >

@@ -313,6 +313,26 @@
                   </div>
                 </div>
               </div>
+              <div class="card-body pt-0 mt-1 px-5">
+                <button
+                  (click)="searchByType({ target: { value: null } })"
+                  class="nav-link active"
+                  id="pills-marsa-trending-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-allActivity"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-marstrending"
+                  style="
+                    background-color: #008ccf;
+                    border: none;
+                    color: white !important;
+                  "
+                  aria-selected="true"
+                >
+                  Clear Selected
+                </button>
+              </div>
             </div>
           </div>
         </div>

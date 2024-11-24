@@ -150,24 +150,24 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
   seeMore: boolean = false;
   showFullDescription = false;
-  
+
   // Method to toggle description visibility
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
-  
+
   // Method to get the displayed description
   getDisplayedDescription(): string {
     const words = this.activityData?.Description?.split(' ');
     if (this.showFullDescription || words?.length <= 150) {
-      console.log(this.activityData?.Description?.length)
+      // console.log(this.activityData?.Description?.length)
       return this.activityData?.Description;
     } else {
       return words?.slice(0, 150).join(' ') + '...';
     }
   }
-  
+
   @ViewChild('myDiv') myDiv!: ElementRef;
 
   scrollToTop() {
@@ -181,7 +181,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     //   // Initialize the active tab on load
     this.setupIntersectionObserver();
   }
-  
+
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -206,7 +206,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     const options = {
       root: null, // viewport
       rootMargin: '0px',
-      threshold: 0.99, // element should be at least 70% visible
+      threshold: 0.5, // element should be at least 70% visible
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -374,7 +374,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.children--;
     }
   }
-  
+
 
   incrementInfant() {
     if (this.infant < this.getMaxValue('infantMax')) {
@@ -411,7 +411,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         // Get the position of the button
         const rect = this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
         const scrollToY = rect.top + window.scrollY - 70; // Adjusting 50px from the top
-    
+
         // Smoothly scroll to the adjusted position
         window.scrollTo({
           top: scrollToY,
@@ -477,7 +477,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         if (!date) {
             return true; // Allow all dates if date is null
         }
-    
+
         const day = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
         return !this.disabledDays.includes(day); // Check if the day is not in the disabledDays
     };
@@ -544,7 +544,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   getOverviewItems(overview: string): string[] {
     return overview.split('\n');
   }
-  
+
   // showMap(): void {
   //   this.showMapFrame = !this.showMapFrame;
   // }
@@ -674,7 +674,7 @@ export class ToursDetailsComponent implements AfterViewInit {
               this.selectedDateControl.markAsTouched();
               return;
           }
-      
+
           // If the clicked option is the same as the previously booked option, toggle it
           if (this.bookedOptionId === avilable_option_id) {
               this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
@@ -682,7 +682,7 @@ export class ToursDetailsComponent implements AfterViewInit {
               // If a different option is clicked, open the new booking option
               this.bookedOptionId = avilable_option_id; // Update to the new option
               this.showBookingOption = true; // Open the booking details
-      
+
       const model = {
         trip_id: this.activityData.id,
         avilable_option_id: avilable_option_id,
