@@ -665,7 +665,7 @@
   </main>
   <section style="margin-top: 80px">
     <div class="container activity">
-      <div class="row d-flex">
+      <div class="row d-md-flex d-none">
         <div *ngFor="let feature of transferDetails?.features" class="col-md-3 text-center">
           <div class="image">
             <img [src]="feature.icon" style="width: 50px; height: 50px" />
@@ -680,7 +680,7 @@
       </div>
 
       <!-- Owl Carousel for Mobile Only -->
-      <!-- <owl-carousel-o class="d-block d-md-none" [options]="carouselOptions2">
+       <owl-carousel-o class="d-block d-md-none feature-carousel" [options]="carouselOptions2">
         <ng-container *ngFor="let feature of transferDetails?.features">
           <ng-template carouselSlide>
             <div class="text-center">
@@ -696,7 +696,7 @@
             </div>
           </ng-template>
         </ng-container>
-      </owl-carousel-o> -->
+      </owl-carousel-o>
 
       <div class="row mt-5">
         <h3 class="pb-2">Transfer service includes</h3>
@@ -777,9 +777,7 @@
           Showing {{reviews?.length}} verified guest comments
         </h5>
 
-        <div class="container">
-
-
+        <div class="container review-carousel">
 
           <owl-carousel-o [options]="carouselOptions">
             <ng-container *ngFor="let review of reviews" class="m-auto">

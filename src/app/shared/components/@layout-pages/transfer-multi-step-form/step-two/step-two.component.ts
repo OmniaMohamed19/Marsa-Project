@@ -19,7 +19,6 @@ export class StepTwoComponent implements OnInit {
   constructor(private toastr: ToastrService) {}
 
   ngOnInit() {
-    // Retrieve stored data
     const savedResponseData = localStorage.getItem('responseData');
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
@@ -28,12 +27,17 @@ export class StepTwoComponent implements OnInit {
     const savedSelectedOptions = localStorage.getItem('selectedCar');
     if (savedSelectedOptions) {
       this.savedSelectedOpti = JSON.parse(savedSelectedOptions);
+      // أضف الحقل `number` إذا لم يكن موجودًا
+      this.savedSelectedOpti.option.forEach((opt: any) => {
+        opt.number = opt.number || 0; // التأكد من وجود الحقل `number`
+      });
     } else {
       this.savedSelectedOpti = { option: [] };
     }
 
     this.formData.selectedOptions = {};
   }
+
 
   onOptionChange(option: any, event: any): void {
     if (event.target.checked) {
@@ -44,8 +48,8 @@ export class StepTwoComponent implements OnInit {
     localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
   }
 
-  savenumberOfOption(): void {
-    const value = Math.max(0, this.numberOfOption);
+  savenumberOfOption(option: any): void {
+    option.number = Math.max(0, option.number || 0);
     localStorage.setItem('numberOption', this.numberOfOption.toString()); // Save input value to localStorage
   }
 

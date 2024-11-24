@@ -6,7 +6,7 @@
       <owl-carousel-o [options]="customOptions" class="owl-theme">
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
-            <div class=" car custom-carousel-item"
+            <div class="car custom-carousel-item"
                  (click)="onCarClick($event, item.id)"
                  [class.active]="selectedCarId === item.id">
 

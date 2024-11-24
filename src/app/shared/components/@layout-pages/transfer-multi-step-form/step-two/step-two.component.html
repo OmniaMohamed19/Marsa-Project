@@ -7,7 +7,6 @@
     </div>
 
     <div class="form-check" *ngFor="let option of savedSelectedOpti?.option">
-
       <input class="form-check-input" type="checkbox" id="flexCheckDefault"
              [value]="option.name"
              (change)="onOptionChange(option, $event)">
@@ -15,22 +14,22 @@
       <div class="label">
         <img [src]="option.icon" width="25px" height="25px" style="margin-top: -0.5rem;">
         <label class="form-check-label" for="flexCheckDefault">
-          {{option.name}}
+          {{ option.name }}
         </label>
         <div class="d-flex gap-3 mt-1">
-          <span>$ {{option.price}}</span>
+          <span>$ {{ option.price }}</span>
           <input type="number"
-                 style="border: 1px gray solid;width: 100px; height: 35px;"
+                 style="border: 1px gray solid; width: 100px; height: 35px;"
                  class="form-control count-option"
-                 [(ngModel)]="numberOfOption"
-                 name="numberOfOption"
+                 [(ngModel)]="option.number" 
+                 name="numberOfOption-{{option.name}}" 
                  [attr.min]="0"
                  placeholder="0"
-                 [value]="numberOfOption || 0"
-                 (ngModelChange)="savenumberOfOption()">
+                 (ngModelChange)="savenumberOfOption(option)">
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="btns">
