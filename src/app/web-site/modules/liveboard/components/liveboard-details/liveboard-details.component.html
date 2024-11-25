@@ -751,21 +751,22 @@
                 <span class="d-block font-size-16 text-gray-1 font-weight-normal text-left">Price</span>
 
                 <p style="font-weight: 500">
+                  <span>From </span>
                   <span class="font-size-15 fw-bold text-dark" [style.text-decoration]="
                       liveabourdData?.PriceColective?.AdultDiscount > 0
                         ? 'line-through'
                         : ''
                     " [style.color]="
                       liveabourdData?.PriceColective?.AdultDiscount > 0
-                        ? 'red !important'
+                        ? 'rgb(13, 177, 255) !important'
                         : ''
                     ">
-                    From
+
                     ${{ liveabourdData?.PriceColective?.Adult }}
                     </span>
 
                   <span class="font-size-15 fw-bold text-dark mx-2"
-                    *ngIf="liveabourdData?.PriceColective?.AdultDiscount > 0" style="font-weight: 500; color: red">${{
+                    *ngIf="liveabourdData?.PriceColective?.AdultDiscount > 0" style="font-weight: 500; color: rgb(13, 177, 255)">${{
                     getRoundedRate(
                     liveabourdData?.PriceColective?.Adult -
                     (liveabourdData?.PriceColective.AdultDiscount / 100) *

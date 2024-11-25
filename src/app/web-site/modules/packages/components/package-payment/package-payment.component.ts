@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-package-payment',
@@ -60,6 +62,7 @@ export class PackagePaymentComponent {
   expiryMonth: any;
   cardNumber: any;
   constructor(
+    private toastr: ToastrService,
     private location: Location,
     private _httpService: HttpService,
     private fb: FormBuilder,
@@ -257,7 +260,7 @@ export class PackagePaymentComponent {
         timeOut: 5000,
         closeButton: true,
       });
-      return; 
+      return;
     }
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];

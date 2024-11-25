@@ -20,9 +20,9 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const authToken = this.AuthService.getToken();
-    if (typeof window !== 'undefined') {
+   
       this.Language=localStorage.getItem('lang');
-    }
+
 
     const authRequest = req.clone({
       setHeaders: {

@@ -179,7 +179,7 @@
             <div class="div2"><img [src]="rows?.cover3" [alt]="getImageName(rows?.cover3)"/></div>
           </div>
         </ng-template>
-       
+
       </div>
     </div>
   </div>
@@ -666,11 +666,12 @@
             <p style="font-weight: 700">
               <ng-container *ngIf="hasDiscount(rows)">
                 <!-- Original Price with Strikethrough -->
+                 <span>From </span>
                 <span
                   class="font-size-18 fw-bold text-dark"
-                  style="text-decoration: line-through; color: red !important"
+                  style="text-decoration: line-through; color: rgb(13, 177, 255) !important"
                 >
-                  From ${{ rows?.Price.Adult }}
+                   ${{ rows?.Price.Adult }}
                 </span>
 
                 <!-- Discounted Price -->

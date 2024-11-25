@@ -394,6 +394,17 @@ export class PaymentComponent {
     }
   }
   confirmBookingByCard(event: Event) {
+    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
+
+      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return;
+    }
     event.preventDefault();
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
