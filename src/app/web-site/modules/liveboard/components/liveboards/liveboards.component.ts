@@ -67,15 +67,14 @@ export class LiveboardsComponent implements OnInit {
   }
   displaySelectedType: string = 'All'; // النص المعروض في الخيار الافتراضي
 
-
-
-
   getAllLiveboard() {
     this.httpservices.get(environment.marsa, 'liveboard').subscribe({
       next: (response: any) => {
         console.log(response);
         this.rows = response.trips;
-        this.rows.data =this.rows.data.filter((trip:any) => Object.keys(trip.Schedule).length > 0);
+        this.rows.data = this.rows.data.filter(
+          (trip: any) => Object.keys(trip.Schedule).length > 0
+        );
 
         this.search = response.search;
         this.types = response.types;
@@ -104,6 +103,11 @@ export class LiveboardsComponent implements OnInit {
         next: (response: any) => {
           console.log(response);
           this.rows = response.trips;
+          this.rows.data = this.rows.data.filter(
+            (trip: any) => Object.keys(trip.Schedule).length > 0
+          );
+          console.log(this.rows);
+
           this.search = response.search;
           this.types = response.types;
           if (this.destination?.length == 0) {
@@ -147,6 +151,8 @@ export class LiveboardsComponent implements OnInit {
         console.log(response);
 
         this.rows = response.trips;
+        // this.rows = response.trips;
+        this.rows.data =this.rows.data.filter((trip:any) => Object.keys(trip.Schedule).length > 0);
         if (this.types?.length == 0) {
           console.log('Set tyoes');
           this.types = response.types;
