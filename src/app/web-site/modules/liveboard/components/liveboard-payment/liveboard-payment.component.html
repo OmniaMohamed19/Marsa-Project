@@ -385,7 +385,6 @@
                       formControlName="pickup_point"
                       placeholder="Enter Pick up Place"
                     />
-                  </div>
                   <div
                       *ngIf="
                         customerForm.get('pickup_point')?.invalid &&
@@ -396,7 +395,8 @@
                     >
                     Pick up Place is required
                     </div>
-                </ng-container>
+                    </div>
+                  </ng-container>
               <ng-template #elseTemplate>
                 <div class="col-sm-6 mb-4">
                   <div class="js-form-message">
