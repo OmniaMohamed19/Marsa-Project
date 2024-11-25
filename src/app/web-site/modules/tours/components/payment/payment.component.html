@@ -205,7 +205,6 @@
                       <label class="form-label"> Name your place </label>
                       <input type="text" class="form-control" formControlName="pickup_point"
                         placeholder="Enter Pick up Place" />
-                    </div>
                     <div *ngIf="
                         customerForm.get('pickup_point')?.invalid &&
                         (customerForm.get('pickup_point')?.dirty ||
@@ -213,6 +212,7 @@
                       " class="alert alert-danger my-2">
                       Pick up Place is required
                     </div>
+                  </div>
                   </ng-container>
                   <ng-template #elseTemplate>
                     <div class="col-sm-6 mb-4">

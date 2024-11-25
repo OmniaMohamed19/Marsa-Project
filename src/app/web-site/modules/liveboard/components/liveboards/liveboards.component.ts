@@ -67,7 +67,7 @@ export class LiveboardsComponent implements OnInit {
   }
   displaySelectedType: string = 'All'; // النص المعروض في الخيار الافتراضي
 
-  
+
 
 
   getAllLiveboard() {
@@ -75,6 +75,8 @@ export class LiveboardsComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         this.rows = response.trips;
+        this.rows.data =this.rows.data.filter((trip:any) => Object.keys(trip.Schedule).length > 0);
+
         this.search = response.search;
         this.types = response.types;
         if (this.destination?.length == 0) {
