@@ -159,7 +159,10 @@ export class CheckAvailpiltyComponent {
         infant: this.infant,
         booking_time: this.selectedTime,
       };
-      localStorage.setItem('queryParams', JSON.stringify(queryParams));
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('queryParams', JSON.stringify(queryParams));
+      }
       this.router.navigate(
         ['/', this.translate.currentLang, 'tours', 'payment'],
         { queryParams }

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LanguageService } from './shared/services/language.service';
 import { AuthService } from './shared/services/auth.service';
 import { Meta, Title } from '@angular/platform-browser';
@@ -9,68 +9,78 @@ import { SEOService } from './shared/services/seo.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
- // title = 'marsa-project';
- metaDetail:any;
+export class AppComponent implements OnInit {
+  metaDetail: any;
+
   constructor(
     private langServ: LanguageService,
     private authService: AuthService,
     private seoService: SEOService,
-    private titleService: Title, private metaService: Meta
-  ) { }
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
   ngOnInit(): void {
-    const lang = localStorage.getItem('lang');
-    if (lang) {
-      this.langServ.setCurrentLang(lang, true);
-    } else {
-      this.langServ.setCurrentLang('en', true);
+    // ضبط اللغة الافتراضية
+    if (typeof window !== 'undefined'){
+      const lang = localStorage.getItem('lang');
+      if (lang) {
+        this.langServ.setCurrentLang(lang, true);
+      } else {
+        this.langServ.setCurrentLang('en', true);
+      }
     }
+
+
     this.authService.autoAuth();
 
+    // استدعاء بيانات الـ SEO من الباك اند
+    this.seoService.getSEOData().subscribe((data) => {
+      this.metaDetail = data?.seo;
 
+      if (this.metaDetail) {
+        this.titleService.setTitle(this.metaDetail?.metatitle);
 
-////////SEO///////
-this.seoService.getSEOData().subscribe((data) => {
-  console.log(data.seo);
+        this.metaService.addTags([
+          { name: 'description', content: this.metaDetail?.metadesc },
+           { name: 'slugURL', content: this.metaDetail?.slugUrl }
+        ]);
 
-  // this.title.setTitle(seo.metatitle);
+        // تحديث الـ slugURL
+        const slugURL = this.metaDetail?.slugUrl;
+        if (slugURL) {
+          window.history.replaceState({}, '', slugURL);
+        }
 
-  // this.meta.updateTag({ name: 'description', content: seo.metadesc });
+        const canonicalURL = this.metaDetail?.canonicalurl;
+        if (canonicalURL) {
+          this.seoService.setCanonicalURL(canonicalURL);
+        }
+        const robots = this.metaDetail?.robots;
 
-  // this.meta.updateTag({ name: 'canonical', content: seo.canonicalurl });
+        if (robots) {
+          this.seoService.setRobotsURL(robots);
+        }
+        const sitemap = this.metaDetail?.sitemap;
 
-  // this.meta.updateTag({ name: 'robots', content: seo.robots });
-  // this.meta.updateTag({ name: 'sitemap', content: seo.sitemap });
+        if (sitemap) {
+        // استخدم الرابط الخاص بـ sitemap.xml
+        this.seoService.setSitemapURL(sitemap);
+      }
 
-
- // Set the page title
- this.metaDetail=data?.seo;
- this.titleService.setTitle(this.metaDetail?.metatitle);
-//  console.log(seo.metatitle);
-
- // Set meta tags
- this.metaService.addTags([
-   { name: 'description', content: this.metaDetail.metadesc },
-   { name: 'slugUrl', content: this.metaDetail.slugUrl},
-   { name: 'robots', content: this.metaDetail.robots },
-   { name: 'sitemap', content: this.metaDetail.sitemap },
-   { name: 'canonical', content: this.metaDetail.canonicalurl },
-  //  { property: 'og:title', content: 'Your Open Graph Title' },
-  //  { property: 'og:description', content: 'Description for social media' },
-  //  { property: 'og:image', content: 'URL-to-your-image.jpg' }
- ]);
-});
-
+      }
+    });
   }
+  imageUrl: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png';
+
+  // دالة لاستخراج اسم الصورة
+  getImageName(url: string): string {
+    // الحصول على اسم الصورة من الرابط
+    const imageName = url.substring(url.lastIndexOf('/') + 1, url.indexOf('.'));
+    return imageName; // مثل "WhatsApp_icon"
+  }
+
   contactWhatsapp() {
     window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
   }
-  // @HostListener('window:beforeunload', ['$event'])
-  // unloadNotification($event: any) {
-  //   if (this.authService.getAuthStatus()) {
-  //     this.authService.logout();
-  //   }
-  // }
-
 }

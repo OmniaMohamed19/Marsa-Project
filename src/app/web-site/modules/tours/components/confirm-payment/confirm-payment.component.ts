@@ -69,8 +69,11 @@ export class ConfirmPaymentComponent implements OnInit {
     nav: true
   }
   ReturnToPayment(){
+    if (typeof window !== 'undefined') {
+
+    
     const storedQueryParams = localStorage.getItem('queryParams');
-if (storedQueryParams) {
+  if (storedQueryParams) {
     const queryParams = JSON.parse(storedQueryParams);
     console.log(queryParams);
     // Now you can access the properties of queryParams
@@ -81,4 +84,5 @@ if (storedQueryParams) {
     );
 }
   }
+}
 }

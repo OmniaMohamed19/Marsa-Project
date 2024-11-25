@@ -59,6 +59,8 @@ export class StepThreeComponent {
   cardNumber:any;
   activeSection:any
   ngOnInit() {
+    if (typeof window !== 'undefined') {
+
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
     this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
 
@@ -106,6 +108,7 @@ export class StepThreeComponent {
       this.selectedOption = JSON.parse(savedSelectedOption);
       console.log(this.selectedOption)
     }
+
     this.fromId = this.bookdetail.from_id;
     this.toId = this.bookdetail.to_id;
     this.bookingDate = this.bookdetail.date;
@@ -115,6 +118,11 @@ export class StepThreeComponent {
     this.kilometr = this.bookdetail.this.bookdetail;
 
   }
+}
+getImageName(url: string): string {
+  const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+  return imageName || 'Unknown photo'; 
+}
 
   applycoupon() {
     this._httpService

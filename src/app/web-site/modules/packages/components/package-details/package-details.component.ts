@@ -74,7 +74,7 @@ export class PackageDetailsComponent {
   children: number = 0;
   infant: number = 0;
   showAllReviews = false;
-  isSmallScreen = window.innerWidth <= 768; 
+  isSmallScreen = window.innerWidth <= 768;
 
   carouselOptions = {
     loop: true,
@@ -474,7 +474,10 @@ export class PackageDetailsComponent {
                 booking_date: this.formattedStartDate,
                 end_date: this.formattedEndDate,
               };
-              localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
+              if (typeof window !== 'undefined' && window.localStorage){
+
+                localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
+              }
               this.router.navigate(
                 ['/', this.translate.currentLang, 'packages', 'packagePayment'],
                 { queryParams }
@@ -483,6 +486,10 @@ export class PackageDetailsComponent {
           });
       }
     }
+  }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
   }
 
   openPackModal(packageId: number) {

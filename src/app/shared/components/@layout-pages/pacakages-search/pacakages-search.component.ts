@@ -41,6 +41,10 @@ export class PacakagesSearchComponent implements OnInit {
   selectTab(index: number) {
     this.selectedTabId = index;
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo'; 
+  }
 
   openPackModal(packageId: number) {
     const selectedPackage = this.packages.find((pkg: any) => pkg.id === packageId);

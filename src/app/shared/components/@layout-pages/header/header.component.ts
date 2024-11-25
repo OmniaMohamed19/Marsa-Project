@@ -52,6 +52,10 @@ export class HeaderComponent implements OnInit {
         this.social = res?.social;
       });
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },

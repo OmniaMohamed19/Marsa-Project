@@ -7,7 +7,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { AppServerModule } from './src/main.server';
 import 'localstorage-polyfill';
-
+import axios from 'axios';
 global.localStorage = localStorage;
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -37,6 +37,37 @@ export function app(): express.Express {
       maxAge: '1y',
     })
   );
+
+   // Point of serving robots.txt from the server
+   server.get('/robots.txt', async (req, res) => {
+    try {
+      // إرسال الطلب إلى API الخاصة بـ SEO للحصول على رابط ملف robots.txt
+      const seoData = await axios.get('https://dev2.marsawaves.com/api/seo');
+      const robotsUrl = seoData.data.seo.robots; // جلب الرابط من API
+
+      // جلب ملف robots.txt من الرابط
+      const robotsResponse = await axios.get(robotsUrl);
+      res.setHeader('Content-Type', 'text/plain');
+      res.send(robotsResponse.data);
+    } catch (error) {
+      res.status(500).send('Error fetching robots.txt');
+    }
+  });
+
+    // Point of serving sitemap.xml from the server
+    server.get('/sitemap.xml', async (req, res) => {
+      try {
+        const seoData = await axios.get('https://dev2.marsawaves.com/api/seo');
+        const sitemapUrl = seoData.data.seo.sitemap;
+
+        const sitemapResponse = await axios.get(sitemapUrl);
+        res.setHeader('Content-Type', 'application/xml');
+        res.send(sitemapResponse.data);
+      } catch (error) {
+        res.status(500).send('Error fetching sitemap.xml');
+      }
+    });
+
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
@@ -68,5 +99,10 @@ const moduleFilename = (mainModule && mainModule.filename) || '';
 if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
+if (typeof window !== 'undefined' && window.localStorage) {
+  // الكود الخاص بـ localStorage هنا فقط
+  localStorage.setItem('key', 'value');
+}
+
 
 export * from './src/main.server';

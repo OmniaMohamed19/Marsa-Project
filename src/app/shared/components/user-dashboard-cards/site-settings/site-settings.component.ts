@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class SiteSettingsComponent implements OnInit{
   /**************************/
   isOpenDrop = false;
-  selectedLabelCountry!: string;  
-  selectedImgCountry!: string;  
+  selectedLabelCountry!: string;
+  selectedImgCountry!: string;
   countries1 = [
     { label: 'Egypt', flagUrl: '../../../../../assets/images/flags/eg-circle.png' },
     { label: 'Germany', flagUrl: '../../../../../assets/images/flags/eg-circle.png' }
@@ -25,21 +25,25 @@ export class SiteSettingsComponent implements OnInit{
     this.selectedImgCountry = country.flagUrl;
     this.isOpenDrop = true;
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
    /**************************/
    isOpenCurrancy = false;
-   selectedLabelCurrancy!: string;  
-   selectedImgCurrancy!: string;  
+   selectedLabelCurrancy!: string;
+   selectedImgCurrancy!: string;
    countries2 = [
      { label: '$ - USA', flagUrl: '../../../../../assets/images/flags/eg-circle.png' },
      { label: 'Germany', flagUrl: '../../../../../assets/images/flags/eg-circle.png' }
      // Add more countries as needed
    ];
- 
+
    toggleDropdownCurrancy() {
      this.isOpenCurrancy = !this.isOpenCurrancy;
    }
- 
+
    selectCurrancyflag(country: any) {
      this.selectedLabelCurrancy = country.label;
      this.selectedImgCurrancy = country.flagUrl;

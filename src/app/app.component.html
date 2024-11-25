@@ -5,7 +5,6 @@
   </ngx-spinner>
 </div> -->
 <app-connectivity-notification></app-connectivity-notification>
-<!-- <app-connectivity-notification></app-connectivity-notification> -->
 <router-outlet></router-outlet>
 <div
   style="
@@ -22,7 +21,8 @@
     (click)="contactWhatsapp()"
     class="transition-3d-hover"
     style="width:60%; cursor: pointer"
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png"
+    [src]="imageUrl"
+    [alt]="getImageName(imageUrl)"
   />
 </div>
 

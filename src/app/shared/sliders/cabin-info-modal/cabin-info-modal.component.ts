@@ -16,6 +16,10 @@ export class CabinInfoModalComponent {
     @Inject(MAT_DIALOG_DATA) public imageData: any
   ) {}
 
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   closeModal(): void {
     this.dialogRef.close(); // Close the modal
   }

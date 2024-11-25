@@ -148,6 +148,10 @@ export class PaymentComponent {
       locationValue: [''],
     });
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
   getDataById(activityID: any) {
     this._httpService

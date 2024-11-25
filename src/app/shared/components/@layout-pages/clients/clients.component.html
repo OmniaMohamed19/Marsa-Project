@@ -32,8 +32,14 @@
                             </div>
                             <div class="card-img z-index-2 mb-3">
                                 <div class="ml-3">
-                                    <img class="img-fluid rounded-circle" (onError)="onImgError($event)"
-                                        [src]="item.Avatar" alt="Image Description" loading="lazy">
+                                  <img
+                                  class="img-fluid rounded-circle"
+                                  (onError)="onImgError($event)"
+                                  [src]="item.Avatar"
+                                  [alt]="getImageName(item.Avatar)"
+                                  loading="lazy"
+                                >
+
                                 </div>
                             </div>
                         </div>

@@ -50,6 +50,10 @@ export class UserSettingsComponent implements OnInit {
     // Add more countries as needed
   ];
 
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   ngOnInit(): void {}
 
   ngOnChanges() {

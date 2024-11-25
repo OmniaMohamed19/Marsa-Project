@@ -117,9 +117,11 @@ toggleText() {
   this.showFullText = !this.showFullText;
 }
   ngOnInit() {
+    if (typeof window !== 'undefined') {
 
+      this.tourid = localStorage.getItem('destinationId');
+    }
 
-    this.tourid = localStorage.getItem('destinationId');
 
     this.httpService
       .get(environment.marsa, 'place/details/' + this.tourid)
@@ -164,7 +166,10 @@ toggleText() {
 
     }
 
-
+    getImageName(url: string): string {
+      const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+      return imageName || 'Unknown photo';
+    }
 
     toggleSeeMore(rec: any) {
       rec.seeMore = !rec.seeMore;
@@ -233,7 +238,10 @@ toggleText() {
     return array.indexOf(item);
   }
   storeSelectedSight(): void {
-    localStorage.setItem('selectedSight', JSON.stringify(this.selectedSight));
+    if (typeof window !== 'undefined' && window.localStorage){
+
+      localStorage.setItem('selectedSight', JSON.stringify(this.selectedSight));
+    }
 
     //this.router.navigate(['/', this.translate.currentLang, 'destination', 'all-tickets']);
   }

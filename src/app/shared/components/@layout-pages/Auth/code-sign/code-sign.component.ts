@@ -38,7 +38,9 @@ export class CodeSignComponent implements OnInit {
 
   ngOnInit(): void {
     this.startTimer();
-this.email=localStorage.getItem('userEmail');
+    if (typeof window !== 'undefined') {
+      this.email=localStorage.getItem('userEmail');
+    }
 console.log(this.email);
   }
 

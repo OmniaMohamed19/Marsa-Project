@@ -9,6 +9,7 @@
             <img
               src="../../../../../assets/images/whislist.png"
               class="img-fluid"
+             alt="whislist"
             />
           </div>
           <div class="whishlist-content">
@@ -38,7 +39,7 @@
               [numScroll]="1"
               [showIndicators]="false"
               [responsiveOptions]="responsiveOptions"
-              [showNavigators]="item.trips.length > 1" 
+              [showNavigators]="item.trips.length > 1"
               [ngClass]="item.trips.length ===  1 ? 'single-item' : 'multiple-items'"
             >
               <ng-template pTemplate="header">

@@ -19,6 +19,8 @@ export class StepTwoComponent implements OnInit {
   constructor(private toastr: ToastrService) {}
 
   ngOnInit() {
+    if (typeof window !== 'undefined') {
+
     const savedResponseData = localStorage.getItem('responseData');
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
@@ -37,20 +39,30 @@ export class StepTwoComponent implements OnInit {
 
     this.formData.selectedOptions = {};
   }
+}
 
-
+getImageName(url: string): string {
+  const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+  return imageName || 'Unknown photo';
+}
   onOptionChange(option: any, event: any): void {
     if (event.target.checked) {
       this.formData.selectedOptions[option.name] = option;
     } else {
       delete this.formData.selectedOptions[option.name];
     }
-    localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
+    if (typeof window !== 'undefined' && window.localStorage){
+
+      localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
+    }
   }
 
   savenumberOfOption(option: any): void {
     option.number = Math.max(0, option.number || 0);
-    localStorage.setItem('numberOption', this.numberOfOption.toString()); // Save input value to localStorage
+    if (typeof window !== 'undefined' && window.localStorage){
+
+      localStorage.setItem('numberOption', this.numberOfOption.toString()); // Save input value to localStorage
+    }
   }
 
   nextStep(): void {
@@ -64,8 +76,10 @@ export class StepTwoComponent implements OnInit {
       });
       return;
     }
+    if (typeof window !== 'undefined' && window.localStorage){
 
-    localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions)); // Save selected options
+      localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions)); // Save selected options
+    }
     this.next.emit(this.formData);
     window.scrollTo(0, 0);
   }

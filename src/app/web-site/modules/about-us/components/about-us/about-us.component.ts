@@ -34,6 +34,10 @@ export class AboutUsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private dialog: MatDialog
   ) {}
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
   ngOnInit(): void {
     this.getAbout();

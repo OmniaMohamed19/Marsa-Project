@@ -33,7 +33,7 @@
         <div class="container">
           <div class="row mt-2">
             <div class="col-md-6 p-5">
-              <img [src]="data.aboutus?.story_image" alt="" style="
+              <img [src]="data.aboutus?.story_image"  [alt]="getImageName(data.aboutus?.story_image)"  style="
                   width: 100%;
                   height: 100%;
                   border-radius: 20px;
@@ -60,7 +60,7 @@
               </div>
             </div>
             <div class="col-md-6 p-5 order-1 order-md-2">
-              <img [src]="data.aboutus?.mission_image" alt="" style="width: 100%; height: 100%; border-radius: 20px;" />
+              <img [src]="data.aboutus?.mission_image"  [alt]="getImageName(data.aboutus?.mission_image)"  style="width: 100%; height: 100%; border-radius: 20px;" />
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
             <ng-template carouselSlide>
               <div style="display: flex;
     justify-content: center;">
-                <img [src]="item.icon" alt="Competitive Pricing" class="Why_chosse_us text-center" />
+                <img [src]="item.icon"  [alt]="getImageName(item.icon)"  class="Why_chosse_us text-center" />
               </div>
 
               <div>
@@ -143,7 +143,7 @@
       <div class="row icon-block justify-content-center align-items-center">
         <div class="col-6 col-sm-6 col-md-3 mb-4" *ngFor="let item of data.counter.slice(0, 4)">
           <div class="d-flex justify-content-center">
-            <img [src]="item.icon" alt="img-description" class="Why_chosse_us text-center" />
+            <img [src]="item.icon"  [alt]="getImageName(item.icon)"  class="Why_chosse_us text-center" />
           </div>
           <div>
             <h5 class="mb-2 pt-3">{{ item.title }}</h5>
@@ -166,7 +166,7 @@
           <owl-carousel-o [options]="aboutOptions" class="my-destination">
             <ng-container *ngFor="let imagePath of partnerPaths">
               <ng-template carouselSlide>
-                <img [src]="imagePath" alt="Partner Image" class="partner_img" />
+                <img [src]="imagePath"  [alt]="getImageName(imagePath)"  alt="Partner Image" class="partner_img" />
               </ng-template>
             </ng-container>
           </owl-carousel-o>
@@ -198,7 +198,7 @@
               <div style="display: flex;
     justify-content: center;">
                 <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
-                  <img [src]="item.icon" alt="Image-Descrition" />
+                  <img [src]="item.icon"  [alt]="getImageName(item.icon)"  alt="Image-Descrition" />
                 </figure>
               </div>
 

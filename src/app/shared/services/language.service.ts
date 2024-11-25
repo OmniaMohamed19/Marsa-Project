@@ -28,7 +28,10 @@ export class LanguageService {
       htmlTag.dir = language === 'en' ? 'ltr' : 'ltr';
       htmlTag.lang = language;
       this.translateService.use(language);
-      localStorage.setItem('lang', language);
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('lang', language);
+      }
       this.currentLang.next(language);
 
       /// Get the current URL segments
@@ -36,13 +39,13 @@ export class LanguageService {
       currentUrlSegments[1] = language;
       // Construct the new URL and navigate to it
       const newUrl = currentUrlSegments.join('/');
-      
+
       if (!init) {
         this.router.navigateByUrl(newUrl).then(() => {
           window.location.reload();
         })
       }
-    
+
     } else {
       this.setCurrentLang('en');
     }

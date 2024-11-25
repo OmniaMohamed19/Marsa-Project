@@ -54,9 +54,12 @@ export class AuthService {
           // set auth status and token
           this.$isAuthenticated.next(true);
           this.token = res.data.accessToken;
-          localStorage.setItem('userToken', res.data.accessToken);
-          // set user data
-          localStorage.setItem('userData', JSON.stringify(res.data.userData));
+          if (typeof window !== 'undefined' && window.localStorage){
+
+            localStorage.setItem('userToken', res.data.accessToken);
+            // set user data
+            localStorage.setItem('userData', JSON.stringify(res.data.userData));
+          }
           this.$userData.next(res.data.userData);
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate([this.router.url]);
@@ -101,9 +104,14 @@ export class AuthService {
               // set auth status and token
               this.$isAuthenticated.next(true);
               this.token = res.access_token;
-              localStorage.setItem('userToken', res.access_token);
-              // set user data
-              localStorage.setItem('userData', JSON.stringify(res.user));
+              if (typeof window !== 'undefined' && window.localStorage){
+
+                localStorage.setItem('userToken', res.access_token);
+                // set user data
+                localStorage.setItem('userData', JSON.stringify(res.user));
+              }
+              if (typeof window !== 'undefined') {
+
               this.$userData.next(res.user);
               this.dialog?.closeAll();
               window.location.href =
@@ -112,6 +120,7 @@ export class AuthService {
                 localStorage.getItem('lang') +
                 '/new-password';
             }
+          }
           } else {
             this.$loginError.next(true);
           }
@@ -138,9 +147,12 @@ export class AuthService {
           // set auth status and token
           this.$isAuthenticated.next(true);
           this.token = res.access_token;
-          localStorage.setItem('userToken', res.access_token);
-          // set user data
-          localStorage.setItem('userData', JSON.stringify(res.user));
+          if (typeof window !== 'undefined' && window.localStorage){
+
+            localStorage.setItem('userToken', res.access_token);
+            // set user data
+            localStorage.setItem('userData', JSON.stringify(res.user));
+          }
           this.$userData.next(res.user);
           this.dialog?.closeAll();
           window.location.reload();
@@ -179,6 +191,8 @@ export class AuthService {
   }
 
   autoAuth() {
+    if (typeof window !== 'undefined') {
+
     const token = localStorage.getItem('userToken');
     if (token) {
       // Set authentication status only if token exists
@@ -191,13 +205,17 @@ export class AuthService {
       this.$isAuthenticated.next(false);
     }
   }
+}
 
   getToken() {
-    if (localStorage.getItem('userToken')) {
-      this.token = localStorage.getItem('userToken')!;
-      return this.token;
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('userToken')) {
+        this.token = localStorage.getItem('userToken')!;
+        return this.token;
+      }
     }
     return '';
+
   }
 
   getAuthStatus() {
@@ -205,9 +223,11 @@ export class AuthService {
   }
 
   getUserData() {
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      this.$userData.next(userData);
+    if (typeof window !== 'undefined') {
+      const userData = localStorage.getItem('userData');
+      if (userData) {
+        this.$userData.next(userData);
+      }
     }
     return this.$userData as Observable<any>;
   }
@@ -218,9 +238,12 @@ export class AuthService {
         next: (res: any) => {
           this.$isAuthenticated.next(true);
           this.token = res.data.access_token;
-          localStorage.setItem('userToken', res.data.access_token);
+          if (typeof window !== 'undefined' && window.localStorage){
 
-          localStorage.setItem('userData', JSON.stringify(res.data.user));
+            localStorage.setItem('userToken', res.data.access_token);
+
+            localStorage.setItem('userData', JSON.stringify(res.data.user));
+          }
           this.$userData.next(res.data.user);
           this.$profileUpdated.next(true);
 

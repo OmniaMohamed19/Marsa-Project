@@ -24,7 +24,7 @@
               (click)="toggleDropdown()"
             >
               <div class="dropdown-btn d-flex align-items-center gap-1">
-                <img src="{{ selectedImg }}" width="20" height="20" />
+                <img src="{{ selectedImg }}"  [alt]="getImageName(selectedImg)"  width="20" height="20" />
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

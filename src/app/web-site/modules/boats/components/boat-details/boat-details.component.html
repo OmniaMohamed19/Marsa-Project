@@ -42,7 +42,7 @@
                   <img
                     src="assets/custom/Activity/locationDark.svg"
                     class="pe-2"
-                    alt="IMG"
+                    alt="location"
                   />
                   <a class="location">{{ boatData?.Place }}</a>
                   <a
@@ -110,7 +110,7 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.PrintedOrMobileVoucherAccepted > 0"
             >
-              <img src="assets/custom/Activity/booking.svg" alt="icon" />
+              <img src="assets/custom/Activity/booking.svg" alt="booking" />
               <div class="ml-1 text-gray-1">
                 Printed or mobile voucher accepted
               </div>
@@ -123,14 +123,14 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.OpenDateTicket > 0"
             >
-              <img src="assets/custom/Activity/document.svg" alt="icon" />
+              <img src="assets/custom/Activity/document.svg" alt="document" />
               <div class="ml-1 text-gray-1">Open Date Ticket</div>
             </li>
             <li
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.CollectPhysicalTicket > 0"
             >
-            <img src="../../../../../../assets/icons/pickUp.svg" width="24" height="24">
+            <img src="../../../../../../assets/icons/pickUp.svg" alt="pickUp" width="24" height="24">
               <div class="ml-1 text-gray-1">Collect Physical Ticket</div>
             </li>
           </ul>
@@ -161,11 +161,11 @@
               [numVisible]="6"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="item?.value" style="width: 100%; height: 480px" />
+                <img [src]="item?.value"  [alt]="getImageName(item?.value)"  style="width: 100%; height: 480px" />
               </ng-template>
               <ng-template pTemplate="thumbnail" let-item>
                 <div class="grid grid-nogutter justify-content-center">
-                  <img [src]="item?.value" />
+                  <img [src]="item?.value" [alt]="getImageName(item?.value)" />
                 </div>
               </ng-template>
             </p-galleria>
@@ -181,7 +181,7 @@
               [showThumbnails]="false"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="item?.value" style="width: 100%; height: 480px" />
+                <img [src]="item?.value"  [alt]="getImageName(item?.value)" style="width: 100%; height: 480px" />
               </ng-template>
             </p-galleria>
             <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
@@ -198,7 +198,7 @@
                 <img
                   src="assets/custom/Activity/youtube.svg"
                   class="d-md-inline w-100"
-                  alt="video"
+                  alt="youtube"
                   title="Video"
                 />
               </a>
@@ -402,7 +402,7 @@
                       class="card-img-top"
                       (click)="openCabinSliderModal(cabin)"
                       [src]="cabin?.image[0]"
-                      alt="Accommodations image"
+                      [alt]="getImageName(cabin?.image[0])"
                     />
                     <div class="card-body">
                       <p
@@ -434,7 +434,7 @@
                 <div class="col-md-7">
                   <div class="position-relative mt-4">
                     <div>
-                      <img [src]="item?.cover" class="w-100" alt="boat" />
+                      <img [src]="item?.cover" [alt]="getImageName(item?.value)" class="w-100" alt="boat" />
                     </div>
                     <div
                       class="flex-horizontal-center position-absolute"
@@ -449,7 +449,7 @@
                         <img
                           src="assets/custom/Activity/youtube.svg"
                           class="me-2"
-                          alt="video"
+                          alt="youtube"
                         /><span class="d-none d-md-inline">Video</span>
                       </a>
                       <!-- End Video -->
@@ -460,7 +460,7 @@
                         <img
                           src="assets/custom/Activity/gallary.svg"
                           class="me-2"
-                          alt="video"
+                          alt="gallary"
                         /><span class="d-none d-md-inline">Gallery</span>
                       </a>
                     </div>
@@ -488,6 +488,7 @@
                   <ng-template pTemplate="item" let-item>
                     <img
                       [src]="item?.value"
+                      [alt]="getImageName(item?.value)"
                       style="width: 100%; height: 480px"
                     />
                   </ng-template>
@@ -554,7 +555,7 @@
               <div class="col-md-5">
                 <img
                   [src]="happyGustImages[0]"
-                  [alt]=""
+                  [alt]="getImageName(happyGustImages[0])"
                   style="cursor: pointer; max-width: 100%; height: 100%"
                   (click)="imageClick(0)"
                 />
@@ -575,7 +576,7 @@
                   >
                     <img
                       [src]="image"
-                      [alt]="image"
+                      [alt]="getImageName(image)"
                       style="cursor: pointer; max-width: 100%; height: 100%"
                       (click)="imageClick(index + 1)"
                     />
@@ -597,7 +598,8 @@
                   >
                     <img
                       [src]="remainingImages[3]"
-                      alt="tour"
+                      [alt]="getImageName(remainingImages[3])"
+
                       style="cursor: pointer; max-width: 100%; height: 100%"
                       (click)="imageClick(4)"
                     />
@@ -648,7 +650,7 @@
             [showThumbnails]="false"
           >
             <ng-template pTemplate="item" let-item>
-              <img [src]="item?.value" style="width: 100%; display: block" />
+              <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; display: block" />
             </ng-template>
           </p-galleria>
           <div id="review" class="tab-pane">

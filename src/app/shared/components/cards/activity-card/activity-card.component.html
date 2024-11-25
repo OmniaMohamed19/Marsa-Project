@@ -8,7 +8,7 @@
         style="filter: brightness(1); height: 200px"
         class="w-100"
         [src]="item?.cover"
-        alt="img"
+        [alt]="getImageName(item?.cover)"
       />
       <div
         style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, #1e2022 0%, transparent 35%);"
@@ -82,11 +82,11 @@
     </div>
     <div class="mb-1 review">
       <div class="d-flex gap-2">
-        <img src="../../../../../assets/custom/Activity/locationDark.svg" style="width: 14.97px" alt="icon" />
+        <img src="../../../../../assets/custom/Activity/locationDark.svg" style="width: 14.97px" alt="location" />
         <span class="pb-0">{{ item?.place }}</span>
       </div>
       <div class="d-flex gap-2 pt-2">
-        <img src="../../../../../assets/custom/Activity/time.png" style="width: 14.97px" alt="icon" />
+        <img src="../../../../../assets/custom/Activity/time.png" style="width: 14.97px" alt="time" />
         <span class="pb-0">{{ item.duration }} {{ item.durationType }}</span>
       </div>
     </div>

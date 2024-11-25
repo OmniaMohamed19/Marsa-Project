@@ -54,7 +54,7 @@
                 <img
                   src="assets/custom/Activity/locationDark.svg"
                   class="pe-2"
-                  alt="IMG"
+                  alt="location"
                 />
                 <a class="location">{{ activityData?.Place }}</a>
                 <a
@@ -220,11 +220,11 @@
               [numVisible]="6"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="item?.value" style="width: 100%; height: 480px" />
+                <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; height: 480px" />
               </ng-template>
               <ng-template pTemplate="thumbnail" let-item>
                 <div class="grid grid-nogutter justify-content-center">
-                  <img [src]="item?.value" />
+                  <img [src]="item?.value" [alt]="getImageName(item?.value)" />
                 </div>
               </ng-template>
             </p-galleria>
@@ -240,7 +240,7 @@
               [showThumbnails]="false"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="item?.value" style="width: 100%; height: 480px" />
+                <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; height: 480px" />
               </ng-template>
             </p-galleria>
             <!-- <owl-carousel-o [options]="coverAndImagesOptions" class="trending">
@@ -272,7 +272,7 @@
                 <img
                   src="assets/custom/Activity/youtube.svg"
                   class="d-md-inline w-100"
-                  alt="video"
+                  alt="youtube"
                   title="Video"
                 />
               </a>
@@ -966,7 +966,7 @@
                   <div class="col-md-7">
                     <div class="position-relative mt-4">
                       <div>
-                        <img [src]="item?.cover" class="w-100" alt="boat" />
+                        <img [src]="item?.cover" [alt]="getImageName(item?.cover)" class="w-100" alt="boat" />
                       </div>
                       <div
                         class="flex-horizontal-center position-absolute"
@@ -981,7 +981,7 @@
                           <img
                             src="assets/custom/Activity/youtube.svg"
                             class="me-2"
-                            alt="video"
+                            alt="youtube"
                           /><span class="d-none d-md-inline">Video</span>
                         </a>
                         <!-- End Video -->
@@ -992,7 +992,7 @@
                           <img
                             src="assets/custom/Activity/gallary.svg"
                             class="me-2"
-                            alt="video"
+                            alt="gallary"
                           />
                           <span class="d-none d-md-inline">Gallery</span>
                         </a>
@@ -1010,6 +1010,7 @@
                           <ng-template pTemplate="item" let-item>
                             <img
                               [src]="item?.value"
+                              [alt]="getImageName(item?.value)"
                               style="width: 100%; height: 480px"
                             />
                           </ng-template>
@@ -1088,7 +1089,7 @@
                 <div class="col-md-5">
                   <img
                     [src]="happyGustImages[0]"
-                    [alt]=""
+                    [alt]="getImageName(happyGustImages[0])"
                     style="cursor: pointer; max-width: 100%; height: 100%"
                     (click)="imageClick(0)"
                   />
@@ -1119,7 +1120,7 @@
                     >
                       <img
                         [src]="image"
-                        [alt]="image"
+                        [alt]="getImageName(image)"
                         style="cursor: pointer; max-width: 100%; height: 100%"
                         (click)="imageClick(index + 1)"
                       />
@@ -1149,6 +1150,7 @@
                     >
                       <img
                         [src]="remainingImages[3]"
+                        [alt]="getImageName(remainingImages[3])"
                         alt="tour"
                         style="cursor: pointer; max-width: 100%; height: 100%"
                         (click)="imageClick(4)"
@@ -1214,7 +1216,7 @@
             [showThumbnails]="false"
           >
             <ng-template pTemplate="item" let-item>
-              <img [src]="item?.value" style="width: 100%; display: block" />
+              <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; display: block" />
             </ng-template>
           </p-galleria>
           <div id="review" class="tab-pane">

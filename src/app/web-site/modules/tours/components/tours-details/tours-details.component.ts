@@ -156,6 +156,10 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
   // Method to get the displayed description
   getDisplayedDescription(): string {

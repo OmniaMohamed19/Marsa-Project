@@ -46,12 +46,39 @@ export class MultiStepFormComponent {
     }
   }
 
-  goToPreviousStep(): void {
+  // goToPreviousStep(): void {
     
+  //   if (this.currentStep > 1) {
+  //     this.currentStep--;
+  //   }
+  // }
+  selectedCar:any;
+  goToPreviousStep(): void {
+    // استرجاع البيانات المخزنة
+    const selectedCarData = localStorage.getItem('selectedCar');
+    const formDataData = localStorage.getItem('formData');
+  
+    if (selectedCarData) {
+      this.selectedCar = JSON.parse(selectedCarData); // تحويل البيانات إلى كائن
+      console.log('Selected Car Data:', this.selectedCar);
+    } else {
+      console.log('No data found for selectedCar in localStorage');
+    }
+  
+    if (formDataData) {
+      this.formData = JSON.parse(formDataData); // تحويل البيانات إلى كائن
+      console.log('Form Data:', this.formData);
+    } else {
+      console.log('No data found for formData in localStorage');
+    }
+  
+    // تقليل الخطوة
     if (this.currentStep > 1) {
       this.currentStep--;
     }
   }
+  
+ 
 
   submitForm(data: any): void {
     this.formData = { ...this.formData, ...data };

@@ -4,6 +4,8 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 import { DataService } from 'src/app/web-site/modules/transfer/dataService';
 import { environment } from 'src/environments/environment.prod';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-step-one',
@@ -72,7 +74,7 @@ details:any;
   };
   countries: any;
 
-  constructor(private toastr: ToastrService,private dataService: DataService, private httpService: HttpService) {}
+  constructor( public translate: TranslateService, private toastr: ToastrService,private httpService: HttpService) {}
 
   ngOnInit() {
 
@@ -91,12 +93,14 @@ details:any;
     });
 
     // Retrieve saved data from localStorage
-    const savedResponseData = localStorage.getItem('responseData');
-    const bookingDetail = localStorage.getItem('bookdetail');
-    const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
-    this.return_date= localStorage.getItem('returnDate');
-    this.return_time= localStorage.getItem('returnPickuptime');
-    const savedSection = localStorage.getItem('activeSection');
+    if (typeof window !== 'undefined') {
+      const savedResponseData = localStorage.getItem('responseData');
+      const bookingDetail = localStorage.getItem('bookdetail');
+      const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
+      this.return_date= localStorage.getItem('returnDate');
+      this.return_time= localStorage.getItem('returnPickuptime');
+      const savedSection = localStorage.getItem('activeSection');
+
     if (savedSection) {
       this.activeSection = savedSection;
 
@@ -128,6 +132,11 @@ details:any;
     this.formData.pickuptime = this.bookdetail?.pickuptime || '';
     this.formData.date = this.bookdetail?.date || '';
   }
+}
+getImageName(url: string): string {
+  const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+  return imageName || 'Unknown photo'; 
+}
 
   // Save selected car in local storage when a car is clicked
   onCarClick(event:any, carId: number): void {
@@ -138,7 +147,10 @@ details:any;
 
     if (selectedCarObject) {
       this.selectedCar = selectedCarObject;
-      localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
+      }
     }
   }
   // Function to proceed to the next step
@@ -146,7 +158,10 @@ details:any;
 
     if (form.valid && this.selectedCarId!=undefined) {
       // Save the entire formData to localStorage
-      localStorage.setItem('formData', JSON.stringify(this.formData));
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('formData', JSON.stringify(this.formData));
+      }
       this.next.emit();
       window.scrollTo(0, 0);
     }

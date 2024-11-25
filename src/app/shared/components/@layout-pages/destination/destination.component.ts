@@ -100,9 +100,13 @@ export class DestinationComponent implements OnInit {
   }
 
   logId(id: any): void {
-    localStorage.setItem('destinationId', id);
+    if (typeof window !== 'undefined' && window.localStorage)
+    {
+
+      localStorage.setItem('destinationId', id);
+    }
     console.log('Clicked Destination ID:', id);
   }
 
-  
+
 }

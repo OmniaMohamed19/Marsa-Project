@@ -104,8 +104,11 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
 
 
     // Retrieve and set the saved values if any
-    this.returnDate = localStorage.getItem('returnDate') || '';
-    this.returnPickuptime = localStorage.getItem('returnPickuptime') || '';
+    if (typeof window !== 'undefined') {
+
+      this.returnDate = localStorage.getItem('returnDate') || '';
+      this.returnPickuptime = localStorage.getItem('returnPickuptime') || '';
+    }
     console.log('Retrieved returnDate:', this.returnDate);
     console.log('Retrieved returnPickuptime:', this.returnPickuptime);
   }
@@ -116,6 +119,10 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
         this.changeBackgroundImage();
       }
     }, 4000); // تغيير الصورة كل 4 ثوانٍ
+  }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
   }
 
   changeBackgroundImage() {
@@ -151,7 +158,10 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
   setActiveSection(section: string) {
 
     this.activeSection = section;
-    localStorage.setItem('activeSection', section);
+    if (typeof window !== 'undefined' && window.localStorage){
+
+      localStorage.setItem('activeSection', section);
+    }
   }
 
   seePrice() {
@@ -207,16 +217,22 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       console.log(body);
 
       // Save the body object in localStorage
-      localStorage.setItem('bookdetail', JSON.stringify(body));
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('bookdetail', JSON.stringify(body));
 
 
-      // Save the return date and return pickup time separately
-      localStorage.setItem('returnDate', this.returnDate || '');
-      localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
+        // Save the return date and return pickup time separately
+        localStorage.setItem('returnDate', this.returnDate || '');
+        localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
+      }
 
       // Save the activeSection value separately
       const activeSectionValue = this.activeSection === 'section1' ? '2' : '1';
-      localStorage.setItem('activeSection', activeSectionValue);
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('activeSection', activeSectionValue);
+      }
 
       // Make the HTTP request
       this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({
@@ -225,7 +241,10 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
 
           // Store the response data in both the service and localStorage
           this.dataService.setResponseData(res);
-          localStorage.setItem('responseData', JSON.stringify(res));
+          if (typeof window !== 'undefined' && window.localStorage){
+
+            localStorage.setItem('responseData', JSON.stringify(res));
+          }
 
           // Navigate to the multi-step page
           this.router.navigate(
@@ -328,7 +347,10 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       this.availableToOptions = this.transferDetails?.hotel || [];
 
       // Store the word "airport" in local storage
-      localStorage.setItem('selectedFromType', 'airport');
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('selectedFromType', 'airport');
+      }
     } else if (option.city) {
       // If a hotel is selected
       this.selectedFromName = option.city;
@@ -337,7 +359,10 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       this.availableToOptions = this.transferDetails?.airports || [];
 
       // Store the word "hotel" in local storage (if needed)
-      localStorage.setItem('selectedFromType', 'hotel');
+      if (typeof window !== 'undefined' && window.localStorage){
+
+        localStorage.setItem('selectedFromType', 'hotel');
+      }
     }
     // Reset the search and filtered options for the second dropdown
     this.searchTo = '';

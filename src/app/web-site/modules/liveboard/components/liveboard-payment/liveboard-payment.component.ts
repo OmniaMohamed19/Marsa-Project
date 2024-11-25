@@ -81,6 +81,10 @@ export class LiveboardPaymentComponent implements OnInit {
     //   document.getElementById(id)?.setAttribute('style', 'display:none');
     // }
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
   ngOnInit(): void {
     this.edit=localStorage['edit']
@@ -384,6 +388,17 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   confirmBookingByCard(event: Event) {
+    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
+
+      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return; 
+    }
     event.preventDefault();
 
     if (this.customerForm.valid) {

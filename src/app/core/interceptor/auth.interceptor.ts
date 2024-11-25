@@ -28,14 +28,16 @@ export class AuthInterceptor implements HttpInterceptor {
      private toastr:ToastrService) {}
   private unsubscribe$ = new Subject<void>();
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('userToken');
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        const modifiedRequest = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    if (token) {
-      const modifiedRequest = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+
 
       return next.handle(modifiedRequest).pipe(
         finalize(() => {
@@ -65,6 +67,7 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       );
     }
+  }
 
     return next.handle(request);
   }

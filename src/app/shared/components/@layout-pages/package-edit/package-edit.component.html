@@ -37,15 +37,15 @@
           <p>
             UP TO <span>{{ package.discount }}</span>
           </p>
-          <img src="../../../../../assets/images/Vector Smart Object.svg" />
+          <img src="../../../../../assets/images/Vector Smart Object.svg" alt="Vector Smart Object" />
         </div>
       </div>
       <div class="container">
         <div class="row">
           <div class="col-lg-6 first-column">
             <div class="packages-img">
-              <img src="../../../../../assets/images/Vacation.svg"  />
-              <img src="../../../../../assets/images/Packages.svg" />
+              <img src="../../../../../assets/images/Vacation.svg" alt="Vacation"  />
+              <img src="../../../../../assets/images/Packages.svg"  alt="Packages"/>
             </div>
             <div>
               <ul class="list-unstyled package-list">
@@ -88,6 +88,7 @@
                           class="pe-4"
                           alt="location"
                           loading="lazy"
+
                         />
                       </span>
                       <span>
@@ -118,30 +119,7 @@
                       </span>
                       <span> {{ package?.CountTrips }} Trips </span>
                     </li>
-                    <!--<li>
-                                            <span>
-                                                <img src="../../../../../assets/images/location(1).svg">
-                                            </span>
-                                            <span>
-                                                Marsa Alam
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <img src="../../../../../assets/images/chronometer(1).svg">
-                                            </span>
-                                            <span>
-                                                6 Days
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <img src="../../../../../assets/images/discount(1).svg">
-                                            </span>
-                                            <span>
-                                                3 Trips
-                                            </span>
-                                        </li>-->
+
                   </ul>
                   <div class="d-none d-lg-block" style="margin-bottom: 60px">
                     <button
@@ -163,17 +141,7 @@
             </div>
           </div>
           <div class="col-lg-6 position-relative">
-            <!-- <div class="diving-images">
-              <div >
-                <img [src]="package?.cover1" />
-              </div>
-              <div>
-                <img [src]="package?.cover2" />
-              </div>
-              <div class="div2">
-                <img [src]="package?.cover3" />
-              </div>
-            </div> -->
+
 
             <div *ngIf="isSmallScreen; else normalImages" class="diving-carousel">
               <owl-carousel-o [options]="carouselOptions">
@@ -221,7 +189,7 @@
           </div>
           <span>discount</span>
         </div>
-        <img src="../../../../../assets/images/Vector Smart Object.svg" style="  width: 26%;" />
+        <img src="../../../../../assets/images/Vector Smart Object.svg" alt="Vector Smart Object" style="  width: 26%;" />
       </div>
     </section>
   </div>

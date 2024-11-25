@@ -10,6 +10,7 @@
         style="height: 200px"
         class="min-height-230 bg-img-hero w-100"
         [src]="item.cover"
+        [alt]="getImageName(item?.cover)"
       />
       <div
         style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, #1e2022 0%, transparent 49%);"
@@ -80,7 +81,7 @@
             src="assets/custom/Activity/locationDark.svg"
             style="width: 15px"
             class="me-2"
-            alt="Hurghada"
+            alt="Location"
           />
           {{ item.place }}
         </div>
@@ -108,14 +109,14 @@
           <img
             src="assets/custom/boat-icons/user.svg"
             class="me-2 boat-icon"
-            alt="boat icons"
+            alt="boat"
           /><span>{{ item.person }}</span>
         </div>
         <div>
           <img
             src="assets/custom/boat-icons/flexable booking.svg"
             class="me-2 boat-icon"
-            alt="boat icons"
+            alt="boat"
           /><span>Flexible Booking</span>
         </div>
       </div>
@@ -124,14 +125,14 @@
           <img
             src="assets/custom/boat-icons/Forma.svg"
             class="me-1 boat-icon"
-            alt="boat icons"
+            alt="boat"
           /><span>{{ item.bed }}</span>
         </div>
         <div>
           <img
             src="assets/custom/boat-icons/wifi.svg"
             class="me-1 boat-icon"
-            alt="boat icons"
+            alt="boat"
           /><span>Free Internet</span>
         </div>
       </div>

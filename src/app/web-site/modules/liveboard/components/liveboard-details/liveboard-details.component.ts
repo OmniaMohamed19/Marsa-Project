@@ -556,10 +556,13 @@ export class LiveboardDetailsComponent {
                 adult: this.persons,
                 schedules_id: this.schedules_id,
               };
-              localStorage.setItem(
-                'queryParamsliveaboard',
-                JSON.stringify(queryParams)
-              );
+              if (typeof window !== 'undefined' && window.localStorage){
+
+                localStorage.setItem(
+                  'queryParamsliveaboard',
+                  JSON.stringify(queryParams)
+                );
+              }
               this._Router.navigate(
                 [
                   '/',
@@ -573,6 +576,10 @@ export class LiveboardDetailsComponent {
           });
       }
     }
+  }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
   }
   addtoFavorits(btn: any, event: any) {
     if (btn.classList.contains('bg-primary')) {

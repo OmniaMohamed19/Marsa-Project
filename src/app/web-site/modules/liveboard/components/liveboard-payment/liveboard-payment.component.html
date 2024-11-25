@@ -27,7 +27,8 @@
                       <owl-carousel-o [options]="customOptions">
                         <ng-container *ngFor="let cabin of cabins">
                           <ng-template carouselSlide>
-                            <img [src]="cabin.images[0]" alt="Aquavita" />
+                            <img [src]="cabin.images[0]" [alt]="getImageName(cabin.images[0])"
+                            />
                           </ng-template>
                         </ng-container>
                       </owl-carousel-o>
@@ -81,7 +82,7 @@
                                 <small
                                   ><img
                                     src="assets/custom/boat-icons/Forma.svg"
-                                    alt=""
+                                    alt="boat"
                                 /></small>
                               </small>
                               <div class="media-body font-size-1">
@@ -115,7 +116,7 @@
                             >
                               <img
                                 src="assets/custom/Activity/Indeterminate check box.svg"
-                                alt=""
+                                alt="check"
                               />
                             </a>
                             <!-- <input
@@ -135,7 +136,7 @@
                             >
                               <img
                                 src="assets/custom/Activity/Add box.svg"
-                                alt=""
+                                alt="add"
                               />
                             </a>
                           </div>
@@ -476,7 +477,7 @@
                     <img
                       class="img-fluid mb-3"
                       src="../../../../../../assets/custom/Activity/banknotes.png"
-                      alt="Image Description"
+                      alt="banknotes"
                     />
                     <div class="w-100 text-dark">Book now Cash</div>
                   </div>
@@ -500,7 +501,7 @@
                     <img
                       class="img-fluid mb-3"
                       src="../../../../../../assets/custom/Activity/payment.png"
-                      alt="Image Description"
+                      alt="payment"
                     />
                     <div class="w-100 text-dark">Payment with Card</div>
                   </div>
@@ -707,7 +708,8 @@
             <img
               class="img-fluid rounded-sm"
               [src]="liveabourdData?.Cover"
-              alt="Image Description"
+              [alt]="getImageName(liveabourdData?.Cover)"
+
             />
           </a>
           <a href="#" class=" px-4 text-dark mb-2 d-block font-weighted">{{
@@ -720,7 +722,7 @@
           <div class="mb-1 px-4 flex-horizontal-center text-gray-1">
             <img
               src="assets/custom/Activity/locationDark.svg"
-              alt="Hurghada"
+              alt={{liveabourdData?.Place}}
               class="me-2"
             />
             {{ liveabourdData?.Place }}

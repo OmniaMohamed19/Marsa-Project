@@ -6,7 +6,8 @@
                 style="filter: brightness(1); height: 200px"
                 class="w-100"
                 [src]="item?.cover"
-                alt="img"
+                [alt]="getImageName(item?.cover)"
+
                 />
             </a>
 
@@ -29,7 +30,7 @@
         <div class="position-absolute bottom-0 left-0 right-0">
             <div class="px-3 pb-3">
                 <div class="d-flex gap-2"><img src="../../../../../assets/icons/location-package.svg"
-                        style="width: 14.97px;" alt="icon">
+                        style="width: 14.97px;" alt="location">
                     <span class="pb-0 place-location">
                         {{item.Place}}
                     </span>

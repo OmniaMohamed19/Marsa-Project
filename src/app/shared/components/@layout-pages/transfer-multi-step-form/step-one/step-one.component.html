@@ -10,8 +10,13 @@
                  (click)="onCarClick($event, item.id)"
                  [class.active]="selectedCarId === item.id">
 
-              <img [src]="item.cover" alt="{{item.name}}" class="img-fluid" style="height: 200px;">
-              <h2 class="text-center mt-3">{{ item.name }}</h2>
+                 <img
+                 [src]="item.cover"
+                 [alt]="getImageName(item.cover)"
+                 class="img-fluid"
+                 style="height: 200px;"
+               />
+                             <h2 class="text-center mt-3">{{ item.name }}</h2>
 
               <div class="car-data mb-3 mt-1">
                 <span>
@@ -228,7 +233,7 @@
     </div>
 
     <div class="btns">
-      <button type="button" (click)="previousStep()">Cancel</button>
+      <button type="button" routerLink="/{{ translate.currentLang }}/privacy/privacy">Cancel</button>
       <button type="submit">Book Now</button>
     </div>
   </form>

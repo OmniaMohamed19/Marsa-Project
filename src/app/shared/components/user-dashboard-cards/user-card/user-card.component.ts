@@ -26,7 +26,10 @@ export class UserCardComponent {
   total: number = 0;
 
   // constructor(private profileService: ProfileService) {}
-
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
       this.userDetails = data?.userDashboard;

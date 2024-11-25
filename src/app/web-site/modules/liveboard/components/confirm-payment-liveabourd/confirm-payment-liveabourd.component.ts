@@ -47,6 +47,7 @@ export class ConfirmPaymentLiveabourdComponent {
       });
   }
   ReturnToPayment(){
+    if (typeof window !== 'undefined') {
     const storedQueryParams = localStorage.getItem('queryParamsliveaboard');
 if (storedQueryParams) {
     const queryParams = JSON.parse(storedQueryParams);
@@ -59,6 +60,7 @@ if (storedQueryParams) {
     );
 }
   }
+}
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,

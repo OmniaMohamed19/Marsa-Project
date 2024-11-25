@@ -14,12 +14,15 @@ export class AllTicketsComponent implements OnInit {
   overview:any;
 
   ngOnInit() {
-    const storedSight = localStorage.getItem('selectedSight');
-    if (storedSight) {
-      this.name=JSON.parse(storedSight).name;
-      this.overview=JSON.parse(storedSight).short_overveiw;
-      this.AllActivities = JSON.parse(storedSight).trips;
-      this.showMore();
+    if (typeof window !== 'undefined') {
+
+      const storedSight = localStorage.getItem('selectedSight');
+      if (storedSight) {
+        this.name=JSON.parse(storedSight).name;
+        this.overview=JSON.parse(storedSight).short_overveiw;
+        this.AllActivities = JSON.parse(storedSight).trips;
+        this.showMore();
+      }
     }
   }
 

@@ -50,7 +50,10 @@ export class ResetComponent implements OnInit {
     this.changeReqister('otp');
     if (form.valid) {
       const email = this.resetForm.value.email;
-      localStorage.setItem('userEmail', email);
+      if (typeof window !== 'undefined' && window.localStorage){
+        localStorage.setItem('userEmail', email);
+
+      }
       this._AuthService.sendEmail({ email }).subscribe({
         next: (res: any) => {
           this.showResetForm = false;

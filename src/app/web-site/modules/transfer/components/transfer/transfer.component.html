@@ -668,7 +668,7 @@
       <div class="row d-md-flex d-none">
         <div *ngFor="let feature of transferDetails?.features" class="col-md-3 text-center">
           <div class="image">
-            <img [src]="feature.icon" style="width: 50px; height: 50px" />
+            <img [src]="feature.icon" [alt]="getImageName(feature.icon)" style="width: 50px; height: 50px" />
           </div>
           <div class="caption text-center">
             <h4 class="pt-4">{{ feature?.title }}</h4>
@@ -685,7 +685,7 @@
           <ng-template carouselSlide>
             <div class="text-center">
               <div class="image">
-                <img [src]="feature.icon" style="width: 29px; height: 29px" />
+                <img [src]="feature.icon" [alt]="getImageName(feature.icon)" style="width: 29px; height: 29px" />
               </div>
               <div class="caption text-center">
                 <h4 class="pt-4">{{ feature?.title }}</h4>
@@ -702,7 +702,7 @@
         <h3 class="pb-2">Transfer service includes</h3>
         <div class="col-lg-6">
           <div class="position-relative layer-img">
-            <img src={{transferDetails?.includeimage}} alt="" />
+            <img src={{transferDetails?.includeimage}}  />
             <div class="layer">
               <p>
                 Explore one of the world’s best art museums at your own pace
@@ -721,7 +721,7 @@
                 alt="img"
               /> -->
 
-              <img [src]="inc?.icon" style="width: 40px; height: 40px" class="me-3" alt="img" />
+              <img [src]="inc?.icon" [alt]="getImageName(inc?.icon)" style="width: 40px; height: 40px" class="me-3" />
               <div style="margin-top:0.5rem">
                 {{ inc.desc }}
               </div>
@@ -787,7 +787,7 @@
                   <div class="">
                     <a class="d-block" href="#">
                       <img class="img-fluid mb-3 mb-md-0 rounded-circle" style="width: 75%; margin: auto;"
-                        [src]="review.avatar" alt="Image Description" />
+                        [src]="review.avatar" [alt]="getImageName(review.avatar)" />
                     </a>
                   </div>
                   <div class="media-body text-center text-md-left">

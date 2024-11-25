@@ -268,8 +268,14 @@
         <div class="dropdown-lang" tabindex="0" (click)="toggleDropdown()">
           <div class="dropdown-btn-lang d-flex align-items-center justify-content-between gap-1">
             <div>
-              <img src="{{ selectedImg }}" width="20" height="20" class="me-3" />
-              {{ selectedLabel }}
+              <img
+              [src]="selectedImg"
+              [alt]="getImageName(selectedImg)"
+              width="20"
+              height="20"
+              class="me-3"
+            />
+                          {{ selectedLabel }}
             </div>
 
             <div class="mb-2">
@@ -281,8 +287,14 @@
           <div *ngIf="isOpen" class="dropdown-content-lang">
             <ng-container *ngFor="let country of countries">
               <div (click)="selectCountry(country)" class="dropdown-item-lang">
-                <img [src]="country.flagUrl" alt="{{ country.label }}" width="20" height="15" class="me-2" />
-                {{ country.label }}
+                <img
+                [src]="country.flagUrl"
+                [alt]="getImageName(country.flagUrl)"
+                width="20"
+                height="15"
+                class="me-2"
+              />
+                              {{ country.label }}
               </div>
             </ng-container>
           </div>

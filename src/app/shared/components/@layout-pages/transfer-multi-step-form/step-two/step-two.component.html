@@ -12,7 +12,7 @@
              (change)="onOptionChange(option, $event)">
 
       <div class="label">
-        <img [src]="option.icon" width="25px" height="25px" style="margin-top: -0.5rem;">
+        <img [src]="option.icon"  [alt]="getImageName(option.icon)"  width="25px" height="25px" style="margin-top: -0.5rem;">
         <label class="form-check-label" for="flexCheckDefault">
           {{ option.name }}
         </label>
@@ -21,8 +21,8 @@
           <input type="number"
                  style="border: 1px gray solid; width: 100px; height: 35px;"
                  class="form-control count-option"
-                 [(ngModel)]="option.number" 
-                 name="numberOfOption-{{option.name}}" 
+                 [(ngModel)]="option.number"
+                 name="numberOfOption-{{option.name}}"
                  [attr.min]="0"
                  placeholder="0"
                  (ngModelChange)="savenumberOfOption(option)">

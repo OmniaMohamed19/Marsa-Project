@@ -183,7 +183,7 @@
                   </div>
                   <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                     <img class="img-fluid mb-3" src="../../../../../../assets/custom/Activity/payment.png"
-                      alt="Image Description">
+                      alt="payment">
                     <div class="w-100 text-dark">Payment with Card</div>
                   </div>
                 </a>
@@ -198,7 +198,7 @@
                   </div>
                   <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                     <img class="img-fluid mb-3" src="../../../../../../assets/custom/Activity/banknotes.png"
-                      alt="Image Description">
+                      alt="banknotes">
                     <div class="w-100 text-dark">Book now Cash</div>
                   </div>
                 </a>
@@ -364,7 +364,7 @@
         <div class="pt-5 pb-3 px-5 border-bottom">
           <a class="d-block mb-3">
             <img class="img-fluid cover-image rounded-sm" width="312" height="247"
-              [src]="packageData?.PackageTrips[0].cover" [alt]="responseFromAvailableOption?.TripName">
+              [src]="packageData?.PackageTrips[0].cover"[alt]="getImageName(packageData?.PackageTrips[0].cover)">
           </a>
           <a class="text-dark  mb-2 d-block font-weighted">{{responseFromAvailableOption?.TripName}} Package</a>
 

@@ -101,6 +101,10 @@ export class PackagePaymentComponent {
     });
 
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   getTripById(activityID: any) {
     this._httpService
       .get(
@@ -244,6 +248,17 @@ export class PackagePaymentComponent {
     // Coupon
   }
   confirmBookingByCard(event: Event){
+    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
+
+      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return; 
+    }
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];

@@ -22,10 +22,14 @@ export class PackageCardComponent {
       return 0;
     }
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   addtoFavorits(btn: any,event:any) {
-    
+
     if (btn.classList.contains('bg-primary')) {
-      
+
       } else {
         // Add to favorites/wishlist
         this._httpService

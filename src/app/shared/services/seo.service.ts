@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
@@ -20,7 +19,7 @@ interface SEOData {
   providedIn: 'root'
 })
 export class SEOService {
-   constructor(private httpService: HttpService,private titleService: Title, private metaService: Meta) {}
+   constructor(private httpService: HttpService) {}
 
    ngOnInit(): void {
     this.httpService.get(environment.marsa, 'seo').subscribe((res: any) => {
@@ -30,21 +29,25 @@ export class SEOService {
   getSEOData(): Observable<SEOData> {
     return this.httpService.get<SEOData>(environment.marsa, 'seo');
   }
-  // updateTitle(title: string) {
-  //   this.titleService.setTitle(title);
-  // }
+    setCanonicalURL(canonicalUrl: any): void {
+    let linkElement = document.querySelector("link[rel='canonical']");
+    if (!linkElement) {
+      linkElement = document.createElement('link');
+      linkElement.setAttribute('rel', 'canonical');
+      document.head.appendChild(linkElement);
+    }
+    linkElement.setAttribute('href', canonicalUrl);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('canonicalUrl', canonicalUrl);
+    }
+  }
 
-  // updateDescription(description: string) {
-  //   this.metaService.updateTag({ name: 'description', content: description });
-  // }
+  setRobotsURL(robotsUrl: any): void {
+    console.log('Robots URL:', robotsUrl);
+  }
 
-  // updateKeywords(keywords: string) {
-  //   this.metaService.updateTag({ name: 'keywords', content: keywords });
-  // }
+  setSitemapURL(sitemapUrl: any): void {
+    console.log('Sitemap URL:', sitemapUrl);
+  }
 
-  // updateSEO(title: string, description: string, keywords: string) {
-  //   this.updateTitle(title);
-  //   this.updateDescription(description);
-  //   this.updateKeywords(keywords);
-  // }
 }

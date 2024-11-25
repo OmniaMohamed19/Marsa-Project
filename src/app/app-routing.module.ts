@@ -6,13 +6,14 @@ const routes: Routes = [
     path: ':lang',
     loadChildren: () => import(`./web-site/web-site.module`).then(m => m.WebSiteModule)
   },
-  // {path:'', 
+  // {path:'',
   // loadChildren: () => import(`./pages/pages.module`).then(m => m.PagesModule)
   // },
   // {path: '**', redirectTo: '/404/not-found'},
   {
     path: '',
-    redirectTo: localStorage.getItem('lang')!
+    redirectTo:
+    localStorage.getItem('lang')!
       ? localStorage.getItem('lang')!
       : 'en',
     pathMatch: 'full',

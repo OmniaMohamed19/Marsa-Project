@@ -37,6 +37,10 @@ export class ActivityCardListComponent implements OnInit{
       return 0;
     }
   }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
   addtoFavorits(btn: any,event:any) {
     if (!this.isLogin) {
       this.toastr.info('Please login first', '', {

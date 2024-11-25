@@ -22,7 +22,7 @@
                     <input type="checkbox" id="checkbox-{{ i }}" (change)="toggleCheckbox($event, i)" #checkboxRef />
                     <label for="checkbox-{{ i }}"></label>
                     <div class="content">
-                      <img [src]="item.icon" alt="Image" class="image" />
+                      <img [src]="item.icon" [alt]="getImageName(item?.icon)" class="image" />
                       <div class="details">
                         <div class="title">Title: {{ item.title }}</div>
 
@@ -292,7 +292,7 @@
                     </div>
                     <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                       <img class="img-fluid mb-3" src="../../../../../../assets/custom/Activity/banknotes.png"
-                        alt="Image Description" />
+                        alt="banknotes" />
                       <div class="w-100 text-dark">Book now Cash</div>
                     </div>
                   </a>
@@ -307,7 +307,7 @@
                     </div>
                     <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
                       <img class="img-fluid mb-3" src="../../../../../../assets/custom/Activity/payment.png"
-                        alt="Image Description" />
+                        alt="payment" />
                       <div class="w-100 text-dark">Payment with Card</div>
                     </div>
                   </a>
@@ -483,7 +483,7 @@
         <div class="shadow-soft bg-white rounded-sm">
           <div class="pt-5 pb-3 px-5 border-bottom">
             <a href="#" class="d-block mb-3">
-              <img class="img-fluid rounded-sm" [src]="activityData?.Cover" alt="Image Description" />
+              <img class="img-fluid rounded-sm" [src]="activityData?.Cover" [alt]="getImageName(activityData?.Cover)" />
             </a>
             <p class="px-2 text-dark font-weight-bold font-size-16 d-block">
               {{ activityData?.Name }}
