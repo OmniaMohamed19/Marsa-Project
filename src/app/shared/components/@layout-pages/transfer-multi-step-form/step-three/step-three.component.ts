@@ -59,7 +59,7 @@ export class StepThreeComponent {
   cardNumber:any;
   activeSection:any
   ngOnInit() {
-    if (typeof window !== 'undefined') {
+
 
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
     this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
@@ -109,19 +109,22 @@ export class StepThreeComponent {
       console.log(this.selectedOption)
     }
 
-    this.fromId = this.bookdetail.from_id;
-    this.toId = this.bookdetail.to_id;
-    this.bookingDate = this.bookdetail.date;
-    this.bookingTime = this.bookdetail.pickuptime;
-    this.person = this.bookdetail.person;
-    this.price = this.responseData?.booking?.price;
-    this.kilometr = this.bookdetail.this.bookdetail;
+    if (this.bookdetail) {
+      this.fromId = this.bookdetail.from_id || '';
+      this.toId = this.bookdetail.to_id || '';
+      this.bookingDate = this.bookdetail.date || '';
+      this.bookingTime = this.bookdetail.pickuptime || '';
+      this.person = this.bookdetail.person || '';
+      this.kilometr = this.bookdetail.kilometr || '';
+    } else {
+      console.warn(' bookdetail is undefined or null');
+    }
 
-  }
+
 }
 getImageName(url: string): string {
   const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-  return imageName || 'Unknown photo'; 
+  return imageName || 'Unknown photo';
 }
 
   applycoupon() {
@@ -269,7 +272,8 @@ getImageName(url: string): string {
       payment_method: this.payment_method ? this.payment_method : 'cash',
       booking_option: bookingOption,
       flight_n:this.flightNumper,
-      coupon_code:'123'
+      coupon_code:this.coupon,
+      // coupon_code: this.Coupons[0].code,
     };
 
     this._httpService.post(environment.marsa, 'transfer/book', model)

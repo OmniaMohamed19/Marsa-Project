@@ -93,7 +93,7 @@ details:any;
     });
 
     // Retrieve saved data from localStorage
-    if (typeof window !== 'undefined') {
+  
       const savedResponseData = localStorage.getItem('responseData');
       const bookingDetail = localStorage.getItem('bookdetail');
       const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
@@ -131,11 +131,11 @@ details:any;
     this.formData.to = this.responseData?.booking?.to || '';
     this.formData.pickuptime = this.bookdetail?.pickuptime || '';
     this.formData.date = this.bookdetail?.date || '';
-  }
+
 }
 getImageName(url: string): string {
   const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-  return imageName || 'Unknown photo'; 
+  return imageName || 'Unknown photo';
 }
 
   // Save selected car in local storage when a car is clicked

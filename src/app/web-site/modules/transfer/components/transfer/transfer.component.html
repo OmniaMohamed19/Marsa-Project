@@ -50,13 +50,13 @@
                         style="width: 100%; max-height: 200px; overflow-y: auto;">
                         <!-- Search input for the first dropdown -->
                         <li>
-                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
+                          <input type="text" class="form-control" placeholder="Search..." name="searchFrom"  [(ngModel)]="searchFrom"
                             (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
                         </li>
                         <!-- Show filtered airports -->
                         <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
                           style="cursor: pointer;">
-                          <a class="dropdown-item">{{ airport.name }}</a>
+                          <a class="dropdown-item">{{ airport?.name }}</a>
                         </li>
                         <!-- Show filtered hotels -->
                         <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
@@ -84,13 +84,13 @@
                         style="width: 100%;max-height: 200px; overflow-y: auto;">
                         <!-- Search input for the second dropdown -->
                         <li>
-                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
-                            (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                          <input type="text" class="form-control"  placeholder="Search..."  [(ngModel)]="searchTo"
+                            (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                         </li>
                         <!-- Show filtered To options -->
                         <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                           style="cursor: pointer;">
-                          <a class="dropdown-item">{{ option.name || option.city }}</a>
+                          <a class="dropdown-item">{{ option?.name || option.city }}</a>
                         </li>
                       </ul>
                     </div>
@@ -100,9 +100,10 @@
                   <!-- Date Picker -->
                   <div class="col-md-2 col-6">
                     <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
-                      <input [(ngModel)]="date" [min]="minDate"
+                      <input [(ngModel)]="date"  [min]="minDate"
                         style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                         placeholder="date"
+                        name="date"
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
                         type="date" />
                     </div>
@@ -129,7 +130,7 @@
                     <div class="input-group-prepend input-border">
                       <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                         [for]="picker"></ngx-material-timepicker-toggle>
-                      <input [(ngModel)]="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                      <input [(ngModel)]="pickuptime"  name="pickuptime" [ngxTimepicker]="picker" class="form-control"
                         placeholder="Pick up time"
                         style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                       <ngx-material-timepicker #picker></ngx-material-timepicker>
@@ -194,13 +195,14 @@
                       style="width: 100%; max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the first dropdown -->
                       <li>
-                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
-                          (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                        <input type="text" class="form-control" placeholder="Search..."
+                         [(ngModel)]="searchFrom"
+                          (input)="filterFromOptions()" name="searchFrom" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered airports -->
                       <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ airport.name }}</a>
+                        <a class="dropdown-item">{{ airport?.name }}</a>
                       </li>
                       <!-- Show filtered hotels -->
                       <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
@@ -227,13 +229,13 @@
                       style="width: 100%;max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the second dropdown -->
                       <li>
-                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
-                          (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                        <input type="text" class="form-control" placeholder="Search..."  [(ngModel)]="searchTo"
+                          (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered To options -->
                       <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.name || option.city }}</a>
+                        <a class="dropdown-item">{{ option?.name || option.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -241,9 +243,10 @@
 
                 <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
                   <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
-                    <input [(ngModel)]="date" [min]="minDate"
+                    <input [(ngModel)]="date"  [min]="minDate"
                       style="height: 53px;color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                       placeholder="date"
+                      name="date"
                       class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
                       type="date" />
                   </div>
@@ -277,7 +280,7 @@
                   <div class="input-group-prepend input-border">
                     <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                       [for]="picker"></ngx-material-timepicker-toggle>
-                    <input [(ngModel)]="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                    <input [(ngModel)]="pickuptime"  name="pickuptime" [ngxTimepicker]="picker" class="form-control"
                       placeholder="Pick up time"
                       style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                     <ngx-material-timepicker #picker></ngx-material-timepicker>
@@ -285,7 +288,7 @@
                 </div>
                 <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
                   <div id="returndatepickerWrapperFromOne" class="u-datepicker input-group">
-                    <input [(ngModel)]="returnDate" [min]="minDate"
+                    <input [(ngModel)]="returnDate"  name="returnDate" [min]="minDate"
                       style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                       placeholder="Return Date"
                       class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
@@ -296,8 +299,8 @@
                   <div class="input-group-prepend input-border">
                     <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                       [for]="returnpicker"></ngx-material-timepicker-toggle>
-                    <input [(ngModel)]="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
-                      placeholder="Return time"
+                    <input [(ngModel)]="returnPickuptime" name="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
+                     placeholder="Return time"
                       style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                     <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
                   </div>
@@ -372,12 +375,12 @@
                       <!-- Search input for the first dropdown -->
                       <li>
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
-                          (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                          (input)="filterFromOptions()" name="searchFrom" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered airports -->
                       <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ airport.name }}</a>
+                        <a class="dropdown-item">{{ airport?.name }}</a>
                       </li>
                       <!-- Show filtered hotels -->
                       <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
@@ -403,12 +406,12 @@
                       <!-- Search input for the second dropdown -->
                       <li>
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
-                          (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                          (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered To options -->
                       <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.name || option.city }}</a>
+                        <a class="dropdown-item">{{ option?.name || option.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -420,6 +423,7 @@
                     <div id="datepickerWrapperFromOne d-flex" class="u-datepicker input-group">
 
                       <input [(ngModel)]="date"
+                      name="date"
                         style="color:#2a3038!important; font-family: Lato; font-size: 16px; font-weight: 700;"
                         placeholder="date"
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
@@ -435,7 +439,7 @@
                       <div class="input-group-prepend input-border">
                         <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                           [for]="picker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                        <input [(ngModel)]="pickuptime" name="pickuptime"  [ngxTimepicker]="picker" class="form-control"
                           placeholder="Pick up time"
                           style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                         <ngx-material-timepicker #picker></ngx-material-timepicker>
@@ -514,13 +518,13 @@
                       style="width: 100%; max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the first dropdown -->
                       <li>
-                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
+                        <input type="text" class="form-control" name="searchFrom" placeholder="Search..." [(ngModel)]="searchFrom"
                           (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered airports -->
                       <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ airport.name }}</a>
+                        <a class="dropdown-item">{{ airport?.name }}</a>
                       </li>
                       <!-- Show filtered hotels -->
                       <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
@@ -545,13 +549,13 @@
                       style="width: 100%;max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the second dropdown -->
                       <li>
-                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
+                        <input type="text" class="form-control" name="searchTo"  placeholder="Search..." [(ngModel)]="searchTo"
                           (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered To options -->
                       <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option.name || option.city }}</a>
+                        <a class="dropdown-item">{{ option?.name || option.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -562,7 +566,7 @@
                     <!-- Input -->
                     <div id="datepickerWrapperFromOne d-flex" class="u-datepicker input-group">
 
-                      <input [(ngModel)]="date"
+                      <input [(ngModel)]="date"  name="date"
                         style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                         placeholder="date"
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
@@ -578,7 +582,7 @@
                       <div class="input-group-prepend input-border">
                         <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                           [for]="picker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                        <input [(ngModel)]="pickuptime"  name="pickuptime" [ngxTimepicker]="picker" class="form-control"
                           placeholder="Pick up time"
                           style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                         <ngx-material-timepicker #picker></ngx-material-timepicker>
@@ -589,7 +593,7 @@
 
                   <div class="mb-4 mb-lg-0">
                     <div id="returndatepickerWrapperFromOne d-flex" class="u-datepicker input-group">
-                      <input [(ngModel)]="returnDate"
+                      <input [(ngModel)]="returnDate"  name="returnDate"
                         style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                         placeholder="Return Date"
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
@@ -603,7 +607,7 @@
                       <div class="input-group-prepend input-border">
                         <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                           [for]="returnpicker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
+                        <input [(ngModel)]="returnPickuptime"  name="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
                           placeholder="Return time"
                           style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                         <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
@@ -739,10 +743,10 @@
         <h5>What People Say</h5>
       </div>
       <div class="layer-card">
-        <h5>{{highestRatedReview.name}}</h5>
+        <h5>{{highestRatedReview?.name}}</h5>
         <span>Client</span>
         <p >
-          {{highestRatedReview.comment}}
+          {{highestRatedReview?.comment}}
         </p>
       </div>
     </div>
@@ -795,7 +799,7 @@
 
                       <h6 class="font-weight-bold text-gray-3">
                         <a href="#">
-                          {{review.name}}
+                          {{review?.name}}
                         </a>
                       </h6>
                       <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
@@ -809,7 +813,7 @@
                           </button>
                         </div>
                         <div class="comment-container">
-                          <span class="font-weight-bold font-italic text-gray-3">{{review.comment}}</span>
+                          <span class="font-weight-bold font-italic text-gray-3">{{review?.comment}}</span>
                         </div>
                       </div>
 
@@ -835,7 +839,7 @@
                   <textarea class="form-control" rows="6" cols="77" name="text" placeholder="Comment"
                     aria-label="Hi there, I would like to ..." required="" data-msg="Please enter a reason."
                     data-error-class="u-has-error" data-success-class="u-has-success" style="height: 181.18px"
-                    [(ngModel)]="comment"></textarea>
+                    [(ngModel)]="comment" name="comment" ></textarea>
                 </div>
               </div>
             </div>
