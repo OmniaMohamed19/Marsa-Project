@@ -220,7 +220,11 @@
               [numVisible]="6"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; height: 480px" />
+                <img
+                  [src]="item?.value"
+                  [alt]="getImageName(item?.value)"
+                  style="width: 100%; height: 480px"
+                />
               </ng-template>
               <ng-template pTemplate="thumbnail" let-item>
                 <div class="grid grid-nogutter justify-content-center">
@@ -240,7 +244,11 @@
               [showThumbnails]="false"
             >
               <ng-template pTemplate="item" let-item>
-                <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; height: 480px" />
+                <img
+                  [src]="item?.value"
+                  [alt]="getImageName(item?.value)"
+                  style="width: 100%; height: 480px"
+                />
               </ng-template>
             </p-galleria>
             <!-- <owl-carousel-o [options]="coverAndImagesOptions" class="trending">
@@ -406,7 +414,7 @@
             <h5 class="heading">Description</h5>
             <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
             <span
-            *ngIf="activityData?.Description?.length > 1000"
+              *ngIf="activityData?.Description?.length > 1000"
               style="color: #0db1ff"
               (click)="toggleDescription()"
               class="d-inline"
@@ -476,7 +484,7 @@
                       <span class="font-size-9 d-inline-block">
                         {{ exclude.title }} <br />
                         <p *ngIf="exclude?.price > 0">
-                          ( ${{ exclude?.price }}  per person :
+                          ( ${{ exclude?.price }} per person :
                           {{ exclude?.option }})
                         </p>
                       </span>
@@ -570,7 +578,6 @@
                             ? getMinAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}
-
                       </span>
                       <span
                         class="mx-2 font-size-18 fw-bold text-dark"
@@ -590,8 +597,7 @@
                               )
                             : ""
                         }}
-                        </span
-                      >
+                      </span>
                       per person</small
                     >
                   </div>
@@ -607,7 +613,6 @@
                             ? getMinAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}
-
                       </span>
                       per person
                     </small>
@@ -652,7 +657,7 @@
                       <span
                         class="price"
                         [style.text-decoration]="'line-through'"
-                        style="color: rgb(13, 177, 255) !important;"
+                        style="color: rgb(13, 177, 255) !important"
                       >
                         ${{
                           selectedOption === "Collective"
@@ -689,8 +694,7 @@
                               )
                             : ""
                         }}
-                        </span
-                      >
+                      </span>
                       per person
                     </small>
                   </div>
@@ -706,7 +710,6 @@
                             ? getMinAdultPrice()?.PriceColective.Adult
                             : ""
                         }}
-
                       </span>
                       per person
                     </small>
@@ -717,7 +720,7 @@
                   class="d-flex w-100 w-md-50 justify-content-between align-items-center"
                 >
                   <h5>Total Price</h5>
-                  <h5>${{ getMinAdultPrice()?.PriceColective.Adult }} </h5>
+                  <h5>${{ getMinAdultPrice()?.PriceColective.Adult }}</h5>
                 </div>
                 <div *ngIf="selectedOption === 'Private'; else elseTemplate">
                   <button
@@ -966,7 +969,12 @@
                   <div class="col-md-7">
                     <div class="position-relative mt-4">
                       <div>
-                        <img [src]="item?.cover" [alt]="getImageName(item?.cover)" class="w-100" alt="boat" />
+                        <img
+                          [src]="item?.cover"
+                          [alt]="getImageName(item?.cover)"
+                          class="w-100"
+                          alt="boat"
+                        />
                       </div>
                       <div
                         class="flex-horizontal-center position-absolute"
@@ -1216,7 +1224,11 @@
             [showThumbnails]="false"
           >
             <ng-template pTemplate="item" let-item>
-              <img [src]="item?.value" [alt]="getImageName(item?.value)" style="width: 100%; display: block" />
+              <img
+                [src]="item?.value"
+                [alt]="getImageName(item?.value)"
+                style="width: 100%; display: block"
+              />
             </ng-template>
           </p-galleria>
           <div id="review" class="tab-pane">
@@ -1257,91 +1269,7 @@
                   >
                     Showing Most Recent verified guest comments
                   </h5>
-                  <div
-                    class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-                    *ngFor="let review of activityData?.Reviwe?.slice(0, 1)"
-                  >
-                    <div class="mr-md-5">
-                      <a class="d-block" href="#">
-                        <img
-                          class="img-fluid mb-3 mb-md-0 rounded-circle"
-                          [src]="review?.avatar || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
-                          [alt]="review?.name"
-                        />
-                      </a>
-                    </div>
-                    <div class="media-body text-center text-md-left">
-                      <div class="mb-4">
-                        <h6 class="fw-bold text-gray-3">
-                          <a>{{ review?.name }}</a>
-                        </h6>
-                        <div
-                          class="font-weight-normal font-size-14 text-gray-9 mb-2"
-                        >
-                          {{ review?.date | date : "MMMM d y" }} at
-                          {{ review?.date | date : "hh:mm a" }}
-                        </div>
-                        <i
-                          *ngFor="let star of [1, 2, 3, 4, 5]"
-                          class="fa-solid fa-star"
-                          [ngClass]="{
-                            'fa-star-filled': star <= review.rate,
-                            'yellow-star': star <= review.rate
-                          }"
-                        ></i>
-                        <p class="text-lh-1dot6 mb-0 pr-lg-5">
-                          {{ review?.comment }}
-                        </p>
-                        <!-- <div class="mt-5">
-                          <div
-                            class="row no-gutters justify-content-between align-items-center border border-color-8 border-width-2 rounded-xs p-3 px-md-3 py-md-2 pr-xl-5"
-                          >
-                            <div class="col">
-                              <div
-                                class="font-weight-normal font-size-14 text-gray-1 mx-lg-1 my-lg-1 mb-3 mb-md-0"
-                              >
-                                Was This Review...?
-                              </div>
-                            </div>
-                            <div class="col-md-6 col-lg-7 col-xl-4">
-                              <div
-                                class="d-flex justify-content-between my-lg-1"
-                              >
-                                <a class="text-indigo-light">
-                                  <img
-                                    src="assets/custom/Activity/like.svg"
-                                    class="me-2"
-                                    alt="like"
-                                  />
-                                  <span class="font-size-14 font-weight-normal"
-                                    >Like</span
-                                  >
-                                </a>
-                                <a class="text-gray-7">
-                                  <img
-                                    src="assets/custom/Activity/dislike.svg"
-                                    class="me-2"
-                                    alt="dislike"
-                                  />
-                                  <span class="font-size-14 font-weight-normal"
-                                    >Dislike</span
-                                  >
-                                </a>
-                                <a class="text-red-light-2">
-                                  <i
-                                    class="fa-regular fa-heart font-size-15 mr-1"
-                                  ></i>
-                                  <span class="font-size-14 font-weight-normal"
-                                    >Love</span
-                                  >
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div> -->
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -1496,19 +1424,40 @@
           <ul
             class="list-group list-group-borderless list-group-horizontal custom-social-share"
           >
-            <li class="list-group-item px-1">
-              <a
+            <ng-container *ngIf="activityData.wishlist; else elseTemplate2">
+              <li
                 type="button"
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 title="Save for later"
+                class="list-group-item px-1"
+
+              >
+                <a
+                  href="#"
+                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                >
+                  <i class="fa fa-heart fs-3 text-danger"></i>
+                </a>
+              </li>
+            </ng-container>
+            <ng-template #elseTemplate2>
+              <li
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
+                class="list-group-item px-1"
+              >
+                <a
                 #btn
                 (click)="addtoFavorits(btn, $event)"
-                class="h-100 text-black-50 width-45 border rounded border-width-2 flex-content-center"
-              >
-                <i class="fa fa-heart fs-3"></i>
-              </a>
-            </li>
+                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                >
+                  <i class="fa fa-heart fs-3 text-black-50"></i>
+                </a>
+              </li>
+            </ng-template>
             <li class="list-group-item px-1">
               <a
                 type="button"
@@ -1597,8 +1546,7 @@
                           ? getMinAdultPrice()?.PricePrivte.Adult
                           : ""
                       }}
-                      </span
-                    >
+                    </span>
                     <span
                       class="mx-2 font-size-18 fw-bold text-dark"
                       *ngIf="
@@ -1627,8 +1575,7 @@
                             )
                           : ""
                       }}
-                      </span
-                    >
+                    </span>
                   </p>
                 </div>
                 <div class="mb-1">
@@ -1945,20 +1892,39 @@
           <ul
             class="list-group list-group-borderless list-group-horizontal custom-social-share"
           >
-            <li
-              type="button"
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Save for later"
-              class="list-group-item px-1"
-            >
-              <a
-                href="#"
-                class="h-100 width-45 border rounded border-width-2 flex-content-center"
+            <ng-container *ngIf="activityData.wishlist; else elseTemplate2">
+              <li
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
+                class="list-group-item px-1"
+
               >
-                <i class="fa fa-heart text-dark"></i>
-              </a>
-            </li>
+                <a
+                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                >
+                  <i class="fa fa-heart fs-3 text-danger"></i>
+                </a>
+              </li>
+            </ng-container>
+            <ng-template #elseTemplate2>
+              <li
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
+                class="list-group-item px-1"
+              >
+                <a
+                #btn
+                (click)="addtoFavorits(btn, $event)"
+                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                >
+                  <i class="fa fa-heart fs-3 text-black-50"></i>
+                </a>
+              </li>
+            </ng-template>
             <li
               type="button"
               data-bs-toggle="tooltip"
@@ -2037,16 +2003,14 @@
                         : ''
                     "
                   >
-                    From
-                    ${{
+                    From ${{
                       selectedOption === "Collective"
                         ? getMinAdultPrice()?.PriceColective.Adult
                         : selectedOption === "Private"
                         ? getMinAdultPrice()?.PricePrivte.Adult
                         : ""
                     }}
-                    </span
-                  >
+                  </span>
                   <span
                     class="mx-2 font-size-18 fw-bold text-dark"
                     *ngIf="
@@ -2074,8 +2038,7 @@
                           )
                         : ""
                     }}
-                    </span
-                  >
+                  </span>
                 </p>
               </div>
               <div class="mb-4">
@@ -2455,16 +2418,14 @@
               : ''
           "
         >
-          From
-          ${{
+          From ${{
             selectedOption === "Collective"
               ? getMinAdultPrice()?.PriceColective.Adult
               : selectedOption === "Private"
               ? getMinAdultPrice()?.PricePrivte.Adult
               : ""
           }}
-          </span
-        >
+        </span>
         <span
           class="mx-1 font-size-16 fw-bold text-dark"
           *ngIf="
@@ -2489,8 +2450,7 @@
                 )
               : ""
           }}
-          </span
-        >
+        </span>
       </p>
     </div>
     <div class="w-50">

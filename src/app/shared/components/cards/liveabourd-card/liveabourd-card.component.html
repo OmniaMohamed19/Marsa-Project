@@ -244,19 +244,37 @@
             class="position-absolute pr-md-3 d-none d-md-block"
             style="right: 10px; top: 0px !important"
           >
+          <ng-container *ngIf="item.wishlist; else elseTemplate">
             <button
-              type="button"
-              class="btn btn-sm btn-icon text-black-50 rounded-circle"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Save for later"
-              data-original-title="Save for later"
-              aria-label="Save for later"
-              #btn
-              (click)="addtoFavorits(btn, $event)"
-            >
-              <i class="fa fa-heart fs-3"></i>
-            </button>
+            type="button"
+            class="btn btn-sm btn-icon text-danger rounded-circle"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Save for later"
+            data-original-title="Save for later"
+            aria-label="Save for later"
+
+          >
+            <i class="fa fa-heart fs-3"></i>
+          </button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <button
+            type="button"
+            class="btn btn-sm btn-icon text-black-50 rounded-circle"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Save for later"
+            data-original-title="Save for later"
+            aria-label="Save for later"
+            #btn
+            (click)="addtoFavorits(btn, $event)"
+          >
+            <i class="fa fa-heart fs-3"></i>
+          </button>
+          </ng-template>
+
+
           </div>
         </div>
       </div>

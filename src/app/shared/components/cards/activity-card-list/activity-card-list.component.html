@@ -32,11 +32,19 @@
       <div >
         <div class="d-flex    justify-content-between pe-3 pt-3">
           <h5 class="card-heading">{{ item?.Title }}</h5>
-          <i
+          <ng-container *ngIf="item.wishlist; else elseTemplate">
+            <i
+            class="fa-regular fa-heart fs-3 text-danger"
+          ></i>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <i
             #btn
             (click)="addtoFavorits(btn, $event)"
             class="fa-regular fa-heart fs-3 text-black-50"
           ></i>
+          </ng-template>
+
         </div>
         <div class="d-flex justify-content-between pe-3 card-title">
           <p>{{ item?.type }}</p>
