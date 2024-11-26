@@ -14,7 +14,7 @@ export class WishListComponent {
   result: any = [];
   constructor(private httpService: HttpService) {}
   responsiveOptions: any[] | undefined;
- 
+
   ngOnInit() {
     this.httpService
       .get(environment.marsa, 'Wishlist')
@@ -22,11 +22,35 @@ export class WishListComponent {
         console.log(res);
 
         this.wishlist = res.wishlist;
-        this.result = res.categorys.map((category:any) => ({
-          category: category.name,
-          categoryId: category.id,
-          trips: res.wishlist.filter((wish :any) => wish.trip.some((trip:any) => trip.category_id === category.id))
-        }));
+        this.result = res.categorys.map((category: { id: number; name: string }) => {
+          // Map the categories to their new names and set URLs
+          const categoryNames: Record<number, string> = {
+            1: "Tours & Activities",
+            2: "Liveaboard",
+            3: "Private Boats",
+            4: "Transfer",
+            5: "Packages"
+          };
+
+          const categoryUrls: Record<number, string> = {
+            1: "tours/details/",
+            2: "liveboard/liveboardDetails/",
+            3: "boats/details/",
+            4: "",
+            5: "packages/packageDetails/"
+          };
+
+          return {
+            category: categoryNames[category.id] || category.name, // Use mapped name or default
+            categoryId: category.id,
+            url: categoryUrls[category.id], // Add URL attribute
+            trips: res.wishlist.filter((wish: any) =>
+              wish.trip.some((trip: any) => trip.category_id === category.id)
+            )
+          };
+        });
+
+
 
         console.log(this.result);
 

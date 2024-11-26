@@ -166,12 +166,12 @@ export class LiveboardsComponent implements OnInit {
   }
 
   setMinPrice(event: any) {
-    console.log(event);
+    // console.log(event);
     this.min_priceChoosen = event.target.value;
     this.filter();
   }
   setMaxPrice(event: any) {
-    console.log(event);
+    // console.log(event);
     this.max_priceChoosen = event.target.value;
     this.filter();
   }
