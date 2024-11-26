@@ -84,7 +84,9 @@ export class HeaderComponent implements OnInit {
   }
 
   call(option: any) {
-    if (option == 'call') window.open('tel:' + this.social.Call, '_blank');
-    else window.open('mailto:' + this.social.Mail, '_blank');
+     window.open('mailto:' + this.social.Mail, '_blank');
+  }
+  contactWhatsapp() {
+    window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
   }
 }
