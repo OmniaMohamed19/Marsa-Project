@@ -136,14 +136,15 @@ export class TrendingComponent  {
 
 
   customOptions: OwlOptions = {
-    loop: this.activeNowTrend.length > 4 ? true : false,
+    loop: this.activeNowTrend.length != 1 ? true : false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: false,
-    autoplay: true,
+    dots: true,
+    autoplay:this.activeNowTrend.length !=1 ? true : false,
     margin: 10,
     navSpeed: 700,
+
     navText: [
       "<i class='fa fa-angle-left'></i>",
       "<i class='fa fa-angle-right'></i>",

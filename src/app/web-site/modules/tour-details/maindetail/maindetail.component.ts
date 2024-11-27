@@ -26,7 +26,7 @@ export class MaindetailComponent implements OnInit {
    loading: boolean = false;
    carouselItems: any[] = [];
    visibleTrips: any[] = [];
-   tripsPerRow: number = 3;
+   tripsPerRow: number = 4;
    rowsToShow: number = 1;
    showFullText: boolean = false;
 
@@ -117,15 +117,8 @@ toggleText() {
   this.showFullText = !this.showFullText;
 }
   ngOnInit() {
-    if (typeof window !== 'undefined') {
-
       this.tourid = localStorage.getItem('destinationId');
-    }
-
-
-    this.httpService
-      .get(environment.marsa, 'place/details/' + this.tourid)
-      .subscribe((res: any) => {
+    this.httpService.get(environment.marsa, 'place/details/' + this.tourid).subscribe((res: any) => {
         this.placeDetails = res;
         console.log(res);
 
@@ -182,9 +175,13 @@ toggleText() {
     return this.selectedTrip === firstTripId;
   }
 
+
+
   selectTrip(tripId: number): void {
     this.selectedTrip = tripId;
-    this.selectedTripType = this.placeDetails?.typeTrip.find((type: { id: number; }) => type.id === tripId);
+    this.selectedTripType = this.placeDetails?.typeTrip.find(
+      (type: { id: number }) => type.id === tripId
+    );
 
     if (this.selectedTripType) {
       this.totalTripsCount = this.selectedTripType.trip.length;
@@ -192,6 +189,7 @@ toggleText() {
       this.hiddenTrips = this.selectedTripType.trip.slice(this.tripsPerRow);
     }
   }
+
   @Input() item: any;
 
 
