@@ -26,7 +26,7 @@ export class ToursComponent {
   min_price = 0;
   min_priceChoosen: any = null;
   max_priceChoosen: any = null;
-  max_price = 400;
+  max_price = 9999;
   showFilter = true;
   isMobile = false;
   constructor(
@@ -41,7 +41,7 @@ export class ToursComponent {
     const dd: string = String(today.getDate()).padStart(2, '0');
     const mm: string = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
     const yyyy: number = today.getFullYear();
-     // Set minDate to today's date
+    // Set minDate to today's date
     this.minDate = `${yyyy}-${mm}-${dd}`;
   }
   ngOnInit(): void {
@@ -69,6 +69,11 @@ export class ToursComponent {
       },
     });
   }
+  selectedTimeId: number | null = null;
+  clearSelection() {
+
+    this.getAllactivity();
+  }
   getPlaces() {
     this._httpsService.get('marsa', 'place').subscribe({
       next: (res: any) => {
@@ -89,6 +94,7 @@ export class ToursComponent {
 
   filterDuration(ev: any) {
     console.log(ev);
+    this.selectedTimeId = ev;
     if (ev == 'all') {
       this.FilterDurationid = [];
     } else {
