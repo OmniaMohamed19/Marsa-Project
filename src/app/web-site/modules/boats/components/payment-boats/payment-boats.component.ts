@@ -23,6 +23,7 @@ export class PaymentBoatsComponent {
   customerForm!: FormGroup;
   showServices: boolean = true;
   filteredNationalities: Observable<Code[]> | undefined;
+  isDisable=false;
 
   nationalities!: Code[];
   model = {
@@ -112,6 +113,7 @@ export class PaymentBoatsComponent {
     console.log(this.customerForm.valid);
 
     if (this.customerForm.valid) {
+      this.isDisable=true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -140,6 +142,8 @@ export class PaymentBoatsComponent {
         }
       })
     } else {
+      this.isDisable=false;
+
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }

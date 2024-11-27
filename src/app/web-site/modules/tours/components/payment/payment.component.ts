@@ -64,6 +64,7 @@ export class PaymentComponent {
   };
   edit: boolean = false;
   tripletails: any;
+isDisable: boolean = false;
 
   constructor(
     private location: Location,
@@ -394,6 +395,7 @@ export class PaymentComponent {
     }
   }
   confirmBookingByCard(event: Event) {
+    this.isDisable=true;
     if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
 
       this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
@@ -487,6 +489,7 @@ export class PaymentComponent {
           },
           error: (err: any) => {
             console.error('Error during booking:', err);
+            this.isDisable=false;
 
             // Extract and display error details if available
             const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
@@ -504,6 +507,8 @@ export class PaymentComponent {
   }
 
   confirmBooking() {
+    this.isDisable=true;
+
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
@@ -591,6 +596,7 @@ export class PaymentComponent {
           },
         });
     } else {
+    this.isDisable=false;
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }

@@ -47,6 +47,8 @@ export class LiveboardPaymentComponent implements OnInit {
   expirYear: any;
   expiryMonth: any;
   cardNumber: any;
+  isDisable=false;
+
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
   locationValue = '';
@@ -389,6 +391,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
   confirmBookingByCard(event: Event) {
     if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
+      this.isDisable=true;
 
       this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
         disableTimeOut: false,
@@ -397,7 +400,7 @@ export class LiveboardPaymentComponent implements OnInit {
         timeOut: 5000,
         closeButton: true,
       });
-      return; 
+      return;
     }
     event.preventDefault();
 
@@ -464,12 +467,15 @@ export class LiveboardPaymentComponent implements OnInit {
           },
         });
     } else {
+      this.isDisable=false;
+
       this.markFormGroupTouched(this.customerForm);
     }
   }
 
   confirmBooking() {
     if (this.customerForm.valid) {
+      this.isDisable=true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
       const model = {
@@ -523,6 +529,8 @@ export class LiveboardPaymentComponent implements OnInit {
         });
     } else {
       // Mark all form controls as touched to trigger validation messages
+      this.isDisable=false;
+
       this.markFormGroupTouched(this.customerForm);
     }
   }

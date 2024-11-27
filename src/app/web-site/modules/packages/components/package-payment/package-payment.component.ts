@@ -61,6 +61,7 @@ export class PackagePaymentComponent {
   expirYear: any;
   expiryMonth: any;
   cardNumber: any;
+  isDisable: boolean=false;
   constructor(
     private toastr: ToastrService,
     private location: Location,
@@ -251,6 +252,8 @@ export class PackagePaymentComponent {
     // Coupon
   }
   confirmBookingByCard(event: Event){
+    this.isDisable=true;
+
     if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
 
       this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
@@ -298,13 +301,15 @@ export class PackagePaymentComponent {
         },
       })
     } else {
-      // Mark all form controls as touched to trigger validation messages
+    this.isDisable=false;
+    // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
 }
 
   confirmBooking() {
     if (this.customerForm.valid) {
+    this.isDisable=true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -336,6 +341,7 @@ export class PackagePaymentComponent {
       }
     })
   } else {
+    this.isDisable=false;
     // Mark all form controls as touched to trigger validation messages
     this.markFormGroupTouched(this.customerForm);
   }

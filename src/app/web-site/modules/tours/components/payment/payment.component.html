@@ -420,7 +420,8 @@
                           </div> -->
                         </div>
                         <a (click)="edit?confirmEdit($event)
-                          :confirmBookingByCard($event)" class="btn payment text-white w-100 py-3">
+                          :confirmBookingByCard($event)" class="btn payment text-white w-100 py-3"
+                          [ngStyle]="{'cursor': !isDisable ? 'not-allowed' : 'pointer', }">
                           {{
                           edit?'CONFIRM EDIT'
                           :'CONFIRM BOOKING'
@@ -462,7 +463,8 @@
                         </p>-->
                       </div>
                       <a (click)="edit?confirmEdit($event)
-                        :confirmBooking()" class="btn payment text-white w-100 py-3">
+                        :confirmBooking()" class="btn payment text-white w-100 py-3"
+                        [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }">
                         {{
                         edit?'CONFIRM EDIT'
                         :'CONFIRM BOOKING'

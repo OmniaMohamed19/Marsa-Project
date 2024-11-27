@@ -627,6 +627,7 @@
                       <a
                         (click)="edit?confirmEdit($event)
                         :confirmBookingByCard($event)"
+                        [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
                         class="btn payment text-white w-100 py-3"
                         >
                         {{
@@ -683,6 +684,7 @@
                           (click)="edit?confirmEdit($event)
                           :confirmBooking()"
                           class="btn payment text-white w-100 py-3"
+                          [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
                           >
                           {{
                             edit?'CONFIRM EDIT'

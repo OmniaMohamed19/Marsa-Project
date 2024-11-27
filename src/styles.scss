@@ -438,7 +438,7 @@ body {
 .pagination button {
     margin: 0 30px;
     // border: none;
-    padding:  var(--bs-btn-padding-y) var(--bs-btn-padding-x) !important; 
+    padding:  var(--bs-btn-padding-y) var(--bs-btn-padding-x) !important;
 }
 
 // .Traveler{
@@ -502,4 +502,7 @@ body {
   .top-155{
     margin-top:0 ;
   }
+}
+.yellow-star {
+  color: #ffd700 !important;
 }

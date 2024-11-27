@@ -256,6 +256,7 @@
               (click)="bookNow()"
               type="submit"
               class="btn payment text-white py-3"
+              [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
             >
             Submit
             </button>

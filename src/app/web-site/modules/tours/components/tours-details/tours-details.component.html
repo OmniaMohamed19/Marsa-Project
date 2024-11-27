@@ -1424,7 +1424,7 @@
           <ul
             class="list-group list-group-borderless list-group-horizontal custom-social-share"
           >
-            <ng-container *ngIf="activityData.wishlist; else elseTemplate2">
+            <ng-container *ngIf="activityData?.wishlist; else elseTemplate2">
               <li
                 type="button"
                 data-bs-toggle="tooltip"
@@ -1892,7 +1892,7 @@
           <ul
             class="list-group list-group-borderless list-group-horizontal custom-social-share"
           >
-            <ng-container *ngIf="activityData.wishlist; else elseTemplate2">
+            <ng-container *ngIf="activityData?.wishlist; else elseTemplate2">
               <li
                 type="button"
                 data-bs-toggle="tooltip"
