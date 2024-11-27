@@ -160,6 +160,12 @@ export class ToursDetailsComponent implements AfterViewInit {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
+  handleImageError(event: Event): void {
+    const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
+    if (target) {
+      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+    }
+  }
 
   // Method to get the displayed description
   getDisplayedDescription(): string {

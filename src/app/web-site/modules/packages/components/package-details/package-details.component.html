@@ -348,10 +348,14 @@
                     style="color: #ff681a"
                   ></i>
 
-                  <span class="font-size-9 d-inline-block" *ngIf="exclude?.price > 0">
+                  <span class="font-size-9 d-inline-block" >
                     {{ exclude.title }} <br />
+                  <p *ngIf="exclude?.price > 0">
                     ( ${{ exclude?.price }}  per person :
                     {{ exclude?.option }})
+
+                  </p>
+
                   </span>
                 </li>
               </ul>
@@ -440,6 +444,7 @@
                     <img
                       class="img-fluid mb-3 mb-md-0 rounded-circle"
                       [src]="review?.avatar || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
+                      (error)="handleImageError($event)" 
                       [alt]="review?.name"
                     />
                   </a>
@@ -759,6 +764,9 @@
                   >Age
                   {{ this.rows?.Price.AdultAge }}
                 </span>
+                <span class="badge bg-green p-2 sale"
+                  >{{ this.rows?.Price.AdultDiscount }}%</span
+                >
                 <div class="flex-horizontal-center">
                   <a
                     class="js-minus font-size-10 text-dark"
@@ -891,7 +899,7 @@
             </div>
           </div>
 
-          <div [@fadeInOut]>
+          <!-- <div [@fadeInOut]>
             <div class="alert alert-info my-2 text-white">
               <p class="mb-0" style="font-weight: 700">
                 Adult Max : {{ getMaxValue("adultsMax") }}
@@ -903,7 +911,7 @@
                 Infant Max : {{ getMaxValue("infantsMax") }}
               </p>
             </div>
-          </div>
+          </div> -->
           <div class="text-center">
             <a
               class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1"

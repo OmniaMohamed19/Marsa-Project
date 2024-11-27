@@ -241,6 +241,12 @@ export class BoatDetailsComponent {
     }
   }
 
+  handleImageError(event: Event): void {
+    const target = event.target as HTMLImageElement; 
+    if (target) {
+      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+    }
+  }
   getRatingDescription(rate: number): string {
     if (rate >= 3 && rate < 4) {
       return 'Good';

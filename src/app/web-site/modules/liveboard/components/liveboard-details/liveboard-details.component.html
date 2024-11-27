@@ -546,7 +546,8 @@
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
                         <img class="img-fluid mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
-                          [alt]="review?.name || '../../../../../../assets/custom/user-dasboard/avatar-place.png'" />
+                          [alt]="review?.name || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
+                          (error)="handleImageError($event)" />
                       </a>
                     </div>
                     <div class="media-body text-center text-md-left">

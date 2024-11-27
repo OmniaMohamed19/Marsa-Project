@@ -135,6 +135,12 @@ export class LiveboardDetailsComponent {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
+  handleImageError(event: Event): void {
+    const target = event.target as HTMLImageElement;
+    if (target) {
+      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+    }
+  }
 
   // Method to get the displayed description
   getDisplayedDescription(): string {
