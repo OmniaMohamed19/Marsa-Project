@@ -22,7 +22,13 @@ export class ActivityCardComponent {
     private _httpService: HttpService,
   ) {}
   @Input() item: any;
-
+  ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+      this.isLogin = isAuth;
+    });
+  }
   getRoundedRate(rate: number | null): number {
     if (rate !== null && !isNaN(Number(rate))) {
       return parseFloat(Number(rate).toFixed(1));

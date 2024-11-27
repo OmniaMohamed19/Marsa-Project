@@ -930,19 +930,40 @@
           <ul
             class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
           >
-            <li class="list-group-item px-1">
-              <a
+          <ng-container *ngIf="boatData?.wishlist; else elseTemplate2">
+            <li
               type="button"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Save for later"
-                #btn
-                (click)="addtoFavorits(btn, $event)"
-                class="height-45 text-black-50 width-45 border rounded border-width-2 flex-content-center"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Save for later"
+              class="list-group-item px-1"
+
+            >
+              <a
+                href="#"
+                class="h-100 width-45 border rounded border-width-2 flex-content-center"
               >
-                <i class="fa fa-heart fs-3"></i>
+                <i class="fa fa-heart fs-3 text-danger"></i>
               </a>
             </li>
+          </ng-container>
+          <ng-template #elseTemplate2>
+            <li
+              type="button"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Save for later"
+              class="list-group-item px-1"
+            >
+              <a
+              #btn
+              (click)="addtoFavorits(btn, $event)"
+                class="h-100 width-45 border rounded border-width-2 flex-content-center"
+              >
+                <i class="fa fa-heart fs-3 text-black-50"></i>
+              </a>
+            </li>
+          </ng-template>
             <li class="list-group-item px-1">
               <a
               type="button"
