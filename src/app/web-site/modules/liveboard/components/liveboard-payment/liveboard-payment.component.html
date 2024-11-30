@@ -27,7 +27,9 @@
                       <owl-carousel-o [options]="customOptions">
                         <ng-container *ngFor="let cabin of cabins">
                           <ng-template carouselSlide>
-                            <img [src]="cabin.images[0]" [alt]="getImageName(cabin.images[0])"
+                            <img
+                              [src]="cabin.images[0]"
+                              [alt]="getImageName(cabin.images[0])"
                             />
                           </ng-template>
                         </ng-container>
@@ -49,7 +51,8 @@
                         {{ item?.accommodation_title }}
                       </span>
                     </a>
-                    <span *ngIf="item?.discount>0"
+                    <span
+                      *ngIf="item?.discount > 0"
                       class="font-weight-normal font-size-15 pl-2"
                       style="color: #ff681a"
                       >{{ item?.discount }}% special deal</span
@@ -352,7 +355,10 @@
                     </label>
                   </div>
                 </div>
-                <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
+                <ng-container
+                  *ngIf="showServices; else elseTemplate"
+                  class="mb-2"
+                >
                   <div class="col-sm-6 mb-4">
                     <div class="js-form-message">
                       <label class="form-label"> Pick up Location </label>
@@ -367,14 +373,14 @@
                         readonly
                       />
                       <div
-                          *ngIf="
-                            !locationValue &&
-                            customerForm.get('locationValue')?.touched
-                          "
-                          class="alert alert-danger my-2"
-                        >
-                          Pick up Location is required
-                        </div>
+                        *ngIf="
+                          !locationValue &&
+                          customerForm.get('locationValue')?.touched
+                        "
+                        class="alert alert-danger my-2"
+                      >
+                        Pick up Location is required
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-4">
@@ -385,7 +391,7 @@
                       formControlName="pickup_point"
                       placeholder="Enter Pick up Place"
                     />
-                  <div
+                    <div
                       *ngIf="
                         customerForm.get('pickup_point')?.invalid &&
                         (customerForm.get('pickup_point')?.dirty ||
@@ -393,17 +399,19 @@
                       "
                       class="alert alert-danger my-2"
                     >
-                    Pick up Place is required
+                      Pick up Place is required
                     </div>
-                    </div>
-                  </ng-container>
-              <ng-template #elseTemplate>
-                <div class="col-sm-6 mb-4">
-                  <div class="js-form-message">
-                    <label class="form-label"><p>You must choose location before 24 hours</p></label>
                   </div>
-                </div>
-              </ng-template>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <div class="col-sm-6 mb-4">
+                    <div class="js-form-message">
+                      <label class="form-label"
+                        ><p>You must choose location before 24 hours</p></label
+                      >
+                    </div>
+                  </div>
+                </ng-template>
                 <div class="w-100"></div>
                 <!-- Input -->
                 <div class="col-sm-12 mb-4">
@@ -526,16 +534,36 @@
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Card Holder Name* </label>
-                        <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
-                          required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
+                        <input
+                          type="text"
+                          class="form-control"
+                          (paste)="onPaste($event)"
+                          name="Cardname"
+                          placeholder=""
+                          aria-label=""
+                          required=""
+                          [(ngModel)]="cardholderName"
+                          (keypress)="letterOnly($event)"
+                        />
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Card Number* </label>
 
-                        <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
-                          required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          (paste)="onPaste($event)"
+                          name="Cardnumber"
+                          placeholder="xxxx xxxx xxxx xxxx"
+                          aria-label=""
+                          required=""
+                          inputmode="numeric"
+                          [(ngModel)]="cardNumber"
+                          maxlength="16"
+                          (keypress)="OnlyNumbers($event)"
+                        />
                       </div>
                     </div>
 
@@ -547,9 +575,19 @@
                           <div class="js-form-message">
                             <label class="form-label"> Expiry Month*</label>
 
-                            <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
-                              [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
-                              inputmode="numeric" />
+                            <input
+                              type="text"
+                              class="form-control"
+                              (paste)="onPaste($event)"
+                              name="Expirymonth"
+                              placeholder="xx"
+                              aria-label=""
+                              [(ngModel)]="expiryMonth"
+                              required=""
+                              maxlength="2"
+                              (keypress)="OnlyNumbers($event)"
+                              inputmode="numeric"
+                            />
                           </div>
                         </div>
                         <div class="col-sm-6">
@@ -557,21 +595,18 @@
                             <label class="form-label"> Expiry Year* </label>
 
                             <input
-                            type="text"
-                            class="form-control"
-                            name="Expiryyear"
-                            [(ngModel)]="expirYear"
-                            placeholder="xx"
-                            aria-label=""
-                            required=""
-                            maxlength="2"
-
-                            inputmode="numeric"
-                            (keypress)="OnlyNumbers($event)"
-                          />
-
-
-
+                              type="text"
+                              class="form-control"
+                              name="Expiryyear"
+                              [(ngModel)]="expirYear"
+                              placeholder="xx"
+                              aria-label=""
+                              required=""
+                              maxlength="2"
+                              (paste)="onPaste($event)"
+                              inputmode="numeric"
+                              (keypress)="OnlyNumbers($event)"
+                            />
                           </div>
                         </div>
                       </div>
@@ -581,13 +616,20 @@
                       <div class="js-form-message">
                         <label class="form-label"> CVV* </label>
 
-                        <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
-                          required="" [(ngModel)]="cvv" maxlength="3"
-
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="ccvnumber"
+                          placeholder="XXX"
+                          aria-label=""
+                          required=""
+                          [(ngModel)]="cvv"
+                          maxlength="3"
+                          (paste)="onPaste($event)"
                           autocomplete="cc-number"
-                         inputmode="numeric"
-                         (keypress)="OnlyNumbers($event)" />
-
+                          inputmode="numeric"
+                          (keypress)="OnlyNumbers($event)"
+                        />
                       </div>
                     </div>
 
@@ -625,17 +667,16 @@
                       </div>
                       <!-- End Checkbox -->
                       <a
-                        (click)="edit?confirmEdit($event)
-                        :confirmBookingByCard($event)"
+                        (click)="
+                          edit
+                            ? confirmEdit($event)
+                            : confirmBookingByCard($event)
+                        "
                         [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
                         class="btn payment text-white w-100 py-3"
-                        >
-                        {{
-                          edit?'CONFIRM EDIT'
-                          :'CONFIRM BOOKING'
-                        }}
-                        </a
                       >
+                        {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
+                      </a>
                     </div>
                   </div>
                 </form>
@@ -655,7 +696,10 @@
                   <!-- Login form content goes here -->
                   <div class="row">
                     <!-- Input -->
-                    <div class="col-sm-12 mb-4" [innerHTML]="liveabourdData?.Bookingpayment">
+                    <div
+                      class="col-sm-12 mb-4"
+                      [innerHTML]="liveabourdData?.Bookingpayment"
+                    >
                       <!-- <img
                         src="assets/icons/mdi_information-outline.svg"
                         alt=""
@@ -681,17 +725,12 @@
                       </p> -->
                     </div>
                     <a
-                          (click)="edit?confirmEdit($event)
-                          :confirmBooking()"
-                          class="btn payment text-white w-100 py-3"
-                          [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                          >
-                          {{
-                            edit?'CONFIRM EDIT'
-                            :'CONFIRM BOOKING'
-                          }}
-                          </a
-                        >
+                      (click)="edit ? confirmEdit($event) : confirmBooking()"
+                      class="btn payment text-white w-100 py-3"
+                      [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
+                    >
+                      {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
+                    </a>
                   </div>
                 </form>
               </div>
@@ -704,27 +743,26 @@
       </mat-horizontal-stepper>
     </div>
     <div class="col-lg-4 col-xl-3">
-      <div class="shadow-soft  bg-white rounded-sm">
-        <div class="border-bottom ">
+      <div class="shadow-soft bg-white rounded-sm">
+        <div class="border-bottom">
           <a href="#" class="d-block mb-3">
             <img
               class="img-fluid rounded-sm"
               [src]="liveabourdData?.Cover"
               [alt]="getImageName(liveabourdData?.Cover)"
-
             />
           </a>
-          <a href="#" class=" px-4 text-dark mb-2 d-block font-weighted">{{
+          <a href="#" class="px-4 text-dark mb-2 d-block font-weighted">{{
             liveabourdData?.Name
           }}</a>
-          <a class=" px-4 text-dark font-weight-normal mb-2 d-block">{{
+          <a class="px-4 text-dark font-weight-normal mb-2 d-block">{{
             liveabourdData?.Type
           }}</a>
 
           <div class="mb-1 px-4 flex-horizontal-center text-gray-1">
             <img
               src="assets/custom/Activity/locationDark.svg"
-              alt={{liveabourdData?.Place}}
+              alt="{{ liveabourdData?.Place }}"
               class="me-2"
             />
             {{ liveabourdData?.Place }}
@@ -876,11 +914,7 @@
                       </span>
                     </div>
 
-                    <span
-                      class="text-secondary"
-                    >
-                      ${{ ex.Total }}
-                    </span>
+                    <span class="text-secondary"> ${{ ex.Total }} </span>
                   </ng-container>
                 </li>
               </ul>

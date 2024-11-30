@@ -149,12 +149,12 @@ export class PackageDetailsComponent {
     const options = {
       root: null, // viewport
       rootMargin: '0px',
-      threshold: 1.5, // element should be at least 70% visible
+      threshold: 0.5, // element should be at least 70% visible
     };
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      console.log(visibleEntries);
+      // console.log(visibleEntries);
 
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
