@@ -1,11 +1,14 @@
 <app-header [background]="'#0DB1FF'"></app-header>
-<div class="container top-155" >
+<div class="container top-155">
   <div class="row">
-    <div class="col-lg-8 col-xl-9 ">
+    <div class="col-lg-8 col-xl-9">
       <mat-horizontal-stepper #stepper [linear]="true">
         <mat-step [label]="'Customer Information'">
           <div class="">
-            <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-4">
+            <h5
+              id="scroll-description"
+              class="font-size-21 font-weight-bold text-dark mb-4"
+            >
               Let us know who you are
             </h5>
             <!-- Contacts Form -->
@@ -13,43 +16,85 @@
               <div class="row">
                 <div class="col-sm-12 mb-4">
                   <div class="js-form-message">
-                    <label class="form-label">
-                      Name
-                    </label>
+                    <label class="form-label"> Name </label>
 
-                    <input type="text" class="form-control" formControlName="name"
-                      [ngClass]="{'is-invalid': customerForm.get('name')?.invalid && customerForm.get('name')?.touched}"
-                      placeholder="Please enter your name." required>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      [ngClass]="{
+                        'is-invalid':
+                          customerForm.get('name')?.invalid &&
+                          customerForm.get('name')?.touched
+                      }"
+                      placeholder="Please enter your name."
+                      required
+                    />
                     <div
-                      *ngIf="customerForm.get('name')?.invalid && (customerForm.get('name')?.dirty || customerForm.get('name')?.touched)"
-                      class="alert alert-danger my-2">Name is required</div>
+                      *ngIf="
+                        customerForm.get('name')?.invalid &&
+                        (customerForm.get('name')?.dirty ||
+                          customerForm.get('name')?.touched)
+                      "
+                      class="alert alert-danger my-2"
+                    >
+                      Name is required
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-6 mb-4">
                   <div class="js-form-message">
-                    <label class="form-label">
-                      Email
-                    </label>
-                    <input type="email" class="form-control" formControlName="email"
-                      [ngClass]="{'is-invalid': customerForm.get('email')?.invalid && customerForm.get('email')?.touched}"
-                      placeholder="enter emial" required>
+                    <label class="form-label"> Email </label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      [ngClass]="{
+                        'is-invalid':
+                          customerForm.get('email')?.invalid &&
+                          customerForm.get('email')?.touched
+                      }"
+                      placeholder="enter emial"
+                      required
+                    />
                     <div
-                      *ngIf="customerForm.get('email')?.invalid && (customerForm.get('email')?.dirty || customerForm.get('email')?.touched)"
-                      class="alert alert-danger my-2">Email is required</div>
+                      *ngIf="
+                        customerForm.get('email')?.invalid &&
+                        (customerForm.get('email')?.dirty ||
+                          customerForm.get('email')?.touched)
+                      "
+                      class="alert alert-danger my-2"
+                    >
+                      Email is required
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-6 mb-4">
                   <div class="js-form-message">
-                    <label class="form-label">
-                      Phone
-                    </label>
-                    <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
-                      [searchCountryFlag]="true" [selectFirstCountry]="true" [maxLength]="20" [phoneValidation]="false"
-                      name="phone" [enablePlaceholder]="true" [customPlaceholder]="'Enter phone number'"
-                      [preferredCountries]="['de']" formControlName="phone"></ngx-intl-tel-input>
-                    <ng-container *ngIf="customerForm.get('phone')?.errors && customerForm.get('phone')?.touched">
-                      <div class="alert alert-danger my-2 text-dark"
-                        *ngIf="customerForm.get('phone')?.errors?.['required']">
+                    <label class="form-label"> Phone </label>
+                    <ngx-intl-tel-input
+                      [enableAutoCountrySelect]="true"
+                      [enablePlaceholder]="true"
+                      [searchCountryFlag]="true"
+                      [selectFirstCountry]="true"
+                      [maxLength]="20"
+                      [phoneValidation]="false"
+                      name="phone"
+                      [enablePlaceholder]="true"
+                      [customPlaceholder]="'Enter phone number'"
+                      [preferredCountries]="['de']"
+                      formControlName="phone"
+                    ></ngx-intl-tel-input>
+                    <ng-container
+                      *ngIf="
+                        customerForm.get('phone')?.errors &&
+                        customerForm.get('phone')?.touched
+                      "
+                    >
+                      <div
+                        class="alert alert-danger my-2 text-dark"
+                        *ngIf="customerForm.get('phone')?.errors?.['required']"
+                      >
                         Phone is required
                       </div>
                     </ng-container>
@@ -80,21 +125,35 @@
                 <p>Do you want a pick up services ?</p>
                 <div class="d-flex gap-5 mb-2">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" checked="checked"
-                      id="flexRadioDefault1" (change)="showServices = true">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      checked="checked"
+                      id="flexRadioDefault1"
+                      (change)="showServices = true"
+                    />
                     <label class="form-check-label" for="flexRadioDefault1">
                       Now
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                      (change)="showServices = false">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="flexRadioDefault2"
+                      (change)="showServices = false"
+                    />
                     <label class="form-check-label" for="flexRadioDefault2">
                       Later
                     </label>
                   </div>
                 </div>
-                <ng-container *ngIf="showServices; else elseTemplate"class="mb-2">
+                <ng-container
+                  *ngIf="showServices; else elseTemplate"
+                  class="mb-2"
+                >
                   <div class="col-sm-6 mb-4">
                     <div class="js-form-message">
                       <label class="form-label"> Pick up Location </label>
@@ -109,14 +168,14 @@
                         readonly
                       />
                       <div
-                          *ngIf="
-                            !locationValue &&
-                            customerForm.get('locationValue')?.touched
-                          "
-                          class="alert alert-danger my-2"
-                        >
-                          Pick up Location is required
-                        </div>
+                        *ngIf="
+                          !locationValue &&
+                          customerForm.get('locationValue')?.touched
+                        "
+                        class="alert alert-danger my-2"
+                      >
+                        Pick up Location is required
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-6 mb-4">
@@ -127,7 +186,7 @@
                       formControlName="pickup_point"
                       placeholder="Enter Pick up Place"
                     />
-                  <div
+                    <div
                       *ngIf="
                         customerForm.get('pickup_point')?.invalid &&
                         (customerForm.get('pickup_point')?.dirty ||
@@ -135,94 +194,162 @@
                       "
                       class="alert alert-danger my-2"
                     >
-                    Pick up Place is required
+                      Pick up Place is required
+                    </div>
                   </div>
-                </div>
                 </ng-container>
-              <ng-template #elseTemplate>
-                <div class="col-sm-6 mb-4">
-                  <div class="js-form-message">
-                    <label class="form-label"><p>You must choose location before 24 hours</p></label>
+                <ng-template #elseTemplate>
+                  <div class="col-sm-6 mb-4">
+                    <div class="js-form-message">
+                      <label class="form-label"
+                        ><p>You must choose location before 24 hours</p></label
+                      >
+                    </div>
                   </div>
-                </div>
-              </ng-template>
+                </ng-template>
                 <div class="w-100"></div>
                 <div class="col-sm-12 mb-4">
                   <div class="js-form-message">
-                    <label class="form-label">
-                      Special Requirements
-                    </label>
-                    <textarea type="number" class="form-control w-100" formControlName="note" rows="8"></textarea>
+                    <label class="form-label"> Special Requirements </label>
+                    <textarea
+                      type="number"
+                      class="form-control w-100"
+                      formControlName="note"
+                      rows="8"
+                    ></textarea>
                   </div>
                 </div>
                 <div class="w-100"></div>
                 <div class="col align-self-end">
                   <div class="text-right gap-3 d-flex justify-content-end">
-                    <button type="submit" class="btn payment bg-transparent py-3 " (click)="goToPreviousStep(stepper)">
-                      Cancel</button>
-                    <button (click)="goToPayment(stepper)" type="submit"
-                      class="btn payment text-white py-3">Continue</button>
+                    <button
+                      type="submit"
+                      class="btn payment bg-transparent py-3"
+                      (click)="goToPreviousStep(stepper)"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      (click)="goToPayment(stepper)"
+                      type="submit"
+                      class="btn payment text-white py-3"
+                    >
+                      Continue
+                    </button>
                   </div>
                 </div>
               </div>
             </form>
           </div>
         </mat-step>
-        <mat-step [label]="'Payment Information'" [completed]="isConfirmationStepEnabled">
+        <mat-step
+          [label]="'Payment Information'"
+          [completed]="isConfirmationStepEnabled"
+        >
           <div class="">
-            <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-4">
+            <h5
+              id="scroll-description"
+              class="font-size-21 font-weight-bold text-dark mb-4"
+            >
               Your Card Information
             </h5>
-            <ul class="nav nav-classic nav-choose border-0 nav-justified border mx-n3" role="tablist">
+            <ul
+              class="nav nav-classic nav-choose border-0 nav-justified border mx-n3"
+              role="tablist"
+            >
               <li class="nav-item mx-3 mb-4 mb-md-0">
-                <a class="rounded py-5 border-width-2 border nav-link font-weight-medium " id="pills-one-example2-tab"
-                  [class.active]="isActiveTab('pills-two-example2')" (click)="toggleTab('pills-two-example2', 'card')">
+                <a
+                  class="rounded py-5 border-width-2 border nav-link font-weight-medium"
+                  id="pills-one-example2-tab"
+                  [class.active]="isActiveTab('pills-two-example2')"
+                  (click)="toggleTab('pills-two-example2', 'card')"
+                >
                   <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
+                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                  >
                     <i class="fa fa-check text-white font-size-15"></i>
                   </div>
-                  <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
-                    <img class="img-fluid mb-3" src="../../../../../../assets/custom/Activity/payment.png"
-                      alt="payment">
+                  <div
+                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                  >
+                    <img
+                      class="img-fluid mb-3"
+                      src="../../../../../../assets/custom/Activity/payment.png"
+                      alt="payment"
+                    />
                     <div class="w-100 text-dark">Payment with Card</div>
                   </div>
                 </a>
               </li>
               <li class="nav-item mx-3">
-                <a class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
-                  id="pills-one-example2-tab" [class.active]="isActiveTab('pills-one-example2')"
-                  (click)="toggleTab('pills-one-example2', 'cash')">
+                <a
+                  class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                  id="pills-one-example2-tab"
+                  [class.active]="isActiveTab('pills-one-example2')"
+                  (click)="toggleTab('pills-one-example2', 'cash')"
+                >
                   <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
+                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                  >
                     <i class="fa fa-check text-white font-size-15"></i>
                   </div>
-                  <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
-                    <img class="img-fluid mb-3" src="../../../../../../assets/custom/Activity/banknotes.png"
-                      alt="banknotes">
+                  <div
+                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                  >
+                    <img
+                      class="img-fluid mb-3"
+                      src="../../../../../../assets/custom/Activity/banknotes.png"
+                      alt="banknotes"
+                    />
                     <div class="w-100 text-dark">Book now Cash</div>
                   </div>
                 </a>
               </li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade pt-8 show active" id="pills-two-example2" role="tabpanel"
-                aria-labelledby="pills-two-example2-tab" [class.show]="isActiveTab('pills-two-example2')"
-                [class.active]="isActiveTab('pills-two-example2')">
+              <div
+                class="tab-pane fade pt-8 show active"
+                id="pills-two-example2"
+                role="tabpanel"
+                aria-labelledby="pills-two-example2-tab"
+                [class.show]="isActiveTab('pills-two-example2')"
+                [class.active]="isActiveTab('pills-two-example2')"
+              >
                 <form class="js-validate" novalidate="novalidate">
                   <div class="row">
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Card Holder Name* </label>
-                        <input type="text" class="form-control " (paste)="onPaste($event)" name="Cardname" placeholder="" aria-label=""
-                          required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
+                        <input
+                          type="text"
+                          class="form-control"
+                          (paste)="onPaste($event)"
+                          name="Cardname"
+                          placeholder=""
+                          aria-label=""
+                          required=""
+                          [(ngModel)]="cardholderName"
+                          (keypress)="letterOnly($event)"
+                        />
                       </div>
                     </div>
                     <div class="col-sm-6 mb-4">
                       <div class="js-form-message">
                         <label class="form-label"> Card Number* </label>
 
-                        <input type="text" class="form-control" (paste)="onPaste($event)" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
-                          required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          (paste)="onPaste($event)"
+                          name="Cardnumber"
+                          placeholder="xxxx xxxx xxxx xxxx"
+                          aria-label=""
+                          required=""
+                          inputmode="numeric"
+                          [(ngModel)]="cardNumber"
+                          maxlength="16"
+                          (keypress)="OnlyNumbers($event)"
+                        />
                       </div>
                     </div>
 
@@ -234,9 +361,19 @@
                           <div class="js-form-message">
                             <label class="form-label"> Expiry Month*</label>
 
-                            <input type="text" class="form-control" (paste)="onPaste($event)" name="Expirymonth" placeholder="xx" aria-label=""
-                              [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
-                              inputmode="numeric" />
+                            <input
+                              type="text"
+                              class="form-control"
+                              (paste)="onPaste($event)"
+                              name="Expirymonth"
+                              placeholder="xx"
+                              aria-label=""
+                              [(ngModel)]="expiryMonth"
+                              required=""
+                              maxlength="2"
+                              (keypress)="OnlyNumbers($event)"
+                              inputmode="numeric"
+                            />
                           </div>
                         </div>
                         <div class="col-sm-6">
@@ -244,21 +381,18 @@
                             <label class="form-label"> Expiry Year* </label>
 
                             <input
-                            type="text"
-                            class="form-control"
-                            name="Expiryyear"
-                            [(ngModel)]="expirYear"
-                            placeholder="xx"
-                            aria-label=""
-                            required=""
-                            maxlength="2"
-(paste)="onPaste($event)"
-                            inputmode="numeric"
-                            (keypress)="OnlyNumbers($event)"
-                          />
-
-
-
+                              type="text"
+                              class="form-control"
+                              name="Expiryyear"
+                              [(ngModel)]="expirYear"
+                              placeholder="xx"
+                              aria-label=""
+                              required=""
+                              maxlength="2"
+                              (paste)="onPaste($event)"
+                              inputmode="numeric"
+                              (keypress)="OnlyNumbers($event)"
+                            />
                           </div>
                         </div>
                       </div>
@@ -268,19 +402,31 @@
                       <div class="js-form-message">
                         <label class="form-label"> CVV* </label>
 
-                        <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
-                          required="" [(ngModel)]="cvv" maxlength="3"
-(paste)="onPaste($event)"
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="ccvnumber"
+                          placeholder="XXX"
+                          aria-label=""
+                          required=""
+                          [(ngModel)]="cvv"
+                          maxlength="3"
+                          (paste)="onPaste($event)"
                           autocomplete="cc-number"
-                         inputmode="numeric"
-                         (keypress)="OnlyNumbers($event)" />
-
+                          inputmode="numeric"
+                          (keypress)="OnlyNumbers($event)"
+                        />
                       </div>
                     </div>
 
                     <div class="w-100"></div>
                     <div class="col">
-                      <div class="js-form-message mb-5" [innerHTML]="responseFromAvailableOption?.Bookingpayment">
+                      <div
+                        class="js-form-message mb-5"
+                        [innerHTML]="
+                          responseFromAvailableOption?.Bookingpayment
+                        "
+                      >
                         <!-- <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
                           <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox"
                             required="">
@@ -295,27 +441,34 @@
                       </div>
 
                       <a
-                          (click)="edit?confirmEdit($event)
-                          :confirmBookingByCard($event)"
-                          class="btn payment text-white w-100 py-3"
-                          [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                          >
-                          {{
-                            edit?'CONFIRM EDIT'
-                            :'CONFIRM BOOKING'
-                          }}
-                          </a
-                        >
+                        (click)="
+                          edit
+                            ? confirmEdit($event)
+                            : confirmBookingByCard($event)
+                        "
+                        class="btn payment text-white w-100 py-3"
+                        [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
+                      >
+                        {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
+                      </a>
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="tab-pane fade pt-8" id="pills-two-example2" role="tabpanel"
-                [class.show]="isActiveTab('pills-one-example2')" [class.active]="isActiveTab('pills-one-example2')"
-                aria-labelledby="pills-two-example2-tab">
+              <div
+                class="tab-pane fade pt-8"
+                id="pills-two-example2"
+                role="tabpanel"
+                [class.show]="isActiveTab('pills-one-example2')"
+                [class.active]="isActiveTab('pills-one-example2')"
+                aria-labelledby="pills-two-example2-tab"
+              >
                 <form class="js-validate" novalidate="novalidate">
                   <div class="row">
-                    <div class="col-sm-12 mb-4" [innerHTML]="responseFromAvailableOption?.Bookingpayment">
+                    <div
+                      class="col-sm-12 mb-4"
+                      [innerHTML]="responseFromAvailableOption?.Bookingpayment"
+                    >
                       <!-- <img src="assets/icons/mdi_information-outline.svg" alt="">
                       <span style="color: #77838f;">
                         Explore one of the world’s best art museums at your own pace with
@@ -338,17 +491,12 @@
                       </p> -->
                     </div>
                     <a
-                          (click)="edit?confirmEdit($event)
-                          :confirmBooking()"
-                          class="btn payment text-white w-100 py-3"
-                          [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                          >
-                          {{
-                            edit?'CONFIRM EDIT'
-                            :'CONFIRM BOOKING'
-                          }}
-                          </a
-                        >
+                      (click)="edit ? confirmEdit($event) : confirmBooking()"
+                      class="btn payment text-white w-100 py-3"
+                      [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
+                    >
+                      {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
+                    </a>
                     <!-- <a (click)="confirmBooking()" class="btn  payment text-white w-100 py-3">CONFIRM
                       BOOKING</a> -->
                   </div>
@@ -357,58 +505,93 @@
             </div>
           </div>
         </mat-step>
-        <mat-step [label]="'Booking confirmation!'">
-        </mat-step>
+        <mat-step [label]="'Booking confirmation!'"> </mat-step>
       </mat-horizontal-stepper>
     </div>
     <div class="col-lg-4 col-xl-3">
       <div class="shadow-soft bg-white rounded-sm">
         <div class="pt-5 pb-3 px-5 border-bottom">
           <a class="d-block mb-3">
-            <img class="img-fluid cover-image rounded-sm" width="312" height="247"
-              [src]="packageData?.PackageTrips[0].cover"[alt]="getImageName(packageData?.PackageTrips[0].cover)">
+            <img
+              class="img-fluid cover-image rounded-sm"
+              width="312"
+              height="247"
+              [src]="packageData?.PackageTrips[0].cover"
+              [alt]="getImageName(packageData?.PackageTrips[0].cover)"
+            />
           </a>
-          <a class="text-dark  mb-2 d-block font-weighted">{{responseFromAvailableOption?.TripName}} Package</a>
+          <a class="text-dark mb-2 d-block font-weighted"
+            >{{ responseFromAvailableOption?.TripName }} Package</a
+          >
 
           <div class="mb-1 flex-horizontal-center text-gray-1">
-            <img src="assets/custom/Activity/locationDark.svg" alt="Hurghada" class="me-2">
-            {{packageData?.place}}
+            <img
+              src="assets/custom/Activity/locationDark.svg"
+              alt="Hurghada"
+              class="me-2"
+            />
+            {{ packageData?.place }}
           </div>
         </div>
         <div id="basicsAccordion">
           <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingOne">
+            <div
+              class="card-header card-collapse bg-transparent border-0"
+              id="basicsHeadingOne"
+            >
               <h5 class="mb-0">
-                <button type="button"
+                <button
+                  type="button"
                   class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
-                  data-toggle="collapse" data-target="#basicsCollapseOne" aria-expanded="true"
-                  aria-controls="basicsCollapseOne">
+                  data-toggle="collapse"
+                  data-target="#basicsCollapseOne"
+                  aria-expanded="true"
+                  aria-controls="basicsCollapseOne"
+                >
                   Booking Detail
                 </button>
               </h5>
             </div>
-            <div id="basicsCollapseOne" class="collapse show" aria-labelledby="basicsHeadingOne"
-              data-parent="#basicsAccordion">
+            <div
+              id="basicsCollapseOne"
+              class="collapse show"
+              aria-labelledby="basicsHeadingOne"
+              data-parent="#basicsAccordion"
+            >
               <div class="card-body px-4 pt-0">
                 <ul class="list-unstyled font-size-1 mb-0 font-size-16">
                   <li class="d-flex justify-content-between py-2">
                     <span class="font-weight-medium">
-                      {{model.booking_date | date:'dd MMM yyyy' }} - {{end_date | date:'dd MMM yyyy'}}</span>
+                      {{ model.booking_date | date : "dd MMM yyyy" }} -
+                      {{ end_date | date : "dd MMM yyyy" }}</span
+                    >
                   </li>
                   <li class="d-flex justify-content-between py-2">
                     <span class="font-weight-medium">Adult</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.Adult}}</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.TotalAdult}}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.Adult
+                    }}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.TotalAdult
+                    }}</span>
                   </li>
                   <li class="d-flex justify-content-between py-2">
                     <span class="font-weight-medium">Children</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.Childern}}</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.TotalChildern}}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.Childern
+                    }}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.TotalChildern
+                    }}</span>
                   </li>
                   <li class="d-flex justify-content-between py-2">
                     <span class="font-weight-medium">Infant</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.Infant}}</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.TotalInfant}}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.Infant
+                    }}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.TotalInfant
+                    }}</span>
                   </li>
                 </ul>
               </div>
@@ -416,60 +599,98 @@
           </div>
 
           <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingTwo">
+            <div
+              class="card-header card-collapse bg-transparent border-0"
+              id="basicsHeadingTwo"
+            >
               <h5 class="mb-0">
-                <button type="button"
+                <button
+                  type="button"
                   class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
-                  data-toggle="collapse" data-target="#basicsCollapseTwo" aria-expanded="false"
-                  aria-controls="basicsCollapseTwo">
+                  data-toggle="collapse"
+                  data-target="#basicsCollapseTwo"
+                  aria-expanded="false"
+                  aria-controls="basicsCollapseTwo"
+                >
                   Extra
                 </button>
-                <ul class="list-unstyled font-size-1 mb-0 font-size-16 card-body px-4 pt-0">
+                <ul
+                  class="list-unstyled font-size-1 mb-0 font-size-16 card-body px-4 pt-0"
+                >
                   <li class="d-flex justify-content-between py-2">
-                    <span class="font-weight-medium">{{responseFromAvailableOption?.AddetionalCost[0]?.Exclude}}</span>
-                    <span class="text-secondary">{{responseFromAvailableOption?.AddetionalCost[0]?.Total}}</span>
+                    <span class="font-weight-medium">{{
+                      responseFromAvailableOption?.AddetionalCost[0]?.Exclude
+                    }}</span>
+                    <span class="text-secondary">{{
+                      responseFromAvailableOption?.AddetionalCost[0]?.Total
+                    }}</span>
                   </li>
                 </ul>
               </h5>
             </div>
-
           </div>
           <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingThree">
+            <div
+              class="card-header card-collapse bg-transparent border-0"
+              id="basicsHeadingThree"
+            >
               <h5 class="mb-0">
-                <button type="button"
+                <button
+                  type="button"
                   class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
-                  data-toggle="collapse" data-target="#basicsCollapseThree" aria-expanded="false"
-                  aria-controls="basicsCollapseThree">
+                  data-toggle="collapse"
+                  data-target="#basicsCollapseThree"
+                  aria-expanded="false"
+                  aria-controls="basicsCollapseThree"
+                >
                   Coupon Code
                 </button>
               </h5>
             </div>
-            <div id="basicsCollapseThree" class="collapse show" aria-labelledby="basicsHeadingThree"
-              data-parent="#basicsAccordion">
+            <div
+              id="basicsCollapseThree"
+              class="collapse show"
+              aria-labelledby="basicsHeadingThree"
+              data-parent="#basicsAccordion"
+            >
               <div class="card-body px-4 pt-0 pb-4">
                 <!-- Subscribe Form -->
                 <form class="js-focus-state">
-                  <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
+                  <label class="sr-only" for="CouponCodeExample1"
+                    >Coupon Code</label
+                  >
                   <div class="input-group">
-                    <input type="number" class="form-control" name="email" id="CouponCodeExample1" placeholder=""
-                      aria-label="" aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="email"
+                      id="CouponCodeExample1"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="CouponCodeExample2"
+                      required=""
+                      [(ngModel)]="coupon"
+                    />
                     <div class="input-group-append">
-                      <button   style="
-                      background-color: #0DB1FF;
+                      <button
+                        style="
+                          background-color: #0db1ff;
 
-                      color: #FFF;
-                      font-family: Lato;
-                      font-size: 16px;
-                      font-style: normal;
-                      font-weight: 700;
-                      line-height: normal;
-                      display: inline-flex;
-                      align-items: center;
-
-                  " (click)="applycoupon()" class="btn bg-main py-2 " type="button"
-                        id="CouponCodeExample2">
-                       Apply
+                          color: #fff;
+                          font-family: Lato;
+                          font-size: 16px;
+                          font-style: normal;
+                          font-weight: 700;
+                          line-height: normal;
+                          display: inline-flex;
+                          align-items: center;
+                        "
+                        (click)="applycoupon()"
+                        class="btn bg-main py-2"
+                        type="button"
+                        id="CouponCodeExample2"
+                      >
+                        Apply
                       </button>
                     </div>
                   </div>
@@ -479,12 +700,19 @@
             </div>
           </div>
           <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingFour">
+            <div
+              class="card-header card-collapse bg-transparent border-0"
+              id="basicsHeadingFour"
+            >
               <h5 class="mb-0">
-                <button type="button"
+                <button
+                  type="button"
                   class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
-                  data-toggle="collapse" data-target="#basicsCollapseFour" aria-expanded="false"
-                  aria-controls="basicsCollapseFour">
+                  data-toggle="collapse"
+                  data-target="#basicsCollapseFour"
+                  aria-expanded="false"
+                  aria-controls="basicsCollapseFour"
+                >
                   Payment
                   <span class="card-btn-arrow font-size-14 text-dark">
                     <i class="fas fa-chevron-down"></i>
@@ -492,27 +720,42 @@
                 </button>
               </h5>
             </div>
-            <div id="basicsCollapseFour" class="collapse show" aria-labelledby="basicsHeadingFour"
-              data-parent="#basicsAccordion">
+            <div
+              id="basicsCollapseFour"
+              class="collapse show"
+              aria-labelledby="basicsHeadingFour"
+              data-parent="#basicsAccordion"
+            >
               <div class="card-body px-4 pt-0">
                 <ng-container>
                   <ul class="list-unstyled font-size-1 mb-0 font-size-16">
                     <li class="d-flex justify-content-between py-2">
                       <span class="font-weight-medium">Total persons</span>
-                      <span class="text-secondary">{{responseFromAvailableOption?.totalTripPrice}}</span>
+                      <span class="text-secondary">{{
+                        responseFromAvailableOption?.totalTripPrice
+                      }}</span>
                     </li>
                     <li class="d-flex justify-content-between py-2">
-                      <span class="font-weight-medium">Total Addetional Cost</span>
-                      <span class="text-secondary">{{responseFromAvailableOption?.TotalAddetionalCost}}</span>
+                      <span class="font-weight-medium"
+                        >Total Addetional Cost</span
+                      >
+                      <span class="text-secondary">{{
+                        responseFromAvailableOption?.TotalAddetionalCost
+                      }}</span>
                     </li>
-                    <li *ngIf="Coupons && Coupons[0]" class="d-flex justify-content-between py-2 font-size-17"
-                      style="font-weight: 700">
+                    <li
+                      *ngIf="Coupons && Coupons[0]"
+                      class="d-flex justify-content-between py-2 font-size-17"
+                      style="font-weight: 700"
+                    >
                       <span style="font-weight: 700">Coupon</span>
                       <span style="font-weight: 700">{{
                         Coupons[0]?.amount
-                        }}</span>
+                      }}</span>
                     </li>
-                    <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
+                    <li
+                      class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                    >
                       <span class="font-weighted">Total</span>
                       <span>{{ Total }}</span>
                       <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->

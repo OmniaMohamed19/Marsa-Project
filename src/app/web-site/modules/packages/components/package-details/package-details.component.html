@@ -71,7 +71,10 @@
   <div class="position-relative mt-4 d-block d-lg-none pb-5">
     <div class="discount-small">
       <p>UP TO <span>15%</span></p>
-      <img src="../../../../../assets/images/Vector Smart Object.svg" alt="Vector smart" />
+      <img
+        src="../../../../../assets/images/Vector Smart Object.svg"
+        alt="Vector smart"
+      />
     </div>
   </div>
   <div class="container">
@@ -79,12 +82,11 @@
       <div class="col-lg-6 first-column">
         <div class="packages-img">
           <img src="../../../../../assets/images/Vacation.svg" alt="vacation" />
-          <img src="../../../../../assets/images/Packages.svg" alt="packages"/>
+          <img src="../../../../../assets/images/Packages.svg" alt="packages" />
         </div>
         <div>
           <ul class="list-unstyled package-list">
             <li
-
               *ngFor="let trip of rows?.PackageTrips.slice(0, 3); let j = index"
             >
               <img
@@ -158,28 +160,34 @@
         </div>
       </div>
       <div class="col-lg-6 position-relative">
-
         <div *ngIf="isSmallScreen; else normalImages" class="diving-carousel">
           <owl-carousel-o [options]="carouselOptions">
-            <ng-container *ngFor="let img of [rows?.cover1, rows?.cover2, rows?.cover3]">
+            <ng-container
+              *ngFor="let img of [rows?.cover1, rows?.cover2, rows?.cover3]"
+            >
               <ng-template carouselSlide>
-                <div class="carousel-card" [ngStyle]="{'background-image': 'url(' + img + ')'}">
-                </div>
+                <div
+                  class="carousel-card"
+                  [ngStyle]="{ 'background-image': 'url(' + img + ')' }"
+                ></div>
               </ng-template>
             </ng-container>
           </owl-carousel-o>
-
         </div>
 
         <ng-template #normalImages>
           <div class="diving-images">
-            <div><img [src]="rows?.cover1"   [alt]="getImageName(rows?.cover1)"
-              /></div>
-            <div><img [src]="rows?.cover2"[alt]="getImageName(rows?.cover2)" /></div>
-            <div class="div2"><img [src]="rows?.cover3" [alt]="getImageName(rows?.cover3)"/></div>
+            <div>
+              <img [src]="rows?.cover1" [alt]="getImageName(rows?.cover1)" />
+            </div>
+            <div>
+              <img [src]="rows?.cover2" [alt]="getImageName(rows?.cover2)" />
+            </div>
+            <div class="div2">
+              <img [src]="rows?.cover3" [alt]="getImageName(rows?.cover3)" />
+            </div>
           </div>
         </ng-template>
-
       </div>
     </div>
   </div>
@@ -187,7 +195,7 @@
     <div class="percent">
       <div>
         <p>UP TO</p>
-        <p>{{rows?.discount}}</p>
+        <p>{{ rows?.discount }}</p>
       </div>
       <span>discount</span>
     </div>
@@ -277,7 +285,7 @@
         <h5 class="heading">Description</h5>
         <p [innerHTML]="getDisplayedDescription()" class="d-inline"></p>
         <span
-        *ngIf="rows?.Description?.length > 1000"
+          *ngIf="rows?.Description?.length > 1000"
           style="color: #0db1ff"
           (click)="toggleDescription()"
           class="d-inline"
@@ -348,14 +356,12 @@
                     style="color: #ff681a"
                   ></i>
 
-                  <span class="font-size-9 d-inline-block" >
+                  <span class="font-size-9 d-inline-block">
                     {{ exclude.title }} <br />
-                  <p *ngIf="exclude?.price > 0">
-                    ( ${{ exclude?.price }}  per person :
-                    {{ exclude?.option }})
-
-                  </p>
-
+                    <p *ngIf="exclude?.price > 0">
+                      ( ${{ exclude?.price }} per person :
+                      {{ exclude?.option }})
+                    </p>
                   </span>
                 </li>
               </ul>
@@ -443,7 +449,10 @@
                   <a class="d-block" href="#">
                     <img
                       class="img-fluid mb-3 mb-md-0 rounded-circle"
-                      [src]="review?.avatar || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
+                      [src]="
+                        review?.avatar ||
+                        '../../../../../../assets/custom/user-dasboard/avatar-place.png'
+                      "
                       (error)="handleImageError($event)"
                       [alt]="review?.name"
                     />
@@ -667,16 +676,21 @@
       <div class="border border-color-7 rounded mb-5">
         <div class="p-4" #checkAvailabilityButton>
           <div class="priceTitle d-flex justify-content-between">
-            <span class="d-block text-gray-1 font-weight-normal mb-2 text-left">Price</span>
+            <span class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+              >Price</span
+            >
             <p style="font-weight: 700">
               <ng-container *ngIf="hasDiscount(rows)">
                 <!-- Original Price with Strikethrough -->
-                 <span>From </span>
+                <span>From </span>
                 <span
                   class="font-size-18 fw-bold text-dark"
-                  style="text-decoration: line-through; color: rgb(13, 177, 255) !important"
+                  style="
+                    text-decoration: line-through;
+                    color: rgb(13, 177, 255) !important;
+                  "
                 >
-                   ${{ rows?.Price.Adult }}
+                  ${{ rows?.Price.Adult }}
                 </span>
 
                 <!-- Discounted Price -->
@@ -685,7 +699,10 @@
                   style="font-weight: 700"
                 >
                   ${{
-                    calculateDiscountedPrice(rows?.Price.Adult, rows?.Price.AdultDiscount)
+                    calculateDiscountedPrice(
+                      rows?.Price.Adult,
+                      rows?.Price.AdultDiscount
+                    )
                   }}
                 </span>
               </ng-container>
@@ -705,7 +722,7 @@
           <div class="mb-4">
             <div class="border-bottom border-width-2 border-color-1 pb-1">
               <span class="d-block">Date</span>
-              <mat-form-field class="w-100">
+              <mat-form-field class="w-100" (click)="startPicker.open()">
                 <mat-label>Start Date</mat-label>
                 <input
                   matInput
@@ -722,6 +739,7 @@
                 ></mat-datepicker-toggle>
                 <mat-datepicker #startPicker></mat-datepicker>
               </mat-form-field>
+
               <mat-form-field class="w-100" *ngIf="startDate">
                 <mat-label>End date</mat-label>
                 <input
