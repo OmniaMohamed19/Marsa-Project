@@ -148,6 +148,7 @@ export class PaymentBoatsComponent {
       this.markFormGroupTouched(this.customerForm);
     }
   }
+  
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {

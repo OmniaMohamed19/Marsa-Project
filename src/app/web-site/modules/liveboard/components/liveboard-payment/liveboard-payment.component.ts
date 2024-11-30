@@ -87,7 +87,10 @@ export class LiveboardPaymentComponent implements OnInit {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
-
+  onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    console.log('Pasting is not allowed!');
+  }
   ngOnInit(): void {
     this.edit=localStorage['edit']
     this.initForm();

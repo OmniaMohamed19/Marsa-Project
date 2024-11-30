@@ -346,6 +346,10 @@ export class PackagePaymentComponent {
     this.markFormGroupTouched(this.customerForm);
   }
   }
+  onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    console.log('Pasting is not allowed!');
+  }
   // map
   openMapModal(): void {
     const dialogRef = this.dialog.open(MapModalComponent, {
