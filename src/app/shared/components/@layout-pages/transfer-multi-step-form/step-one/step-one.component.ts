@@ -1,17 +1,17 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, NgForm, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { DataService } from 'src/app/web-site/modules/transfer/dataService';
 import { environment } from 'src/environments/environment.prod';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
-
 @Component({
   selector: 'app-step-one',
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.scss']
 })
+
 export class StepOneComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<any>();
@@ -32,6 +32,7 @@ export class StepOneComponent implements OnInit {
   Isairport:boolean=false;
   selectedCar: any = null;  // To store the selected car object
 details:any;
+email:any;
   customOptions: any = {
     loop: true,
     mouseDrag: true,
@@ -70,22 +71,31 @@ details:any;
     personsTotal: 0,
     specialRequirements: '',
     selectedCarId: null ,
+    email:''
 
   };
   countries: any;
 
   constructor( public translate: TranslateService, private toastr: ToastrService,private httpService: HttpService) {}
-
+  emailValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      return emailPattern.test(control.value) ? null : { invalidEmail: { value: control.value } };
+    };
+  }
   ngOnInit() {
 
     // Fetch user details and country data
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-
+console.log(res?.userDashboard)
       this.phone = this.userDetails?.overviwe?.phonenumber;
+      this.email=this.userDetails?.overviwe?.email
 
       this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
       this.formData.phoneNumber = this.phoneNumber || '';
+      this.formData.email = this.email || '';
+
     });
 
     this.httpService.get(environment.marsa, 'countrycode').subscribe((res: any) => {
@@ -93,7 +103,7 @@ details:any;
     });
 
     // Retrieve saved data from localStorage
-  
+
       const savedResponseData = localStorage.getItem('responseData');
       const bookingDetail = localStorage.getItem('bookdetail');
       const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
@@ -132,6 +142,20 @@ details:any;
     this.formData.pickuptime = this.bookdetail?.pickuptime || '';
     this.formData.date = this.bookdetail?.date || '';
 
+}
+updateLocalStorage() {
+
+  console.log('Updated pickuptime:', this.formData.pickuptime);
+  const updatedData = {
+    ...this.bookdetail,
+    pickuptime: this.formData.pickuptime,
+  };
+  localStorage.setItem('bookdetail', JSON.stringify(updatedData));
+}
+onPickUpTimeChange(newTime: any) {
+  console.log('New pickuptime selected:', newTime);
+  this.formData.pickuptime = newTime;
+  this.updateLocalStorage();
 }
 getImageName(url: string): string {
   const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));

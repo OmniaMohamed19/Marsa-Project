@@ -29,9 +29,8 @@ export class StepTwoComponent implements OnInit {
     const savedSelectedOptions = localStorage.getItem('selectedCar');
     if (savedSelectedOptions) {
       this.savedSelectedOpti = JSON.parse(savedSelectedOptions);
-      // أضف الحقل `number` إذا لم يكن موجودًا
       this.savedSelectedOpti.option.forEach((opt: any) => {
-        opt.number = opt.number || 0; // التأكد من وجود الحقل `number`
+        opt.number = opt.number || 0;
       });
     } else {
       this.savedSelectedOpti = { option: [] };
@@ -59,15 +58,19 @@ getImageName(url: string): string {
 
   savenumberOfOption(option: any): void {
     option.number = Math.max(0, option.number || 0);
-    if (typeof window !== 'undefined' && window.localStorage){
 
-      localStorage.setItem('numberOption', this.numberOfOption.toString()); // Save input value to localStorage
-    }
+
+      localStorage.setItem('numberOption', this.numberOfOption.toString());
+
   }
 
   nextStep(): void {
-    if (Object.keys(this.formData.selectedOptions).length > 0 && (!this.numberOfOption || this.numberOfOption <= 0)) {
-      this.toastr.info('Please enter a valid number for the selected option! ', '', {
+    const invalidOptions = Object.values(this.formData.selectedOptions).filter((option: any) => {
+      return option && (!option.number || option.number <= 0);
+    });
+
+    if (invalidOptions.length > 0) {
+      this.toastr.info('Please enter a valid number for the selected option!', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
         messageClass: 'toastr_message',
@@ -76,13 +79,15 @@ getImageName(url: string): string {
       });
       return;
     }
-    if (typeof window !== 'undefined' && window.localStorage){
 
-      localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions)); // Save selected options
-    }
+
+      localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions)); 
+
+
     this.next.emit(this.formData);
     window.scrollTo(0, 0);
   }
+
 
   previousStep(): void {
     this.previous.emit();
