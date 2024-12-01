@@ -488,8 +488,13 @@ export class ToursDetailsComponent implements AfterViewInit {
             return true; // Allow all dates if date is null
         }
 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set to midnight to compare only dates
+
         const day = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-        return !this.disabledDays.includes(day); // Check if the day is not in the disabledDays
+
+        // Check if the date is today or in the future and not in the disabled days
+        return date >= today && !this.disabledDays.includes(day);
     };
 
   getAbout() {

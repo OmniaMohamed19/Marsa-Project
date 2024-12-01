@@ -265,11 +265,11 @@ export class PackageDetailsComponent {
     this.selectedDateControl.markAsTouched();
   }
 
-  dateFilter = (date: Date | null): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return date ? date >= today : false;
-  };
+dateFilter = (date: Date | null): boolean => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+  return date ? date >= today : false; // Allow only today and future dates
+};
 
   getAbout() {
     this.httpService.get(environment.marsa, 'Aboutus').subscribe({
