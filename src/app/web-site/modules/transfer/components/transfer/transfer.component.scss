@@ -185,7 +185,7 @@ p {
 }
 
 h3 {
-  font-family: Lato;
+  // font-family: Lato;
   font-size: 25px;
   font-weight: 700;
   line-height: 30px;
@@ -266,13 +266,17 @@ h5 {
   height: 466px;
 }
 .faq {
-  font-family: Lato;
+  // font-family: Lato;
   font-size: 21px;
   font-weight: 700;
   line-height: 25px;
   letter-spacing: 0em;
   text-align: left;
-  color: rgba(59, 68, 79, 1);
+  color: #183462
+}
+.faq-title h3{
+  font-size: 33px !important;
+    line-height: 59px !important;
 }
 .top-tap {
   position: absolute;
@@ -503,9 +507,22 @@ label,
     }
   }
 }
-
+.faq-title{
+  width: 30%;
+}
+.faq-question{
+  width: 70%;
+}
 /*********************************************/
 @media screen and (max-width: 993px) {
+  .faq-title h3{
+    font-size: 21px !important;
+      line-height: 50px !important;
+  }
+  .faq-title, .faq-question{
+    width: 100%;
+  }
+
   .top-tap {
     position: relative;
   }

@@ -205,14 +205,14 @@
                       <label class="form-label"> Name your place </label>
                       <input type="text" class="form-control" formControlName="pickup_point"
                         placeholder="Enter Pick up Place" />
-                    <div *ngIf="
+                      <div *ngIf="
                         customerForm.get('pickup_point')?.invalid &&
                         (customerForm.get('pickup_point')?.dirty ||
                           customerForm.get('pickup_point')?.touched)
                       " class="alert alert-danger my-2">
-                      Pick up Place is required
+                        Pick up Place is required
+                      </div>
                     </div>
-                  </div>
                   </ng-container>
                   <ng-template #elseTemplate>
                     <div class="col-sm-6 mb-4">
@@ -250,13 +250,15 @@
                   <!-- End Input -->
                   <div class="w-100"></div>
                   <!-- Input -->
+
                   <div class="col-sm-12 mb-4">
                     <div class="js-form-message">
                       <label class="form-label"> Special Requirements </label>
-
-                      <textarea type="number" class="form-control w-100" formControlName="note" rows="8"></textarea>
+                      <textarea type="number" class="form-control w-100" formControlName="note"
+                        placeholder="Enter Special Requirements" style="font-size: 15px;" rows="6"></textarea>
                     </div>
                   </div>
+
                   <!-- End Input -->
                   <div class="w-100"></div>
                   <div class="col align-self-end">
@@ -324,16 +326,18 @@
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
                           <label class="form-label"> Card Holder Name* </label>
-                          <input type="text" class="form-control" (paste)="onPaste($event)" name="Cardname" placeholder="" aria-label=""
-                            required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
+                          <input type="text" class="form-control" (paste)="onPaste($event)" name="Cardname"
+                            placeholder="" aria-label="" required="" [(ngModel)]="cardholderName"
+                            (keypress)="letterOnly($event)" />
                         </div>
                       </div>
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
                           <label class="form-label"> Card Number* </label>
 
-                          <input type="text" class="form-control"  (paste)="onPaste($event)"  name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
-                            required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
+                          <input type="text" class="form-control" (paste)="onPaste($event)" name="Cardnumber"
+                            placeholder="xxxx xxxx xxxx xxxx" aria-label="" required="" inputmode="numeric"
+                            [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
                         </div>
                       </div>
 
@@ -345,28 +349,18 @@
                             <div class="js-form-message">
                               <label class="form-label"> Expiry Month*</label>
 
-                              <input type="text" (paste)="onPaste($event)" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
-                                [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
-                                inputmode="numeric" />
+                              <input type="text" (paste)="onPaste($event)" class="form-control" name="Expirymonth"
+                                placeholder="xx" aria-label="" [(ngModel)]="expiryMonth" required="" maxlength="2"
+                                (keypress)="OnlyNumbers($event)" inputmode="numeric" />
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="js-form-message">
                               <label class="form-label"> Expiry Year* </label>
 
-                              <input
-                              type="text"
-                              class="form-control"
-                              name="Expiryyear"
-                              [(ngModel)]="expirYear"
-                              placeholder="xx"
-                              aria-label=""
-                              required=""
-                              maxlength="2"
-(paste)="onPaste($event)"
-                              inputmode="numeric"
-                              (keypress)="OnlyNumbers($event)"
-                            />
+                              <input type="text" class="form-control" name="Expiryyear" [(ngModel)]="expirYear"
+                                placeholder="xx" aria-label="" required="" maxlength="2" (paste)="onPaste($event)"
+                                inputmode="numeric" (keypress)="OnlyNumbers($event)" />
 
 
 
@@ -379,12 +373,9 @@
                         <div class="js-form-message">
                           <label class="form-label"> CVV* </label>
 
-                          <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
-                            required="" [(ngModel)]="cvv" maxlength="3"
-(paste)="onPaste($event)"
-                            autocomplete="cc-number"
-                           inputmode="numeric"
-                           (keypress)="OnlyNumbers($event)" />
+                          <input type="text" class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
+                            required="" [(ngModel)]="cvv" maxlength="3" (paste)="onPaste($event)"
+                            autocomplete="cc-number" inputmode="numeric" (keypress)="OnlyNumbers($event)" />
 
                         </div>
                       </div>

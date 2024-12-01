@@ -15,7 +15,34 @@ h4 {
     margin-bottom: 5%;
   }
 }
-
+.deactivate-content {
+  border-radius: 6px;
+  border: 1px dashed #f89c47;
+  background: #fff9f4;
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px;
+  gap: 10px;
+  h5 {
+    color: #3f4254;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px; /* 137.5% */
+  }
+  p {
+    color: #7e8299;
+    font-family: Roboto;
+    font-size: 16px;
+    width: 70%;
+    a {
+      color: #00a3ff;
+      font-family: Roboto;
+      font-size: 16px;
+    }
+  }
+}
 
 .place-card {
   margin-top: 37px;
@@ -390,6 +417,39 @@ h4 {
   box-shadow: none;
 }
 /***************************************************/
+@media screen and (max-width: 400px){
+  .place-card {
+    flex-direction: column;
+    gap: 30px;
+    .first-place {
+      flex-direction: column;
+      justify-content: center;
+      gap: 25px;
+      width: 90%;
+      margin: 5px auto;
+      .trip {
+        margin-left: 18px;
+        padding: 6px;
+        .trip-rating {
+          margin-left: -1rem;
+          margin-top: 4rem;
+          justify-content: end;
+        }
+        
+      }
+      .img{
+          width: 290px;
+        }
+     
+    }
+    .img-content div:nth-of-type(2) span:nth-of-type(2) {
+      position: absolute;
+      top: 20px;
+      right: -21%;
+    }
+  }
+
+}
 @media screen and (max-width: 576px) {
 
   .place-card {
@@ -409,10 +469,12 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
+        
       }
-      .img img {
-        width: 100%;
-      }
+      .img{
+          width: 311px;
+        }
+     
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -432,6 +494,36 @@ h4 {
       font-size: 14px;
     }
   }
+  .place-card {
+    flex-direction: column;
+    gap: 30px;
+    .first-place {
+      flex-direction: column;
+      justify-content: center;
+      gap: 25px;
+      width: 90%;
+      margin: 5px auto;
+      .trip {
+        margin-left: 18px;
+        padding: 6px;
+        .trip-rating {
+          margin-left: -1rem;
+          margin-top: 4rem;
+          justify-content: end;
+        }
+        
+      }
+      .img{
+          width: 324px;
+        }
+     
+    }
+    .img-content div:nth-of-type(2) span:nth-of-type(2) {
+      position: absolute;
+      top: 20px;
+      right: -21%;
+    }
+  }
 
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
@@ -448,6 +540,9 @@ h4 {
       justify-content: center;
       gap: 25px;
       width: 100%;
+      .img{
+        width: 311px;
+      }
     }
   }
   .city {
@@ -456,6 +551,7 @@ h4 {
     justify-content: flex-start;
     align-items: flex-start;
   }
+ 
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
 

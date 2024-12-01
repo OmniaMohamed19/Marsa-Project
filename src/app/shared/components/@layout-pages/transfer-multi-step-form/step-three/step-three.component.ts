@@ -127,17 +127,20 @@ getImageName(url: string): string {
   return imageName || 'Unknown photo';
 }
 
-  applycoupon() {
-    this._httpService
-      .get(environment.marsa, `Coupon`)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon)
-        this.Total = this.Total - this.Coupons[0].amount
-        console.log(this.Coupons);
-      });
-    console.log(this.coupon);
-  }
+applycoupon() {
+  this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+    console.log(res);
+    this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+    if (this.Coupons.length > 0) {
+      this.Total = this.Total - this.Coupons[0].amount;
+    } else {
+      console.warn('No matching coupons found');
+    }
+    console.log(this.Coupons);
+  });
+  console.log(this.coupon);
+}
+
   nextStep(): void {
     this.next.emit(this.formData);
   }
@@ -242,13 +245,10 @@ getImageName(url: string): string {
 
 
   confirmBooking() {
-    // Initialize bookingOption array
     const bookingOption = [];
-
     for (const key in this.selectedOption) {
       if (this.selectedOption.hasOwnProperty(key)) {
         const option = this.selectedOption[key];
-        // Extract the ID and push it to idArray
         if (option && option.id) {
           bookingOption.push({
             id: option.id,
@@ -257,7 +257,6 @@ getImageName(url: string): string {
         }
       }
     }
-
 
     const model = {
       from_id: this.fromId,
@@ -271,44 +270,43 @@ getImageName(url: string): string {
       return_booking_date: this.returnbookingdate,
       payment_method: this.payment_method ? this.payment_method : 'cash',
       booking_option: bookingOption,
-      flight_n:this.flightNumper,
-      coupon_code:this.coupon,
-      // coupon_code: this.Coupons[0].code,
+      flight_n: this.flightNumper,
+      coupon_code: this.Coupons?.[0]?.code || '', // Safely access coupon code or fallback
     };
 
-    this._httpService.post(environment.marsa, 'transfer/book', model)
-      .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
-            const queryParams = {
-              res: JSON.stringify(res),
-
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'transfer', 'confirm'],
-              { queryParams }
-            );
-            Swal.fire(
-              'Your request has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us, please send us at info@marsawaves.com',
-              'success'
-            );
-          }
-        },
-        error: (err: any) => {
-          console.error('Error during booking:', err);
+    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        if (res && res.link) {
+          window.location.href = res.link;
+        } else {
+          const queryParams = { res: JSON.stringify(res) };
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'transfer', 'confirm'],
+            { queryParams }
+          );
           Swal.fire(
-            'Booking Failed',
-            'An error occurred while processing your booking. Please try again later.',
-            'error'
+            'Your request has been sent successfully.',
+            'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
+            'success'
           );
         }
-      });
+      },
+      error: (err: any) => {
+        console.error('Error during booking:', err);
+        Swal.fire(
+          'Booking Failed',
+          'An error occurred while processing your booking. Please try again later.',
+          'error'
+        );
+      },
+    });
   }
 
+  onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    console.log('Pasting is not allowed!');
+  }
   goback() {
     this.router.navigate(
       ['/', this.translate.currentLang, 'transfer'],

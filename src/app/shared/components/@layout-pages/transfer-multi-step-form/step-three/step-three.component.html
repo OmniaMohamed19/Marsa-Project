@@ -78,7 +78,7 @@
               <div class="js-form-message">
                 <label class="form-label"> Card Holder Name* </label>
                 <input type="text" class="form-control" name="Cardname" placeholder="" aria-label=""
-                  required="" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
+                  required="" (paste)="onPaste($event)" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)"/>
               </div>
             </div>
             <div class="col-sm-6 mb-4">
@@ -86,7 +86,7 @@
                 <label class="form-label"> Card Number* </label>
 
                 <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx" aria-label=""
-                  required=""  inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
+                  required="" (paste)="onPaste($event)" inputmode="numeric" [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
               </div>
             </div>
 
@@ -99,7 +99,7 @@
                     <label class="form-label"> Expiry Month*</label>
 
                     <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
-                      [(ngModel)]="expiryMonth" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
+                      [(ngModel)]="expiryMonth" (paste)="onPaste($event)" required="" maxlength="2" (keypress)="OnlyNumbers($event)"
                       inputmode="numeric" />
                   </div>
                 </div>
@@ -112,6 +112,7 @@
                     name="Expiryyear"
                     [(ngModel)]="expirYear"
                     placeholder="xx"
+                    (paste)="onPaste($event)"
                     aria-label=""
                     required=""
                     maxlength="2"
@@ -132,7 +133,7 @@
                 <label class="form-label"> CVV* </label>
 
                 <input type="text"  class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
-                  required="" [(ngModel)]="cvv" maxlength="3"
+                  required="" (paste)="onPaste($event)" [(ngModel)]="cvv" maxlength="3"
 
                   autocomplete="cc-number"
                  inputmode="numeric"
