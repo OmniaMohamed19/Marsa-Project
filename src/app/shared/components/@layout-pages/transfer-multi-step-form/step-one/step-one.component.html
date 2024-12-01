@@ -70,18 +70,22 @@
                 <div *ngIf="formData.flightNumber.invalid && formData.flightNumber.touched" class="error-message">
                 This field is required.
               </div>
-                <!-- <ng-container *ngIf="formData.flightNumber.errors && formData.flightNumber.touched">
-                  <div
-                    class="alert alert-danger my-2"
-                    *ngIf="formData.flightNumber.errors?.['required']"
-                  >
-                    <p class="mb-0" >
-                      Email is required You must enter valid email
-                    </p>
-                  </div>
-                </ng-container> -->
+
               </div>
 
+            </div>
+            <div class="col"  *ngIf="!Isairport">
+              <div class="thin-heading">Pickup Date:</div>
+                <div class="form-outline" data-mdb-input-init>
+                  <form class="example-form">
+                    <mat-form-field appearance="outline">
+                      <!-- <mat-label>Outline form field</mat-label> -->
+                      <input [(ngModel)]="formData.date" [value]="formData.date" #dateInput="ngModel" matInput readonly>
+                      <mat-icon matSuffix>calendar_today</mat-icon>
+                    </mat-form-field>
+                  </form>
+
+                </div>
             </div>
             <div class="col">
               <div class="thin-heading">Pickup Time</div>

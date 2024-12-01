@@ -33,7 +33,7 @@ export class UserCardComponent {
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
       this.userDetails = data?.userDashboard;
-      // console.log(555);
+     console.log( this.userDetails);
       this.profiles = data.userDashboard.data;
       this.currentPage = data.userDashboard.current_page;
       this.lastPage = data.userDashboard.last_page;

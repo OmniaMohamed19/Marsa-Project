@@ -96,9 +96,8 @@
         <div class="col-md-6">
           <div class="caption">
             <h5>We’d love to hear from you</h5>
-            <small
-              >Synergistically visualize alternative content before cross
-              functional core Rapidiously admi</small
+            <small [innerHtml]="contactus.contactusText"
+              ></small
             >
           </div>
           <div class="icons d-flex gap-3 my-3">
@@ -136,7 +135,7 @@
               </a>
             </div>
             <div class="icon-round">
-              <a [href]="contactus?.youtube" target="_blank">
+              <a [href]="youtubeLink" target="_blank">
                 <img
                   src="assets/images/icons/youtube.svg"
                   alt="youtube"
@@ -251,5 +250,46 @@
     </div>
 
     <div [innerHTML]="googleIframe" class="map-container"></div>
+    <div class="team border-color-3">
+      <div class="container space-top-1">
+        <div class="w-md-80 w-lg-70 text-center mx-md-auto mb-5 mt-3">
+          <h2 class="title mb-0">Deticated Team</h2>
+        </div>
+        <div class="row text-center pb-2 pt-5">
+          <!-- <div class="col-lg-4 col-md-6 inner-right inner-bottom-sm inner-left" *ngFor="let item of data.team">
+            <div class="pb-3">
+              <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
+                <img [src]="item.icon" alt="Image-Descrition" />
+              </figure>
+            </div>
+            <h6 class="mb-0">{{ item.title }}</h6>
+            <span class="l">
+              {{ item.desc }}
+            </span>
+          </div> -->
+
+          <owl-carousel-o [options]="aboutOptions" class="my-destination">
+            <ng-container *ngFor="let item of data.team">
+              <ng-template carouselSlide>
+                <div style="display: flex;
+                     justify-content: center;">
+                  <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
+                    <img [src]="item.icon"  [alt]="getImageName(item.icon)"  alt="Image-Descrition" />
+                  </figure>
+                </div>
+
+                <div>
+                  <h6 class="mb-0">{{ item.title }}</h6>
+                  <span class="l">
+                    {{ item.desc }}
+                  </span>
+                </div>
+
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
