@@ -700,7 +700,7 @@
                         <img
                           class="img-fluid mb-3 mb-md-0 rounded-circle"
                           [src]="review?.avatar || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
-                          (error)="handleImageError($event)" 
+                          (error)="handleImageError($event)"
                           [alt]="review?.name"
                         />
                       </a>
@@ -1018,7 +1018,7 @@
                     <div id="datepickerWrapperFromOne" class="w-100">
                       <mat-form-field class="w-100 mt-2">
                         <mat-label>Enter a date range</mat-label>
-                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                        <mat-date-range-input [formGroup]="range" [rangePicker]="picker" (click)="picker.open()">
                           <input
                             matStartDate
                             formControlName="start"

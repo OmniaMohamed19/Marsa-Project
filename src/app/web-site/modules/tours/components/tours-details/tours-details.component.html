@@ -1671,7 +1671,7 @@
                   <div class="border-bottom border-width-2 border-color-1 pb-1">
                     <span class="d-block">Date</span>
 
-                    <mat-form-field class="w-100">
+                    <mat-form-field class="w-100" (click)="picker.open()">
                       <input
                         matInput
                         [matDatepicker]="picker"
