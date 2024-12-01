@@ -10,8 +10,59 @@
   .mat-datepicker-toggle button svg {
     color: #0057FF !important; /* لون الأيقونة */
   }
+  .custom-calendar .p-inputwrapper .p-datepicker-trigger {
+    background-color: transparent !important; /* إزالة الخلفية */
+    border: none; /* إزالة الحدود */
+  }
+  .custom-calendar calendaricon svg {
+    color: #0057FF !important; /* تغيير لون الأيقونة إلى الأزرق */
+    font-size: 1.2rem; /* تعديل حجم الأيقونة إذا لزم الأمر */
+  }
+  .custom-calendar .p-input-icon-right>.p-icon-wrapper{
+    left: 0 !important;
+    padding-left: 0.5rem;
+  }
+  .custom-calendar .p-inputtext, .time-calendar .p-inputtext{
+    padding-left: 1.9rem;
+  }
+  .custom-calendar .p-inputtext::placeholder, .time-calendar .p-inputtext::placeholder {
+    color: #3b444f;
+  }
+  .pickup-time svg {
+    color: #0057FF !important;
+  }
+
+
 
 }
+
+::ng-deep ngx-material-timepicker-toggle button svg {
+  fill: #0057FF; /* لون الأيقونة الجديد */
+  width: 24px; /* حجم الأيقونة */
+  height: 24px;
+}
+
+.time-calendar .p-inputwrapper {
+  position: relative;
+}
+
+.time-calendar .input-icon {
+  position: absolute;
+  top: 42%;
+  left: 10px; /* المسافة من اليسار */
+  transform: translateY(-50%);
+  color: #0057FF; /* لون الأيقونة */
+  pointer-events: none; /* عدم تفاعل الأيقونة مع الأحداث */
+  font-size: 1.2rem;
+}
+
+.time-calendar input {
+  padding-left: 30px; /* لتجنب تداخل النص مع الأيقونة */
+}
+
+
+
+
 
 
 

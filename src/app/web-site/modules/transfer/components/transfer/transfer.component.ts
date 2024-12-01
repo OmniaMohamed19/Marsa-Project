@@ -11,6 +11,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/shared/components/@layout-pages/Auth/login/login.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transfer',
@@ -26,6 +27,7 @@ export class TransferComponent implements OnInit {
   toId: any;
   date: string | null = null; // Initialize the date variable
   minDate: string;
+  minSelectableDate: Date = new Date();
   reviews:any;
   pickuptime:any;
   returnDate: any; // Add for return date
@@ -53,11 +55,15 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     private _AuthService: AuthService,
     private toastr: ToastrService,
     private dialog: MatDialog,
+    private datePipe: DatePipe
+
   ) { const today = new Date();
     this.minDate = today.toISOString().split('T')[0];}
 
 
+
   ngOnInit(): void {
+    this.removeTimeFromMinDate();
     this.filteredFromAirports = this.transferDetails?.airports || [];
     this.filteredFromHotels = this.transferDetails?.hotel || [];
     this.filteredToOptions = [];
@@ -109,9 +115,53 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       this.returnDate = localStorage.getItem('returnDate') || '';
       this.returnPickuptime = localStorage.getItem('returnPickuptime') || '';
 
-    console.log('Retrieved returnDate:', this.returnDate);
-    console.log('Retrieved returnPickuptime:', this.returnPickuptime);
+
   }
+  saveReturnDate() {
+    const formattedDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd');
+
+    localStorage.setItem('returnDate', formattedDate || '');
+  }
+
+  removeTimeFromMinDate(): void {
+    this.minSelectableDate.setHours(0, 0, 0, 0);
+  }
+   removeTimezone(date: Date): Date {
+    return new Date(date.toISOString().split('T')[0] + 'T' + date.toTimeString().split(' ')[0]);
+  }
+  onDateSelect(selectedDate: Date): void {
+    this.date = this.formatDateToYYYYMMDD(selectedDate);
+    console.log(this.date);
+  }
+
+  formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  onTimeSelect(event: Date) {
+    const hours = event.getHours() > 12 ? event.getHours() - 12 : event.getHours();
+    const minutes = event.getMinutes().toString().padStart(2, '0');
+    const ampm = event.getHours() >= 12 ? 'PM' : 'AM';
+
+    this.pickuptime = `${hours}:${minutes} ${ampm}`;
+    console.log(this.pickuptime);
+  }
+
+  onTimeSelect2(event: any) {
+    const hours = event.getHours() > 12 ? event.getHours() - 12 : event.getHours();
+    const minutes = event.getMinutes().toString().padStart(2, '0');
+    const ampm = event.getHours() >= 12 ? 'PM' : 'AM';
+
+    this.returnPickuptime = `${hours}:${minutes} ${ampm}`;
+    console.log(this.returnPickuptime);
+  }
+
+
+
+
   startImageRotation() {
     this.interval = setInterval(() => {
       if (this.backgroundImageUrl.length > 0) {
@@ -350,7 +400,7 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
 
 
         localStorage.setItem('selectedFromType', 'airport');
-      
+
     } else if (option.city) {
       // If a hotel is selected
       this.selectedFromName = option.city;

@@ -41,7 +41,8 @@
                         type="button" data-bs-toggle="dropdown" aria-expanded="false"
                         style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                         <span class="d-flex align-items-center">
-                          <i style="color: #0057FF;  margin-right: 0.5rem; margin-left: -0.5rem; " class="fa-solid fa-location-dot"></i>
+                          <i style="color: #0057FF;  margin-right: 0.5rem; margin-left: -0.5rem; "
+                            class="fa-solid fa-location-dot"></i>
                           {{ selectedFromName || 'From' }}
                         </span>
                         <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -50,8 +51,8 @@
                         style="width: 100%; max-height: 200px; overflow-y: auto;">
                         <!-- Search input for the first dropdown -->
                         <li>
-                          <input type="text" class="form-control" placeholder="Search..." name="searchFrom"  [(ngModel)]="searchFrom"
-                            (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                          <input type="text" class="form-control" placeholder="Search..." name="searchFrom"
+                            [(ngModel)]="searchFrom" (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
                         </li>
                         <!-- Show filtered airports -->
                         <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
@@ -75,7 +76,8 @@
                         type="button" data-bs-toggle="dropdown" aria-expanded="false"
                         style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                         <span class="d-flex align-items-center">
-                          <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                          <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                            class="fa-solid fa-location-dot"></i>
                           {{ selectedOptionName || 'To' }}
                         </span>
                         <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -84,7 +86,7 @@
                         style="width: 100%;max-height: 200px; overflow-y: auto;">
                         <!-- Search input for the second dropdown -->
                         <li>
-                          <input type="text" class="form-control"  placeholder="Search..."  [(ngModel)]="searchTo"
+                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
                             (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                         </li>
                         <!-- Show filtered To options -->
@@ -99,28 +101,22 @@
 
                   <!-- Date Picker -->
                   <div class="col-md-2 col-6">
-                    <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
+                    <!-- <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
                       <input [(ngModel)]="date"  [min]="minDate"
                         style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                         placeholder="date"
                         name="date"
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
                         type="date" />
-                    </div>
+                    </div> -->
 
-                    <!-- <mat-form-field class="w-100 custom-datepicker">
-                      <mat-label>Pickup Date</mat-label>
-                      <input
-                        matInput
-                        placeholder="Start date"
-                        [(ngModel)]="date"
-                        [min]="minDate"
-                        [matDatepicker]="startPicker"
-                        [readonly]="true"
-                      />
-                      <mat-datepicker-toggle matSuffix [for]="startPicker" class="left-icon"></mat-datepicker-toggle>
-                      <mat-datepicker #startPicker></mat-datepicker>
-                    </mat-form-field> -->
+                    <p-calendar [(ngModel)]="date" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
+                      [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate" placeholder="Date"
+                      class="custom-calendar" (onSelect)="onDateSelect($event)">
+                    </p-calendar>
+
+
+
 
 
                   </div>
@@ -128,13 +124,30 @@
                   <!-- Pickup Time -->
                   <div class="col-md-2 col-6">
                     <div class="input-group-prepend input-border">
-                      <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
+                      <ngx-material-timepicker-toggle class="pickup-time" style="top: 10px; position: relative;"
                         [for]="picker"></ngx-material-timepicker-toggle>
-                      <input [(ngModel)]="pickuptime"  name="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                      <input [(ngModel)]="pickuptime" name="pickuptime" [ngxTimepicker]="picker" class="form-control "
                         placeholder="Pick up time"
                         style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                       <ngx-material-timepicker #picker></ngx-material-timepicker>
                     </div>
+
+                    <!-- <p-calendar [(ngModel)]="pickuptime" name="pickuptime" [iconDisplay]="'input'" [showIcon]="true"
+                      [timeOnly]="true" [hourFormat]="'12'" (onSelect)="onTimeSelect($event)" placeholder="Pickup Time" class="time-calendar">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                        <span class="input-icon" (click)="clickCallBack($event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-clock" stroke-width="2" viewBox="0 0 16 16">
+                            <path
+                              d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm.5 3.5a.5.5 0 0 1 .5.5v3.5h2a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z" stroke-width="2" />
+                          </svg>
+                        </span>
+                      </ng-template>
+                    </p-calendar> -->
+
+
+
+
                   </div>
                   <!----------------------------------->
                   <div class="col-md-2 col-6">
@@ -186,7 +199,8 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                          class="fa-solid fa-location-dot"></i>
                         {{ selectedFromName || 'From' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -195,8 +209,7 @@
                       style="width: 100%; max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the first dropdown -->
                       <li>
-                        <input type="text" class="form-control" placeholder="Search..."
-                         [(ngModel)]="searchFrom"
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
                           (input)="filterFromOptions()" name="searchFrom" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered airports -->
@@ -220,7 +233,8 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                          class="fa-solid fa-location-dot"></i>
                         {{ selectedOptionName || 'To' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -229,7 +243,7 @@
                       style="width: 100%;max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the second dropdown -->
                       <li>
-                        <input type="text" class="form-control" placeholder="Search..."  [(ngModel)]="searchTo"
+                        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
                           (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered To options -->
@@ -242,37 +256,11 @@
                 </div>
 
                 <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
-                  <div id="datepickerWrapperFromOne" class="u-datepicker input-group">
-                    <input [(ngModel)]="date"  [min]="minDate"
-                      style="height: 53px;color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
-                      placeholder="date"
-                      name="date"
-                      class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                      type="date" />
-                  </div>
 
-
-                  <!-- <mat-form-field   class="w-100" appearance="outline" style="background-color: transparent;">
-                    <mat-datepicker-toggle matPrefix [for]="datepicker">
-                      <mat-icon matPrefix >calendar_today</mat-icon>
-                    </mat-datepicker-toggle>
-                    <input
-                      matInput
-                      [(ngModel)]="date"
-                      [matDatepicker]="datepicker"
-                      [min]="minDate"
-                      placeholder="Date"
-                      type="text"
-                      class="custom-date-input"
-
-                    />
-                    <mat-datepicker #datepicker></mat-datepicker>
-                  </mat-form-field> -->
-
-
-
-
-
+                  <p-calendar [(ngModel)]="date" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
+                    [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate" placeholder="Date"
+                    class="custom-calendar" (onSelect)="onDateSelect($event)">
+                  </p-calendar>
 
 
                 </div>
@@ -280,30 +268,55 @@
                   <div class="input-group-prepend input-border">
                     <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                       [for]="picker"></ngx-material-timepicker-toggle>
-                    <input [(ngModel)]="pickuptime"  name="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                    <input [(ngModel)]="pickuptime" name="pickuptime" [ngxTimepicker]="picker" class="form-control"
                       placeholder="Pick up time"
                       style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                     <ngx-material-timepicker #picker></ngx-material-timepicker>
                   </div>
+
+                  <!-- <p-calendar [(ngModel)]="pickuptime" name="pickuptime" [iconDisplay]="'input'" [showIcon]="true"
+                      [timeOnly]="true" [hourFormat]="'12'" (onSelect)="onTimeSelect($event)" placeholder="Pickup Time" class="time-calendar">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                        <span class="input-icon" (click)="clickCallBack($event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-clock" stroke-width="2" viewBox="0 0 16 16">
+                            <path
+                              d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm.5 3.5a.5.5 0 0 1 .5.5v3.5h2a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z" stroke-width="2" />
+                          </svg>
+                        </span>
+                      </ng-template>
+                    </p-calendar> -->
                 </div>
                 <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
-                  <div id="returndatepickerWrapperFromOne" class="u-datepicker input-group">
-                    <input [(ngModel)]="returnDate"  name="returnDate" [min]="minDate"
-                      style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
-                      placeholder="Return Date"
-                      class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                      type="date" />
-                  </div>
+
+                  <p-calendar [(ngModel)]="returnDate" (onSelect)="saveReturnDate()" [showIcon]="true"
+                    [iconDisplay]="'input'" inputId="icondisplay2" [showTime]="false" [dateFormat]="'yy-mm-dd'"
+                    [minDate]="minSelectableDate" placeholder="Return Date" class="custom-calendar">
+                  </p-calendar>
+
                 </div>
                 <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
                   <div class="input-group-prepend input-border">
                     <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                       [for]="returnpicker"></ngx-material-timepicker-toggle>
-                    <input [(ngModel)]="returnPickuptime" name="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
-                     placeholder="Return time"
+                    <input [(ngModel)]="returnPickuptime" name="returnPickuptime" [ngxTimepicker]="returnpicker"
+                      class="form-control" placeholder="Return time"
                       style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                     <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
                   </div>
+
+                  <!-- <p-calendar [(ngModel)]="returnPickuptime" [iconDisplay]="'input'" inputId="templatedisplay1" [showIcon]="true"
+                      [timeOnly]="true" [hourFormat]="'12'" (onSelect)="onTimeSelect2($event)" placeholder="Return Time" class="time-calendar">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                        <span class="input-icon" (click)="clickCallBack($event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-clock" stroke-width="2" viewBox="0 0 16 16">
+                            <path
+                              d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm.5 3.5a.5.5 0 0 1 .5.5v3.5h2a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z" stroke-width="2" />
+                          </svg>
+                        </span>
+                      </ng-template>
+                    </p-calendar> -->
                 </div>
                 <div class="mt-2 row justify-content-center">
 
@@ -365,7 +378,8 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                          class="fa-solid fa-location-dot"></i>
                         {{ selectedFromName || 'From' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -396,7 +410,8 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                          class="fa-solid fa-location-dot"></i>
                         {{ selectedOptionName || 'To' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -422,12 +437,11 @@
                     <!-- Input -->
                     <div id="datepickerWrapperFromOne d-flex" class="u-datepicker input-group">
 
-                      <input [(ngModel)]="date"
-                      name="date"
-                        style="color:#2a3038!important; font-family: Lato; font-size: 16px; font-weight: 700;"
-                        placeholder="date"
-                        class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                        type="date" />
+
+                      <p-calendar [(ngModel)]="date" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
+                        [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate" placeholder="Date"
+                        class="custom-calendar" (onSelect)="onDateSelect($event)">
+                      </p-calendar>
 
 
                     </div>
@@ -439,11 +453,24 @@
                       <div class="input-group-prepend input-border">
                         <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                           [for]="picker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="pickuptime" name="pickuptime"  [ngxTimepicker]="picker" class="form-control"
+                        <input [(ngModel)]="pickuptime" name="pickuptime" [ngxTimepicker]="picker" class="form-control"
                           placeholder="Pick up time"
                           style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                         <ngx-material-timepicker #picker></ngx-material-timepicker>
                       </div>
+
+                      <!-- <p-calendar [(ngModel)]="pickuptime" name="pickuptime" [iconDisplay]="'input'" [showIcon]="true"
+                      [timeOnly]="true" [hourFormat]="'12'" (onSelect)="onTimeSelect($event)" placeholder="Select Time" class="time-calendar">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                        <span class="input-icon" (click)="clickCallBack($event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-clock" stroke-width="2" viewBox="0 0 16 16">
+                            <path
+                              d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm.5 3.5a.5.5 0 0 1 .5.5v3.5h2a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z" stroke-width="2" />
+                          </svg>
+                        </span>
+                      </ng-template>
+                    </p-calendar> -->
                     </div>
                     <!-- End Input -->
                   </div>
@@ -509,7 +536,8 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                          class="fa-solid fa-location-dot"></i>
                         {{ selectedFromName || 'From' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -518,8 +546,8 @@
                       style="width: 100%; max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the first dropdown -->
                       <li>
-                        <input type="text" class="form-control" name="searchFrom" placeholder="Search..." [(ngModel)]="searchFrom"
-                          (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                        <input type="text" class="form-control" name="searchFrom" placeholder="Search..."
+                          [(ngModel)]="searchFrom" (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered airports -->
                       <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
@@ -540,7 +568,8 @@
                       type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       style="width: 100%; background-color: transparent !important; color:#3b444f; border-color: #e3e5e7 !important; padding-right: 2rem;">
                       <span class="d-flex align-items-center">
-                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;" class="fa-solid fa-location-dot"></i>
+                        <i style="color: #0057FF; margin-right: 0.5rem; margin-left: -0.5rem;"
+                          class="fa-solid fa-location-dot"></i>
                         {{ selectedOptionName || 'To' }}
                       </span>
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
@@ -549,8 +578,8 @@
                       style="width: 100%;max-height: 200px; overflow-y: auto;">
                       <!-- Search input for the second dropdown -->
                       <li>
-                        <input type="text" class="form-control" name="searchTo"  placeholder="Search..." [(ngModel)]="searchTo"
-                          (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
+                        <input type="text" class="form-control" name="searchTo" placeholder="Search..."
+                          [(ngModel)]="searchTo" (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
                       </li>
                       <!-- Show filtered To options -->
                       <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
@@ -566,11 +595,10 @@
                     <!-- Input -->
                     <div id="datepickerWrapperFromOne d-flex" class="u-datepicker input-group">
 
-                      <input [(ngModel)]="date"  name="date"
-                        style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
-                        placeholder="date"
-                        class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
-                        type="date" />
+                      <p-calendar [(ngModel)]="date" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
+                        [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate" placeholder="Date"
+                        class="custom-calendar" (onSelect)="onDateSelect($event)">
+                      </p-calendar>
 
 
                     </div>
@@ -582,23 +610,39 @@
                       <div class="input-group-prepend input-border">
                         <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                           [for]="picker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="pickuptime"  name="pickuptime" [ngxTimepicker]="picker" class="form-control"
+                        <input [(ngModel)]="pickuptime" name="pickuptime" [ngxTimepicker]="picker" class="form-control"
                           placeholder="Pick up time"
                           style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                         <ngx-material-timepicker #picker></ngx-material-timepicker>
                       </div>
+                      <!-- <p-calendar [(ngModel)]="pickuptime" name="pickuptime" [iconDisplay]="'input'" [showIcon]="true"
+                      [timeOnly]="true" [hourFormat]="'12'" (onSelect)="onTimeSelect($event)" placeholder="Select Time" class="time-calendar">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                        <span class="input-icon" (click)="clickCallBack($event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-clock" stroke-width="2" viewBox="0 0 16 16">
+                            <path
+                              d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm.5 3.5a.5.5 0 0 1 .5.5v3.5h2a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z" stroke-width="2" />
+                          </svg>
+                        </span>
+                      </ng-template>
+                    </p-calendar> -->
                     </div>
                     <!-- End Input -->
                   </div>
 
                   <div class="mb-4 mb-lg-0">
-                    <div id="returndatepickerWrapperFromOne d-flex" class="u-datepicker input-group">
-                      <input [(ngModel)]="returnDate"  name="returnDate"
+                    <!-- <div id="returndatepickerWrapperFromOne d-flex" class="u-datepicker input-group">
+                      <input [(ngModel)]="returnDate" name="returnDate"
                         style="color:#2a3038 !important; font-family: Lato; font-size: 16px; font-weight: 700;"
                         placeholder="Return Date"
                         class="js-range-datepicker shadow-none input-border form-control hero-form bg-transparent"
                         type="date" />
-                    </div>
+                    </div> -->
+                    <p-calendar [(ngModel)]="returnDate" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
+                      [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate" placeholder="Date"
+                      class="custom-calendar" (onSelect)="onDateSelect($event)">
+                    </p-calendar>
                   </div>
 
 
@@ -607,11 +651,23 @@
                       <div class="input-group-prepend input-border">
                         <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
                           [for]="returnpicker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="returnPickuptime"  name="returnPickuptime" [ngxTimepicker]="returnpicker" class="form-control"
-                          placeholder="Return time"
+                        <input [(ngModel)]="returnPickuptime" name="returnPickuptime" [ngxTimepicker]="returnpicker"
+                          class="form-control" placeholder="Return time"
                           style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
                         <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
                       </div>
+                      <!-- <p-calendar [(ngModel)]="returnPickuptime" name="returnPickuptime" inputId="templatedisplay" [iconDisplay]="'input'" [showIcon]="true"
+                      [timeOnly]="true" [hourFormat]="'12'" (onSelect)="onTimeSelect($event)" placeholder="Select Time" class="time-calendar">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                        <span class="input-icon" (click)="clickCallBack($event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-clock" stroke-width="2" viewBox="0 0 16 16">
+                            <path
+                              d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm.5 3.5a.5.5 0 0 1 .5.5v3.5h2a.5.5 0 0 1 0 1h-2.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5z" stroke-width="2" />
+                          </svg>
+                        </span>
+                      </ng-template>
+                    </p-calendar> -->
                     </div>
 
                   </div>
@@ -684,7 +740,7 @@
       </div>
 
       <!-- Owl Carousel for Mobile Only -->
-       <owl-carousel-o class="d-block d-md-none feature-carousel" [options]="carouselOptions2">
+      <owl-carousel-o class="d-block d-md-none feature-carousel" [options]="carouselOptions2">
         <ng-container *ngFor="let feature of transferDetails?.features">
           <ng-template carouselSlide>
             <div class="text-center">
@@ -706,7 +762,7 @@
         <h3 class="pb-2">Transfer service includes</h3>
         <div class="col-lg-6">
           <div class="position-relative layer-img">
-            <img src={{transferDetails?.includeimage}}  />
+            <img src={{transferDetails?.includeimage}} />
             <div class="layer">
               <p>
                 Explore one of the world’s best art museums at your own pace
@@ -745,7 +801,7 @@
       <div class="layer-card">
         <h5>{{highestRatedReview?.name}}</h5>
         <span>Client</span>
-        <p >
+        <p>
           {{highestRatedReview?.comment}}
         </p>
       </div>
@@ -839,7 +895,7 @@
                   <textarea class="form-control" rows="6" cols="77" name="text" placeholder="Comment"
                     aria-label="Hi there, I would like to ..." required="" data-msg="Please enter a reason."
                     data-error-class="u-has-error" data-success-class="u-has-success" style="height: 181.18px"
-                    [(ngModel)]="comment" name="comment" ></textarea>
+                    [(ngModel)]="comment" name="comment"></textarea>
                 </div>
               </div>
             </div>

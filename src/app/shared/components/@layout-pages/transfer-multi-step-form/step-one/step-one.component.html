@@ -70,27 +70,41 @@
                 <div *ngIf="formData.flightNumber.invalid && formData.flightNumber.touched" class="error-message">
                 This field is required.
               </div>
-                <!-- <ng-container *ngIf="formData.flightNumber.errors && formData.flightNumber.touched">
-                  <div
-                    class="alert alert-danger my-2"
-                    *ngIf="formData.flightNumber.errors?.['required']"
-                  >
-                    <p class="mb-0" >
-                      Email is required You must enter valid email
-                    </p>
-                  </div>
-                </ng-container> -->
+
               </div>
 
             </div>
-            <div class="col">
-              <div class="thin-heading">Landing Time</div>
-              <mat-form-field appearance="outline">
-                <!-- <mat-label>Outline form field</mat-label> -->
-                <input [(ngModel)]="formData.pickuptime"  [value]="formData.pickuptime" #pickuptimeInput="ngModel" matInput readonly>
-                <mat-icon matSuffix>access_time</mat-icon>
+            <div class="col"  *ngIf="!Isairport">
+              <div class="thin-heading">Pickup Date:</div>
+                <div class="form-outline" data-mdb-input-init>
+                  <form class="example-form">
+                    <mat-form-field appearance="outline">
+                      <!-- <mat-label>Outline form field</mat-label> -->
+                      <input [(ngModel)]="formData.date" [value]="formData.date" #dateInput="ngModel" matInput readonly>
+                      <mat-icon matSuffix>calendar_today</mat-icon>
+                    </mat-form-field>
+                  </form>
 
+                </div>
+            </div>
+            <div class="col">
+              <div class="thin-heading">Pickup Time</div>
+              <mat-form-field appearance="outline">
+                <input
+                  [(ngModel)]="formData.pickuptime"
+                  [ngxTimepicker]="picker"
+                  [value]="formData.pickuptime"
+                  #pickuptimeInput="ngModel"
+                  (change)="updateLocalStorage()"
+                  matInput
+                  placeholder="Pick up time"
+                readonly
+                />
+                <mat-icon matSuffix >access_time</mat-icon>
               </mat-form-field>
+              <ngx-material-timepicker #picker></ngx-material-timepicker>
+
+
             </div>
           </div>
 
@@ -219,15 +233,43 @@
         </div>
       </div>
       </div>
+      <div class="row mb-5">
+        <div class="col-md col-12">
+          <div class="bold-heading">Email* </div>
+        </div>
+        <div class="col-md col-12 mt-2 ">
+        <div class="d-flex ms-2 position-relative phone">
+          <form class="example-form">
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="xxx@xxx.com"
+                [(ngModel)]="formData.email"
+                name="email"
+                required
+                #email="ngModel"
+                [ngModelOptions]="{ updateOn: 'blur' }"
+                [validators]="emailValidator()">
+              <mat-error *ngIf="email.invalid && email.touched">
+                Please enter a valid email address (e.g., xxx@xxx.com).
+              </mat-error>
+            </mat-form-field>
+          </form>
+
+
+
+        </div>
+      </div>
+      </div>
 
 
 
       <div class="message mt-5">
-        <label>
+        <label style="font-weight: bold;">
           Special Requirements
         </label>
         <textarea class="form-control" name="specialRequirements" [(ngModel)]="formData.specialRequirements"
-          rows="8"></textarea>
+          rows="6" style="font-size: 18px;"></textarea>
       </div>
 
     </div>

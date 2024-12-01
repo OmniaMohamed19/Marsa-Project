@@ -82,7 +82,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CalendarModule } from 'primeng/calendar';
-
 const layoutPages = [
   QuickSearchComponent,
   SearchBoatComponent,

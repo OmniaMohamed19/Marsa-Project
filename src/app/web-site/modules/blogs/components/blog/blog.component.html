@@ -37,64 +37,67 @@
     <div class="row">
       <div class="col-lg-8 col-xl-9 order-2 order-md-1">
         <div class="mb-5 pb-1">
-          
-          <div class="mb-4" *ngFor="let blog of filteredBlogs">
-            <owl-carousel-o [options]="carouselOptions" class="trending">
-              <ng-container *ngFor="let img of blog?.image">
-                <ng-template carouselSlide>
-                  <div class="item">
-                    <a
-                      class="d-block"
-                      [routerLink]="[
-                        '/',
-                        translate.currentLang,
-                        'blogs',
-                        'blogSignal',
-                        blog.id
-                      ]"
-                    >
-                      <div class="image-container">
-                        <img
-                          class="img-fluid mb-4 rounded-xs w-100"
-                          [src]="img"
-                          [alt]="blog?.title"
-                        />
+          <div class="row">
+              <div class="mb-4 col-lg-6 col-xl-6" *ngFor="let blog of filteredBlogs">
+                <owl-carousel-o [options]="carouselOptions" class="trending">
+                  <ng-container *ngFor="let img of blog?.image">
+                    <ng-template carouselSlide>
+                      <div class="item">
+                        <a
+                          class="d-block"
+                          [routerLink]="[
+                            '/',
+                            translate.currentLang,
+                            'blogs',
+                            'blogSignal',
+                            blog.id
+                          ]"
+                        >
+                          <div class="image-container">
+                            <img
+                              class="img-fluid mb-4 rounded-xs w-100"
+                              [src]="img"
+                              [alt]="blog?.title"
+                            />
+                          </div>
+                        </a>
                       </div>
-                    </a>
-                  </div>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o>
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
 
-            <h5 class="font-weight-bold font-size-21 text-gray-3 mt-2">
-              <a
-                [routerLink]="[
-                  '/',
-                  translate.currentLang,
-                  'blogs',
-                  'blogSignal',
-                  blog.id
-                ]"
-                >{{ blog?.title }}</a
-              >
-            </h5>
-            <div class="mb-3">
-              <a class="mr-3 pr-1">
-                <span class="font-weight-normal text-gray-3">{{ blog?.date }}</span>
-              </a>
-              <a>
-                <span
-                  [class.activeLink]="
-                    selectedCategory === blog?.category_id ? true : false
-                  "
-                  style="color: rgba(41, 124, 187, 1)"
-                  (click)="filterByCategory(blog?.category_id)"
-                  >{{ blog?.category }}</span
-                >
-              </a>
-            </div>
-            <p class="mb-0" [innerHTML]="blog?.overview"></p>
+                <h5 class="font-weight-bold font-size-21 text-gray-3 mt-2">
+                  <a
+                    [routerLink]="[
+                      '/',
+                      translate.currentLang,
+                      'blogs',
+                      'blogSignal',
+                      blog.id
+                    ]"
+                    >{{ blog?.title }}</a
+                  >
+                </h5>
+                <div class="mb-3">
+                  <a class="mr-3 pr-1">
+                    <span class="font-weight-normal text-gray-3">{{ blog?.date }}</span>
+                  </a>
+                  <a>
+                    <span
+                      [class.activeLink]="
+                        selectedCategory === blog?.category_id ? true : false
+                      "
+                      style="color: rgba(41, 124, 187, 1)"
+                      (click)="filterByCategory(blog?.category_id)"
+                      >{{ blog?.category }}</span>
+                  </a>
+                </div>
+                <p class="mb-0" [innerHTML]="blog?.overview"></p>
+              </div>
+
+
           </div>
+
 
         </div>
 

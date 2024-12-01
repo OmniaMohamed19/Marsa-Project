@@ -174,7 +174,7 @@ getImageName(url: string): string {
           if (option && option.id) {
             bookingOption.push({
               id: option.id,
-              persons: this.numberOption,
+              persons: option.number,
             });
           }
         }
@@ -252,7 +252,7 @@ getImageName(url: string): string {
         if (option && option.id) {
           bookingOption.push({
             id: option.id,
-            persons: this.numberOption,
+            persons: option.number,
           });
         }
       }

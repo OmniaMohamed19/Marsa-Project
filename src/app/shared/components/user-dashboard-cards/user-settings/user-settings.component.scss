@@ -1,3 +1,13 @@
+::ng-deep{
+  .iti__country-list {
+
+    overflow: auto !important;
+}
+.dropdown-menu.show {
+  height: 230px !important;
+    overflow: auto !important;
+}
+}
 .settings {
   margin-top: 29px;
   h2 {
