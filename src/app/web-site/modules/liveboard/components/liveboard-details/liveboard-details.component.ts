@@ -58,8 +58,8 @@ export class LiveboardDetailsComponent {
   flattenedCabin: any = [];
   showRelatedtrip: boolean = false;
   selectedStar: number = 0;
-  starNumber: any;
-  comment: any;
+  starNumber: any=null;
+  comment: any=null;
   availableOptionMap!: SafeHtml;
   Why_chosse_us: any;
   cover: string = '';
@@ -622,23 +622,28 @@ export class LiveboardDetailsComponent {
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
     } else {
-      this._httpService
+      if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
+        this._httpService
         .post(environment.marsa, 'Review/addreview', model)
         .subscribe({
           next: (res: any) => {
-            this.toastr.success(res.message, '', {
-              disableTimeOut: false,
-              titleClass: 'toastr_title',
-              messageClass: 'toastr_message',
-              timeOut: 5000,
-              closeButton: true,
-            });
+            this.toastr.success(res.message);
             this.loadData();
-            this.starNumber = 0;
-            this.comment = '';
+            this.starNumber = null;
+            this.comment = null;
             this.selectedStar = 0;
           },
         });
+
+      }else{
+        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      }
     }
   }
 

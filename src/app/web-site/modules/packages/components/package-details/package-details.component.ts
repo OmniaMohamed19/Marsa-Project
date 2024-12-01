@@ -68,8 +68,8 @@ export class PackageDetailsComponent {
   happyGuestImages: any[] = [];
   remainingImages: string[] = [];
   selectedStar = 0;
-  starNumber: any;
-  comment: any;
+  starNumber: any=null;
+  comment: any=null;
   adults: number = 1;
   children: number = 0;
   infant: number = 0;
@@ -429,19 +429,32 @@ export class PackageDetailsComponent {
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
     } else {
-      this.httpService
+      if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
+        this.httpService
         .post(environment.marsa, 'Review/addreview', model)
         .subscribe({
           next: (res: any) => {
             this.toastr.success(res.message);
             this.loadData();
-            this.starNumber = 0;
-            this.comment = '';
+            this.starNumber = null;
+            this.comment = null;
             this.selectedStar = 0;
           },
         });
+
+      }else{
+        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      }
+
     }
   }
+
 
   checkPrice() {
     if (this.selectedDateControl.invalid) {
