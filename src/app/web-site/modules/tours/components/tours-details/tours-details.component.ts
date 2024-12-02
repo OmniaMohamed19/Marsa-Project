@@ -657,8 +657,8 @@ export class ToursDetailsComponent implements AfterViewInit {
       Friday: 5,
       Saturday: 6
     };
+    return timeOfRepeat?.split('/').map(day => daysMap[day.trim()]).filter(day => day !== undefined);
 
-    return timeOfRepeat.split('/').map(day => daysMap[day.trim()]).filter(day => day !== undefined);
   }
   addEvent(event: MatDatepickerInputEvent<Date>): void {
     // console.log(event);
