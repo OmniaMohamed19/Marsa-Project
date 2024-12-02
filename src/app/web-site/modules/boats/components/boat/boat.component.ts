@@ -22,8 +22,8 @@ export class BoatComponent {
   minDate: string;
 
   min_priceChoosen: any = null;
-  max_priceChoosen: any = null;
-  max_price = 400;
+  max_priceChoosen: any = 999;
+  max_price = 999;
   isMobile = false;
   showFilter = true;
   constructor(
@@ -55,8 +55,27 @@ export class BoatComponent {
       }
     });
   }
+  clearSelection()
+  {
+    this.TypeTrip = '';
+    this.place_id = 'null';
+    this.start_d = null;
+    this.rate = null;
+    this.min_priceChoosen = this.min_price; // Reset to default minimum price
+    this.max_priceChoosen = this.max_price; // Reset to default maximum price
+    for (let i = 2; i <= 5; i++) {
+      if (i != 2) {
+        document.getElementById('btn-' + i)?.classList.remove('active-rate');
+      } else {
+        // this.rate = 2;
+        document.getElementById('btn-' + i)?.classList.add('active-rate');
+      }
+    }
+    this.getBoats();
+  }
 
   getBoats() {
+
     this._httpService.get(environment.marsa, 'Boats').subscribe({
       next: (res: any) => {
         this.boats = res?.trips;

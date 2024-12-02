@@ -201,9 +201,24 @@
                           max_priceChoosen ? max_priceChoosen : max_price
                           }}</span>
                       </div>
-                      <mat-slider class="w-100" [min]="min_price" [max]="max_price" step="1">
-                        <input (change)="setMinPrice($event)" matSliderStartThumb />
-                        <input (change)="setMaxPrice($event)" matSliderEndThumb />
+                      <mat-slider
+                        class="w-100"
+                        [min]="min_price"
+                        [max]="max_price"
+                        step="1"
+                          [(ngModel)]="min_priceChoosen"
+                          thumbLabel
+                      >
+                        <input
+                          (input)="setMinPrice($event)"
+                          [(ngModel)]="min_priceChoosen"
+                          matSliderStartThumb
+                        />
+                        <input
+                          (input)="setMaxPrice($event)"
+                          [(ngModel)]="max_priceChoosen"
+                          matSliderEndThumb
+                        />
                       </mat-slider>
                     </div>
                   </div>
@@ -314,7 +329,7 @@
                       </div>
                     </div>
                     <div class="card-body pt-0 mt-1 px-5">
-                      <button (click)="getAllactivity()" class="nav-link active"
+                      <button (click)="clearSelection()" class="nav-link active"
                         id="pills-marsa-trending-tab" data-bs-toggle="pill" data-bs-target="#pills-allActivity"
                         type="button" role="tab" aria-controls="pills-marstrending" style="
 

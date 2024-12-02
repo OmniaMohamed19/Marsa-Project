@@ -25,8 +25,8 @@ export class ToursComponent {
   rate: any = null;
   min_price = 0;
   min_priceChoosen: any = null;
-  max_priceChoosen: any = null;
-  max_price = 9999;
+  max_priceChoosen: any = 999;
+  max_price = 999;
   showFilter = true;
   isMobile = false;
   constructor(
@@ -71,7 +71,20 @@ export class ToursComponent {
   }
   selectedTimeId: number | null = null;
   clearSelection() {
-
+    this.TypeTrip = '';
+    this.place_id = 'null';
+    this.start_d = null;
+    this.rate = null;
+    this.min_priceChoosen = this.min_price; // Reset to default minimum price
+    this.max_priceChoosen = this.max_price; // Reset to default maximum price
+    for (let i = 2; i <= 5; i++) {
+      if (i != 2) {
+        document.getElementById('btn-' + i)?.classList.remove('active-rate');
+      } else {
+        // this.rate = 2;
+        document.getElementById('btn-' + i)?.classList.add('active-rate');
+      }
+    }
     this.getAllactivity();
   }
   getPlaces() {
