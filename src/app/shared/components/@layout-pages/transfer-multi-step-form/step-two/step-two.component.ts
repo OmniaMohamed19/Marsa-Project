@@ -32,13 +32,18 @@ export class StepTwoComponent implements OnInit {
   returnbookingtime: any;
   returnbookingdate: any;
   optionId:any;
-
+  selectedCar:any;
   constructor(private toastr: ToastrService, private _httpService: HttpService,) { }
 
   ngOnInit() {
+
     this.returnbookingdate = localStorage.getItem('returnDate') || '';
+    const savedSelectedCar = localStorage.getItem('selectedCar');
 
-
+    if (savedSelectedCar) {
+      this.selectedCar = JSON.parse(savedSelectedCar);
+      this.carId = this.selectedCar.id;
+    }
     const savedFlightNumper = localStorage.getItem('formData');
 
     if (savedFlightNumper) {
@@ -93,30 +98,51 @@ export class StepTwoComponent implements OnInit {
   }
   onOptionChange(option: any, event: any): void {
     if (event.target.checked) {
-      this.formData.selectedOptions[option.name] = option;
+      this.formData.selectedOptions[option.id] = {
+        id: option.id,
+        number: option.number || 0,
+        name: option.name
+      };
     } else {
-      delete this.formData.selectedOptions[option.name];
+      delete this.formData.selectedOptions[option.id];
     }
     if (typeof window !== 'undefined' && window.localStorage) {
-
       localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
     }
   }
 
+  // savenumberOfOption(option: any): void {
+  //   option.number = Math.max(0, option.number || 0);
+
+  // }
   savenumberOfOption(option: any): void {
     option.number = Math.max(0, option.number || 0);
+    if (this.formData.selectedOptions[option.id]) {
+      this.formData.selectedOptions[option.id].number = option.number;
+    }
+    localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
+  }
 
+  increment(option: any): void {
+    if (!option.number) {
+      option.number = 0;
+    }
+    option.number++;
+    this.savenumberOfOption(option); // تحديث القيمة
+  }
 
-    // localStorage.setItem('numberOption', this.numberOfOption.toString());
-
+  decrement(option: any): void {
+    if (option.number > 0) {
+      option.number--;
+      this.savenumberOfOption(option); // تحديث القيمة
+    }
   }
 
   nextStep(): void {
+    // تحقق من الخيارات غير الصالحة
     const invalidOptions = Object.values(this.formData.selectedOptions).filter((option: any) => {
-      this.optionId= option.number;
       return option && (!option.number || option.number <= 0);
     });
-    console.log(this.optionId);
 
     if (invalidOptions.length > 0) {
       this.toastr.info('Please enter a valid number for the selected option!', '', {
@@ -129,15 +155,14 @@ export class StepTwoComponent implements OnInit {
       return;
     }
 
-
+    // حفظ الخيارات في التخزين المحلي
     localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
-   console.log(this.formData.selectedOptions.id)
-    const bookingOption = [];
 
-    bookingOption.push({
-      id: this.formData.selectedOptions.id,
-      persons: this.formData.selectedOptions.number,
-    });
+    // تجهيز بيانات الحجز
+    const bookingOption = Object.values(this.formData.selectedOptions).map((option: any) => ({
+      id: option.id,
+      persons: option.number,
+    }));
 
     const model = {
       from_id: this.fromId,
@@ -158,14 +183,15 @@ export class StepTwoComponent implements OnInit {
         next: (res: any) => {
           console.log(res);
           if (res) {
-          localStorage.setItem("Add-on-details", res);
+            localStorage.setItem("Add-on-details", JSON.stringify(res));
           }
         }
-
       });
+
     this.next.emit(this.formData);
     window.scrollTo(0, 0);
   }
+
 
   confirmBooking() {
     // Initialize bookingOption array

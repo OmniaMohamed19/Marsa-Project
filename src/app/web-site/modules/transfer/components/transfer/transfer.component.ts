@@ -40,9 +40,12 @@ export class TransferComponent implements OnInit {
   isLogin: boolean = false;
   comment: any;
   highestRatedReview:any;
+  transferstext:any;
+  pText:any;
+  h1Text:any;
   searchFrom: string = ''; // Holds the search term for the first dropdown (From)
 searchTo: string = ''; // Holds the search term for the second dropdown (To)
-
+minReturnDate: Date | null = null;
 filteredFromAirports: any[] = []; // Filtered airports for the first dropdown
 filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
 filteredToOptions: any[] = []; // Filtered options for the second dropdown
@@ -57,11 +60,17 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     private dialog: MatDialog,
     private datePipe: DatePipe
 
-  ) { const today = new Date();
+  ) {
+     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];}
 
 
-
+    updateMinReturnDate() {
+      if (this.date) {
+        this.minReturnDate = new Date(this.date);
+        this.minReturnDate.setDate(this.minReturnDate.getDate() + 1); // Ensure at least the next day
+      }
+    }
   ngOnInit(): void {
     this.removeTimeFromMinDate();
     this.filteredFromAirports = this.transferDetails?.airports || [];
@@ -73,9 +82,22 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
         this.backgroundImageUrl = res?.transfer || [];
+        this.transferstext = res?.transferstext;
         console.log(this.backgroundImageUrl);
         if (this.backgroundImageUrl.length > 0) {
           this.currentBackgroundImage = this.backgroundImageUrl[0];
+        }
+        if (this.transferstext) {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(this.transferstext, 'text/html');
+
+          // Extract h1 content
+          const h1Element = doc.querySelector('h1');
+          this.h1Text = h1Element ? h1Element.textContent : null;
+
+          // Extract p content
+          const pElement = doc.querySelector('p');
+          this.pText = pElement ? pElement.textContent : null;
         }
       },
       (err) => {}
@@ -87,17 +109,14 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       next: (res: any) => {
         this.transferDetails = res;
 
-        // التحقق من وجود البيانات الخاصة بالمراجعات
         if (this.transferDetails?.reviwe) {
           this.reviews = Object.values(this.transferDetails.reviwe);
 
-          // العثور على الريفيو الأعلى تقييمًا
           if (this.reviews.length > 0) {
             const highestRatedReview = this.reviews.reduce((prev: Review, current: Review) => {
               return (prev.rate > current.rate) ? prev : current;
             });
 
-            // حفظ الريفيو الأعلى تقييمًا
             this.highestRatedReview  = highestRatedReview;
             console.log('Highest Rated Review:', this.highestRatedReview);
           }
@@ -109,18 +128,6 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     });
 
 
-    // Retrieve and set the saved values if any
-
-
-      this.returnDate = localStorage.getItem('returnDate') || '';
-      this.returnPickuptime = localStorage.getItem('returnPickuptime') || '';
-
-
-  }
-  saveReturnDate() {
-    const formattedDate = this.datePipe.transform(this.returnDate, 'yyyy-MM-dd');
-
-    localStorage.setItem('returnDate', formattedDate || '');
   }
 
   removeTimeFromMinDate(): void {
@@ -159,16 +166,13 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
     console.log(this.returnPickuptime);
   }
 
-
-
-
   startImageRotation() {
     this.interval = setInterval(() => {
       if (this.backgroundImageUrl.length > 0) {
         this.currentIndex = (this.currentIndex + 1) % this.backgroundImageUrl.length;
         this.changeBackgroundImage();
       }
-    }, 4000); // تغيير الصورة كل 4 ثوانٍ
+    }, 4000);
   }
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));

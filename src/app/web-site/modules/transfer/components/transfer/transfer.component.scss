@@ -8,15 +8,16 @@
   // }
 
   .mat-datepicker-toggle button svg {
-    color: #0057FF !important; /* لون الأيقونة */
+    color: #0057FF !important;
   }
   .custom-calendar .p-inputwrapper .p-datepicker-trigger {
-    background-color: transparent !important; /* إزالة الخلفية */
-    border: none; /* إزالة الحدود */
+    background-color: transparent !important;
+    border: none;
   }
+
   .custom-calendar calendaricon svg {
-    color: #0057FF !important; /* تغيير لون الأيقونة إلى الأزرق */
-    font-size: 1.2rem; /* تعديل حجم الأيقونة إذا لزم الأمر */
+    color: #0057FF !important;
+    font-size: 1.2rem;
   }
   .custom-calendar .p-input-icon-right>.p-icon-wrapper{
     left: 0 !important;
@@ -31,6 +32,11 @@
   .pickup-time svg {
     color: #0057FF !important;
   }
+  .custom-calendar .p-datepicker {
+    top: auto !important;
+    bottom: auto !important;
+  }
+
 
 
 
@@ -544,6 +550,15 @@ label,
             font-size: 14px;
         }
     }
+
+}
+p-calendar{
+  width: 100% !important;
+}
+::ng-deep{
+  .custom-calendar .p-calendar {
+    width:100% !important;
+  }
 }
 }
 @media screen and (max-width: 1200px) {
