@@ -58,18 +58,16 @@
               <div class="thin-heading">Flight Number</div>
               <div class="form-outline" data-mdb-input-init>
                 <mat-form-field appearance="outline">
-                  <mat-label>Arrival flight number</mat-label>
+                  <mat-label>Arrival flight number (optional)</mat-label>
                   <input
                     matInput
                     placeholder="e.g. EK 213"
                     name="flightNumber"
                     [(ngModel)]="formData.flightNumber"
-                    required
+
                   />
                 </mat-form-field>
-                <div *ngIf="formData.flightNumber.invalid && formData.flightNumber.touched" class="error-message">
-                This field is required.
-              </div>
+
 
               </div>
 
@@ -125,7 +123,7 @@
                 <form class="example-form">
                   <mat-form-field appearance="outline">
                     <mat-label>Departure flight number (optional)</mat-label>
-                    <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber" required>
+                    <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber">
                   </mat-form-field>
 
 

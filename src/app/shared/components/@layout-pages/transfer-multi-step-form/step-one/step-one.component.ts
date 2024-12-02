@@ -26,13 +26,13 @@ export class StepOneComponent implements OnInit {
   childCount = 0;
   infantCount = 0;
   selectedCarId: any;
-  return_date:any;
-  return_time:any;
-  activeSection:any;
-  Isairport:boolean=false;
+  return_date: any;
+  return_time: any;
+  activeSection: any;
+  Isairport: boolean = false;
   selectedCar: any = null;  // To store the selected car object
-details:any;
-email:any;
+  details: any;
+  email: any;
   customOptions: any = {
     loop: true,
     mouseDrag: true,
@@ -62,7 +62,7 @@ email:any;
 
   formData: any = {
     from: '',
-    from_id:'',
+    from_id: '',
     to: '',
     flightNumber: '',
     phoneNumber: '',
@@ -70,13 +70,13 @@ email:any;
     pickuptime: '',
     personsTotal: 0,
     specialRequirements: '',
-    selectedCarId: null ,
-    email:''
+    selectedCarId: null,
+    email: ''
 
   };
   countries: any;
 
-  constructor( public translate: TranslateService, private toastr: ToastrService,private httpService: HttpService) {}
+  constructor(public translate: TranslateService, private toastr: ToastrService, private httpService: HttpService) { }
   emailValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
@@ -88,9 +88,9 @@ email:any;
     // Fetch user details and country data
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-console.log(res?.userDashboard)
+      console.log(res?.userDashboard)
       this.phone = this.userDetails?.overviwe?.phonenumber;
-      this.email=this.userDetails?.overviwe?.email
+      this.email = this.userDetails?.overviwe?.email
 
       this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
       this.formData.phoneNumber = this.phoneNumber || '';
@@ -104,12 +104,23 @@ console.log(res?.userDashboard)
 
     // Retrieve saved data from localStorage
 
-      const savedResponseData = localStorage.getItem('responseData');
-      const bookingDetail = localStorage.getItem('bookdetail');
-      const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
-      this.return_date= localStorage.getItem('returnDate');
-      this.return_time= localStorage.getItem('returnPickuptime');
-      const savedSection = localStorage.getItem('activeSection');
+    const savedResponseData = localStorage.getItem('responseData');
+    const bookingDetail = localStorage.getItem('bookdetail');
+    const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
+    this.return_date = localStorage.getItem('returnDate');
+    const dateString = localStorage.getItem('returnDate') || '';
+    if (dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+
+      this.return_date = `${year}-${month}-${day}`;
+    } else {
+      this.return_date = '';
+    }
+    this.return_time = localStorage.getItem('returnPickuptime');
+    const savedSection = localStorage.getItem('activeSection');
 
     if (savedSection) {
       this.activeSection = savedSection;
@@ -117,12 +128,12 @@ console.log(res?.userDashboard)
     }
     const selectedFromType = localStorage.getItem('selectedFromType');
     if (selectedFromType === 'airport') {
-      this.Isairport=true;
+      this.Isairport = true;
 
     }
 
 
-    this.formData.from_id=this.details?.from_id|| '';
+    this.formData.from_id = this.details?.from_id || '';
     if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
 
@@ -142,28 +153,28 @@ console.log(res?.userDashboard)
     this.formData.pickuptime = this.bookdetail?.pickuptime || '';
     this.formData.date = this.bookdetail?.date || '';
 
-}
-updateLocalStorage() {
+  }
+  updateLocalStorage() {
 
-  console.log('Updated pickuptime:', this.formData.pickuptime);
-  const updatedData = {
-    ...this.bookdetail,
-    pickuptime: this.formData.pickuptime,
-  };
-  localStorage.setItem('bookdetail', JSON.stringify(updatedData));
-}
-onPickUpTimeChange(newTime: any) {
-  console.log('New pickuptime selected:', newTime);
-  this.formData.pickuptime = newTime;
-  this.updateLocalStorage();
-}
-getImageName(url: string): string {
-  const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-  return imageName || 'Unknown photo';
-}
+    console.log('Updated pickuptime:', this.formData.pickuptime);
+    const updatedData = {
+      ...this.bookdetail,
+      pickuptime: this.formData.pickuptime,
+    };
+    localStorage.setItem('bookdetail', JSON.stringify(updatedData));
+  }
+  onPickUpTimeChange(newTime: any) {
+    console.log('New pickuptime selected:', newTime);
+    this.formData.pickuptime = newTime;
+    this.updateLocalStorage();
+  }
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
   // Save selected car in local storage when a car is clicked
-  onCarClick(event:any, carId: number): void {
+  onCarClick(event: any, carId: number): void {
     this.selectedCarId = carId;
     this.formData.selectedCarId = carId;
 
@@ -171,7 +182,7 @@ getImageName(url: string): string {
 
     if (selectedCarObject) {
       this.selectedCar = selectedCarObject;
-      if (typeof window !== 'undefined' && window.localStorage){
+      if (typeof window !== 'undefined' && window.localStorage) {
 
         localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
       }
@@ -180,17 +191,17 @@ getImageName(url: string): string {
   // Function to proceed to the next step
   saveFormData(form: NgForm): void {
 
-    if (form.valid && this.selectedCarId!=undefined) {
+    if (form.valid && this.selectedCarId != undefined) {
       // Save the entire formData to localStorage
-      if (typeof window !== 'undefined' && window.localStorage){
+      if (typeof window !== 'undefined' && window.localStorage) {
 
         localStorage.setItem('formData', JSON.stringify(this.formData));
       }
       this.next.emit();
       window.scrollTo(0, 0);
     }
-    else{
-      if (form.valid==false) {
+    else {
+      if (form.valid == false) {
         this.toastr.info('Please enter all required fields. ', '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
@@ -211,7 +222,7 @@ getImageName(url: string): string {
 
       }
 
-      if (this.selectedCarId==undefined) {
+      if (this.selectedCarId == undefined) {
 
         this.toastr.info('Please choose a car before booking. ', '', {
           disableTimeOut: false,

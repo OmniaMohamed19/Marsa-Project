@@ -127,7 +127,7 @@
       <p-dialog [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
         [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
         <video controls="" style="width: 92% ; max-height:100% " muted name="media">
-          <source src="https://dev2.marsawaves.com/assets/images/chooseus/video/1727081050.mp4" type="video/mp4">
+          <source [src]="videoUrl" type="video/mp4">
         </video>
         <!-- <video src="//vimeo.com/167434033"></video> -->
       </p-dialog>

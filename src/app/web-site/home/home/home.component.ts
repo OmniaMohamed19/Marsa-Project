@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   currentCoverImage: string = ''; // To hold the current image being displayed
   currentIndex: number = 0; // To keep track of the current index
   interval: any;
-
+  pText:any;
+  h1Text:any
+  hometext:any
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
@@ -35,14 +37,38 @@ export class HomeComponent implements OnInit {
 
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
+        console.log(res);
         this.coverImages = res?.homecover || [];
+        this.hometext = res?.hometext;
+
         if (this.coverImages.length > 0) {
           this.currentCoverImage = this.coverImages[0];
         }
+
         this.social = res?.social;
+
+        // Parse hometext to separate h1 and p
+        if (this.hometext) {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(this.hometext, 'text/html');
+
+          // Extract h1 content
+          const h1Element = doc.querySelector('h1');
+          this.h1Text = h1Element ? h1Element.textContent : null;
+
+          // Extract p content
+          const pElement = doc.querySelector('p');
+          this.pText = pElement ? pElement.textContent : null;
+
+          console.log('h1:', this.h1Text);
+          console.log('p:', this.pText);
+        }
       },
-      (err) => {}
+      (err) => {
+        console.error(err);
+      }
     );
+
   }
 
   ngOnInit(): void {

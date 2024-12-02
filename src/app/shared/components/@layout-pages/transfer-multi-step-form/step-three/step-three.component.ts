@@ -17,7 +17,7 @@ export class StepThreeComponent {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<void>();
   Coupons: any;
-  Total: any;
+  total: any;
   coupon: any;
   price: any;
   kilometr: any;
@@ -57,71 +57,71 @@ export class StepThreeComponent {
   expirYear:any;
   expiryMonth:any;
   cardNumber:any;
-  activeSection:any
+  activeSection:any;
+  SavedaddOnDetails:any;
+  AllbookingOption:any;
   ngOnInit() {
-
-
-    this.returnbookingdate = localStorage.getItem('returnDate') || '';
-    this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
-
     this.way = localStorage.getItem('activeSection') || '';
-
-    const bookingDetail = localStorage.getItem('bookdetail');
-    const numberOption = localStorage.getItem('numberOfOption');
-
+    this.getDetail();
+}
+getDetail(){
+  const bookingDetail = localStorage.getItem('bookdetail');
     const savedSelectedCar = localStorage.getItem('selectedCar');
     const savedSelectedOption = localStorage.getItem('selectedOptions');
     const savedResponseData = localStorage.getItem('responseData');
     const savedFlightNumper = localStorage.getItem('formData');
     const savedSection = localStorage.getItem('activeSection');
-    if (savedSection) {
-      this.activeSection = savedSection;
+    const addOnDetails = localStorage.getItem('Add-on-details');
 
-    }
-    if (numberOption) {
-      this.numberOption = JSON.parse(numberOption);
-    }
-    if (savedResponseData) {
-      this.responseData = JSON.parse(savedResponseData);
-    }
-    this.fromName = this.responseData?.booking?.from || '';
-    this.toName = this.responseData?.booking?.to || '';
-
-    if (bookingDetail)
-     {
-      this.bookdetail = JSON.parse(bookingDetail);
-      console.log(this.bookdetail);
-     }
-
-    if (savedFlightNumper)
+  if(bookingDetail && savedSection &&savedSelectedCar && savedSelectedOption &&
+    savedResponseData && savedFlightNumper && addOnDetails)
     {
+      this.responseData = JSON.parse(savedResponseData);
+       this.bookdetail = JSON.parse(bookingDetail);
+       this.fromId = this.bookdetail.from_id || '';
+       this.toId = this.bookdetail.to_id || '';
+       this.activeSection = savedSection;
+       this.selectedCar = JSON.parse(savedSelectedCar);
+       this.carId = this.selectedCar.id;
+       this.SavedaddOnDetails = JSON.parse(addOnDetails);
+
+      this.kilometr = this.SavedaddOnDetails?.kilometer || '';
+      this.person = this.SavedaddOnDetails.Numberofpeople || '';
+      this.bookingTime = this.SavedaddOnDetails.booking_time || '';
+      this.bookingDate = this.SavedaddOnDetails.booking_date || '';
+      this.fromName = this.SavedaddOnDetails?.from || '';
+
+      this.toName = this.SavedaddOnDetails?.to || '';
+      this.price =this.SavedaddOnDetails?.Subtotal || '';
+      this.total= this.SavedaddOnDetails?.Total|| '';
+
+      // this.returnbookingdate =  this.SavedaddOnDetails?.return_booking_date || '';
+      this.returnbookingtime =  this.SavedaddOnDetails?.return_booking_time || '';
+      this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
       this.formData1 = JSON.parse(savedFlightNumper);
       this.flightNumper=this.formData1?.flightNumber;
-      console.log(this.formData1)
-      console.log(this.flightNumper);
-    }
-    if (savedSelectedCar) {
-      this.selectedCar = JSON.parse(savedSelectedCar);
-      this.carId = this.selectedCar.id;
-    }
-    if (savedSelectedOption) {
       this.selectedOption = JSON.parse(savedSelectedOption);
-      console.log(this.selectedOption)
-    }
 
-    if (this.bookdetail) {
-      this.fromId = this.bookdetail.from_id || '';
-      this.toId = this.bookdetail.to_id || '';
-      this.bookingDate = this.bookdetail.date || '';
-      this.bookingTime = this.bookdetail.pickuptime || '';
-      this.person = this.bookdetail.person || '';
-      this.kilometr = this.bookdetail.kilometr || '';
-    } else {
-      console.warn(' bookdetail is undefined or null');
-    }
+      const dateString = this.SavedaddOnDetails?.return_booking_date || '';
+if (dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
 
-
+  this.returnbookingdate = `${year}-${month}-${day}`;
+} else {
+  this.returnbookingdate = '';
 }
+
+console.log(this.returnbookingdate); 
+
+  }
+  console.log('hiii');
+  console.log(this.total);
+}
+
+
 getImageName(url: string): string {
   const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
   return imageName || 'Unknown photo';
@@ -132,7 +132,7 @@ applycoupon() {
     console.log(res);
     this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
     if (this.Coupons.length > 0) {
-      this.Total = this.Total - this.Coupons[0].amount;
+      this.total =  this.total - this.Coupons[0].amount;
     } else {
       console.warn('No matching coupons found');
     }
@@ -267,7 +267,7 @@ applycoupon() {
       booking_time: this.bookingTime,
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime,
-      return_booking_date: this.returnbookingdate,
+       return_booking_date: this.returnbookingdate,
       payment_method: this.payment_method ? this.payment_method : 'cash',
       booking_option: bookingOption,
       flight_n: this.flightNumper,
