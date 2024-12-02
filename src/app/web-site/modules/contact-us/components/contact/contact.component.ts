@@ -93,11 +93,10 @@ export class ContactComponent implements OnInit {
         console.log(response);
         this.contactus = response.contactus;
         const youtubeUrl = response.contactus["youtube "];
-        console.log(youtubeUrl);
         this.youtubeLink=youtubeUrl;
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(this.contactus.google);
         this.backgroundImages = this.contactus.cover; // توقع أن الصور هي مصفوفة
-
+      console.log(this.backgroundImages);
         if (this.backgroundImages.length > 0) {
           this.backgroundImageUrl = this.backgroundImages[0]; // تعيين الصورة الأولى كبداية
           this.startImageRotation(); // بدء تغيير الصور
