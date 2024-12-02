@@ -522,7 +522,7 @@
                       ">
                       {{ class=='privete'?'Private':class }}
                     </h4>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalAdult !== '0$'">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Adult ">
                       <span class="font-weight-medium">Adult </span>
                       <span class="text-secondary">
                         {{ avilableOptions?.Adult }}</span>
@@ -531,7 +531,7 @@
                         }}</span>
                       <!-- <span class="text-secondary"> </span> -->
                     </li>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalChildern !== '0$'">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Childern">
                       <span class="font-weight-medium">Children </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Childern
@@ -540,7 +540,7 @@
                         avilableOptions?.TotalChildern
                         }}</span>
                     </li>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.TotalInfant !== '0$'">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Infant">
                       <span class="font-weight-medium">Infant </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Infant

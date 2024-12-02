@@ -71,13 +71,13 @@ export class ConfirmPaymentComponent implements OnInit {
   ReturnToPayment(){
     if (typeof window !== 'undefined') {
 
-    
+
     const storedQueryParams = localStorage.getItem('queryParams');
   if (storedQueryParams) {
     const queryParams = JSON.parse(storedQueryParams);
     console.log(queryParams);
     // Now you can access the properties of queryParams
-    localStorage['edit']=true
+    localStorage['editTour']=true
     this.router.navigate(
       ['/', this.translate.currentLang, 'tours', 'payment'],
       { queryParams }

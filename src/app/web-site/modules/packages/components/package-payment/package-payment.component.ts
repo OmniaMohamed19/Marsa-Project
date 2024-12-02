@@ -77,7 +77,7 @@ export class PackagePaymentComponent {
 
   ngOnInit(): void {
     this.initForm();
-    this.edit=localStorage['edit']?localStorage['edit']:false
+    this.edit=localStorage['editPackage']?localStorage['editPackage']:false
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       console.log('params', params);
@@ -149,7 +149,7 @@ export class PackagePaymentComponent {
             ['/', this.translate.currentLang, 'packages', 'packageDetails',this.tripletails?.id,
                             this.tripletails?.Name]
               );
-              localStorage.removeItem('edit')
+              localStorage.removeItem('editPackage')
               localStorage.removeItem('queryParams')
             Swal.fire(
               'Your request has been send successfully',

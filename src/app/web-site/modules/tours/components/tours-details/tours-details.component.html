@@ -182,7 +182,8 @@
                 height="24"
               />
 
-              <div class="ml-2 text-gray-1 list">Pick Up Including</div>
+              <div class="ml-2 text-gray-1 list">{{activityData.PickUpinclude==='0'?'Meet Us In Meeting':'Pick Up Including'}}
+                </div>
             </li>
             <li
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2 pr-2"
@@ -1029,12 +1030,18 @@
                   <div class="col-md-5">
                     <h6 class="mt-4">{{ item.name }}</h6>
                     <ul class="py-3 boat-features list-unstyled">
+                      <li *ngFor="let feature of getOverviewItems(item.overview)">
+                        <div [innerHTML]="feature"></div>
+
+                      </li>
+                    </ul>
+                    <!-- <ul class="py-3 boat-features list-unstyled">
                       <li
                         *ngFor="let feature of getOverviewItems(item.overview)"
                       >
                         {{ feature }}
                       </li>
-                    </ul>
+                    </ul> -->
                   </div>
                 </div>
               </div>

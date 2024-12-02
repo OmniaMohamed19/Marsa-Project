@@ -81,7 +81,7 @@ isDisable: boolean = false;
 
   ngOnInit(): void {
     this.initForm();
-    this.edit = localStorage['edit']
+    this.edit = localStorage['editTour']
     this.route.queryParams.subscribe((params: any) => {
       const parsedRes = JSON.parse(params['avilableOptions']);
       const trip_id = params['tripId'];
@@ -359,7 +359,7 @@ isDisable: boolean = false;
               ['/', this.translate.currentLang, 'tours', 'details', this.tripletails?.id,
                 this.tripletails?.Name]
             );
-            localStorage.removeItem('edit')
+            localStorage.removeItem('editTour')
             localStorage.removeItem('queryParams')
 
             // if (res && res.link) {
