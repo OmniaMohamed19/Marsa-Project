@@ -52,7 +52,6 @@ export class AboutUsComponent implements OnInit {
     this._HttpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
         this.backgroundImageUrl = res?.aboutus || [];
-        // console.log(this.backgroundImageUrl);
         if (this.backgroundImageUrl.length > 0) {
           this.currentBackgroundImage = this.backgroundImageUrl[0]; // حفظ الصورة الأولى
         }
@@ -62,11 +61,12 @@ export class AboutUsComponent implements OnInit {
 
     this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
       next: (response: any) => {
+
         this.data = response;
-        // console.log(this.data);
+
 
         this.rev = this.data.review;
-        // console.log(this.rev);
+      
         this.partnerPaths = Object.values(this.data.partner);
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.data.chosse_us_video
