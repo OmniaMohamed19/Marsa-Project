@@ -676,9 +676,12 @@ export class ToursDetailsComponent implements AfterViewInit {
       return;
     }
     this.availabilityChecked = true;
-    if (this.activityData.AvailableOption.length == 1) {
-      this.bookNow(this.activityData.AvailableOption[0].id);
-    }
+    // if (this.activityData.AvailableOption.length == 1) {
+    //   this.bookNow(this.activityData.AvailableOption[0].id);
+    // }
+    // else{
+      this.bookNow(this.activityData?.AvailableOption[0]?.id);
+    // }
     this.scrollTo('availableOptions');
   }
 
