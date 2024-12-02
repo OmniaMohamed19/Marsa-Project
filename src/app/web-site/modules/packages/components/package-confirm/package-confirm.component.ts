@@ -49,7 +49,7 @@ export class PackageConfirmComponent {
           const queryParams = JSON.parse(storedQueryParams);
           console.log(queryParams);
           // Now you can access the properties of queryParams
-          localStorage['edit']=true
+          localStorage['editPackage']=true
           this.router.navigate(
             ['/', this.translate.currentLang, 'packages', 'packagePayment'],
             { queryParams }

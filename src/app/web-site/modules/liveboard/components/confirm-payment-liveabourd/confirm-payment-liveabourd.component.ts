@@ -53,7 +53,7 @@ if (storedQueryParams) {
     const queryParams = JSON.parse(storedQueryParams);
     console.log(queryParams);
     // Now you can access the properties of queryParams
-    localStorage['edit']=true
+    localStorage['editLiveaboard']=true
     this.router.navigate(
       ['/', this.translate.currentLang, 'liveboard', 'liveboard-payment'],
       { queryParams }

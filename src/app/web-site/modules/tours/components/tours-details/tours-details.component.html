@@ -1029,12 +1029,18 @@
                   <div class="col-md-5">
                     <h6 class="mt-4">{{ item.name }}</h6>
                     <ul class="py-3 boat-features list-unstyled">
+                      <li *ngFor="let feature of getOverviewItems(item.overview)">
+                        <div [innerHTML]="feature"></div>
+
+                      </li>
+                    </ul>
+                    <!-- <ul class="py-3 boat-features list-unstyled">
                       <li
                         *ngFor="let feature of getOverviewItems(item.overview)"
                       >
                         {{ feature }}
                       </li>
-                    </ul>
+                    </ul> -->
                   </div>
                 </div>
               </div>

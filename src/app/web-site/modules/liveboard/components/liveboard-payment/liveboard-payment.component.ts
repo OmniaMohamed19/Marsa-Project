@@ -92,7 +92,7 @@ export class LiveboardPaymentComponent implements OnInit {
     console.log('Pasting is not allowed!');
   }
   ngOnInit(): void {
-    this.edit=localStorage['edit']
+    this.edit=localStorage['editLiveaboard']
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
@@ -355,7 +355,7 @@ export class LiveboardPaymentComponent implements OnInit {
                 this.liveabourd?.Title
               ]
               );
-              localStorage.removeItem('edit')
+              localStorage.removeItem('editLiveaboard')
               localStorage.removeItem('queryParams')
             }})
 

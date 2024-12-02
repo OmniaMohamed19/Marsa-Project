@@ -81,6 +81,12 @@ export class LiveboardsComponent implements OnInit {
         if (this.destination?.length == 0) {
           this.getPlace();
         }
+        this.TypeTrip ='';
+    this.place_id = 'null';
+    this.start_d = null;
+    this.rate = null;
+    this.min_priceChoosen = null;
+    this.max_priceChoosen = null;
       },
     });
   }
@@ -116,12 +122,12 @@ export class LiveboardsComponent implements OnInit {
         },
       });
     }
-    this.TypeTrip = ev.target.value;
-    this.place_id = 'null';
-    this.start_d = null;
-    this.rate = null;
-    this.min_priceChoosen = null;
-    this.max_priceChoosen = null;
+    // this.TypeTrip = ev.target.value;
+    // this.place_id = 'null';
+    // this.start_d = null;
+    // this.rate = null;
+    // this.min_priceChoosen = null;
+    // this.max_priceChoosen = null;
 
     this.filter();
   }
