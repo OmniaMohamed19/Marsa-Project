@@ -187,15 +187,16 @@
                         [min]="min_price"
                         [max]="max_price"
                         step="1"
-                        [(ngModel)]="min_priceChoosen"
                         thumbLabel
                       >
                         <input
                           (input)="setMinPrice($event)"
+                          [(ngModel)]="min_priceChoosen"
                           matSliderStartThumb
                         />
                         <input
                           (input)="setMaxPrice($event)"
+                          [(ngModel)]="max_priceChoosen"
                           matSliderEndThumb
                         />
                       </mat-slider>

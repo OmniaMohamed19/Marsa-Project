@@ -81,14 +81,24 @@ export class LiveboardsComponent implements OnInit {
         if (this.destination?.length == 0) {
           this.getPlace();
         }
-        this.TypeTrip ='';
-    this.place_id = 'null';
-    this.start_d = null;
-    this.rate = null;
-    this.min_priceChoosen = null; // Reset to default
-    this.max_priceChoosen = null; // Reset to default
-  //   this.min_price = 0;
-  // this.max_price = 9999;
+        this.TypeTrip = '';
+        this.place_id = 'null';
+        this.start_d = null;
+        this.rate = null;
+        this.min_priceChoosen = this.min_price; // Reset to default minimum price
+        this.max_priceChoosen = 9999; // Reset to default maximum price
+        for (let i = 2; i <= 5; i++) {
+          if (i != 2) {
+            document
+              .getElementById('btn-' + i)
+              ?.classList.remove('active-rate');
+          } else {
+            this.rate = 2;
+            document.getElementById('btn-' + i)?.classList.add('active-rate');
+          }
+        }
+        //   this.min_price = 0;
+        // this.max_price = 9999;
       },
     });
   }
@@ -160,7 +170,9 @@ export class LiveboardsComponent implements OnInit {
 
         this.rows = response.trips;
         // this.rows = response.trips;
-        this.rows.data =this.rows.data.filter((trip:any) => Object.keys(trip.Schedule).length > 0);
+        this.rows.data = this.rows.data.filter(
+          (trip: any) => Object.keys(trip.Schedule).length > 0
+        );
         if (this.types?.length == 0) {
           console.log('Set tyoes');
           this.types = response.types;
