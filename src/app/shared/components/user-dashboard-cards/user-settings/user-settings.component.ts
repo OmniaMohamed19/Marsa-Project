@@ -21,7 +21,6 @@ export class UserSettingsComponent implements OnInit {
   phoneNumber: any;
   email: any;
   dob: any;
-  imageFile:any;
   deactivateChaecked = false;
   @Input() userDetails: any;
   constructor(
@@ -35,10 +34,9 @@ export class UserSettingsComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.imageUrl = reader.result as string; // Base64 string
-        console.log('Image as Base64:', this.imageUrl);
+        this.imageUrl = reader.result as string;
       };
-      reader.readAsDataURL(file); // Converts the image file to Base64
+      reader.readAsDataURL(file);
     }
   }
 
@@ -137,55 +135,34 @@ export class UserSettingsComponent implements OnInit {
     return this.selectedItem === item;
   }
 
-  submit(): void {
-    if (!this.imageUrl) {
-      console.error('Image is missing. Please upload an image before submitting.');
-      return;
-    }
-
-    // Construct the body
-    const body = {
+  submit() {
+    // console.log(this.phoneNumber);
+    let body: any = {
       email: this.email,
       fname: this.name,
       phone: this.phone,
-      country_code: this.phoneNumber?.dialCode || null,
+      country_code: this.phoneNumber.dialCode,
       dateofbirth: this.dob,
-      cover: this.imageUrl, // Base64 string of the image
+      cover: this.imageUrl,
     };
-
-    // Remove empty or null fields
-    // Object.keys(body).forEach((key) => {
-    //   if (!body[key]) delete body[key];
-    // });
-
-    console.log('Request body:', body);
-
-    // Send the request
+    Object.keys(body).forEach(
+      (k: any) => (body[k] == '' || body[k] == null) && delete body[k]
+    );
+    // console.log(body);
     this.httpService
       .post(environment.marsa, 'user/update', body, true)
-      .subscribe(
-        (res) => {
-          console.log('Response:', res);
-          this.toastr.success('The account was updated successfully!', '', {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          });
-        },
-        (error) => {
-          console.error('Error updating account:', error);
-          this.toastr.error('Failed to update account. Please try again.', '', {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          });
-        }
-      );
+      .subscribe((res) => {
+        // console.log(res);
+        this.toastr.success('The Account updated Sucsseful', ' ', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      });
   }
+
   deactivate() {
     // console.log(this.deactivateChaecked);
     if (this.deactivateChaecked) {

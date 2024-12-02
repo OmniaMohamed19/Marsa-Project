@@ -76,6 +76,7 @@ export class TrendingComponent  {
 
   ngOnInit(): void {
     this.httpService.get(environment.marsa, 'triend').subscribe((res: any) => {
+      
       this.AllTrend = res;
       this.activeNowTrend = res['Tours&Activities'];
       console.log(res);
@@ -136,12 +137,12 @@ export class TrendingComponent  {
 
 
   customOptions: OwlOptions = {
-    loop: this.activeNowTrend.length != 1 ? true : false,
+    loop: this.activeNowTrend.length  > 1 ? true : false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
     dots: true,
-    autoplay:this.activeNowTrend.length !=1 ? true : false,
+    autoplay:this.activeNowTrend.length >1 ? true : false,
     margin: 10,
     navSpeed: 700,
 
