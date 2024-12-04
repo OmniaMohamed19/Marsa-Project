@@ -14,7 +14,7 @@ import {
   ViewChild,
   Renderer2,
 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from '../../../../../core/services/http/http.service';
@@ -140,6 +140,8 @@ export class ToursDetailsComponent implements AfterViewInit {
     private _AuthService: AuthService,
     private headerService: HeaderService,
     private seoService: SEOService,
+    private titleService: Title,
+    private metaService: Meta,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: any,
     private cd: ChangeDetectorRef
@@ -262,7 +264,35 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.displayCustom = true;
   }
   // constructor() {}
+  metaDetail: any;
   ngOnInit(): void {
+
+    this.seoService.getSEOData().subscribe((data) => {
+      this.metaDetail = data?.seo;
+
+      if (this.metaDetail) {
+        this.titleService.setTitle(this.metaDetail?.metatitle);
+
+        this.metaService.addTags([
+          { name: 'description', content: this.metaDetail?.metadesc },
+          
+        ]);
+
+       
+      //   const robots = this.metaDetail?.robots;
+
+      //   if (robots) {
+      //     this.seoService.setRobotsURL(robots);
+      //   }
+      //   const sitemap = this.metaDetail?.sitemap;
+
+      //   if (sitemap) {
+      //   // استخدم الرابط الخاص بـ sitemap.xml
+      //   this.seoService.setSitemapURL(sitemap);
+      // }
+
+      }
+    })
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -472,12 +502,26 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
 
         this.isSingleImage = this.images.length === 1;
+        const lang = localStorage.getItem('lang');
+        const slugURL = `${lang}/tours/details/ ${this.activityData?.slugUrl}`;
 
-        // this.seoService.updateSEO(
-        //   this.activityData?.MetaTitle,
-        //   this.activityData?.MetaDesc,
-        //   this.activityData?.Seo
-        // );
+        if (this.activityData && slugURL) {
+        //  window.location.href=slugURL;
+        this.router.navigate([slugURL]);
+          this.titleService.setTitle(this.activityData?.MetaTitle);
+         
+          this.metaService.addTags([
+            { name: 'description', content: this.activityData?.MetaDesc },
+            
+          ]);
+        }
+        
+
+        const canonicalURL = this.metaDetail?.canonicalurl;
+        if (canonicalURL) {
+          this.seoService.setCanonicalURL(canonicalURL);
+        }
+        
       });
   }
     // This function disables dates before today
