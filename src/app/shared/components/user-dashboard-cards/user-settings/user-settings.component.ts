@@ -15,7 +15,7 @@ interface Item {
   styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
-  imageUrl!: string;
+  imageUrl!: File;
   name: any;
   phone: any;
   phoneNumber: any;
@@ -29,16 +29,25 @@ export class UserSettingsComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
-  previewImage(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageUrl = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+
+formData = new FormData();
+
+// previewImage(files: FileList): void {
+//   if (!files || files.length === 0) {
+//     return;
+//   }
+
+//   this.imageUrl = files[0] as File; // Casts the first file as File
+
+//   // Replace extensions and append to formData
+//   this.formData.append(
+//     'file',
+//     this.imageUrl,
+//     this.imageUrl.name.replace(/jpeg|png/g, 'jpg') // Replace "jpeg" or "png" with "jpg"
+//   );
+// }
+
+
 
   /********************************/
   isOpen = false;
@@ -135,34 +144,55 @@ export class UserSettingsComponent implements OnInit {
     return this.selectedItem === item;
   }
 
-  submit() {
-    // console.log(this.phoneNumber);
-    let body: any = {
-      email: this.email,
-      fname: this.name,
-      phone: this.phone,
-      country_code: this.phoneNumber.dialCode,
-      dateofbirth: this.dob,
-      cover: this.imageUrl,
-    };
-    Object.keys(body).forEach(
-      (k: any) => (body[k] == '' || body[k] == null) && delete body[k]
-    );
-    // console.log(body);
-    this.httpService
-      .post(environment.marsa, 'user/update', body, true)
-      .subscribe((res) => {
-        // console.log(res);
-        this.toastr.success('The Account updated Sucsseful', ' ', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-      });
+  imagePreview!: string; // لحفظ رابط المعاينة
+imageFile!: File; // لحفظ الملف نفسه
+
+// دالة لعرض المعاينة وتخزين الملف
+previewImage(files: FileList | null): void {
+  if (!files || files.length === 0) {
+    return;
   }
 
+  // تخزين الملف في متغير
+  this.imageFile = files[0];
+
+  // قراءة الملف وتحويله إلى Data URL لعرضه
+  const reader = new FileReader();
+  reader.onload = (event: any) => {
+    this.imagePreview = event.target.result; // Data URL للمعاينة
+  };
+  reader.readAsDataURL(this.imageFile); // تحويل الملف إلى Data URL
+}
+
+// دالة لإرسال الملف إلى الباك اند
+submit(): void {
+  const formData = new FormData();
+  formData.append('cover', this.imageFile); // إضافة الملف إلى FormData
+
+  this.httpService.post(environment.marsa, 'user/update', formData, true).subscribe(
+    (res) => {
+      this.toastr.success('تم تحديث الحساب بنجاح', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+    },
+    (error) => {
+      this.toastr.error('فشل في تحديث الحساب', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+    }
+  );
+}
+
+  
+  
   deactivate() {
     // console.log(this.deactivateChaecked);
     if (this.deactivateChaecked) {

@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  APIURL:"https://dev2.marsawaves.com/api/",
+  APIURL:"https://marvelits.com/api/",
   marsa: 'marsa',
   googleClientId: '530644158352-38j40k29rjl74b7t2re9llq4n1om8gdn.apps.googleusercontent.com',
   facebookAppId: 'YOUR_FACEBOOK_APP_ID',

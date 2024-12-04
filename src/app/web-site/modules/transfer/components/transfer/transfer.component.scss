@@ -432,6 +432,10 @@ label,
   border: 2px solid #e4e4e4;
   border-radius: 5px !important;
 }
+.selected {
+  color: gold !important;
+  text-shadow: 0.5px 0.5px #ffea01;
+}
 .persons {
   border: 1px solid #e4e4e4;
   border-radius: 5px;

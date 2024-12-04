@@ -38,7 +38,7 @@ export class TransferComponent implements OnInit {
   interval: any;
   backgroundImageUrl: any = [];
   isLogin: boolean = false;
-  comment: any;
+
   highestRatedReview:any;
   transferstext:any;
   pText:any;
@@ -49,6 +49,9 @@ minReturnDate: Date | null = null;
 filteredFromAirports: any[] = []; // Filtered airports for the first dropdown
 filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
 filteredToOptions: any[] = []; // Filtered options for the second dropdown
+selectedStar: number = 0;
+starNumber: any=null;
+comment: any=null;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -332,15 +335,57 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       this.formData.toId = selectedOption.id;
     }
   }
+  onStarHover(starNumber: number) {
+    this.selectedStar = starNumber;
+  }
 
+  onStarClick(starNumber: number) {
+    this.starNumber = starNumber;
+  }
+
+  // addReview(): void {
+
+  //   const model = {
+
+  //     comment: this.comment,
+  //     transfer_id:1,
+  //     rating:3,
+  //   };
+  //   if (!this.isLogin) {
+  //     this.toastr.info('Please login first', '', {
+  //       disableTimeOut: false,
+  //       titleClass: 'toastr_title',
+  //       messageClass: 'toastr_message',
+  //       timeOut: 5000,
+  //       closeButton: true,
+  //     });
+  //     window.scroll(0, 0);
+  //     this.headerService.toggleDropdown();
+  //   } else {
+  //     this.httpService
+  //       .post(environment.marsa, 'Review/addreview', model)
+  //       .subscribe({
+  //         next: (res: any) => {
+  //           this.toastr.success(res.message);
+  //           // this.loadData();
+  //           // this.starNumber = 0;
+  //           this.comment = '';
+  //           // this.selectedStar = 0;
+  //         },
+  //       });
+  //   }
+  // }
+  transferId:any;
+  loadData(): void {
+    this.transferId=1;
+  }
   addReview(): void {
-
     const model = {
-
       comment: this.comment,
-      transfer_id:1,
-      rating:3,
+      transfer_id: this.transferId,
+      rating: this.starNumber,
     };
+
     if (!this.isLogin) {
       this.toastr.info('Please login first', '', {
         disableTimeOut: false,
@@ -352,17 +397,25 @@ filteredToOptions: any[] = []; // Filtered options for the second dropdown
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
     } else {
-      this.httpService
-        .post(environment.marsa, 'Review/addreview', model)
-        .subscribe({
+      if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
+        this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
           next: (res: any) => {
             this.toastr.success(res.message);
-            // this.loadData();
-            // this.starNumber = 0;
-            this.comment = '';
-            // this.selectedStar = 0;
+            this.loadData();
+            this.starNumber = null;
+            this.comment = null;
+            this.selectedStar = 0;
           },
         });
+      } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
+        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      }
     }
   }
 

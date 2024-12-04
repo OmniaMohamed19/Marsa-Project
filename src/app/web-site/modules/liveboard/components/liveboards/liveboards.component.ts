@@ -75,7 +75,7 @@ export class LiveboardsComponent implements OnInit {
         this.rows.data = this.rows.data.filter(
           (trip: any) => Object.keys(trip.Schedule).length > 0
         );
-
+  
         this.search = response.search;
         this.types = response.types;
         if (this.destination?.length == 0) {
@@ -97,11 +97,13 @@ export class LiveboardsComponent implements OnInit {
             document.getElementById('btn-' + i)?.classList.add('active-rate');
           }
         }
-        //   this.min_price = 0;
-        // this.max_price = 9999;
+  
+        // Scroll to the top of the page after the function is executed
+        window.scrollTo(0, 0);
       },
     });
   }
+  
 
   getPlace() {
     this.httpservices.get('marsa', 'place').subscribe({

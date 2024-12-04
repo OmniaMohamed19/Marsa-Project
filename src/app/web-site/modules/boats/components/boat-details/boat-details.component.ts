@@ -598,7 +598,8 @@ export class BoatDetailsComponent {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-    } else {
+    }
+     else {
       if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
         this._httpService
         .post(environment.marsa, 'Review/addreview', model)

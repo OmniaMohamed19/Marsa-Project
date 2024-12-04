@@ -42,7 +42,7 @@ export function app(): express.Express {
    server.get('/robots.txt', async (req, res) => {
     try {
       // إرسال الطلب إلى API الخاصة بـ SEO للحصول على رابط ملف robots.txt
-      const seoData = await axios.get('https://dev2.marsawaves.com/api/seo');
+      const seoData = await axios.get('https://marvelits.com/api/seo');
       const robotsUrl = seoData.data.seo.robots; // جلب الرابط من API
 
       // جلب ملف robots.txt من الرابط
@@ -57,7 +57,7 @@ export function app(): express.Express {
     // Point of serving sitemap.xml from the server
     server.get('/sitemap.xml', async (req, res) => {
       try {
-        const seoData = await axios.get('https://dev2.marsawaves.com/api/seo');
+        const seoData = await axios.get('https://marvelits.com/api/seo');
         const sitemapUrl = seoData.data.seo.sitemap;
 
         const sitemapResponse = await axios.get(sitemapUrl);

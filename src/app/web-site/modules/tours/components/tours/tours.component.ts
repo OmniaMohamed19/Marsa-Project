@@ -85,6 +85,8 @@ export class ToursComponent {
         document.getElementById('btn-' + i)?.classList.add('active-rate');
       }
     }
+    window.scrollTo(0, 0);
+
     this.getAllactivity();
   }
   getPlaces() {

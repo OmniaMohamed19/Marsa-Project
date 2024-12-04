@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileService {
-  private baseUrl = 'https://dev2.marsawaves.com/api/profile';
+  private baseUrl = 'https://marvelits.com/api/profile';
 
   constructor(private http: HttpClient) {}
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingAboutUsComponent } from './landing-about-us/landing-about-us.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 export class AboutUsRoutingModule { }

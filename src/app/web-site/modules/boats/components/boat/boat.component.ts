@@ -55,14 +55,14 @@ export class BoatComponent {
       }
     });
   }
-  clearSelection()
-  {
+  clearSelection() {
     this.TypeTrip = '';
     this.place_id = 'null';
     this.start_d = null;
     this.rate = null;
     this.min_priceChoosen = this.min_price; // Reset to default minimum price
     this.max_priceChoosen = this.max_price; // Reset to default maximum price
+  
     for (let i = 2; i <= 5; i++) {
       if (i != 2) {
         document.getElementById('btn-' + i)?.classList.remove('active-rate');
@@ -71,8 +71,13 @@ export class BoatComponent {
         document.getElementById('btn-' + i)?.classList.add('active-rate');
       }
     }
+  
+    // Scroll to the top of the page after the function is executed
+    window.scrollTo(0, 0);
+  
     this.getBoats();
   }
+  
 
   getBoats() {
 

@@ -7,36 +7,23 @@
       </div>
       <div class="col-lg-8 upload position-relative">
         <label for="upload">
-          <div *ngIf="!imageUrl" class="preview">
-            <img
-              [src]="
-          userDetails?.image
-              "
-              [alt]="getImageName(userDetails?.image)"
-            />
+          <div *ngIf="!imagePreview && userDetails?.image" class="preview">
+            <img [src]="userDetails?.image" [alt]="getImageName(userDetails?.image)" />
           </div>
-          <div *ngIf="imageUrl" class="preview">
-            <img [src]="imageUrl"  [alt]="getImageName(imageUrl)"  />
+          <div *ngIf="imagePreview" class="preview">
+            <img [src]="imagePreview" alt="Preview" />
           </div>
+          
         </label>
-        <div class="pen">
+        <div class="pen"(click)="fileInput.click()"
+        >
           <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
               <g clip-path="url(#clip0_1412_50197)">
-                <path
-                  d="M0 9.49953V11.9999H2.50035L9.87802 4.62217L7.37767 2.12183L0 9.49953Z"
-                  fill="#B5B5C3"
-                />
+                <path d="M0 9.49953V11.9999H2.50035L9.87802 4.62217L7.37767 2.12183L0 9.49953Z" fill="#B5B5C3" />
                 <path
                   d="M11.8045 1.7519L10.2476 0.195027C9.98759 -0.065009 9.56419 -0.065009 9.30415 0.195027L8.08398 1.4152L10.5843 3.91554L11.8045 2.69537C12.0646 2.43534 12.0646 2.01193 11.8045 1.7519Z"
-                  fill="#B5B5C3"
-                />
+                  fill="#B5B5C3" />
               </g>
               <defs>
                 <clipPath id="clip0_1412_50197">
@@ -45,15 +32,17 @@
               </defs>
             </svg>
           </span>
-          <span class="ms-2">Remove</span>
-        </div>
-
-        <input
+          <!-- <span class="ms-2">Remove</span> -->
+          <input
           type="file"
           id="upload"
-          (change)="previewImage($event)"
+          #fileInput
+          (change)="previewImage(fileInput.files)"
           class="d-none"
         />
+        </div>
+
+
       </div>
     </div>
     <div class="row">
@@ -70,20 +59,10 @@
         <label>Phone Number</label>
       </div>
       <div class="col-lg-8">
-        <ngx-intl-tel-input
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [separateDialCode]="true"
-          [selectFirstCountry]="true"
-          [maxLength]="20"
-          name="phoneNumber"
-          [phoneValidation]="false"
-          [enablePlaceholder]="true"
-          [customPlaceholder]="'Enter phone number'"
-          [preferredCountries]="['de']"
-          [(ngModel)]="phoneNumber"
-        ></ngx-intl-tel-input>
+        <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+          [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
+          [phoneValidation]="false" [enablePlaceholder]="true" [customPlaceholder]="'Enter phone number'"
+          [preferredCountries]="['de']" [(ngModel)]="phoneNumber"></ngx-intl-tel-input>
       </div>
     </div>
 
@@ -111,21 +90,12 @@
       <div class="col-lg-8">
         <div class="dropdown-2" tabindex="0" (click)="toggleDropdownCountry()">
           <div class="dropdown-btn-2 d-flex align-items-center gap-1">
-            <img src="{{ selectedImgCountry }}"  [alt]="getImageName(selectedImgCountry)"  width="20" height="20" />
+            <img src="{{ selectedImgCountry }}" [alt]="getImageName(selectedImgCountry)" width="20" height="20" />
             {{ selectedLabelCountry }}
           </div>
           <div *ngIf="isOpenDrop" class="dropdown-content dropdown-content-2">
-            <div
-              *ngFor="let country of countries1"
-              (click)="selectCountryflag(country)"
-              class="dropdown-item"
-            >
-              <img
-                [src]="country.flagUrl"
-                alt="{{ country.label }}"
-                width="20"
-                height="15"
-              />
+            <div *ngFor="let country of countries1" (click)="selectCountryflag(country)" class="dropdown-item">
+              <img [src]="country.flagUrl" alt="{{ country.label }}" width="20" height="15" />
               {{ country.label }}
             </div>
           </div>
@@ -159,47 +129,25 @@
       </div>
       <div class="col-lg-8">
         <div class="top">
-          <div
-            class="item"
-            [class.selected-1]="isSelected(items[0])"
-            (click)="selectItem(items[0])"
-          >
+          <div class="item" [class.selected-1]="isSelected(items[0])" (click)="selectItem(items[0])">
             <p>
               <span class="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="19"
-                  height="19"
-                  viewBox="0 0 19 19"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                   <path
                     d="M14.0426 5.02893C14.3258 4.69579 14.8254 4.65528 15.1585 4.93845C15.4917 5.22162 15.5322 5.72124 15.249 6.05437L8.51985 13.971C8.23224 14.3094 7.72261 14.3451 7.3907 14.05L3.8282 10.8834C3.50141 10.5929 3.47198 10.0925 3.76245 9.7657C4.05293 9.43891 4.55332 9.40948 4.88011 9.69995L7.83765 12.3289L14.0426 5.02893Z"
-                    fill="white"
-                  />
+                    fill="white" />
                 </svg>
               </span>
             </p>
             <span> Male </span>
           </div>
-          <div
-            class="item"
-            [class.selected-1]="isSelected(items[1])"
-            (click)="selectItem(items[1])"
-          >
+          <div class="item" [class.selected-1]="isSelected(items[1])" (click)="selectItem(items[1])">
             <p>
               <span class="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="19"
-                  height="19"
-                  viewBox="0 0 19 19"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                   <path
                     d="M14.0426 5.02893C14.3258 4.69579 14.8254 4.65528 15.1585 4.93845C15.4917 5.22162 15.5322 5.72124 15.249 6.05437L8.51985 13.971C8.23224 14.3094 7.72261 14.3451 7.3907 14.05L3.8282 10.8834C3.50141 10.5929 3.47198 10.0925 3.76245 9.7657C4.05293 9.43891 4.55332 9.40948 4.88011 9.69995L7.83765 12.3289L14.0426 5.02893Z"
-                    fill="white"
-                  />
+                    fill="white" />
                 </svg>
               </span>
             </p>
@@ -222,36 +170,12 @@
       <h3>Deactivate Account</h3>
       <div class="deactivate-content">
         <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="33"
-            height="34"
-            viewBox="0 0 33 34"
-            fill="none"
-          >
-            <path
-              opacity="0.3"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+          <svg xmlns="http://www.w3.org/2000/svg" width="33" height="34" viewBox="0 0 33 34" fill="none">
+            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
               d="M16.4412 30.4364C24.0081 30.4364 30.1422 24.3023 30.1422 16.7354C30.1422 9.16856 24.0081 3.03442 16.4412 3.03442C8.87437 3.03442 2.74023 9.16856 2.74023 16.7354C2.74023 24.3023 8.87437 30.4364 16.4412 30.4364Z"
-              fill="#F89C47"
-            />
-            <rect
-              x="15.0703"
-              y="9.88477"
-              width="2.7402"
-              height="10.9608"
-              rx="1"
-              fill="#F89C47"
-            />
-            <rect
-              x="15.0703"
-              y="22.2158"
-              width="2.7402"
-              height="2.7402"
-              rx="1"
-              fill="#F89C47"
-            />
+              fill="#F89C47" />
+            <rect x="15.0703" y="9.88477" width="2.7402" height="10.9608" rx="1" fill="#F89C47" />
+            <rect x="15.0703" y="22.2158" width="2.7402" height="2.7402" rx="1" fill="#F89C47" />
           </svg>
         </span>
         <div>
@@ -264,14 +188,8 @@
       </div>
       <div class="check-content">
         <div class="form-check">
-          <input
-            [(ngModel)]="deactivateChaecked"
-            name="deactivateChaecked"
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDisabled"
-          />
+          <input [(ngModel)]="deactivateChaecked" name="deactivateChaecked" class="form-check-input" type="checkbox"
+            value="" id="flexCheckDisabled" />
           <label class="form-check-label" for="flexCheckDisabled">
             Confirm Account Deactivation
           </label>

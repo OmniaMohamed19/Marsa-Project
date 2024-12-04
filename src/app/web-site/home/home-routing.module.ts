@@ -114,10 +114,12 @@ const routes: Routes = [
     path: 'new-password',
     component: NewPasswordComponent,
   },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  
 })
 export class HomeRoutingModule {}

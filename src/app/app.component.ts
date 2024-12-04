@@ -21,15 +21,14 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // ضبط اللغة الافتراضية
-    if (typeof window !== 'undefined'){
+
       const lang = localStorage.getItem('lang');
       if (lang) {
         this.langServ.setCurrentLang(lang, true);
       } else {
         this.langServ.setCurrentLang('en', true);
       }
-    }
+    
 
 
     this.authService.autoAuth();
