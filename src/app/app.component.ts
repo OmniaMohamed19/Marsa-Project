@@ -3,6 +3,7 @@ import { LanguageService } from './shared/services/language.service';
 import { AuthService } from './shared/services/auth.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { SEOService } from './shared/services/seo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +18,14 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private seoService: SEOService,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private router :Router
   ) {}
 
   ngOnInit(): void {
 
       const lang = localStorage.getItem('lang');
+
       if (lang) {
         this.langServ.setCurrentLang(lang, true);
       } else {
@@ -42,14 +45,14 @@ export class AppComponent implements OnInit {
 
         this.metaService.addTags([
           { name: 'description', content: this.metaDetail?.metadesc },
-           { name: 'slugURL', content: this.metaDetail?.slugUrl }
+           { name: 'slugURL', content: `${lang}/${this.metaDetail?.slugUrl}` }
         ]);
 
-        // تحديث الـ slugURL
-        const slugURL = this.metaDetail?.slugUrl;
+        const slugURL = `${lang}/${this.metaDetail?.slugUrl}`;
         // if (slugURL) {
-        //   window.history.replaceState({}, '', slugURL);
+        //   window.location.href=slugURL;
         // }
+        this.router.navigate([`${lang}/${this.metaDetail?.slugUrl}`]);
 
         const canonicalURL = this.metaDetail?.canonicalurl;
         if (canonicalURL) {

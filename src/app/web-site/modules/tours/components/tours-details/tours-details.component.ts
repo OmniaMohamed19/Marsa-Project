@@ -505,7 +505,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         const day = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
         // Check if the date is today or in the future and not in the disabled days
-        return date >= today && !this.disabledDays?.includes(day);
+        return date >= today && !this.disabledDays.includes(day);
     };
 
   getAbout() {

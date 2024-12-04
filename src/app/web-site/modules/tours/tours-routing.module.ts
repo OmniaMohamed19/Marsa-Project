@@ -17,6 +17,7 @@ const routes: Routes = [
       { path: 'details/:id/:name', component: ToursDetailsComponent },
       { path: ':id/:slug', component: ToursDetailsComponent },
       { path: 'check', component: CheckAvailpiltyComponent },
+       { path: 'details/:slugUrl', component: ToursDetailsComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'confirm', component: ConfirmPaymentComponent },
     ],
