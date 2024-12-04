@@ -333,7 +333,7 @@ export class LiveboardDetailsComponent {
         this.liveabourdData = res?.tripDetails;
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), 'liveboard',params.id,res?.tripDetails.slugUrl]);
+            this.router.navigate(['/',localStorage.getItem('lang'), '/',params.id,res?.tripDetails.slugUrl]);
           }
         });
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(

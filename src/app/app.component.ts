@@ -37,41 +37,7 @@ export class AppComponent implements OnInit {
     this.authService.autoAuth();
 
     // استدعاء بيانات الـ SEO من الباك اند
-    this.seoService.getSEOData().subscribe((data) => {
-      this.metaDetail = data?.seo;
-
-      if (this.metaDetail) {
-        this.titleService.setTitle(this.metaDetail?.metatitle);
-
-        this.metaService.addTags([
-          { name: 'description', content: this.metaDetail?.metadesc },
-           { name: 'slugURL', content: `${lang}/${this.metaDetail?.slugUrl}` }
-        ]);
-
-        const slugURL = `${lang}/${this.metaDetail?.slugUrl}`;
-        // if (slugURL) {
-        //   window.location.href=slugURL;
-        // }
-        this.router.navigate([`${lang}/${this.metaDetail?.slugUrl}`]);
-
-        const canonicalURL = this.metaDetail?.canonicalurl;
-        if (canonicalURL) {
-          this.seoService.setCanonicalURL(canonicalURL);
-        }
-        const robots = this.metaDetail?.robots;
-
-        if (robots) {
-          this.seoService.setRobotsURL(robots);
-        }
-        const sitemap = this.metaDetail?.sitemap;
-
-        if (sitemap) {
-        // استخدم الرابط الخاص بـ sitemap.xml
-        this.seoService.setSitemapURL(sitemap);
-      }
-
-      }
-    });
+  
   }
   imageUrl: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png';
 

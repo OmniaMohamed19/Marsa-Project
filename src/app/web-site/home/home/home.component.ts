@@ -1,8 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { SEOService } from 'src/app/shared/services/seo.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -22,14 +25,18 @@ export class HomeComponent implements OnInit {
   currentCoverImage: string = ''; // To hold the current image being displayed
   currentIndex: number = 0; // To keep track of the current index
   interval: any;
-  pText:any;
-  h1Text:any
-  hometext:any
+  pText: any;
+  h1Text: any;
+  hometext: any;
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
     public translate: TranslateService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private seoService: SEOService,
+    private titleService: Title,
+    private metaService: Meta,
+    private router: Router
   ) {
     this.langService.getCurrentLang().subscribe((lang) => {
       this.selectedLang = lang;
@@ -68,12 +75,48 @@ export class HomeComponent implements OnInit {
         console.error(err);
       }
     );
-
   }
+  metaDetail: any;
 
   ngOnInit(): void {
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
+      this.seoService.getSEOData().subscribe((data) => {
+        const lang = localStorage.getItem('lang');
+        this.metaDetail = data?.seo;
+
+        if (this.metaDetail) {
+          this.titleService.setTitle(this.metaDetail?.metatitle);
+
+          this.metaService.addTags([
+            { name: 'description', content: this.metaDetail?.metadesc },
+            { name: 'slugURL', content: `${lang}/${this.metaDetail?.slugUrl}` },
+          ]);
+
+          const slugURL = `${lang}/${this.metaDetail?.slugUrl}`;
+          // if (slugURL) {
+          //   window.location.href=slugURL;
+          // }
+            this.router.navigate(['/',localStorage.getItem('lang'), 'lang',this.metaDetail?.slugUrl]);
+            // this.router.navigate([`${lang}/${}`]);
+
+          const canonicalURL = this.metaDetail?.canonicalurl;
+          if (canonicalURL) {
+            this.seoService.setCanonicalURL(canonicalURL);
+          }
+          const robots = this.metaDetail?.robots;
+
+          if (robots) {
+            this.seoService.setRobotsURL(robots);
+          }
+          const sitemap = this.metaDetail?.sitemap;
+
+          if (sitemap) {
+            // استخدم الرابط الخاص بـ sitemap.xml
+            this.seoService.setSitemapURL(sitemap);
+          }
+        }
+      });
     });
 
     this.startImageRotation();
