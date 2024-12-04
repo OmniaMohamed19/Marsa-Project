@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
       } else {
         this.langServ.setCurrentLang('en', true);
       }
-    
+
 
 
     this.authService.autoAuth();
@@ -47,9 +47,9 @@ export class AppComponent implements OnInit {
 
         // تحديث الـ slugURL
         const slugURL = this.metaDetail?.slugUrl;
-        if (slugURL) {
-          window.history.replaceState({}, '', slugURL);
-        }
+        // if (slugURL) {
+        //   window.history.replaceState({}, '', slugURL);
+        // }
 
         const canonicalURL = this.metaDetail?.canonicalurl;
         if (canonicalURL) {

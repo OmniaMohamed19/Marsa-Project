@@ -126,7 +126,8 @@ export class BoatDetailsComponent {
     private headerService: HeaderService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private router: Router,
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -373,6 +374,11 @@ export class BoatDetailsComponent {
       .get(environment.marsa, `Boats/details/` + BoatID)
       .subscribe((res: any) => {
         this.boatData = res?.tripDetails;
+        this.activatedRoute.params.subscribe((params: any) => {
+          if ('name' in params) {
+            this.router.navigate(['/',localStorage.getItem('lang'), 'boats',params.id,res?.tripDetails.slugUrl]);
+          }
+        });
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.boatData.PlaceOnMap
         );

@@ -210,7 +210,11 @@ export class PackageDetailsComponent {
         this.rows = res?.tripDetails;
         this.faq=res?.tripDetails?.faq;
         console.log(res?.tripDetails?.faq)
-
+        this.activatedRoute.params.subscribe((params: any) => {
+          if ('name' in params) {
+            this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.tripDetails.slugUrl]);
+          }
+        });
         console.log(this.rows);
         this.duration = this.rows.duration;
         // this.seoService.updateSEO(

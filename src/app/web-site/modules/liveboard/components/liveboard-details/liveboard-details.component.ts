@@ -331,6 +331,11 @@ export class LiveboardDetailsComponent {
       .get(environment.marsa, `liveboard/details/` + liveabourdID)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
+        this.activatedRoute.params.subscribe((params: any) => {
+          if ('name' in params) {
+            this.router.navigate(['/',localStorage.getItem('lang'), 'liveboard',params.id,res?.tripDetails.slugUrl]);
+          }
+        });
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.liveabourdData.PlaceOnMap
         );

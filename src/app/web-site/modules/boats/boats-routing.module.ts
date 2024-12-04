@@ -14,6 +14,7 @@ const routes: Routes = [
       {path:'allBoats',component:BoatComponent},
       {path:'payment',component:PaymentBoatsComponent},
       {path:'details/:id/:name',component:BoatDetailsComponent},
+      {path:':id/:slug',component:BoatDetailsComponent},
       { path: 'confirm', component: ConfirmationBoatComponent},
 
     ]
@@ -23,6 +24,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  
+
 })
 export class BoatsRoutingModule { }

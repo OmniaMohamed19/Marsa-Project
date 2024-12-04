@@ -288,8 +288,14 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
+      console.log(params)
+
+
       this.loadData();
       this.getAbout();
+      // if ('name' in params) {
+      //   this.router.navigate(['/','en', 'tours',params.id, this.activityData.slugUrl]);
+      // }
     });
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
@@ -438,6 +444,11 @@ export class ToursDetailsComponent implements AfterViewInit {
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
         console.log(this.activityData);
+        this.activatedRoute.params.subscribe((params: any) => {
+          if ('name' in params) {
+            this.router.navigate(['/',localStorage.getItem('lang'), 'tours',params.id,res?.tripDetails.slugUrl]);
+          }
+        });
         this.disabledDays = this.getDisabledDays(this.activityData.TimeOfRepeat);
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
