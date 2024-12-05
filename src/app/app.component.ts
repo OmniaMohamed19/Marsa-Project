@@ -3,7 +3,6 @@ import { LanguageService } from './shared/services/language.service';
 import { AuthService } from './shared/services/auth.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { SEOService } from './shared/services/seo.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,26 +17,25 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private seoService: SEOService,
     private titleService: Title,
-    private metaService: Meta,
-    private router :Router
+    private metaService: Meta
   ) {}
 
   ngOnInit(): void {
-
+    // ضبط اللغة الافتراضية
+    if (typeof window !== 'undefined'){
       const lang = localStorage.getItem('lang');
-
       if (lang) {
         this.langServ.setCurrentLang(lang, true);
       } else {
         this.langServ.setCurrentLang('en', true);
       }
-
+    }
 
 
     this.authService.autoAuth();
 
     // استدعاء بيانات الـ SEO من الباك اند
-  
+   
   }
   imageUrl: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png';
 

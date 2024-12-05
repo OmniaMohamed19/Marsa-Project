@@ -9,6 +9,8 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -128,6 +130,8 @@ export class BoatDetailsComponent {
     private datePipe: DatePipe,
     private seoService: SEOService,
     private router: Router,
+    private titleService: Title,
+    private metaService: Meta,
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -413,11 +417,20 @@ export class BoatDetailsComponent {
           []
         );
         this.isSingleImage = this.images.length === 1;
-        // this.seoService.updateSEO(
-        //   this.boatData?.MetaTitle,
-        //   this.boatData?.MetaDesc,
-        //   this.boatData?.Seo
-        // );
+        if (this.boatData) {
+          this.titleService.setTitle(this.boatData?.MetaTitle);
+ 
+         this.metaService.addTags([
+
+           { name: 'description', content: this.boatData?.MetaDesc },
+          
+          
+         ]);
+         const canonicalURL = this.boatData?.CanonicalUrl;
+         if (canonicalURL) {
+           this.seoService.setCanonicalURL(canonicalURL);
+         }
+       }
       });
   }
 

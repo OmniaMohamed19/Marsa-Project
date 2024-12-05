@@ -5,6 +5,8 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -117,7 +119,9 @@ export class PackageDetailsComponent {
     private authService: AuthService,
     private headerService: HeaderService,
     private router: Router,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private titleService: Title,
+    private metaService: Meta,
   ) {}
 
   seeMore: boolean = false;
@@ -217,11 +221,20 @@ export class PackageDetailsComponent {
         });
         console.log(this.rows);
         this.duration = this.rows.duration;
-        // this.seoService.updateSEO(
-        //   this.rows.MetaTitle,
-        //   this.rows.MetaDesc,
-        //   this.rows.Seo
-        // );
+        if (this.rows) {
+          this.titleService.setTitle(this.rows?.MetaTitle);
+ 
+         this.metaService.addTags([
+
+           { name: 'description', content: this.rows?.MetaDesc },
+          
+          
+         ]);
+         const canonicalURL = this.rows?.CanonicalUrl;
+         if (canonicalURL) {
+           this.seoService.setCanonicalURL(canonicalURL);
+         }
+       }
         this.duration = res?.tripDetails.duration;
         this.calculateEndDate();
       });

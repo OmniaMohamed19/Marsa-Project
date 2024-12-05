@@ -79,44 +79,45 @@ export class HomeComponent implements OnInit {
   metaDetail: any;
 
   ngOnInit(): void {
+    this.seoService.getSEOData().subscribe((data) => {
+      const lang = localStorage.getItem('lang');
+      this.metaDetail = data?.seo;
+
+      if (this.metaDetail) {
+        this.titleService.setTitle(this.metaDetail?.metatitle);
+
+        this.metaService.addTags([
+          { name: 'description', content: this.metaDetail?.metadesc },
+         
+        ]);
+
+     
+          if (this.metaDetail?.slugUrl) {
+            this.router.navigate(['/', localStorage.getItem('lang'), this.metaDetail.slugUrl]);
+        } else {
+            console.error('Slug URL is missing!');
+        }
+
+        const canonicalURL = this.metaDetail?.canonicalurl;
+        if (canonicalURL) {
+          this.seoService.setCanonicalURL(canonicalURL);
+        }
+        const robots = this.metaDetail?.robots;
+
+        if (robots) {
+          this.seoService.setRobotsURL(robots);
+        }
+        const sitemap = this.metaDetail?.sitemap;
+
+        if (sitemap) {
+          // استخدم الرابط الخاص بـ sitemap.xml
+          this.seoService.setSitemapURL(sitemap);
+        }
+      }
+    });
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
-      this.seoService.getSEOData().subscribe((data) => {
-        const lang = localStorage.getItem('lang');
-        this.metaDetail = data?.seo;
-
-        if (this.metaDetail) {
-          this.titleService.setTitle(this.metaDetail?.metatitle);
-
-          this.metaService.addTags([
-            { name: 'description', content: this.metaDetail?.metadesc },
-            { name: 'slugURL', content: `${lang}/${this.metaDetail?.slugUrl}` },
-          ]);
-
-          const slugURL = `${lang}/${this.metaDetail?.slugUrl}`;
-          // if (slugURL) {
-          //   window.location.href=slugURL;
-          // }
-            this.router.navigate(['/',localStorage.getItem('lang'), 'lang',this.metaDetail?.slugUrl]);
-            // this.router.navigate([`${lang}/${}`]);
-
-          const canonicalURL = this.metaDetail?.canonicalurl;
-          if (canonicalURL) {
-            this.seoService.setCanonicalURL(canonicalURL);
-          }
-          const robots = this.metaDetail?.robots;
-
-          if (robots) {
-            this.seoService.setRobotsURL(robots);
-          }
-          const sitemap = this.metaDetail?.sitemap;
-
-          if (sitemap) {
-            // استخدم الرابط الخاص بـ sitemap.xml
-            this.seoService.setSitemapURL(sitemap);
-          }
-        }
-      });
+      
     });
 
     this.startImageRotation();

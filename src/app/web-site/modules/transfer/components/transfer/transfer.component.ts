@@ -25,11 +25,12 @@ export class TransferComponent implements OnInit {
   transferDetails: any;
   fromId: string = '';
   toId: any;
+
   date: string | null = null; // Initialize the date variable
   minDate: string;
   minSelectableDate: Date = new Date();
-  reviews:any;
-  pickuptime:any;
+  reviews: any;
+  pickuptime: any;
   returnDate: any; // Add for return date
   returnPickuptime: any; // Add for return pickup time
   person: any;
@@ -39,19 +40,19 @@ export class TransferComponent implements OnInit {
   backgroundImageUrl: any = [];
   isLogin: boolean = false;
 
-  highestRatedReview:any;
-  transferstext:any;
-  pText:any;
-  h1Text:any;
+  highestRatedReview: any;
+  transferstext: any;
+  pText: any;
+  h1Text: any;
   searchFrom: string = ''; // Holds the search term for the first dropdown (From)
-searchTo: string = ''; // Holds the search term for the second dropdown (To)
-minReturnDate: Date | null = null;
-filteredFromAirports: any[] = []; // Filtered airports for the first dropdown
-filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
-filteredToOptions: any[] = []; // Filtered options for the second dropdown
-selectedStar: number = 0;
-starNumber: any=null;
-comment: any=null;
+  searchTo: string = ''; // Holds the search term for the second dropdown (To)
+  minReturnDate: Date | null = null;
+  filteredFromAirports: any[] = []; // Filtered airports for the first dropdown
+  filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
+  filteredToOptions: any[] = []; // Filtered options for the second dropdown
+  selectedStar: number = 0;
+  starNumber: any = null;
+  comment: any = null;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -64,18 +65,19 @@ comment: any=null;
     private datePipe: DatePipe
 
   ) {
-     const today = new Date();
-    this.minDate = today.toISOString().split('T')[0];}
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+  }
 
 
-    updateMinReturnDate() {
-      if (this.date) {
-        this.minReturnDate = new Date(this.date);
-        this.minReturnDate.setDate(this.minReturnDate.getDate() + 1); // Ensure at least the next day
-      }
+  updateMinReturnDate() {
+    if (this.date) {
+      this.minReturnDate = new Date(this.date);
+      this.minReturnDate.setDate(this.minReturnDate.getDate() + 1); // Ensure at least the next day
     }
+  }
   ngOnInit(): void {
-    this.removeTimeFromMinDate();
+    // this.removeTimeFromMinDate();
     this.filteredFromAirports = this.transferDetails?.airports || [];
     this.filteredFromHotels = this.transferDetails?.hotel || [];
     this.filteredToOptions = [];
@@ -103,7 +105,7 @@ comment: any=null;
           this.pText = pElement ? pElement.textContent : null;
         }
       },
-      (err) => {}
+      (err) => { }
     );
     interface Review {
       rate: any;
@@ -120,7 +122,7 @@ comment: any=null;
               return (prev.rate > current.rate) ? prev : current;
             });
 
-            this.highestRatedReview  = highestRatedReview;
+            this.highestRatedReview = highestRatedReview;
             console.log('Highest Rated Review:', this.highestRatedReview);
           }
         }
@@ -133,12 +135,13 @@ comment: any=null;
 
   }
 
-  removeTimeFromMinDate(): void {
-    this.minSelectableDate.setHours(0, 0, 0, 0);
-  }
-   removeTimezone(date: Date): Date {
-    return new Date(date.toISOString().split('T')[0] + 'T' + date.toTimeString().split(' ')[0]);
-  }
+  // removeTimeFromMinDate(): void {
+  //   this.minSelectableDate.setHours(0, 0, 0, 0);
+  // }
+  //  removeTimezone(date: Date): Date {
+  //   return new Date(date.toISOString().split('T')[0] + 'T' + date.toTimeString().split(' ')[0]);
+  // }
+
   onDateSelect(selectedDate: Date): void {
     this.date = this.formatDateToYYYYMMDD(selectedDate);
     console.log(this.date);
@@ -160,14 +163,7 @@ comment: any=null;
     console.log(this.pickuptime);
   }
 
-  onTimeSelect2(event: any) {
-    const hours = event.getHours() > 12 ? event.getHours() - 12 : event.getHours();
-    const minutes = event.getMinutes().toString().padStart(2, '0');
-    const ampm = event.getHours() >= 12 ? 'PM' : 'AM';
 
-    this.returnPickuptime = `${hours}:${minutes} ${ampm}`;
-    console.log(this.returnPickuptime);
-  }
 
   startImageRotation() {
     this.interval = setInterval(() => {
@@ -217,7 +213,7 @@ comment: any=null;
     this.activeSection = section;
 
 
-      localStorage.setItem('activeSection', section);
+    localStorage.setItem('activeSection', section);
 
   }
 
@@ -235,31 +231,48 @@ comment: any=null;
       return;
     }
 
-    if(this.fromId==undefined ||this.toId == undefined )
-       {
-        this.toastr.info('Please choose the location first ', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-        return;
+    if (this.fromId == undefined || this.toId == undefined) {
+      this.toastr.info('Please choose the location first ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return;
     }
-    if( this.date==undefined || this.pickuptime ==undefined
-      ||this.returnDate ==undefined||this.returnPickuptime ==undefined)
-      {
-       this.toastr.info('Please enter date and time ', '', {
-         disableTimeOut: false,
-         titleClass: 'toastr_title',
-         messageClass: 'toastr_message',
-         timeOut: 5000,
-         closeButton: true,
-       });
-       return;
-   }
 
-    else{
+    console.log(this.activeSection);
+
+    if (this.activeSection === 'section2' && (this.date === undefined || this.pickuptime === undefined)) {
+      this.toastr.info('Please enter date and time ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return;
+    }
+
+    if (
+      this.activeSection === 'section1' && (
+        this.date === undefined ||
+        this.pickuptime === undefined ||
+        this.returnDate === undefined ||
+        this.returnPickuptime === undefined)) {
+      this.toastr.info('Please enter date and time ', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return;
+
+    }
+
+    else {
       let body: any = {
         from_id: this.fromId,
         to_id: this.toId,
@@ -276,19 +289,19 @@ comment: any=null;
       // Save the body object in localStorage
 
 
-        localStorage.setItem('bookdetail', JSON.stringify(body));
+      localStorage.setItem('bookdetail', JSON.stringify(body));
 
 
-        // Save the return date and return pickup time separately
-        localStorage.setItem('returnDate', this.returnDate || '');
-        localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
+      // Save the return date and return pickup time separately
+      localStorage.setItem('returnDate', this.returnDate || '');
+      localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
 
 
       // Save the activeSection value separately
       const activeSectionValue = this.activeSection === 'section1' ? '2' : '1';
 
 
-        localStorage.setItem('activeSection', activeSectionValue);
+      localStorage.setItem('activeSection', activeSectionValue);
 
 
       // Make the HTTP request
@@ -300,12 +313,12 @@ comment: any=null;
           this.dataService.setResponseData(res);
 
 
-            localStorage.setItem('responseData', JSON.stringify(res));
+          localStorage.setItem('responseData', JSON.stringify(res));
 
 
           // Navigate to the multi-step page
           this.router.navigate(
-            ['/', this.translate.currentLang, 'transfer','multi-step'],
+            ['/', this.translate.currentLang, 'transfer', 'multi-step'],
 
           );
         },
@@ -343,41 +356,10 @@ comment: any=null;
     this.starNumber = starNumber;
   }
 
-  // addReview(): void {
 
-  //   const model = {
-
-  //     comment: this.comment,
-  //     transfer_id:1,
-  //     rating:3,
-  //   };
-  //   if (!this.isLogin) {
-  //     this.toastr.info('Please login first', '', {
-  //       disableTimeOut: false,
-  //       titleClass: 'toastr_title',
-  //       messageClass: 'toastr_message',
-  //       timeOut: 5000,
-  //       closeButton: true,
-  //     });
-  //     window.scroll(0, 0);
-  //     this.headerService.toggleDropdown();
-  //   } else {
-  //     this.httpService
-  //       .post(environment.marsa, 'Review/addreview', model)
-  //       .subscribe({
-  //         next: (res: any) => {
-  //           this.toastr.success(res.message);
-  //           // this.loadData();
-  //           // this.starNumber = 0;
-  //           this.comment = '';
-  //           // this.selectedStar = 0;
-  //         },
-  //       });
-  //   }
-  // }
-  transferId:any;
+  transferId: any;
   loadData(): void {
-    this.transferId=1;
+    this.transferId = 1;
   }
   addReview(): void {
     const model = {
@@ -456,7 +438,7 @@ comment: any=null;
       // Store the word "airport" in local storage
 
 
-        localStorage.setItem('selectedFromType', 'airport');
+      localStorage.setItem('selectedFromType', 'airport');
 
     } else if (option.city) {
       // If a hotel is selected
@@ -468,7 +450,7 @@ comment: any=null;
       // Store the word "hotel" in local storage (if needed)
 
 
-        localStorage.setItem('selectedFromType', 'hotel');
+      localStorage.setItem('selectedFromType', 'hotel');
 
     }
     // Reset the search and filtered options for the second dropdown
@@ -532,7 +514,7 @@ comment: any=null;
     items: 1, // Display one item per slide
     responsive: {
       0: {
-        items:2,
+        items: 2,
       },
       600: {
         items: 2,

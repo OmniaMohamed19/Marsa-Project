@@ -31,6 +31,7 @@ import { CabinInfoModalComponent } from '../../../../../shared/sliders/cabin-inf
 import { FormControl, Validators } from '@angular/forms';
 import { HeaderService } from '../../../../../shared/services/header.service';
 import { SEOService } from '../../../../../shared/services/seo.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-liveboard-details',
@@ -106,7 +107,9 @@ export class LiveboardDetailsComponent {
     private cdr: ChangeDetectorRef,
     private _Router: Router,
     private headerService: HeaderService,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private titleService: Title,
+    private metaService: Meta,
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -376,11 +379,20 @@ export class LiveboardDetailsComponent {
         console.log(this.flattenedCabin);
 
         this.isSingleImage = this.images.length === 1;
-        // this.seoService.updateSEO(
-        //   this.liveabourdData?.MetaTitle,
-        //   this.liveabourdData?.MetaDesc,
-        //   this.liveabourdData?.Seo
-        // );
+        if (this.liveabourdData) {
+          this.titleService.setTitle(this.liveabourdData?.MetaTitle);
+ 
+         this.metaService.addTags([
+
+           { name: 'description', content: this.liveabourdData?.MetaDesc },
+          
+          
+         ]);
+         const canonicalURL = this.liveabourdData?.CanonicalUrl;
+         if (canonicalURL) {
+           this.seoService.setCanonicalURL(canonicalURL);
+         }
+       }
       });
   }
 

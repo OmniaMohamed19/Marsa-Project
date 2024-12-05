@@ -5,7 +5,8 @@ import { NewPasswordComponent } from 'src/app/shared/components/@layout-pages/Au
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: '//:slug', component: HomeComponent },
+   { path: '*/:slug', component: HomeComponent },
+
   {
     path: 'mainPage',
     loadChildren: () =>

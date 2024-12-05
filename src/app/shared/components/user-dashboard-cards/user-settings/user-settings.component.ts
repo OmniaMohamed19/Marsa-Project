@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { HeaderService } from 'src/app/shared/services/header.service';
 import { environment } from 'src/environments/environment.prod';
 interface Item {
   id: number;
@@ -27,7 +28,7 @@ export class UserSettingsComponent implements OnInit {
     private httpService: HttpService,
     private toastr: ToastrService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
 formData = new FormData();
@@ -144,10 +145,9 @@ formData = new FormData();
     return this.selectedItem === item;
   }
 
-  imagePreview!: string; // لحفظ رابط المعاينة
-imageFile!: File; // لحفظ الملف نفسه
+  imagePreview!: string; 
+imageFile!: File;
 
-// دالة لعرض المعاينة وتخزين الملف
 previewImage(files: FileList | null): void {
   if (!files || files.length === 0) {
     return;
@@ -156,22 +156,20 @@ previewImage(files: FileList | null): void {
   // تخزين الملف في متغير
   this.imageFile = files[0];
 
-  // قراءة الملف وتحويله إلى Data URL لعرضه
   const reader = new FileReader();
   reader.onload = (event: any) => {
-    this.imagePreview = event.target.result; // Data URL للمعاينة
+    this.imagePreview = event.target.result; 
   };
-  reader.readAsDataURL(this.imageFile); // تحويل الملف إلى Data URL
+  reader.readAsDataURL(this.imageFile); 
 }
 
-// دالة لإرسال الملف إلى الباك اند
 submit(): void {
   const formData = new FormData();
-  formData.append('cover', this.imageFile); // إضافة الملف إلى FormData
+  formData.append('cover', this.imageFile); 
 
   this.httpService.post(environment.marsa, 'user/update', formData, true).subscribe(
     (res) => {
-      this.toastr.success('تم تحديث الحساب بنجاح', '', {
+      this.toastr.success('The data has been updated successfully', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
         messageClass: 'toastr_message',
@@ -180,7 +178,7 @@ submit(): void {
       });
     },
     (error) => {
-      this.toastr.error('فشل في تحديث الحساب', '', {
+      this.toastr.error('Update failed', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
         messageClass: 'toastr_message',

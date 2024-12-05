@@ -1,5 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { HeaderService } from 'src/app/shared/services/header.service';
@@ -23,7 +24,9 @@ export class HeaderComponent implements OnInit {
     private langService: LanguageService,
     public translate: TranslateService,
     private headerService: HeaderService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private toastr: ToastrService,
+
   ) {
     this.langService.getCurrentLang().subscribe((lang) => {
       this.selectedLang = lang;
@@ -52,6 +55,20 @@ export class HeaderComponent implements OnInit {
         this.social = res?.social;
       });
   }
+//   showLoginMessage(): void {
+ 
+//     // this.dialogRef.close();
+//     this.toastr.info('Please login first ', '', {
+//       disableTimeOut: false,
+//       titleClass: 'toastr_title',
+//       messageClass: 'toastr_message',
+//       timeOut: 5000,
+//       closeButton: true,
+//     });
+//     this.headerService.toggleDropdown();
+//     return;
+
+// }
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';

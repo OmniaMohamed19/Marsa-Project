@@ -47,6 +47,8 @@ import { Galleria } from 'primeng/galleria';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import {  SafeResourceUrl } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-tours-details',
   templateUrl: './tours-details.component.html',
@@ -141,6 +143,8 @@ export class ToursDetailsComponent implements AfterViewInit {
     private headerService: HeaderService,
     private seoService: SEOService,
     private renderer: Renderer2,
+     private titleService: Title,
+    private metaService: Meta,
     @Inject(PLATFORM_ID) private platformId: any,
     private cd: ChangeDetectorRef
   ) {
@@ -293,9 +297,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
       this.loadData();
       this.getAbout();
-      // if ('name' in params) {
-      //   this.router.navigate(['/','en', 'tours',params.id, this.activityData.slugUrl]);
-      // }
+    
     });
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
@@ -483,12 +485,21 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
 
         this.isSingleImage = this.images.length === 1;
+        if (this.activityData) {
+           this.titleService.setTitle(this.activityData?.MetaTitle);
+  
+          this.metaService.addTags([
 
-        // this.seoService.updateSEO(
-        //   this.activityData?.MetaTitle,
-        //   this.activityData?.MetaDesc,
-        //   this.activityData?.Seo
-        // );
+            { name: 'description', content: this.activityData?.MetaDesc },
+           
+           
+          ]);
+          const canonicalURL = this.activityData?.CanonicalUrl;
+          if (canonicalURL) {
+            this.seoService.setCanonicalURL(canonicalURL);
+          }
+        }
+       
       });
   }
     // This function disables dates before today
