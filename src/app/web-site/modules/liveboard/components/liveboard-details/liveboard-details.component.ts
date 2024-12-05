@@ -336,7 +336,9 @@ export class LiveboardDetailsComponent {
         this.liveabourdData = res?.tripDetails;
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), '/',params.id,res?.tripDetails.slugUrl]);
+            console.log(params);
+
+            this.router.navigate(['/',localStorage.getItem('lang'),'liveboard',params.id,res?.tripDetails?.slugUrl]);
           }
         });
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
@@ -381,12 +383,12 @@ export class LiveboardDetailsComponent {
         this.isSingleImage = this.images.length === 1;
         if (this.liveabourdData) {
           this.titleService.setTitle(this.liveabourdData?.MetaTitle);
- 
+
          this.metaService.addTags([
 
            { name: 'description', content: this.liveabourdData?.MetaDesc },
-          
-          
+
+
          ]);
          const canonicalURL = this.liveabourdData?.CanonicalUrl;
          if (canonicalURL) {
