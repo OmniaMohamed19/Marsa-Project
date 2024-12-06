@@ -341,23 +341,23 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   // Increment the number of adults
   incrementAdult() {
-    if (this.adults < this.getMaxValue('AdultMax')) {
+    // if (this.adults < this.getMaxValue('AdultMax')) {
       this.adults++;
-    } else {
-      this.toastr.info(
-        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
-          'AdultMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-    }
+    // } else {
+    //   this.toastr.info(
+    //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+    //       'AdultMax'
+    //     )}. Please adjust the number.`,
+    //     '',
+    //     {
+    //       disableTimeOut: false,
+    //       titleClass: 'toastr_title',
+    //       messageClass: 'toastr_message',
+    //       timeOut: 5000,
+    //       closeButton: true,
+    //     }
+    //   );
+    // }
   }
 
   // Decrement the number of adults
@@ -368,23 +368,23 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   incrementChildren() {
-    if (this.children < this.getMaxValue('childernMax')) {
+    // if (this.children < this.getMaxValue('childernMax')) {
       this.children++;
-    } else {
-      this.toastr.info(
-        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
-          'childernMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-    }
+    // } else {
+    //   this.toastr.info(
+    //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+    //       'childernMax'
+    //     )}. Please adjust the number.`,
+    //     '',
+    //     {
+    //       disableTimeOut: false,
+    //       titleClass: 'toastr_title',
+    //       messageClass: 'toastr_message',
+    //       timeOut: 5000,
+    //       closeButton: true,
+    //     }
+    //   );
+    // }
   }
 
   decrementChildren() {
@@ -395,23 +395,23 @@ export class ToursDetailsComponent implements AfterViewInit {
 
 
   incrementInfant() {
-    if (this.infant < this.getMaxValue('infantMax')) {
+    // if (this.infant < this.getMaxValue('infantMax')) {
       this.infant++;
-    } else {
-      this.toastr.info(
-        `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
-          'infantMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-    }
+    // } else {
+    //   this.toastr.info(
+    //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
+    //       'infantMax'
+    //     )}. Please adjust the number.`,
+    //     '',
+    //     {
+    //       disableTimeOut: false,
+    //       titleClass: 'toastr_title',
+    //       messageClass: 'toastr_message',
+    //       timeOut: 5000,
+    //       closeButton: true,
+    //     }
+    //   );
+    // }
   }
 
   decrementInfant() {
@@ -713,6 +713,54 @@ export class ToursDetailsComponent implements AfterViewInit {
               this.scrollToCheckAvailabilityButton();
               this.selectedDateControl.markAsTouched();
               return;
+          }
+          if (this.adults < this.getMaxValue('AdultMax')) {
+            this.toastr.info(
+              `Sorry, you cannot exceed the minimum limit of adults is ${this.getMaxValue(
+                'AdultMax'
+              )}. Please adjust the number.`,
+              '',
+              {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+              }
+            );
+            return
+          }
+          if (this.children < this.getMaxValue('childernMax')) {
+            this.toastr.info(
+              `Sorry, you cannot exceed the minimum limit of children is ${this.getMaxValue(
+                'childernMax'
+              )}. Please adjust the number.`,
+              '',
+              {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+              }
+            );
+            return
+          }
+          if (this.infant < this.getMaxValue('infantMax')) {
+            this.toastr.info(
+              `Sorry, you cannot exceed the minimum limit of infant is ${this.getMaxValue(
+                'infantMax'
+              )}. Please adjust the number.`,
+              '',
+              {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+              }
+            );
+            return
           }
 
           // If the clicked option is the same as the previously booked option, toggle it
