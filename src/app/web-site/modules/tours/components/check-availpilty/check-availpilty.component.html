@@ -142,10 +142,10 @@
                 <div class="d-flex align-items-center gap-5" *ngIf="class === 'collective'">
                   <ul class="list-unstyled price-list">
                     <li class="pt-3">Adult {{ avilableOptions?.Adult }}</li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalChildern=='0$'">
+                    <li class="pt-3" *ngIf="avilableOptions?.TotalChildren!=='0$'">
                       Children {{ avilableOptions?.TotalChildern=='0$'?'':avilableOptions?.Childern }}
                     </li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalInfant=='0$'">Infant {{
+                    <li class="pt-3" *ngIf="avilableOptions?.TotalInfant!=='0$'">Infant {{
                       avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.Infant }}</li>
                     <li class="pt-3">
                       {{ avilableOptions?.AddetionalCost[0]?.Exclude }}
@@ -153,9 +153,9 @@
                   </ul>
                   <ul class="list-unstyled price-list">
                     <li class="pt-3">{{ avilableOptions?.TotalAdult }}</li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalChildern=='0$'">{{
+                    <li class="pt-3" *ngIf="avilableOptions?.TotalChildren!=='0$'">{{
                       avilableOptions?.TotalChildern=='0$'?'':avilableOptions?.TotalChildern }}</li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalInfant=='0$'">{{
+                    <li class="pt-3" *ngIf="avilableOptions?.TotalInfant!=='0$'">{{
                       avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.TotalInfant }}</li>
                     <li class="pt-3">
                       {{ avilableOptions?.AddetionalCost[0]?.Total }}
