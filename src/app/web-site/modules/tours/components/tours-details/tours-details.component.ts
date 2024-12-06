@@ -297,7 +297,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
       this.loadData();
       this.getAbout();
-    
+
     });
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
@@ -487,19 +487,19 @@ export class ToursDetailsComponent implements AfterViewInit {
         this.isSingleImage = this.images.length === 1;
         if (this.activityData) {
            this.titleService.setTitle(this.activityData?.MetaTitle);
-  
+
           this.metaService.addTags([
 
             { name: 'description', content: this.activityData?.MetaDesc },
-           
-           
+
+
           ]);
           const canonicalURL = this.activityData?.CanonicalUrl;
           if (canonicalURL) {
             this.seoService.setCanonicalURL(canonicalURL);
           }
         }
-       
+
       });
   }
     // This function disables dates before today

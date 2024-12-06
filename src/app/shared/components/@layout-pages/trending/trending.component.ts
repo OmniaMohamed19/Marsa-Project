@@ -76,7 +76,7 @@ export class TrendingComponent  {
 
   ngOnInit(): void {
     this.httpService.get(environment.marsa, 'triend').subscribe((res: any) => {
-      
+
       this.AllTrend = res;
       this.activeNowTrend = res['Tours&Activities'];
       console.log(res);

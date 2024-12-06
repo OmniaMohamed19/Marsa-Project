@@ -51,8 +51,8 @@ export class TransferComponent implements OnInit {
   filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
   filteredToOptions: any[] = []; // Filtered options for the second dropdown
   selectedStar: number = 0;
-  starNumber: any = null;
-  comment: any = null;
+  starNumber: any;
+  comment: any ;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -378,27 +378,31 @@ export class TransferComponent implements OnInit {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-    } else {
-      if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
-        this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
-          next: (res: any) => {
-            this.toastr.success(res.message);
-            this.loadData();
-            this.starNumber = null;
-            this.comment = null;
-            this.selectedStar = 0;
-          },
-        });
-      } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
-        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-      }
     }
+    else{
+
+      this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
+        next: (res: any) => {
+          this.toastr.success(res.message);
+          this.loadData();
+          this.starNumber = null;
+          this.comment = null;
+          this.selectedStar = 0;
+        },
+      });
+    }
+    //   if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
+
+    //   // } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
+    //   //   this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
+    //   //     disableTimeOut: false,
+    //   //     titleClass: 'toastr_title',
+    //   //     messageClass: 'toastr_message',
+    //   //     timeOut: 5000,
+    //   //     closeButton: true,
+    //   //   });
+
+    // }
   }
 
   selectedOptionName: string | null = null;

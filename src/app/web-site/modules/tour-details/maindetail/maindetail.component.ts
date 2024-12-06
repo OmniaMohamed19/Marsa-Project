@@ -35,7 +35,7 @@ export class MaindetailComponent implements OnInit {
 
    hiddenTrips: any[] = [];
    totalTripsCount: number = 0;
-
+   isMobile: boolean = false;
    custom: any[] = [
     {
       breakpoint: '1024px',
@@ -117,6 +117,8 @@ toggleText() {
   this.showFullText = !this.showFullText;
 }
   ngOnInit() {
+
+
       this.tourid = localStorage.getItem('destinationId');
     this.httpService.get(environment.marsa, 'place/details/' + this.tourid).subscribe((res: any) => {
         this.placeDetails = res;
@@ -156,7 +158,11 @@ toggleText() {
       .subscribe((result: any) => {
         this.questions = result.FAQ;
       });
+      this.checkScreenWidth();
 
+    }
+    isFewItems(): boolean {
+      return this.placeDetails?.places?.placesshigts?.length < 3;
     }
 
     getImageName(url: string): string {
@@ -292,9 +298,12 @@ toggleText() {
     //Do other stuff with the event.target
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.screenWidth = event.target.innerWidth;
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenWidth();
+  }
+  private checkScreenWidth() {
+    this.isMobile = window.innerWidth <= 560;
   }
   setActiveSight(sight: any) {
     this.selectedSight = sight;

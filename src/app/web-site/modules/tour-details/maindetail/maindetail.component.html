@@ -52,7 +52,7 @@
 
     <!-- Carousel -->
 
-    <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="9" [numScroll]="9" [responsiveOptions]="custom"
+    <!-- <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="9" [numScroll]="9" [responsiveOptions]="custom"
       [showIndicators]="false" [showNavigators]="true">
       <ng-template pTemplate="item" let-type>
         <div class="day-trip-img me-3"
@@ -67,7 +67,36 @@
         </div>
       </ng-template>
 
-    </p-carousel>
+    </p-carousel> -->
+    <div *ngIf="!isMobile">
+  <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="9" [numScroll]="9" [responsiveOptions]="custom"
+    [showIndicators]="false" [showNavigators]="true">
+    <ng-template pTemplate="item" let-type>
+      <div class="day-trip-img me-3"
+        [ngClass]="{ 'selected': selectedTrip === type.id, 'full-width': screenWidth <= 560 }"
+        (click)="selectTrip(type.id)">
+        <div class="text-center">
+          <div class="day-trip-img-content" [ngClass]="{ 'selected': selectedTrip === type.id }">
+            <img [src]="type?.image" [alt]="getImageName(type?.image)" class="trip-image" />
+          </div>
+          <h6 class="mt-3">{{ type?.type }}</h6>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+<div *ngIf="isMobile">
+  <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="2" [numScroll]="1" [showIndicators]="false"
+    [showNavigators]="false">
+    <ng-template pTemplate="item" let-type>
+      <div class="mobile-trip-item"  [ngClass]="{ 'selected': selectedTrip === type.id }" (click)="selectTrip(type.id)">
+        {{ type?.type }}
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
 
 
 
@@ -109,36 +138,15 @@
     <div class="top-sigh1ts" *ngIf="isFirstTripSelected() && placeDetails?.places?.placesshigts.length!=0">
       <div id="sights">
         <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
-        <!-- <p-carousel [value]="placeDetails?.places?.placesshigts" [numVisible]="3"
-          [responsiveOptions2]="responsiveOptions" [circular]="true" [showIndicators]="false"
-          [showNavigateButtons]="false" [showThumbnails]="false" [showItemNavigators]="false">
-          <ng-template pTemplate="item" let-sight let-index="index">
-            <div class="sights-container text-center position-relative" (click)="setActiveSight(sight)">
-              <div class="position-relative">
-                <img class="sights-img" [id]="sight?.id"
-                  style="height: auto; width: 100%; max-height: 250px; border-radius: 8px;"
-                  (onError)="onImgError($event)" [src]="placeDetails?.places.cover" alt="" />
 
-                <img *ngIf="sight === selectedSight &&  selectedSight?.trips?.length>0 " class="carousel-arrow"
-                  src="../../../../../assets/icons/down-arrow.svg" alt="arrow" />
 
-                <span class="sights-span">
-                  {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
-                </span>
-              </div>
-            </div>
-          </ng-template>
-        </p-carousel> -->
-
-        <owl-carousel-o [options]="carouselOptions" class="sight-carousel">
+        <owl-carousel-o [options]="carouselOptions" class="sight-carousel" [ngClass]="{'few-items': isFewItems()}">
           <ng-container *ngFor="let sight of placeDetails?.places?.placesshigts">
             <ng-template carouselSlide>
               <div class="sights-container text-center position-relative" (click)="setActiveSight(sight)">
                 <div class="position-relative">
-                  <img class="sights-img" [id]="sight?.id"
-                    style="height: 240px; width: 100%; border-radius: 8px;"
-                    (error)="onImgError($event)" [src]="sight?.images"
-                    [alt]="getImageName(sight?.images)" />
+                  <img class="sights-img" [id]="sight?.id" style="height: 240px; width: 100%; border-radius: 8px;"
+                    (error)="onImgError($event)" [src]="sight?.images" [alt]="getImageName(sight?.images)" />
 
                   <img *ngIf="sight === selectedSight && selectedSight?.trips?.length > 0" class="carousel-arrow"
                     src="../../../../../assets/icons/down-arrow.svg" alt="down-arrow" />
@@ -151,6 +159,7 @@
             </ng-template>
           </ng-container>
         </owl-carousel-o>
+
 
 
 
@@ -222,8 +231,10 @@
 
                       <h2 class="h5 mb-0" style="font-size: 0.875rem;">
                         <small class="mr-2">From</small>
-                        <span  style="font-size: 0.875rem;" [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
-                          [style.color]="item.discount > 0 ? 'rgb(13, 177, 255)' : ''">${{ item?.PriceColectiv }} </span>
+                        <span style="font-size: 0.875rem;"
+                          [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
+                          [style.color]="item.discount > 0 ? 'rgb(13, 177, 255)' : ''">${{ item?.PriceColectiv }}
+                        </span>
                         <span class="mx-2" *ngIf="item.discount > 0">
                           ${{ getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100)) }}
                         </span>

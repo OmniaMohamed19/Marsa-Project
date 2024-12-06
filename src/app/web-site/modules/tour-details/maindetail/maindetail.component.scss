@@ -481,6 +481,34 @@ select.form-control {
   width: 100%;
   height: auto;
 }
+::ng-deep {
+  .sight-carousel.few-items .owl-item {
+    width: 350px !important;
+  }
+
+}
+
+.mobile-trip-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+// .mobile-trip-item:hover {
+//   background-color: #eaeaea;
+// }
+
+.mobile-trip-item.selected {
+  border-color: #007bff;
+  font-weight: bold;
+  color: #007bff;
+}
+
 /*************************************************/
 @media screen and (max-width: 1023px) {
   .day-trip-container {
@@ -488,11 +516,11 @@ select.form-control {
   }
 }
 @media screen and (min-width: 1023px) {
- ::ng-deep{
-  .sight-carousel .owl-carousel.owl-drag .owl-item{
-    width:  423.333px !important;
-  }
-}
+//  ::ng-deep{
+//   .sight-carousel .owl-carousel.owl-drag .owl-item{
+//     width:  auto !important;
+//   }
+// }
 }
 @media screen and (max-width: 768px) {
  .images{
