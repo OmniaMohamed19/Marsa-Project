@@ -213,7 +213,7 @@ export class PackageDetailsComponent {
         console.log(res);
         this.rows = res?.tripDetails;
         this.faq=res?.tripDetails?.faq;
-        console.log(res?.tripDetails?.faq)
+        
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
             this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.tripDetails.slugUrl]);
@@ -223,12 +223,12 @@ export class PackageDetailsComponent {
         this.duration = this.rows.duration;
         if (this.rows) {
           this.titleService.setTitle(this.rows?.MetaTitle);
- 
+
          this.metaService.addTags([
 
            { name: 'description', content: this.rows?.MetaDesc },
-          
-          
+
+
          ]);
          const canonicalURL = this.rows?.CanonicalUrl;
          if (canonicalURL) {

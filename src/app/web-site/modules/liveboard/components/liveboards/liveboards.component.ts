@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from 'express';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -39,7 +40,9 @@ export class LiveboardsComponent implements OnInit {
   }
   constructor(
     private httpservices: HttpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title,
+   
   ) {
     if (window.screen.width < 1024) {
       this.isMobile = true;
@@ -64,6 +67,8 @@ export class LiveboardsComponent implements OnInit {
         this.getAllLiveboard();
       }
     });
+    this.titleService.setTitle('Liveaboard');
+
   }
   displaySelectedType: string = 'All'; // النص المعروض في الخيار الافتراضي
 
@@ -75,7 +80,7 @@ export class LiveboardsComponent implements OnInit {
         this.rows.data = this.rows.data.filter(
           (trip: any) => Object.keys(trip.Schedule).length > 0
         );
-  
+
         this.search = response.search;
         this.types = response.types;
         if (this.destination?.length == 0) {
@@ -97,13 +102,13 @@ export class LiveboardsComponent implements OnInit {
             document.getElementById('btn-' + i)?.classList.add('active-rate');
           }
         }
-  
+
         // Scroll to the top of the page after the function is executed
         window.scrollTo(0, 0);
       },
     });
   }
-  
+
 
   getPlace() {
     this.httpservices.get('marsa', 'place').subscribe({

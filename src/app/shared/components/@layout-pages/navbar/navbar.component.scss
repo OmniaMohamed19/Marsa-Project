@@ -8,6 +8,11 @@
   white-space: nowrap;
   color: #fff;
 }
+#staticBackdropLabel img,.logo-img{
+  width: 89px;
+  height: 57px;
+}
+
 .white-bg {
   background-color: #fff;
   .nav-item a {
@@ -363,11 +368,11 @@ ul.menu-login {
   /*form {
         margin-top: 10px;
         width: 100% !important;
-        
+
         input {
             width: 100% !important;
         }
-        
+
         .search {
             right: 0 !important;
             left: auto !important;

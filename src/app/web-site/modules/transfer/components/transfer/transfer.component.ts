@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
@@ -8,16 +8,14 @@ import { HeaderService } from 'src/app/shared/services/header.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import Swal from 'sweetalert2';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from 'src/app/shared/components/@layout-pages/Auth/login/login.component';
-import { DatePipe } from '@angular/common';
+
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-transfer',
   templateUrl: './transfer.component.html',
   styleUrls: ['./transfer.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class TransferComponent implements OnInit {
   formData: any = {};
@@ -61,8 +59,7 @@ export class TransferComponent implements OnInit {
     private headerService: HeaderService,
     private _AuthService: AuthService,
     private toastr: ToastrService,
-    private dialog: MatDialog,
-    private datePipe: DatePipe
+    private titleService: Title,
 
   ) {
     const today = new Date();
@@ -77,7 +74,8 @@ export class TransferComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    // this.removeTimeFromMinDate();
+    this.titleService.setTitle('Transfer');
+
     this.filteredFromAirports = this.transferDetails?.airports || [];
     this.filteredFromHotels = this.transferDetails?.hotel || [];
     this.filteredToOptions = [];

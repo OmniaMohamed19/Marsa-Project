@@ -28,7 +28,7 @@
             </svg>
             <a
               style="cursor: pointer"
-              (click)="call('call')"
+              (click)="contactWhatsapp()"
               class="u-header__navbar-link pl-1"
             >
               {{ social?.Call ? social?.Call : "+201011117381 -999" }}</a
@@ -212,7 +212,7 @@
                   loading="lazy"
                 />
 
-                {{ "Dashboard" | translate }}
+                {{ "Profile" | translate }}
               </li>
               <li
                 class="menu-item"
@@ -246,7 +246,7 @@
 
                 {{ "Download the APP" | translate }}
               </li>
-              <li
+              <!-- <li
                 class="menu-item"
                 routerLink="/{{ translate.currentLang }}/your-account/saved"
               >
@@ -257,7 +257,7 @@
                 />
 
                 {{ "Settings" | translate }}
-              </li>
+              </li> -->
               <li
                 class="menu-item"
                 (click)="callLogout()"

@@ -70,11 +70,11 @@ formData = new FormData();
     // Initialize selectedLabel with the first country's label
     this.name = this.userDetails?.name;
     this.phone = this.userDetails?.overviwe?.phonenumber;
-    // console.log(this.phone);
+     console.log(this.phone);
     this.phoneNumber = '+' +
     (this.userDetails?.overviwe?.countrycode || '') +
     (this.phone ? this.phone.replace(/\s/g, '') : '');
-    // console.log(this.phoneNumber);
+     console.log(this.phoneNumber);
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
     if (this.countries.length > 0) {
@@ -145,7 +145,7 @@ formData = new FormData();
     return this.selectedItem === item;
   }
 
-  imagePreview!: string; 
+  imagePreview!: string;
 imageFile!: File;
 
 previewImage(files: FileList | null): void {
@@ -153,19 +153,24 @@ previewImage(files: FileList | null): void {
     return;
   }
 
-  // تخزين الملف في متغير
   this.imageFile = files[0];
 
   const reader = new FileReader();
   reader.onload = (event: any) => {
-    this.imagePreview = event.target.result; 
+    this.imagePreview = event.target.result;
   };
-  reader.readAsDataURL(this.imageFile); 
+  reader.readAsDataURL(this.imageFile);
 }
 
 submit(): void {
   const formData = new FormData();
-  formData.append('cover', this.imageFile); 
+  formData.append('cover', this.imageFile);
+  formData.append('email',this.email);
+  formData.append('fname',this.name);
+  formData.append('phone',this.phone);
+  formData.append('country_code',this.phoneNumber.dialCode);
+  formData.append('dateofbirth', this.dob);
+
 
   this.httpService.post(environment.marsa, 'user/update', formData, true).subscribe(
     (res) => {
@@ -189,8 +194,8 @@ submit(): void {
   );
 }
 
-  
-  
+
+
   deactivate() {
     // console.log(this.deactivateChaecked);
     if (this.deactivateChaecked) {

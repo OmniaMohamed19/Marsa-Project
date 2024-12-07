@@ -42,6 +42,11 @@ export class HomeComponent implements OnInit {
       this.selectedLang = lang;
     });
 
+
+  }
+  metaDetail: any;
+
+  ngOnInit(): void {
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
         console.log(res);
@@ -75,10 +80,6 @@ export class HomeComponent implements OnInit {
         console.error(err);
       }
     );
-  }
-  metaDetail: any;
-
-  ngOnInit(): void {
     this.seoService.getSEOData().subscribe((data) => {
       const lang = localStorage.getItem('lang');
       this.metaDetail = data?.seo;
@@ -88,10 +89,10 @@ export class HomeComponent implements OnInit {
 
         this.metaService.addTags([
           { name: 'description', content: this.metaDetail?.metadesc },
-         
+
         ]);
 
-     
+
           if (this.metaDetail?.slugUrl) {
             this.router.navigate(['/', localStorage.getItem('lang'), this.metaDetail.slugUrl]);
         } else {
@@ -117,7 +118,7 @@ export class HomeComponent implements OnInit {
     });
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
-      
+
     });
 
     this.startImageRotation();
@@ -149,11 +150,11 @@ export class HomeComponent implements OnInit {
   changeCoverImage() {
     const bgElement = document.querySelector('.bg-img-hero-bottom');
     if (bgElement) {
-      bgElement.classList.remove('active'); // إزالة الكلاس active
+      bgElement.classList.remove('active');
       setTimeout(() => {
-        this.currentCoverImage = this.coverImages[this.currentIndex]; // تغيير الصورة
-        bgElement.classList.add('active'); // إضافة الكلاس active بعد التغيير
-      }, 100); // الانتظار 100 مللي ثانية قبل إضافة الكلاس
+        this.currentCoverImage = this.coverImages[this.currentIndex];
+        bgElement.classList.add('active');
+      }, 100); 
     }
   }
 
@@ -191,12 +192,10 @@ export class HomeComponent implements OnInit {
     this.hidesectionfun = false;
   }
 
-  // contactWhatsapp() {
-  //   window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
-  // }
-
   call(option: any) {
-    if (option == 'call') window.open('tel:' + this.social.Call, '_blank');
-    else window.open('mailto:' + this.social.Mail, '_blank');
-  }
+    window.open('mailto:' + this.social.Mail, '_blank');
+ }
+ contactWhatsapp() {
+   window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
+ }
 }

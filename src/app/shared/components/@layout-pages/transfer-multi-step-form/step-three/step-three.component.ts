@@ -95,7 +95,7 @@ getDetail(){
       this.price =this.SavedaddOnDetails?.Subtotal || '';
       this.total= this.SavedaddOnDetails?.Total|| '';
 
-      // this.returnbookingdate =  this.SavedaddOnDetails?.return_booking_date || '';
+      this.returnbookingdate =  this.SavedaddOnDetails?.return_booking_date || '';
       this.returnbookingtime =  this.SavedaddOnDetails?.return_booking_time || '';
       this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
       this.formData1 = JSON.parse(savedFlightNumper);
@@ -114,7 +114,7 @@ if (dateString) {
   this.returnbookingdate = '';
 }
 
-console.log(this.returnbookingdate); 
+console.log(this.returnbookingdate);
 
   }
   console.log('hiii');

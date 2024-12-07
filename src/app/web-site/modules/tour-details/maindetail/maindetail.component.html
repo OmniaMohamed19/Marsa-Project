@@ -152,7 +152,7 @@
                     src="../../../../../assets/icons/down-arrow.svg" alt="down-arrow" />
 
                   <span class="sights-span">
-                    {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
+                    {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }} hjhjjhjhjhjhjh
                   </span>
                 </div>
               </div>
@@ -240,7 +240,7 @@
                         </span>
                         <span style="font-size: 0.75rem;">per person</span>
                       </h2>
-                      <div class="position-absolute top-0 right-0 pt-2 ps-5">
+                      <div class="position-absolute top-0  pt-2 ps-5 fav-icon">
                         <button type="button" class="btn btn-sm btn-icon text-white rounded-circle"
                           data-toggle="tooltip" data-placement="top" title="Save for later" aria-label="Save for later"
                           #btn (click)="addtoFavorits(btn, $event, item?.id)">

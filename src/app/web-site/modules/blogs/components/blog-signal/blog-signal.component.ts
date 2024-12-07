@@ -6,7 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { HeaderService } from 'src/app/shared/services/header.service';
-import { SEOService } from 'src/app/shared/services/seo.service';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-blog-signal',
   templateUrl: './blog-signal.component.html',
@@ -35,10 +36,11 @@ export class BlogSignalComponent implements OnInit {
     private toastr: ToastrService,
     private headerService: HeaderService,
     private _AuthService: AuthService,
-    private seoService: SEOService
+    private titleService: Title,
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Blog Single');
     this.route.params.subscribe((params) => {
       this.blogID = +params['id']; // Ensure blogID is a number
       this.getAbout();

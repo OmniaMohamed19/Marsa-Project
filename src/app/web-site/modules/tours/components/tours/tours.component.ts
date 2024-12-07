@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tours',
@@ -31,7 +32,9 @@ export class ToursComponent {
   isMobile = false;
   constructor(
     private _httpsService: HttpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
   ) {
     if (window.screen.width < 1024) {
       this.isMobile = true;
@@ -55,6 +58,8 @@ export class ToursComponent {
         this.getAllactivity();
       }
     });
+    this.titleService.setTitle('Tours & Activities');
+
   }
   getAllactivity() {
     this._httpsService.get(environment.marsa, 'Activtes').subscribe({

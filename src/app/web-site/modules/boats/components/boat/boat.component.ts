@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-boat',
@@ -29,7 +30,8 @@ export class BoatComponent {
   constructor(
     public translate: TranslateService,
     private _httpService: HttpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title,
   ) {
     if (window.screen.width < 1024) {
       this.isMobile = true;
@@ -54,6 +56,7 @@ export class BoatComponent {
         this.getBoats();
       }
     });
+    this.titleService.setTitle('Private Boats');
   }
   clearSelection() {
     this.TypeTrip = '';
@@ -62,7 +65,7 @@ export class BoatComponent {
     this.rate = null;
     this.min_priceChoosen = this.min_price; // Reset to default minimum price
     this.max_priceChoosen = this.max_price; // Reset to default maximum price
-  
+
     for (let i = 2; i <= 5; i++) {
       if (i != 2) {
         document.getElementById('btn-' + i)?.classList.remove('active-rate');
@@ -71,13 +74,13 @@ export class BoatComponent {
         document.getElementById('btn-' + i)?.classList.add('active-rate');
       }
     }
-  
+
     // Scroll to the top of the page after the function is executed
     window.scrollTo(0, 0);
-  
+
     this.getBoats();
   }
-  
+
 
   getBoats() {
 

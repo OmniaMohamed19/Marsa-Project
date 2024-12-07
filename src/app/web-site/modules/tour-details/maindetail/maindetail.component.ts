@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-maindetail',
@@ -107,7 +108,9 @@ export class MaindetailComponent implements OnInit {
     private rout: ActivatedRoute,
     private router:Router,
     private httpService: HttpService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private titleService: Title,
+    private metaService: Meta,
   ) {
     this.screenWidth = window.innerWidth;
 
@@ -150,6 +153,7 @@ toggleText() {
         this.allTripsFiltered = this.placeDetails.alltrips.filter(
           (item: any) => item.place === this.placeDetails.places.name
         );
+        this.titleService.setTitle(this.placeDetails.places.name);
 
 
       });
@@ -169,6 +173,7 @@ toggleText() {
       const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
       return imageName || 'Unknown photo';
     }
+
 
     toggleSeeMore(rec: any) {
       rec.seeMore = !rec.seeMore;

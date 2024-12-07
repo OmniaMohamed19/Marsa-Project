@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-wish-list',
@@ -12,10 +13,14 @@ export class WishListComponent {
   whishlistEmpty = true;
   wishlist: any = [];
   result: any = [];
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService,
+    private titleService: Title,
+) {}
   responsiveOptions: any[] | undefined;
 
   ngOnInit() {
+
+    this.titleService.setTitle('Wishlist');
     this.httpService
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {

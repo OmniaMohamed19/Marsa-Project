@@ -6,8 +6,8 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
@@ -32,7 +32,9 @@ export class AboutUsComponent implements OnInit {
     private _HttpService: HttpService,
     public translate: TranslateService,
     private sanitizer: DomSanitizer,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private titleService: Title,
+
   ) {}
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
@@ -40,8 +42,10 @@ export class AboutUsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('About Us');
+
     this.getAbout();
-    this.startImageRotation(); // ابدأ دورة تغيير الخلفية
+    this.startImageRotation();
   }
 
   onImgError(event: any) {
@@ -66,7 +70,7 @@ export class AboutUsComponent implements OnInit {
 
 
         this.rev = this.data.review;
-      
+
         this.partnerPaths = Object.values(this.data.partner);
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.data.chosse_us_video

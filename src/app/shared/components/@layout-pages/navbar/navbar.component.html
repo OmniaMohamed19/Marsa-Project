@@ -6,7 +6,7 @@
   }">
   <div class="container-fluid p-0">
     <a [routerLink]="'/'" class="navbar-brand me-0">
-      <img alt="Marsa Waves" src="assets/images/logo.svg" />
+      <img alt="Marsa Waves" class="logo-img" src="assets/images/logo.svg" />
     </a>
     <div class="input-group" style="width: 320px !important; margin-left: 1rem; position: relative;">
       <input
@@ -113,7 +113,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <a class="navbar-brand me-0" [routerLink]="['/', translate.currentLang]">
-          <img alt="Marsa Waves" src="assets/images/logo.svg" />
+          <img alt="Marsa Waves" class="logo-img" src="assets/images/logo.svg" />
         </a>
       </div>
 
@@ -166,7 +166,7 @@
               <li class="menu-item" routerLink="/{{ translate.currentLang }}/userDashboard">
                 <img src="assets/icons/dashbourd.svg" alt="dashbourd" />
 
-                {{ "Dashboard" | translate }}
+                {{ "Profile" | translate }}
               </li>
               <li class="menu-item" routerLink="/{{ translate.currentLang }}/wishlist">
                 <img src="assets/icons/heart.svg" alt="heart" />

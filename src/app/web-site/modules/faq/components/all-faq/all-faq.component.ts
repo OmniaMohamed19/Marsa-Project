@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-all-faq',
@@ -17,10 +18,13 @@ export class AllFaqComponent {
   selectedCategory = 'All';
   constructor(
     public translate: TranslateService,
-    private httpService: HttpService
+    private httpService: HttpService, private titleService: Title,
+
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('FAQs');
+
     this.httpService.get(environment.marsa, 'faq').subscribe(
       (res: any) => {
         console.log(res);
@@ -48,7 +52,7 @@ export class AllFaqComponent {
       );
     }
   }
-  
+
 
 
 }
