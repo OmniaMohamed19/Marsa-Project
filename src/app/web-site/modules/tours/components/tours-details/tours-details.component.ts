@@ -592,6 +592,22 @@ export class ToursDetailsComponent implements AfterViewInit {
   //   this.showMapFrame = !this.showMapFrame;
   // }
 
+  onTimeSelection(time: string) {
+    this.selectedTime = time;
+  }
+  getDayNameToNumber(day: string): number {
+    const dayNameMappings: { [day: string]: number } = {
+      Sunday: 0,
+      Monday: 1,
+      Tuesday: 2,
+      Wednesday: 3,
+      Thursday: 4,
+      Friday: 5,
+      Saturday: 6,
+    };
+    return dayNameMappings[day];
+  }
+
   filterDates = (date: Date | null): boolean => {
     if (!date) {
       return false; // Disable empty date
@@ -629,20 +645,6 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     return date >= new Date();
   };
-
-  getDayNameToNumber(day: string): number {
-    const dayNameMappings: { [day: string]: number } = {
-      Sunday: 0,
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-      Saturday: 6,
-    };
-    return dayNameMappings[day];
-  }
-
   getTimeOptions = (): string[] => {
     const start = this.activityData.start;
     const end = this.activityData.end;
@@ -675,7 +677,6 @@ export class ToursDetailsComponent implements AfterViewInit {
   };
 
   // Function to get disabled days from the TimeOfRepeat string
-  // Function to get disabled days from the TimeOfRepeat string
   private getDisabledDays(timeOfRepeat: string): number[] {
     const daysMap: { [key: string]: number } = {
       Sunday: 0,
@@ -704,13 +705,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     return [];
   }
   addEvent(event: MatDatepickerInputEvent<Date>): void {
-    // console.log(event);
-
     this.formattedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
-  }
-
-  onTimeSelection(time: string) {
-    this.selectedTime = time;
   }
 
   addAvailableOptions() {
@@ -728,122 +723,159 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.scrollTo('availableOptions');
   }
 
-  bookNow(avilable_option_id: number) {
+bookNow(avilable_option_id: number) {
+
+
+// Get the current date and time
+const now = new Date();
+
+// Add 24 hours to the current time
+const futureDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+
+// Format the dates for display (optional)
+const options: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit'
+};
+
+console.log('Current time:', now.toLocaleString('en-US', options));
+console.log('Time 24 hours from now:', futureDate.toLocaleString('en-US', options));
+
+
+
+
     if (!this.availabilityChecked) {
-      this.toastr.info(
-        'Please Choose a date and click on "Check availability" first.'
-      );
-      this.scrollToCheckAvailabilityButton();
-      this.selectedDateControl.markAsTouched();
-      return;
+        this.toastr.info(
+            'Please choose a date and click on "Check availability" first.'
+        );
+        this.scrollToCheckAvailabilityButton();
+        this.selectedDateControl.markAsTouched();
+        return;
     }
+
+    const currentTime = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+
+    if (currentTime < this.activityData.CutOfTime) {
+        this.toastr.warning(
+            'Booking for this time slot is unavailable. Please select a valid time.',
+            '',
+            {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+            }
+        );
+        return;
+    }
+
+    // Validate adults
     if (this.adults < this.getMaxValue('AdultMax')) {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum limit of adults is ${this.getMaxValue(
-          'AdultMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
+        this.toastr.info(
+            `Sorry, you cannot exceed the minimum limit of adults is ${this.getMaxValue(
+                'AdultMax'
+            )}. Please adjust the number.`,
+            '',
+            {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+            }
+        );
+        return;
     }
+
+    // Validate children
     if (this.children < this.getMaxValue('childernMax')) {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum limit of children is ${this.getMaxValue(
-          'childernMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
+        this.toastr.info(
+            `Sorry, you cannot exceed the minimum limit of children is ${this.getMaxValue(
+                'childernMax'
+            )}. Please adjust the number.`,
+            '',
+            {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+            }
+        );
+        return;
     }
+
+    // Validate infants
     if (this.infant < this.getMaxValue('infantMax')) {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum limit of infant is ${this.getMaxValue(
-          'infantMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
+        this.toastr.info(
+            `Sorry, you cannot exceed the minimum limit of infant is ${this.getMaxValue(
+                'infantMax'
+            )}. Please adjust the number.`,
+            '',
+            {
+                disableTimeOut: false,
+                titleClass: 'toastr_title',
+                messageClass: 'toastr_message',
+                timeOut: 5000,
+                closeButton: true,
+            }
+        );
+        return;
     }
 
     // If the clicked option is the same as the previously booked option, toggle it
     if (this.bookedOptionId === avilable_option_id) {
-      this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
+        this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
     } else {
-      // If a different option is clicked, open the new booking option
-      this.bookedOptionId = avilable_option_id; // Update to the new option
-      this.showBookingOption = true; // Open the booking details
+        // If a different option is clicked, open the new booking option
+        this.bookedOptionId = avilable_option_id; // Update to the new option
+        this.showBookingOption = true; // Open the booking details
 
-      const model = {
-        trip_id: this.activityData.id,
-        avilable_option_id: avilable_option_id,
-        class: '',
-        adult: this.adults,
-        childern: this.children,
-        infant: this.infant,
-      };
+        const model = {
+            trip_id: this.activityData.id,
+            avilable_option_id: avilable_option_id,
+            class: '',
+            adult: this.adults,
+            childern: this.children,
+            infant: this.infant,
+        };
 
-      if (this.selectedOption === 'Collective') {
-        model.class = 'collective';
-      } else if (this.selectedOption === 'Private') {
-        model.class = 'privete';
-      }
-      this._httpService
-        .post(environment.marsa, 'Activtes/AvailableOption/price', model)
-        .subscribe({
-          next: (res: any) => {
-            this.dataCheck = {
-              res: JSON.stringify(res),
-              trip_id: this.activityData.id,
-              booking_date: this.formattedDate,
-              class: model.class,
-              time: this.selectedTime,
-              avilable_option_id: avilable_option_id,
-              adult: this.adults,
-              childern: this.children,
-              infant: this.infant,
-            };
-            // const dialogRef = this.dialog.open(CheckAvailpiltyComponent, {
-            //   width: '80%',
-            //   data: {
-            //     res: JSON.stringify(res),
-            //     trip_id: this.activityData.id,
-            //     booking_date: this.formattedDate,
-            //     class: model.class,
-            //     time: this.selectedTime,
-            //     avilable_option_id: avilable_option_id,
-            //     adult: this.adults,
-            //     childern: this.children,
-            //     infant: this.infant,
-            //   },
-            // });
-            // dialogRef.afterClosed().subscribe(() => {
-            //   window.scroll(0, 0); // Scroll after the dialog is fully closed
-            // });
-          },
-        });
+        if (this.selectedOption === 'Collective') {
+            model.class = 'collective';
+        } else if (this.selectedOption === 'Private') {
+            model.class = 'private';
+        }
+
+        this._httpService
+            .post(environment.marsa, 'Activtes/AvailableOption/price', model)
+            .subscribe({
+                next: (res: any) => {
+                    this.dataCheck = {
+                        res: JSON.stringify(res),
+                        trip_id: this.activityData.id,
+                        booking_date: this.formattedDate,
+                        class: model.class,
+                        time: this.selectedTime,
+                        avilable_option_id: avilable_option_id,
+                        adult: this.adults,
+                        childern: this.children,
+                        infant: this.infant,
+                    };
+
+                    // Optionally handle dialog display or further user feedback here
+                },
+            });
     }
-  }
+}
+
   //   bookNow(available_option_id: number) {
   //     if (!this.availabilityChecked) {
   //         this.toastr.info('Please Choose a date and click on "Check availability" first.');
