@@ -675,6 +675,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   };
 
   // Function to get disabled days from the TimeOfRepeat string
+  // Function to get disabled days from the TimeOfRepeat string
   private getDisabledDays(timeOfRepeat: string): number[] {
     const daysMap: { [key: string]: number } = {
       Sunday: 0,
@@ -683,12 +684,19 @@ export class ToursDetailsComponent implements AfterViewInit {
       Wednesday: 3,
       Thursday: 4,
       Friday: 5,
-      Saturday: 6,
+      Saturday: 6
     };
-    return timeOfRepeat
-      ?.split('/')
-      .map((day) => daysMap[day.trim()])
-      .filter((day) => day !== undefined);
+
+    // Get the days from timeOfRepeat and map them to their corresponding numbers
+    const selectedDays = new Set(
+      timeOfRepeat?.split('/').map(day => daysMap[day.trim()]).filter(day => day !== undefined)
+    );
+
+    // All days of the week
+    const allDays = Object.values(daysMap);
+
+    // Return days that are not in the selectedDays set
+    return allDays.filter(day => !selectedDays.has(day));
   }
   addEvent(event: MatDatepickerInputEvent<Date>): void {
     // console.log(event);
