@@ -387,14 +387,16 @@ export class PaymentComponent {
             // }
           },
           error: (err: any) => {
-            localStorage.removeItem('editTour');
-            localStorage.removeItem('queryParams');
+            // localStorage.removeItem('editTour');
+            // localStorage.removeItem('queryParams');
             console.log('Error during booking:', err.message);
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            );
+            ).then(()=>{
+              this.goBack();
+            })
           },
         });
     } else {

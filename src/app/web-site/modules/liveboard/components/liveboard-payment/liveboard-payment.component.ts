@@ -387,13 +387,15 @@ export class LiveboardPaymentComponent implements OnInit {
           },
           error: (err: any) => {
             console.error('Error during booking:', err);
-            localStorage.removeItem('editLiveaboard');
-            localStorage.removeItem('queryParams');
+            // localStorage.removeItem('editLiveaboard');
+            // localStorage.removeItem('queryParams');
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            );
+            ).then(()=>{
+              this.goBack()
+            })
           },
         });
     } else {
@@ -608,7 +610,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
   goBack() {
     localStorage.removeItem('editLiveaboard');
-    localStorage.removeItem('queryParams');
+    localStorage.removeItem('queryParamsliveaboard');
     this.location.back();
   }
 

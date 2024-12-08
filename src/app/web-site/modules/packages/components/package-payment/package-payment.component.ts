@@ -154,13 +154,13 @@ export class PackagePaymentComponent {
               this.tripletails?.id,
               this.tripletails?.Name,
             ]);
-            localStorage.removeItem('editPackage');
-            localStorage.removeItem('queryParams');
             Swal.fire(
               'Your request has been send successfully',
               'Your request has been sent successfully. Please check your email for further instructions.',
               'success'
-            );
+            ).then(()=>{
+              this.goBack()
+            })
           },
           // },
         });
@@ -389,7 +389,7 @@ export class PackagePaymentComponent {
 
   goBack() {
     localStorage.removeItem('editPackage');
-    localStorage.removeItem('queryParams');
+    localStorage.removeItem('queryParamsPackages');
     this.location.back();
   }
 
