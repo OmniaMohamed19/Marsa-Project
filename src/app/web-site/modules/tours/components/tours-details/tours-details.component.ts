@@ -684,19 +684,24 @@ export class ToursDetailsComponent implements AfterViewInit {
       Wednesday: 3,
       Thursday: 4,
       Friday: 5,
-      Saturday: 6
+      Saturday: 6,
     };
 
     // Get the days from timeOfRepeat and map them to their corresponding numbers
     const selectedDays = new Set(
-      timeOfRepeat?.split('/').map(day => daysMap[day.trim()]).filter(day => day !== undefined)
+      timeOfRepeat
+        ?.split('/')
+        .map((day) => daysMap[day.trim()])
+        .filter((day) => day !== undefined)
     );
 
     // All days of the week
     const allDays = Object.values(daysMap);
-
+    if (this.activityData?.TypeOfRepeat === 'w') {
+      return allDays.filter((day) => !selectedDays.has(day));
+    }
     // Return days that are not in the selectedDays set
-    return allDays.filter(day => !selectedDays.has(day));
+    return [];
   }
   addEvent(event: MatDatepickerInputEvent<Date>): void {
     // console.log(event);
