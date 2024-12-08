@@ -47,7 +47,7 @@ export class LiveboardPaymentComponent implements OnInit {
   expirYear: any;
   expiryMonth: any;
   cardNumber: any;
-  isDisable=false;
+  isDisable = false;
 
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
@@ -61,7 +61,7 @@ export class LiveboardPaymentComponent implements OnInit {
     modalname: 'mapModalDeatails',
   };
   liveabourd: any;
-  edit: boolean=false;
+  edit: boolean = false;
   tripletails: any;
   constructor(
     private location: Location,
@@ -84,7 +84,10 @@ export class LiveboardPaymentComponent implements OnInit {
     // }
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
   onPaste(event: ClipboardEvent): void {
@@ -92,7 +95,7 @@ export class LiveboardPaymentComponent implements OnInit {
     console.log('Pasting is not allowed!');
   }
   ngOnInit(): void {
-    this.edit=localStorage['editLiveaboard']
+    this.edit = localStorage['editLiveaboard'];
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
@@ -149,24 +152,30 @@ export class LiveboardPaymentComponent implements OnInit {
     console.log(this.customerForm.valid);
 
     if (!this.showServices) {
-        this.locationValue = "ddd";
+      this.locationValue = 'ddd';
     }
 
     // Update pickup_point validator based on showServices
     if (this.showServices) {
-        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
     } else {
-        this.customerForm.get('pickup_point')?.clearValidators();
-        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
 
     // Adjusted conditional to handle TypeScript's type checking
-    if (this.customerForm.valid && (this.locationValue && ( this.locationValue != ''))) {
-        stepper.next();
+    if (
+      this.customerForm.valid &&
+      this.locationValue &&
+      this.locationValue != ''
+    ) {
+      stepper.next();
     } else {
-        this.markFormGroupTouched(this.customerForm);
+      this.markFormGroupTouched(this.customerForm);
     }
-}
+  }
 
   // markFormGroupTouched(formGroup: FormGroup) {
   //   Object.values(formGroup.controls).forEach(control => {
@@ -207,8 +216,7 @@ export class LiveboardPaymentComponent implements OnInit {
     }
     if (this.personsMap[item.id] > 0) {
       this.personsMap[item.id]--;
-    }
-    else{
+    } else {
       this.toastr.info(
         `Sorry, you cannot exceed the minimum cant be 0. Please adjust the number.`,
         '',
@@ -296,7 +304,7 @@ export class LiveboardPaymentComponent implements OnInit {
     console.log(this.coupon);
     // Coupon
   }
-  confirmEdit(event: Event){
+  confirmEdit(event: Event) {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
@@ -304,7 +312,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
-        code:code,
+        code: code,
         adult: this.adult,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
@@ -314,10 +322,10 @@ export class LiveboardPaymentComponent implements OnInit {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth,
-        card_number: this.cardNumber.toString(),
+        card_number: this.cardNumber,
         cabins: this.cabins
           .map((cabin: any) => ({
             id: cabin.id,
@@ -337,27 +345,27 @@ export class LiveboardPaymentComponent implements OnInit {
       console.log(model);
 
       this._httpService
-        .post(environment.marsa, 'bookinfo/'+this.tripId, model)
+        .post(environment.marsa, 'bookinfo/' + this.tripId, model)
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            this._httpService.get(environment.marsa,'liveboard/details/'+this.tripId)
-            .subscribe({
-              next: (res: any) => {
-                this.liveabourd = res?.tripDetails;
-            this.router.navigate(
-              [
-                '/',
-                this.translate.currentLang,
-                'liveboard',
-                'liveboardDetails',
-                this.liveabourd?.id,
-                this.liveabourd?.Title
-              ]
-              );
-              localStorage.removeItem('editLiveaboard')
-              localStorage.removeItem('queryParams')
-            }})
+            this._httpService
+              .get(environment.marsa, 'liveboard/details/' + this.tripId)
+              .subscribe({
+                next: (res: any) => {
+                  this.liveabourd = res?.tripDetails;
+                  this.router.navigate([
+                    '/',
+                    this.translate.currentLang,
+                    'liveboard',
+                    'liveboardDetails',
+                    this.liveabourd?.id,
+                    this.liveabourd?.Title,
+                  ]);
+                  localStorage.removeItem('editLiveaboard');
+                  localStorage.removeItem('queryParams');
+                },
+              });
 
             // if (res && res.link) {
             //   window.location.href = res.link;
@@ -370,20 +378,24 @@ export class LiveboardPaymentComponent implements OnInit {
             //     ['/', this.translate.currentLang, 'tours', 'confirm'],
             //     { queryParams }
             //   );
-              Swal.fire(
-                'Your request has been send successfully.',
-                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-                'success'
-              );
+            Swal.fire(
+              'Your request has been send successfully.',
+              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'success'
+            );
             // }
           },
           error: (err: any) => {
             console.error('Error during booking:', err);
+            // localStorage.removeItem('editLiveaboard');
+            // localStorage.removeItem('queryParams');
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            );
+            ).then(()=>{
+              this.goBack()
+            })
           },
         });
     } else {
@@ -393,16 +405,26 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   confirmBookingByCard(event: Event) {
-    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
-      this.isDisable=true;
+    if (
+      this.cardholderName == undefined ||
+      this.cardNumber == undefined ||
+      this.expiryMonth == undefined ||
+      this.expirYear == undefined ||
+      this.cvv == undefined
+    ) {
+      this.isDisable = true;
 
-      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.info(
+        'Please fill in all the required fields before confirming your booking. ',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       return;
     }
     event.preventDefault();
@@ -414,7 +436,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
-        code:code,
+        code: code,
         adult: this.adult,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
@@ -470,7 +492,7 @@ export class LiveboardPaymentComponent implements OnInit {
           },
         });
     } else {
-      this.isDisable=false;
+      this.isDisable = false;
 
       this.markFormGroupTouched(this.customerForm);
     }
@@ -478,7 +500,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
   confirmBooking() {
     if (this.customerForm.valid) {
-      this.isDisable=true;
+      this.isDisable = true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
       const model = {
@@ -487,7 +509,7 @@ export class LiveboardPaymentComponent implements OnInit {
         class: 'collective',
         adult: this.adult,
         // schedules_id: 4,
-        code:code,
+        code: code,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
@@ -532,7 +554,7 @@ export class LiveboardPaymentComponent implements OnInit {
         });
     } else {
       // Mark all form controls as touched to trigger validation messages
-      this.isDisable=false;
+      this.isDisable = false;
 
       this.markFormGroupTouched(this.customerForm);
     }
@@ -587,6 +609,8 @@ export class LiveboardPaymentComponent implements OnInit {
   };
 
   goBack() {
+    localStorage.removeItem('editLiveaboard');
+    localStorage.removeItem('queryParamsliveaboard');
     this.location.back();
   }
 
@@ -615,16 +639,25 @@ export class LiveboardPaymentComponent implements OnInit {
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
-    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
-
+    if (
+      (charCode > 64 && charCode < 91) ||
+      (charCode > 96 && charCode < 123) ||
+      charCode == 8
+    )
       return true;
-    else
-      return false;
+    else return false;
   }
 
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
-    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    let specialKeys: Array<string> = [
+      'Backspace',
+      'Tab',
+      'End',
+      'Home',
+      'ArrowRight',
+      'ArrowLeft',
+    ];
     if (specialKeys.indexOf(event.key) !== -1) {
       return;
     } else {

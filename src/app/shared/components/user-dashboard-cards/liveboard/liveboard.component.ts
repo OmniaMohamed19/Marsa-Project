@@ -17,13 +17,15 @@ export class LiveboardComponent {
   lastPage: number = 1;
   total: number = 0;
 
-  
+
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data:any) => {
       // console.log('API Response:', data);
       this.profiles = data.userDashboard.data;
+
+      console.log();
       this.liveaboards = data.userDashboard.liveboardDetails.data; // Ensure this is correct
-      // console.log('liveaboards Data:', this.liveaboards);
+      console.log('liveaboards Data:', this.liveaboards);
       this.filterdLiveAboard = this.liveaboards;
       this.currentPage = data.userDashboard.liveboardDetails.current_page;
       this.lastPage = data.userDashboard.liveboardDetails.last_page;

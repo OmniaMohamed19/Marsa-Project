@@ -71,7 +71,7 @@
             <span *ngIf="tour?.status !== 'paid'" class="cancel"> {{ tour?.status }}</span>
           </td>
           <td>
-            <button [routerLink]="'../../tours/details/' + tour?.id + '/' + tour?.name ">
+            <button [routerLink]="'../../tours/details/' + tour?.tripTypeid + '/' + tour?.name ">
               View details
             </button>
           </td>

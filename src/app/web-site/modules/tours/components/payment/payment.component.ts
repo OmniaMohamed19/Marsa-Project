@@ -64,7 +64,7 @@ export class PaymentComponent {
   };
   edit: boolean = false;
   tripletails: any;
-isDisable: boolean = false;
+  isDisable: boolean = false;
 
   constructor(
     private location: Location,
@@ -77,11 +77,11 @@ isDisable: boolean = false;
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.edit = localStorage['editTour']
+    this.edit = localStorage['editTour'];
     this.route.queryParams.subscribe((params: any) => {
       const parsedRes = JSON.parse(params['avilableOptions']);
       const trip_id = params['tripId'];
@@ -150,7 +150,10 @@ isDisable: boolean = false;
     });
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
 
@@ -163,6 +166,8 @@ isDisable: boolean = false;
   }
 
   goBack() {
+    localStorage.removeItem('editTour');
+    localStorage.removeItem('queryParams');
     this.location.back();
   }
 
@@ -272,7 +277,7 @@ isDisable: boolean = false;
   }
 
   goToPreviousStep(stepper: MatStepper) {
-    this.goBack()
+    this.goBack();
     stepper.previous();
   }
   preventStepNavigation(stepper: MatStepper, stepIndex: number) {
@@ -280,12 +285,9 @@ isDisable: boolean = false;
   }
   getTripById(activityID: any) {
     this._httpService
-      .get(
-        environment.marsa,
-        `Activtes/details/` + activityID
-      )
+      .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
-        this.tripletails = res.tripDetails
+        this.tripletails = res.tripDetails;
         // console.log(res);
       });
   }
@@ -354,13 +356,17 @@ isDisable: boolean = false;
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            this.getTripById(this.tripId)
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'tours', 'details', this.tripletails?.id,
-                this.tripletails?.Name]
-            );
-            localStorage.removeItem('editTour')
-            localStorage.removeItem('queryParams')
+            this.getTripById(this.tripId);
+            this.router.navigate([
+              '/',
+              this.translate.currentLang,
+              'tours',
+              'details',
+              this.tripletails?.id,
+              this.tripletails?.Name,
+            ]);
+            localStorage.removeItem('editTour');
+            localStorage.removeItem('queryParams');
 
             // if (res && res.link) {
             //   window.location.href = res.link;
@@ -381,12 +387,16 @@ isDisable: boolean = false;
             // }
           },
           error: (err: any) => {
-            console.error('Error during booking:', err);
+            // localStorage.removeItem('editTour');
+            // localStorage.removeItem('queryParams');
+            console.log('Error during booking:', err.message);
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            );
+            ).then(()=>{
+              this.goBack();
+            })
           },
         });
     } else {
@@ -395,16 +405,25 @@ isDisable: boolean = false;
     }
   }
   confirmBookingByCard(event: Event) {
-    this.isDisable=true;
-    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
-
-      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+    this.isDisable = true;
+    if (
+      this.cardholderName == undefined ||
+      this.cardNumber == undefined ||
+      this.expiryMonth == undefined ||
+      this.expirYear == undefined ||
+      this.cvv == undefined
+    ) {
+      this.toastr.info(
+        'Please fill in all the required fields before confirming your booking. ',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       return;
     }
     event.preventDefault();
@@ -489,17 +508,15 @@ isDisable: boolean = false;
           },
           error: (err: any) => {
             console.error('Error during booking:', err);
-            this.isDisable=false;
+            this.isDisable = false;
 
             // Extract and display error details if available
-            const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
+            const errorMessage =
+              err.error?.message ||
+              'An error occurred while processing your booking. Please try again later.';
 
-            Swal.fire(
-              'Booking Failed',
-              errorMessage,
-              'error'
-            );
-          }
+            Swal.fire('Booking Failed', errorMessage, 'error');
+          },
         });
     } else {
       this.markFormGroupTouched(this.customerForm);
@@ -507,7 +524,7 @@ isDisable: boolean = false;
   }
 
   confirmBooking() {
-    this.isDisable=true;
+    this.isDisable = true;
 
     if (this.customerForm.valid) {
       const parts = this.booking_date.split('/');
@@ -596,7 +613,7 @@ isDisable: boolean = false;
           },
         });
     } else {
-    this.isDisable=false;
+      this.isDisable = false;
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
@@ -632,16 +649,25 @@ isDisable: boolean = false;
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
-    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
-
+    if (
+      (charCode > 64 && charCode < 91) ||
+      (charCode > 96 && charCode < 123) ||
+      charCode == 8
+    )
       return true;
-    else
-      return false;
+    else return false;
   }
 
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
-    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    let specialKeys: Array<string> = [
+      'Backspace',
+      'Tab',
+      'End',
+      'Home',
+      'ArrowRight',
+      'ArrowLeft',
+    ];
     if (specialKeys.indexOf(event.key) !== -1) {
       return;
     } else {

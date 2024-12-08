@@ -14,11 +14,10 @@ import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-package-payment',
   templateUrl: './package-payment.component.html',
-  styleUrls: ['./package-payment.component.scss']
+  styleUrls: ['./package-payment.component.scss'],
 })
 export class PackagePaymentComponent {
   packageData: any;
@@ -32,9 +31,9 @@ export class PackagePaymentComponent {
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
   nationalities!: Code[];
-  coupon='';
-  Coupons:any;
-  Total:any;
+  coupon = '';
+  Coupons: any;
+  Total: any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
   locationValue = '';
@@ -51,17 +50,17 @@ export class PackagePaymentComponent {
     booking_date: '',
     childern: '',
     infant: '',
-    packege_id: ''
-  }
-  end_date : string='';
+    packege_id: '',
+  };
+  end_date: string = '';
   tripletails: any;
-  edit: boolean=false;
+  edit: boolean = false;
   cardholderName: any;
   cvv: any;
   expirYear: any;
   expiryMonth: any;
   cardNumber: any;
-  isDisable: boolean=false;
+  isDisable: boolean = false;
   constructor(
     private toastr: ToastrService,
     private location: Location,
@@ -72,18 +71,19 @@ export class PackagePaymentComponent {
     private router: Router,
     private translate: TranslateService,
     private dialog: MatDialog
-  ) { }
-
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.edit=localStorage['editPackage']?localStorage['editPackage']:false
+    this.edit = localStorage['editPackage']
+      ? localStorage['editPackage']
+      : false;
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       console.log('params', params);
       const parsedRes = JSON.parse(params['res']);
       this.responseFromAvailableOption = parsedRes;
-      console.log('this.responseFromDetails' ,this.responseFromAvailableOption);
+      console.log('this.responseFromDetails', this.responseFromAvailableOption);
 
       this.model.adult = params['adult'];
       this.model.booking_date = params['booking_date'];
@@ -92,73 +92,78 @@ export class PackagePaymentComponent {
       this.model.packege_id = params['packege_id'];
       this.end_date = params['end_date'];
       this.getDataById(this.model.packege_id);
-
-    })
-    this._AuthService.getUserData().subscribe((data: any) => {
-      this.userData = JSON.parse(data);
-      this.customerForm.patchValue(this.userData);
-      this.customerForm?.get('phone')?.patchValue('+'+this.userData.phone);
-
-    }, (error) => {
-      // Handle error if needed
-      console.error('Error:', error);
     });
-
+    this._AuthService.getUserData().subscribe(
+      (data: any) => {
+        this.userData = JSON.parse(data);
+        this.customerForm.patchValue(this.userData);
+        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+      },
+      (error) => {
+        // Handle error if needed
+        console.error('Error:', error);
+      }
+    );
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
   getTripById(activityID: any) {
     this._httpService
-      .get(
-        environment.marsa,
-        `Activtes/details/` + activityID
-      )
+      .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
-        this.tripletails=res.tripDetails
+        this.tripletails = res.tripDetails;
         // console.log(res);
       });
   }
-  confirmEdit(event: Event){
+  confirmEdit(event: Event) {
     if (this.customerForm.valid) {
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code:code,
+        code: code,
         ...this.model,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
-        phone: phoneNumber.replace("+", ""),
+        phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-
       };
 
       console.log(model);
 
-      this._httpService.post(environment.marsa, 'bookinfo/'+'8', model).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          // if (res && res.link) {
-          //   window.location.href = res.link;
-          // } else {
-            this.getTripById(this.model.packege_id)
-            this.router.navigate(
-            ['/', this.translate.currentLang, 'packages', 'packageDetails',this.tripletails?.id,
-                            this.tripletails?.Name]
-              );
-              localStorage.removeItem('editPackage')
-              localStorage.removeItem('queryParams')
+      this._httpService
+        .post(environment.marsa, 'bookinfo/' + '8', model)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            // if (res && res.link) {
+            //   window.location.href = res.link;
+            // } else {
+            this.getTripById(this.model.packege_id);
+            this.router.navigate([
+              '/',
+              this.translate.currentLang,
+              'packages',
+              'packageDetails',
+              this.tripletails?.id,
+              this.tripletails?.Name,
+            ]);
             Swal.fire(
               'Your request has been send successfully',
               'Your request has been sent successfully. Please check your email for further instructions.',
               'success'
-            );
-          }
-        // },
-      })
+            ).then(()=>{
+              this.goBack()
+            })
+          },
+          // },
+        });
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
@@ -170,58 +175,56 @@ export class PackagePaymentComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       note: [''],
-      pickup_point: ['',!this.showServices?[Validators.required]:[]],
+      pickup_point: ['', !this.showServices ? [Validators.required] : []],
       locationValue: [''],
-    })
+    });
   }
 
   getDataById(Id: any) {
     this._httpService
-      .get(
-        environment.marsa,
-        `package/details/` + Id
-      )
+      .get(environment.marsa, `package/details/` + Id)
       .subscribe((res: any) => {
         this.packageData = res?.tripDetails;
       });
   }
 
-
-
   goToPayment(stepper: MatStepper) {
     console.log(this.customerForm.valid);
 
     if (!this.showServices) {
-        this.locationValue = "ddd";
+      this.locationValue = 'ddd';
     }
 
     // Update pickup_point validator based on showServices
     if (this.showServices) {
-        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
     } else {
-        this.customerForm.get('pickup_point')?.clearValidators();
-        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
 
     // Adjusted conditional to handle TypeScript's type checking
-    if (this.customerForm.valid && (this.locationValue && ( this.locationValue != ''))) {
-        stepper.next();
+    if (
+      this.customerForm.valid &&
+      this.locationValue &&
+      this.locationValue != ''
+    ) {
+      stepper.next();
     } else {
-        this.markFormGroupTouched(this.customerForm);
+      this.markFormGroupTouched(this.customerForm);
     }
-}
-
+  }
 
   markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
     });
   }
-
-
 
   toggleTab(tabId: string, paymentMethod: string) {
     this.activeTab = tabId;
@@ -232,37 +235,42 @@ export class PackagePaymentComponent {
     return this.activeTab === tabId;
   }
 
-
-
-
   goToPreviousStep(stepper: MatStepper) {
     stepper.previous();
   }
 
-  applycoupon(){
-    this._httpService
-      .get(environment.marsa, `Coupon`)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.Coupons=res.coupon.filter((item:any) =>  item.code == this.coupon)
-        this.Total=this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount
-    console.log(this.Total);
-  });
+  applycoupon() {
+    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+      console.log(res);
+      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+      this.Total =
+        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount;
+      console.log(this.Total);
+    });
     console.log(this.coupon);
     // Coupon
   }
-  confirmBookingByCard(event: Event){
-    this.isDisable=true;
+  confirmBookingByCard(event: Event) {
+    this.isDisable = true;
 
-    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
-
-      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+    if (
+      this.cardholderName == undefined ||
+      this.cardNumber == undefined ||
+      this.expiryMonth == undefined ||
+      this.expirYear == undefined ||
+      this.cvv == undefined
+    ) {
+      this.toastr.info(
+        'Please fill in all the required fields before confirming your booking. ',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       return;
     }
     if (this.customerForm.valid) {
@@ -270,11 +278,11 @@ export class PackagePaymentComponent {
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code:code,
+        code: code,
         ...this.model,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
-        phone: phoneNumber.replace("+", ""),
+        phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
@@ -286,65 +294,71 @@ export class PackagePaymentComponent {
 
       console.log(model);
 
-      this._httpService.post(environment.marsa, 'package/book', model).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
-            Swal.fire(
-              'Your request has been send successfully',
-              'Your request has been sent successfully. Please check your email for further instructions.',
-              'success'
-            );
-          }
-        },
-      })
+      this._httpService
+        .post(environment.marsa, 'package/book', model)
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            if (res && res.link) {
+              window.location.href = res.link;
+            } else {
+              Swal.fire(
+                'Your request has been send successfully',
+                'Your request has been sent successfully. Please check your email for further instructions.',
+                'success'
+              );
+            }
+          },
+        });
     } else {
-    this.isDisable=false;
-    // Mark all form controls as touched to trigger validation messages
+      this.isDisable = false;
+      // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
-}
+  }
 
   confirmBooking() {
     if (this.customerForm.valid) {
-    this.isDisable=true;
+      this.isDisable = true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code:code,
-      ...this.model,
-      payment_method: this.payment_method ? this.payment_method : 'cash',
-      ...this.customerForm.value,
-      phone: phoneNumber.replace("+", ""),
-      lng: this.longitudeValue ? this.longitudeValue.toString() : '',
-      lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        code: code,
+        ...this.model,
+        payment_method: this.payment_method ? this.payment_method : 'cash',
+        ...this.customerForm.value,
+        phone: phoneNumber.replace('+', ''),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+      };
 
-    };
+      console.log(model);
 
-    console.log(model);
-
-    this._httpService.post(environment.marsa, 'package/book', model).subscribe({
-      next: (res: any) => {
-        const queryParams = {
-          res: JSON.stringify(res),
-          packege_id: this.model.packege_id,
-        }
-        this.router.navigate(['/', this.translate.currentLang, 'packages', 'packageConfirm'], { queryParams });
-        Swal.fire(
-          'Your request has been send successfully.',
-          'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-          'success'
-        );
-      }
-    })
-  } else {
-    this.isDisable=false;
-    // Mark all form controls as touched to trigger validation messages
-    this.markFormGroupTouched(this.customerForm);
-  }
+      this._httpService
+        .post(environment.marsa, 'package/book', model)
+        .subscribe({
+          next: (res: any) => {
+            const queryParams = {
+              res: JSON.stringify(res),
+              packege_id: this.model.packege_id,
+            };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'packages', 'packageConfirm'],
+              { queryParams }
+            );
+            Swal.fire(
+              'Your request has been send successfully.',
+              'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'success'
+            );
+          },
+        });
+    } else {
+      this.isDisable = false;
+      // Mark all form controls as touched to trigger validation messages
+      this.markFormGroupTouched(this.customerForm);
+    }
   }
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
@@ -355,20 +369,17 @@ export class PackagePaymentComponent {
     const dialogRef = this.dialog.open(MapModalComponent, {
       width: '100%',
       data: {
-        mapModalOptions: this.mapModalOptions
+        mapModalOptions: this.mapModalOptions,
       },
-      disableClose: true
+      disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.latitudeValue = result.latitude;
       this.longitudeValue = result.longitude;
       this.locationValue = `(${result.longitude} - ${result.latitude})`;
     });
   }
-
-
-
 
   closeMapModal() {
     if (this.mapModalDeatails) {
@@ -377,42 +388,55 @@ export class PackagePaymentComponent {
   }
 
   goBack() {
+    localStorage.removeItem('editPackage');
+    localStorage.removeItem('queryParamsPackages');
     this.location.back();
   }
-
 
   getNationality() {
     this._httpService.get('marsa', 'countrycode').subscribe({
       next: (nationalities: any) => {
         this.nationalities = nationalities.code;
         if (this.customerForm && this.customerForm.get('nationality')) {
-          this.filteredNationalities = this.customerForm.get('nationality')?.valueChanges.pipe(
-            startWith(''),
-            map(value => this._filterNationalities(value))
-          );
+          this.filteredNationalities = this.customerForm
+            .get('nationality')
+            ?.valueChanges.pipe(
+              startWith(''),
+              map((value) => this._filterNationalities(value))
+            );
         }
-
-      }
-    })
+      },
+    });
   }
 
   private _filterNationalities(value: any): Code[] {
     const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
-    return this.nationalities.filter(nationality => nationality.name.toLowerCase().includes(filterValue));
+    return this.nationalities.filter((nationality) =>
+      nationality.name.toLowerCase().includes(filterValue)
+    );
   }
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
-    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
-
+    if (
+      (charCode > 64 && charCode < 91) ||
+      (charCode > 96 && charCode < 123) ||
+      charCode == 8
+    )
       return true;
-    else
-      return false;
+    else return false;
   }
 
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
-    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    let specialKeys: Array<string> = [
+      'Backspace',
+      'Tab',
+      'End',
+      'Home',
+      'ArrowRight',
+      'ArrowLeft',
+    ];
     if (specialKeys.indexOf(event.key) !== -1) {
       return;
     } else {
