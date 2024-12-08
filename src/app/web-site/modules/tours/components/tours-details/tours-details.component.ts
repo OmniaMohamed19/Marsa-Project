@@ -46,7 +46,7 @@ import {
 import { Galleria } from 'primeng/galleria';
 import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
-import {  SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
@@ -72,7 +72,6 @@ import { Meta, Title } from '@angular/platform-browser';
 export class ToursDetailsComponent implements AfterViewInit {
   today = new Date();
 
-
   activityID: any;
   isMobile = false;
   activityData: any;
@@ -97,7 +96,8 @@ export class ToursDetailsComponent implements AfterViewInit {
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   @ViewChild('videoBoatModal') videoBoatModal!: TemplateRef<any>;
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
-  @ViewChild('videoElement', { static: true }) videoElement: ElementRef<HTMLVideoElement> | null = null;
+  @ViewChild('videoElement', { static: true })
+  videoElement: ElementRef<HTMLVideoElement> | null = null;
   isTestDivScrolledIntoView: any;
   showAllReviews: boolean = false;
   isLogin: boolean = false;
@@ -113,8 +113,8 @@ export class ToursDetailsComponent implements AfterViewInit {
   formattedDate: any;
   selectedTime: any;
   selectedStar: number = 0;
-  starNumber: any=null;
-  comment: any=null;
+  starNumber: any = null;
+  comment: any = null;
   isSingleImage: boolean = false;
   showBookingOption = false;
   hideMobileFooter = false;
@@ -143,7 +143,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     private headerService: HeaderService,
     private seoService: SEOService,
     private renderer: Renderer2,
-     private titleService: Title,
+    private titleService: Title,
     private metaService: Meta,
     @Inject(PLATFORM_ID) private platformId: any,
     private cd: ChangeDetectorRef
@@ -161,13 +161,17 @@ export class ToursDetailsComponent implements AfterViewInit {
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
   handleImageError(event: Event): void {
     const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
     if (target) {
-      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+      target.src =
+        '../../../../../../assets/custom/user-dasboard/avatar-place.png';
     }
   }
 
@@ -188,14 +192,13 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
-      if (this.videoElement?.nativeElement) {
-        this.videoElement.nativeElement.style.width = '100%';
-        this.videoElement.nativeElement.style.height = '100%';
-      }
+    if (this.videoElement?.nativeElement) {
+      this.videoElement.nativeElement.style.width = '100%';
+      this.videoElement.nativeElement.style.height = '100%';
+    }
     //   // Initialize the active tab on load
     this.setupIntersectionObserver();
   }
-
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -242,7 +245,8 @@ export class ToursDetailsComponent implements AfterViewInit {
   @HostListener('window:scroll', ['$event'])
   isScrolledIntoView() {
     if (this.checkAvailabilityButton) {
-      const rect = this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
+      const rect =
+        this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
       const topShown = rect.top >= 0 && rect.top < window.innerHeight;
       const bottomShown = rect.bottom > 0 && rect.bottom <= window.innerHeight;
 
@@ -292,12 +296,10 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
-      console.log(params)
-
+      console.log(params);
 
       this.loadData();
       this.getAbout();
-
     });
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
@@ -342,7 +344,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   // Increment the number of adults
   incrementAdult() {
     // if (this.adults < this.getMaxValue('AdultMax')) {
-      this.adults++;
+    this.adults++;
     // } else {
     //   this.toastr.info(
     //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
@@ -369,7 +371,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   incrementChildren() {
     // if (this.children < this.getMaxValue('childernMax')) {
-      this.children++;
+    this.children++;
     // } else {
     //   this.toastr.info(
     //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
@@ -393,10 +395,9 @@ export class ToursDetailsComponent implements AfterViewInit {
     }
   }
 
-
   incrementInfant() {
     // if (this.infant < this.getMaxValue('infantMax')) {
-      this.infant++;
+    this.infant++;
     // } else {
     //   this.toastr.info(
     //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
@@ -425,18 +426,19 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   scrollToCheckAvailabilityButton() {
-      if (this.checkAvailabilityButton) {
-        // Get the position of the button
-        const rect = this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
-        const scrollToY = rect.top + window.scrollY - 70; // Adjusting 50px from the top
+    if (this.checkAvailabilityButton) {
+      // Get the position of the button
+      const rect =
+        this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
+      const scrollToY = rect.top + window.scrollY - 70; // Adjusting 50px from the top
 
-        // Smoothly scroll to the adjusted position
-        window.scrollTo({
-          top: scrollToY,
-          behavior: 'smooth'
-        });
-      }
-    this.hideMobileFooter =false
+      // Smoothly scroll to the adjusted position
+      window.scrollTo({
+        top: scrollToY,
+        behavior: 'smooth',
+      });
+    }
+    this.hideMobileFooter = false;
   }
   disabledDays: number[] = [];
 
@@ -448,10 +450,18 @@ export class ToursDetailsComponent implements AfterViewInit {
         console.log(this.activityData);
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), 'tours',params.id,res?.tripDetails.slugUrl]);
+            this.router.navigate([
+              '/',
+              localStorage.getItem('lang'),
+              'tours',
+              params.id,
+              res?.tripDetails.slugUrl,
+            ]);
           }
         });
-        this.disabledDays = this.getDisabledDays(this.activityData.TimeOfRepeat);
+        this.disabledDays = this.getDisabledDays(
+          this.activityData.TimeOfRepeat
+        );
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
         );
@@ -486,38 +496,34 @@ export class ToursDetailsComponent implements AfterViewInit {
 
         this.isSingleImage = this.images.length === 1;
         if (this.activityData) {
-           this.titleService.setTitle(this.activityData?.MetaTitle);
+          this.titleService.setTitle(this.activityData?.MetaTitle);
 
           this.metaService.addTags([
-
             { name: 'description', content: this.activityData?.MetaDesc },
-
-
           ]);
           const canonicalURL = this.activityData?.CanonicalUrl;
           if (canonicalURL) {
             this.seoService.setCanonicalURL(canonicalURL);
           }
         }
-
       });
   }
-    // This function disables dates before today
-    // Date filter function
-      // Create an array for days to disable
-      dateFilter = (date: Date | null): boolean => {
-        if (!date) {
-            return true; // Allow all dates if date is null
-        }
+  // This function disables dates before today
+  // Date filter function
+  // Create an array for days to disable
+  dateFilter = (date: Date | null): boolean => {
+    if (!date) {
+      return true; // Allow all dates if date is null
+    }
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Set to midnight to compare only dates
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set to midnight to compare only dates
 
-        const day = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const day = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
-        // Check if the date is today or in the future and not in the disabled days
-        return date >= today && !this.disabledDays.includes(day);
-    };
+    // Check if the date is today or in the future and not in the disabled days
+    return date >= today && !this.disabledDays.includes(day);
+  };
 
   getAbout() {
     this._httpService.get(environment.marsa, 'Aboutus').subscribe({
@@ -677,10 +683,12 @@ export class ToursDetailsComponent implements AfterViewInit {
       Wednesday: 3,
       Thursday: 4,
       Friday: 5,
-      Saturday: 6
+      Saturday: 6,
     };
-    return timeOfRepeat?.split('/').map(day => daysMap[day.trim()]).filter(day => day !== undefined);
-
+    return timeOfRepeat
+      ?.split('/')
+      .map((day) => daysMap[day.trim()])
+      .filter((day) => day !== undefined);
   }
   addEvent(event: MatDatepickerInputEvent<Date>): void {
     // console.log(event);
@@ -702,74 +710,76 @@ export class ToursDetailsComponent implements AfterViewInit {
     //   this.bookNow(this.activityData.AvailableOption[0].id);
     // }
     // else{
-      this.bookNow(this.activityData?.AvailableOption[0]?.id);
+    this.bookNow(this.activityData?.AvailableOption[0]?.id);
     // }
     this.scrollTo('availableOptions');
   }
 
   bookNow(avilable_option_id: number) {
     if (!this.availabilityChecked) {
-              this.toastr.info('Please Choose a date and click on "Check availability" first.');
-              this.scrollToCheckAvailabilityButton();
-              this.selectedDateControl.markAsTouched();
-              return;
-          }
-          if (this.adults < this.getMaxValue('AdultMax')) {
-            this.toastr.info(
-              `Sorry, you cannot exceed the minimum limit of adults is ${this.getMaxValue(
-                'AdultMax'
-              )}. Please adjust the number.`,
-              '',
-              {
-                disableTimeOut: false,
-                titleClass: 'toastr_title',
-                messageClass: 'toastr_message',
-                timeOut: 5000,
-                closeButton: true,
-              }
-            );
-            return
-          }
-          if (this.children < this.getMaxValue('childernMax')) {
-            this.toastr.info(
-              `Sorry, you cannot exceed the minimum limit of children is ${this.getMaxValue(
-                'childernMax'
-              )}. Please adjust the number.`,
-              '',
-              {
-                disableTimeOut: false,
-                titleClass: 'toastr_title',
-                messageClass: 'toastr_message',
-                timeOut: 5000,
-                closeButton: true,
-              }
-            );
-            return
-          }
-          if (this.infant < this.getMaxValue('infantMax')) {
-            this.toastr.info(
-              `Sorry, you cannot exceed the minimum limit of infant is ${this.getMaxValue(
-                'infantMax'
-              )}. Please adjust the number.`,
-              '',
-              {
-                disableTimeOut: false,
-                titleClass: 'toastr_title',
-                messageClass: 'toastr_message',
-                timeOut: 5000,
-                closeButton: true,
-              }
-            );
-            return
-          }
+      this.toastr.info(
+        'Please Choose a date and click on "Check availability" first.'
+      );
+      this.scrollToCheckAvailabilityButton();
+      this.selectedDateControl.markAsTouched();
+      return;
+    }
+    if (this.adults < this.getMaxValue('AdultMax')) {
+      this.toastr.info(
+        `Sorry, you cannot exceed the minimum limit of adults is ${this.getMaxValue(
+          'AdultMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+      return;
+    }
+    if (this.children < this.getMaxValue('childernMax')) {
+      this.toastr.info(
+        `Sorry, you cannot exceed the minimum limit of children is ${this.getMaxValue(
+          'childernMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+      return;
+    }
+    if (this.infant < this.getMaxValue('infantMax')) {
+      this.toastr.info(
+        `Sorry, you cannot exceed the minimum limit of infant is ${this.getMaxValue(
+          'infantMax'
+        )}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+      return;
+    }
 
-          // If the clicked option is the same as the previously booked option, toggle it
-          if (this.bookedOptionId === avilable_option_id) {
-              this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
-          } else {
-              // If a different option is clicked, open the new booking option
-              this.bookedOptionId = avilable_option_id; // Update to the new option
-              this.showBookingOption = true; // Open the booking details
+    // If the clicked option is the same as the previously booked option, toggle it
+    if (this.bookedOptionId === avilable_option_id) {
+      this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
+    } else {
+      // If a different option is clicked, open the new booking option
+      this.bookedOptionId = avilable_option_id; // Update to the new option
+      this.showBookingOption = true; // Open the booking details
 
       const model = {
         trip_id: this.activityData.id,
@@ -821,74 +831,74 @@ export class ToursDetailsComponent implements AfterViewInit {
         });
     }
   }
-//   bookNow(available_option_id: number) {
-//     if (!this.availabilityChecked) {
-//         this.toastr.info('Please Choose a date and click on "Check availability" first.');
-//         this.scrollToCheckAvailabilityButton();
-//         this.selectedDateControl.markAsTouched();
-//         return;
-//     }
+  //   bookNow(available_option_id: number) {
+  //     if (!this.availabilityChecked) {
+  //         this.toastr.info('Please Choose a date and click on "Check availability" first.');
+  //         this.scrollToCheckAvailabilityButton();
+  //         this.selectedDateControl.markAsTouched();
+  //         return;
+  //     }
 
-//     // If the clicked option is the same as the previously booked option, toggle it
-//     if (this.bookedOptionId === available_option_id) {
-//         this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
-//     } else {
-//         // If a different option is clicked, open the new booking option
-//         this.bookedOptionId = available_option_id; // Update to the new option
-//         this.showBookingOption = true; // Open the booking details
+  //     // If the clicked option is the same as the previously booked option, toggle it
+  //     if (this.bookedOptionId === available_option_id) {
+  //         this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
+  //     } else {
+  //         // If a different option is clicked, open the new booking option
+  //         this.bookedOptionId = available_option_id; // Update to the new option
+  //         this.showBookingOption = true; // Open the booking details
 
-//         const model = {
-//             trip_id: this.activityData.id,
-//             available_option_id: available_option_id,
-//             class: '',
-//             adult: this.adults,
-//             children: this.children,
-//             infant: this.infant,
-//         };
+  //         const model = {
+  //             trip_id: this.activityData.id,
+  //             available_option_id: available_option_id,
+  //             class: '',
+  //             adult: this.adults,
+  //             children: this.children,
+  //             infant: this.infant,
+  //         };
 
-//         if (this.selectedOption === 'Collective') {
-//             model.class = 'collective';
-//         } else if (this.selectedOption === 'Private') {
-//             model.class = 'private';
-//         }
+  //         if (this.selectedOption === 'Collective') {
+  //             model.class = 'collective';
+  //         } else if (this.selectedOption === 'Private') {
+  //             model.class = 'private';
+  //         }
 
-//         // Make the API call to fetch booking details
-//         this._httpService
-//               .post(environment.marsa, 'Activtes/AvailableOption/price', model)
-//               .subscribe({
-//                 next: (res: any) => {
-//                   this.dataCheck = {
-//                     res: JSON.stringify(res),
-//                     trip_id: this.activityData.id,
-//                     booking_date: this.formattedDate,
-//                     class: model.class,
-//                     time: this.selectedTime,
-//                     avilable_option_id: available_option_id,
-//                     adult: this.adults,
-//                     childern: this.children,
-//                     infant: this.infant,
-//                   };
-//                   // const dialogRef = this.dialog.open(CheckAvailpiltyComponent, {
-//                   //   width: '80%',
-//                   //   data: {
-//                   //     res: JSON.stringify(res),
-//                   //     trip_id: this.activityData.id,
-//                   //     booking_date: this.formattedDate,
-//                   //     class: model.class,
-//                   //     time: this.selectedTime,
-//                   //     avilable_option_id: avilable_option_id,
-//                   //     adult: this.adults,
-//                   //     childern: this.children,
-//                   //     infant: this.infant,
-//                   //   },
-//                   // });
-//                   // dialogRef.afterClosed().subscribe(() => {
-//                   //   window.scroll(0, 0); // Scroll after the dialog is fully closed
-//                   // });
-//                 },
-//               });
-//     }
-// }
+  //         // Make the API call to fetch booking details
+  //         this._httpService
+  //               .post(environment.marsa, 'Activtes/AvailableOption/price', model)
+  //               .subscribe({
+  //                 next: (res: any) => {
+  //                   this.dataCheck = {
+  //                     res: JSON.stringify(res),
+  //                     trip_id: this.activityData.id,
+  //                     booking_date: this.formattedDate,
+  //                     class: model.class,
+  //                     time: this.selectedTime,
+  //                     avilable_option_id: available_option_id,
+  //                     adult: this.adults,
+  //                     childern: this.children,
+  //                     infant: this.infant,
+  //                   };
+  //                   // const dialogRef = this.dialog.open(CheckAvailpiltyComponent, {
+  //                   //   width: '80%',
+  //                   //   data: {
+  //                   //     res: JSON.stringify(res),
+  //                   //     trip_id: this.activityData.id,
+  //                   //     booking_date: this.formattedDate,
+  //                   //     class: model.class,
+  //                   //     time: this.selectedTime,
+  //                   //     avilable_option_id: avilable_option_id,
+  //                   //     adult: this.adults,
+  //                   //     childern: this.children,
+  //                   //     infant: this.infant,
+  //                   //   },
+  //                   // });
+  //                   // dialogRef.afterClosed().subscribe(() => {
+  //                   //   window.scroll(0, 0); // Scroll after the dialog is fully closed
+  //                   // });
+  //                 },
+  //               });
+  //     }
+  // }
 
   showImage(img: string) {
     this.coverAndImages = [{ value: img }];
@@ -958,28 +968,36 @@ export class ToursDetailsComponent implements AfterViewInit {
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
     } else {
-      if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
+      if (
+        this.starNumber !== null &&
+        this.starNumber !== 0 &&
+        this.comment !== null &&
+        this.comment !== ''
+      ) {
         this._httpService
-        .post(environment.marsa, 'Review/addreview', model)
-        .subscribe({
-          next: (res: any) => {
-            this.toastr.success(res.message);
-            this.loadData();
-            this.starNumber = null;
-            this.comment = null;
-            this.selectedStar = 0;
-          },
-        });
-      }else{
-        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
+          .post(environment.marsa, 'Review/addreview', model)
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success(res.message);
+              this.loadData();
+              this.starNumber = null;
+              this.comment = null;
+              this.selectedStar = 0;
+            },
+          });
+      } else {
+        this.toastr.warning(
+          'Please specify the number of stars and write your comment before submitting! Thank you!',
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
       }
-
     }
   }
   addtoFavorits(btn: any, event: any) {
