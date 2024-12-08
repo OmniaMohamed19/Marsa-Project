@@ -12,7 +12,7 @@ export class UserCardComponent {
   types: any;
   tabs = [
     { label: 'Overview', section: 'section1' },
-    { label: 'Activities & Tours', section: 'section2' },
+    { label: 'Tours & Activities', section: 'section2' },
     { label: 'Liveaboards', section: 'section3' },
     { label: 'Packages', section: 'section4' },
     { label: 'Transfers', section: 'transports' },

@@ -324,10 +324,10 @@ isDisable: boolean = false;
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         booking_time: this.time,
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth,
-        card_number: this.cardNumber.toString(),
+        card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
             if (this.checkboxStatus[index]) {
@@ -441,10 +441,10 @@ isDisable: boolean = false;
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         booking_time: this.time,
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth,
-        card_number: this.cardNumber.toString(),
+        card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
             if (this.checkboxStatus[index]) {
