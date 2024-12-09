@@ -1078,10 +1078,17 @@
     </div>
   </ng-template>
   <ng-template #videoModal>
-    <div class="h-100" mat-dialog-content>
+    <!-- <div class="h-100" mat-dialog-content>
       <iframe [src]="videoUrl" id="inneriframe" class="w-100" scrolling="no" style="height: 90%"
         allowfullscreen></iframe>
-    </div>
+    </div> -->
+      <video
+        #videoElement
+        class="w-100 h-100"
+        [src]="videoUrl"
+        controls
+        autoplay
+      ></video>
   </ng-template>
 </div>
 
