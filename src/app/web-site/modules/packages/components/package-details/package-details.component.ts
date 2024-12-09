@@ -211,12 +211,13 @@ export class PackageDetailsComponent {
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
         console.log(res);
-        this.rows = res?.tripDetails;
-        this.faq=res?.tripDetails?.faq;
-        
+        this.rows = res?.PackageDetails;
+        this.faq=res?.PackageDetails?.faq_package;
+        console.log(this.faq);
+
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.tripDetails.slugUrl]);
+            this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
           }
         });
         console.log(this.rows);
@@ -235,7 +236,7 @@ export class PackageDetailsComponent {
            this.seoService.setCanonicalURL(canonicalURL);
          }
        }
-        this.duration = res?.tripDetails.duration;
+        this.duration = res?.PackageDetails.duration;
         this.calculateEndDate();
       });
 

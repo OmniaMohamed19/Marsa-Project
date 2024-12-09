@@ -382,13 +382,13 @@
             <!-- Card -->
             <div class="card border-0 mb-4 pb-1">
               <mat-accordion>
-                <mat-expansion-panel *ngFor="let faqItem of faq">
+                <mat-expansion-panel *ngFor="let faqItem of rows?.faq_package">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <div class="me-4 faq">
                         <i class="fa-solid fa-minus"></i>
                       </div>
-                      {{ faqItem }}
+                      {{ faqItem.Question }}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <p style="padding-left: 55px">
