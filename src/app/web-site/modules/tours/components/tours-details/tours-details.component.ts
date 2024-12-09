@@ -441,7 +441,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.hideMobileFooter = false;
   }
   disabledDays: number[] = [];
-
+  showNavigation:any;
   getActivityById(activityID: any) {
     this._httpService
       .get(environment.marsa, `Activtes/details/` + activityID)
@@ -477,6 +477,8 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
         this.cover = { value: res?.tripDetails?.Cover };
         this.coverAndImages = [...this.images, this.cover];
+        this.showNavigation = this.coverAndImages.length >= 5;
+
         this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           res?.tripDetails?.Video
         );

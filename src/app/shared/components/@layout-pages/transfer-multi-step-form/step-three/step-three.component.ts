@@ -198,10 +198,10 @@ applycoupon() {
         flight_n: this.flightNumper,
         coupon_code: this.Coupons[0].code,
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv?.toString(),
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth,
-        card_number: this.cardNumber.toString()
+        card_number: this.cardNumber?.toString()
       };
 
       this._httpService.post(environment.marsa, 'transfer/book', model)

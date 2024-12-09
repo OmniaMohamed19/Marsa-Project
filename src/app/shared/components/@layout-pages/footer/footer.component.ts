@@ -22,7 +22,7 @@ export class FooterComponent {
   isLogin: boolean = false;
   social: any;
   showScrollToTopButton: boolean = false;
-
+  youtubeLink:any;
   constructor(
     private fb: FormBuilder,
     private _AuthService: AuthService,
@@ -44,7 +44,9 @@ export class FooterComponent {
       .get(environment.marsa, 'Background')
       .subscribe((res: any) => {
         this.social = res?.social;
-        // console.log(this.social);
+        console.log(res);
+        const youtubeUrl = res.social["youtube "];
+        this.youtubeLink=youtubeUrl;
       });
   }
 

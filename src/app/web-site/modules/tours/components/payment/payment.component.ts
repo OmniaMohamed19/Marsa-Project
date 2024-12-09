@@ -204,7 +204,7 @@ export class PaymentComponent {
     );
 
     if (missingValues.some((value: any) => value)) {
-      this.toastr.info('Please enter how many persons ');
+      this.toastr.info('Please enter the number of people ');
       return;
     }
     stepper.next();
@@ -463,7 +463,7 @@ export class PaymentComponent {
         cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth,
-        card_number: this.cardNumber.toString(),
+        card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
             if (this.checkboxStatus[index]) {

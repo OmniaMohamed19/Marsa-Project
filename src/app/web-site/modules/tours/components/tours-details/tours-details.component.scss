@@ -16,6 +16,13 @@ h4,
 {
   padding-left: 90px
 }
+::ng-deep{
+  .p-galleria-nav-prev, .p-galleria-nav-next {
+    pointer-events: all !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
 
 .p-img {
   width: 100%; /* Ensure the image itself fills the width */
