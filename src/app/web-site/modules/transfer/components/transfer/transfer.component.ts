@@ -50,7 +50,7 @@ export class TransferComponent implements OnInit {
   filteredToOptions: any[] = []; // Filtered options for the second dropdown
   selectedStar: number = 0;
   starNumber: any;
-  comment: any ;
+  comment: any;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -359,13 +359,56 @@ export class TransferComponent implements OnInit {
   loadData(): void {
     this.transferId = 1;
   }
+  // addReview(): void {
+  //   const model = {
+  //     comment: this.comment,
+  //     transfer_id: this.transferId,
+  //     rating: this.starNumber,
+  //   };
+
+  //   if (!this.isLogin) {
+  //     this.toastr.info('Please login first', '', {
+  //       disableTimeOut: false,
+  //       titleClass: 'toastr_title',
+  //       messageClass: 'toastr_message',
+  //       timeOut: 5000,
+  //       closeButton: true,
+  //     });
+  //     window.scroll(0, 0);
+  //     this.headerService.toggleDropdown();
+  //   }
+  //   else{
+
+  //     this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
+  //       next: (res: any) => {
+  //         this.toastr.success(res.message);
+  //         this.loadData();
+  //         this.starNumber = null;
+  //         this.comment = null;
+  //         this.selectedStar = 0;
+  //       },
+  //     });
+  //   }
+  //   //   if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
+
+  //   //   // } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
+  //   //   //   this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
+  //   //   //     disableTimeOut: false,
+  //   //   //     titleClass: 'toastr_title',
+  //   //   //     messageClass: 'toastr_message',
+  //   //   //     timeOut: 5000,
+  //   //   //     closeButton: true,
+  //   //   //   });
+
+  //   // }
+  // }
   addReview(): void {
+
     const model = {
       comment: this.comment,
       transfer_id: this.transferId,
       rating: this.starNumber,
     };
-
     if (!this.isLogin) {
       this.toastr.info('Please login first', '', {
         disableTimeOut: false,
@@ -376,9 +419,7 @@ export class TransferComponent implements OnInit {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-    }
-    else{
-
+    } else {
       this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
         next: (res: any) => {
           this.toastr.success(res.message);
@@ -389,19 +430,8 @@ export class TransferComponent implements OnInit {
         },
       });
     }
-    //   if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
-
-    //   // } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
-    //   //   this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-    //   //     disableTimeOut: false,
-    //   //     titleClass: 'toastr_title',
-    //   //     messageClass: 'toastr_message',
-    //   //     timeOut: 5000,
-    //   //     closeButton: true,
-    //   //   });
-
-    // }
   }
+
 
   selectedOptionName: string | null = null;
 

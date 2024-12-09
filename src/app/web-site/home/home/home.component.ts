@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 
   }
   metaDetail: any;
-
+  youtubeLink:any;
   ngOnInit(): void {
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
@@ -58,7 +58,8 @@ export class HomeComponent implements OnInit {
         }
 
         this.social = res?.social;
-
+        const youtubeUrl = res.social["youtube "];
+        this.youtubeLink=youtubeUrl;
         // Parse hometext to separate h1 and p
         if (this.hometext) {
           const parser = new DOMParser();
@@ -154,7 +155,7 @@ export class HomeComponent implements OnInit {
       setTimeout(() => {
         this.currentCoverImage = this.coverImages[this.currentIndex];
         bgElement.classList.add('active');
-      }, 100); 
+      }, 100);
     }
   }
 

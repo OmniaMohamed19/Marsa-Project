@@ -204,7 +204,7 @@ export class PaymentComponent {
     );
 
     if (missingValues.some((value: any) => value)) {
-      this.toastr.info('Please enter how many persons ');
+      this.toastr.info('Please enter the number of people ');
       return;
     }
     stepper.next();
