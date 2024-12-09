@@ -48,7 +48,8 @@ import { GalleriaModule } from 'primeng/galleria';
 import { ButtonModule } from 'primeng/button';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { Meta, Title } from '@angular/platform-browser';
-
+// Define the participant types and their corresponding properties
+type ParticipantType = 'adults' | 'children' | 'infant';
 @Component({
   selector: 'app-tours-details',
   templateUrl: './tours-details.component.html',
@@ -441,7 +442,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.hideMobileFooter = false;
   }
   disabledDays: number[] = [];
-  showNavigation:any;
+  showNavigation: any;
   getActivityById(activityID: any) {
     this._httpService
       .get(environment.marsa, `Activtes/details/` + activityID)
@@ -715,49 +716,94 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.selectedDateControl.markAsTouched();
       return;
     }
+
     this.availabilityChecked = true;
-    // if (this.activityData.AvailableOption.length == 1) {
-    //   this.bookNow(this.activityData.AvailableOption[0].id);
-    // }
-    // else{
-    this.bookNow(this.activityData?.AvailableOption[0]?.id);
-    // }
-    this.scrollTo('availableOptions');
-  }
 
-  bookNow(avilable_option_id: number) {
-    // Get the current date and time
     const now = new Date();
+    const cutoffTimeInMillis = this.activityData.CutOfTime * 60 * 60 * 1000;
 
-    // Add 24 hours to the current time
-    const twentyFourHoursFromNow = new Date(
-      now.getTime() + this.activityData.CutOfTime * 60 * 60 * 1000
-    ); // 24 hours in milliseconds
+    // Function to check if the selected date is after a certain cutoff
+    const isDateAfterCutoff = (selectedDate: Date): boolean => {
+      console.log(selectedDate);
+      console.log(selectedDate > new Date(now.getTime() + cutoffTimeInMillis));
 
-    // Function to check if the selected date is greater than 24 hours from now
-    function isDateAfterTwentyFourHours(selectedDate: any): boolean {
-      return selectedDate > twentyFourHoursFromNow;
-    }
+      return selectedDate > new Date(now.getTime() + cutoffTimeInMillis);
+    };
 
-    // Example usage:
+    // Parse the selected date
     const selectedDate = this.selectedDateControl.value
       ? new Date(this.selectedDateControl.value)
       : null;
 
-    // Replace with the user's selected date
-
-    if (isDateAfterTwentyFourHours(selectedDate)) {
-      console.log(
-        'The selected date is more than ' +
-          this.activityData.CutOfTime +
-          ' hours from now.'
-      );
+    if (this.activityData?.TypeOfRepeat === 'w') {
+      if (selectedDate && isDateAfterCutoff(selectedDate)) {
+        console.log('The selected date is valid.');
+      } else {
+        this.showWarning(cutoffTimeInMillis);
+        return;
+      }
     } else {
-      console.log('The selected date is within ' +
-          this.activityData.CutOfTime +
-          ' hours from now.');
+      // Parse the selected date and time from the inputs
+      const selectedDateValue = this.selectedDateControl.value; // Assume format "YYYY-MM-DD"
+      const selectedTimeValue = this.selectedTimeControl.value; // Assume format "HH:mm AM/PM"
+      console.log(selectedTimeValue);
+
+      // Combine selected date and time into a single Date object
+      let selectedDateTime: Date | null = this.getSelectedDateTime(
+        selectedDateValue ? new Date(selectedDateValue) : null,
+        selectedTimeValue
+      );
+
+      if (selectedDateTime && isDateAfterCutoff(selectedDateTime)) {
+        console.log('The selected date and time are valid.');
+      } else {
+        this.showWarning(cutoffTimeInMillis);
+        return;
+      }
     }
 
+    this.bookNow(this.activityData?.AvailableOption[0]?.id);
+    this.scrollTo('availableOptions');
+  }
+
+  private getSelectedDateTime(selectedDate: Date | null, selectedTimeValue: string | null): Date | null {
+    if (!selectedDate || !selectedTimeValue) return null;
+
+    const { hours, minutes } = this.parseTimeTo24HourFormat(selectedTimeValue);
+    selectedDate.setHours(hours, minutes, 0, 0); // Set hours and minutes
+    return selectedDate;
+}
+
+// Function to parse time in "HH:mm AM/PM" format
+private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number } {
+    const [timePart, modifier] = time.split(' ');
+    let [hours, minutes] = timePart.split(':').map(Number);
+
+    // Adjust hours based on AM/PM
+    if (modifier === 'PM' && hours < 12) {
+        hours += 12;
+    }
+    if (modifier === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    return { hours, minutes };
+}
+  private showWarning(cutoffTimeInMillis: number) {
+    this.toastr.warning(
+      `You cannot book within ${this.activityData.CutOfTime} hours. Choose another date.`,
+      '',
+      {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      }
+    );
+  }
+
+  bookNow(avilable_option_id: number) {
     if (!this.availabilityChecked) {
       this.toastr.info(
         'Please choose a date and click on "Check availability" first.'
@@ -766,118 +812,81 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.selectedDateControl.markAsTouched();
       return;
     }
-    if (!isDateAfterTwentyFourHours(selectedDate)) {
-      this.toastr.warning(
-        'You cannot book within'+ this.activityData.CutOfTime +' hours. Choose another date.',
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
-    }
 
-    // Validate adults
-    if (this.adults < this.getMaxValue('AdultMax')) {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum limit of adults is ${this.getMaxValue(
-          'AdultMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
-    }
+    if (!this.validateParticipants()) return;
 
-    // Validate children
-    if (this.children < this.getMaxValue('childernMax')) {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum limit of children is ${this.getMaxValue(
-          'childernMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
-    }
-
-    // Validate infants
-    if (this.infant < this.getMaxValue('infantMax')) {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum limit of infant is ${this.getMaxValue(
-          'infantMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
-      return;
-    }
-
-    // If the clicked option is the same as the previously booked option, toggle it
     if (this.bookedOptionId === avilable_option_id) {
-      this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
+      this.showBookingOption = !this.showBookingOption; // Toggle booking option
     } else {
-      // If a different option is clicked, open the new booking option
-      this.bookedOptionId = avilable_option_id; // Update to the new option
-      this.showBookingOption = true; // Open the booking details
+      this.bookedOptionId = avilable_option_id;
+      this.showBookingOption = true;
 
-      const model = {
-        trip_id: this.activityData.id,
-        avilable_option_id: avilable_option_id,
-        class: '',
-        adult: this.adults,
-        childern: this.children,
-        infant: this.infant,
-      };
-
-      if (this.selectedOption === 'Collective') {
-        model.class = 'collective';
-      } else if (this.selectedOption === 'Private') {
-        model.class = 'private';
-      }
-
+      const model = this.createBookingModel(avilable_option_id);
       this._httpService
         .post(environment.marsa, 'Activtes/AvailableOption/price', model)
         .subscribe({
           next: (res: any) => {
-            this.dataCheck = {
-              res: JSON.stringify(res),
-              trip_id: this.activityData.id,
-              booking_date: this.formattedDate,
-              class: model.class,
-              time: this.selectedTime,
-              avilable_option_id: avilable_option_id,
-              adult: this.adults,
-              childern: this.children,
-              infant: this.infant,
-            };
-
-            // Optionally handle dialog display or further user feedback here
+            this.dataCheck = this.createDataCheck(res, model);
           },
         });
     }
+  }
+
+  private validateParticipants(): boolean {
+    const validationMessages = [
+      { type: 'adults', max: this.getMaxValue('AdultMax') },
+      { type: 'children', max: this.getMaxValue('childernMax') },
+      { type: 'infant', max: this.getMaxValue('infantMax') },
+    ];
+
+    const participantCounts: Record<ParticipantType, number> = {
+      adults: this.adults,
+      children: this.children,
+      infant: this.infant,
+    };
+
+    for (const { type, max } of validationMessages) {
+      if (participantCounts[type as ParticipantType] < max) {
+        this.toastr.info(
+          `Sorry, you cannot exceed the minimum limit of ${type} is ${max}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private createBookingModel(avilable_option_id: number) {
+    return {
+      trip_id: this.activityData.id,
+      avilable_option_id,
+      class: this.selectedOption === 'Collective' ? 'collective' : 'private',
+      adult: this.adults,
+      childern: this.children,
+      infant: this.infant,
+    };
+  }
+
+  private createDataCheck(res: any, model: any) {
+    return {
+      res: JSON.stringify(res),
+      trip_id: this.activityData.id,
+      booking_date: this.formattedDate,
+      class: model.class,
+      time: this.selectedTime,
+      avilable_option_id: model.avilable_option_id,
+      adult: model.adult,
+      childern: model.childern,
+      infant: model.infant,
+    };
   }
 
   //   bookNow(available_option_id: number) {

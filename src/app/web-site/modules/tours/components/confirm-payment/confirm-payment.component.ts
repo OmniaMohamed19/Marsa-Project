@@ -75,6 +75,7 @@ export class ConfirmPaymentComponent implements OnInit {
     const storedQueryParams = localStorage.getItem('queryParams');
   if (storedQueryParams) {
     const queryParams = JSON.parse(storedQueryParams);
+    queryParams.bookingId = 12345;
     console.log(queryParams);
     // Now you can access the properties of queryParams
     localStorage['editTour']=true
