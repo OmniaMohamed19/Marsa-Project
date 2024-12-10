@@ -212,12 +212,10 @@ export class PackageDetailsComponent {
       .subscribe((res: any) => {
         console.log(res);
         this.rows = res?.PackageDetails;
-        this.faq=res?.PackageDetails?.faq_package;
-        console.log(this.faq);
+        // this.faq=res?.PackageDetails?.faq;
 
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
             this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
           }
         });
@@ -237,7 +235,6 @@ export class PackageDetailsComponent {
            this.seoService.setCanonicalURL(canonicalURL);
          }
        }
-        this.duration = res?.PackageDetails.duration;
         this.duration = res?.PackageDetails.duration;
         this.calculateEndDate();
       });
