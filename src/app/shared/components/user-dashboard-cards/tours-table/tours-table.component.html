@@ -51,7 +51,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tour of filterdTours">
+        <tr *ngFor="let tour of filterdTours.slice().reverse()">
+
           <td>
             <span> {{ tour?.name }}</span>
           </td>

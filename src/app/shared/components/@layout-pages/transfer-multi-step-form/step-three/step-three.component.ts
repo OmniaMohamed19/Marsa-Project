@@ -196,7 +196,7 @@ applycoupon() {
         payment_method: this.payment_method ? this.payment_method : 'tab',
         booking_option: bookingOption,
         flight_n: this.flightNumper,
-        coupon_code: this.Coupons[0].code,
+        coupon_code: this.Coupons?.[0]?.code || '',
         cardholder_name: this.cardholderName,
         cvv: this.cvv?.toString(),
         expiry_year: this.expirYear,

@@ -32,6 +32,15 @@
 .phone .iti.separate-dial-code .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2 .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag {
   width: 82px !important;
 }
+.phone .iti .selected-dial-code{
+  display: none !important;
+}
+.phone .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input{
+  font-size: 17px;
+}
+.phone .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag{
+margin-left:1rem;
+}
 
 }
 .has-error input,

@@ -7,6 +7,15 @@
   height: 230px !important;
     overflow: auto !important;
 }
+.iti .selected-dial-code{
+  display: none !important;
+}
+.iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input{
+  font-size: 17px;
+}
+.iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag,  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag{
+margin-left:1rem;
+}
 }
 .settings {
   margin-top: 29px;
