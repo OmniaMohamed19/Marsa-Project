@@ -61,6 +61,7 @@ export class PackagePaymentComponent {
   expiryMonth: any;
   cardNumber: any;
   isDisable: boolean = false;
+  Bookingid: any;
   constructor(
     private toastr: ToastrService,
     private location: Location,
@@ -82,6 +83,7 @@ export class PackagePaymentComponent {
     this.route.queryParams.subscribe((params: any) => {
       console.log('params', params);
       const parsedRes = JSON.parse(params['res']);
+      this.Bookingid = parsedRes.Bookingid;
       this.responseFromAvailableOption = parsedRes;
       console.log('this.responseFromDetails', this.responseFromAvailableOption);
 
@@ -126,19 +128,23 @@ export class PackagePaymentComponent {
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code: code,
         ...this.model,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        cardholder_name: this.cardholderName,
+        cvv: this.cvv.toString(),
+        expiry_year: this.expirYear,
+        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        card_number: this.cardNumber.toString(),
       };
 
       console.log(model);
 
       this._httpService
-        .post(environment.marsa, 'bookinfo/' + '8', model)
+        .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
             console.log(res);
@@ -158,9 +164,7 @@ export class PackagePaymentComponent {
               'Your request has been send successfully',
               'Your request has been sent successfully. Please check your email for further instructions.',
               'success'
-            ).then(()=>{
-              this.goBack()
-            })
+            )
           },
           // },
         });
@@ -288,7 +292,8 @@ export class PackagePaymentComponent {
         cardholder_name: this.cardholderName,
         cvv: this.cvv.toString(),
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth,
+        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+
         card_number: this.cardNumber.toString(),
       };
 
