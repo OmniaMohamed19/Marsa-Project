@@ -218,6 +218,7 @@ export class PackageDetailsComponent {
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
             this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
+            this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
           }
         });
         console.log(this.rows);
@@ -236,6 +237,7 @@ export class PackageDetailsComponent {
            this.seoService.setCanonicalURL(canonicalURL);
          }
        }
+        this.duration = res?.PackageDetails.duration;
         this.duration = res?.PackageDetails.duration;
         this.calculateEndDate();
       });

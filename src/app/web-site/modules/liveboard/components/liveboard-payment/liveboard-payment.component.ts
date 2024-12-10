@@ -62,7 +62,7 @@ export class LiveboardPaymentComponent implements OnInit {
   };
   liveabourd: any;
   edit: boolean = false;
-  tripletails: any;
+  tripletails: any;  Bookingid:any;
   constructor(
     private location: Location,
     private _httpService: HttpService,
@@ -101,7 +101,7 @@ export class LiveboardPaymentComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       this.schedules_id = params['schedules_id'];
       console.log(params['schedules_id']);
-
+      this.Bookingid =params.Bookingid;
       this.tripId = params['trip_id'];
       this.adult = params['adult'];
       this.getDataById(this.tripId);
@@ -324,7 +324,7 @@ export class LiveboardPaymentComponent implements OnInit {
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth,
+        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
         card_number: this.cardNumber,
         cabins: this.cabins
           .map((cabin: any) => ({
@@ -345,7 +345,7 @@ export class LiveboardPaymentComponent implements OnInit {
       console.log(model);
 
       this._httpService
-        .post(environment.marsa, 'bookinfo/' + this.tripId, model)
+        .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
             console.log(res);
@@ -363,26 +363,29 @@ export class LiveboardPaymentComponent implements OnInit {
                     this.liveabourd?.Title,
                   ]);
                   localStorage.removeItem('editLiveaboard');
-                  localStorage.removeItem('queryParams');
+                  localStorage.removeItem('queryParamsliveaboard');
                 },
               });
 
             // if (res && res.link) {
             //   window.location.href = res.link;
             // } else {
-            //   const queryParams = {
+            //   const queryParamsliveaboard = {
             //     res: JSON.stringify(res),
             //     trip_id: this.tripId,
             //   };
             //   this.router.navigate(
             //     ['/', this.translate.currentLang, 'tours', 'confirm'],
-            //     { queryParams }
+            //     { queryParamsliveaboard }
             //   );
             Swal.fire(
               'Your request has been send successfully.',
               'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
+            localStorage.removeItem('editLiveaboard');
+            localStorage.removeItem('queryParamsliveaboard');
+            this.router.navigate(['/', this.translate.currentLang])
             // }
           },
           error: (err: any) => {
@@ -446,10 +449,10 @@ export class LiveboardPaymentComponent implements OnInit {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth,
-        card_number: this.cardNumber.toString(),
+        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        card_number: this.cardNumber,
         cabins: this.cabins
           .map((cabin: any) => ({
             id: cabin.id,

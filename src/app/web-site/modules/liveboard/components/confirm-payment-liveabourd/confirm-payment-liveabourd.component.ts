@@ -15,6 +15,7 @@ export class ConfirmPaymentLiveabourdComponent {
   confirmRequest: any;
   relatedtrips: any[] = [];
   showRelated : boolean = false;
+  Bookingid: any;
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
@@ -28,7 +29,7 @@ export class ConfirmPaymentLiveabourdComponent {
       const res = JSON.parse(params['res']);
       this.confirmRequest = res;
       this.tripId = params['trip_id'];
-
+      this.Bookingid = res.Bookingid;
       this.getLiveAbourdById(this.tripId)
     })
   }
@@ -51,6 +52,9 @@ export class ConfirmPaymentLiveabourdComponent {
     const storedQueryParams = localStorage.getItem('queryParamsliveaboard');
 if (storedQueryParams) {
     const queryParams = JSON.parse(storedQueryParams);
+
+    queryParams.Bookingid = this.Bookingid;        
+        localStorage.setItem('queryParamsliveaboard', JSON.stringify(queryParams));
     console.log(queryParams);
     // Now you can access the properties of queryParams
     localStorage['editLiveaboard']=true

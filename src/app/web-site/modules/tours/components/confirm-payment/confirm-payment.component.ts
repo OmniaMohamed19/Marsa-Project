@@ -8,35 +8,36 @@ import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-confirm-payment',
   templateUrl: './confirm-payment.component.html',
-  styleUrls: ['./confirm-payment.component.scss']
+  styleUrls: ['./confirm-payment.component.scss'],
 })
 export class ConfirmPaymentComponent implements OnInit {
   tripId: any;
+  Bookingid: any;
   confirmRequest: any;
   relatedtrips: any[] = [];
-  tripletails:any
+  tripletails: any;
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
     public translate: TranslateService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
       const res = JSON.parse(params['res']);
       this.confirmRequest = res;
+      console.log(res);
+
       this.tripId = params['trip_id'];
-      this.getTripById(this.tripId)
-    })
+      this.Bookingid = res.Bookingid;
+      this.getTripById(this.tripId);
+    });
   }
   getTripById(activityID: any) {
     this._httpService
-      .get(
-        environment.marsa,
-        `Activtes/details/` + activityID
-      )
+      .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
-        this.tripletails=res.tripDetails
+        this.tripletails = res.tripDetails;
         this.relatedtrips = res.Relatedtrips;
         console.log(res);
       });
@@ -51,39 +52,44 @@ export class ConfirmPaymentComponent implements OnInit {
     autoplay: true,
     margin: 10,
     navSpeed: 700,
-    navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       740: {
-        items: 4
+        items: 4,
       },
       940: {
-        items: 4
+        items: 4,
       },
       1200: {
-        items: 4
-      }
+        items: 4,
+      },
     },
-    nav: true
-  }
-  ReturnToPayment(){
+    nav: true,
+  };
+  ReturnToPayment() {
+    
     if (typeof window !== 'undefined') {
-
-
-    const storedQueryParams = localStorage.getItem('queryParams');
-  if (storedQueryParams) {
-    const queryParams = JSON.parse(storedQueryParams);
-    queryParams.bookingId = 12345;
-    console.log(queryParams);
-    // Now you can access the properties of queryParams
-    localStorage['editTour']=true
-    this.router.navigate(
-      ['/', this.translate.currentLang, 'tours', 'payment'],
-      { queryParams }
-    );
-}
+      const storedQueryParams = localStorage.getItem('queryParams');
+      if (storedQueryParams) {
+        const queryParams = JSON.parse(storedQueryParams);
+        queryParams.Bookingid = this.Bookingid;
+        localStorage['editTour'] = true;
+        console.log(queryParams);        
+        localStorage.setItem('queryParams', JSON.stringify(queryParams));
+        this.router.navigate(
+          ['/', this.translate.currentLang, 'tours', 'payment'],
+          { queryParams }
+        );
+      }
+      else{
+        // localStorage.setItem('queryParams', JSON.stringify(storedQueryParams));
+      }
+    }
   }
-}
 }

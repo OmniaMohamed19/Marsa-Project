@@ -65,7 +65,7 @@ export class PaymentComponent {
   edit: boolean = false;
   tripletails: any;
   isDisable: boolean = false;
-
+  Bookingid:any;
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -86,9 +86,11 @@ export class PaymentComponent {
       const parsedRes = JSON.parse(params['avilableOptions']);
       const trip_id = params['tripId'];
       this.tripId = trip_id;
+      this.Bookingid =params.Bookingid;
+      console.log(params);
+      
       this.avilableOptions = parsedRes;
-
-      console.log(this.avilableOptions);
+      // console.log(this.avilableOptions);
       const addetionalCost = this.avilableOptions?.AddetionalCost;
       // const exclude = addetionalCost?.Exclude;
       console.log(addetionalCost);
@@ -288,7 +290,6 @@ export class PaymentComponent {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.tripletails = res.tripDetails;
-        // console.log(res);
       });
   }
   confirmEdit(event: Event) {
@@ -328,7 +329,7 @@ export class PaymentComponent {
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth,
+        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
         card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
@@ -350,23 +351,13 @@ export class PaymentComponent {
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
       console.log(model);
-
       this._httpService
-        .post(environment.marsa, 'bookinfo/' + this.tripId, model)
+        .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            this.getTripById(this.tripId);
-            this.router.navigate([
-              '/',
-              this.translate.currentLang,
-              'tours',
-              'details',
-              this.tripletails?.id,
-              this.tripletails?.Name,
-            ]);
-            localStorage.removeItem('editTour');
-            localStorage.removeItem('queryParams');
+            // this.getTripById(this.tripId);
+            
 
             // if (res && res.link) {
             //   window.location.href = res.link;
@@ -384,6 +375,10 @@ export class PaymentComponent {
               'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
+            
+            localStorage.removeItem('editTour');
+            localStorage.removeItem('queryParams');
+            this.router.navigate(['/', this.translate.currentLang])
             // }
           },
           error: (err: any) => {
@@ -462,7 +457,7 @@ export class PaymentComponent {
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth,
+        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
         card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {

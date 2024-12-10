@@ -13,6 +13,7 @@ export class PackageConfirmComponent {
   packege_id: any;
   confirmRequest: any;
   relatedtrips: any[] = [];
+  Bookingid: any;
 
   constructor(
     private _httpService: HttpService,
@@ -25,6 +26,7 @@ export class PackageConfirmComponent {
       const res = JSON.parse(params['res']);
       this.confirmRequest = res;
       this.packege_id = params['packege_id'];
+      this.Bookingid = res.Bookingid;
 
       this.getTripById(this.packege_id)
     })
@@ -48,8 +50,10 @@ export class PackageConfirmComponent {
       if (storedQueryParams) {
           const queryParams = JSON.parse(storedQueryParams);
           console.log(queryParams);
+          queryParams.Bookingid = this.Bookingid;
           // Now you can access the properties of queryParams
           localStorage['editPackage']=true
+          localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
           this.router.navigate(
             ['/', this.translate.currentLang, 'packages', 'packagePayment'],
             { queryParams }
