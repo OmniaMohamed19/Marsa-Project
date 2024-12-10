@@ -123,23 +123,25 @@ export class LiveboardsComponent implements OnInit {
   }
 
   searchByType(ev: any) {
-    if (!ev.target.value) {
-      this.httpservices.get(environment.marsa, 'liveboard').subscribe({
-        next: (response: any) => {
-          console.log(response);
-          this.rows = response.trips;
-          this.rows.data = this.rows.data.filter(
-            (trip: any) => Object.keys(trip.Schedule).length > 0
-          );
-          console.log(this.rows);
+    if (ev.target.value) {
+    this.TypeTrip = ev.target.value;
 
-          this.search = response.search;
-          this.types = response.types;
-          if (this.destination?.length == 0) {
-            this.getPlace();
-          }
-        },
-      });
+      // this.httpservices.get(environment.marsa, 'liveboard').subscribe({
+      //   next: (response: any) => {
+      //     console.log(response);
+      //     this.rows = response.trips;
+      //     this.rows.data = this.rows.data.filter(
+      //       (trip: any) => Object.keys(trip.Schedule).length > 0
+      //     );
+      //     console.log(this.rows);
+
+      //     this.search = response.search;
+      //     this.types = response.types;
+      //     if (this.destination?.length == 0) {
+      //       this.getPlace();
+      //     }
+      //   },
+      // });
     }
     // this.TypeTrip = ev.target.value;
     // this.place_id = 'null';
