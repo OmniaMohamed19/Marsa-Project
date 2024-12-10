@@ -88,7 +88,7 @@ export class PaymentComponent {
       this.tripId = trip_id;
       this.Bookingid =params.Bookingid;
       console.log(params);
-      
+
       this.avilableOptions = parsedRes;
       // console.log(this.avilableOptions);
       const addetionalCost = this.avilableOptions?.AddetionalCost;
@@ -357,7 +357,7 @@ export class PaymentComponent {
           next: (res: any) => {
             console.log(res);
             // this.getTripById(this.tripId);
-            
+
 
             // if (res && res.link) {
             //   window.location.href = res.link;
@@ -375,7 +375,7 @@ export class PaymentComponent {
               'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
-            
+
             localStorage.removeItem('editTour');
             localStorage.removeItem('queryParams');
             this.router.navigate(['/', this.translate.currentLang])

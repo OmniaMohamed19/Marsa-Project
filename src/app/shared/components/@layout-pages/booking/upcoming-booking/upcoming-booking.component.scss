@@ -435,12 +435,12 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
-        
+
       }
       .img{
           width: 290px;
         }
-     
+
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -469,12 +469,12 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
-        
+
       }
       .img{
           width: 311px;
         }
-     
+
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -511,12 +511,12 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
-        
+
       }
       .img{
           width: 324px;
         }
-     
+
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -551,7 +551,7 @@ h4 {
     justify-content: flex-start;
     align-items: flex-start;
   }
- 
+
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
 
@@ -580,3 +580,85 @@ h4 {
 //     }
 //   }
 // }
+
+
+label {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(59, 68, 79, 1);
+}
+
+input {
+  height: 52px;
+}
+
+.list-group div {
+  font-family: Lato;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+}
+
+.readonly-step {
+  pointer-events: none;
+}
+
+.box {
+  position: relative;
+  border: 1px solid #dadada;
+  height: 250.76px;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.3s, border-color 0.3s;
+
+  &.checked {
+    box-shadow: 0 0 5px #0db1ff;
+    border-color: #0db1ff;
+  }
+
+  input[type="checkbox"] {
+    width: 25px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #b5b5c3;
+    border-radius: 2px 0 0 2px; // Adjust border-radius as needed
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] + label {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    border: 1px solid #b5b5c3;
+  }
+
+  /* Custom styles for the checkbox when checked */
+  input[type="checkbox"]:checked + label::before {
+    content: "\f00c";
+    font-family: FontAwesome;
+    font-size: 20px;
+    padding: 5px;
+    color: #fff;
+    background: #0db1ff;
+    border-radius: 5px;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 50%; // Adjust max-width as needed
+    float: right;
+  }
+}
