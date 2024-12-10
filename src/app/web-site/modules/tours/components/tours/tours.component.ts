@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import { Meta, Title } from '@angular/platform-browser';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-tours',
   templateUrl: './tours.component.html',
@@ -35,6 +35,7 @@ export class ToursComponent {
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
+    private cdr: ChangeDetectorRef
   ) {
     if (window.screen.width < 1024) {
       this.isMobile = true;
@@ -68,11 +69,35 @@ export class ToursComponent {
         this.duration = response.duration;
         this.time = response.time;
         this.types = response.types;
-        // console.log(this.rows?.trips?.data);
+        console.log(this.rows);
 
         this.getPlaces();
       },
     });
+  }
+  onPageChange(event: any) {
+    const pageNumber = event.page + 1; // PrimeNG uses 0-based index
+    // console.log('Page Changed:', pageNumber);
+    this.loadPageData(pageNumber);
+  }
+
+  loadPageData(pageNumber: number) {
+    console.log('Fetching data for page:', pageNumber);
+    const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
+    this._httpsService.get(environment.marsa, 'Activtes', { page: pageNumber }).subscribe({
+      next: (response: any) => {
+        this.rows = response;
+        this.duration = response.duration;
+        this.time = response.time;
+        this.types = response.types;
+  
+        this.getPlaces();
+  
+        // Trigger change detection manually
+        this.cdr.detectChanges();
+      },
+    });
+    // console.log('Fetching data for page:', pageNumber);
   }
   selectedTimeId: number | null = null;
   clearSelection() {

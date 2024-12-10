@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from 'express';
@@ -42,6 +42,7 @@ export class LiveboardsComponent implements OnInit {
     private httpservices: HttpService,
     private route: ActivatedRoute,
     private titleService: Title,
+    private cdr: ChangeDetectorRef
    
   ) {
     if (window.screen.width < 1024) {
@@ -107,6 +108,52 @@ export class LiveboardsComponent implements OnInit {
         window.scrollTo(0, 0);
       },
     });
+  }
+  onPageChange(event: any) {
+    const pageNumber = event.page + 1; // PrimeNG uses 0-based index
+    // console.log('Page Changed:', pageNumber);
+    this.loadPageData(pageNumber);
+  }
+
+  loadPageData(pageNumber: number) {
+    console.log('Fetching data for page:', pageNumber);
+    const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
+      this.httpservices.get(environment.marsa, 'liveboard',{ page: pageNumber }).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.rows = response.trips;
+          this.rows.data = this.rows.data.filter(
+            (trip: any) => Object.keys(trip.Schedule).length > 0
+          );
+  
+          this.search = response.search;
+          this.types = response.types;
+          if (this.destination?.length == 0) {
+            this.getPlace();
+          }
+          this.TypeTrip = '';
+          this.place_id = 'null';
+          this.start_d = null;
+          this.rate = null;
+          this.min_priceChoosen = this.min_price; // Reset to default minimum price
+          this.max_priceChoosen = 9999; // Reset to default maximum price
+          for (let i = 2; i <= 5; i++) {
+            if (i != 2) {
+              document
+                .getElementById('btn-' + i)
+                ?.classList.remove('active-rate');
+            } else {
+              this.rate = 2;
+              document.getElementById('btn-' + i)?.classList.add('active-rate');
+            }
+          }
+  
+          // Scroll to the top of the page after the function is executed
+          window.scrollTo(0, 0);
+          this.cdr.detectChanges();
+        },
+      });
+    // console.log('Fetching data for page:', pageNumber);
   }
 
 

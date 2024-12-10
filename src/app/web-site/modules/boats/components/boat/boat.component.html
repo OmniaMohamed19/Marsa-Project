@@ -429,20 +429,16 @@
         </div>
       </div>
       <!--  -->
-      <div class="text-center text-md-left font-size-14 mb-3 text-lh-1">
-        Showing {{ boats?.current_page }}–{{ boats?.last_page }}
-      </div>
-      <nav aria-label="Page navigation">
-        <ul
-          class="list-pagination-1 pagination m-auto border border-color-4 rounded-sm mb-5 mb-lg-0 overflow-auto overflow-xl-visible justify-content-center align-items-center py-2 w-100"
-        >
-          <li
-            *ngFor="let item of [].constructor(boats?.last_page); let i = index"
-          >
-            <a class="font-size-14">{{ i + 1 }}</a>
-          </li>
-        </ul>
-      </nav>
+      <p-paginator
+      [rows]="10"
+      [totalRecords]="boats?.total || boats?.data?.length"
+      [first]="(boats?.current_page - 1) * 10"
+      (onPageChange)="onPageChange($event)"
+      [showFirstLastIcon]="true"
+      [showJumpToPageInput]="true"
+      class="m-auto border border-color-4 rounded-sm mb-5 mb-lg-0 overflow-auto overflow-xl-visible justify-content-center align-items-center py-2 w-100"
+    >
+    </p-paginator>
     </div>
   </div>
 </div>

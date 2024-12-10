@@ -11,6 +11,7 @@ import { ConfirmPaymentLiveabourdComponent } from './components/confirm-payment-
 import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from 'primeng/image';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ImageModule } from 'primeng/image';
     SharedModule,
     MatSliderModule,
     GalleriaModule,
-    ImageModule
+    ImageModule,
+    PaginatorModule
   ],
 })
 export class LiveboardModule {}
