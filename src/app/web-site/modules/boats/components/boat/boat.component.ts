@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -32,6 +32,7 @@ export class BoatComponent {
     private _httpService: HttpService,
     private route: ActivatedRoute,
     private titleService: Title,
+    private cdr: ChangeDetectorRef
   ) {
     if (window.screen.width < 1024) {
       this.isMobile = true;
@@ -94,6 +95,27 @@ export class BoatComponent {
     });
   }
 
+  onPageChange(event: any) {
+    const pageNumber = event.page + 1; // PrimeNG uses 0-based index
+    // console.log('Page Changed:', pageNumber);
+    this.loadPageData(pageNumber);
+  }
+
+  loadPageData(pageNumber: number) {
+    console.log('Fetching data for page:', pageNumber);
+    const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
+      this._httpService.get(environment.marsa, 'Boats',{ page: pageNumber }).subscribe({
+        next: (res: any) => {
+          this.boats = res?.trips;
+          this.search = res?.search;
+          this.types = res?.types;
+          this.getPlace();
+        // Trigger change detection manually
+        this.cdr.detectChanges();
+      },
+    });
+    // console.log('Fetching data for page:', pageNumber);
+  }
   getPlace() {
     this._httpService.get('marsa', 'place').subscribe({
       next: (res: any) => {

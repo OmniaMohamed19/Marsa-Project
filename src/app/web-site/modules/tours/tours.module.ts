@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from 'primeng/image';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
   declarations: [
     LandingToursComponent,
@@ -30,7 +31,8 @@ import { ImageModule } from 'primeng/image';
     MatDialogModule,
     MatSliderModule,
     GalleriaModule,
-    ImageModule
+    ImageModule,
+    PaginatorModule
   ],
   exports: [],
   providers: [DatePipe],

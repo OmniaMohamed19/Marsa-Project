@@ -12,6 +12,7 @@ import { ConfirmationBoatComponent } from './components/confirmation-boat/confir
 import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from 'primeng/image';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ImageModule } from 'primeng/image';
     SharedModule,
     MatSliderModule,
     GalleriaModule,
-    ImageModule
+    ImageModule,
+    PaginatorModule
   ],
   providers: [DatePipe],
 })

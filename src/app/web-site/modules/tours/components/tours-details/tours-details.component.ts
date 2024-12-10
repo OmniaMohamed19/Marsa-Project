@@ -344,83 +344,121 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   // Increment the number of adults
   incrementAdult() {
-    // if (this.adults < this.getMaxValue('AdultMax')) {
-    this.adults++;
-    // } else {
-    //   this.toastr.info(
-    //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
-    //       'AdultMax'
-    //     )}. Please adjust the number.`,
-    //     '',
-    //     {
-    //       disableTimeOut: false,
-    //       titleClass: 'toastr_title',
-    //       messageClass: 'toastr_message',
-    //       timeOut: 5000,
-    //       closeButton: true,
-    //     }
-    //   );
-    // }
+    const maxAdults = this.getMaxValue('AdultMax');
+    if (this.adults < maxAdults) {
+      this.adults++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${maxAdults} adults. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
   }
-
-  // Decrement the number of adults
+  
   decrementAdult() {
-    if (this.adults > 1) {
+    const minAdults = this.getMinValue('Adultmin');
+    console.log(minAdults);
+    
+    if (this.adults > minAdults) {
       this.adults--;
+    } else {
+      this.toastr.info(
+        `Sorry, the minimum required number of adults is ${minAdults}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
-
+  
   incrementChildren() {
-    // if (this.children < this.getMaxValue('childernMax')) {
-    this.children++;
-    // } else {
-    //   this.toastr.info(
-    //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
-    //       'childernMax'
-    //     )}. Please adjust the number.`,
-    //     '',
-    //     {
-    //       disableTimeOut: false,
-    //       titleClass: 'toastr_title',
-    //       messageClass: 'toastr_message',
-    //       timeOut: 5000,
-    //       closeButton: true,
-    //     }
-    //   );
-    // }
+    const maxChildren = this.getMaxValue('childernMax');
+    if (this.children < maxChildren) {
+      this.children++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${maxChildren} children. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
   }
-
+  
   decrementChildren() {
-    if (this.children > 1) {
+    const minChildren = this.getMinValue('childernmin');
+    if (this.children > minChildren) {
       this.children--;
+    } else {
+      this.toastr.info(
+        `Sorry, the minimum required number of children is ${minChildren}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
-
+  
   incrementInfant() {
-    // if (this.infant < this.getMaxValue('infantMax')) {
-    this.infant++;
-    // } else {
-    //   this.toastr.info(
-    //     `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
-    //       'infantMax'
-    //     )}. Please adjust the number.`,
-    //     '',
-    //     {
-    //       disableTimeOut: false,
-    //       titleClass: 'toastr_title',
-    //       messageClass: 'toastr_message',
-    //       timeOut: 5000,
-    //       closeButton: true,
-    //     }
-    //   );
-    // }
-  }
-
-  decrementInfant() {
-    if (this.infant > 1) {
-      this.infant--;
+    const maxInfants = this.getMaxValue('infantMax');
+    if (this.infant < maxInfants) {
+      this.infant++;
+    } else {
+      this.toastr.info(
+        `Sorry, you cannot exceed the maximum limit of ${maxInfants} infants. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
     }
   }
+  
+  decrementInfant() {
+    const minInfants = this.getMinValue('infantmin');
+    if (this.infant > minInfants) {
+      this.infant--;
+    } else {
+      this.toastr.info(
+        `Sorry, the minimum required number of infants is ${minInfants}. Please adjust the number.`,
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+    }
+  }
+  
 
   toggle(): void {
     this.isShow = !this.isShow;
@@ -735,7 +773,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       ? new Date(this.selectedDateControl.value)
       : null;
 
-    if (this.activityData?.TypeOfRepeat === 'w') {
+    if (this.activityData?.TypeOfRepeat === 'w' || this.activityData?.TypeOfRepeat === 'd') {
       if (selectedDate && isDateAfterCutoff(selectedDate)) {
         console.log('The selected date is valid.');
       } else {
@@ -813,7 +851,10 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
       return;
     }
 
-    if (!this.validateParticipants()) return;
+    // if (this.validateParticipants()) return;
+    if (!this.validateMinimumParticipants() || !this.validateParticipants()) {
+      return; // Stop execution if any validation fails
+    }
 
     if (this.bookedOptionId === avilable_option_id) {
       this.showBookingOption = !this.showBookingOption; // Toggle booking option
@@ -846,9 +887,9 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
     };
 
     for (const { type, max } of validationMessages) {
-      if (participantCounts[type as ParticipantType] < max) {
+      if (participantCounts[type as ParticipantType] > max) {
         this.toastr.info(
-          `Sorry, you cannot exceed the minimum limit of ${type} is ${max}. Please adjust the number.`,
+          `Sorry, you cannot exceed the maximum limit of ${type} is ${max}. Please adjust the number.`,
           '',
           {
             disableTimeOut: false,
@@ -863,6 +904,48 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
     }
     return true;
   }
+  private validateMinimumParticipants(): boolean {
+    const validationMessages = [
+      { type: 'adults', min: this.getMinValue('AdultMin') },
+      { type: 'children', min: this.getMinValue('childernMin') },
+      { type: 'infant', min: this.getMinValue('infantMin') },
+    ];
+  
+    const participantCounts: Record<ParticipantType, number> = {
+      adults: this.adults,
+      children: this.children,
+      infant: this.infant,
+    };
+  
+    for (const { type, min } of validationMessages) {
+      if (participantCounts[type as ParticipantType] < min) {
+        this.toastr.info(
+          `Sorry, the minimum required number of ${type} is ${min}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  private getMinValue(property: string): number {
+    let value = 0;
+    if (this.selectedOption === 'Collective') {
+      value = this.getMinAdultPrice()?.PriceColective[property] || 0;
+    } else if (this.selectedOption === 'Private') {
+      value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
+    }
+    return value;
+  }
+  
 
   private createBookingModel(avilable_option_id: number) {
     return {
