@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment.prod';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-upcoming-booking',
   templateUrl: './upcoming-booking.component.html',
@@ -23,7 +25,7 @@ export class UpcomingBookingComponent {
   allUpcoming: any = [];
   activeSection = 'all'; // Initialize with a default value
   activeBooking: any;
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService,private titleService: Title,) {}
   setActiveSection(section: string) {
     this.upcoming = [];
     this.activeSection = section;
@@ -46,6 +48,8 @@ export class UpcomingBookingComponent {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Upcoming Booking');
+
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.tabs = res?.triptypes;
       // console.log(this.tabs);
@@ -82,7 +86,7 @@ export class UpcomingBookingComponent {
             text: err.error || 'An unexpected error occurred, please try again.',
             confirmButtonText: 'Ok'
           });
-          return of(null); 
+          return of(null);
         }),
         finalize(() => {
         })

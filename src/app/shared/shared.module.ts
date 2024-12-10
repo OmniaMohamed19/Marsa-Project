@@ -82,6 +82,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CalendarModule } from 'primeng/calendar';
+import { NgxSpinnerModule } from 'ngx-spinner';
 const layoutPages = [
   QuickSearchComponent,
   SearchBoatComponent,
@@ -188,6 +189,7 @@ const slider = [
     NgxIntlTelInputModule,
   ],
   exports: [
+    NgxSpinnerModule,
     CarouselModule,
     NgxMaterialTimepickerModule,
     MaterialModule,

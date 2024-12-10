@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-step-three',
@@ -25,6 +26,8 @@ export class StepThreeComponent {
     private toastr: ToastrService,
     private router: Router,
     private translate: TranslateService,
+    private spinner: NgxSpinnerService,
+
   ) {
 
   }
@@ -156,8 +159,11 @@ applycoupon() {
 
 
   confirmBookingByCard() {
-    if (this.cardholderName == undefined || this.cardNumber == undefined || this.expiryMonth == undefined || this.expirYear == undefined || this.cvv == undefined) {
-
+    if (
+      this.cardholderName == undefined || this.cardNumber == undefined ||
+      this.expiryMonth == undefined || this.expirYear == undefined ||
+      this.cvv == undefined
+    ) {
       this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -166,14 +172,14 @@ applycoupon() {
         closeButton: true,
       });
       return; // Stop the function if any field is missing
-    }
-    else {
+    } else {
+      this.spinner.show(); // Show the spinner
+
       const bookingOption = [];
 
       for (const key in this.selectedOption) {
         if (this.selectedOption.hasOwnProperty(key)) {
           const option = this.selectedOption[key];
-          // Extract the ID and push it to idArray
           if (option && option.id) {
             bookingOption.push({
               id: option.id,
@@ -207,6 +213,7 @@ applycoupon() {
       this._httpService.post(environment.marsa, 'transfer/book', model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide(); // Hide the spinner after a successful response
             console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
@@ -226,9 +233,9 @@ applycoupon() {
             }
           },
           error: (err: any) => {
+            this.spinner.hide(); // Hide the spinner in case of an error
             console.error('Error during booking:', err);
 
-            // Extract and display error details if available
             const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
 
             Swal.fire(
@@ -239,8 +246,10 @@ applycoupon() {
           }
         });
     }
-
   }
+
+
+
 
 
 
@@ -267,16 +276,23 @@ applycoupon() {
       booking_time: this.bookingTime,
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime,
-       return_booking_date: this.returnbookingdate,
+      return_booking_date: this.returnbookingdate,
       payment_method: this.payment_method ? this.payment_method : 'cash',
       booking_option: bookingOption,
       flight_n: this.flightNumper,
       coupon_code: this.Coupons?.[0]?.code || '', // Safely access coupon code or fallback
     };
 
+    // Show spinner before making the request
+    this.spinner.show();
+
     this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
       next: (res: any) => {
         console.log(res);
+
+        // Hide spinner after receiving the response
+        this.spinner.hide();
+
         if (res && res.link) {
           window.location.href = res.link;
         } else {
@@ -294,6 +310,10 @@ applycoupon() {
       },
       error: (err: any) => {
         console.error('Error during booking:', err);
+
+        // Hide spinner if there's an error
+        this.spinner.hide();
+
         Swal.fire(
           'Booking Failed',
           'An error occurred while processing your booking. Please try again later.',
@@ -325,11 +345,17 @@ applycoupon() {
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
-    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
-
+    // Allow letters (uppercase and lowercase), backspace, and space
+    if (
+      (charCode > 64 && charCode < 91) || // A-Z
+      (charCode > 96 && charCode < 123) || // a-z
+      charCode === 8 || // Backspace
+      charCode === 32 // Space
+    ) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   public OnlyNumbers(event: any) {
