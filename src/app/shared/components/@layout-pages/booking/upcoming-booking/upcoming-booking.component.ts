@@ -16,7 +16,6 @@ import { MapModalComponent } from '../../map-modal/map-modal.component';
   styleUrls: ['./upcoming-booking.component.scss'],
 })
 export class UpcomingBookingComponent {
-
   tabs: any = [];
   other = '';
   reasons: any = [
@@ -44,7 +43,7 @@ export class UpcomingBookingComponent {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
   };
-  Bookingid: any;
+  BookingInfo: any;
   constructor(
     private httpService: HttpService,
     private _AuthService: AuthService,
@@ -87,14 +86,14 @@ export class UpcomingBookingComponent {
 
       this.upcoming = res?.userDashboard?.upcomming;
 
-      console.log(res);
+      console.log(this.upcoming);
       this.allUpcoming = this.upcoming;
     });
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userData = JSON.parse(data); // Assigning the received object directly
-        this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+        // this.userData = JSON.parse(data); // Assigning the received object directly
+        // this.customerForm.patchValue(this.userData);
+        // this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
       },
       (error) => {
         // Handle error if needed
@@ -109,12 +108,15 @@ export class UpcomingBookingComponent {
       phone: ['', [Validators.required]],
       note: [''],
       pickup_point: ['', this.showServices ? [Validators.required] : []],
-      locationValue: ['', ],
+      locationValue: [''],
       // locationValue: [''],
     });
   }
   setBookingId(arg0: any) {
-    this.Bookingid=arg0
+    this.BookingInfo = arg0;
+    // this.userData = JSON.parse(this.BookingInfo); // Assigning the received object directly
+    this.customerForm.patchValue(this.BookingInfo);
+    this.customerForm?.get('phone')?.patchValue('+' + this.BookingInfo.phone);
   }
   setActiveBooking(bookingId: any) {
     this.activeBooking = bookingId;
@@ -182,7 +184,11 @@ export class UpcomingBookingComponent {
       );
       console.log(model);
       this.httpService
-        .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
+        .post(
+          environment.marsa,
+          'bookinfo/' + this.BookingInfo.Bookingid,
+          model
+        )
         .subscribe({
           next: (res: any) => {
             console.log(res);
@@ -192,7 +198,7 @@ export class UpcomingBookingComponent {
               'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
-            this.btn?.nativeElement.click()
+            this.btn?.nativeElement.click();
 
 
           },
@@ -208,7 +214,6 @@ export class UpcomingBookingComponent {
           },
         });
     } else {
-
       console.log(this.customerForm);
 
       // Mark all form controls as touched to trigger validation messages
@@ -223,21 +228,21 @@ export class UpcomingBookingComponent {
       }
     });
   }
-    // map
-    openMapModal(): void {
-      const dialogRef = this.dialog.open(MapModalComponent, {
-        width: '100%',
-        data: {
-          mapModalOptions: this.mapModalOptions,
-        },
-        disableClose: true,
-      });
+  // map
+  openMapModal(): void {
+    const dialogRef = this.dialog.open(MapModalComponent, {
+      width: '100%',
+      data: {
+        mapModalOptions: this.mapModalOptions,
+      },
+      disableClose: true,
+    });
 
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log(result);
-        this.latitudeValue = result.latitude;
-        this.longitudeValue = result.longitude;
-        this.locationValue = `(${result.longitude} - ${result.latitude})`;
-      });
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.latitudeValue = result.latitude;
+      this.longitudeValue = result.longitude;
+      this.locationValue = `(${result.longitude} - ${result.latitude})`;
+    });
+  }
 }

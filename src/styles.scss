@@ -509,3 +509,8 @@ body {
 .mat-date-range-input-wrapper {
   font-size: 10px;
 }
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 100000 !important;
+}

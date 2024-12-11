@@ -233,7 +233,7 @@
                           type="button"
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal2"
-                          (click)="setBookingId(trip?.bookinginfo?.booking_id)"
+                          (click)="setBookingId(trip?.bookinginfo)"
                         >
                           Edit
                         </button>
@@ -424,7 +424,7 @@ Write here ...
 >
   <div
     class="modal-dialog modal-dialog-centered"
-    style="margin: auto; max-width: 70% !important"
+    style="margin: auto; max-width: 80% !important"
   >
     <div class="modal-content">
       <div class="modal-header">
@@ -574,7 +574,7 @@ Write here ...
             </div> -->
             <!-- End Input -->
             <div class="w-100"></div>
-            <p>Do you want a pick up services ?</p>
+            <p class="text-left fs-6">Do you want a pick up services ?</p>
             <div class="d-flex gap-3 flex-wrap mb-2">
               <div class="form-check">
                 <input
@@ -652,7 +652,7 @@ Write here ...
               <div class="col-sm-6 mb-4">
                 <div class="js-form-message">
                   <label class="form-label">
-                    <p>You must choose location before 24 hours</p>
+                    <p class="text-left fs-6">You must choose location before 24 hours</p>
                   </label>
                 </div>
               </div>
