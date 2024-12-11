@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NewPasswordComponent } from 'src/app/shared/components/@layout-pages/Auth/newpassword/new-password/new-password.component';
+import { NotFoundComponent } from 'src/app/shared/components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-   { path: '*/:slug', component: HomeComponent },
+  
 
   {
     path: 'mainPage',
@@ -116,7 +117,7 @@ const routes: Routes = [
     path: 'new-password',
     component: NewPasswordComponent,
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

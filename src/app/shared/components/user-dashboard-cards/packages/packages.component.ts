@@ -9,14 +9,13 @@ import { ProfileService } from 'src/app/core/services/http/profile-service.servi
 export class PackagesComponent {
   @Input() packages: any;
   activeTab: string = 'year';
-
   thisYear: any;
   filterdPackages: any = [];
   profiles: any[] = [];
   currentPage: number = 1;
   lastPage: number = 1;
   total: number = 0;
-
+  selectedpackage:any;
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data: any) => {
       // console.log('API Response:', data);
@@ -36,6 +35,11 @@ export class PackagesComponent {
       this.loadProfiles(this.currentPage + 1);
     }
   }
+  openModal(packagee: any) {
+    this.selectedpackage = packagee;
+   
+  }
+
 
   prevPage(): void {
     // console.log(215);

@@ -4,15 +4,12 @@ import { environment } from 'src/environments/environment.prod';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import Swal from 'sweetalert2';
-<<<<<<< HEAD
 import { Title } from '@angular/platform-browser';
 
-=======
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MapModalComponent } from '../../map-modal/map-modal.component';
->>>>>>> ccdcee2447510bd03bfed2f36fbdfd8b6b0fe62f
 @Component({
   selector: 'app-upcoming-booking',
   templateUrl: './upcoming-booking.component.html',
@@ -34,9 +31,6 @@ export class UpcomingBookingComponent {
   allUpcoming: any = [];
   activeSection = 'all'; // Initialize with a default value
   activeBooking: any;
-<<<<<<< HEAD
-  constructor(private httpService: HttpService,private titleService: Title,) {}
-=======
   customerForm!: FormGroup;
   locationValue = '';
   latitudeValue: any;
@@ -55,9 +49,8 @@ export class UpcomingBookingComponent {
     private httpService: HttpService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,private titleService: Title
   ) {}
->>>>>>> ccdcee2447510bd03bfed2f36fbdfd8b6b0fe62f
   setActiveSection(section: string) {
     this.upcoming = [];
     this.activeSection = section;
@@ -80,11 +73,8 @@ export class UpcomingBookingComponent {
   }
 
   ngOnInit() {
-<<<<<<< HEAD
     this.titleService.setTitle('Upcoming Booking');
-=======
     this.initForm();
->>>>>>> ccdcee2447510bd03bfed2f36fbdfd8b6b0fe62f
 
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.tabs = res?.triptypes;
@@ -172,59 +162,21 @@ export class UpcomingBookingComponent {
       this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
     if (this.customerForm.valid) {
-      // const parts = this.booking_date.split('/');
-      // const formattedDate = new Date(
-      //   parseInt(parts[2]),
-      //   parseInt(parts[1]) - 1,
-      //   parseInt(parts[0])
-      // );
-
-      // // Format the date using DatePipe
-      // const formattedDateString = this.datePipe.transform(
-      //   formattedDate,
-      //   'yyyy/MM/dd'
-      // );
+    
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
         code: code,
-        // trip_id: this.tripId,
         userid: this.userData?.id,
-        // avilable_option_id: this.avilable_option_id,
-        // class: this.class,
-        // adult: this.adult,
-        // childern: this.childern,
-        // infant: this.infant,
-        // booking_date: formattedDateString,
-        // payment_method: this.payment_method ? this.payment_method : 'cash',
-        // coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-        // booking_time: this.time,
-        // cardholder_name: this.cardholderName,
-        // cvv: this.cvv,
-        // expiry_year: this.expirYear,
-        // expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
-        // card_number: this.cardNumber,
-        // booking_option: this.activityData?.bookingOption.reduce(
-        //   (acc: any[], item: any, index: number) => {
-        //     if (this.checkboxStatus[index]) {
-        //       acc.push({
-        //         id: item.id,
-        //         persons: this.personsInputValues[index] || 0,
-        //       });
-        //     }
-        //     return acc;
-        //   },
-        //   []
-        // ),
+
       };
-      // if (model.booking_option.length == 0) {
-      //   model.booking_option = null;
-      // }
+
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
@@ -234,19 +186,6 @@ export class UpcomingBookingComponent {
         .subscribe({
           next: (res: any) => {
             console.log(res);
-            // this.getTripById(this.tripId);
-
-            // if (res && res.link) {
-            //   window.location.href = res.link;
-            // } else {
-            //   const queryParams = {
-            //     res: JSON.stringify(res),
-            //     trip_id: this.tripId,
-            //   };
-            //   this.router.navigate(
-            //     ['/', this.translate.currentLang, 'tours', 'confirm'],
-            //     { queryParams }
-            //   );
 
             Swal.fire(
               'Your request has been send successfully.',
@@ -255,21 +194,16 @@ export class UpcomingBookingComponent {
             );
             this.btn?.nativeElement.click()
 
-            // localStorage.removeItem('editTour');
-            // localStorage.removeItem('queryParams');
-            // this.router.navigate(['/', this.translate.currentLang])
-            // }
+
           },
           error: (err: any) => {
-            // localStorage.removeItem('editTour');
-            // localStorage.removeItem('queryParams');
+
             console.log('Error during booking:', err.message);
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
             ).then(() => {
-              // this.goBack();
             });
           },
         });

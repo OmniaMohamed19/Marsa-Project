@@ -1,4 +1,5 @@
 import { Component, Input , OnChanges, SimpleChanges} from '@angular/core';
+import { log } from 'console';
 
 @Component({
   selector: 'app-tours-table',
@@ -10,16 +11,23 @@ export class ToursTableComponent {
   activeTab: string = 'year';
   thisYear: any;
   filterdTours: any = [];
+ selectedTour : any;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.filterdTours=changes['tours']?.currentValue
-     
+
     }
   }
+
   ngOnInit() {
     this.filterdTours = this.tours;
+
     this.thisYear = new Date().getFullYear();
-    
+
+  }
+  openModal(tour: any) {
+    this.selectedTour = tour;
+
   }
 
   setFilter(interval: string) {

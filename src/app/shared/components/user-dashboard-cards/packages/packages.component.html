@@ -1,6 +1,6 @@
 <div class="container">
   <section class="table-content-general">
-    <!-- <header class="flex-wrap ">            
+    <!-- <header class="flex-wrap ">
             <div class="tabs">
                 <div class="tab" (click)="setFilter('year')" [class.active]="activeTab === 'year'">This Year</div>
                 <div class="tab" (click)="setFilter('2019')" [class.active]="activeTab === '2019'">2019</div>
@@ -48,7 +48,11 @@
             </td>
             <td>
               <button
-                [routerLink]="'../../packages/packageDetails/' + package?.id + '/' + package.name"
+              type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal2"
+              (click)="openModal(package)"
+
               >
                 View details
               </button>
@@ -87,4 +91,124 @@
     </div>
   </section>
   <!-- <app-featured-slider></app-featured-slider> -->
+</div>
+
+<div
+  class="modal fade py-3 step1"
+  id="exampleModal2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style=" overflow: hidden !important;"
+>
+  <div
+    class="modal-dialog modal-dialog-centered"
+    style="margin: auto; max-width: 90% !important;"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <h4>Booking Information</h4>
+          <div class="booking-info mt-5">
+            <div class="row">
+              <div class="col-xl-4 col-m-12">
+                <div
+                  class="image-container"
+                  [style.backgroundImage]="'url(' + (selectedpackage?.tripinfo?.cover || '') + ')'"
+                  >
+                </div>
+              </div>
+
+              <div class="col-xl-8 col-m-12">
+                <div class="row">
+                  <div class="col-xl col-m-12">
+                    <h6>Title</h6>
+                    <p>{{ selectedpackage?.tripinfo?.title }}</p>
+                  </div>
+                  <div class="col-xl col-m-12">
+                    <div class="row">
+                      <div class="col">
+                        <h6>Type</h6>
+                        <p>{{ selectedpackage?.tripinfo?.type }}</p>
+                      </div>
+                      <div class="col">
+                        <h6>Place</h6>
+                        <p>{{ selectedpackage?.tripinfo?.place }}</p>
+
+                      </div>
+                      <div class="col" *ngIf="selectedpackage?.tripinfo?.boat!=null">
+                        <h6>Boat</h6>
+                        <p>{{ selectedpackage?.tripinfo?.boat }}</p>
+
+                      </div>
+
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <h6>
+                    Short overview
+                  </h6>
+                  <p>{{ selectedpackage?.tripinfo?.shortoverview }}</p>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h6>
+                      Price
+                    </h6>
+                    <p>{{ selectedpackage?.tripinfo?.totlprice }}</p>
+                  </div>
+                  <div class="col" *ngIf="selectedpackage?.tripinfo?.child !=null">
+                    <h6>
+                      Price For Child
+                    </h6>
+                    <p>{{ selectedpackage?.tripinfo?.child }}</p>
+                  </div>
+                  <div class="col">
+                    <h6>
+                      Age Of Child
+                    </h6>
+                    <p>6 To 12 Years Old </p>
+                  </div>
+                  <div class="col">
+                    <h6>
+                      Date
+                    </h6>
+                    <p>{{ selectedpackage?.tripinfo?.date }}</p>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <h6>
+                    Pick Up Location
+                  </h6>
+                  <p>{{ selectedpackage?.tripinfo?.pickuplocation }}</p>
+                </div>
+
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" data-bs-dismiss="modal" #btn>Cancel</button>
+
+      </div> -->
+    </div>
+  </div>
 </div>

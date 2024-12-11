@@ -156,14 +156,22 @@ applycoupon() {
     this.selected = !this.selected;
   }
 
+  buttonDisabled = false;
 
 
   confirmBookingByCard() {
+    if (this.buttonDisabled) {
+      return; // إذا كان الزر معطلاً، لا تفعل شيئًا
+    }
+
+    this.buttonDisabled = true;
+
     if (
       this.cardholderName == undefined || this.cardNumber == undefined ||
       this.expiryMonth == undefined || this.expirYear == undefined ||
       this.cvv == undefined
     ) {
+
       this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -173,7 +181,7 @@ applycoupon() {
       });
       return; // Stop the function if any field is missing
     } else {
-      this.spinner.show(); // Show the spinner
+       // Show the spinner
 
       const bookingOption = [];
 
@@ -213,7 +221,7 @@ applycoupon() {
       this._httpService.post(environment.marsa, 'transfer/book', model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide(); // Hide the spinner after a successful response
+            // Hide the spinner after a successful response
             console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
@@ -233,7 +241,7 @@ applycoupon() {
             }
           },
           error: (err: any) => {
-            this.spinner.hide(); // Hide the spinner in case of an error
+            this.buttonDisabled = false; // Hide the spinner in case of an error
             console.error('Error during booking:', err);
 
             const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
@@ -254,6 +262,11 @@ applycoupon() {
 
 
   confirmBooking() {
+    if (this.buttonDisabled) {
+      return; // إذا كان الزر معطلاً، لا تفعل شيئًا
+    }
+
+    this.buttonDisabled = true;
     const bookingOption = [];
     for (const key in this.selectedOption) {
       if (this.selectedOption.hasOwnProperty(key)) {
@@ -283,7 +296,6 @@ applycoupon() {
       coupon_code: this.Coupons?.[0]?.code || '', // Safely access coupon code or fallback
     };
 
-    // Show spinner before making the request
     this.spinner.show();
 
     this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
@@ -291,7 +303,6 @@ applycoupon() {
         console.log(res);
 
         // Hide spinner after receiving the response
-        this.spinner.hide();
 
         if (res && res.link) {
           window.location.href = res.link;
@@ -312,8 +323,7 @@ applycoupon() {
         console.error('Error during booking:', err);
 
         // Hide spinner if there's an error
-        this.spinner.hide();
-
+        this.buttonDisabled = false;
         Swal.fire(
           'Booking Failed',
           'An error occurred while processing your booking. Please try again later.',
