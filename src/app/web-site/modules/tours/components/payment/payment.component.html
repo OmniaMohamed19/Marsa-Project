@@ -266,8 +266,11 @@
                       <button type="submit" class="btn payment bg-transparent py-3" (click)="goToPreviousStep(stepper)">
                         Cancel
                       </button>
-                      <button (click)="goToPayment(stepper)" type="submit" class="btn payment text-white py-3">
-                        Continue
+                      <button
+                      (click)="edit?confirmEdit($event):goToPayment(stepper)"
+                         type="submit" class="btn payment text-white py-3">
+                         {{edit?'Confirm Edit':'Continue'}}
+                        <!-- Continue -->
                       </button>
                     </div>
                   </div>

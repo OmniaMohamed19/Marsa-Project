@@ -232,12 +232,11 @@
                       Cancel
                     </button>
                     <button
-                      (click)="goToPayment(stepper)"
-                      type="submit"
-                      class="btn payment text-white py-3"
-                    >
-                      Continue
-                    </button>
+                      (click)="edit?confirmEdit($event):goToPayment(stepper)"
+                         type="submit" class="btn payment text-white py-3">
+                         {{edit?'Confirm Edit':'Continue'}}
+                        <!-- Continue -->
+                      </button>
                   </div>
                 </div>
               </div>
