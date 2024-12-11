@@ -6,6 +6,7 @@ import { ToursDetailsComponent } from './components/tours-details/tours-details.
 import { CheckAvailpiltyComponent } from './components/check-availpilty/check-availpilty.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-payment.component';
+import { NotFoundComponent } from 'src/app/shared/components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -15,12 +16,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'allTours', pathMatch: 'full' },
       { path: 'allTours', component: ToursComponent },
       { path: 'details/:id/:name', component: ToursDetailsComponent },
-      { path: ':id/:slug', component: ToursDetailsComponent },
       { path: 'check', component: CheckAvailpiltyComponent },
-      //  { path: 'details/:slugUrl', component: ToursDetailsComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'confirm', component: ConfirmPaymentComponent },
-    ],
+      { path: ':id/:slug', component: ToursDetailsComponent },
+      // { path: '**', component: NotFoundComponent }
+    ]
   },
 ];
 

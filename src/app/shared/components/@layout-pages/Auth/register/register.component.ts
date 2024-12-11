@@ -164,7 +164,8 @@ export class RegisterComponent implements OnInit {
         this.codeService.setUserData(res.user_id);
       },
       error: (err) => {
-        this.toastr.error('An error occurred', '', {
+        const errorMessage = err?.error?.message || 'An error occurred'
+        this.toastr.error(errorMessage, '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
           messageClass: 'toastr_message',

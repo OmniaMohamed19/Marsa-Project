@@ -17,7 +17,7 @@ export class TransportsComponent {
   currentPage: number = 1;
   lastPage: number = 1;
   total: number = 0;
-
+  selectedtransfer:any;
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data: any) => {
       // console.log('API Response:', data);
@@ -31,7 +31,10 @@ export class TransportsComponent {
       this.cdr.markForCheck();
     });
   }
+  openModal(tour: any) {
+    this.selectedtransfer = tour;
 
+  }
   nextPage(): void {
     if (this.currentPage < this.lastPage) {
       this.loadProfiles(this.currentPage + 1);

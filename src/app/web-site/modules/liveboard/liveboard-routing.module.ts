@@ -14,9 +14,9 @@ const routes: Routes = [
       //here your components on folder components
       { path: 'allLiveboards', component: LiveboardsComponent},
       {path:'liveboardDetails/:id/:name',component:LiveboardDetailsComponent},
-      {path:':id/:slug',component:LiveboardDetailsComponent},
       {path:'liveboard-payment',component:LiveboardPaymentComponent},
       { path: 'confirm', component: ConfirmPaymentLiveabourdComponent},
+      {path:':id/:slug',component:LiveboardDetailsComponent},
 
     ]
   }

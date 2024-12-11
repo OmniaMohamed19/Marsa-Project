@@ -1,6 +1,12 @@
 .table-content-general {
   margin-top: 59px;
 }
+.horizontal-line {
+  flex: 1;
+  height: 5px;
+  background-color: #c8ddf1;
+ 
+}
 .modal-body{
   .booking-info{
     // border: 1px gray dashed;
@@ -14,6 +20,14 @@
   .image-container{
     width: 100%;
     height: 45vh;
+     border-radius: 8px;
+      background-size: cover;
+       background-position: center;
+       background-repeat: no-repeat;
+  }
+  .imageTrip-container{
+    width: 100%;
+    height: 25vh;
      border-radius: 8px;
       background-size: cover;
        background-position: center;

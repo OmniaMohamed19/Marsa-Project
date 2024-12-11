@@ -12,9 +12,9 @@ const routes: Routes = [
     children: [
       { path: 'allPackages', component: AllPackagesComponent},
       { path: 'packageDetails/:id/:name', component: PackageDetailsComponent },
-      { path: ':id/:slug', component: PackageDetailsComponent },
       { path: 'packagePayment', component: PackagePaymentComponent },
       { path: 'packageConfirm', component: PackageConfirmComponent },
+      { path: ':id/:slug', component: PackageDetailsComponent },
     ]
   }
 ];

@@ -125,6 +125,21 @@
         width: 80px;
     }
 }
+.completed{
+  color: #50CD89;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: inline-flex;
+  padding: 6px 11.5px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  background: #E8FFF3;
+  width: 80px;
+}
 .featured-heading{
     display: flex;
     justify-content: center;
