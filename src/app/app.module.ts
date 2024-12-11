@@ -41,7 +41,7 @@ import { ConnectivityNotificationComponent } from './connectivity-notification/c
         deps: [HttpClient],
       },
     }),
-    NgxSpinnerModule.forRoot({ type: 'square-jelly-box' }),
+    NgxSpinnerModule,
     BsDropdownModule.forRoot(),
     LeafletModule,
     MatDialogModule,

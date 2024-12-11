@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-terms-and-privacy',
@@ -16,9 +17,11 @@ export class TermsAndPrivacyComponent {
 
   activeSection = 'section1'; // Initialize with a default value
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private titleService: Title,) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Terms and Privacy');
+
     this.httpService
       .get(environment.marsa, 'TermsPrivacy')
       .subscribe((res: any) => {

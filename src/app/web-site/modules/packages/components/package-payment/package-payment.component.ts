@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-package-payment',
@@ -71,7 +72,9 @@ export class PackagePaymentComponent {
     private _AuthService: AuthService,
     private router: Router,
     private translate: TranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private spinner: NgxSpinnerService,
+
   ) {}
 
   ngOnInit(): void {
@@ -124,6 +127,7 @@ export class PackagePaymentComponent {
   }
   confirmEdit(event: Event) {
     if (this.customerForm.valid) {
+      this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -147,6 +151,7 @@ export class PackagePaymentComponent {
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide();
             console.log(res);
             // if (res && res.link) {
             //   window.location.href = res.link;
@@ -166,8 +171,21 @@ export class PackagePaymentComponent {
               'success'
             )
           },
-          // },
+          error: (err: any) => {
+            this.spinner.hide();
+            // localStorage.removeItem('editTour');
+            // localStorage.removeItem('queryParams');
+            console.log('Error during booking:', err.message);
+            Swal.fire(
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            ).then(()=>{
+              this.goBack();
+            })
+          },
         });
+
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
@@ -254,6 +272,7 @@ export class PackagePaymentComponent {
     console.log(this.coupon);
     // Coupon
   }
+
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
 
@@ -278,6 +297,7 @@ export class PackagePaymentComponent {
       return;
     }
     if (this.customerForm.valid) {
+      this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -303,6 +323,7 @@ export class PackagePaymentComponent {
         .post(environment.marsa, 'package/book', model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide();
             console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
@@ -314,9 +335,19 @@ export class PackagePaymentComponent {
               );
             }
           },
+          error: (err: any) => {
+            this.spinner.hide(); // Hide spinner on error
+            console.error('Error during booking:', err);
+            Swal.fire(
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            );
+          },
         });
     } else {
       this.isDisable = false;
+
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
@@ -324,6 +355,7 @@ export class PackagePaymentComponent {
 
   confirmBooking() {
     if (this.customerForm.valid) {
+      this.spinner.show();
       this.isDisable = true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
@@ -344,6 +376,7 @@ export class PackagePaymentComponent {
         .post(environment.marsa, 'package/book', model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide();
             const queryParams = {
               res: JSON.stringify(res),
               packege_id: this.model.packege_id,
@@ -358,9 +391,19 @@ export class PackagePaymentComponent {
               'success'
             );
           },
+          error: (err: any) => {
+            this.spinner.hide(); // Hide spinner on error
+            console.error('Error during booking:', err);
+            Swal.fire(
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            );
+          },
         });
     } else {
       this.isDisable = false;
+
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
@@ -423,15 +466,18 @@ export class PackagePaymentComponent {
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
+    // Allow letters (uppercase and lowercase), backspace, and space
     if (
-      (charCode > 64 && charCode < 91) ||
-      (charCode > 96 && charCode < 123) ||
-      charCode == 8
-    )
+      (charCode > 64 && charCode < 91) || // A-Z
+      (charCode > 96 && charCode < 123) || // a-z
+      charCode === 8 || // Backspace
+      charCode === 32 // Space
+    ) {
       return true;
-    else return false;
+    } else {
+      return false;
+    }
   }
-
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
     let specialKeys: Array<string> = [

@@ -1,3 +1,7 @@
+a.disabled {
+  pointer-events: none; /* تعطيل النقر */
+  opacity: 0.6; /* جعل الزر يبدو غير نشط */
+}
 
 .horizontal-line {
   flex: 1;

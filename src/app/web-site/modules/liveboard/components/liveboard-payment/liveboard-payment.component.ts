@@ -15,6 +15,7 @@ import { CabinInfoModalComponent } from '../../../../../shared/sliders/cabin-inf
 import Swal from 'sweetalert2';
 import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-liveboard-payment',
@@ -64,6 +65,8 @@ export class LiveboardPaymentComponent implements OnInit {
   edit: boolean = false;
   tripletails: any;  Bookingid:any;
   constructor(
+    private spinner: NgxSpinnerService,
+
     private location: Location,
     private _httpService: HttpService,
     private toastr: ToastrService,
@@ -306,6 +309,7 @@ export class LiveboardPaymentComponent implements OnInit {
   }
   confirmEdit(event: Event) {
     if (this.customerForm.valid) {
+      this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -348,6 +352,7 @@ export class LiveboardPaymentComponent implements OnInit {
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide();
             console.log(res);
             this._httpService
               .get(environment.marsa, 'liveboard/details/' + this.tripId)
@@ -402,6 +407,7 @@ export class LiveboardPaymentComponent implements OnInit {
           },
         });
     } else {
+      this.spinner.hide();
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
@@ -642,13 +648,17 @@ export class LiveboardPaymentComponent implements OnInit {
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
+    // Allow letters (uppercase and lowercase), backspace, and space
     if (
-      (charCode > 64 && charCode < 91) ||
-      (charCode > 96 && charCode < 123) ||
-      charCode == 8
-    )
+      (charCode > 64 && charCode < 91) || // A-Z
+      (charCode > 96 && charCode < 123) || // a-z
+      charCode === 8 || // Backspace
+      charCode === 32 // Space
+    ) {
       return true;
-    else return false;
+    } else {
+      return false;
+    }
   }
 
   public OnlyNumbers(event: any) {

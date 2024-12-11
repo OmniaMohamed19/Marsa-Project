@@ -94,11 +94,7 @@ export class HomeComponent implements OnInit {
         ]);
 
 
-          if (this.metaDetail?.slugUrl) {
-            this.router.navigate(['/', localStorage.getItem('lang'), this.metaDetail.slugUrl]);
-        } else {
-            console.error('Slug URL is missing!');
-        }
+         
 
         const canonicalURL = this.metaDetail?.canonicalurl;
         if (canonicalURL) {

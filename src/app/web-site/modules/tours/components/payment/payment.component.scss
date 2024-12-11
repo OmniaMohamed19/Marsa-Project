@@ -157,9 +157,6 @@ input {
     overflow-y: scroll;
     height: 300px;
   }
-  .country-dropdown {
-    // transform: translate(-70%, 0px) !important;
-  }
 
   .iti--allow-dropdown .iti__flag-container {
     right: inherit !important;
@@ -168,5 +165,14 @@ input {
 
   .iti__country-list {
     overflow-y: hidden;
+  }
+  .iti .selected-dial-code{
+    display: none !important;
+  }
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input{
+    font-size: 17px;
+  }
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag,  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag{
+  margin-left:1rem;
   }
 }

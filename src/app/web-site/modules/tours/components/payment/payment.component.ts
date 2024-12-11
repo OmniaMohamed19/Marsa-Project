@@ -13,6 +13,7 @@ import { MapModalComponent } from 'src/app/shared/components/@layout-pages/map-m
 import Swal from 'sweetalert2';
 import { Code } from '../../context/code.interface';
 import { Observable, map, startWith } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-payment',
@@ -67,6 +68,7 @@ export class PaymentComponent {
   isDisable: boolean = false;
   Bookingid:any;
   constructor(
+    private spinner: NgxSpinnerService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
@@ -294,6 +296,7 @@ export class PaymentComponent {
   }
   confirmEdit(event: Event) {
     if (this.customerForm.valid) {
+      this.spinner.show();
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
         parseInt(parts[2]),
@@ -355,6 +358,7 @@ export class PaymentComponent {
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide();
             console.log(res);
             // this.getTripById(this.tripId);
 
@@ -382,6 +386,7 @@ export class PaymentComponent {
             // }
           },
           error: (err: any) => {
+            this.spinner.hide();
             // localStorage.removeItem('editTour');
             // localStorage.removeItem('queryParams');
             console.log('Error during booking:', err.message);
@@ -423,6 +428,7 @@ export class PaymentComponent {
     }
     event.preventDefault();
     if (this.customerForm.valid) {
+      this.spinner.show();
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
         parseInt(parts[2]),
@@ -482,6 +488,7 @@ export class PaymentComponent {
         .post(environment.marsa, 'Activtes/book', model)
         .subscribe({
           next: (res: any) => {
+            this.spinner.hide();
             console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
@@ -504,7 +511,7 @@ export class PaymentComponent {
           error: (err: any) => {
             console.error('Error during booking:', err);
             this.isDisable = false;
-
+            this.spinner.hide();
             // Extract and display error details if available
             const errorMessage =
               err.error?.message ||
@@ -522,6 +529,8 @@ export class PaymentComponent {
     this.isDisable = true;
 
     if (this.customerForm.valid) {
+      this.spinner.show(); // Show spinner
+
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
         parseInt(parts[2]),
@@ -567,52 +576,52 @@ export class PaymentComponent {
           []
         ),
       };
-      // if (model.booking_option.length == 0) {
-      //   model.booking_option = null;
-      // }
+
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
+
       console.log(model);
 
-      this._httpService
-        .post(environment.marsa, 'Activtes/book', model)
-        .subscribe({
-          next: (res: any) => {
-            console.log(res);
-            if (res && res.link) {
-              window.location.href = res.link;
-            } else {
-              const queryParams = {
-                res: JSON.stringify(res),
-                trip_id: this.tripId,
-              };
-              this.router.navigate(
-                ['/', this.translate.currentLang, 'tours', 'confirm'],
-                { queryParams }
-              );
-              Swal.fire(
-                'Your request has been send successfully.',
-                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
-                'success'
-              );
-            }
-          },
-          error: (err: any) => {
-            console.error('Error during booking:', err);
-            Swal.fire(
-              'Booking Failed',
-              'An error occurred while processing your booking. Please try again later.',
-              'error'
+      this._httpService.post(environment.marsa, 'Activtes/book', model).subscribe({
+        next: (res: any) => {
+          this.spinner.hide(); // Hide spinner
+          console.log(res);
+          if (res && res.link) {
+            window.location.href = res.link;
+          } else {
+            const queryParams = {
+              res: JSON.stringify(res),
+              trip_id: this.tripId,
+            };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'tours', 'confirm'],
+              { queryParams }
             );
-          },
-        });
+            Swal.fire(
+              'Your request has been sent successfully.',
+              'The Boat official will contact you as soon as possible. To communicate with us, please email info@marsawaves.com.',
+              'success'
+            );
+          }
+        },
+        error: (err: any) => {
+          this.spinner.hide(); // Hide spinner on error
+          console.error('Error during booking:', err);
+          Swal.fire(
+            'Booking Failed',
+            'An error occurred while processing your booking. Please try again later.',
+            'error'
+          );
+        },
+      });
     } else {
       this.isDisable = false;
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
   }
+
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
     console.log('Pasting is not allowed!');
@@ -644,14 +653,19 @@ export class PaymentComponent {
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
+    // Allow letters (uppercase and lowercase), backspace, and space
     if (
-      (charCode > 64 && charCode < 91) ||
-      (charCode > 96 && charCode < 123) ||
-      charCode == 8
-    )
+      (charCode > 64 && charCode < 91) || // A-Z
+      (charCode > 96 && charCode < 123) || // a-z
+      charCode === 8 || // Backspace
+      charCode === 32 // Space
+    ) {
       return true;
-    else return false;
+    } else {
+      return false;
+    }
   }
+
 
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);

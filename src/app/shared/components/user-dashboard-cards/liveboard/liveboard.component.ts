@@ -11,7 +11,7 @@ export class LiveboardComponent {
   @Input() liveaboards: any;
   thisYear: any;
   filterdLiveAboard: any = [];
-
+  selectedLiveAboard : any;
   profiles: any[] = [];
   currentPage: number = 1;
   lastPage: number = 1;
@@ -20,10 +20,10 @@ export class LiveboardComponent {
 
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data:any) => {
-      // console.log('API Response:', data);
+  
       this.profiles = data.userDashboard.data;
 
-      console.log();
+  
       this.liveaboards = data.userDashboard.liveboardDetails.data; // Ensure this is correct
       console.log('liveaboards Data:', this.liveaboards);
       this.filterdLiveAboard = this.liveaboards;
@@ -38,6 +38,10 @@ export class LiveboardComponent {
     if (this.currentPage < this.lastPage) {
       this.loadProfiles(this.currentPage + 1);
     }
+  }
+  openModal(liveAboard: any) {
+    this.selectedLiveAboard = liveAboard;
+
   }
 
   prevPage(): void {
