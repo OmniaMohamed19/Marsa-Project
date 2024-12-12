@@ -107,6 +107,7 @@ export class PackageDetailsComponent {
 
   // Define selectedDateControl as a FormControl
   selectedDateControl = new FormControl('', Validators.required);
+  isTestDivScrolledIntoView: any;
 
   constructor(
     public translate: TranslateService,
@@ -148,8 +149,31 @@ export class PackageDetailsComponent {
       return words?.slice(0, 150).join(' ') + '...';
     }
   }
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
+  ngAfterViewInit() {
+     //   // Initialize the active tab on load
+    this.setupIntersectionObserver();
+  }
+
+  scrollTo(tabId: string) {
+    this.activeTabId = tabId;
+    const tabElement = document.getElementById(tabId);
+
+    if (tabElement) {
+      const elementRect = tabElement.getBoundingClientRect();
+      const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
+
+      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
+
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+      });
+    } else {
+      console.error(`Element with ID ${tabId} not found.`);
+    }
+  }
+
+  private setupIntersectionObserver() {
     const options = {
       root: null, // viewport
       rootMargin: '0px',
@@ -172,22 +196,17 @@ export class PackageDetailsComponent {
     });
   }
 
-  scrollTo(tabId: string) {
-    this.activeTabId = tabId;
-    const tabElement = document.getElementById(tabId);
+  @HostListener('window:scroll', ['$event']) isScrolledIntoView() {
+    if (this.checkAvailabilityButton) {
+      const rect =
+        this.checkAvailabilityButton.nativeElement.getBoundingClientRect();
+      const topShown = rect.top >= 0 && rect.top < window.innerHeight;
+      const bottomShown = rect.bottom > 0 && rect.bottom <= window.innerHeight;
 
-    if (tabElement) {
-      const elementRect = tabElement.getBoundingClientRect();
-      const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
+      this.isTestDivScrolledIntoView = topShown && bottomShown;
 
-      console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
-
-      window.scrollTo({
-        top: offset,
-        behavior: 'smooth',
-      });
-    } else {
-      console.error(`Element with ID ${tabId} not found.`);
+      // Set hideMobileFooter based on visibility
+      // this.hideMobileFooter = this.isTestDivScrolledIntoView;
     }
   }
 
