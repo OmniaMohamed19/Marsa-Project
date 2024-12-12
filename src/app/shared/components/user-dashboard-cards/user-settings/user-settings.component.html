@@ -95,8 +95,8 @@
           </div>
           <div *ngIf="isOpenDrop" class="dropdown-content dropdown-content-2">
             <div *ngFor="let country of countries1" (click)="selectCountryflag(country)" class="dropdown-item">
-              <img [src]="country.flagUrl" alt="{{ country.label }}" width="20" height="15" />
-              {{ country.label }}
+              <img [src]="country.image" alt="{{ country.name }}" width="20" height="15" />
+              {{ country.name }}
             </div>
           </div>
         </div>

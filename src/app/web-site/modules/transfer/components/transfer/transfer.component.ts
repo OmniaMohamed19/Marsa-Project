@@ -49,8 +49,8 @@ export class TransferComponent implements OnInit {
   filteredFromHotels: any[] = []; // Filtered hotels for the first dropdown
   filteredToOptions: any[] = []; // Filtered options for the second dropdown
   selectedStar: number = 0;
-  starNumber: any;
-  comment: any;
+  starNumber: any=null;
+  comment: any=null;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -133,12 +133,7 @@ export class TransferComponent implements OnInit {
 
   }
 
-  // removeTimeFromMinDate(): void {
-  //   this.minSelectableDate.setHours(0, 0, 0, 0);
-  // }
-  //  removeTimezone(date: Date): Date {
-  //   return new Date(date.toISOString().split('T')[0] + 'T' + date.toTimeString().split(' ')[0]);
-  // }
+
 
   onDateSelect(selectedDate: Date): void {
     this.date = this.formatDateToYYYYMMDD(selectedDate);
@@ -359,49 +354,7 @@ export class TransferComponent implements OnInit {
   loadData(): void {
     this.transferId = 1;
   }
-  // addReview(): void {
-  //   const model = {
-  //     comment: this.comment,
-  //     transfer_id: this.transferId,
-  //     rating: this.starNumber,
-  //   };
-
-  //   if (!this.isLogin) {
-  //     this.toastr.info('Please login first', '', {
-  //       disableTimeOut: false,
-  //       titleClass: 'toastr_title',
-  //       messageClass: 'toastr_message',
-  //       timeOut: 5000,
-  //       closeButton: true,
-  //     });
-  //     window.scroll(0, 0);
-  //     this.headerService.toggleDropdown();
-  //   }
-  //   else{
-
-  //     this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
-  //       next: (res: any) => {
-  //         this.toastr.success(res.message);
-  //         this.loadData();
-  //         this.starNumber = null;
-  //         this.comment = null;
-  //         this.selectedStar = 0;
-  //       },
-  //     });
-  //   }
-  //   //   if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
-
-  //   //   // } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
-  //   //   //   this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-  //   //   //     disableTimeOut: false,
-  //   //   //     titleClass: 'toastr_title',
-  //   //   //     messageClass: 'toastr_message',
-  //   //   //     timeOut: 5000,
-  //   //   //     closeButton: true,
-  //   //   //   });
-
-  //   // }
-  // }
+  
   addReview(): void {
 
     const model = {
@@ -419,7 +372,8 @@ export class TransferComponent implements OnInit {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-    } else {
+    } 
+    if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
       this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
         next: (res: any) => {
           this.toastr.success(res.message);
@@ -429,7 +383,15 @@ export class TransferComponent implements OnInit {
           this.selectedStar = 0;
         },
       });
-    }
+          } else if (this.starNumber === null || this.starNumber === 0 || this.comment === null || this.comment === '') {
+            this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
+              disableTimeOut: false,
+              titleClass: 'toastr_title',
+              messageClass: 'toastr_message',
+              timeOut: 5000,
+              closeButton: true,
+            });
+          }
   }
 
 

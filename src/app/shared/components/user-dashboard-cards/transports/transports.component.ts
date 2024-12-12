@@ -17,13 +17,13 @@ export class TransportsComponent {
   currentPage: number = 1;
   lastPage: number = 1;
   total: number = 0;
+  userdata:any;
   selectedtransfer:any;
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data: any) => {
-      // console.log('API Response:', data);
       this.profiles = data.userDashboard.data;
+      this.userdata=data.userDashboard;
       this.booking = data.userDashboard.transferDetails.data; // Ensure this is correct
-      // console.log('packages Data:', this.booking);
       this.filterdPackages = this.booking;
       this.currentPage = data.userDashboard.transferDetails.current_page;
       this.lastPage = data.userDashboard.transferDetails.last_page;
@@ -42,7 +42,6 @@ export class TransportsComponent {
   }
 
   prevPage(): void {
-    // console.log(215);
 
     if (this.currentPage > 1) {
       this.loadProfiles(this.currentPage - 1);

@@ -55,16 +55,22 @@ formData = new FormData();
   selectedLabel!: any;
   selectedImg!: any;
   countries = [
-    { label: '+20', flagUrl: '../../../../../assets/images/flags/eg.png' },
-    { label: '+1', flagUrl: '../../../../../assets/images/flags/du.webp' },
+    { name: '+20', image: '../../../../../assets/images/flags/eg.png' },
+    { name: '+1', image: '../../../../../assets/images/flags/du.webp' },
     // Add more countries as needed
   ];
-
+  countries1:any=[]
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.httpService.get(environment.marsa, 'countrycode').subscribe((res: any) => {
+      this.countries1 = res?.code;
+   
+     
+    });
+  }
 
   ngOnChanges() {
     // Initialize selectedLabel with the first country's label
@@ -79,22 +85,18 @@ formData = new FormData();
     this.dob = this.userDetails?.overviwe?.dateofbirth;
     if (this.countries.length > 0) {
       let selectedCountry = this.countries.find((item: any) => {
-        // console.log(this.userDetails);
-        // console.log(
-        //   item.label == '+' + this.userDetails?.overviwe?.countrycode
-        // );
-        return item.label == '+' + this.userDetails?.overviwe?.countrycode;
+      
+        return item.name == '+' + this.userDetails?.overviwe?.countrycode;
       });
-      // console.log(selectedCountry);
-      this.selectedLabel = selectedCountry?.label;
-      this.selectedImg = selectedCountry?.flagUrl;
+      this.selectedLabel = selectedCountry?.name;
+      this.selectedImg = selectedCountry?.image;
     }
     if (this.userDetails?.country == 'Egypt') {
-      this.selectedLabelCountry = this.countries1[0].label;
-      this.selectedImgCountry = this.countries1[0].flagUrl;
+      this.selectedLabelCountry = this.countries1[0].name;
+      this.selectedImgCountry = this.countries1[0].image;
     } else {
-      this.selectedLabelCountry = this.countries1[1].label;
-      this.selectedImgCountry = this.countries1[1].flagUrl;
+      this.selectedLabelCountry = this.countries1[1].name;
+      this.selectedImgCountry = this.countries1[1].image;
     }
     this.selectedItem = this.items[0];
   }
@@ -103,30 +105,23 @@ formData = new FormData();
   }
 
   selectCountry(country: any) {
-    this.selectedLabel = country.label;
-    this.selectedImg = country.flagUrl;
+    this.selectedLabel = country.name;
+    this.selectedImg = country.image;
     this.isOpen = true;
   }
   /**************************/
   isOpenDrop = false;
   selectedLabelCountry!: string;
   selectedImgCountry!: string;
-  countries1 = [
-    {
-      label: 'Egypt',
-      flagUrl: '../../../../../assets/images/flags/eg-circle.png',
-    },
-    { label: 'Germany', flagUrl: '../../../../../assets/images/flags/du.webp' },
-    // Add more countries as needed
-  ];
+  
 
   toggleDropdownCountry() {
     this.isOpenDrop = !this.isOpenDrop;
   }
 
   selectCountryflag(country: any) {
-    this.selectedLabelCountry = country.label;
-    this.selectedImgCountry = country.flagUrl;
+    this.selectedLabelCountry = country.name;
+    this.selectedImgCountry = country.image;
     this.isOpenDrop = true;
   }
   /*******************************/
@@ -183,7 +178,8 @@ submit(): void {
       });
     },
     (error) => {
-      this.toastr.error('Update failed', '', {
+       const errorMessage = error?.error?.message || 'Update Faild !';
+      this.toastr.error(errorMessage, '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
         messageClass: 'toastr_message',
