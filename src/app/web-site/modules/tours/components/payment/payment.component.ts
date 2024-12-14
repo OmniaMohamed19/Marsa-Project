@@ -37,7 +37,7 @@ export class PaymentComponent {
   infant: any;
   responseFromAvailableOption: any;
   time: any;
-  userData: any;
+  userData: {id?:number, name?: string; phone?: string; email?: string } = {};
   customerForm!: FormGroup;
   payment_method: any;
   activeTab: string = 'pills-one-example2';
@@ -106,9 +106,18 @@ export class PaymentComponent {
     this.activityData?.bookingOption.forEach(() =>
       this.checkboxStatus.push(false)
     );
+    if (JSON.parse(localStorage['queryParams']).BookingInfo) {
+      this.userData.name=JSON.parse(localStorage['queryParams']).BookingInfo.name||''
+      this.userData.phone=JSON.parse(localStorage['queryParams']).BookingInfo.Phone||''
+      this.userData.email=JSON.parse(localStorage['queryParams']).BookingInfo['E-mail']||''
+      this.customerForm.patchValue(this.userData);
+        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+    }
+    else{
+
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userData = JSON.parse(data); // Assigning the received object directly
+          this.userData = JSON.parse(data); // Assigning the received object directly
         this.customerForm.patchValue(this.userData);
         this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
       },
@@ -117,6 +126,7 @@ export class PaymentComponent {
         console.error('Error:', error);
       }
     );
+  }
 
     this.getNationality();
   }

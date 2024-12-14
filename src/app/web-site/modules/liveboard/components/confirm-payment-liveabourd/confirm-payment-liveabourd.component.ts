@@ -53,7 +53,9 @@ export class ConfirmPaymentLiveabourdComponent {
         const queryParams = JSON.parse(storedQueryParams);
 
         queryParams.Bookingid = this.Bookingid;
+        queryParams.BookingInfo = this.confirmRequest;
         localStorage.setItem('queryParamsliveaboard', JSON.stringify(queryParams));
+
         // Now you can access the properties of queryParams
         localStorage['editLiveaboard'] = true
         this.router.navigate(

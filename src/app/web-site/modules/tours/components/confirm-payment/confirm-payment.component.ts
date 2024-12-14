@@ -77,6 +77,7 @@ export class ConfirmPaymentComponent implements OnInit {
       if (storedQueryParams) {
         const queryParams = JSON.parse(storedQueryParams);
         queryParams.Bookingid = this.Bookingid;
+        queryParams.BookingInfo = this.confirmRequest;
         localStorage['editTour'] = true;
         localStorage.setItem('queryParams', JSON.stringify(queryParams));
         this.router.navigate(
@@ -84,7 +85,6 @@ export class ConfirmPaymentComponent implements OnInit {
           { queryParams }
         );
       }
-     
     }
   }
 }

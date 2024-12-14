@@ -26,7 +26,7 @@ export class PackagePaymentComponent {
   customerForm!: FormGroup;
   activeTab: string = 'pills-one-example2';
   payment_method: any;
-  userData: any;
+  userData: {id?:number, name?: string; phone?: string; email?: string } = {};
   canProceedToCustomerInfo: boolean = false;
   isConfirmationStepEnabled: boolean = false;
   filteredNationalities: Observable<Code[]> | undefined;
@@ -96,17 +96,28 @@ export class PackagePaymentComponent {
       this.end_date = params['end_date'];
       this.getDataById(this.model.packege_id);
     });
+    if (JSON.parse(localStorage['queryParamsPackages']).BookingInfo) {
+      this.userData.name=JSON.parse(localStorage['queryParamsPackages']).BookingInfo.name||''
+      this.userData.phone=JSON.parse(localStorage['queryParamsPackages']).BookingInfo.Phone||''
+      this.userData.email=JSON.parse(localStorage['queryParamsPackages']).BookingInfo['E-mail']||''
+      console.log(this.userData);
+
+    }
+
+    else{
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userData = JSON.parse(data);
-        this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+          this.userData = JSON.parse(data); // Assigning the received object directly
+
       },
       (error) => {
         // Handle error if needed
         console.error('Error:', error);
       }
     );
+  }
+  this.customerForm.patchValue(this.userData);
+        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
   }
   getImageName(url: string): string {
     const imageName = url?.substring(
@@ -123,6 +134,19 @@ export class PackagePaymentComponent {
       });
   }
   confirmEdit(event: Event) {
+    if (!this.showServices) {
+      this.locationValue = 'ddd';
+    }
+
+    // Update pickup_point validator based on showServices
+    if (this.showServices) {
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
+    } else {
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
     if (this.customerForm.valid) {
       this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
@@ -136,10 +160,10 @@ export class PackagePaymentComponent {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
-        card_number: this.cardNumber.toString(),
+        card_number: this.cardNumber,
       };
 
 
@@ -298,11 +322,11 @@ export class PackagePaymentComponent {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
-        cvv: this.cvv.toString(),
+        cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
 
-        card_number: this.cardNumber.toString(),
+        card_number: this.cardNumber,
       };
 
 

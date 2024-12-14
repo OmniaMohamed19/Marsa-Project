@@ -33,7 +33,6 @@ export class LiveboardPaymentComponent implements OnInit {
   customerForm!: FormGroup;
   activeTab: string = 'pills-one-example2';
   payment_method: any;
-  userData: any;
   canProceedToCustomerInfo: boolean = false;
   isConfirmationStepEnabled: boolean = false;
   schedules_id: any;
@@ -49,6 +48,7 @@ export class LiveboardPaymentComponent implements OnInit {
   expiryMonth: any;
   cardNumber: any;
   isDisable = false;
+  userData: {id?:number, name?: string; phone?: string; email?: string } = {};
 
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
@@ -108,9 +108,18 @@ export class LiveboardPaymentComponent implements OnInit {
       this.getDataById(this.tripId);
       this.getCabinBySchedulesId(this.tripId, this.schedules_id);
     });
+    if (JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo) {
+      this.userData.name=JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo.name||''
+      this.userData.phone=JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo.Phone||''
+      this.userData.email=JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo['E-mail']||''
+      this.customerForm.patchValue(this.userData);
+        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+    }
+    else{
+
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userData = JSON.parse(data);
+          this.userData = JSON.parse(data); // Assigning the received object directly
         this.customerForm.patchValue(this.userData);
         this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
       },
@@ -119,6 +128,7 @@ export class LiveboardPaymentComponent implements OnInit {
         console.error('Error:', error);
       }
     );
+  }
   }
 
   initForm() {
@@ -298,6 +308,19 @@ export class LiveboardPaymentComponent implements OnInit {
     // Coupon
   }
   confirmEdit(event: Event) {
+    if (!this.showServices) {
+      this.locationValue = 'ddd';
+    }
+
+    // Update pickup_point validator based on showServices
+    if (this.showServices) {
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
+    } else {
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
     if (this.customerForm.valid) {
       this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
