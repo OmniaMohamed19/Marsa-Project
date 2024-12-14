@@ -129,7 +129,7 @@
                 <div class="row">
 
                   <!-- <div class="d-flex justify-content-between">
-                    
+
                     <div>
                       <span *ngIf="selectedtransfer?.payment_status == 'paid'" class="completed">
                         {{ selectedtransfer?.payment_status }}</span>
@@ -137,14 +137,14 @@
                   </div> -->
                   <div class="row">
                     <div class="col-xl-6 col-12">
-                      
+
                         <h5>Trip Info</h5>
-                      
+
                     </div>
                     <div class="col-xl-6 col-12">
                       <span *ngIf="selectedtransfer?.payment_status == 'paid'" class="completed">
                         {{ selectedtransfer?.payment_status }}</span>
-                    
+
                   </div>
                   </div>
 
@@ -187,14 +187,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flight!=null">
+                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
                             <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
                           </div>
                           <div class="ms-2">
-                            <p>{{selectedtransfer?.tripinfo?.flight}}</p>
+                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
                           </div>
 
                         </div>
@@ -210,7 +210,7 @@
 
                         </div>
                       </div>
-                  
+
                     </div>
 
                     <div class="row mt-4">
@@ -236,10 +236,10 @@
 
                         </div>
                       </div>
-                  
+
                     </div>
                     <div class="row mt-4">
-                    
+
                         <div class="d-flex" *ngIf="selectedtransfer?.tripinfo?.requirements!=null">
                           <div>
                             <h6>
@@ -251,8 +251,8 @@
                           </div>
 
                       </div>
-                      
-                  
+
+
                     </div>
                   </div>
                   <div class="mt-4" *ngIf="selectedtransfer?.tripinfo?.way==2">
@@ -297,14 +297,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flight!=null">
+                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
                             <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
                           </div>
                           <div class="ms-2">
-                            <p>{{selectedtransfer?.tripinfo?.flight}}</p>
+                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
                           </div>
 
                         </div>
@@ -320,7 +320,7 @@
 
                         </div>
                       </div>
-                  
+
                     </div>
 
                     <div class="row mt-4">
@@ -346,7 +346,7 @@
 
                         </div>
                       </div>
-                  
+
                     </div>
                     <hr class="horizontal-line">
 
@@ -379,16 +379,16 @@
 
                         </div>
                       </div>
-                     
+
                     </div>
-                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flight!=null">
+                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
                             <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
                           </div>
                           <div class="ms-2">
-                            <p>{{selectedtransfer?.tripinfo?.flight}}</p>
+                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
                           </div>
 
                         </div>
@@ -404,7 +404,7 @@
 
                         </div>
                       </div>
-                  
+
                     </div>
 
                     <div class="row mt-4">
@@ -432,13 +432,13 @@
 
                         </div>
                       </div>
-                  
+
                     </div>
 
 
 
                     <div class="row mt-4">
-                    
+
                         <div class="d-flex" *ngIf="selectedtransfer?.tripinfo?.requirements!=null">
                           <div>
                             <h6>
@@ -450,8 +450,8 @@
                           </div>
 
                       </div>
-                      
-                  
+
+
                     </div>
                   </div>
 
@@ -470,7 +470,7 @@
 
 
       </div>
-     
+
     </div>
   </div>
 </div>

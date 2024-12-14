@@ -542,7 +542,7 @@
                         }}</span>
                       <!-- <span class="text-secondary"> </span> -->
                     </li>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Childern">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Childern!=null && avilableOptions?.Childern!=0 ">
                       <span class="font-weight-medium">Children </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Childern
@@ -551,7 +551,7 @@
                         avilableOptions?.TotalChildern
                         }}</span>
                     </li>
-                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Infant">
+                    <li class="d-flex justify-content-between py-2" *ngIf="avilableOptions?.Infant !=null && avilableOptions?.Infant!=0 ">
                       <span class="font-weight-medium">Infant </span>
                       <span class="text-secondary">{{
                         avilableOptions?.Infant

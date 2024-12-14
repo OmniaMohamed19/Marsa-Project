@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
       });
   }
 //   showLoginMessage(): void {
- 
+
 //     // this.dialogRef.close();
 //     this.toastr.info('Please login first ', '', {
 //       disableTimeOut: false,
@@ -78,6 +78,8 @@ export class HeaderComponent implements OnInit {
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
     { value: 'du', label: 'Deutsch', flag: 'du.webp' },
+    { value: 'itl', label: 'Italian', flag: 'du.webp' },
+    { value: 'fr', label: 'French', flag: 'du.webp' },
   ];
   registerBehavoiur: string = 'login';
   signClick: boolean = false;

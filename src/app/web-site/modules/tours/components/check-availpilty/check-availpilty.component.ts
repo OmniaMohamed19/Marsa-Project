@@ -75,6 +75,7 @@ export class CheckAvailpiltyComponent {
       this.time = this.dataCheck['time'];
       this.infant = this.dataCheck['infant'];
       this.getTripById(this.tripId);
+      console.log(this.avilableOptions);
     }
   }
 

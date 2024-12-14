@@ -142,11 +142,11 @@
                 <div class="d-flex align-items-center gap-5" *ngIf="class === 'collective'">
                   <ul class="list-unstyled price-list">
                     <li class="pt-3">Adult {{ avilableOptions?.Adult }}</li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalChildren!=='0$'">
-                      Children {{ avilableOptions?.TotalChildern=='0$'?'':avilableOptions?.Childern }}
+                    <li class="pt-3" *ngIf="avilableOptions?.Childern!=0 && avilableOptions?.Childern!=null">
+                      Children {{ avilableOptions?.Childern }}
                     </li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalInfant!=='0$'">Infant {{
-                      avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.Infant }}</li>
+                    <li class="pt-3" *ngIf="avilableOptions?.Infant!=0 && avilableOptions?.Infant!=null">
+                      Infant {{avilableOptions?.Infant }}</li>
                     <li class="pt-3">
                       {{ avilableOptions?.AddetionalCost[0]?.Exclude }}
                     </li>
