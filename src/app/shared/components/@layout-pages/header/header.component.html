@@ -133,7 +133,7 @@
                 [searchable]="false">
                 <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
                   <img [src]="'assets/images/flags/' + item.flag"
-                    [alt]="getImageName('assets/images/flags/' + item.flag)" width="20" height="15" />
+                    [alt]="item.label" width="20" height="15" />
                   {{ item.label }}
                 </ng-template>
               </ng-select>

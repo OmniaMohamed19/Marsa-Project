@@ -90,8 +90,8 @@
       <div class="col-lg-8">
         <div class="dropdown-2" tabindex="0" (click)="toggleDropdownCountry()">
           <div class="dropdown-btn-2 d-flex align-items-center gap-1">
-            <img src="{{ selectedImgCountry }}" [alt]="getImageName(selectedImgCountry)" width="20" height="20" />
-            {{ selectedLabelCountry }}
+            <img src="{{ selectedImg }}" [alt]="getImageName(selectedImgCountry)" width="20" height="20" />
+            {{ this.userDetails?.country }}
           </div>
           <div *ngIf="isOpenDrop" class="dropdown-content dropdown-content-2">
             <div *ngFor="let country of countries1" (click)="selectCountryflag(country)" class="dropdown-item">

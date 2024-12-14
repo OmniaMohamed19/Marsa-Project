@@ -54,11 +54,11 @@ formData = new FormData();
   isOpen = false;
   selectedLabel!: any;
   selectedImg!: any;
-  countries = [
-    { name: '+20', image: '../../../../../assets/images/flags/eg.png' },
-    { name: '+1', image: '../../../../../assets/images/flags/du.webp' },
-    // Add more countries as needed
-  ];
+  // countries = [
+  //   { name: '+20', image: '../../../../../assets/images/flags/eg.png' },
+  //   { name: '+1', image: '../../../../../assets/images/flags/du.webp' },
+  //   // Add more countries as needed
+  // ];
   countries1:any=[]
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
@@ -71,7 +71,7 @@ formData = new FormData();
      
     });
   }
-
+  selectedCountry:any;
   ngOnChanges() {
     // Initialize selectedLabel with the first country's label
     this.name = this.userDetails?.name;
@@ -83,21 +83,20 @@ formData = new FormData();
      console.log(this.phoneNumber);
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
-    if (this.countries.length > 0) {
-      let selectedCountry = this.countries.find((item: any) => {
+   
+    // if (this.countries1.length > 0) {
+    //    this.selectedCountry = this.countries1.find((item: any) => {
       
-        return item.name == '+' + this.userDetails?.overviwe?.countrycode;
-      });
-      this.selectedLabel = selectedCountry?.name;
-      this.selectedImg = selectedCountry?.image;
-    }
-    if (this.userDetails?.country == 'Egypt') {
-      this.selectedLabelCountry = this.countries1[0].name;
-      this.selectedImgCountry = this.countries1[0].image;
-    } else {
-      this.selectedLabelCountry = this.countries1[1].name;
-      this.selectedImgCountry = this.countries1[1].image;
-    }
+    //     return item.name == '+' + this.userDetails?.overviwe?.countrycode;
+    //   });
+    //   this.selectedLabel = this.selectedCountry?.name;
+    //   this.selectedImg = this.selectedCountry?.image;
+     
+    // }
+    if (this.userDetails?.country ==  this.selectedCountry) {
+      this.selectedLabelCountry = this.countries1.name;
+      this.selectedImgCountry = this.countries1.image;
+    } 
     this.selectedItem = this.items[0];
   }
   toggleDropdown() {
@@ -107,6 +106,7 @@ formData = new FormData();
   selectCountry(country: any) {
     this.selectedLabel = country.name;
     this.selectedImg = country.image;
+   this.selectedCountry=this.userDetails?.country;
     this.isOpen = true;
   }
   /**************************/
@@ -122,6 +122,8 @@ formData = new FormData();
   selectCountryflag(country: any) {
     this.selectedLabelCountry = country.name;
     this.selectedImgCountry = country.image;
+    this.selectedCountry=this.userDetails?.country;
+
     this.isOpenDrop = true;
   }
   /*******************************/
