@@ -295,6 +295,16 @@ export class PaymentComponent {
       });
   }
   confirmEdit(event: Event) {
+    console.log(123)
+    // Update pickup_point validator based on showServices
+    if (this.showServices) {
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
+    } else {
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    }
     if (this.customerForm.valid) {
       this.spinner.show();
       const parts = this.booking_date.split('/');
