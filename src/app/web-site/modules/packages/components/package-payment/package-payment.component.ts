@@ -84,11 +84,9 @@ export class PackagePaymentComponent {
       : false;
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
-      console.log('params', params);
       const parsedRes = JSON.parse(params['res']);
       this.Bookingid = parsedRes.Bookingid;
       this.responseFromAvailableOption = parsedRes;
-      console.log('this.responseFromDetails', this.responseFromAvailableOption);
 
       this.model.adult = params['adult'];
       this.model.booking_date = params['booking_date'];
@@ -122,7 +120,6 @@ export class PackagePaymentComponent {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.tripletails = res.tripDetails;
-        // console.log(res);
       });
   }
   confirmEdit(event: Event) {
@@ -145,17 +142,13 @@ export class PackagePaymentComponent {
         card_number: this.cardNumber.toString(),
       };
 
-      console.log(model);
 
       this._httpService
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
             this.spinner.hide();
-            console.log(res);
-            // if (res && res.link) {
-            //   window.location.href = res.link;
-            // } else {
+
             this.getTripById(this.model.packege_id);
             this.router.navigate([
               '/',
@@ -173,9 +166,7 @@ export class PackagePaymentComponent {
           },
           error: (err: any) => {
             this.spinner.hide();
-            // localStorage.removeItem('editTour');
-            // localStorage.removeItem('queryParams');
-            console.log('Error during booking:', err.message);
+
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
@@ -211,7 +202,6 @@ export class PackagePaymentComponent {
   }
 
   goToPayment(stepper: MatStepper) {
-    console.log(this.customerForm.valid);
 
     if (!this.showServices) {
       this.locationValue = 'ddd';
@@ -263,14 +253,12 @@ export class PackagePaymentComponent {
 
   applycoupon() {
     this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-      console.log(res);
       this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
       this.Total =
         this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount;
-      console.log(this.Total);
+
     });
-    console.log(this.coupon);
-    // Coupon
+
   }
 
   confirmBookingByCard(event: Event) {
@@ -317,14 +305,12 @@ export class PackagePaymentComponent {
         card_number: this.cardNumber.toString(),
       };
 
-      console.log(model);
 
       this._httpService
         .post(environment.marsa, 'package/book', model)
         .subscribe({
           next: (res: any) => {
             this.spinner.hide();
-            console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
             } else {
@@ -370,7 +356,6 @@ export class PackagePaymentComponent {
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
       };
 
-      console.log(model);
 
       this._httpService
         .post(environment.marsa, 'package/book', model)
@@ -410,7 +395,6 @@ export class PackagePaymentComponent {
   }
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    console.log('Pasting is not allowed!');
   }
   // map
   openMapModal(): void {

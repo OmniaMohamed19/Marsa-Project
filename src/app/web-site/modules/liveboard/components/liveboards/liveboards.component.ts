@@ -43,7 +43,7 @@ export class LiveboardsComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title,
     private cdr: ChangeDetectorRef
-   
+
   ) {
     if (window.screen.width < 1024) {
       this.isMobile = true;
@@ -59,7 +59,6 @@ export class LiveboardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
       if (params.place_id || params.date) {
         this.place_id = params['place_id'];
         this.start_d = params['date'];
@@ -76,7 +75,6 @@ export class LiveboardsComponent implements OnInit {
   getAllLiveboard() {
     this.httpservices.get(environment.marsa, 'liveboard').subscribe({
       next: (response: any) => {
-        console.log(response);
         this.rows = response.trips;
         this.rows.data = this.rows.data.filter(
           (trip: any) => Object.keys(trip.Schedule).length > 0
@@ -111,21 +109,18 @@ export class LiveboardsComponent implements OnInit {
   }
   onPageChange(event: any) {
     const pageNumber = event.page + 1; // PrimeNG uses 0-based index
-    // console.log('Page Changed:', pageNumber);
     this.loadPageData(pageNumber);
   }
 
   loadPageData(pageNumber: number) {
-    console.log('Fetching data for page:', pageNumber);
     const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
       this.httpservices.get(environment.marsa, 'liveboard',{ page: pageNumber }).subscribe({
         next: (response: any) => {
-          console.log(response);
           this.rows = response.trips;
           this.rows.data = this.rows.data.filter(
             (trip: any) => Object.keys(trip.Schedule).length > 0
           );
-  
+
           this.search = response.search;
           this.types = response.types;
           if (this.destination?.length == 0) {
@@ -147,13 +142,12 @@ export class LiveboardsComponent implements OnInit {
               document.getElementById('btn-' + i)?.classList.add('active-rate');
             }
           }
-  
+
           // Scroll to the top of the page after the function is executed
           window.scrollTo(0, 0);
           this.cdr.detectChanges();
         },
       });
-    // console.log('Fetching data for page:', pageNumber);
   }
 
 
@@ -173,29 +167,9 @@ export class LiveboardsComponent implements OnInit {
     if (ev.target.value) {
     this.TypeTrip = ev.target.value;
 
-      // this.httpservices.get(environment.marsa, 'liveboard').subscribe({
-      //   next: (response: any) => {
-      //     console.log(response);
-      //     this.rows = response.trips;
-      //     this.rows.data = this.rows.data.filter(
-      //       (trip: any) => Object.keys(trip.Schedule).length > 0
-      //     );
-      //     console.log(this.rows);
 
-      //     this.search = response.search;
-      //     this.types = response.types;
-      //     if (this.destination?.length == 0) {
-      //       this.getPlace();
-      //     }
-      //   },
-      // });
     }
-    // this.TypeTrip = ev.target.value;
-    // this.place_id = 'null';
-    // this.start_d = null;
-    // this.rate = null;
-    // this.min_priceChoosen = null;
-    // this.max_priceChoosen = null;
+
 
     this.filter();
   }
@@ -222,7 +196,6 @@ export class LiveboardsComponent implements OnInit {
           : this.max_price.toString(),
       })
       .subscribe((response: any) => {
-        console.log(response);
 
         this.rows = response.trips;
         // this.rows = response.trips;
@@ -230,24 +203,20 @@ export class LiveboardsComponent implements OnInit {
           (trip: any) => Object.keys(trip.Schedule).length > 0
         );
         if (this.types?.length == 0) {
-          console.log('Set tyoes');
           this.types = response.types;
           this.search = response.search;
         }
         if (this.destination?.length == 0) {
-          console.log('Set place');
           this.getPlace();
         }
       });
   }
 
   setMinPrice(event: any) {
-    // console.log(event);
     this.min_priceChoosen = event.target.value;
     this.filter();
   }
   setMaxPrice(event: any) {
-    // console.log(event);
     this.max_priceChoosen = event.target.value;
     this.filter();
   }

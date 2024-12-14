@@ -117,11 +117,9 @@ if (dateString) {
   this.returnbookingdate = '';
 }
 
-console.log(this.returnbookingdate);
 
   }
-  console.log('hiii');
-  console.log(this.total);
+
 }
 
 
@@ -132,16 +130,15 @@ getImageName(url: string): string {
 
 applycoupon() {
   this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-    console.log(res);
     this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
     if (this.Coupons.length > 0) {
       this.total =  this.total - this.Coupons[0].amount;
     } else {
       console.warn('No matching coupons found');
     }
-    console.log(this.Coupons);
+
   });
-  console.log(this.coupon);
+
 }
 
   nextStep(): void {
@@ -161,7 +158,7 @@ applycoupon() {
 
   confirmBookingByCard() {
     if (this.buttonDisabled) {
-      return; // إذا كان الزر معطلاً، لا تفعل شيئًا
+      return;
     }
 
     this.buttonDisabled = true;
@@ -222,7 +219,6 @@ applycoupon() {
         .subscribe({
           next: (res: any) => {
             // Hide the spinner after a successful response
-            console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
             } else {
@@ -262,6 +258,7 @@ applycoupon() {
 
 
   confirmBooking() {
+
     if (this.buttonDisabled) {
       return; // إذا كان الزر معطلاً، لا تفعل شيئًا
     }
@@ -300,7 +297,6 @@ applycoupon() {
 
     this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
       next: (res: any) => {
-        console.log(res);
 
         // Hide spinner after receiving the response
 
@@ -335,7 +331,6 @@ applycoupon() {
 
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    console.log('Pasting is not allowed!');
   }
   goback() {
     this.router.navigate(

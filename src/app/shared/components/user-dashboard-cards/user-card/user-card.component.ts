@@ -33,7 +33,6 @@ export class UserCardComponent {
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
       this.userDetails = data?.userDashboard;
-     console.log( this.userDetails);
       this.profiles = data.userDashboard.data;
       this.currentPage = data.userDashboard.current_page;
       this.lastPage = data.userDashboard.last_page;
@@ -48,7 +47,6 @@ export class UserCardComponent {
   }
 
   prevPage(): void {
-    // console.log(215);
 
     if (this.currentPage > 1) {
       this.loadProfiles(this.currentPage - 1);
@@ -66,7 +64,6 @@ export class UserCardComponent {
   ngOnInit() {
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-      console.log(res.userDashboard);
       this.types = res?.triptypes;
     });
   }

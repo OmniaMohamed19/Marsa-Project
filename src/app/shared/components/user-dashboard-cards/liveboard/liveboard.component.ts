@@ -20,12 +20,11 @@ export class LiveboardComponent {
 
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data:any) => {
-  
+
       this.profiles = data.userDashboard.data;
 
-  
+
       this.liveaboards = data.userDashboard.liveboardDetails.data; // Ensure this is correct
-      console.log('liveaboards Data:', this.liveaboards);
       this.filterdLiveAboard = this.liveaboards;
       this.currentPage = data.userDashboard.liveboardDetails.current_page;
       this.lastPage = data.userDashboard.liveboardDetails.last_page;
@@ -45,7 +44,7 @@ export class LiveboardComponent {
   }
 
   prevPage(): void {
-    // console.log(215);
+
 
     if (this.currentPage > 1) {
       this.loadProfiles(this.currentPage - 1);
@@ -67,7 +66,6 @@ export class LiveboardComponent {
     this.loadProfiles(this.currentPage);
     this.filterdLiveAboard = this.liveaboards;
     this.thisYear = new Date().getFullYear();
-    // console.log(this.thisYear);
   }
 
   setFilter(interval: string) {
@@ -77,12 +75,10 @@ export class LiveboardComponent {
       this.filterdLiveAboard = this.liveaboards?.filter((item: any) => {
         return item.time.substr(0, 4) == this.thisYear.toString();
       });
-      // console.log(this.filterdLiveAboard);
     } else {
       this.filterdLiveAboard = this.liveaboards?.filter((item: any) => {
         return item.time.substr(0, 4) == interval.toString();
       });
-      // console.log(this.filterdLiveAboard);
     }
   }
 }

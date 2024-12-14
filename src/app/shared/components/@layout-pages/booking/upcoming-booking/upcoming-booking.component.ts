@@ -5,6 +5,7 @@ import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -45,6 +46,7 @@ export class UpcomingBookingComponent {
   };
   BookingInfo: any;
   constructor(
+    private spinner: NgxSpinnerService,
     private httpService: HttpService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
@@ -53,7 +55,6 @@ export class UpcomingBookingComponent {
   setActiveSection(section: string) {
     this.upcoming = [];
     this.activeSection = section;
-    console.log(this.activeSection);
     if (this.activeSection == 'all') {
       this.upcoming = this.allUpcoming;
     } else {
@@ -62,12 +63,10 @@ export class UpcomingBookingComponent {
           return item;
         }
       });
-      console.log(this.upcoming);
     }
   }
 
   setReason(reason: any) {
-    console.log(reason);
     this.choosenReason = reason;
   }
 
@@ -77,16 +76,13 @@ export class UpcomingBookingComponent {
 
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.tabs = res?.triptypes;
-      // console.log(this.tabs);
       this.tabs[0].category = 'Activities';
       this.tabs[1].category = 'Liveaboard';
       this.tabs[2].category = 'Private Boats';
 
-      // console.log(this.tabs);
 
       this.upcoming = res?.userDashboard?.upcomming;
 
-      console.log(this.upcoming);
       this.allUpcoming = this.upcoming;
     });
     this._AuthService.getUserData().subscribe(
@@ -114,7 +110,6 @@ export class UpcomingBookingComponent {
   }
   setBookingId(arg0: any) {
     this.BookingInfo = arg0;
-    // this.userData = JSON.parse(this.BookingInfo); // Assigning the received object directly
     this.customerForm.patchValue(this.BookingInfo);
     this.customerForm?.get('phone')?.patchValue('+' + this.BookingInfo.phone);
   }
@@ -123,7 +118,7 @@ export class UpcomingBookingComponent {
   }
 
   cancelBooking() {
-    console.log(this.activeBooking);
+    this.spinner.show();
     this.httpService
       .post(environment.marsa, 'user/book/cancel', {
         id: this.activeBooking,
@@ -132,6 +127,7 @@ export class UpcomingBookingComponent {
       })
       .pipe(
         catchError((err) => {
+          this.spinner.hide();
           Swal.fire({
             icon: 'error',
             title: 'Failed',
@@ -144,6 +140,7 @@ export class UpcomingBookingComponent {
         finalize(() => {})
       )
       .subscribe((res: any) => {
+        this.spinner.hide();
         if (res) {
           Swal.fire({
             icon: 'success',
@@ -164,7 +161,7 @@ export class UpcomingBookingComponent {
       this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
     if (this.customerForm.valid) {
-    
+
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -182,7 +179,6 @@ export class UpcomingBookingComponent {
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
-      console.log(model);
       this.httpService
         .post(
           environment.marsa,
@@ -191,7 +187,6 @@ export class UpcomingBookingComponent {
         )
         .subscribe({
           next: (res: any) => {
-            console.log(res);
 
             Swal.fire(
               'Your request has been send successfully.',
@@ -204,7 +199,6 @@ export class UpcomingBookingComponent {
           },
           error: (err: any) => {
 
-            console.log('Error during booking:', err.message);
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
@@ -214,7 +208,6 @@ export class UpcomingBookingComponent {
           },
         });
     } else {
-      console.log(this.customerForm);
 
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
@@ -239,7 +232,6 @@ export class UpcomingBookingComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       this.latitudeValue = result.latitude;
       this.longitudeValue = result.longitude;
       this.locationValue = `(${result.longitude} - ${result.latitude})`;

@@ -11,18 +11,17 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./confirm-payment-liveabourd.component.scss']
 })
 export class ConfirmPaymentLiveabourdComponent {
-  tripId:any;
+  tripId: any;
   confirmRequest: any;
   relatedtrips: any[] = [];
-  showRelated : boolean = false;
+  showRelated: boolean = false;
   Bookingid: any;
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router,
     public translate: TranslateService,
-  )
-  {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -40,39 +39,38 @@ export class ConfirmPaymentLiveabourdComponent {
         `liveboard/details/` + activityID
       )
       .subscribe((res: any) => {
-        if(res?.Relatedtrips) {
+        if (res?.Relatedtrips) {
           this.showRelated = true;
           this.relatedtrips = res?.Relatedtrips;
         }
 
       });
   }
-  ReturnToPayment(){
+  ReturnToPayment() {
     if (typeof window !== 'undefined') {
-    const storedQueryParams = localStorage.getItem('queryParamsliveaboard');
-if (storedQueryParams) {
-    const queryParams = JSON.parse(storedQueryParams);
+      const storedQueryParams = localStorage.getItem('queryParamsliveaboard');
+      if (storedQueryParams) {
+        const queryParams = JSON.parse(storedQueryParams);
 
-    queryParams.Bookingid = this.Bookingid;        
+        queryParams.Bookingid = this.Bookingid;
         localStorage.setItem('queryParamsliveaboard', JSON.stringify(queryParams));
-    console.log(queryParams);
-    // Now you can access the properties of queryParams
-    localStorage['editLiveaboard']=true
-    this.router.navigate(
-      ['/', this.translate.currentLang, 'liveboard', 'liveboard-payment'],
-      { queryParams }
-    );
-}
+        // Now you can access the properties of queryParams
+        localStorage['editLiveaboard'] = true
+        this.router.navigate(
+          ['/', this.translate.currentLang, 'liveboard', 'liveboard-payment'],
+          { queryParams }
+        );
+      }
+    }
   }
-}
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
     dots: false,
-    autoplay:true,
-    margin:10,
+    autoplay: true,
+    margin: 10,
     navSpeed: 700,
     navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
     responsive: {

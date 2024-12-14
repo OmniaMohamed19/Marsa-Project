@@ -61,25 +61,12 @@ export class LiveabourdCardComponent {
       this.headerService.toggleDropdown();
     } else {
     if (btn.classList.contains('text-danger')) {
-      // Remove from favorites/wishlist
-      // this._httpService
-      //   .get(environment.marsa, 'Wishlist/delete/'+this.item?.id)
-      //   .subscribe({
-      //     next: (res: any) => {
-      //       console.log(res);
-      //       // console.log(event.target);
-      //       event.target.classList.add('text-danger');
-      //       event.target.classList.remove('text-black-50');
-      //     }
-        // });
+
       } else {
-        // Add to favorites/wishlist
         this._httpService
         .post(environment.marsa,'Wishlist/add', { trip_id: this.item?.id })
         .subscribe({
           next: (res: any) => {
-            console.log(res);
-            // btn.classList.add('bg-primary');
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-dark');
           }

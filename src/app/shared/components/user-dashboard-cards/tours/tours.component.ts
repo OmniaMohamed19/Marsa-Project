@@ -13,19 +13,17 @@ export class ToursComponent {
   activityTypes: any = [];
   filteredTours: any = [];
   activeSection = 'all'; // Initialize with a default value
-  
+
   profiles: any[] = [];
   currentPage: number = 1;
   lastPage: number = 1;
   total: number = 0;
 
-  
+
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
-      // console.log('API Response:', data);
       this.profiles = data.userDashboard.data;
       this.tours = data.userDashboard.ActivityDetails.data; // Ensure this is correct
-      // console.log('Tours Data:', this.tours);
       this.currentPage = data.userDashboard.ActivityDetails.current_page;
       this.lastPage = data.userDashboard.ActivityDetails.last_page;
       this.total = data.userDashboard.ActivityDetails.total;
@@ -40,7 +38,6 @@ export class ToursComponent {
   }
 
   prevPage(): void {
-    // console.log(215);
 
     if (this.currentPage > 1) {
       this.loadProfiles(this.currentPage - 1);
@@ -59,7 +56,6 @@ export class ToursComponent {
 
 
   ngOnChanges() {
-    // console.log("lsls" ,this.types);
     this.activityTypes = this.types[0].types;
   }
   setActiveSection(section: string) {

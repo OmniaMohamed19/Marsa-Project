@@ -125,7 +125,6 @@ toggleText() {
       this.tourid = localStorage.getItem('destinationId');
     this.httpService.get(environment.marsa, 'place/details/' + this.tourid).subscribe((res: any) => {
         this.placeDetails = res;
-        console.log(res);
 
         // Set the first sight as the selected one
         if (this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
@@ -264,7 +263,6 @@ toggleText() {
   }
 
   filterDuration(ev: any) {
-    console.log(ev);
     if (ev.target.value == 'all') {
       this.FilterDurationid = [];
     } else {
@@ -275,7 +273,6 @@ toggleText() {
   }
 
   filterTime(ev: any) {
-    console.log(ev.target.value);
     if (ev.target.value == 'all') {
       this.FilterTimeid = [];
     } else {

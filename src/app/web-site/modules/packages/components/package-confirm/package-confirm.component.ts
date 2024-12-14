@@ -49,7 +49,6 @@ export class PackageConfirmComponent {
       const storedQueryParams = localStorage.getItem('queryParamsPackages');
       if (storedQueryParams) {
           const queryParams = JSON.parse(storedQueryParams);
-          console.log(queryParams);
           queryParams.Bookingid = this.Bookingid;
           // Now you can access the properties of queryParams
           localStorage['editPackage']=true

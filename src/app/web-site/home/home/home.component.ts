@@ -49,7 +49,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
-        console.log(res);
         this.coverImages = res?.homecover || [];
         this.hometext = res?.hometext;
 
@@ -73,8 +72,6 @@ export class HomeComponent implements OnInit {
           const pElement = doc.querySelector('p');
           this.pText = pElement ? pElement.textContent : null;
 
-          console.log('h1:', this.h1Text);
-          console.log('p:', this.pText);
         }
       },
       (err) => {
@@ -94,7 +91,7 @@ export class HomeComponent implements OnInit {
         ]);
 
 
-         
+
 
         const canonicalURL = this.metaDetail?.canonicalurl;
         if (canonicalURL) {

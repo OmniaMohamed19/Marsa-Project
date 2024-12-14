@@ -89,13 +89,9 @@ export class PaymentComponent {
       const trip_id = params['tripId'];
       this.tripId = trip_id;
       this.Bookingid =params.Bookingid;
-      console.log(params);
 
       this.avilableOptions = parsedRes;
-      // console.log(this.avilableOptions);
       const addetionalCost = this.avilableOptions?.AddetionalCost;
-      // const exclude = addetionalCost?.Exclude;
-      console.log(addetionalCost);
 
       this.Total = this.avilableOptions?.TotlaPrice;
       this.booking_date = params['booking_date'];
@@ -126,12 +122,10 @@ export class PaymentComponent {
   }
   applycoupon() {
     this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-      console.log(res);
+
       this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
       this.Total = this.Total - this.Coupons[0].amount;
-      console.log(this.Coupons);
     });
-    console.log(this.coupon);
     // Coupon
   }
   toggleTab(tabId: string, paymentMethod: string) {
@@ -237,13 +231,11 @@ export class PaymentComponent {
       .subscribe({
         next: (res: any) => {
           this.responseFromAvailableOption = res;
-          console.log(res);
         },
       });
   }
 
   goToPayment(stepper: MatStepper) {
-    console.log(this.customerForm.valid);
 
     if (!this.showServices) {
       this.locationValue = 'ddd';
@@ -347,33 +339,16 @@ export class PaymentComponent {
           []
         ),
       };
-      // if (model.booking_option.length == 0) {
-      //   model.booking_option = null;
-      // }
+
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
-      console.log(model);
       this._httpService
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
             this.spinner.hide();
-            console.log(res);
-            // this.getTripById(this.tripId);
 
-
-            // if (res && res.link) {
-            //   window.location.href = res.link;
-            // } else {
-            //   const queryParams = {
-            //     res: JSON.stringify(res),
-            //     trip_id: this.tripId,
-            //   };
-            //   this.router.navigate(
-            //     ['/', this.translate.currentLang, 'tours', 'confirm'],
-            //     { queryParams }
-            //   );
             Swal.fire(
               'Your request has been send successfully.',
               'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
@@ -387,9 +362,7 @@ export class PaymentComponent {
           },
           error: (err: any) => {
             this.spinner.hide();
-            // localStorage.removeItem('editTour');
-            // localStorage.removeItem('queryParams');
-            console.log('Error during booking:', err.message);
+
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
@@ -482,14 +455,12 @@ export class PaymentComponent {
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
-      console.log(model);
 
       this._httpService
         .post(environment.marsa, 'Activtes/book', model)
         .subscribe({
           next: (res: any) => {
             this.spinner.hide();
-            console.log(res);
             if (res && res.link) {
               window.location.href = res.link;
             } else {
@@ -581,12 +552,10 @@ export class PaymentComponent {
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
 
-      console.log(model);
 
       this._httpService.post(environment.marsa, 'Activtes/book', model).subscribe({
         next: (res: any) => {
           this.spinner.hide(); // Hide spinner
-          console.log(res);
           if (res && res.link) {
             window.location.href = res.link;
           } else {
@@ -624,7 +593,6 @@ export class PaymentComponent {
 
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    console.log('Pasting is not allowed!');
   }
 
   // map
@@ -638,7 +606,6 @@ export class PaymentComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       this.latitudeValue = result.latitude;
       this.longitudeValue = result.longitude;
       this.locationValue = `(${result.longitude} - ${result.latitude})`;

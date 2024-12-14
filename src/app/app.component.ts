@@ -11,7 +11,8 @@ import { SEOService } from './shared/services/seo.service';
 })
 export class AppComponent implements OnInit {
   metaDetail: any;
-
+sitemap:string='';
+robots:any;
   constructor(
     private langServ: LanguageService,
     private authService: AuthService,
@@ -31,11 +32,17 @@ export class AppComponent implements OnInit {
       }
     }
 
-
     this.authService.autoAuth();
+    this.seoService.getSEOData().subscribe((data) => {
+      this.metaDetail = data?.seo;
+      this.sitemap=this.metaDetail.sitemap;
+      this.robots=this.metaDetail?.robots
 
-    // استدعاء بيانات الـ SEO من الباك اند
-   
+      console.log(this.sitemap);
+      console.log(this.robots);
+    });
+
+
   }
   imageUrl: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png';
 

@@ -63,28 +63,22 @@ export class SearchComponent {
   ) {}
   ngOnInit() {
     this.rout.queryParams.subscribe((params: any) => {
-      console.log(params);
       this.id = params?.id;
       this.httpService
         .get(environment.marsa, 'place/details/' + this.id)
         .subscribe((res) => {
-          console.log(res);
           this.placeDetails = res;
-          console.log("placeDetails" +this.placeDetails);
           this.AllActivities = this.placeDetails?.alltrips;
           this.allTripsFiltered = this.placeDetails.alltrips.filter(
             (item: any) => {
-              console.log(item.place);
               if (item.place == this.placeDetails.places.name) {
                 return item;
               }
             }
           );
-          console.log(this.allTripsFiltered);
           this.httpService
             .get(environment.marsa, 'faq')
             .subscribe((result: any) => {
-              console.log(result);
               this.questions = result.FAQ;
             });
         });
@@ -101,7 +95,6 @@ export class SearchComponent {
   }
 
   filterDuration(ev: any) {
-    console.log(ev);
     if (ev.target.value == 'all') {
       this.FilterDurationid = [];
     } else {
@@ -112,7 +105,6 @@ export class SearchComponent {
   }
 
   filterTime(ev: any) {
-    console.log(ev.target.value);
     if (ev.target.value == 'all') {
       this.FilterTimeid = [];
     } else {
@@ -137,7 +129,6 @@ export class SearchComponent {
   onImgError(event: any) {
     event.target.src =
       '../../../../../../assets/images/sharm-elnaga-beach 1.png';
-    //Do other stuff with the event.target
   }
 
   setActiveSight(item: any) {

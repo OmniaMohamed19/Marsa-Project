@@ -18,10 +18,8 @@ export class PackagesComponent {
   selectedpackage:any;
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data: any) => {
-      // console.log('API Response:', data);
       this.profiles = data.userDashboard.data;
       this.packages = data.userDashboard.packageDetails.data; // Ensure this is correct
-      // console.log('packages Data:', this.packages);
       this.filterdPackages = this.packages;
       this.currentPage = data.userDashboard.packageDetails.current_page;
       this.lastPage = data.userDashboard.packageDetails.last_page;
@@ -37,12 +35,11 @@ export class PackagesComponent {
   }
   openModal(packagee: any) {
     this.selectedpackage = packagee;
-   
+
   }
 
 
   prevPage(): void {
-    // console.log(215);
 
     if (this.currentPage > 1) {
       this.loadProfiles(this.currentPage - 1);
@@ -61,7 +58,6 @@ export class PackagesComponent {
     this.loadProfiles(this.currentPage);
     this.filterdPackages = this.packages;
     this.thisYear = new Date().getFullYear();
-    // console.log(this.thisYear);
   }
 
   setFilter(interval: string) {
@@ -71,12 +67,10 @@ export class PackagesComponent {
       this.filterdPackages = this.packages?.filter((item: any) => {
         return item.time.substr(0, 4) == this.thisYear.toString();
       });
-      // console.log(this.filterdPackages);
     } else {
       this.filterdPackages = this.packages?.filter((item: any) => {
         return item.time.substr(0, 4) == interval.toString();
       });
-      // console.log(this.filterdPackages);
     }
   }
 }

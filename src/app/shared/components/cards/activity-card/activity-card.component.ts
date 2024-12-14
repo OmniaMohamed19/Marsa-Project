@@ -37,9 +37,7 @@ export class ActivityCardComponent {
     }
   }
 
-  ngOnChanges() {
-    // console.log(this.item);
-  }
+
   addtoFavorits(btn: any,event:any) {
     if (!this.isLogin) {
       this.toastr.info('Please login first', '', {
@@ -61,11 +59,8 @@ export class ActivityCardComponent {
         .post(environment.marsa,'Wishlist/add', { trip_id: this.item?.id })
         .subscribe({
           next: (res: any) => {
-            console.log(res);
-            // btn.classList.add('bg-primary');
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
-            // event.target.classList.remove('text-dark');
           }
         });
     }

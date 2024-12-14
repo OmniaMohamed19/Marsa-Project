@@ -156,12 +156,9 @@ export class LiveboardDetailsComponent {
   }
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
-    console.log(this.happyGustImages);
     this.desplayedGustImages = Array.from(
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
-    console.log(this.desplayedGustImages);
-    console.log(index);
 
     this.activeIndex = index;
     this.displayCustom = true;
@@ -224,29 +221,7 @@ export class LiveboardDetailsComponent {
     }
   }
 
-  // @HostListener('window:scroll', [])
-  // onWindowScroll() {
-  //     const options = {
-  //         root: null, // viewport
-  //         rootMargin: '0px',
-  //         threshold: .7, // element should be at least 70% visible
-  //     };
 
-  //     const observer = new IntersectionObserver((entries) => {
-  //         const visibleEntries = entries.filter(entry => entry.isIntersecting);
-  // // console.log(visibleEntries);
-
-  //         if (visibleEntries.length > 0) {
-  //             // Set activeTabId to the id of the first visible element
-  //             this.activeTabId = visibleEntries[0].target.id;
-  //         }
-  //     }, options);
-
-  //     const tabs = document.querySelectorAll('.tab-pane');
-  //     tabs.forEach((tab) => {
-  //         observer.observe(tab);
-  //     });
-  // }
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -256,7 +231,6 @@ export class LiveboardDetailsComponent {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
@@ -276,7 +250,6 @@ export class LiveboardDetailsComponent {
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      // console.log(visibleEntries);
 
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
@@ -297,10 +270,7 @@ export class LiveboardDetailsComponent {
 }
   scrollToselectCabinButton() {
     this.bookNow();
-    // this.selectCabinButton.nativeElement.scrollIntoView({
-    //   behavior: 'smooth',
-    //   block: 'start',
-    // });
+
   }
 
   scrollToCabin() {
@@ -314,17 +284,7 @@ export class LiveboardDetailsComponent {
       title: this.liveabourdData?.Name,
       url: this.router.url,
     });
-    // const shareUrl = `${window.location}`;
 
-    // // Example for sharing via social media
-    // const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-    // const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`;
-
-    // // Open share options (this can be customized as needed)
-    // console.log(facebookShareUrl);
-
-    // window.open(facebookShareUrl, '_blank');
-    // window.open(twitterShareUrl, '_blank');
   }
   getOverviewItems(overview: string): string[] {
     return overview.split('\n');
@@ -336,7 +296,6 @@ export class LiveboardDetailsComponent {
         this.liveabourdData = res?.tripDetails;
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            console.log(params);
 
             this.router.navigate(['/',localStorage.getItem('lang'),'liveboard',params.id,res?.tripDetails?.slugUrl]);
           }
@@ -347,8 +306,7 @@ export class LiveboardDetailsComponent {
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.liveabourdData.Map
         );
-        console.log(this.liveabourdData.Schedules);
-        console.log(typeof this.liveabourdData.Schedules);
+
 
         this.images = res?.tripDetails?.Images;
         this.cover = res?.tripDetails?.Cover;
@@ -357,8 +315,7 @@ export class LiveboardDetailsComponent {
           res?.tripDetails?.Video
         );
         this.happyGustImages = this.liveabourdData?.HappyGust;
-        console.log(this.liveabourdData);
-        console.log(this.liveabourdData?.Terms);
+
 
         this.remainingImages = this.liveabourdData?.HappyGust.slice(1);
         const boat = this.liveabourdData?.Boats.find(
@@ -370,7 +327,6 @@ export class LiveboardDetailsComponent {
         if (res?.realatedtrip) {
           this.relatedtrips = res?.realatedtrip?.data;
           this.showRelatedtrip = true;
-          console.log(this.relatedtrips);
         }
         this.flattenedCabin = this.liveabourdData.cabin.reduce(
           (acc: any[], curr: any[]) => {
@@ -378,7 +334,6 @@ export class LiveboardDetailsComponent {
           },
           []
         );
-        console.log(this.flattenedCabin);
 
         this.isSingleImage = this.images.length === 1;
         if (this.liveabourdData) {
@@ -435,15 +390,8 @@ export class LiveboardDetailsComponent {
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-    // const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-    //   width: '100%',
-    // });
-    console.log(this.coverAndImages);
 
-    console.log(this.boatImages);
-    // console.log(boat.images);
 
-    // dialogRef.componentInstance.images = boatImages;
   }
 
   openCabinSliderModal(cabin: any): void {
@@ -508,7 +456,6 @@ export class LiveboardDetailsComponent {
 
   getValue(key: any): any {
     if (this.selectedDateControl && this.selectedDateControl.value) {
-      console.log(this.selectedDateControl);
 
       return this.selectedDateControl.value[key] || 0;
     }
@@ -522,7 +469,6 @@ export class LiveboardDetailsComponent {
   }
 
   onValueChange(event: any) {
-    console.log(event.id);
     this.selectedSchedule = event.id;
   }
 
@@ -564,11 +510,9 @@ export class LiveboardDetailsComponent {
           trip_id: this.liveabourdData.id,
           class: 'collective',
           adult: this.persons,
-          // schedules_id: this.selectedDateControl.value,
           schedules_id: this.schedules_id,
         };
-        // let x=this.selectedDateControl.value
-        // console.log(this.schedules_id);
+
 
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)
@@ -616,7 +560,6 @@ export class LiveboardDetailsComponent {
         })
         .subscribe({
           next: (res: any) => {
-            console.log(res);
 
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');

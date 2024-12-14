@@ -48,7 +48,6 @@ export class BoatComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
       if (params.place_id || params.date) {
         this.place_id = params['place_id'];
         this.start_d = params['date'];
@@ -97,12 +96,10 @@ export class BoatComponent {
 
   onPageChange(event: any) {
     const pageNumber = event.page + 1; // PrimeNG uses 0-based index
-    // console.log('Page Changed:', pageNumber);
     this.loadPageData(pageNumber);
   }
 
   loadPageData(pageNumber: number) {
-    console.log('Fetching data for page:', pageNumber);
     const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
       this._httpService.get(environment.marsa, 'Boats',{ page: pageNumber }).subscribe({
         next: (res: any) => {
@@ -114,7 +111,6 @@ export class BoatComponent {
         this.cdr.detectChanges();
       },
     });
-    // console.log('Fetching data for page:', pageNumber);
   }
   getPlace() {
     this._httpService.get('marsa', 'place').subscribe({
@@ -125,12 +121,10 @@ export class BoatComponent {
   }
 
   setMinPrice(event: any) {
-    console.log(event);
     this.min_priceChoosen = event.target.value;
     this.filter();
   }
   setMaxPrice(event: any) {
-    console.log(event);
     this.max_priceChoosen = event.target.value;
     this.filter();
   }

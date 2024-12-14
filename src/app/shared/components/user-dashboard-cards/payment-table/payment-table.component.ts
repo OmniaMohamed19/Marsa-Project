@@ -10,7 +10,6 @@ export class PaymentTableComponent {
   @Input() billings: any;
   setFilter(interval: string) {
     // Implement your logic to filter the table based on the selected interval
-    console.log('Filtering table by:', interval);
     this.activeTab = interval;
   }
 }

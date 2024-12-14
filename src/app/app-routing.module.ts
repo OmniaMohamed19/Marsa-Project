@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { LangValidatorGuard } from './core/guards/lang-validator.guard';
+import { RobotsTxtGuard } from './core/guards/robots-txt-guard.guard';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
       localStorage.getItem('lang')! ? localStorage.getItem('lang')! : 'en',
     pathMatch: 'full',
   },
+
+  { path: 'robots.txt', redirectTo: '/robots.txt' },
+
+
   { path: '**', component: NotFoundComponent },
 ];
 

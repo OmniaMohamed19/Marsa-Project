@@ -55,7 +55,7 @@ export class NewPasswordComponent {
         password: this.newPassword.value['password'],
       })
       .subscribe((res: any) => {
-        console.log(res);
+        
         if (!res.result) {
           this.toastr.error(res.message);
         } else {

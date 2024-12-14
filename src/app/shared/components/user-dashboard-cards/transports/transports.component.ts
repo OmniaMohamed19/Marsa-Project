@@ -60,7 +60,6 @@ export class TransportsComponent {
     this.loadProfiles(this.currentPage);
     this.filterdPackages = this.booking;
     this.thisYear = new Date().getFullYear();
-    // console.log(this.thisYear);
   }
 
   setFilter(interval: string) {
@@ -70,12 +69,10 @@ export class TransportsComponent {
       this.filterdPackages = this.booking?.filter((item: any) => {
         return item.time.substr(0, 4) == this.thisYear.toString();
       });
-      // console.log(this.filterdPackages);
     } else {
       this.filterdPackages = this.booking?.filter((item: any) => {
         return item.time.substr(0, 4) == interval.toString();
       });
-      // console.log(this.filterdPackages);
     }
   }
 }

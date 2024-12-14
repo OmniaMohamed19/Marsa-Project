@@ -41,7 +41,6 @@ export class CodeSignComponent implements OnInit {
     if (typeof window !== 'undefined') {
       this.email=localStorage.getItem('userEmail');
     }
-console.log(this.email);
   }
 
   closeForm() {
@@ -55,7 +54,7 @@ console.log(this.email);
       let model: any = {
         user_id: userId,
       };
-      console.log();
+     
       if (this.newPass) {
         model['code'] = Number(mergedCode);
         this._AuthService.confirmReset(model);

@@ -16,11 +16,7 @@ export class PackageSliderModalComponent {
     @Inject(MAT_DIALOG_DATA) public imageData: any,
     public translate: TranslateService
 
-  ) { 
-    console.log('Received packages:', this.packages);
-
-  }
-
+  ) {}
   closeModal(): void {
     this.dialogRef.close(); // Close the modal
   }

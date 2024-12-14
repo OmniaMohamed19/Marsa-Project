@@ -24,7 +24,6 @@ export class WishListComponent {
     this.httpService
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {
-        console.log(res);
 
         this.wishlist = res.wishlist;
         this.result = res.categorys.map((category: { id: number; name: string }) => {
@@ -57,7 +56,6 @@ export class WishListComponent {
 
 
 
-        console.log(this.result);
 
         if (this.wishlist.length > 0) {
           this.whishlistEmpty = false;
@@ -84,7 +82,7 @@ export class WishListComponent {
 
   }
   RemoveFromWishlist(id:any){
-    console.log(id);
+
 
     this.httpService
         .get(environment.marsa,'Wishlist/delete/'+id)
@@ -93,7 +91,6 @@ export class WishListComponent {
             this.httpService
       .get(environment.marsa, 'Wishlist')
       .subscribe((res: any) => {
-        console.log(res);
 
         this.wishlist = res.wishlist;
         this.result = res.categorys.map((category:any) => ({
@@ -102,7 +99,6 @@ export class WishListComponent {
           trips: res.wishlist.filter((wish :any) => wish.trip.some((trip:any) => trip.category_id === category.id))
         }));
 
-        console.log(this.result);
 
         if (this.wishlist.length > 0) {
           this.whishlistEmpty = false;

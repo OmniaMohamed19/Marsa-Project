@@ -43,11 +43,9 @@ export class SEOService {
   }
 
   setRobotsURL(robotsUrl: any): void {
-    console.log('Robots URL:', robotsUrl);
   }
 
   setSitemapURL(sitemapUrl: any): void {
-    console.log('Sitemap URL:', sitemapUrl);
   }
 
 }

@@ -44,7 +44,6 @@ export class FooterComponent {
       .get(environment.marsa, 'Background')
       .subscribe((res: any) => {
         this.social = res?.social;
-        console.log(res);
         const youtubeUrl = res.social["youtube "];
         this.youtubeLink=youtubeUrl;
       });

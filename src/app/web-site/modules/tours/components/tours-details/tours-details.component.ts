@@ -180,7 +180,6 @@ export class ToursDetailsComponent implements AfterViewInit {
   getDisplayedDescription(): string {
     const words = this.activityData?.Description?.split(' ');
     if (this.showFullDescription || words?.length <= 150) {
-      // console.log(this.activityData?.Description?.length)
       return this.activityData?.Description;
     } else {
       return words?.slice(0, 150).join(' ') + '...';
@@ -209,7 +208,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
@@ -229,7 +227,6 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      // console.log(visibleEntries);
 
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
@@ -260,12 +257,10 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
-    // console.log(this.happyGustImages);
     this.desplayedGustImages = Array.from(
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
-    // console.log(this.desplayedGustImages);
-    // console.log(index);
+
 
     this.activeIndex = index;
     this.displayCustom = true;
@@ -297,7 +292,6 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     this.activatedRoute.params.subscribe((params: any) => {
       this.activityID = params.id;
-      console.log(params);
 
       this.loadData();
       this.getAbout();
@@ -361,11 +355,10 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
     }
   }
-  
+
   decrementAdult() {
     const minAdults = this.getMinValue('Adultmin');
-    console.log(minAdults);
-    
+
     if (this.adults > minAdults) {
       this.adults--;
     } else {
@@ -382,7 +375,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
     }
   }
-  
+
   incrementChildren() {
     const maxChildren = this.getMaxValue('childernMax');
     if (this.children < maxChildren) {
@@ -401,7 +394,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
     }
   }
-  
+
   decrementChildren() {
     const minChildren = this.getMinValue('childernmin');
     if (this.children > minChildren) {
@@ -420,7 +413,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
     }
   }
-  
+
   incrementInfant() {
     const maxInfants = this.getMaxValue('infantMax');
     if (this.infant < maxInfants) {
@@ -439,7 +432,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
     }
   }
-  
+
   decrementInfant() {
     const minInfants = this.getMinValue('infantmin');
     if (this.infant > minInfants) {
@@ -458,7 +451,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
     }
   }
-  
+
 
   toggle(): void {
     this.isShow = !this.isShow;
@@ -486,7 +479,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
-        console.log(this.activityData);
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
             this.router.navigate([
@@ -505,8 +497,7 @@ export class ToursDetailsComponent implements AfterViewInit {
           this.activityData.Map
         );
 
-        // this.googleIframe=this.activityData.PlaceOnMap
-        // console.log(this.activityData.TypeOfRepeat);
+
 
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
@@ -523,10 +514,9 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
         this.relatedtrips = res.Relatedtrips;
         this.happyGustImages = this.activityData?.HappyGust;
-        console.log(typeof this.happyGustImages);
 
         this.remainingImages = this.activityData?.HappyGust.slice(1);
-        // console.log(this.remainingImages);
+
         const boat = this.activityData?.Boats.find(
           (boat: any) => boat.id === activityID
         );
@@ -604,15 +594,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-    // const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-    //   width: '100%',
-    // });
-    // console.log(this.coverAndImages);
 
-    // console.log(this.boatImages);
-    console.log(boat.images);
-
-    // dialogRef.componentInstance.images = boatImages;
   }
 
   openVideoBoat(): void {
@@ -762,8 +744,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     // Function to check if the selected date is after a certain cutoff
     const isDateAfterCutoff = (selectedDate: Date): boolean => {
-      console.log(selectedDate);
-      console.log(selectedDate > new Date(now.getTime() + cutoffTimeInMillis));
+
 
       return selectedDate > new Date(now.getTime() + cutoffTimeInMillis);
     };
@@ -775,7 +756,6 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     if (this.activityData?.TypeOfRepeat === 'w' || this.activityData?.TypeOfRepeat === 'd') {
       if (selectedDate && isDateAfterCutoff(selectedDate)) {
-        console.log('The selected date is valid.');
       } else {
         this.showWarning(cutoffTimeInMillis);
         return;
@@ -784,7 +764,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       // Parse the selected date and time from the inputs
       const selectedDateValue = this.selectedDateControl.value; // Assume format "YYYY-MM-DD"
       const selectedTimeValue = this.selectedTimeControl.value; // Assume format "HH:mm AM/PM"
-      console.log(selectedTimeValue);
 
       // Combine selected date and time into a single Date object
       let selectedDateTime: Date | null = this.getSelectedDateTime(
@@ -793,7 +772,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       );
 
       if (selectedDateTime && isDateAfterCutoff(selectedDateTime)) {
-        console.log('The selected date and time are valid.');
       } else {
         this.showWarning(cutoffTimeInMillis);
         return;
@@ -910,13 +888,13 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
       { type: 'children', min: this.getMinValue('childernMin') },
       { type: 'infant', min: this.getMinValue('infantMin') },
     ];
-  
+
     const participantCounts: Record<ParticipantType, number> = {
       adults: this.adults,
       children: this.children,
       infant: this.infant,
     };
-  
+
     for (const { type, min } of validationMessages) {
       if (participantCounts[type as ParticipantType] < min) {
         this.toastr.info(
@@ -935,7 +913,7 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
     }
     return true;
   }
-  
+
   private getMinValue(property: string): number {
     let value = 0;
     if (this.selectedOption === 'Collective') {
@@ -945,7 +923,7 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
     }
     return value;
   }
-  
+
 
   private createBookingModel(avilable_option_id: number) {
     return {
@@ -972,74 +950,7 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
     };
   }
 
-  //   bookNow(available_option_id: number) {
-  //     if (!this.availabilityChecked) {
-  //         this.toastr.info('Please Choose a date and click on "Check availability" first.');
-  //         this.scrollToCheckAvailabilityButton();
-  //         this.selectedDateControl.markAsTouched();
-  //         return;
-  //     }
 
-  //     // If the clicked option is the same as the previously booked option, toggle it
-  //     if (this.bookedOptionId === available_option_id) {
-  //         this.showBookingOption = !this.showBookingOption; // This will close the currently opened option
-  //     } else {
-  //         // If a different option is clicked, open the new booking option
-  //         this.bookedOptionId = available_option_id; // Update to the new option
-  //         this.showBookingOption = true; // Open the booking details
-
-  //         const model = {
-  //             trip_id: this.activityData.id,
-  //             available_option_id: available_option_id,
-  //             class: '',
-  //             adult: this.adults,
-  //             children: this.children,
-  //             infant: this.infant,
-  //         };
-
-  //         if (this.selectedOption === 'Collective') {
-  //             model.class = 'collective';
-  //         } else if (this.selectedOption === 'Private') {
-  //             model.class = 'private';
-  //         }
-
-  //         // Make the API call to fetch booking details
-  //         this._httpService
-  //               .post(environment.marsa, 'Activtes/AvailableOption/price', model)
-  //               .subscribe({
-  //                 next: (res: any) => {
-  //                   this.dataCheck = {
-  //                     res: JSON.stringify(res),
-  //                     trip_id: this.activityData.id,
-  //                     booking_date: this.formattedDate,
-  //                     class: model.class,
-  //                     time: this.selectedTime,
-  //                     avilable_option_id: available_option_id,
-  //                     adult: this.adults,
-  //                     childern: this.children,
-  //                     infant: this.infant,
-  //                   };
-  //                   // const dialogRef = this.dialog.open(CheckAvailpiltyComponent, {
-  //                   //   width: '80%',
-  //                   //   data: {
-  //                   //     res: JSON.stringify(res),
-  //                   //     trip_id: this.activityData.id,
-  //                   //     booking_date: this.formattedDate,
-  //                   //     class: model.class,
-  //                   //     time: this.selectedTime,
-  //                   //     avilable_option_id: avilable_option_id,
-  //                   //     adult: this.adults,
-  //                   //     childern: this.children,
-  //                   //     infant: this.infant,
-  //                   //   },
-  //                   // });
-  //                   // dialogRef.afterClosed().subscribe(() => {
-  //                   //   window.scroll(0, 0); // Scroll after the dialog is fully closed
-  //                   // });
-  //                 },
-  //               });
-  //     }
-  // }
 
   showImage(img: string) {
     this.coverAndImages = [{ value: img }];
@@ -1151,8 +1062,7 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
         })
         .subscribe({
           next: (res: any) => {
-            // console.log(res);
-            // btn.classList.add('bg-primary');
+           
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
           },
