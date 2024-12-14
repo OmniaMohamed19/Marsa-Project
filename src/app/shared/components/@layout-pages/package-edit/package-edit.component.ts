@@ -60,9 +60,7 @@ export class PackageEditComponent implements OnInit {
     this.httpService.get(environment.marsa, 'package').subscribe({
       next: (res: any) => {
         this.packages = res.packages;
-        console.log(res);
 
-        // console.log('package?.Trips.slice(0, 3)' , this.packages?.Trips.slice(0, 3));
       },
       error: (error: any) => {
         console.error('Error fetching data:', error);

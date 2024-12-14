@@ -60,9 +60,9 @@ export class BlogComponent implements OnInit {
     this.pages = [];
     this._httpService.get('marsa', `blog`, { page: this.page }).subscribe({
       next: (response: any) => {
-        console.log(response);
+
         this.blogs = response?.Blogs?.data;
-        console.log( this.blogs);
+       
         this.cover = response?.cover;
         this.filteredBlogs = this.blogs;
         this.allCategories = response?.allCategory;

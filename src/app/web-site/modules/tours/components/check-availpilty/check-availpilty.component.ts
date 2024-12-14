@@ -44,18 +44,7 @@ export class CheckAvailpiltyComponent {
   ) {}
 
   ngOnInit(): void {
-    // const parsedRes = JSON.parse(this.data['res']);
-    // const trip_id = this.data['trip_id'];
-    // this.tripId = trip_id;
-    // this.avilableOptions = parsedRes;
-    // this.booking_date = this.data['booking_date'];
-    // this.class = this.data['class'];
-    // this.avilable_option_id = Number(this.data['avilable_option_id']);
-    // this.adult = this.data['adult'];
-    // this.childern = this.data['childern'];
-    // this.time = this.data['time'];
-    // this.infant = this.data['infant'];
-    // this.getTripById(this.tripId);
+   
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
@@ -85,10 +74,6 @@ export class CheckAvailpiltyComponent {
       );
     }
     return -1; // Return -1 if the array or id is not found
-  }
-
-  closeModal(): void {
-    // this.dialogRef.close(); // Close the modal
   }
 
   getTripById(activityID: any) {

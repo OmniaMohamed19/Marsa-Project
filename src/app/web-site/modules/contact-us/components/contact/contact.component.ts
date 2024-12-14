@@ -93,17 +93,14 @@ export class ContactComponent implements OnInit {
   getContact() {
     this._HttpService.get(environment.marsa, 'ContactUs').subscribe({
       next: (response: any) => {
-        console.log(response);
         this.contactus = response.contactus;
         const youtubeUrl = response.contactus["youtube "];
         this.backgroundImageUrl = encodeURI(this.backgroundImages[this.currentImageIndex]);
         this.youtubeLink=youtubeUrl;
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(this.contactus.google);
         this.backgroundImages = this.contactus.cover; // توقع أن الصور هي مصفوفة
-      console.log(this.backgroundImages);
         if (this.backgroundImages.length > 0) {
           this.backgroundImageUrl = encodeURI(this.backgroundImages[this.currentImageIndex]);
- // تعيين الصورة الأولى كبداية
           this.startImageRotation(); // بدء تغيير الصور
         }
       }

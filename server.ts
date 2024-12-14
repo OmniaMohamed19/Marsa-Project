@@ -43,8 +43,8 @@ export function app(): express.Express {
     try {
       // إرسال الطلب إلى API الخاصة بـ SEO للحصول على رابط ملف robots.txt
       const seoData = await axios.get('https://marvelits.com/api/seo');
-      const robotsUrl = seoData.data.seo.robots; // جلب الرابط من API
-
+      const robotsUrl = seoData.data.seo.robots;
+      console.log(robotsUrl)
       // جلب ملف robots.txt من الرابط
       const robotsResponse = await axios.get(robotsUrl);
       res.setHeader('Content-Type', 'text/plain');
@@ -59,7 +59,7 @@ export function app(): express.Express {
       try {
         const seoData = await axios.get('https://marvelits.com/api/seo');
         const sitemapUrl = seoData.data.seo.sitemap;
-
+        console.log(seoData);
         const sitemapResponse = await axios.get(sitemapUrl);
         res.setHeader('Content-Type', 'application/xml');
         res.send(sitemapResponse.data);
@@ -86,7 +86,7 @@ function run(): void {
   // Start up the Node server
   const server = app();
   server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
+    // console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
 

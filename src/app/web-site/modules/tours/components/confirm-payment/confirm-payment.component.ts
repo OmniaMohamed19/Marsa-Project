@@ -26,7 +26,6 @@ export class ConfirmPaymentComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       const res = JSON.parse(params['res']);
       this.confirmRequest = res;
-      console.log(res);
 
       this.tripId = params['trip_id'];
       this.Bookingid = res.Bookingid;
@@ -39,7 +38,6 @@ export class ConfirmPaymentComponent implements OnInit {
       .subscribe((res: any) => {
         this.tripletails = res.tripDetails;
         this.relatedtrips = res.Relatedtrips;
-        console.log(res);
       });
   }
 
@@ -73,23 +71,20 @@ export class ConfirmPaymentComponent implements OnInit {
     nav: true,
   };
   ReturnToPayment() {
-    
+
     if (typeof window !== 'undefined') {
       const storedQueryParams = localStorage.getItem('queryParams');
       if (storedQueryParams) {
         const queryParams = JSON.parse(storedQueryParams);
         queryParams.Bookingid = this.Bookingid;
         localStorage['editTour'] = true;
-        console.log(queryParams);        
         localStorage.setItem('queryParams', JSON.stringify(queryParams));
         this.router.navigate(
           ['/', this.translate.currentLang, 'tours', 'payment'],
           { queryParams }
         );
       }
-      else{
-        // localStorage.setItem('queryParams', JSON.stringify(storedQueryParams));
-      }
+     
     }
   }
 }

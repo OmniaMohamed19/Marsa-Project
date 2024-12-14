@@ -176,17 +176,14 @@ export class BoatDetailsComponent {
   }
   responsiveOptions: any[] | undefined;
   imageClick(index: number) {
-    console.log(index);
     this.desplayedGustImages = Array.from(
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
-    console.log(this.desplayedGustImages);
-    console.log(index);
+
 
     this.activeIndex = index;
     this.displayCustom = true;
 }
-    // constructor() {}
   ngOnInit(): void {
 
     this.responsiveOptions = [
@@ -292,31 +289,7 @@ export class BoatDetailsComponent {
     }
   }
 
-  // @HostListener('window:scroll', [])
-  // onWindowScroll() {
 
-  //     const options = {
-  //         root: null, // viewport
-  //         rootMargin: '0px',
-  //         threshold: 1.5, // element should be at least 70% visible
-  //     };
-
-  //     const observer = new IntersectionObserver((entries) => {
-  //         const visibleEntries = entries.filter(entry => entry.isIntersecting);
-  // console.log(visibleEntries);
-
-  //         if (visibleEntries.length > 0) {
-  //             // Set activeTabId to the id of the first visible element
-  //             this.activeTabId = visibleEntries[0].target.id;
-  //         }
-  //     }, options);
-
-  //     const tabs = document.querySelectorAll('.tab-pane');
-  //     tabs.forEach((tab) => {
-  //         observer.observe(tab);
-  //     });
-
-  // }
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -326,7 +299,6 @@ export class BoatDetailsComponent {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
@@ -346,7 +318,7 @@ export class BoatDetailsComponent {
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      // console.log(visibleEntries);
+
 
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
@@ -419,12 +391,12 @@ export class BoatDetailsComponent {
         this.isSingleImage = this.images.length === 1;
         if (this.boatData) {
           this.titleService.setTitle(this.boatData?.MetaTitle);
- 
+
          this.metaService.addTags([
 
            { name: 'description', content: this.boatData?.MetaDesc },
-          
-          
+
+
          ]);
          const canonicalURL = this.boatData?.CanonicalUrl;
          if (canonicalURL) {
@@ -473,15 +445,7 @@ export class BoatDetailsComponent {
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-    // const dialogRef = this.dialog.open(BoatSliderModalComponent, {
-    //   width: '100%',
-    // });
-    console.log(this.coverAndImages);
 
-    console.log(this.boatImages);
-    // console.log(boat.images);
-
-    // dialogRef.componentInstance.images = boatImages;
   }
 
   openCabinSliderModal(cabin: any): void {
@@ -594,7 +558,6 @@ export class BoatDetailsComponent {
         .post(environment.marsa,'Wishlist/add', { trip_id: this.boatData?.id })
         .subscribe({
           next: (res: any) => {
-            console.log(res);
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
           }
@@ -702,7 +665,6 @@ export class BoatDetailsComponent {
   };
 
   getOverviewItems(overview: string): string[] {
-    console.log(overview);
 
     return overview.split('\n');
   }

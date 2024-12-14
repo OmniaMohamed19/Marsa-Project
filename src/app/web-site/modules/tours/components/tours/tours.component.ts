@@ -50,7 +50,6 @@ export class ToursComponent {
   }
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
       if (params.place_id || params.date) {
         this.place_id = params['place_id'];
         this.start_d = params['date'];
@@ -69,7 +68,6 @@ export class ToursComponent {
         this.duration = response.duration;
         this.time = response.time;
         this.types = response.types;
-        console.log(this.rows);
 
         this.getPlaces();
       },
@@ -77,12 +75,10 @@ export class ToursComponent {
   }
   onPageChange(event: any) {
     const pageNumber = event.page + 1; // PrimeNG uses 0-based index
-    // console.log('Page Changed:', pageNumber);
     this.loadPageData(pageNumber);
   }
 
   loadPageData(pageNumber: number) {
-    console.log('Fetching data for page:', pageNumber);
     const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
     this._httpsService.get(environment.marsa, 'Activtes', { page: pageNumber }).subscribe({
       next: (response: any) => {
@@ -90,14 +86,13 @@ export class ToursComponent {
         this.duration = response.duration;
         this.time = response.time;
         this.types = response.types;
-  
+
         this.getPlaces();
-  
+
         // Trigger change detection manually
         this.cdr.detectChanges();
       },
     });
-    // console.log('Fetching data for page:', pageNumber);
   }
   selectedTimeId: number | null = null;
   clearSelection() {
@@ -127,18 +122,15 @@ export class ToursComponent {
     });
   }
   setMinPrice(event: any) {
-    console.log(event);
     this.min_priceChoosen = event.target.value;
     this.filter();
   }
   setMaxPrice(event: any) {
-    console.log(event);
     this.max_priceChoosen = event.target.value;
     this.filter();
   }
 
   filterDuration(ev: any) {
-    console.log(ev);
     this.selectedTimeId = ev;
     if (ev == 'all') {
       this.FilterDurationid = [];
@@ -150,7 +142,6 @@ export class ToursComponent {
   }
 
   filterTime(ev: any) {
-    console.log(ev);
     if (ev == 'all') {
       this.FilterTimeid = [];
     } else {

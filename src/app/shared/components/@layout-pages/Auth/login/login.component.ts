@@ -93,16 +93,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    // if(this.loginForm.invalid){
-    //   this.toastr.error('Incorrect email or password.', '', {
-    //     disableTimeOut: false,
-    //     titleClass: 'toastr_title',
-    //     messageClass: 'toastr_message',
-    //     timeOut: 5000,
-    //     closeButton: true,
-    //   });
-
-    // }
+   
     if (this.email.invalid){
       this.toastr.error('please enter a valid email address', '', {
         disableTimeOut: false,
@@ -112,7 +103,6 @@ export class LoginComponent implements OnInit {
         closeButton: true,
       });
     }
-   // console.log(this.email)
     if (this.email ==null &&  this.password==null){
       this.toastr.error('Please enter your email and password', '', {
         disableTimeOut: false,

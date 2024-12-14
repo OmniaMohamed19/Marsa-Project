@@ -103,7 +103,7 @@
                     <h6>Title</h6>
                     <p>{{ selectedpackage?.tripinfo?.title }}</p>
                   </div>
-                  <div class="col-xl col-m-12">
+                  <div class="col-xl col-sm-12">
                     <div class="row">
                       
                   
@@ -123,26 +123,26 @@
                   <p>{{ selectedpackage?.tripinfo?.shortoverview }}</p>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-xl col-sm-12">
                     <h6>
                       Price
                     </h6>
                     <p>{{ selectedpackage?.tripinfo?.totlprice }}</p>
                   </div>
-                  <div class="col"
+                  <div class="col-xl col-sm-12"
                     *ngIf="selectedpackage?.tripinfo?.child !=null && selectedpackage?.tripinfo?.child !=0">
                     <h6>
                       Price For Child
                     </h6>
                     <p>{{ selectedpackage?.tripinfo?.child }}</p>
                   </div>
-                  <div class="col">
+                  <div class="col-xl col-sm-12">
                     <h6>
                       Age Of Child
                     </h6>
                     <p>6 To 12 Years Old </p>
                   </div>
-                  <div class="col">
+                  <div class="col-xl col-sm-12">
                     <h6>
                       Date
                     </h6>
@@ -166,7 +166,7 @@
 
             <div class="container">
               <div class="row">
-                <div class="col-6" *ngFor="let trip of selectedpackage?.tripinfo?.trip ">
+                <div class="col-xl-6 col-sm-12" *ngFor="let trip of selectedpackage?.tripinfo?.trip ">
                   <div class="row mt-5" >
                     <div class="col-xl-5 col-m-12">
                       <div class="imageTrip-container" [style.backgroundImage]="'url(' + (trip.cover || '') + ')'">

@@ -86,7 +86,6 @@ export class TransferComponent implements OnInit {
       (res: any) => {
         this.backgroundImageUrl = res?.transfer || [];
         this.transferstext = res?.transferstext;
-        console.log(this.backgroundImageUrl);
         if (this.backgroundImageUrl.length > 0) {
           this.currentBackgroundImage = this.backgroundImageUrl[0];
         }
@@ -121,7 +120,6 @@ export class TransferComponent implements OnInit {
             });
 
             this.highestRatedReview = highestRatedReview;
-            console.log('Highest Rated Review:', this.highestRatedReview);
           }
         }
       },
@@ -137,7 +135,6 @@ export class TransferComponent implements OnInit {
 
   onDateSelect(selectedDate: Date): void {
     this.date = this.formatDateToYYYYMMDD(selectedDate);
-    console.log(this.date);
   }
 
   formatDateToYYYYMMDD(date: Date): string {
@@ -153,7 +150,6 @@ export class TransferComponent implements OnInit {
     const ampm = event.getHours() >= 12 ? 'PM' : 'AM';
 
     this.pickuptime = `${hours}:${minutes} ${ampm}`;
-    console.log(this.pickuptime);
   }
 
 
@@ -235,7 +231,6 @@ export class TransferComponent implements OnInit {
       return;
     }
 
-    console.log(this.activeSection);
 
     if (this.activeSection === 'section2' && (this.date === undefined || this.pickuptime === undefined)) {
       this.toastr.info('Please enter date and time ', '', {
@@ -277,7 +272,6 @@ export class TransferComponent implements OnInit {
       Object.keys(body).forEach(
         (k: any) => (body[k] === '' || body[k] === null) && delete body[k]
       );
-      console.log(body);
 
       // Save the body object in localStorage
 
@@ -299,8 +293,8 @@ export class TransferComponent implements OnInit {
 
       // Make the HTTP request
       this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({
+
         next: (res: any) => {
-          console.log(res);
 
           // Store the response data in both the service and localStorage
           this.dataService.setResponseData(res);
@@ -315,6 +309,7 @@ export class TransferComponent implements OnInit {
 
           );
         },
+
       });
     }
     // Construct the body object
@@ -354,7 +349,7 @@ export class TransferComponent implements OnInit {
   loadData(): void {
     this.transferId = 1;
   }
-  
+
   addReview(): void {
 
     const model = {
@@ -372,7 +367,7 @@ export class TransferComponent implements OnInit {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-    } 
+    }
     if (this.starNumber !== null && this.starNumber !== 0 && this.comment !== null && this.comment !== '') {
       this.httpService.post(environment.marsa, 'Review/addreview', model).subscribe({
         next: (res: any) => {

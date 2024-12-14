@@ -110,7 +110,6 @@ export class PaymentBoatsComponent {
         this.customerForm.get('pickup_point')?.clearValidators();
         this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
-    console.log(this.customerForm.valid);
 
     if (this.customerForm.valid) {
       this.isDisable=true;
@@ -125,7 +124,6 @@ export class PaymentBoatsComponent {
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
       };
-      console.log(model);
 
       this._httpService.post(environment.marsa, 'Boats/book', model).subscribe({
         next: (res: any) => {
@@ -161,7 +159,7 @@ export class PaymentBoatsComponent {
 
 
   goBack() {
-    
+
     this.location.back();
   }
 

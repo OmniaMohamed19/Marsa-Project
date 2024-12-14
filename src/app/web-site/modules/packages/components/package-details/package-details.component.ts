@@ -162,7 +162,6 @@ export class PackageDetailsComponent {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-      // console.log(`Scrolling to: ${tabId}, calculated offset: ${22}`);
 
       window.scrollTo({
         top: offset,
@@ -182,7 +181,6 @@ export class PackageDetailsComponent {
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-      // console.log(visibleEntries);
 
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
@@ -229,7 +227,6 @@ export class PackageDetailsComponent {
     this.httpService
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
-        console.log(res);
         this.rows = res?.PackageDetails;
         // this.faq=res?.PackageDetails?.faq;
 
@@ -238,7 +235,6 @@ export class PackageDetailsComponent {
             this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
           }
         });
-        console.log(this.rows);
         this.duration = this.rows.duration;
         if (this.rows) {
           this.titleService.setTitle(this.rows?.MetaTitle);
@@ -287,7 +283,6 @@ export class PackageDetailsComponent {
   onStartDateChange(event: MatDatepickerInputEvent<Date>) {
     this.startDate = event.value;
     this.calculateEndDate();
-    console.log('this.startDate', this.startDate);
     if (this.startDate) {
       this.selectedDateControl.setValue(this.startDate);
       const formattedStartDate = this.datePipe.transform(

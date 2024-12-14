@@ -77,7 +77,6 @@ export class BlogSignalComponent implements OnInit {
         this.filteredBlogs = this.allBlogs;
         this.allCategories = res.allCategory;
         this.getSingleBlog(this.blogID);
-        console.log('this.allCategories', this.allCategories);
       },
     });
   }

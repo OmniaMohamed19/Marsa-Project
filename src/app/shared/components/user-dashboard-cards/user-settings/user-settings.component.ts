@@ -33,32 +33,10 @@ export class UserSettingsComponent implements OnInit {
 
 formData = new FormData();
 
-// previewImage(files: FileList): void {
-//   if (!files || files.length === 0) {
-//     return;
-//   }
 
-//   this.imageUrl = files[0] as File; // Casts the first file as File
-
-//   // Replace extensions and append to formData
-//   this.formData.append(
-//     'file',
-//     this.imageUrl,
-//     this.imageUrl.name.replace(/jpeg|png/g, 'jpg') // Replace "jpeg" or "png" with "jpg"
-//   );
-// }
-
-
-
-  /********************************/
   isOpen = false;
   selectedLabel!: any;
   selectedImg!: any;
-  countries = [
-    { name: '+20', image: '../../../../../assets/images/flags/eg.png' },
-    { name: '+1', image: '../../../../../assets/images/flags/du.webp' },
-    // Add more countries as needed
-  ];
   countries1:any=[]
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
@@ -71,44 +49,34 @@ formData = new FormData();
      
     });
   }
-
+  selectedCountry:any;
   ngOnChanges() {
-    // Initialize selectedLabel with the first country's label
     this.name = this.userDetails?.name;
     this.phone = this.userDetails?.overviwe?.phonenumber;
-     console.log(this.phone);
-    this.phoneNumber = '+' +
-    (this.userDetails?.overviwe?.countrycode || '') +
-    (this.phone ? this.phone.replace(/\s/g, '') : '');
-     console.log(this.phoneNumber);
+  
+    this.phoneNumber =
+      '+' +
+      (this.userDetails?.overviwe?.countrycode || '') +
+      (this.phone ? this.phone.replace(/\s/g, '') : '');
+  
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
-    if (this.countries.length > 0) {
-      let selectedCountry = this.countries.find((item: any) => {
-      
-        return item.name == '+' + this.userDetails?.overviwe?.countrycode;
-      });
-      this.selectedLabel = selectedCountry?.name;
-      this.selectedImg = selectedCountry?.image;
+  
+    const selectedCountry = this.countries1.find(
+      (country: { name: any; }) => country.name === this.userDetails?.country
+    );
+  
+    if (selectedCountry) {
+      this.selectedLabelCountry = selectedCountry.name;
+      this.selectedImgCountry = selectedCountry.image;
     }
-    if (this.userDetails?.country == 'Egypt') {
-      this.selectedLabelCountry = this.countries1[0].name;
-      this.selectedImgCountry = this.countries1[0].image;
-    } else {
-      this.selectedLabelCountry = this.countries1[1].name;
-      this.selectedImgCountry = this.countries1[1].image;
-    }
-    this.selectedItem = this.items[0];
   }
+  
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
 
-  selectCountry(country: any) {
-    this.selectedLabel = country.name;
-    this.selectedImg = country.image;
-    this.isOpen = true;
-  }
+ 
   /**************************/
   isOpenDrop = false;
   selectedLabelCountry!: string;
@@ -122,8 +90,12 @@ formData = new FormData();
   selectCountryflag(country: any) {
     this.selectedLabelCountry = country.name;
     this.selectedImgCountry = country.image;
-    this.isOpenDrop = true;
+  
+    this.selectedCountry = country.name;
+  
+    this.isOpenDrop = false;
   }
+  
   /*******************************/
   items: Item[] = [
     { id: 1, name: 'Male' },
@@ -165,6 +137,7 @@ submit(): void {
   formData.append('phone',this.phone);
   formData.append('country_code',this.phoneNumber.dialCode);
   formData.append('dateofbirth', this.dob);
+  //formData.append('gender', this.selectedItem);
 
 
   this.httpService.post(environment.marsa, 'user/update', formData, true).subscribe(
@@ -193,12 +166,10 @@ submit(): void {
 
 
   deactivate() {
-    // console.log(this.deactivateChaecked);
     if (this.deactivateChaecked) {
       this.httpService
         .get(environment.marsa, 'user/deactive')
         .subscribe((res: any) => {
-          // console.log(res);
           this.toastr.success('The Account deactive Sucsseful', ' ', {
             disableTimeOut: false,
             titleClass: 'toastr_title',

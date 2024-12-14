@@ -42,10 +42,10 @@ export class SearchTransferComponent implements OnInit {
       d.getFullYear();
   }
 
-  search() {
-    console.log(this.searchForm.value);
-  }
 
+  search() {
+    //console.log(this.searchForm.value);
+  }
   setStart(ev: any) {}
   setEnd(ev: any) {}
 }

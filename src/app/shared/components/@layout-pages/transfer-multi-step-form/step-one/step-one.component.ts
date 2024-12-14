@@ -88,7 +88,6 @@ export class StepOneComponent implements OnInit {
     // Fetch user details and country data
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
       this.userDetails = res?.userDashboard;
-      console.log(res?.userDashboard)
       this.phone = this.userDetails?.overviwe?.phonenumber;
       this.email = this.userDetails?.overviwe?.email
 
@@ -156,7 +155,6 @@ export class StepOneComponent implements OnInit {
   }
   updateLocalStorage() {
 
-    console.log('Updated pickuptime:', this.formData.pickuptime);
     const updatedData = {
       ...this.bookdetail,
       pickuptime: this.formData.pickuptime,
@@ -164,7 +162,6 @@ export class StepOneComponent implements OnInit {
     localStorage.setItem('bookdetail', JSON.stringify(updatedData));
   }
   onPickUpTimeChange(newTime: any) {
-    console.log('New pickuptime selected:', newTime);
     this.formData.pickuptime = newTime;
     this.updateLocalStorage();
   }

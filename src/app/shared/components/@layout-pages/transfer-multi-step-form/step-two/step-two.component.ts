@@ -49,7 +49,6 @@ export class StepTwoComponent implements OnInit {
     if (savedFlightNumper) {
       this.formData1 = JSON.parse(savedFlightNumper);
       this.flightNumper = this.formData1?.flightNumber;
-      console.log(this.formData1)
 
     }
     this.returnbookingtime = localStorage.getItem('returnPickuptime') || '';
@@ -59,7 +58,6 @@ export class StepTwoComponent implements OnInit {
     const bookingDetail = localStorage.getItem('bookdetail');
     if (bookingDetail) {
       this.bookdetail = JSON.parse(bookingDetail);
-      console.log(this.bookdetail);
     }
 
     if (this.bookdetail) {
@@ -111,10 +109,6 @@ export class StepTwoComponent implements OnInit {
     }
   }
 
-  // savenumberOfOption(option: any): void {
-  //   option.number = Math.max(0, option.number || 0);
-
-  // }
   savenumberOfOption(option: any): void {
     option.number = Math.max(0, option.number || 0);
     if (this.formData.selectedOptions[option.id]) {
@@ -181,7 +175,6 @@ export class StepTwoComponent implements OnInit {
     this._httpService.post(environment.marsa, 'transfer/get/price', model)
       .subscribe({
         next: (res: any) => {
-          console.log(res);
           if (res) {
             localStorage.setItem("Add-on-details", JSON.stringify(res));
           }

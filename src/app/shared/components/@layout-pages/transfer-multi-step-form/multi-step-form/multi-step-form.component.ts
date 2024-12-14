@@ -24,7 +24,6 @@ export class MultiStepFormComponent {
     this.titleService.setTitle('Transfer');
     // Retrieve the data from the service
     this.responseData = this.dataService.getResponseData();
-    console.log(this.responseData); // Use the data as needed
 
     // Check queryParams to set current step
     this.route.queryParams.subscribe((params) => {
@@ -48,12 +47,7 @@ export class MultiStepFormComponent {
     }
   }
 
-  // goToPreviousStep(): void {
-
-  //   if (this.currentStep > 1) {
-  //     this.currentStep--;
-  //   }
-  // }
+ 
   selectedCar:any;
   goToPreviousStep(): void {
     // استرجاع البيانات المخزنة
@@ -69,7 +63,6 @@ export class MultiStepFormComponent {
 
     if (formDataData) {
       this.formData = JSON.parse(formDataData); // تحويل البيانات إلى كائن
-      console.log('Form Data:', this.formData);
     } else {
       console.log('No data found for formData in localStorage');
     }
@@ -85,7 +78,6 @@ export class MultiStepFormComponent {
   submitForm(data: any): void {
     this.formData = { ...this.formData, ...data };
     console.log('Form Data:', this.formData);
-    // Handle form submission
   }
 
 }

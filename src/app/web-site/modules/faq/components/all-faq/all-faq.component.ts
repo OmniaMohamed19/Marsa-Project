@@ -27,13 +27,11 @@ export class AllFaqComponent {
 
     this.httpService.get(environment.marsa, 'faq').subscribe(
       (res: any) => {
-        console.log(res);
         this.questions = res?.FAQ;
         this.filteredQuestions = this.questions;
         this.cover = res?.cover;
         this.topics = res?.Topic;
-        console.log(this.topics[0].id);
-        console.log(this.questions);
+
       },
       (err) => {}
     );

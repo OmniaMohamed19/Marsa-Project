@@ -50,7 +50,7 @@ export class NavbarComponent {
     if (this.keyword.trim()) {
       this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
         (data) => {
-          console.log('Search Results:', data);
+         
           this.results = data;
           this.showDropdown = this.results.trip.length > 0;
         },

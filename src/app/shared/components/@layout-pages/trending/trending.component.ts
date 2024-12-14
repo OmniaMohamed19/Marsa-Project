@@ -79,7 +79,6 @@ export class TrendingComponent  {
 
       this.AllTrend = res;
       this.activeNowTrend = res['Tours&Activities'];
-      console.log(res);
     });
   }
 
@@ -143,7 +142,7 @@ export class TrendingComponent  {
     touchDrag: true,
     pullDrag: true,
     dots: true,
-    autoplay: true, 
+    autoplay: true,
     margin: 10,
     navSpeed: 700,
     navText: [
