@@ -26,7 +26,7 @@ export class PackageConfirmComponent {
       const res = JSON.parse(params['res']);
       this.confirmRequest = res;
       this.packege_id = params['packege_id'];
-      this.Bookingid = res.Bookingid;
+      this.Bookingid = res.bookingid;
 
       this.getTripById(this.packege_id)
     })
@@ -49,7 +49,7 @@ export class PackageConfirmComponent {
       const storedQueryParams = localStorage.getItem('queryParamsPackages');
       if (storedQueryParams) {
           const queryParams = JSON.parse(storedQueryParams);
-          queryParams.Bookingid = this.Bookingid;
+          queryParams.Bookingid = this.confirmRequest.Bookingid;
           queryParams.BookingInfo = this.confirmRequest;
           // Now you can access the properties of queryParams
           localStorage['editPackage']=true

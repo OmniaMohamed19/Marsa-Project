@@ -173,16 +173,18 @@ export class UpcomingBookingComponent {
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-
+        note:''
       };
 
       Object.keys(model).forEach(
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
+      console.log(this.BookingInfo);
+
       this.httpService
         .post(
           environment.marsa,
-          'bookinfo/' + this.BookingInfo.Bookingid,
+          'bookinfo/' + this.BookingInfo.booking_id,
           model
         )
         .subscribe({
