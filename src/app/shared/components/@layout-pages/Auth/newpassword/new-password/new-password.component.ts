@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -24,16 +24,45 @@ export class NewPasswordComponent {
     private httpService: HttpService,
     private toastr: ToastrService
   ) {}
+
   initialForm() {
-    this.newPassword = this._FormBuilder.group({
-      password: ['', Validators.required],
-      repassword: ['', Validators.required],
-    });
+    this.newPassword = this._FormBuilder.group(
+      {
+        password: ['', [Validators.required]],
+        repassword: ['', [Validators.required]],
+      },
+      { validators: this.matchPasswords('password', 'repassword') } // إضافة الـ Validator المخصص
+    );
+  }
+
+  // Validator مخصص للتحقق من تطابق كلمة المرور
+  matchPasswords(password: string, repassword: string) {
+    return (formGroup: AbstractControl) => {
+      const passwordControl = formGroup.get(password);
+      const repasswordControl = formGroup.get(repassword);
+
+      if (!passwordControl || !repasswordControl) {
+        return null;
+      }
+
+      if (repasswordControl.errors && !repasswordControl.errors['passwordMismatch']) {
+        return null;
+      }
+
+      if (passwordControl.value !== repasswordControl.value) {
+        repasswordControl.setErrors({ passwordMismatch: true });
+      } else {
+        repasswordControl.setErrors(null);
+      }
+
+      return null;
+    };
   }
 
   toggleVisibility1() {
     this.isPasswordVisible1 = !this.isPasswordVisible1;
   }
+
   toggleVisibility2() {
     this.isPasswordVisible2 = !this.isPasswordVisible2;
   }
@@ -50,12 +79,16 @@ export class NewPasswordComponent {
   }
 
   submit() {
+    if (this.newPassword.invalid) {
+      this.toastr.error('Please correct the errors in the form');
+      return;
+    }
+
     this.httpService
       .post(environment.marsa, 'password/passwordReset', {
         password: this.newPassword.value['password'],
       })
       .subscribe((res: any) => {
-        
         if (!res.result) {
           this.toastr.error(res.message);
         } else {
@@ -65,10 +98,12 @@ export class NewPasswordComponent {
         }
       });
   }
+
   changeReqister(value: string) {
     this._AuthService.updateRegisterBehavoir(value);
     this.submit();
   }
+
   ngOnInit(): void {
     this.initialForm();
   }

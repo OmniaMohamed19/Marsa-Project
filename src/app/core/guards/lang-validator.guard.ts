@@ -6,15 +6,15 @@ import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 })
 export class LangValidatorGuard implements CanActivate {
   // Add your supported languages here
-  private lang = localStorage.getItem('lang');
-  constructor(private router: Router) {}
+  // private lang = localStorage.getItem('lang');
+  // constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const lang = route.paramMap.get('lang');
-    if (this.lang) {
-      return true;
-    }
-    this.router.navigate(['**']);
-    return false;
-  }
+  // canActivate(route: ActivatedRouteSnapshot): boolean {
+  //   const lang = route.paramMap.get('lang');
+  //   if (this.lang) {
+  //     return true;
+  //   }
+  //   this.router.navigate(['**']);
+  //   return false;
+  // }
 }

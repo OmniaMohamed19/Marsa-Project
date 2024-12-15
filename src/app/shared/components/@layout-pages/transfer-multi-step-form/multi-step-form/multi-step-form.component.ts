@@ -47,7 +47,7 @@ export class MultiStepFormComponent {
     }
   }
 
- 
+
   selectedCar:any;
   goToPreviousStep(): void {
     // استرجاع البيانات المخزنة
@@ -56,7 +56,7 @@ export class MultiStepFormComponent {
 
     if (selectedCarData) {
       this.selectedCar = JSON.parse(selectedCarData); // تحويل البيانات إلى كائن
-      console.log('Selected Car Data:', this.selectedCar);
+     // console.log('Selected Car Data:', this.selectedCar);
     } else {
       console.log('No data found for selectedCar in localStorage');
     }

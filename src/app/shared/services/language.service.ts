@@ -21,7 +21,8 @@ export class LanguageService {
   }
 
   setCurrentLang(language: string, init: boolean = false) {
-    if (language === 'rs' || language === 'en' || language === 'du' || language === 'cez' || language === 'fr' || language === 'itl') {
+   
+    if (language === 'rs' || language === 'en' || language === 'du' || language === 'cez') {
       let htmlTag = this.document.getElementsByTagName(
         'html'
       )[0] as HTMLHtmlElement;

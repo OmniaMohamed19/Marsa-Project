@@ -22,9 +22,8 @@ robots:any;
   ) {}
 
   ngOnInit(): void {
-    // ضبط اللغة الافتراضية
     if (typeof window !== 'undefined'){
-      const lang = localStorage.getItem('lang');
+      const lang = localStorage.getItem('lang') || '';
       if (lang) {
         this.langServ.setCurrentLang(lang, true);
       } else {
@@ -46,7 +45,6 @@ robots:any;
   }
   imageUrl: string = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/479px-WhatsApp_icon.png';
 
-  // دالة لاستخراج اسم الصورة
   getImageName(url: string): string {
     // الحصول على اسم الصورة من الرابط
     const imageName = url.substring(url.lastIndexOf('/') + 1, url.indexOf('.'));

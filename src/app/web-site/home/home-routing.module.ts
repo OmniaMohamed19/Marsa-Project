@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NewPasswordComponent } from 'src/app/shared/components/@layout-pages/Auth/newpassword/new-password/new-password.component';
 import { NotFoundComponent } from 'src/app/shared/components/not-found/not-found.component';
-import { RobotsTxtGuard } from 'src/app/core/guards/robots-txt-guard.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
