@@ -14,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './step-three.component.html',
   styleUrls: ['./step-three.component.scss']
 })
-export class StepThreeComponent {
+export class StepThreeComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<void>();
   Coupons: any;
@@ -22,15 +22,6 @@ export class StepThreeComponent {
   coupon: any;
   price: any;
   kilometr: any;
-  constructor(private _httpService: HttpService,
-    private toastr: ToastrService,
-    private router: Router,
-    private translate: TranslateService,
-    private spinner: NgxSpinnerService,
-
-  ) {
-
-  }
   selected: boolean = true;
   formData: any = {};
   activeTab: string = 'pills-one-example2';
@@ -53,93 +44,113 @@ export class StepThreeComponent {
   fromName: any;
   toName: any;
   formData1: any;
-  flightNumper:any;
-  numberOption:any;
-  cardholderName:any;
-  cvv:any;
-  expirYear:any;
-  expiryMonth:any;
-  cardNumber:any;
-  activeSection:any;
-  SavedaddOnDetails:any;
-  AllbookingOption:any;
-  ngOnInit() {
-    this.way = localStorage.getItem('activeSection') || '';
-    this.getDetail();
-}
-getDetail(){
-  const bookingDetail = localStorage.getItem('bookdetail');
-    const savedSelectedCar = localStorage.getItem('selectedCar');
-    const savedSelectedOption = localStorage.getItem('selectedOptions');
-    const savedResponseData = localStorage.getItem('responseData');
-    const savedFlightNumper = localStorage.getItem('formData');
-    const savedSection = localStorage.getItem('activeSection');
-    const addOnDetails = localStorage.getItem('Add-on-details');
+  flightNumper: any;
+  numberOption: any;
+  cardholderName: any;
+  cvv: any;
+  expirYear: any;
+  expiryMonth: any;
+  cardNumber: any;
+  activeSection: any;
+  SavedaddOnDetails: any;
+  AllbookingOption: any;
+  constructor(private _httpService: HttpService,
+    private toastr: ToastrService,
+    private router: Router,
+    private translate: TranslateService,
+    private spinner: NgxSpinnerService,
 
-  if(bookingDetail && savedSection &&savedSelectedCar && savedSelectedOption &&
-    savedResponseData && savedFlightNumper && addOnDetails)
-    {
-      this.responseData = JSON.parse(savedResponseData);
-       this.bookdetail = JSON.parse(bookingDetail);
-       this.fromId = this.bookdetail.from_id || '';
-       this.toId = this.bookdetail.to_id || '';
-       this.activeSection = savedSection;
-       this.selectedCar = JSON.parse(savedSelectedCar);
-       this.carId = this.selectedCar.id;
-       this.SavedaddOnDetails = JSON.parse(addOnDetails);
+  ) {
+
+  }
+  ngOnInit() {
+    const addOnDetails = localStorage.getItem('Add-on-details');
+    if (addOnDetails) {
+      this.SavedaddOnDetails = JSON.parse(addOnDetails);
 
       this.kilometr = this.SavedaddOnDetails?.kilometer || '';
       this.person = this.SavedaddOnDetails.Numberofpeople || '';
       this.bookingTime = this.SavedaddOnDetails.booking_time || '';
-      this.bookingDate = this.SavedaddOnDetails.booking_date || '';
       this.fromName = this.SavedaddOnDetails?.from || '';
 
       this.toName = this.SavedaddOnDetails?.to || '';
-      this.price =this.SavedaddOnDetails?.Subtotal || '';
-      this.total= this.SavedaddOnDetails?.Total|| '';
+      this.price = this.SavedaddOnDetails?.Subtotal || '';
+      this.total = this.SavedaddOnDetails?.Total || '';
 
-      this.returnbookingdate =  this.SavedaddOnDetails?.return_booking_date || '';
-      this.returnbookingtime =  this.SavedaddOnDetails?.return_booking_time || '';
+     // this.returnbookingdate = this.SavedaddOnDetails?.return_booking_date || '';
+      this.returnbookingtime = this.SavedaddOnDetails?.return_booking_time || '';
       this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
-      this.formData1 = JSON.parse(savedFlightNumper);
-      this.flightNumper=this.formData1?.flightNumber;
-      this.selectedOption = JSON.parse(savedSelectedOption);
 
+      const bookingDateString = this.SavedaddOnDetails.booking_date || '';
       const dateString = this.SavedaddOnDetails?.return_booking_date || '';
-if (dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+      if (dateString || bookingDateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
 
-  this.returnbookingdate = `${year}-${month}-${day}`;
-} else {
-  this.returnbookingdate = '';
-}
+        this.returnbookingdate = `${year}-${month}-${day}`;
+        this.bookingDate =`${year}-${month}-${day}`;
+      } else {
+        this.returnbookingdate = '';
+        this.bookingDate='';
+      }
 
+    }
+
+    const bookingDetail = localStorage.getItem('bookdetail');
+    if (bookingDetail) {
+      this.bookdetail = JSON.parse(bookingDetail);
+      this.fromId = this.bookdetail.from_id || '';
+      this.toId = this.bookdetail.to_id || '';
+    }
+    const savedSelectedCar = localStorage.getItem('selectedCar');
+    if (savedSelectedCar) {
+      this.selectedCar = JSON.parse(savedSelectedCar);
+      this.carId = this.selectedCar.id;
+    }
+    const savedSelectedOption = localStorage.getItem('selectedOptions');
+    if (savedSelectedOption) {
+      this.selectedOption = JSON.parse(savedSelectedOption);
+    }
+    const savedFlightNumper = localStorage.getItem('formData');
+    if (savedFlightNumper) {
+      this.formData1 = JSON.parse(savedFlightNumper);
+      this.flightNumper = this.formData1?.flightNumber;
+    }
+
+     const savedResponseData = localStorage.getItem('responseData');
+     if(savedResponseData){
+      this.responseData = JSON.parse(savedResponseData);
+     }
+     const savedSection = localStorage.getItem('activeSection');
+    if(savedSection){
+      this.activeSection = savedSection;
+    }
+    this.way = localStorage.getItem('activeSection') || '';
+    console.log("hiiii step 33333");
 
   }
 
-}
 
 
-getImageName(url: string): string {
-  const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-  return imageName || 'Unknown photo';
-}
+  getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
-applycoupon() {
-  this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-    this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-    if (this.Coupons.length > 0) {
-      this.total =  this.total - this.Coupons[0].amount;
-    } else {
-      console.warn('No matching coupons found');
-    }
+  applycoupon() {
+    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+      if (this.Coupons.length > 0) {
+        this.total = this.total - this.Coupons[0].amount;
+      } else {
+        console.warn('No matching coupons found');
+      }
 
-  });
+    });
 
-}
+  }
 
   nextStep(): void {
     this.next.emit(this.formData);
@@ -178,7 +189,7 @@ applycoupon() {
       });
       return; // Stop the function if any field is missing
     } else {
-       // Show the spinner
+      // Show the spinner
 
       const bookingOption = [];
 

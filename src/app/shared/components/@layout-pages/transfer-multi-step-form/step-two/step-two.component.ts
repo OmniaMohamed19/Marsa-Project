@@ -177,12 +177,13 @@ export class StepTwoComponent implements OnInit {
         next: (res: any) => {
           if (res) {
             localStorage.setItem("Add-on-details", JSON.stringify(res));
+            this.next.emit(this.formData);
+            window.scrollTo(0, 0);
           }
         }
       });
 
-    this.next.emit(this.formData);
-    window.scrollTo(0, 0);
+
   }
 
 

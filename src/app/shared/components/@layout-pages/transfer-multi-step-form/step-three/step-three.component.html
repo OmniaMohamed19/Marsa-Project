@@ -112,11 +112,11 @@
 
 
                 <div class="w-100"></div>
-                <div class="col">
+                <!-- <div class="col">
                   <div [innerHTML]="responseData?.booking?.Bookingpayment">
 
                   </div>
-                </div>
+                </div> -->
                 <div class="w-100"></div>
                 <div class="col">
 
@@ -234,7 +234,9 @@
               <span>Pick Up Time</span>
             </div>
             <div class="col-5 col-detail">
-              <span> {{"1970-01-01T" + bookingTime | date : "h:mm a"}}</span>
+              <span>
+                {{"1970-01-01T" + (bookingTime || "00:00:00") | date : "h:mm a"}}
+              </span>
             </div>
             <!----------------------->
             <hr class="horizontal-line">
