@@ -258,6 +258,30 @@
               class="nav nav-classic nav-choose border-0 nav-justified border mx-n3"
               role="tablist"
             >
+            <li class="nav-item mx-3">
+              <a
+                class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                id="pills-one-example2-tab"
+                [class.active]="isActiveTab('pills-one-example2')"
+                (click)="toggleTab('pills-one-example2', 'cash')"
+              >
+                <div
+                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                >
+                  <i class="fa fa-check text-white font-size-15"></i>
+                </div>
+                <div
+                  class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                >
+                  <img
+                    class="img-fluid mb-3"
+                    src="../../../../../../assets/custom/Activity/banknotes.png"
+                    alt="banknotes"
+                  />
+                  <div class="w-100 text-dark">Book now Cash</div>
+                </div>
+              </a>
+            </li>
               <li class="nav-item mx-3 mb-4 mb-md-0">
                 <a
                   class="rounded py-5 border-width-2 border nav-link font-weight-medium"
@@ -282,30 +306,7 @@
                   </div>
                 </a>
               </li>
-              <li class="nav-item mx-3">
-                <a
-                  class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
-                  id="pills-one-example2-tab"
-                  [class.active]="isActiveTab('pills-one-example2')"
-                  (click)="toggleTab('pills-one-example2', 'cash')"
-                >
-                  <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                  >
-                    <i class="fa fa-check text-white font-size-15"></i>
-                  </div>
-                  <div
-                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                  >
-                    <img
-                      class="img-fluid mb-3"
-                      src="../../../../../../assets/custom/Activity/banknotes.png"
-                      alt="banknotes"
-                    />
-                    <div class="w-100 text-dark">Book now Cash</div>
-                  </div>
-                </a>
-              </li>
+            
             </ul>
             <div class="tab-content">
               <div
@@ -424,11 +425,9 @@
                     <div class="col">
                       <div
                         class="js-form-message mb-5"
-                        [innerHTML]="
-                          responseFromAvailableOption?.Bookingpayment
-                        "
+                       
                       >
-                        <!-- <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                        <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
                           <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox"
                             required="">
                           <label class="custom-control-label" for="termsCheckbox">
@@ -438,7 +437,7 @@
                                 Conditions</a>
                             </small>
                           </label>
-                        </div> -->
+                        </div> 
                       </div>
 
                       <a
@@ -501,7 +500,7 @@
                     <!-- <a (click)="confirmBooking()" class="btn  payment text-white w-100 py-3">CONFIRM
                       BOOKING</a> -->
                   </div>
-                  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
+                  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise.css"
                   [fullScreen]="true">
                   <p style="color: white">Loading...</p>
                 </ngx-spinner>

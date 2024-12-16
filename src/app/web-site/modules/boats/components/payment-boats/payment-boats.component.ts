@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2';
 import { Code } from '../../context/code.interface';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-boats',
@@ -51,10 +52,14 @@ export class PaymentBoatsComponent {
     private translate: TranslateService,
     private _httpService: HttpService,
     private location: Location,
+    private titleService: Title,
+
 
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Confirm Booking");
+
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {

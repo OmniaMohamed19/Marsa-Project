@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MapModalComponent } from 'src/app/shared/components/@layout-pages/map-modal/map-modal.component';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-confirm-payment',
   templateUrl: './confirm-payment.component.html',
@@ -39,27 +40,37 @@ mapModalOptions: any = {
     public translate: TranslateService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private titleService: Title,
+
   ) {}
   ngOnInit(): void {
+    this.titleService.setTitle("Confirm Booking");
     this.initForm();
+    
     this.route.queryParams.subscribe((params: any) => {
-      const res = JSON.parse(params['res']);
-      this.confirmRequest = res;
-
-      this.tripId = params['trip_id'];
-      this.Bookingid = res.Bookingid;
-      this.getTripById(this.tripId);
+      if (params['res']) {
+        const res = JSON.parse(params['res']);
+        this.confirmRequest = res;
+  
+        this.tripId = params['trip_id'];
+        this.Bookingid = res.Bookingid;
+        this.getTripById(this.tripId);
+        
+        if (this.confirmRequest) {
+          this.Bookingid = this.confirmRequest?.Bookingid;
+          this.userData.name = this.confirmRequest?.name || '';
+          this.userData.phone = this.confirmRequest?.Phone || '';
+          this.userData.email = this.confirmRequest?.['E-mail'] || '';
+          console.log(this.userData);
+        }
+  
+        this.customerForm.patchValue(this.userData);
+        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+      } else {
+        this.router.navigate(['/'], { replaceUrl: true });
+      }
     });
-    if (this.confirmRequest) {
-      this.Bookingid = this.confirmRequest?.Bookingid;
-      this.userData.name = this.confirmRequest?.name || '';
-      this.userData.phone = this.confirmRequest?.Phone || '';
-      this.userData.email = this.confirmRequest?.['E-mail'] || '';
-      console.log(this.userData);
-    }
-    this.customerForm.patchValue(this.userData);
-    this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
   }
   getTripById(activityID: any) {
     this._httpService

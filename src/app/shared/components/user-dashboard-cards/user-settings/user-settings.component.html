@@ -88,29 +88,15 @@
         <label>Country</label>
       </div>
       <div class="col-lg-8">
-        <div class="dropdown-2" tabindex="0" (click)="toggleDropdownCountry()">
+        <div class="dropdown-2" tabindex="0">
           <div class="dropdown-btn-2 d-flex align-items-center gap-1">
-            <img
-              [src]="selectedImgCountry"
-              [alt]="selectedLabelCountry"
-              width="20"
-              height="20"
-            />
-            {{ selectedLabelCountry }}
+            {{ userDetails?.overviwe?.country}}
           </div>
-          <div *ngIf="isOpenDrop" class="dropdown-content dropdown-content-2">
-            <div
-              *ngFor="let country of countries1"
-              (click)="selectCountryflag(country)"
-              class="dropdown-item"
-            >
-              <img [src]="country.image" [alt]="country.name" width="20" height="15" />
-              {{ country.name }}
-            </div>
-          </div>
+         
         </div>
+        
       </div>
-      
+
     </div>
 
     <div class="row">
@@ -139,25 +125,35 @@
       </div>
       <div class="col-lg-8">
         <div class="top">
-          <div class="item" [class.selected-1]="isSelected(items[0])" (click)="selectItem(items[0])">
+          <div
+            class="item"
+            [class.selected-1]="isSelected(items[0])"
+            (click)="selectItem(items[0])"
+          >
             <p>
               <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                   <path
                     d="M14.0426 5.02893C14.3258 4.69579 14.8254 4.65528 15.1585 4.93845C15.4917 5.22162 15.5322 5.72124 15.249 6.05437L8.51985 13.971C8.23224 14.3094 7.72261 14.3451 7.3907 14.05L3.8282 10.8834C3.50141 10.5929 3.47198 10.0925 3.76245 9.7657C4.05293 9.43891 4.55332 9.40948 4.88011 9.69995L7.83765 12.3289L14.0426 5.02893Z"
-                    fill="white" />
+                    fill="white"
+                  />
                 </svg>
               </span>
             </p>
             <span> Male </span>
           </div>
-          <div class="item" [class.selected-1]="isSelected(items[1])" (click)="selectItem(items[1])">
+          <div
+            class="item"
+            [class.selected-1]="isSelected(items[1])"
+            (click)="selectItem(items[1])"
+          >
             <p>
               <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                   <path
                     d="M14.0426 5.02893C14.3258 4.69579 14.8254 4.65528 15.1585 4.93845C15.4917 5.22162 15.5322 5.72124 15.249 6.05437L8.51985 13.971C8.23224 14.3094 7.72261 14.3451 7.3907 14.05L3.8282 10.8834C3.50141 10.5929 3.47198 10.0925 3.76245 9.7657C4.05293 9.43891 4.55332 9.40948 4.88011 9.69995L7.83765 12.3289L14.0426 5.02893Z"
-                    fill="white" />
+                    fill="white"
+                  />
                 </svg>
               </span>
             </p>
@@ -166,6 +162,7 @@
         </div>
       </div>
     </div>
+    
 
     <div class="submit">
       <button>Discard</button>

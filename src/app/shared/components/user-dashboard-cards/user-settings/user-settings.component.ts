@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment.prod';
 interface Item {
   id: number;
   name: string;
+  value:number;
 }
 @Component({
   selector: 'app-user-settings',
@@ -37,17 +38,14 @@ formData = new FormData();
   isOpen = false;
   selectedLabel!: any;
   selectedImg!: any;
-  countries1:any=[]
+  countries1:any=[];
+  gender:any;
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
   ngOnInit() {
-    this.httpService.get(environment.marsa, 'countrycode').subscribe((res: any) => {
-      this.countries1 = res?.code;
    
-     
-    });
   }
   selectedCountry:any;
   ngOnChanges() {
@@ -61,45 +59,29 @@ formData = new FormData();
   
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
+    this.gender = this.userDetails?.overviwe?.gender;
   
-    const selectedCountry = this.countries1.find(
-      (country: { name: any; }) => country.name === this.userDetails?.country
-    );
-  
-    if (selectedCountry) {
-      this.selectedLabelCountry = selectedCountry.name;
-      this.selectedImgCountry = selectedCountry.image;
+    if (this.gender === 1) {
+      this.selectedItem = this.items[0]; 
+    } else if (this.gender === 0) {
+      this.selectedItem = this.items[1]; 
+    } else {
+      this.selectedItem = null; 
     }
   }
   
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
  
+
+
   /**************************/
-  isOpenDrop = false;
-  selectedLabelCountry!: string;
-  selectedImgCountry!: string;
-  
+ 
 
-  toggleDropdownCountry() {
-    this.isOpenDrop = !this.isOpenDrop;
-  }
 
-  selectCountryflag(country: any) {
-    this.selectedLabelCountry = country.name;
-    this.selectedImgCountry = country.image;
-  
-    this.selectedCountry = country.name;
-  
-    this.isOpenDrop = false;
-  }
   
   /*******************************/
   items: Item[] = [
-    { id: 1, name: 'Male' },
-    { id: 2, name: 'Female' },
+    { id: 1, name: 'Male', value: 1 }, 
+    { id: 2, name: 'Female', value: 0 }, 
   ];
 
   selectedItem: Item | null = null;
@@ -130,14 +112,20 @@ previewImage(files: FileList | null): void {
 }
 
 submit(): void {
+  console.log(this.selectedItem);
   const formData = new FormData();
+  if (this.selectedItem?.name === 'Male') {
+    formData.append('gender', '1');
+  } else if (this.selectedItem?.name === 'Female') {
+    formData.append('gender', '0');
+  }
+  // formData.append('gender', this.selectedItem ? this.selectedItem.value.toString() : '');
   formData.append('cover', this.imageFile);
   formData.append('email',this.email);
   formData.append('fname',this.name);
   formData.append('phone',this.phone);
   formData.append('country_code',this.phoneNumber.dialCode);
   formData.append('dateofbirth', this.dob);
-  //formData.append('gender', this.selectedItem);
 
 
   this.httpService.post(environment.marsa, 'user/update', formData, true).subscribe(

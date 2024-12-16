@@ -14,7 +14,7 @@
               </h5>
               <p>Diving Suits</p>
               <div class="row">
-                <div class="col-md-4" *ngFor="
+                <div class="col-md-4 mt-3" *ngFor="
                     let item of activityData?.bookingOption;
                     let i = index
                   ">
@@ -385,8 +385,8 @@
                       <div class="w-100"></div>
 
                       <div class="col">
-                        <div class="col-sm-12 mb-4" [innerHTML]="avilableOptions?.Bookingpayment">
-                          <!-- <div
+                        <div class="col-sm-12 mb-4">
+                          <div
                             class="custom-control custom-checkbox d-flex align-items-center text-muted"
                           >
                             <input
@@ -410,7 +410,7 @@
                                 >
                               </small>
                             </label>
-                          </div> -->
+                          </div>
                         </div>
                         <a (click)="edit?confirmEdit($event)
                           :confirmBookingByCard($event)" class="btn payment text-white w-100 py-3"
@@ -464,7 +464,7 @@
                         }}
                       </a>
                     </div>
-                    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
+                    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise.css"
                       [fullScreen]="true">
                       <p style="color: white">Loading...</p>
                     </ngx-spinner>
@@ -594,6 +594,7 @@
                   <li class="d-flex justify-content-between py-2"
                     *ngFor="let item of responseFromAvailableOption?.option">
                     <span class="font-weight-medium">{{ item?.title }}</span>
+                    <span class="text-secondary">{{ item?.calc_price }}</span>
                     <span class="text-secondary">{{ item?.total }}</span>
                   </li>
                 </ul>

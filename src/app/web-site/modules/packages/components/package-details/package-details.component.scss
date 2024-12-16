@@ -13,6 +13,15 @@
   margin-bottom: 0.2rem;
 }
 
+::ng-deep{
+ .mat-datepicker-content {
+    max-width: 90vw !important; 
+    max-height: 90vh !important; 
+    overflow-y: auto !important; 
+  }
+}
+
+
 h4,
 .heading,
 .option h3,

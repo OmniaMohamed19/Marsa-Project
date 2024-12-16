@@ -1,71 +1,5 @@
 <app-header [background]="'#0DB1FF'"></app-header>
-<!--<section class="mt-5 m-auto all-packages" style="margin-top: 150px !important;">
-    <div class="container">
-        <div class="row pt-5"
-            style="background-image: url(../../../../../assets/images/bgPackages.webp);background-position: center center; background-size: cover; height: 706px;">
-            <div class="col-md-6">
-                <div class="images vacation  pl-12 pt-0">
-                    <img src="assets/custom/Vacation.webp" class="vacations pl-9 pt-4" alt="Vacation" loading="lazy">
-                    <img src="assets/custom/Packages.webp" class="package pl-14 pb-5 pt-0 b-1" alt="Packages"
-                        loading="lazy">
-                </div>
-                <div class="pr-12 d-flex justify-content-center info">
-                    <ul class="list-group">
-                        <li *ngFor="let trip of rows?.PackageTrips.slice(0, 3); let j = index"> <img
-                                src="assets/custom/list.svg" class="pe-2" alt="list" loading="lazy">
-                            {{trip?.title}}
-                            <button *ngIf="j === 2 && rows.PackageTrips.length > 3"
-                                class="p-0 m-0 btn text-white btn-outline-primary" (click)="openPackModal(packageID)">
-                                See More ...
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 position-relative">
-                        <div class="discount">
-                            <img src="assets/custom/Vector Smart Object.svg" alt="Vector Smart Object" loading="lazy">
-                            <div>
-                                <h3 style="font-size: 40px;">UP TO</h3>
-                                <h3 class="num">
-                                    {{rows?.discount}}
-                                    <small>DISCOUNT</small>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 order-1 trip-details d-grid justify-content-center">
-                        <h6>Trip details :</h6>
-                        <ul class="list-unstyled trip pl-5">
-                            <li class="pt-2"><img src="assets/images/location.svg" class="pe-4" alt="location"
-                                    loading="lazy">
-                                {{rows?.place}}
-                            </li>
-                            <li class="pt-3"><img src="assets/images/chronometer.svg" class="pe-4" alt="chronometer"
-                                    loading="lazy">
-                                {{rows?.duration}}
-                            </li>
-                            <li class="pt-3"><img src="assets/images/discount.svg" class="pe-4" alt="discount"
-                                    loading="lazy">
-                                {{rows?.CountTrips}} Trips
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="images flex-nowrap d-flex row"
-                    *ngFor="let trip of rows?.PackageTrips.slice(0, 3);; let i = index">
-                    <img [src]="trip?.cover" class="img-fluid col-md-4" [alt]="trip?.cover" loading="lazy" [ngClass]="{
-                                'packaged-dolphin': i === 0,
-                                'package-ship': i === 1,
-                                'package-man': i === 2
-                              }">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>-->
+
 <!---------------------------------->
 <section class="packages-content overflow-hidden position-relative">
   <div class="position-relative mt-4 d-block d-lg-none pb-5">
@@ -480,53 +414,7 @@
                     <p class="text-lh-1dot6 mb-0 pr-lg-5">
                       {{ review?.comment }}
                     </p>
-                    <!-- <div class="mt-5">
-                              <div
-                                class="row no-gutters justify-content-between align-items-center border border-color-8 border-width-2 rounded-xs p-3 px-md-3 py-md-2 pr-xl-5"
-                              >
-                                <div class="col">
-                                  <div
-                                    class="font-weight-normal font-size-14 text-gray-1 mx-lg-1 my-lg-1 mb-3 mb-md-0"
-                                  >
-                                    Was This Review...?
-                                  </div>
-                                </div>
-                                <div class="col-md-6 col-lg-7 col-xl-4">
-                                  <div
-                                    class="d-flex justify-content-between my-lg-1"
-                                  >
-                                    <a class="text-indigo-light">
-                                      <img
-                                        src="assets/custom/Activity/like.svg"
-                                        class="me-2"
-                                        alt="like"
-                                      />
-                                      <span class="font-size-14 font-weight-normal"
-                                        >Like</span
-                                      >
-                                    </a>
-                                    <a class="text-gray-7">
-                                      <img
-                                        src="assets/custom/Activity/dislike.svg"
-                                        class="me-2"
-                                        alt="dislike"
-                                      />
-                                      <span class="font-size-14 font-weight-normal"
-                                        >Dislike</span
-                                      >
-                                    </a>
-                                    <a class="text-red-light-2">
-                                      <i
-                                        class="fa-regular fa-heart font-size-15 mr-1"
-                                      ></i>
-                                      <span class="font-size-14 font-weight-normal"
-                                        >Love</span
-                                      >
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div> -->
+                   
                   </div>
                 </div>
               </div>
@@ -720,7 +608,7 @@
           </div>
 
           <div class="mb-4">
-            <div class="border-bottom border-width-2 border-color-1 pb-1">
+            <div class="border-bottom border-width-2 border-color-1 pb-1 package-date">
               <span class="d-block">Date</span>
               <mat-form-field class="w-100" (click)="startPicker.open()">
                 <mat-label>Start Date</mat-label>
@@ -737,7 +625,7 @@
                   matSuffix
                   [for]="startPicker"
                 ></mat-datepicker-toggle>
-                <mat-datepicker #startPicker></mat-datepicker>
+                <mat-datepicker #startPicker  panelClass="custom-datepicker-panel"></mat-datepicker>
               </mat-form-field>
 
               <mat-form-field class="w-100" *ngIf="startDate">

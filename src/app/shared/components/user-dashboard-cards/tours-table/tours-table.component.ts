@@ -29,6 +29,7 @@ export class ToursTableComponent {
     this.selectedTour = tour;
 
   }
+  
 
   setFilter(interval: string) {
     this.activeTab = interval;

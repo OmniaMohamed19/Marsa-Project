@@ -7,6 +7,16 @@ h4,
   font-family: Lato;
   font-weight: 700;
 }
+::ng-deep{
+  .mat-datepicker-content {
+     max-width: 100% !important; 
+     max-height: 100% !important; 
+     overflow-y: hidden !important; 
+   }
+   .cdk-overlay-pane{
+    overflow:hidden !important;
+   }
+ }
 .image-container {
   width: 100%; /* Make the container full width */
   height: 265px; /* Fixed height for the container */
@@ -29,14 +39,14 @@ h4,
   height: auto; /* Maintain aspect ratio */
 }
 
-::ng-deep {
-  // .mat-mdc-dialog-container .mdc-dialog__surface {
-  //   background-color: transparent !important;
-  // }
-  .cdk-overlay-pane {
-    overflow: auto !important;
-  }
-}
+// ::ng-deep {
+//   // .mat-mdc-dialog-container .mdc-dialog__surface {
+//   //   background-color: transparent !important;
+//   // }
+//   .cdk-overlay-pane {
+//     overflow: auto !important;
+//   }
+// }
 h4 {
   font-size: 30px;
   line-height: 36px;

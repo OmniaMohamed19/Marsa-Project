@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-liveboard-payment',
@@ -76,6 +77,8 @@ export class LiveboardPaymentComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private dialog: MatDialog,
+    private titleService: Title,
+
   ) {}
 
   setDisplay(id: any) {
@@ -97,6 +100,8 @@ export class LiveboardPaymentComponent implements OnInit {
     event.preventDefault();
   }
   ngOnInit(): void {
+    this.titleService.setTitle("Confirm Booking");
+
     this.edit = localStorage['editLiveaboard'];
     this.initForm();
     this.getNationality();

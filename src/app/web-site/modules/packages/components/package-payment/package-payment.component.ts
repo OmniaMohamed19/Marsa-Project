@@ -14,6 +14,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-package-payment',
@@ -74,10 +75,13 @@ export class PackagePaymentComponent {
     private translate: TranslateService,
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
+    private titleService: Title,
 
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle("Confirm Booking");
+
     this.initForm();
     this.edit = localStorage['editPackage']
       ? localStorage['editPackage']

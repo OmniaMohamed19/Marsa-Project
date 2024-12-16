@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MapModalComponent } from 'src/app/shared/components/@layout-pages/map-modal/map-modal.component';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-package-confirm',
   templateUrl: './package-confirm.component.html',
@@ -38,9 +39,13 @@ export class PackageConfirmComponent {
     public translate: TranslateService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private titleService: Title,
+
   ) {}
   ngOnInit(): void {
+    this.titleService.setTitle("Confirm Booking");
+
     this.initForm();
     this.route.queryParams.subscribe((params: any) => {
       const res = JSON.parse(params['res']);

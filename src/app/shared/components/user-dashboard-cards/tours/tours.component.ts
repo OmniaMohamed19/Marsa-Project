@@ -58,14 +58,27 @@ export class ToursComponent {
   ngOnChanges() {
     this.activityTypes = this.types[0].types;
   }
+  // setActiveSection(section: string) {
+  //   this.activeSection = section;
+  //   if (this.activeSection != 'all') {
+  //     console.log(this.tours);
+
+  //     this.filteredTours = this.tours.filter((item: any) => {
+  //       return item.tripTypeid == section;
+  //     });
+  //   }
+  // }
   setActiveSection(section: string) {
     this.activeSection = section;
-    if (this.activeSection != 'all') {
-      console.log(this.tours);
-
-      this.filteredTours = this.tours.filter((item: any) => {
-        return item.tripTypeid == section;
-      });
+  
+    if (this.activeSection !== 'all') {
+      this.filteredTours = this.tours.filter((item: any) => item.tripTypeid === section);
+    } else {
+      this.filteredTours = [...this.tours];
     }
+  
+    this.cdr.detectChanges(); 
   }
+  
+  
 }

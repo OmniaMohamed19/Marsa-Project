@@ -4,6 +4,7 @@ import {
   HostListener,
   TemplateRef,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
@@ -36,10 +37,12 @@ import {
   CUSTOM_DATE_FORMATS,
   CustomDateAdapter,
 } from 'src/app/shared/components/Date/custom-date-adapter';
+
 @Component({
   selector: 'app-package-details',
   templateUrl: './package-details.component.html',
   styleUrls: ['./package-details.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
   animations: [
     trigger('fadeInOut', [
       state(
@@ -57,6 +60,8 @@ import {
   ],
 })
 export class PackageDetailsComponent {
+
+
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
 
@@ -94,7 +99,7 @@ export class PackageDetailsComponent {
     }
   };
   // duration: any;
-  @ViewChild('startPicker') startPicker!: MatDatepicker<Date>;
+  @ViewChild('startPicker') startPicker!: MatDatepicker<any>;
   @ViewChild('endPicker') endPicker!: MatDatepicker<Date>;
 
   minDate = new Date(); // Today's date
@@ -133,6 +138,7 @@ export class PackageDetailsComponent {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
+ 
 
   handleImageError(event: Event): void {
     const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
@@ -152,6 +158,7 @@ export class PackageDetailsComponent {
   ngAfterViewInit() {
      //   // Initialize the active tab on load
     this.setupIntersectionObserver();
+  
   }
 
   scrollTo(tabId: string) {
@@ -209,6 +216,7 @@ export class PackageDetailsComponent {
   }
 
   ngOnInit(): void {
+
     this.activatedRoute.params.subscribe((params: any) => {
       this.packageID = params.id;
       this.loadData();

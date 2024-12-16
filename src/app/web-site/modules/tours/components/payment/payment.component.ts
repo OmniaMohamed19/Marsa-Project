@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { Code } from '../../context/code.interface';
 import { Observable, map, startWith } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment',
@@ -68,6 +69,8 @@ export class PaymentComponent {
   isDisable: boolean = false;
   Bookingid:any;
   constructor(
+        private titleService: Title,
+    
     private spinner: NgxSpinnerService,
     private location: Location,
     private route: ActivatedRoute,
@@ -82,6 +85,7 @@ export class PaymentComponent {
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle("Confirm Booking");
     this.initForm();
     this.edit = localStorage['editTour'];
     this.route.queryParams.subscribe((params: any) => {
