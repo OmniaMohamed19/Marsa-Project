@@ -479,6 +479,8 @@ export class ToursDetailsComponent implements AfterViewInit {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
+        console.log(this.activityData);
+
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
             this.router.navigate([
@@ -1062,7 +1064,7 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
         })
         .subscribe({
           next: (res: any) => {
-           
+
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
           },
