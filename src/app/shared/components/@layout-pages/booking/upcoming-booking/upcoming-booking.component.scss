@@ -65,7 +65,6 @@ h4 {
       background-repeat: no-repeat;
       width: 350px;
       height: 330px;
-
     }
     .img-content {
       margin-left: 0px;
@@ -128,7 +127,7 @@ h4 {
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        margin-top:0.7rem;
+        margin-top: 0.7rem;
       }
       .trip-rating {
         display: flex;
@@ -405,7 +404,7 @@ h4 {
 .modal-body {
   padding: 20px;
 }
-.modal-dialog-centered{
+.modal-dialog-centered {
   max-width: 570px;
 }
 // #flexCheckChecked {
@@ -417,7 +416,7 @@ h4 {
   box-shadow: none;
 }
 /***************************************************/
-@media screen and (max-width: 400px){
+@media screen and (max-width: 400px) {
   .place-card {
     flex-direction: column;
     gap: 30px;
@@ -435,12 +434,10 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
-
       }
-      .img{
-          width: 290px;
-        }
-
+      .img {
+        width: 290px;
+      }
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -448,10 +445,8 @@ h4 {
       right: -21%;
     }
   }
-
 }
 @media screen and (max-width: 576px) {
-
   .place-card {
     flex-direction: column;
     gap: 30px;
@@ -469,12 +464,10 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
-
       }
-      .img{
-          width: 311px;
-        }
-
+      .img {
+        width: 311px;
+      }
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -511,12 +504,10 @@ h4 {
           margin-top: 4rem;
           justify-content: end;
         }
-
       }
-      .img{
-          width: 324px;
-        }
-
+      .img {
+        width: 324px;
+      }
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
       position: absolute;
@@ -524,14 +515,11 @@ h4 {
       right: -21%;
     }
   }
-
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
-
 }
 
 @media screen and (min-width: 576.9px) and (max-width: 768px) {
-
   .place-card {
     flex-direction: row;
     gap: 30px;
@@ -540,7 +528,7 @@ h4 {
       justify-content: center;
       gap: 25px;
       width: 100%;
-      .img{
+      .img {
         width: 311px;
       }
     }
@@ -551,10 +539,8 @@ h4 {
     justify-content: flex-start;
     align-items: flex-start;
   }
-
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
-
   .place-card {
     .first-place .trip {
       flex-direction: column;
@@ -580,7 +566,6 @@ h4 {
 //     }
 //   }
 // }
-
 
 label {
   font-family: Lato;

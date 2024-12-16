@@ -514,3 +514,18 @@ body {
   position: fixed;
   z-index: 100000 !important;
 }
+.iti--allow-dropdown .iti__flag-container {
+  right: inherit !important;
+  left: 0px !important;
+}
+
+.first {
+  background: #ec0000 !important;
+  border: 1px solid #ec0000 !important;
+  border: 1px solid transparent;
+}
+.second {
+  color: #fff;
+  background-color: #0db1ff !important;
+  border: 1px solid transparent !important;
+}
