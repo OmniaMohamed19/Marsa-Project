@@ -163,7 +163,6 @@ export class PackagePaymentComponent {
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : 0,
         lat: this.latitudeValue ? this.latitudeValue.toString() : 0,
-        note:''.toString(),
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,

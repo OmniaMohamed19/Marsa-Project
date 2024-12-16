@@ -169,11 +169,11 @@ export class UpcomingBookingComponent {
         code: code,
         userid: this.userData?.id,
 
+        note:'',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-        note:''
       };
 
       Object.keys(model).forEach(
