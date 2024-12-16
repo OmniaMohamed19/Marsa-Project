@@ -8,6 +8,11 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,48 +26,34 @@ export class LoginComponent implements OnInit {
   showRegisterComponent = false;
   isPasswordVisible = false;
   showResetComponent = false;
+  showCodeSignForm=false;
+  baseURL = environment.APIURL;
+   private isAuthenticated = false;
+    $isAuthenticated = new BehaviorSubject<boolean>(false);
+    private token!: string;
+    private $userData = new BehaviorSubject<any | null>(null);
+    $loginError = new Subject();
+
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private transtale: TranslateService,
+    private _HttpClient: HttpClient,
+  ) { }
 
   ngOnInit(): void {
+    // إنشاء النموذج
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
       rememberMe: new FormControl(false),
       showForm: new FormControl(true),
     });
+
     this.authService.registerBehavoir.subscribe((behavior: string) => {
-      if (behavior === 'signup') {
-        this.showRegisterComponent = true;
-      } else {
-        this.showRegisterComponent = false;
-      }
+      this.showRegisterComponent = behavior === 'signup';
     });
-    this.authService.$loginError.subscribe((res: any) => {
-      if (res && this.loginForm.valid) {
-        let errorMessage = '';
-
-        if (res.code === 'INVALID_EMAIL') {
-          errorMessage = 'Email is incorrect.';
-        } else if (res.code === 'INVALID_PASSWORD') {
-          errorMessage = 'The password is incorrect.';
-        } else {
-          errorMessage = 'Incorrect email or password.';
-        }
-
-        this.toastr.error(errorMessage, '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-      }
-    });
-
   }
 
   toggleVisibility() {
@@ -75,7 +66,9 @@ export class LoginComponent implements OnInit {
     } else if (value == 'reset') {
       this.showResetComponent = true;
       this.loginForm.get('showForm')?.setValue(false);
-    }else if (value == 'otp'){
+    }
+     else if (value == 'otp') {
+      this.showCodeSignForm=true;
       this.loginForm.get('showForm')?.setValue(false);
 
     }
@@ -93,17 +86,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-   
-    if (this.email.invalid){
-      this.toastr.error('please enter a valid email address', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
-    }
-    if (this.email ==null &&  this.password==null){
+    if (this.email.errors && this.password.errors) {
       this.toastr.error('Please enter your email and password', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -112,10 +95,78 @@ export class LoginComponent implements OnInit {
         closeButton: true,
       });
     }
+     else if (this.email.invalid) {
+      this.toastr.error('please enter a valid email address', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+    }
     else {
-      this.authService.authenticate(this.loginForm.value);
+      this.authenticate(this.loginForm.value);
 
     }
+
+  }
+  authenticate(userData: { email: string; password: string }) {
+    this._HttpClient.post<any>(`${this.baseURL}login`, userData).subscribe({
+      next: (res: any) => {
+        if (res && res.result) {
+          // set auth status and token
+          this.$isAuthenticated.next(true);
+          this.token = res.access_token;
+
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem('userToken', res.access_token);
+            localStorage.setItem('userData', JSON.stringify(res.user));
+          }
+
+          this.$userData.next(res.user);
+          this.dialog?.closeAll();
+          window.location.reload();
+        } else {
+          this.$loginError.next(true);
+          this.toastr.error(res.message || 'Login failed. Please try again.');
+        }
+      },
+      error: (err: any) => {
+        this.$loginError.next(true);
+
+        if (err.error && err.error.message) {
+          if(err.error.message === 'Unauthorized'){
+            this.toastr.error('Incorrect email or password', '', {
+              disableTimeOut: false,
+              titleClass: 'toastr_title',
+              messageClass: 'toastr_message',
+              timeOut: 5000,
+              closeButton: true,
+            });
+          }
+          else if (err.error.message === 'Please verify your account'){
+            this.showCodeSignForm = !this.showCodeSignForm;
+            this.toastr.error(err.error.message, '', {
+              disableTimeOut: false,
+              titleClass: 'toastr_title',
+              messageClass: 'toastr_message',
+              timeOut: 5000,
+              closeButton: true,
+            });
+            // this.loginForm.reset({
+            //   showForm: true,
+            // });
+
+
+          }
+
+        } else if (err.statusText === 'Unauthorized') {
+          this.toastr.error(this.transtale.instant('validation.Unauthorized'));
+        } else {
+          this.toastr.error('An unexpected error occurred. Please try again.');
+        }
+      },
+    });
   }
 
   closeDiv() {
@@ -125,6 +176,8 @@ export class LoginComponent implements OnInit {
       rememberMe: false,
       showForm: true,
     });
+    this.showResetComponent = false;
+    this.showRegisterComponent = false;
     this.dialog?.closeAll();
     this.close.emit();
   }

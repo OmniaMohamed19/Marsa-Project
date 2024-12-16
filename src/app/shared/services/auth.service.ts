@@ -143,33 +143,58 @@ export class AuthService {
   authenticate(userData: { email: string; password: string }) {
     this._HttpClient.post<any>(`${this.baseURL}login`, userData).subscribe({
       next: (res: any) => {
-        if (res) {
+        if (res && res.result) {
           // set auth status and token
           this.$isAuthenticated.next(true);
           this.token = res.access_token;
-          if (typeof window !== 'undefined' && window.localStorage){
 
+          if (typeof window !== 'undefined' && window.localStorage) {
             localStorage.setItem('userToken', res.access_token);
-            // set user data
             localStorage.setItem('userData', JSON.stringify(res.user));
           }
+
           this.$userData.next(res.user);
           this.dialog?.closeAll();
           window.location.reload();
-          // this.router.navigate([localStorage.getItem('lang')]);
         } else {
           this.$loginError.next(true);
+          this.toastr.error(res.message || 'Login failed. Please try again.');
         }
       },
       error: (err: any) => {
         this.$loginError.next(true);
-        if (err.statusText == 'Unauthorized') {
+
+        if (err.error && err.error.message) {
+          if(err.error.message === 'Unauthorized'){
+            this.toastr.error('Incorrect email or password', '', {
+              disableTimeOut: false,
+              titleClass: 'toastr_title',
+              messageClass: 'toastr_message',
+              timeOut: 5000,
+              closeButton: true,
+            });
+          }
+          else if (err.error.message === 'Please verify your account'){
+            this.toastr.error(err.error.message, '', {
+              disableTimeOut: false,
+              titleClass: 'toastr_title',
+              messageClass: 'toastr_message',
+              timeOut: 5000,
+              closeButton: true,
+            });
+            this.dialog?.closeAll();
+
+          }
+
+        } else if (err.statusText === 'Unauthorized') {
           this.toastr.error(this.transtale.instant('validation.Unauthorized'));
+        } else {
+          this.toastr.error('An unexpected error occurred. Please try again.');
         }
-        // else this.toastr.error(err.message);
       },
     });
   }
+
 
   isLoginError(): Observable<boolean> {
     return this.$loginError as Observable<boolean>;

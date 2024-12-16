@@ -84,6 +84,8 @@ export class RegisterComponent implements OnInit {
     this.terms = event.target.checked;
   }
   closeRegister() {
+    this.showRegisterForm = false;
+    this.showCodeSignForm = false;
     this.dialog?.closeAll();
     this.close.emit(); // Emit the close event
   }
@@ -133,7 +135,9 @@ export class RegisterComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         });
-      } else {
+      } else if (this.email.errors || this.password.errors || this.name.errors || this.email.errors || this.phone.errors) {
+
+
         this.toastr.error('Check Missing Fields', '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
@@ -142,8 +146,19 @@ export class RegisterComponent implements OnInit {
           closeButton: true,
         });
       }
+      else if(this.role.errors){
+          this.toastr.error('Please agree to the Terms and Privacy Policy', '', {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          });
+        }
+
       return;
     }
+
 
     const model = {
       ...this.signupForm.value,

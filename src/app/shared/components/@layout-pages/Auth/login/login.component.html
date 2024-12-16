@@ -1,7 +1,7 @@
 <form
   [formGroup]="loginForm"
   (ngSubmit)="submitForm()"
-  *ngIf="loginForm?.get('showForm')?.value === true"
+  *ngIf="loginForm?.get('showForm')?.value === true &&  !showCodeSignForm"
 >
   <div
     id="login"
@@ -212,3 +212,6 @@
 </form>
 <app-register *ngIf="showRegisterComponent" (close)="closeDiv()"></app-register
 ><app-reset *ngIf="showResetComponent" (close)="closeDiv()"></app-reset>
+<div *ngIf="showCodeSignForm">
+  <app-code-sign [newPass]="false" (close)="closeDiv()"></app-code-sign>
+</div>

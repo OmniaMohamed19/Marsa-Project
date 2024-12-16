@@ -182,7 +182,8 @@ export class BlogSignalComponent implements OnInit {
     dots: false,
     autoplay: true,
     margin: 0,
-    navSpeed: 900,
+    navSpeed: 700,
+    nav: true,
     navText: [
       "<i class='fa fa-angle-left'></i>",
       "<i class='fa fa-angle-right'></i>",
@@ -201,6 +202,6 @@ export class BlogSignalComponent implements OnInit {
         items: 1,
       },
     },
-    nav: true,
+
   };
 }
