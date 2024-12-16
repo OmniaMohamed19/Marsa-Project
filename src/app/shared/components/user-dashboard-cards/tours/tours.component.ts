@@ -61,7 +61,9 @@ export class ToursComponent {
   setActiveSection(section: string) {
     this.activeSection = section;
     if (this.activeSection != 'all') {
-      this.filteredTours = this.tours.data.filter((item: any) => {
+      console.log(this.tours);
+
+      this.filteredTours = this.tours.filter((item: any) => {
         return item.tripTypeid == section;
       });
     }

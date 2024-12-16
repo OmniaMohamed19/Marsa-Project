@@ -85,7 +85,6 @@ export class PackagePaymentComponent {
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       const parsedRes = JSON.parse(params['res']);
-      this.Bookingid = parsedRes.Bookingid;
       this.responseFromAvailableOption = parsedRes;
 
       this.model.adult = params['adult'];
@@ -97,6 +96,7 @@ export class PackagePaymentComponent {
       this.getDataById(this.model.packege_id);
     });
     if (JSON.parse(localStorage['queryParamsPackages']).BookingInfo) {
+      this.Bookingid = JSON.parse(localStorage['queryParamsPackages'])?.BookingInfo?.Bookingid;
       this.userData.name=JSON.parse(localStorage['queryParamsPackages']).BookingInfo.name||''
       this.userData.phone=JSON.parse(localStorage['queryParamsPackages']).BookingInfo.Phone||''
       this.userData.email=JSON.parse(localStorage['queryParamsPackages']).BookingInfo['E-mail']||''
@@ -157,8 +157,9 @@ export class PackagePaymentComponent {
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
-        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
-        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        lng: this.longitudeValue ? this.longitudeValue.toString() : 0,
+        lat: this.latitudeValue ? this.latitudeValue.toString() : 0,
+        note:''.toString(),
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
@@ -166,6 +167,7 @@ export class PackagePaymentComponent {
         card_number: this.cardNumber,
       };
 
+console.log(this.Bookingid);
 
       this._httpService
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
