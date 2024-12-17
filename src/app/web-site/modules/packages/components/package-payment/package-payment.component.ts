@@ -226,7 +226,9 @@ console.log(this.Bookingid);
     this._httpService
       .get(environment.marsa, `package/details/` + Id)
       .subscribe((res: any) => {
-        this.packageData = res?.tripDetails;
+        this.packageData = res?.PackageDetails;
+        console.log(res);
+
       });
   }
 

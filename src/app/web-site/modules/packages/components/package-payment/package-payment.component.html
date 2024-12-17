@@ -1,7 +1,7 @@
 <app-header [background]="'#0DB1FF'"></app-header>
 <div class="container top-155">
   <div class="row">
-    
+
 
       <div class="col-lg-8 col-xl-9">
         <mat-horizontal-stepper #stepper [linear]="true">
@@ -16,7 +16,7 @@
                   <div class="col-sm-12 mb-4">
                     <div class="js-form-message">
                       <label class="form-label"> Name </label>
-  
+
                       <input type="text" class="form-control" formControlName="name" [ngClass]="{
                           'is-invalid':
                             customerForm.get('name')?.invalid &&
@@ -66,7 +66,7 @@
                       </ng-container>
                     </div>
                   </div>
-                
+
                   <div class="w-100"></div>
                   <p>Do you want a pick up services ?</p>
                   <div class="d-flex gap-5 mb-2">
@@ -133,7 +133,7 @@
                   <div class="w-100"></div>
                   <div class="col align-self-end">
                     <div class="text-right gap-3 d-flex justify-content-end">
-                      <button type="submit" class="btn payment bg-transparent py-3" (click)="goToPreviousStep(stepper)">
+                      <button type="submit" class="btn payment bg-transparent py-3" (click)="goBack()">
                         Cancel
                       </button>
                       <button (click)="edit?confirmEdit($event):goToPayment(stepper)" type="submit"
@@ -181,7 +181,7 @@
                     </div>
                   </a>
                 </li>
-  
+
               </ul>
               <div class="tab-content">
                 <div class="tab-pane fade pt-8 show active" id="pills-two-example2" role="tabpanel"
@@ -199,21 +199,21 @@
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
                           <label class="form-label"> Card Number* </label>
-  
+
                           <input type="text" class="form-control" (paste)="onPaste($event)" name="Cardnumber"
                             placeholder="xxxx xxxx xxxx xxxx" aria-label="" required="" inputmode="numeric"
                             [(ngModel)]="cardNumber" maxlength="16" (keypress)="OnlyNumbers($event)" />
                         </div>
                       </div>
-  
+
                       <div class="w-100"></div>
-  
+
                       <div class="col-sm-6 mb-4">
                         <div class="row">
                           <div class="col-sm-6 mb-4 mb-md-0">
                             <div class="js-form-message">
                               <label class="form-label"> Expiry Month*</label>
-  
+
                               <input type="text" class="form-control" (paste)="onPaste($event)" name="Expirymonth"
                                 placeholder="xx" aria-label="" [(ngModel)]="expiryMonth" required="" maxlength="2"
                                 (keypress)="OnlyNumbers($event)" inputmode="numeric" />
@@ -222,7 +222,7 @@
                           <div class="col-sm-6">
                             <div class="js-form-message">
                               <label class="form-label"> Expiry Year* </label>
-  
+
                               <input type="text" class="form-control" name="Expiryyear" [(ngModel)]="expirYear"
                                 placeholder="xx" aria-label="" required="" maxlength="2" (paste)="onPaste($event)"
                                 inputmode="numeric" (keypress)="OnlyNumbers($event)" />
@@ -230,17 +230,17 @@
                           </div>
                         </div>
                       </div>
-  
+
                       <div class="col-sm-6 mb-4">
                         <div class="js-form-message">
                           <label class="form-label"> CVV* </label>
-  
+
                           <input type="text" class="form-control" name="ccvnumber" placeholder="XXX" aria-label=""
                             required="" [(ngModel)]="cvv" maxlength="3" (paste)="onPaste($event)" autocomplete="cc-number"
                             inputmode="numeric" (keypress)="OnlyNumbers($event)" />
                         </div>
                       </div>
-  
+
                       <div class="w-100"></div>
                       <div class="col">
                         <div class="js-form-message mb-5">
@@ -256,7 +256,7 @@
                             </label>
                           </div>
                         </div>
-  
+
                         <a (click)="
                             edit
                               ? confirmEdit($event)
@@ -315,7 +315,7 @@
           <mat-step [label]="'Booking confirmation!'"> </mat-step>
         </mat-horizontal-stepper>
       </div>
-   
+
     <div class="col-lg-4 col-xl-3">
       <div class="shadow-soft bg-white rounded-sm">
         <div class="pt-5 pb-3 px-5 border-bottom">
