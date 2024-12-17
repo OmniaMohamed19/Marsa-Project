@@ -556,6 +556,7 @@
         position: relative;
         padding-bottom: 10px;
         white-space: nowrap;
+        margin-right: -1rem;
 
         &.active {
           &::after {

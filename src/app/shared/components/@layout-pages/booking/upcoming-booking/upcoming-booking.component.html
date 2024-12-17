@@ -501,6 +501,7 @@ Write here ...
             <div class="col-sm-6 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Phone </label>
+              <br>
 
                 <ngx-intl-tel-input
                   [enableAutoCountrySelect]="true"
@@ -534,49 +535,8 @@ Write here ...
             </div>
             <!-- End Input -->
 
-            <div class="w-100"></div>
 
-            <!-- Input -->
-            <!-- <div class="col-sm-12 mb-4">
-              <div class="js-form-message">
-                <label class="form-label"> Nationality </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Nationality"
-                  formControlName="nationality"
-                  [matAutocomplete]="auto"
-                />
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option
-                    *ngFor="
-                      let nationality of filteredNationalities | async
-                    "
-                    [value]="nationality.name"
-                  >
-                    <img
-                      [src]="nationality.image"
-                      alt="{{ nationality.name }}"
-                      class="flag-icon"
-                    />
-                    <span>{{ nationality.name }}</span>
-                    <span>({{ nationality.isoName }})</span>
-                  </mat-option>
-                </mat-autocomplete>
-
-                <div
-                  *ngIf="
-                    customerForm.get('nationality')?.invalid &&
-                    (customerForm.get('nationality')?.dirty ||
-                      customerForm.get('nationality')?.touched)
-                  "
-                  class="alert alert-danger my-2"
-                >
-                  Nationality is required
-                </div>
-              </div>
-            </div> -->
-            <!-- End Input -->
+         
             <div class="w-100"></div>
             <p class="text-left fs-6">Do you want a pick up services ?</p>
             <div class="d-flex gap-3 flex-wrap mb-2">
@@ -661,29 +621,7 @@ Write here ...
                 </div>
               </div>
             </ng-template>
-            <!-- <ng-container *ngIf="showServices" class="mb-2">
-              <div class="col-sm-6 mb-4">
-                <label class="form-label"> Pick up Place </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="pickup_point"
-                  placeholder="Enter Pick up Place"
-                />
-              </div>
-              <div
-                  *ngIf="
-                    customerForm.get('pickup_point')?.invalid &&
-                    (customerForm.get('pickup_point')?.dirty ||
-                      customerForm.get('pickup_point')?.touched)
-                  "
-                  class="alert alert-danger my-2"
-                >
-                Pick up Place is required
-                </div>
-              <p>You must choose location before 24 hours</p>
-            </ng-container> -->
-            <!-- End Input -->
+           
             <div class="w-100"></div>
             <!-- Input -->
 

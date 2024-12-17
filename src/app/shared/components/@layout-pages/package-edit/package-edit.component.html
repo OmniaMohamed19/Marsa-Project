@@ -54,11 +54,16 @@
               >
 
 
-              <div *ngIf="j < 3">
-                <img src="assets/custom/list.svg" alt="list" loading="lazy" />
-                <span>
-                  {{ trip?.title }}
-                </span>
+              <div *ngIf="j < 3" class="d-flex">
+                <div>
+                  <img src="assets/custom/list.svg" alt="list" loading="lazy" />
+                  </div>
+                  <div class="ms-1">
+
+                    <span>
+                      {{ trip?.title }}
+                    </span>
+                  </div>
                 <!-- Show "See more" button only for the last item -->
                 <button
                   *ngIf="j === 2 && package.trips?.length > 3"

@@ -24,7 +24,7 @@
                 <div class="col-md-4">
                   <div class="product-item__header">
                     <div>
-                      <owl-carousel-o [options]="customOptions">
+                      <owl-carousel-o [options]="customOptions" class="cabin-list">
                         <ng-container *ngFor="let cabin of cabins">
                           <ng-template carouselSlide>
                             <img
@@ -699,7 +699,7 @@
                     <!-- Input -->
                     <div
                       class="col-sm-12 mb-4"
-                      [innerHTML]="liveabourdData?.Bookingpayment"
+                      [innerHTML]="responseFromAvailableOption?.Bookingpayment"
                     >
                       <!-- <img
                         src="assets/icons/mdi_information-outline.svg"

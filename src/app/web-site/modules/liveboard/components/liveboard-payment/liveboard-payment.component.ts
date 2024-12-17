@@ -153,6 +153,7 @@ export class LiveboardPaymentComponent implements OnInit {
       .get(environment.marsa, `liveboard/details/` + Id)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
+        console.log(res)
       });
   }
 

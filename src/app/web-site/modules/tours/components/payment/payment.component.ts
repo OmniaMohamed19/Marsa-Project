@@ -403,6 +403,7 @@ export class PaymentComponent {
   }
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
+    this.spinner.show();
     if (
       this.cardholderName == undefined ||
       this.cardNumber == undefined ||

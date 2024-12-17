@@ -46,9 +46,8 @@ height: 43px;
         transform: translate(-70%, 0px) !important;
     }
 
-    .iti--allow-dropdown .iti__flag-container {
-        right: 0 !important;
-        left: inherit !important;
+    .phone-edit input {
+        padding-left: 4rem;
     }
 
     .iti__country-list {
@@ -60,7 +59,7 @@ height: 43px;
     .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input{
       font-size: 17px;
     }
-    .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag,  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag{
-    margin-left:1rem;
-    }
+    // .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 .iti__selected-flag,  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 .iti__selected-flag{
+    // margin-left:1rem;
+    // }
 }
