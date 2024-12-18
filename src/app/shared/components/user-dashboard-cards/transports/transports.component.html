@@ -187,18 +187,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
-                      <div class="col-xl col-12">
-                        <div class="d-flex">
-                          <div>
-                            <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
-                          </div>
-                          <div class="ms-2">
-                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
-                          </div>
+                    <div class="row mt-4"  >
 
-                        </div>
-                      </div>
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
@@ -206,6 +196,17 @@
                           </div>
                           <div class="ms-2">
                             <p>NO.OF Pepole : {{selectedtransfer?.tripinfo?.person}}</p>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="col-xl col-12" *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
+                        <div class="d-flex">
+                          <div>
+                            <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
+                          </div>
+                          <div class="ms-2">
+                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
                           </div>
 
                         </div>
@@ -278,7 +279,7 @@
                           </div>
                           <div class="ms-1">
                             <p>{{
-                              "1970-01-01T" + selectedtransfer?.tripinfo?.datetime
+                              "1970-01-01T" + selectedtransfer?.tripinfo?.booktime
                               | date : "h:mm a"
                               }}</p>
                           </div>
@@ -297,18 +298,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
-                      <div class="col-xl col-12">
-                        <div class="d-flex">
-                          <div>
-                            <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
-                          </div>
-                          <div class="ms-2">
-                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
-                          </div>
+                    <div class="row mt-4">
 
-                        </div>
-                      </div>
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
@@ -320,10 +311,21 @@
 
                         </div>
                       </div>
+                      <div class="col-xl col-12" *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
+                        <div class="d-flex">
+                          <div>
+                            <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
+                          </div>
+                          <div class="ms-2">
+                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
+                          </div>
+
+                        </div>
+                      </div>
 
                     </div>
 
-                    <div class="row mt-4">
+                    <div class="row mt-4 ">
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
@@ -381,18 +383,8 @@
                       </div>
 
                     </div>
-                    <div class="row mt-4"  *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
-                      <div class="col-xl col-12">
-                        <div class="d-flex">
-                          <div>
-                            <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
-                          </div>
-                          <div class="ms-2">
-                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
-                          </div>
+                    <div class="row mt-4"  >
 
-                        </div>
-                      </div>
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>
@@ -404,10 +396,21 @@
 
                         </div>
                       </div>
+                      <div class="col-xl col-12" *ngIf="selectedtransfer?.tripinfo?.flightnumbber!=null">
+                        <div class="d-flex">
+                          <div>
+                            <img src="../../../../../assets/icons/transfer-icons/carbon_flight-roster.svg">
+                          </div>
+                          <div class="ms-2">
+                            <p>{{selectedtransfer?.tripinfo?.flightnumbber}}</p>
+                          </div>
+
+                        </div>
+                      </div>
 
                     </div>
 
-                    <div class="row mt-4">
+                    <div class="row mt-4 ">
                       <div class="col-xl col-12">
                         <div class="d-flex">
                           <div>

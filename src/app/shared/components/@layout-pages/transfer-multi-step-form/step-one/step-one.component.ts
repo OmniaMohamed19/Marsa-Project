@@ -75,6 +75,7 @@ export class StepOneComponent implements OnInit {
 
   };
   countries: any;
+  picupDate: any;
 
   constructor(public translate: TranslateService, private toastr: ToastrService, private httpService: HttpService) { }
   emailValidator(): ValidatorFn {
@@ -108,6 +109,7 @@ export class StepOneComponent implements OnInit {
     const savedSelectedCar = localStorage.getItem('selectedCar');  // Retrieve selected car from localStorage
     this.return_date = localStorage.getItem('returnDate');
     const dateString = localStorage.getItem('returnDate') || '';
+
     if (dateString) {
       const date = new Date(dateString);
       const year = date.getFullYear();
@@ -150,7 +152,20 @@ export class StepOneComponent implements OnInit {
     this.formData.from = this.responseData?.booking?.from || '';
     this.formData.to = this.responseData?.booking?.to || '';
     this.formData.pickuptime = this.bookdetail?.pickuptime || '';
-    this.formData.date = this.bookdetail?.date || '';
+   // this.formData.date = this.bookdetail?.date || '';
+    const PicupdateString = this.bookdetail?.date || '';
+
+
+    if (PicupdateString) {
+      const date = new Date(PicupdateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+
+      this.formData.date  = `${year}-${month}-${day}`;
+    } else {
+      this.formData.date  = '';
+    }
 
   }
   updateLocalStorage() {
