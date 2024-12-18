@@ -78,23 +78,39 @@ export class StepThreeComponent implements OnInit {
       this.total = this.SavedaddOnDetails?.Total || '';
 
      // this.returnbookingdate = this.SavedaddOnDetails?.return_booking_date || '';
-      this.returnbookingtime = this.SavedaddOnDetails?.return_booking_time || '';
-      this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
+     this.returnbookingtime = this.SavedaddOnDetails?.return_booking_time || null;
+     this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
+      //this.bookingDate=this.SavedaddOnDetails.booking_date || '';
 
       const bookingDateString = this.SavedaddOnDetails.booking_date || '';
       const dateString = this.SavedaddOnDetails?.return_booking_date || '';
       if (dateString || bookingDateString) {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
+        if (dateString) {
+          const date = new Date(dateString);
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          this.returnbookingdate = `${year}-${month}-${day}`;
+        } else {
+          this.returnbookingdate = '';
+        }
 
-        this.returnbookingdate = `${year}-${month}-${day}`;
-        this.bookingDate =`${year}-${month}-${day}`;
+        if (bookingDateString) {
+          const date2 = new Date(bookingDateString);
+          const year2 = date2.getFullYear();
+          const month2 = String(date2.getMonth() + 1).padStart(2, '0');
+          const day2 = String(date2.getDate()).padStart(2, '0');
+          this.bookingDate = `${year2}-${month2}-${day2}`;
+        } else {
+          this.bookingDate = '';
+        }
       } else {
         this.returnbookingdate = '';
-        this.bookingDate='';
+        this.bookingDate = '';
       }
+
+      console.log(this.bookingDate)
+      console.log(this.returnbookingdate)
 
     }
 
@@ -213,8 +229,8 @@ export class StepThreeComponent implements OnInit {
         way: this.way,
         booking_time: this.bookingTime,
         booking_date: this.bookingDate,
-        return_booking_time: this.returnbookingtime,
-        return_booking_date: this.returnbookingdate,
+        return_booking_time: this.returnbookingtime || '',
+        return_booking_date: this.returnbookingdate || '',
         payment_method: this.payment_method ? this.payment_method : 'tab',
         booking_option: bookingOption,
         flight_n: this.flightNumper,

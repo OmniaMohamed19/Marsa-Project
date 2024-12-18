@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   isLogin: boolean = false;
   userDate: any;
   social: any;
+  userDetails: any;
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
@@ -33,7 +34,11 @@ export class HeaderComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+    this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
+      this.userDetails = res?.user_inform;
+
+    });
+     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
     this._AuthService.getUserData().subscribe(
