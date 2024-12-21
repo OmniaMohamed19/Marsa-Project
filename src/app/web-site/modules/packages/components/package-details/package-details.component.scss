@@ -14,12 +14,36 @@
 }
 
 ::ng-deep{
+
+  // .cdk-overlay-pane{
+  //   top: 59px;
+  //   right: 62.2708px !important;
+  // }
  .mat-datepicker-content {
-    max-width: 90vw !important; 
-    max-height: 90vh !important; 
-    overflow-y: auto !important; 
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
+  mat-datepicker {
+    transform-origin: top right !important;
+    direction: ltr !important;
+  }
+
+  .cdk-overlay-connected-position-bounding-box {
+    justify-content: flex-end !important;
   }
 }
+
+
+
+@media (min-width: 1300px) {
+//  ::ng-deep{
+//   .cdk-overlay-pane{
+//     left: 1400.64px !important;
+//   }
+//   }
+}
+
 
 
 h4,

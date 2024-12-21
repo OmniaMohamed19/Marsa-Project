@@ -122,14 +122,7 @@
                                 alt="check"
                               />
                             </a>
-                            <!-- <input
-                              class="js-result form-control h-auto font-weight-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
-                              type="number"
-                              [attr.min]="0"
-                              [attr.max]="item.available"
-                              [(ngModel)]="personsMap[item.id]"
-                              disabled
-                            /> -->
+
                             <span class="d-block font-weight-bold"
                               >{{ personsMap[item.id] }} Persons</span
                             >
@@ -285,47 +278,7 @@
 
                 <div class="w-100"></div>
 
-                <!-- Input -->
-                <!-- <div class="col-sm-12 mb-4">
-                  <div class="js-form-message">
-                    <label class="form-label"> Nationality </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Nationality"
-                      formControlName="nationality"
-                      [matAutocomplete]="auto"
-                    />
-                    <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option
-                        *ngFor="
-                          let nationality of filteredNationalities | async
-                        "
-                        [value]="nationality.name"
-                      >
-                        <img
-                          [src]="nationality.image"
-                          alt="{{ nationality.name }}"
-                          class="flag-icon"
-                        />
-                        <span>{{ nationality.name }}</span>
-                        <span>({{ nationality.isoName }})</span>
-                        <span> - {{ nationality.code }}</span>
-                      </mat-option>
-                    </mat-autocomplete>
-                    <div
-                      *ngIf="
-                        customerForm.get('nationality')?.invalid &&
-                        (customerForm.get('nationality')?.dirty ||
-                          customerForm.get('nationality')?.touched)
-                      "
-                      class="alert alert-danger my-2"
-                    >
-                      Nationality is required
-                    </div>
-                  </div>
-                </div> -->
-                <!-- End Input -->
+               
                 <div class="w-100"></div>
                 <p>Do you want a pick up services ?</p>
                 <div class="d-flex gap-5 mb-2">

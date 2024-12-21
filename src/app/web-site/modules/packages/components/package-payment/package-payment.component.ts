@@ -294,6 +294,22 @@ console.log(this.Bookingid);
 
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
+    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+
+    // Check if the terms and conditions checkbox is selected
+    if (!termsCheckbox.checked) {
+      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return; // Stop further execution
+    }
+
+
+
 
     if (
       this.cardholderName == undefined ||

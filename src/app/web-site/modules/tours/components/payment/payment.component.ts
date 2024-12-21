@@ -70,7 +70,7 @@ export class PaymentComponent {
   Bookingid:any;
   constructor(
         private titleService: Title,
-    
+
     private spinner: NgxSpinnerService,
     private location: Location,
     private route: ActivatedRoute,
@@ -402,6 +402,19 @@ export class PaymentComponent {
     }
   }
   confirmBookingByCard(event: Event) {
+    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+
+    // Check if the terms and conditions checkbox is selected
+    if (!termsCheckbox.checked) {
+      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return; // Stop further execution
+    }
     this.isDisable = true;
     this.spinner.show();
     if (

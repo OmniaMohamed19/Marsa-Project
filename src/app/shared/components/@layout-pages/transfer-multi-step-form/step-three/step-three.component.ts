@@ -190,12 +190,28 @@ export class StepThreeComponent implements OnInit {
 
     this.buttonDisabled = true;
 
+    // Get the checkbox element
+    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+
+    // Check if the terms and conditions checkbox is selected
+    if (!termsCheckbox.checked) {
+      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      this.buttonDisabled = false; // Re-enable the button
+      return; // Stop further execution
+    }
+
+    // Validate the required fields
     if (
       this.cardholderName == undefined || this.cardNumber == undefined ||
       this.expiryMonth == undefined || this.expirYear == undefined ||
       this.cvv == undefined
     ) {
-
       this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -203,86 +219,77 @@ export class StepThreeComponent implements OnInit {
         timeOut: 5000,
         closeButton: true,
       });
-      return; // Stop the function if any field is missing
-    } else {
-      // Show the spinner
+      this.buttonDisabled = false; // Re-enable the button
+      return; // Stop further execution
+    }
 
-      const bookingOption = [];
+    // Proceed with booking if all validations pass
+    const bookingOption = [];
 
-      for (const key in this.selectedOption) {
-        if (this.selectedOption.hasOwnProperty(key)) {
-          const option = this.selectedOption[key];
-          if (option && option.id) {
-            bookingOption.push({
-              id: option.id,
-              persons: option.number,
-            });
-          }
+    for (const key in this.selectedOption) {
+      if (this.selectedOption.hasOwnProperty(key)) {
+        const option = this.selectedOption[key];
+        if (option && option.id) {
+          bookingOption.push({
+            id: option.id,
+            persons: option.number,
+          });
         }
       }
+    }
 
-      const model = {
-        from_id: this.fromId,
-        to_id: this.toId,
-        person: this.person,
-        car_id: this.carId,
-        way: this.way,
-        booking_time: this.bookingTime,
-        booking_date: this.bookingDate,
-        return_booking_time: this.returnbookingtime || '',
-        return_booking_date: this.returnbookingdate || '',
-        payment_method: this.payment_method ? this.payment_method : 'tab',
-        booking_option: bookingOption,
-        flight_n: this.flightNumper,
-        coupon_code: this.Coupons?.[0]?.code || '',
-        cardholder_name: this.cardholderName,
-        cvv: this.cvv?.toString(),
-        expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth,
-        card_number: this.cardNumber?.toString()
-      };
+    const model = {
+      from_id: this.fromId,
+      to_id: this.toId,
+      person: this.person,
+      car_id: this.carId,
+      way: this.way,
+      booking_time: this.bookingTime,
+      booking_date: this.bookingDate,
+      return_booking_time: this.returnbookingtime || '',
+      return_booking_date: this.returnbookingdate || '',
+      payment_method: this.payment_method ? this.payment_method : 'tab',
+      booking_option: bookingOption,
+      flight_n: this.flightNumper,
+      coupon_code: this.Coupons?.[0]?.code || '',
+      cardholder_name: this.cardholderName,
+      cvv: this.cvv?.toString(),
+      expiry_year: this.expirYear,
+      expiry_month: this.expiryMonth,
+      card_number: this.cardNumber?.toString()
+    };
 
-      this._httpService.post(environment.marsa, 'transfer/book', model)
-        .subscribe({
-          next: (res: any) => {
-            // Hide the spinner after a successful response
-            if (res && res.link) {
-              window.location.href = res.link;
-            } else {
-              const queryParams = {
-                res: JSON.stringify(res),
-              };
-              this.router.navigate(
-                ['/', this.translate.currentLang, 'transfer', 'confirm'],
-                { queryParams }
-              );
-              Swal.fire(
-                'Your request has been sent successfully.',
-                'The Tour official will contact you as soon as possible. For any further assistance, please contact us at info@marsawaves.com.',
-                'success'
-              );
-            }
-          },
-          error: (err: any) => {
-            this.buttonDisabled = false; // Hide the spinner in case of an error
-            console.error('Error during booking:', err);
-
-            const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
-
+    this._httpService.post(environment.marsa, 'transfer/book', model)
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.link) {
+            window.location.href = res.link;
+          } else {
+            const queryParams = {
+              res: JSON.stringify(res),
+            };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'transfer', 'confirm'],
+              { queryParams }
+            );
             Swal.fire(
-              'Booking Failed',
-              errorMessage,
-              'error'
+              'Your request has been sent successfully.',
+              'The Tour official will contact you as soon as possible. For any further assistance, please contact us at info@marsawaves.com.',
+              'success'
             );
           }
-        });
-    }
+        },
+        error: (err: any) => {
+          this.buttonDisabled = false; // Re-enable the button in case of an error
+          console.error('Error during booking:', err);
+
+          const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
+          Swal.fire('Booking Failed', errorMessage, 'error');
+        }
+      });
   }
 
-
-
-
-
+  
 
   confirmBooking() {
 

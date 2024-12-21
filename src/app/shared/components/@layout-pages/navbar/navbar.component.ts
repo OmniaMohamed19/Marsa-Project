@@ -28,6 +28,7 @@ export class NavbarComponent {
   keyword:any;
   results: any= [];
   showDropdown: boolean = false;
+  userDetails: any;
   constructor(
     public translate: TranslateService,
     private langService: LanguageService,
@@ -43,14 +44,14 @@ export class NavbarComponent {
 
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-    return imageName || 'Unknown photo'; 
+    return imageName || 'Unknown photo';
   }
 
   onSearch() {
     if (this.keyword.trim()) {
       this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
         (data) => {
-         
+
           this.results = data;
           this.showDropdown = this.results.trip.length > 0;
         },
@@ -123,6 +124,10 @@ export class NavbarComponent {
   ];
 
   ngOnInit() {
+    this._HttpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
+      this.userDetails = res?.user_inform;
+
+    });
     // Initialize selectedLabel with the first country's label
     if (this.countries.length > 0) {
       this.selectedLabel = this.countries[0].label;

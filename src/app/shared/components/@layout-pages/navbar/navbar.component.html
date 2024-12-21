@@ -156,12 +156,14 @@
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              <span class="text-white"> Hello {{ userDate?.name }} </span>
+              <span class="text-white">Hello {{ userDetails?.name }}
+              </span>
             </a>
             <ul class="dropdown-menu menu-login">
               <li class="menu-item" style="border-bottom: 1px solid #eee"
                 routerLink="/{{ translate.currentLang }}/userDashboard">
-                Hello {{ userDate?.name }}
+                Hello {{ userDetails?.name }}
+
               </li>
               <li class="menu-item" routerLink="/{{ translate.currentLang }}/userDashboard">
                 <img src="assets/icons/dashbourd.svg" alt="dashbourd" />

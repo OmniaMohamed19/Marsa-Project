@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   pText: any;
   h1Text: any;
   hometext: any;
+  userDetails: any;
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
@@ -47,6 +48,10 @@ export class HomeComponent implements OnInit {
   metaDetail: any;
   youtubeLink:any;
   ngOnInit(): void {
+    this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
+      this.userDetails = res?.user_inform;
+
+    });
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
         this.coverImages = res?.homecover || [];
