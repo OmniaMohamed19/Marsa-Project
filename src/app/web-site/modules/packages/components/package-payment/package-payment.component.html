@@ -317,6 +317,100 @@
         </div>
         <div id="basicsAccordion">
           <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
+            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingFour">
+              <h5 class="mb-0">
+                <button type="button"
+                  class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
+                  data-toggle="collapse" data-target="#basicsCollapseFour" aria-expanded="false"
+                  aria-controls="basicsCollapseFour">
+                  Payment
+                  <span class="card-btn-arrow font-size-14 text-dark">
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
+                </button>
+              </h5>
+            </div>
+            <div id="basicsCollapseFour" class="collapse show" aria-labelledby="basicsHeadingFour"
+              data-parent="#basicsAccordion">
+              <div class="card-body px-4 pt-0">
+                <ng-container>
+                  <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                    <li class="d-flex justify-content-between py-2">
+                      <span class="font-weight-medium">Total persons</span>
+                      <span class="text-secondary">{{
+                        responseFromAvailableOption?.totalTripPrice
+                        }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between py-2">
+                      <span class="font-weight-medium">Total Addetional Cost</span>
+                      <span class="text-secondary">{{responseFromAvailableOption?.TotalAddetionalCost}}</span>
+                    </li>
+                    <li *ngIf="Coupons && Coupons[0]" class="d-flex justify-content-between py-2 font-size-17"
+                      style="font-weight: 700">
+                      <span style="font-weight: 700">Coupon</span>
+                      <span style="font-weight: 700">{{
+                        Coupons[0]?.amount
+                        }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
+                      <span class="font-weighted">Total</span>
+                      <span>{{ Total }}</span>
+                      <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
+                    </li>
+                    <!-- <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                                            >
+                                            <span class="font-weighted" >Total</span>
+                                            <span >{{responseFromAvailableOption?.TotlaPrice}}</span>
+                                        </li> -->
+                  </ul>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
+            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingThree">
+              <h5 class="mb-0">
+                <button type="button"
+                  class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
+                  data-toggle="collapse" data-target="#basicsCollapseThree" aria-expanded="false"
+                  aria-controls="basicsCollapseThree">
+                  Coupon Code
+                </button>
+              </h5>
+            </div>
+            <div id="basicsCollapseThree" class="collapse show" aria-labelledby="basicsHeadingThree"
+              data-parent="#basicsAccordion">
+              <div class="card-body px-4 pt-0 pb-4">
+                <!-- Subscribe Form -->
+                <form class="js-focus-state">
+                  <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control" name="email" id="CouponCodeExample1" placeholder=""
+                      aria-label="" aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
+                    <div class="input-group-append">
+                      <button style="
+                          background-color: #0db1ff;
+
+                          color: #fff;
+                          font-family: Lato;
+                          font-size: 16px;
+                          font-style: normal;
+                          font-weight: 700;
+                          line-height: normal;
+                          display: inline-flex;
+                          align-items: center;
+                        " (click)="applycoupon()" class="btn bg-main py-2" type="button" id="CouponCodeExample2">
+                        Apply
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <!-- End Subscribe Form -->
+              </div>
+            </div>
+          </div>
+
+          <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
             <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingOne">
               <h5 class="mb-0">
                 <button type="button"
@@ -392,99 +486,7 @@
               </h5>
             </div>
           </div>
-          <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingThree">
-              <h5 class="mb-0">
-                <button type="button"
-                  class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
-                  data-toggle="collapse" data-target="#basicsCollapseThree" aria-expanded="false"
-                  aria-controls="basicsCollapseThree">
-                  Coupon Code
-                </button>
-              </h5>
-            </div>
-            <div id="basicsCollapseThree" class="collapse show" aria-labelledby="basicsHeadingThree"
-              data-parent="#basicsAccordion">
-              <div class="card-body px-4 pt-0 pb-4">
-                <!-- Subscribe Form -->
-                <form class="js-focus-state">
-                  <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" name="email" id="CouponCodeExample1" placeholder=""
-                      aria-label="" aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
-                    <div class="input-group-append">
-                      <button style="
-                          background-color: #0db1ff;
 
-                          color: #fff;
-                          font-family: Lato;
-                          font-size: 16px;
-                          font-style: normal;
-                          font-weight: 700;
-                          line-height: normal;
-                          display: inline-flex;
-                          align-items: center;
-                        " (click)="applycoupon()" class="btn bg-main py-2" type="button" id="CouponCodeExample2">
-                        Apply
-                      </button>
-                    </div>
-                  </div>
-                </form>
-                <!-- End Subscribe Form -->
-              </div>
-            </div>
-          </div>
-          <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-            <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingFour">
-              <h5 class="mb-0">
-                <button type="button"
-                  class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
-                  data-toggle="collapse" data-target="#basicsCollapseFour" aria-expanded="false"
-                  aria-controls="basicsCollapseFour">
-                  Payment
-                  <span class="card-btn-arrow font-size-14 text-dark">
-                    <i class="fas fa-chevron-down"></i>
-                  </span>
-                </button>
-              </h5>
-            </div>
-            <div id="basicsCollapseFour" class="collapse show" aria-labelledby="basicsHeadingFour"
-              data-parent="#basicsAccordion">
-              <div class="card-body px-4 pt-0">
-                <ng-container>
-                  <ul class="list-unstyled font-size-1 mb-0 font-size-16">
-                    <li class="d-flex justify-content-between py-2">
-                      <span class="font-weight-medium">Total persons</span>
-                      <span class="text-secondary">{{
-                        responseFromAvailableOption?.totalTripPrice
-                        }}</span>
-                    </li>
-                    <li class="d-flex justify-content-between py-2">
-                      <span class="font-weight-medium">Total Addetional Cost</span>
-                      <span class="text-secondary">{{responseFromAvailableOption?.TotalAddetionalCost}}</span>
-                    </li>
-                    <li *ngIf="Coupons && Coupons[0]" class="d-flex justify-content-between py-2 font-size-17"
-                      style="font-weight: 700">
-                      <span style="font-weight: 700">Coupon</span>
-                      <span style="font-weight: 700">{{
-                        Coupons[0]?.amount
-                        }}</span>
-                    </li>
-                    <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
-                      <span class="font-weighted">Total</span>
-                      <span>{{ Total }}</span>
-                      <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
-                    </li>
-                    <!-- <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
-                                            >
-                                            <span class="font-weighted" >Total</span>
-                                            <span >{{responseFromAvailableOption?.TotlaPrice}}</span>
-                                        </li> -->
-                  </ul>
-                </ng-container>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
