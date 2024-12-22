@@ -282,7 +282,7 @@
           <mat-step [label]="'Payment Information'" [completed]="isConfirmationStepEnabled">
             <div class="">
               <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-4">
-                Your Card Information
+                Your Payment Information
               </h5>
               <!-- Nav Classic -->
               <ul class="nav nav-classic nav-choose border-0 nav-justified border mx-n3 flex-column flex-md-row"
@@ -506,6 +506,150 @@
           </div>
           <!-- Basics Accordion -->
           <div id="basicsAccordion">
+      <!-- Card -->
+      <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
+        <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingFour">
+          <h5 class="mb-0">
+            <button type="button"
+              class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 font-weight-bold text-dark"
+              data-toggle="collapse" data-target="#basicsCollapseFour" aria-expanded="false"
+              aria-controls="basicsCollapseFour">
+              Payment
+
+              <span class="card-btn-arrow font-size-14 text-dark">
+                <i class="fas fa-chevron-down"></i>
+              </span>
+            </button>
+          </h5>
+        </div>
+        <div id="basicsCollapseFour" class="collapse show" aria-labelledby="basicsHeadingFour"
+          data-parent="#basicsAccordion">
+          <div class="card-body px-4 pt-0">
+            <!-- Fact List -->
+            <ng-container *ngIf="!responseFromAvailableOption?.option">
+              <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                <li class="d-flex justify-content-between py-2">
+                  <span class="font-weight-medium">Subtotal</span>
+                  <span class="text-secondary">{{
+                    avilableOptions?.totalTripPrice
+                    }}</span>
+                </li>
+
+
+
+                <!-- <li class="d-flex justify-content-between py-2">
+                                          <span class="font-weight-medium">Tax</span>
+                                          <span class="text-secondary">0 %</span>
+                                      </li> -->
+
+                <!-- <li
+                  class="d-flex justify-content-between py-2 font-size-17"
+                  style="font-weight: 700"
+                >
+                  <span style="font-weight: 700">Price</span>
+                  <span style="font-weight: 700">{{
+                    avilableOptions?.TotlaPrice
+                  }}</span>
+                </li> -->
+                <li *ngIf="Coupons && Coupons[0]" class="d-flex justify-content-between py-2 font-size-17"
+                  style="font-weight: 700">
+                  <span style="font-weight: 700">Coupon</span>
+                  <span style="font-weight: 700">${{
+                    Coupons[0]?.amount
+                    }}</span>
+                </li>
+                <li class="d-flex justify-content-between py-2 font-size-17" style="font-weight: 700">
+                  <span style="font-weight: 700">Total</span>
+                  <span style="font-weight: 700">${{ Total }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-container *ngIf="responseFromAvailableOption?.option">
+              <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                <li class="d-flex justify-content-between py-2">
+                  <span class="font-weight-medium">Subtotal</span>
+                  <span class="text-secondary">{{
+                    responseFromAvailableOption?.totalTripPrice
+                    }}</span>
+                </li>
+
+                <li class="d-flex justify-content-between py-2"
+                  *ngFor="let item of responseFromAvailableOption?.option">
+                  <span class="font-weight-medium">{{
+                    item?.title
+                    }}</span>
+                  <span class="text-secondary">{{ item?.total }}</span>
+                </li>
+
+                <li class="d-flex justify-content-between py-2">
+                  <span class="font-weight-medium">{{
+                    responseFromAvailableOption?.AddetionalCost[0]
+                    ?.Exclude
+                    }}</span>
+                  <span class="text-secondary">${{
+                    responseFromAvailableOption?.AddetionalCost[0]?.Total
+                    }}</span>
+                </li>
+
+                <li class="d-flex justify-content-between py-2 font-size-17" style="font-weight: 700">
+                  <span style="font-weight: 700">Total</span>
+                  <span>${{
+                    responseFromAvailableOption?.TotlaPrice
+                    }}</span>
+                </li>
+              </ul>
+            </ng-container>
+            <!-- End Fact List -->
+          </div>
+        </div>
+      </div>
+      <!-- End Card -->
+              <!-- Card -->
+              <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
+                <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingThree">
+                  <h5 class="mb-0">
+                    <button type="button"
+                      class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 font-weight-bold text-dark"
+                      data-toggle="collapse" data-target="#basicsCollapseThree" aria-expanded="false"
+                      aria-controls="basicsCollapseThree">
+                      Coupon Code
+
+                      <span class="card-btn-arrow font-size-14 text-dark">
+                        <i class="fas fa-chevron-down"></i>
+                      </span>
+                    </button>
+                  </h5>
+                </div>
+                <div id="basicsCollapseThree" class="collapse show" aria-labelledby="basicsHeadingThree"
+                  data-parent="#basicsAccordion">
+                  <div class="card-body px-4 pt-0 pb-4">
+                    <!-- Subscribe Form -->
+                    <form class="js-focus-state">
+                      <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="email" id="CouponCodeExample1" placeholder=""
+                          aria-label="" aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
+                        <div class="input-group-append">
+                          <button class="btn py-2" type="button" id="CouponCodeExample2" (click)="applycoupon()" style="
+                              background-color: rgb(13, 177, 255);
+                              font-family: Lato;
+                              font-size: 16px;
+                              font-weight: 700;
+                              letter-spacing: 0em;
+                              text-align: left;
+                              color: white;
+                            ">
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- End Subscribe Form -->
+                  </div>
+                </div>
+              </div>
+              <!-- End Card -->
+
             <!-- Card -->
             <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
               <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingOne">
@@ -590,7 +734,7 @@
                     }}</span>
                   <span class="text-secondary">{{
                     avilableOptions?.AddetionalCost[0]?.Total
-                    }}</span>
+                    }}$</span>
                 </li>
               </ul>
               <ng-container *ngIf="responseFromAvailableOption?.option">
@@ -606,150 +750,9 @@
             </div>
             <!-- End Card -->
 
-            <!-- Card -->
-            <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-              <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingThree">
-                <h5 class="mb-0">
-                  <button type="button"
-                    class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 font-weight-bold text-dark"
-                    data-toggle="collapse" data-target="#basicsCollapseThree" aria-expanded="false"
-                    aria-controls="basicsCollapseThree">
-                    Coupon Code
-
-                    <span class="card-btn-arrow font-size-14 text-dark">
-                      <i class="fas fa-chevron-down"></i>
-                    </span>
-                  </button>
-                </h5>
-              </div>
-              <div id="basicsCollapseThree" class="collapse show" aria-labelledby="basicsHeadingThree"
-                data-parent="#basicsAccordion">
-                <div class="card-body px-4 pt-0 pb-4">
-                  <!-- Subscribe Form -->
-                  <form class="js-focus-state">
-                    <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" name="email" id="CouponCodeExample1" placeholder=""
-                        aria-label="" aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
-                      <div class="input-group-append">
-                        <button class="btn py-2" type="button" id="CouponCodeExample2" (click)="applycoupon()" style="
-                            background-color: rgb(13, 177, 255);
-                            font-family: Lato;
-                            font-size: 16px;
-                            font-weight: 700;
-                            letter-spacing: 0em;
-                            text-align: left;
-                            color: white;
-                          ">
-                          Apply
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  <!-- End Subscribe Form -->
-                </div>
-              </div>
-            </div>
-            <!-- End Card -->
-
-            <!-- Card -->
-            <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
-              <div class="card-header card-collapse bg-transparent border-0" id="basicsHeadingFour">
-                <h5 class="mb-0">
-                  <button type="button"
-                    class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 font-weight-bold text-dark"
-                    data-toggle="collapse" data-target="#basicsCollapseFour" aria-expanded="false"
-                    aria-controls="basicsCollapseFour">
-                    Payment
-
-                    <span class="card-btn-arrow font-size-14 text-dark">
-                      <i class="fas fa-chevron-down"></i>
-                    </span>
-                  </button>
-                </h5>
-              </div>
-              <div id="basicsCollapseFour" class="collapse show" aria-labelledby="basicsHeadingFour"
-                data-parent="#basicsAccordion">
-                <div class="card-body px-4 pt-0">
-                  <!-- Fact List -->
-                  <ng-container *ngIf="!responseFromAvailableOption?.option">
-                    <ul class="list-unstyled font-size-1 mb-0 font-size-16">
-                      <li class="d-flex justify-content-between py-2">
-                        <span class="font-weight-medium">Subtotal</span>
-                        <span class="text-secondary">{{
-                          avilableOptions?.totalTripPrice
-                          }}</span>
-                      </li>
 
 
 
-                      <!-- <li class="d-flex justify-content-between py-2">
-                                                <span class="font-weight-medium">Tax</span>
-                                                <span class="text-secondary">0 %</span>
-                                            </li> -->
-
-                      <!-- <li
-                        class="d-flex justify-content-between py-2 font-size-17"
-                        style="font-weight: 700"
-                      >
-                        <span style="font-weight: 700">Price</span>
-                        <span style="font-weight: 700">{{
-                          avilableOptions?.TotlaPrice
-                        }}</span>
-                      </li> -->
-                      <li *ngIf="Coupons && Coupons[0]" class="d-flex justify-content-between py-2 font-size-17"
-                        style="font-weight: 700">
-                        <span style="font-weight: 700">Coupon</span>
-                        <span style="font-weight: 700">${{
-                          Coupons[0]?.amount
-                          }}</span>
-                      </li>
-                      <li class="d-flex justify-content-between py-2 font-size-17" style="font-weight: 700">
-                        <span style="font-weight: 700">Total</span>
-                        <span style="font-weight: 700">${{ Total }}</span>
-                      </li>
-                    </ul>
-                  </ng-container>
-                  <ng-container *ngIf="responseFromAvailableOption?.option">
-                    <ul class="list-unstyled font-size-1 mb-0 font-size-16">
-                      <li class="d-flex justify-content-between py-2">
-                        <span class="font-weight-medium">Subtotal</span>
-                        <span class="text-secondary">{{
-                          responseFromAvailableOption?.totalTripPrice
-                          }}</span>
-                      </li>
-
-                      <li class="d-flex justify-content-between py-2"
-                        *ngFor="let item of responseFromAvailableOption?.option">
-                        <span class="font-weight-medium">{{
-                          item?.title
-                          }}</span>
-                        <span class="text-secondary">{{ item?.total }}</span>
-                      </li>
-
-                      <li class="d-flex justify-content-between py-2">
-                        <span class="font-weight-medium">{{
-                          responseFromAvailableOption?.AddetionalCost[0]
-                          ?.Exclude
-                          }}</span>
-                        <span class="text-secondary">${{
-                          responseFromAvailableOption?.AddetionalCost[0]?.Total
-                          }}</span>
-                      </li>
-
-                      <li class="d-flex justify-content-between py-2 font-size-17" style="font-weight: 700">
-                        <span style="font-weight: 700">Total</span>
-                        <span>${{
-                          responseFromAvailableOption?.TotlaPrice
-                          }}</span>
-                      </li>
-                    </ul>
-                  </ng-container>
-                  <!-- End Fact List -->
-                </div>
-              </div>
-            </div>
-            <!-- End Card -->
           </div>
           <!-- End Basics Accordion -->
         </div>

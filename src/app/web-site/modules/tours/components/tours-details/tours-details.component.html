@@ -1530,7 +1530,7 @@
 
               >
                 <a
-                 
+
                   class="h-100 width-45 border rounded border-width-2 flex-content-center"
                 >
                   <i class="fa fa-heart fs-3 text-danger"></i>
@@ -1699,7 +1699,7 @@
                     </div> -->
 
                     <!-- Show time picker for TypeOfRepeat = 'h' or 'm' -->
-                    <ng-container *ngIf="selectedDateControl.value">
+                    <ng-container class="tour-time" *ngIf="selectedDateControl.value">
                       <div
                         *ngIf="
                           activityData?.TypeOfRepeat === 'h' ||
@@ -1709,6 +1709,7 @@
                         <mat-form-field class="w-100">
                           <mat-label>Select time</mat-label>
                           <mat-select
+                          panelClass="custom-select-panel2"
                             [formControl]="selectedTimeControl"
                             (valueChange)="onTimeSelection($event)"
                           >

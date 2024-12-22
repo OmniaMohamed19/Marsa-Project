@@ -82,6 +82,7 @@ export class UpcomingBookingComponent {
 
 
       this.upcoming = res?.userDashboard?.upcomming;
+      console.log(this.upcoming);
 
       this.allUpcoming = this.upcoming;
     });

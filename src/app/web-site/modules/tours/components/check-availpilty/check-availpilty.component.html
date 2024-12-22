@@ -19,38 +19,26 @@
           <div>
             <div>
               <div class="list-activity d-flex align-items-center justify-content-between">
-                <ul class="list-unstyled group-tour">
-                  <li class="pt-2 mb-1">
-                    <div class="d-flex">
-                      <img src="assets/icons/hour.svg" class="me-2" alt="hour" />
-                      <p>
-                        Duration :{{
-                        activityData?.AvailableOption[
-                        getAvailableOptionIndexById(avilable_option_id)
-                        ]?.Duration
-                        }}
-                      </p>
-                    </div>
+                    <span class="headingTime">
+                      <div class="d-flex">
+                        <img src="assets/icons/profile-circle.svg" class="me-2" alt="profile-circle" />
+                        <p>
+                          Guide :
+                          {{
+                          activityData?.AvailableOption[
+                          getAvailableOptionIndexById(avilable_option_id)
+                          ]?.Guide
+                          }}
+                        </p>
+                      </div>
+
+                    </span>
 
 
-                  </li>
-                  <li class="pt-2">
-                    <div class="d-flex">
-                      <img src="assets/icons/profile-circle.svg" class="me-2" alt="profile-circle" />
-                      <p>
-                        Guide :
-                        {{
-                        activityData?.AvailableOption[
-                        getAvailableOptionIndexById(avilable_option_id)
-                        ]?.Guide
-                        }}
-                      </p>
-                    </div>
-
-                  </li>
-                </ul>
               </div>
-              <ng-container *ngIf="
+
+
+              <!-- <ng-container *ngIf="
                   activityData?.TypeOfRepeat === 'w' ||
                   activityData?.TypeOfRepeat === 'd'
                 ">
@@ -69,7 +57,7 @@
 
                 </span>
 
-              </ng-container>
+              </ng-container> -->
 
               <ng-container *ngIf="
                   activityData?.TypeOfRepeat === 'h' ||
@@ -158,7 +146,7 @@
                     <li class="pt-3" *ngIf="avilableOptions?.TotalInfant!=='0$'">{{
                       avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.TotalInfant }}</li>
                     <li class="pt-3">
-                      {{ avilableOptions?.AddetionalCost[0]?.Total }}
+                      {{ avilableOptions?.AddetionalCost[0]?.Total }}$
                     </li>
                   </ul>
                 </div>

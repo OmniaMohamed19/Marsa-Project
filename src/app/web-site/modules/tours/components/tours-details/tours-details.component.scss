@@ -7,14 +7,21 @@ h4,
   font-family: Lato;
   font-weight: 700;
 }
+// ::ng-deep  {
+// .tour-time .cdk-overlay-pane {
+//     width: 158.542px !important;
+//   }
+// }
+
+.mat-datepicker-content {
 ::ng-deep{
-  .mat-datepicker-content {
-     max-width: 100% !important; 
-     max-height: 100% !important; 
-     overflow-y: hidden !important; 
+     max-width: 100% !important;
+     max-height: 100% !important;
+     overflow-y: hidden !important;
    }
    .cdk-overlay-pane{
     overflow:hidden !important;
+
    }
  }
 .image-container {
