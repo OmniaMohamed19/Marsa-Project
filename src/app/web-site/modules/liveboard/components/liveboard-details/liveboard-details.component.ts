@@ -289,11 +289,36 @@ export class LiveboardDetailsComponent {
   getOverviewItems(overview: string): string[] {
     return overview.split('\n');
   }
+  formatCancellationTime(hours: string): string {
+    let hour=Number(hours)
+    if (!hour) return 'No data'; // Handle case where hour is null or undefined
+
+    const years = Math.floor(hour / 8760); // 1 year = 8760 hour
+    hour %= 8760; // Remaining hour after calculating years
+
+    const months = Math.floor(hour / 720); // 1 month = 720 hour
+    hour %= 720; // Remaining hour after calculating months
+
+    const days = Math.floor(hour / 24); // 1 day = 24 hour
+    const remainingHours = hour % 24; // Remaining hours after calculating days
+
+    // Create an array to hold the strings
+    const timeParts: string[] = [];
+
+    if (years) timeParts.push(`${years} year${years > 1 ? 's' : ''}`);
+    if (months) timeParts.push(`${months} month${months > 1 ? 's' : ''}`);
+    if (days) timeParts.push(`${days} day${days > 1 ? 's' : ''}`);
+    if (remainingHours) timeParts.push(`${remainingHours} hour${remainingHours > 1 ? 's' : ''}`);
+
+    return timeParts.join(' ') || 'Now'; // Return the formatted string or default if no time
+  }
   getActivityById(liveabourdID: any) {
     this._httpService
       .get(environment.marsa, `liveboard/details/` + liveabourdID)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
+        console.log(this.liveabourdData);
+
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
 

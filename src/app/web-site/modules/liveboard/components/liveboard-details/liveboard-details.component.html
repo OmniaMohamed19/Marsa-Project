@@ -68,6 +68,9 @@
                   fill="#297CBB" />
               </svg>
               <!-- <img src="assets/custom/Activity/free.svg" alt="icon" /> -->
+              <div class="ml-1 text-gray-1 mt-2">
+                {{ formatCancellationTime(liveabourdData?.Cancellation) }}
+              </div>
               <div class="ml-1 text-gray-1 mt-2">Free Cancelation</div>
             </li>
             <li class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
@@ -252,9 +255,18 @@
                         <li class="list-board">
                           {{ schedule?.Day }} D/ {{ schedule?.Night }} N
                         </li>
-                        <li class="list-board" style="color: #009f19">
-                          Available
-                        </li>
+                        <ng-container *ngIf="schedule.Available>0; else elseTemplate">
+                          <li  class="list-board" style="color: #009f19">
+                            Available {{schedule.Available}}
+                          </li>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          <li  class="list-board text-danger" >
+                            closed
+                          </li>
+                        </ng-template>
+
+
                         <li class="list-board">
                           From $
                           {{getRoundedRate(
@@ -716,7 +728,7 @@
 
               >
                 <a
-                  
+
                   class="h-100 width-45 border rounded border-width-2 flex-content-center"
                 >
                   <i class="fa fa-heart fs-3 text-danger"></i>
