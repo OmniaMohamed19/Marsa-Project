@@ -664,13 +664,13 @@
   <section style="margin-top: 80px">
     <div class="container activity">
       <div class="row d-md-flex d-none">
-        <div *ngFor="let feature of transferDetails?.features" class="col-md-3 text-center">
+        <div *ngFor="let feature of transferDetails?.features.slice(0,4)" class="col-md-3 text-center">
           <div class="image">
             <img [src]="feature.icon" [alt]="getImageName(feature.icon)" style="width: 50px; height: 50px" />
           </div>
           <div class="caption text-center">
             <h4 class="pt-4">{{ feature?.title }}</h4>
-            <p>
+            <p style="color:#3b444f; font-size: 13px;">
               {{ feature?.desc }}
             </p>
           </div>
@@ -703,9 +703,7 @@
             <img src={{transferDetails?.includeimage}} />
             <div class="layer">
               <p>
-                Explore one of the world’s best art museums at your own pace
-                with your ticket to the Louvre. Skip the line and walk straight
-                inside, after
+                {{transferDetails?.includetext}}
               </p>
             </div>
           </div>
@@ -821,7 +819,7 @@
               ></i>
             </h5>
           </div>
-         
+
         </div>
         <form class="js-validate" novalidate="novalidate">
           <div class="row mb-5 mb-lg-0">

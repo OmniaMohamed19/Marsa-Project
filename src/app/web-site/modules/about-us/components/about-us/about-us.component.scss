@@ -227,8 +227,8 @@ h5 {
 }
 
 figure.u-avatar-image img {
-    width: 200px;
-    height: 200px;
+    width: 200px !important;
+    height: 200px !important;
     border-radius: 50%;
 }
 
@@ -242,13 +242,13 @@ figure.u-avatar-image img {
 
 .partner_img {
     border-radius: 50%;
-    width: 204px !important;
-    height: 204px;
+    width: 200px !important;
+    height: 200px !important;
 }
 
 
 ::ng-deep{
-  .my-destination .owl-carousel .owl-item img {
+  .my-destination-why .owl-carousel .owl-item img {
     display: block;
     width: fit-content !important;
     height: 85px !important;
