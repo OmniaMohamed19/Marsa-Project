@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import { catchError, finalize } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ProfileService } from 'src/app/core/services/http/profile-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -40,12 +40,18 @@ export class UpcomingBookingComponent {
   booking_date: any;
   datePipe: any;
   tripId: any;
+  currentPage: number = 1;
+  lastPage: number = 1;
+  total: number = 0;
   mapModalOptions: any = {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
   };
   BookingInfo: any;
   constructor(
+        private cdr: ChangeDetectorRef,
+
+    private profileService: ProfileService,
     private spinner: NgxSpinnerService,
     private httpService: HttpService,
     private _AuthService: AuthService,
@@ -57,11 +63,15 @@ export class UpcomingBookingComponent {
     this.activeSection = section;
     if (this.activeSection == 'all') {
       this.upcoming = this.allUpcoming;
+      console.log('hiii')
     } else {
       this.upcoming = this.allUpcoming.filter((item: any) => {
+        console.log(item);
         if (item.categoryid == this.activeSection) {
+          console.log(item.categoryid);
           return item;
         }
+
       });
     }
   }
@@ -75,17 +85,18 @@ export class UpcomingBookingComponent {
     this.initForm();
 
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
-      this.tabs = res?.triptypes;
-      this.tabs[0].category = 'Activities';
-      this.tabs[1].category = 'Liveaboard';
-      this.tabs[2].category = 'Private Boats';
+    this.tabs = res?.triptypes;
+    this.tabs[0].category = 'Activities';
+    this.tabs[1].category = 'Liveaboard';
+    this.tabs[2].category = 'Private Boats';
+
+      // this.upcoming = res?.userDashboard?.upcomming;
+      // console.log(this.upcoming);
 
 
-      this.upcoming = res?.userDashboard?.upcomming;
-      console.log(this.upcoming);
-
-      this.allUpcoming = this.upcoming;
     });
+    this.loadProfiles(this.currentPage);
+
     this._AuthService.getUserData().subscribe(
       (data: any) => {
         // this.userData = JSON.parse(data); // Assigning the received object directly
@@ -151,6 +162,31 @@ export class UpcomingBookingComponent {
           });
         }
       });
+  }
+  loadProfiles(page: number): void {
+    this.profileService.getProfiles(page).subscribe((data) => {
+     // this.profiles = data.userDashboard.data;
+      this.upcoming = data?.userDashboard?.upcomming.data;
+      this.currentPage = data.userDashboard.upcomming.current_page;
+      this.lastPage = data.userDashboard.upcomming.last_page;
+      this.total = data.userDashboard.upcomming.total;
+      this.allUpcoming = this.upcoming;
+
+      this.cdr.markForCheck();
+    });
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.lastPage) {
+      this.loadProfiles(this.currentPage + 1);
+    }
+  }
+
+  prevPage(): void {
+
+    if (this.currentPage > 1) {
+      this.loadProfiles(this.currentPage - 1);
+    }
   }
   confirmEdit() {
     if (this.showServices) {

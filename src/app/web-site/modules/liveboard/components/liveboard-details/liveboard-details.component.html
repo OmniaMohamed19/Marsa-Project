@@ -557,7 +557,7 @@
                     *ngFor="let review of liveabourdData?.Reviwe?.slice(0, 1)">
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
-                        <img class="img-fluid mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
+                        <img style="width: 198px !important; height: 183px !important;" class=" mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
                           [alt]="review?.name || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
                           (error)="handleImageError($event)" />
                       </a>

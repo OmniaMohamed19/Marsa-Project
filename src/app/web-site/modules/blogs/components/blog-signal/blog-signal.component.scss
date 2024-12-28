@@ -17,7 +17,10 @@ $color-dark: rgba(59, 68, 79, 1);
 $color-light: rgba(103, 116, 124, 1);
 $color-darker: rgba(24, 24, 26, 1);
 $color-active: rgba(41, 124, 187, 1);
-
+.review-num h2 {
+  color: #0057ff;
+  font-family: Lato;
+}
 h5 {
   font-family: $font-family;
   font-size: $font-size-medium;

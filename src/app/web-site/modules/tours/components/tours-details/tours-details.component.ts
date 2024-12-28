@@ -169,7 +169,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     return imageName || 'Unknown photo';
   }
   handleImageError(event: Event): void {
-    const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
+    const target = event.target as HTMLImageElement;
     if (target) {
       target.src =
         '../../../../../../assets/custom/user-dasboard/avatar-place.png';

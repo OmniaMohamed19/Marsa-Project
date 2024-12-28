@@ -135,8 +135,8 @@ export class LoginComponent implements OnInit {
         this.$loginError.next(true);
 
         if (err.error && err.error.message) {
-          if(err.error.message === 'Unauthorized'){
-            this.toastr.error('Incorrect email or password', '', {
+          if(err.error.message === 'User not found'){
+            this.toastr.error('User not found', '', {
               disableTimeOut: false,
               titleClass: 'toastr_title',
               messageClass: 'toastr_message',
@@ -158,6 +158,15 @@ export class LoginComponent implements OnInit {
             // });
 
 
+          }
+          else if (err.error.message === 'Unauthorized'){
+            this.toastr.error('Incorrect Email or password', '', {
+              disableTimeOut: false,
+              titleClass: 'toastr_title',
+              messageClass: 'toastr_message',
+              timeOut: 5000,
+              closeButton: true,
+            });
           }
 
         } else if (err.statusText === 'Unauthorized') {
