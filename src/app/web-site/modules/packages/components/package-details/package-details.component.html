@@ -4,11 +4,9 @@
 <section class="packages-content overflow-hidden position-relative">
   <div class="position-relative mt-4 d-block d-lg-none pb-5">
     <div class="discount-small">
-      <p>UP TO <span>15%</span></p>
-      <img
-        src="../../../../../assets/images/Vector Smart Object.svg"
-        alt="Vector smart"
-      />
+      <p> UP TO <span>{{ rows?.discount }}</span></p>
+      <img src="../../../../../assets/images/Vector Smart Object.svg"
+        alt="Vector smart"/>
     </div>
   </div>
   <div class="container">
@@ -382,7 +380,8 @@
                 <div class="mr-md-5">
                   <a class="d-block" href="#">
                     <img
-                      class="img-fluid mb-3 mb-md-0 rounded-circle"
+                    style="width: 198px !important; height: 183px !important;"
+                      class=" mb-3 mb-md-0 rounded-circle"
                       [src]="
                         review?.avatar ||
                         '../../../../../../assets/custom/user-dasboard/avatar-place.png'

@@ -302,6 +302,12 @@
         <!------------------------------------>
       </Section>
     </div>
+    <div class="pagination align-items-center">
+      <button (click)="prevPage()" class="btn btn-outline-primary   " [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ lastPage }}</span>
+      <button (click)="nextPage()" class="btn btn-outline-primary   " [disabled]="currentPage === lastPage">Next</button>
+    </div>
+
   </div>
 </section>
 
@@ -536,7 +542,7 @@ Write here ...
             <!-- End Input -->
 
 
-         
+
             <div class="w-100"></div>
             <p class="text-left fs-6">Do you want a pick up services ?</p>
             <div class="d-flex gap-3 flex-wrap mb-2">
@@ -621,7 +627,7 @@ Write here ...
                 </div>
               </div>
             </ng-template>
-           
+
             <div class="w-100"></div>
             <!-- Input -->
 

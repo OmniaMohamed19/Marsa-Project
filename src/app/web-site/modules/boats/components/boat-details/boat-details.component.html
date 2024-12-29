@@ -373,16 +373,19 @@
                       class="mb-3 text-gray-1 d-flex align-items-center"
                       *ngFor="let exclude of boatData?.Excludes"
                     >
-                      <ng-container *ngIf="exclude?.price > 0">
+                      <ng-container >
                         <i
                           class="fa fa-times fs-4 mr-3 font-size-8"
                           style="color: #ff681a"
                         ></i>
 
-                        <span class="font-size-9 d-inline-block">
+                        <span  class="font-size-9 d-inline-block">
                           {{ exclude.title }} <br />
-                          ( ${{ exclude?.price }}  per person :
-                          {{ exclude?.option }})
+
+                          <p *ngIf="exclude?.price > 0">
+                            ( ${{ exclude?.price }} per person :
+                            {{ exclude?.option }})
+                          </p>
                         </span>
                       </ng-container>
                     </li>
@@ -698,7 +701,8 @@
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
                         <img
-                          class="img-fluid mb-3 mb-md-0 rounded-circle"
+                        style="width: 198px !important; height: 183px !important;"
+                          class=" mb-3 mb-md-0 rounded-circle"
                           [src]="review?.avatar || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
                           (error)="handleImageError($event)"
                           [alt]="review?.name"
@@ -940,7 +944,7 @@
 
             >
               <a
-                
+
                 class="h-100 width-45 border rounded border-width-2 flex-content-center"
               >
                 <i class="fa fa-heart fs-3 text-danger"></i>
@@ -1071,11 +1075,11 @@
               </div>
               <!-- End Input -->
               <div>
-                <div class="alert alert-info my-2 text-white">
+                <!-- <div class="alert alert-info my-2 text-white">
                   <p class="mb-0 text-dark">
                     Maximum of guests {{ boatData?.MaxPersons }}
                   </p>
-                </div>
+                </div> -->
               </div>
               <!-- End Input -->
               <div

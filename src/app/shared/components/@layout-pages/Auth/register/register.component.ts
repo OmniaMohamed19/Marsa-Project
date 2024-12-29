@@ -158,11 +158,11 @@ export class RegisterComponent implements OnInit {
 
       return;
     }
-
+ 
 
     const model = {
       ...this.signupForm.value,
-      phone: this.signupForm.get('phone')?.value['number'],
+      phone: this.signupForm,
       country_code: this.signupForm.get('phone')?.value['dialCode'],
     };
 
@@ -196,6 +196,14 @@ export class RegisterComponent implements OnInit {
     this.showRegisterForm = !this.showRegisterForm;
   }
 
+urgent:any;
+  isUrgent(){
+   this.urgent=true;
+   
+  }
+  isUrgent0(){
+    
+  }
   // ngAfterViewInit(): void {
   //   this.socialAuthService.authState.subscribe((user) => {
   //     this.socialUser = user;

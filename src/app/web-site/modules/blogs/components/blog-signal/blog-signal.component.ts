@@ -14,6 +14,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./blog-signal.component.scss'],
 })
 export class BlogSignalComponent implements OnInit {
+  showAllReviews: boolean = false;
   chosse: any;
   blogID: any;
   blog: any = [];
@@ -27,7 +28,7 @@ export class BlogSignalComponent implements OnInit {
   isLogin: boolean = false;
   comment: any;
   userData: any;
-
+  review:any;
   constructor(
     public translate: TranslateService,
     private route: ActivatedRoute,
@@ -85,7 +86,8 @@ export class BlogSignalComponent implements OnInit {
     this._httpService.get('marsa', `blog/${blogID}`).subscribe({
       next: (res: any) => {
         this.blog = res.Blog[0];
-
+      this.review=this.blog.comments;
+      console.log(this.review);
         this.getAdjacentBlogs(blogID);
         // this.seoService.updateSEO(
         //   this.blog?.metatitle,
@@ -204,4 +206,11 @@ export class BlogSignalComponent implements OnInit {
     },
 
   };
+  handleImageError(event: Event): void {
+    const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
+    if (target) {
+      target.src =
+        '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+    }
+  }
 }

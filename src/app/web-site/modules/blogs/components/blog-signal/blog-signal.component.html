@@ -87,6 +87,97 @@
                         </div>
 
                         <div class="border border-color-8 mb-4"></div>
+
+                        <div id="review" class="tab-pane">
+                          <div class="border-bottom py-4">
+                            <h5 class="heading" id="scroll-reviews">Blog Reviews</h5>
+                            <div class="row review-num">
+
+                              <div class="col-md-8">
+                                <h5 class="font-size-21 fw-bold text-dark mb-8" *ngIf=" review?.length > 0">
+                                  Showing Most Recent verified guest comments
+                                </h5>
+                                 <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
+                                  *ngFor="let review of review?.slice(0, 1).reverse()">
+                                  <div class="mr-md-5">
+                                    <a class="d-block" href="#">
+                                      <img style="width: 198px !important; height: 183px !important;" class=" mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
+                                        [alt]="review?.name || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
+                                        (error)="handleImageError($event)" />
+                                    </a>
+                                  </div>
+                                  <div class="media-body text-center text-md-left">
+                                    <div class="mb-4">
+                                      <h6 class="fw-bold text-gray-3">
+                                        <a>{{ review?.user }}</a>
+                                      </h6>
+                                      <!-- <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
+                                        {{ review?.date | date : "MMMM d y" }} at
+                                        {{ review?.date | date : "hh:mm a" }}
+                                      </div> -->
+
+                                      <p class="text-lh-1dot6 mb-0 pr-lg-5">
+                                        {{ review?.comment }}
+                                      </p>
+                                      <h5 style="color:rgba(41, 124, 187, 1);" class="mt-3 text-lh-1dot6 mb-0 pr-lg-5">
+                                        Reply:
+
+                                      <span style="color:black">{{ review?.comment }}</span> </h5>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="border-bottom py-4">
+                            <div *ngIf="showAllReviews">
+                              <h5
+                                class="font-size-21 fw-bold text-dark mb-8"
+                                *ngIf=" review?.length > 0"
+                              >
+                                Showing {{ review?.length }} verified guest
+                                comments
+                              </h5>
+
+                              <div
+                                class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
+                                *ngFor="let review of review.reverse()"
+                              >
+                                <div class="mr-md-5">
+                                  <a class="d-block" href="#">
+                                    <img
+                                      class="img-fluid mb-3 mb-md-0 rounded-circle"
+                                      [src]="review?.avatar"
+                                      [alt]="review?.name"
+                                    />
+                                  </a>
+                                </div>
+                                <div class="media-body text-center text-md-left">
+                                  <div class="mb-4">
+                                    <h6 class="fw-bold text-gray-3">
+                                      <a>{{ review?.name }}</a>
+                                    </h6>
+                                    <div
+                                      class="font-weight-normal font-size-14 text-gray-9 mb-2"
+                                    >
+                                      {{ review?.date | date : "MMMM d y" }} at
+                                      {{ review?.date | date : "hh:mm a" }}
+                                    </div>
+
+                                    <p class="text-lh-1dot6 mb-0 pr-lg-5">
+                                      {{ review?.comment }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                          </div> -->
+                        </div>
+
+
                         <div class="comment-section">
                             <h5 class=" mb-4">Write a Comment</h5>
                             <form class="js-validate" novalidate="novalidate">
