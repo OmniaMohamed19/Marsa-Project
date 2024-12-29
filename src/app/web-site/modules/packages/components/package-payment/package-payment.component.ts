@@ -286,8 +286,7 @@ console.log(this.Bookingid);
     this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
       this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
       this.Total =
-        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount;
-
+        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
     });
 
   }

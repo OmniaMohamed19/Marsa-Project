@@ -354,8 +354,14 @@
                     </li>
                     <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
                       <span class="font-weighted">Total</span>
-                      <span>{{ Total }}</span>
-                      <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
+                      <ng-container *ngIf="Coupons?.length>0; else elseTemplate2323">
+
+                        <span>{{ Total }}</span>
+                      </ng-container>
+                      <ng-template #elseTemplate2323>
+                        <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
+                      </ng-template>
+
                     </li>
                     <!-- <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
                                             >
@@ -385,7 +391,7 @@
                 <form class="js-focus-state">
                   <label class="sr-only" for="CouponCodeExample1">Coupon Code</label>
                   <div class="input-group">
-                    <input type="number" class="form-control" name="email" id="CouponCodeExample1" placeholder=""
+                    <input type="text" class="form-control" name="coupon" id="CouponCodeExample1" placeholder=""
                       aria-label="" aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
                     <div class="input-group-append">
                       <button style="
