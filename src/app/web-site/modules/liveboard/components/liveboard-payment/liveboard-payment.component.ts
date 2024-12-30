@@ -296,6 +296,8 @@ export class LiveboardPaymentComponent implements OnInit {
           next: (res: any) => {
             this.responseFromAvailableOption = res;
             stepper.next();
+            this.Total =
+        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
           },
         });
     }
@@ -309,7 +311,9 @@ export class LiveboardPaymentComponent implements OnInit {
     this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
       this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
       this.Total =
-        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0].amount;
+        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
+        console.log(this.Total);
+
     });
     // Coupon
   }

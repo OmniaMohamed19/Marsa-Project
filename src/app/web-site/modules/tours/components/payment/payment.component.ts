@@ -38,7 +38,7 @@ export class PaymentComponent {
   infant: any;
   responseFromAvailableOption: any;
   time: any;
-  userData: {id?:number, name?: string; phone?: string; email?: string } = {};
+  userData: { id?: number; name?: string; phone?: string; email?: string } = {};
   customerForm!: FormGroup;
   payment_method: any;
   activeTab: string = 'pills-one-example2';
@@ -67,9 +67,9 @@ export class PaymentComponent {
   edit: boolean = false;
   tripletails: any;
   isDisable: boolean = false;
-  Bookingid:any;
+  Bookingid: any;
   constructor(
-        private titleService: Title,
+    private titleService: Title,
 
     private spinner: NgxSpinnerService,
     private location: Location,
@@ -85,14 +85,14 @@ export class PaymentComponent {
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle("Confirm Booking");
+    this.titleService.setTitle('Confirm Booking');
     this.initForm();
     this.edit = localStorage['editTour'];
     this.route.queryParams.subscribe((params: any) => {
       const parsedRes = JSON.parse(params['avilableOptions']);
       const trip_id = params['tripId'];
       this.tripId = trip_id;
-      this.Bookingid =params.Bookingid;
+      this.Bookingid = params.Bookingid;
 
       this.avilableOptions = parsedRes;
       const addetionalCost = this.avilableOptions?.AddetionalCost;
@@ -111,34 +111,38 @@ export class PaymentComponent {
       this.checkboxStatus.push(false)
     );
     if (JSON.parse(localStorage['queryParams']).BookingInfo) {
-      this.userData.name=JSON.parse(localStorage['queryParams']).BookingInfo.name||''
-      this.userData.phone=JSON.parse(localStorage['queryParams']).BookingInfo.Phone||''
-      this.userData.email=JSON.parse(localStorage['queryParams']).BookingInfo['E-mail']||''
+      this.userData.name =
+        JSON.parse(localStorage['queryParams']).BookingInfo.name || '';
+      this.userData.phone =
+        JSON.parse(localStorage['queryParams']).BookingInfo.Phone || '';
+      this.userData.email =
+        JSON.parse(localStorage['queryParams']).BookingInfo['E-mail'] || '';
       this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
-    }
-    else{
-
-    this._AuthService.getUserData().subscribe(
-      (data: any) => {
+      this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+    } else {
+      this._AuthService.getUserData().subscribe(
+        (data: any) => {
           this.userData = JSON.parse(data); // Assigning the received object directly
-        this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
-      },
-      (error) => {
-        // Handle error if needed
-        console.error('Error:', error);
-      }
-    );
-  }
+          this.customerForm.patchValue(this.userData);
+          this.customerForm
+            ?.get('phone')
+            ?.patchValue('+' + this.userData.phone);
+        },
+        (error) => {
+          // Handle error if needed
+          console.error('Error:', error);
+        }
+      );
+    }
 
     this.getNationality();
   }
   applycoupon() {
     this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-
       this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-      this.Total = this.Total - this.Coupons[0].amount;
+      this.Total = this.responseFromAvailableOption
+        ? this.responseFromAvailableOption.TotlaPrice - this.Coupons[0]?.amount
+        : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
     });
     // Coupon
   }
@@ -245,12 +249,15 @@ export class PaymentComponent {
       .subscribe({
         next: (res: any) => {
           this.responseFromAvailableOption = res;
+          this.Total = this.responseFromAvailableOption
+            ? this.responseFromAvailableOption.TotlaPrice - this.Coupons[0]?.amount
+            : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
+          console.log(this.Coupons.length);
         },
       });
   }
 
   goToPayment(stepper: MatStepper) {
-
     if (!this.showServices) {
       this.locationValue = 'ddd';
     }
@@ -301,7 +308,7 @@ export class PaymentComponent {
       });
   }
   confirmEdit(event: Event) {
-    console.log(123)
+    console.log(123);
     // Update pickup_point validator based on showServices
     if (this.showServices) {
       this.customerForm
@@ -348,7 +355,7 @@ export class PaymentComponent {
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
         card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
@@ -381,7 +388,7 @@ export class PaymentComponent {
 
             localStorage.removeItem('editTour');
             localStorage.removeItem('queryParams');
-            this.router.navigate(['/', this.translate.currentLang])
+            this.router.navigate(['/', this.translate.currentLang]);
             // }
           },
           error: (err: any) => {
@@ -391,9 +398,9 @@ export class PaymentComponent {
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            ).then(()=>{
+            ).then(() => {
               this.goBack();
-            })
+            });
           },
         });
     } else {
@@ -402,17 +409,23 @@ export class PaymentComponent {
     }
   }
   confirmBookingByCard(event: Event) {
-    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+    const termsCheckbox = document.getElementById(
+      'termsCheckbox'
+    ) as HTMLInputElement;
 
     // Check if the terms and conditions checkbox is selected
     if (!termsCheckbox.checked) {
-      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.warning(
+        'Please agree to the Terms and Conditions before proceeding.',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       return; // Stop further execution
     }
     this.isDisable = true;
@@ -474,7 +487,7 @@ export class PaymentComponent {
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
         card_number: this.cardNumber,
         booking_option: this.activityData?.bookingOption.reduce(
           (acc: any[], item: any, index: number) => {
@@ -590,38 +603,39 @@ export class PaymentComponent {
         (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
       );
 
-
-      this._httpService.post(environment.marsa, 'Activtes/book', model).subscribe({
-        next: (res: any) => {
-          this.spinner.hide(); // Hide spinner
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
-            const queryParams = {
-              res: JSON.stringify(res),
-              trip_id: this.tripId,
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'tours', 'confirm'],
-              { queryParams }
-            );
+      this._httpService
+        .post(environment.marsa, 'Activtes/book', model)
+        .subscribe({
+          next: (res: any) => {
+            this.spinner.hide(); // Hide spinner
+            if (res && res.link) {
+              window.location.href = res.link;
+            } else {
+              const queryParams = {
+                res: JSON.stringify(res),
+                trip_id: this.tripId,
+              };
+              this.router.navigate(
+                ['/', this.translate.currentLang, 'tours', 'confirm'],
+                { queryParams }
+              );
+              Swal.fire(
+                'Your request has been sent successfully.',
+                'The Boat official will contact you as soon as possible. To communicate with us, please email info@marsawaves.com.',
+                'success'
+              );
+            }
+          },
+          error: (err: any) => {
+            this.spinner.hide(); // Hide spinner on error
+            console.error('Error during booking:', err);
             Swal.fire(
-              'Your request has been sent successfully.',
-              'The Boat official will contact you as soon as possible. To communicate with us, please email info@marsawaves.com.',
-              'success'
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
             );
-          }
-        },
-        error: (err: any) => {
-          this.spinner.hide(); // Hide spinner on error
-          console.error('Error during booking:', err);
-          Swal.fire(
-            'Booking Failed',
-            'An error occurred while processing your booking. Please try again later.',
-            'error'
-          );
-        },
-      });
+          },
+        });
     } else {
       this.isDisable = false;
       // Mark all form controls as touched to trigger validation messages
@@ -670,7 +684,6 @@ export class PaymentComponent {
       return false;
     }
   }
-
 
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
