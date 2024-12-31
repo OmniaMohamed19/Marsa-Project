@@ -138,7 +138,7 @@ export class PackageDetailsComponent {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
- 
+
 
   handleImageError(event: Event): void {
     const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
@@ -158,7 +158,7 @@ export class PackageDetailsComponent {
   ngAfterViewInit() {
      //   // Initialize the active tab on load
     this.setupIntersectionObserver();
-  
+
   }
 
   scrollTo(tabId: string) {
@@ -279,7 +279,7 @@ export class PackageDetailsComponent {
     }
     const durationInDays = parseInt(this.duration.split(' ')[0], 10);
     const endDate = new Date(this.startDate);
-    endDate.setDate(endDate.getDate() + durationInDays);
+    endDate.setDate(endDate.getDate() + durationInDays - 1);
     this.endDate = endDate;
     const formattedEndDate = this.datePipe.transform(
       this.endDate,
