@@ -49,7 +49,7 @@ export class LiveboardPaymentComponent implements OnInit {
   expiryMonth: any;
   cardNumber: any;
   isDisable = false;
-  userData: {id?:number, name?: string; phone?: string; email?: string } = {};
+  userData: { id?: number; name?: string; phone?: string; email?: string } = {};
 
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
@@ -64,7 +64,8 @@ export class LiveboardPaymentComponent implements OnInit {
   };
   liveabourd: any;
   edit: boolean = false;
-  tripletails: any;  Bookingid:any;
+  tripletails: any;
+  Bookingid: any;
   constructor(
     private spinner: NgxSpinnerService,
 
@@ -77,8 +78,7 @@ export class LiveboardPaymentComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private dialog: MatDialog,
-    private titleService: Title,
-
+    private titleService: Title
   ) {}
 
   setDisplay(id: any) {
@@ -100,40 +100,47 @@ export class LiveboardPaymentComponent implements OnInit {
     event.preventDefault();
   }
   ngOnInit(): void {
-    this.titleService.setTitle("Confirm Booking");
+    this.titleService.setTitle('Confirm Booking');
 
     this.edit = localStorage['editLiveaboard'];
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       this.schedules_id = params['schedules_id'];
-      this.Bookingid =params.Bookingid;
+      this.Bookingid = params.Bookingid;
       this.tripId = params['trip_id'];
       this.adult = params['adult'];
       this.getDataById(this.tripId);
       this.getCabinBySchedulesId(this.tripId, this.schedules_id);
     });
     if (JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo) {
-      this.userData.name=JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo.name||''
-      this.userData.phone=JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo.Phone||''
-      this.userData.email=JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo['E-mail']||''
+      this.userData.name =
+        JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo.name ||
+        '';
+      this.userData.phone =
+        JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo.Phone ||
+        '';
+      this.userData.email =
+        JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo[
+          'E-mail'
+        ] || '';
       this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
-    }
-    else{
-
-    this._AuthService.getUserData().subscribe(
-      (data: any) => {
+      this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+    } else {
+      this._AuthService.getUserData().subscribe(
+        (data: any) => {
           this.userData = JSON.parse(data); // Assigning the received object directly
-        this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
-      },
-      (error) => {
-        // Handle error if needed
-        console.error('Error:', error);
-      }
-    );
-  }
+          this.customerForm.patchValue(this.userData);
+          this.customerForm
+            ?.get('phone')
+            ?.patchValue('+' + this.userData.phone);
+        },
+        (error) => {
+          // Handle error if needed
+          console.error('Error:', error);
+        }
+      );
+    }
   }
 
   initForm() {
@@ -153,7 +160,7 @@ export class LiveboardPaymentComponent implements OnInit {
       .get(environment.marsa, `liveboard/details/` + Id)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
-        console.log(res)
+        console.log(res);
       });
   }
 
@@ -166,7 +173,6 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   goToPayment(stepper: MatStepper) {
-
     if (!this.showServices) {
       this.locationValue = 'ddd';
     }
@@ -192,8 +198,6 @@ export class LiveboardPaymentComponent implements OnInit {
       this.markFormGroupTouched(this.customerForm);
     }
   }
-
-
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
@@ -277,7 +281,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
-        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
         adult: this.adult,
         schedules_id: this.schedules_id,
         cabins: this.cabins
@@ -297,7 +301,8 @@ export class LiveboardPaymentComponent implements OnInit {
             this.responseFromAvailableOption = res;
             stepper.next();
             this.Total =
-        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
+              this.responseFromAvailableOption?.TotlaPrice -
+              this.Coupons[0]?.amount;
           },
         });
     }
@@ -312,8 +317,7 @@ export class LiveboardPaymentComponent implements OnInit {
       this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
       this.Total =
         this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
-        console.log(this.Total);
-
+      console.log(this.Total);
     });
     // Coupon
   }
@@ -344,14 +348,14 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
-        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
         card_number: this.cardNumber,
         cabins: this.cabins
           .map((cabin: any) => ({
@@ -391,7 +395,6 @@ export class LiveboardPaymentComponent implements OnInit {
                 },
               });
 
-
             Swal.fire(
               'Your request has been send successfully.',
               'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
@@ -399,8 +402,7 @@ export class LiveboardPaymentComponent implements OnInit {
             );
             localStorage.removeItem('editLiveaboard');
             localStorage.removeItem('queryParamsliveaboard');
-            this.router.navigate(['/', this.translate.currentLang])
-
+            this.router.navigate(['/', this.translate.currentLang]);
           },
           error: (err: any) => {
             console.error('Error during booking:', err);
@@ -409,9 +411,9 @@ export class LiveboardPaymentComponent implements OnInit {
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            ).then(()=>{
-              this.goBack()
-            })
+            ).then(() => {
+              this.goBack();
+            });
           },
         });
     } else {
@@ -422,17 +424,23 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   confirmBookingByCard(event: Event) {
-    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+    const termsCheckbox = document.getElementById(
+      'termsCheckbox'
+    ) as HTMLInputElement;
 
     // Check if the terms and conditions checkbox is selected
     if (!termsCheckbox.checked) {
-      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.warning(
+        'Please agree to the Terms and Conditions before proceeding.',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       return; // Stop further execution
     }
 
@@ -473,14 +481,14 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
-        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
         card_number: this.cardNumber,
         cabins: this.cabins
           .map((cabin: any) => ({
@@ -492,7 +500,6 @@ export class LiveboardPaymentComponent implements OnInit {
           }))
           .filter((cabin: any) => cabin.persons !== undefined),
       };
-
 
       this._httpService
         .post(environment.marsa, 'liveboard/book', model)
@@ -544,7 +551,7 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
-        coupon_id: this.Coupons ? this.Coupons[0]?.id : '',
+        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
@@ -581,7 +588,6 @@ export class LiveboardPaymentComponent implements OnInit {
           error(err) {
             // this.spinner.hide();
             Swal.fire(err.error.message);
-
           },
         });
     } else {

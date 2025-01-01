@@ -347,7 +347,7 @@ console.log(this.Bookingid);
         cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
-
+        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
         card_number: this.cardNumber,
       };
 
@@ -400,6 +400,7 @@ console.log(this.Bookingid);
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
       };
 
 
