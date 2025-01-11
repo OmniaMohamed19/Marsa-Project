@@ -88,7 +88,7 @@
 
                         <div class="border border-color-8 mb-4"></div>
 
-                        <div id="review" class="tab-pane">
+                        <div id="review" class="tab-pane" *ngIf=" review?.length > 0">
                           <div class="border-bottom py-4">
                             <h5 class="heading" id="scroll-reviews">Blog Reviews</h5>
                             <div class="row review-num">
@@ -111,10 +111,10 @@
                                       <h6 class="fw-bold text-gray-3">
                                         <a>{{ review?.user }}</a>
                                       </h6>
-                                      <!-- <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
+                                      <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
                                         {{ review?.date | date : "MMMM d y" }} at
                                         {{ review?.date | date : "hh:mm a" }}
-                                      </div> -->
+                                      </div>
 
                                       <p class="text-lh-1dot6 mb-0 pr-lg-5">
                                         {{ review?.comment }}
