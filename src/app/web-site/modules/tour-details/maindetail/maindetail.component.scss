@@ -217,17 +217,21 @@ h4 {
 .sights-container {
   position: relative;
   padding-bottom: 10rem;
-}
-.sights-container {
   overflow: hidden;
   border-radius: 8px;
+  z-index: 2;      
+
 }
+
 
 .sights-img {
   transition: transform 0.2s ease, box-shadow 0.2s ease; /* إضافة تأثير سلس */
   border-radius: 8px; /* ضمان استمرار الـ border-radius مع الزوم */
 }
-
+.selected-sight-container {
+  position: relative; /* لجعل هذه العناصر فوق الـ carousel */
+  z-index: 3;         /* تعيين مستوى أعلى لظهور هذه العناصر */
+}
 .sights-img:hover {
   transform: scale(1.1); /* تكبير الصورة عند الوقوف عليها */
 

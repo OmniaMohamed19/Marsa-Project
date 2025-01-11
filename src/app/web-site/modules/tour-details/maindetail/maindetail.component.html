@@ -170,7 +170,7 @@
 
 
         <div *ngIf="selectedSight && selectedSight.id === selectedSightId &&  selectedSight?.trips?.length>0 "
-          class="row mb-4" style="margin-top: -6rem; border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
+          class="row mb-4 selected-sight-container" style="margin-top: -5.4rem; border: 2px solid #ddd; padding: 15px; border-radius: 10px;">
           <div class="col-lg-4 col-md-4 col-sm-12 mt-lg-3 mb-5">
             <div>
               <h5 class="card-title mb-1" style="line-height: 26px; font-size: 17px; font-weight: bold;">
@@ -313,16 +313,7 @@
           </div>
         </div>
 
-        <div class="dropdown-container mt-3 mt-lg-0">
-          <label for="recommendation" class="form-label">Sort by</label>
-          <select id="recommendation" class="form-select">
-            <option>Recommended</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
+
       </div>
 
       <h5>{{ AllActivities?.length }} Activities found</h5>

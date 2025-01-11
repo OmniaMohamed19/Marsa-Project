@@ -436,6 +436,11 @@ label,
   color: gold !important;
   text-shadow: 0.5px 0.5px #ffea01;
 }
+::ng-deep{
+ p-calendar span {
+    height: 54px !important;
+  }
+}
 .persons {
   border: 1px solid #e4e4e4;
   border-radius: 5px;
@@ -563,6 +568,7 @@ p-calendar{
 ::ng-deep{
   .custom-calendar .p-calendar {
     width:100% !important;
+
   }
 }
 }

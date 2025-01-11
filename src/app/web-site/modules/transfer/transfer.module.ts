@@ -22,7 +22,7 @@ import { CalendarModule } from 'primeng/calendar';
     SharedModule,
     MatDialogModule,
     NgxMaterialTimepickerModule,
-    CalendarModule
+    CalendarModule,
   ],
   providers: [DatePipe],
 

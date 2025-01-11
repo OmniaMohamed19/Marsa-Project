@@ -168,18 +168,10 @@ export class StepOneComponent implements OnInit {
     }
 
   }
-  updateLocalStorage() {
 
-    const updatedData = {
-      ...this.bookdetail,
-      pickuptime: this.formData.pickuptime,
-    };
-    localStorage.setItem('bookdetail', JSON.stringify(updatedData));
-  }
-  onPickUpTimeChange(newTime: any) {
-    this.formData.pickuptime = newTime;
-    this.updateLocalStorage();
-  }
+  // onPickUpTimeChange(newTime: any) {
+  //   this.formData.pickuptime = newTime;
+  // }
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';

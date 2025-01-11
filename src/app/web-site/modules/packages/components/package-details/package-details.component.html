@@ -232,43 +232,53 @@
 
       <div id="experience" class="tab-pane">
         <h5 class="heading">Experience</h5>
-        <div class="d-flex gap-5 mt-4">
-          <h6>Highlights</h6>
-          <ul
-            class="list-group list-group-borderless list-group-flush no-gutters"
-            [innerHTML]="rows?.Highlights"
-          ></ul>
+        <div class="d-md-flex d-sm-block gap-5 mt-4">
+          <div>
+
+            <h6>Highlights</h6>
+          </div>
+          <div  class="exc-div">
+
+            <ul
+              class="list-group list-group-borderless list-group-flush no-gutters"
+              [innerHTML]="rows?.Highlights"
+            ></ul>
+          </div>
         </div>
         <div class="d-flex gap-5 mt-5">
           <div class="row w-100">
-            <div class="col-md-6 col-sm-12 d-flex gap-5">
+            <div class="col-md-6 col-sm-12 d-md-flex d-sm-block gap-5">
+              <div class=""></div>
               <h6>Includes</h6>
-              <ul
-                class="list-group list-group-borderless list-group-flush no-gutters"
-              >
-                <li
-                  class="mb-3 text-gray-1"
-                  *ngFor="let include of rows?.Includes"
+              <div  class="exc-div">
+
+                <ul
+                  class="list-group list-group-borderless list-group-flush no-gutters"
                 >
-                  <span
-                    class="d-inline-flex justify-content-center align-items-center me-2"
+                  <li
+                    class="mb-3 text-gray-1"
+                    *ngFor="let include of rows?.Includes"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="12"
-                      viewBox="0 0 16 12"
-                      fill="none"
+                    <span
+                      class="d-inline-flex justify-content-center align-items-center me-2"
                     >
-                      <path
-                        d="M15.78 0.594482C15.639 0.45391 15.448 0.375 15.249 0.375C15.0499 0.375 14.8589 0.45391 14.718 0.594482L5.71796 9.56946L2.25999 6.11951C2.11873 5.98268 1.92936 5.90678 1.7327 5.9082C1.53605 5.90963 1.34782 5.98821 1.20856 6.12708C1.06931 6.26594 0.990179 6.45398 0.988197 6.65063C0.986216 6.84729 1.06154 7.03682 1.19798 7.17847L5.18699 11.1584C5.32796 11.299 5.51889 11.3781 5.71796 11.3781C5.91704 11.3781 6.108 11.299 6.24897 11.1584L15.776 1.65845C15.8466 1.58914 15.9028 1.50658 15.9413 1.41541C15.9798 1.32423 15.9998 1.22628 16.0002 1.12732C16.0005 1.02835 15.9813 0.930331 15.9435 0.838867C15.9057 0.747403 15.8501 0.664315 15.78 0.594482Z"
-                        fill="#297CBB"
-                      />
-                    </svg>
-                  </span>
-                  {{ include }}
-                </li>
-              </ul>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="12"
+                        viewBox="0 0 16 12"
+                        fill="none"
+                      >
+                        <path
+                          d="M15.78 0.594482C15.639 0.45391 15.448 0.375 15.249 0.375C15.0499 0.375 14.8589 0.45391 14.718 0.594482L5.71796 9.56946L2.25999 6.11951C2.11873 5.98268 1.92936 5.90678 1.7327 5.9082C1.53605 5.90963 1.34782 5.98821 1.20856 6.12708C1.06931 6.26594 0.990179 6.45398 0.988197 6.65063C0.986216 6.84729 1.06154 7.03682 1.19798 7.17847L5.18699 11.1584C5.32796 11.299 5.51889 11.3781 5.71796 11.3781C5.91704 11.3781 6.108 11.299 6.24897 11.1584L15.776 1.65845C15.8466 1.58914 15.9028 1.50658 15.9413 1.41541C15.9798 1.32423 15.9998 1.22628 16.0002 1.12732C16.0005 1.02835 15.9813 0.930331 15.9435 0.838867C15.9057 0.747403 15.8501 0.664315 15.78 0.594482Z"
+                          fill="#297CBB"
+                        />
+                      </svg>
+                    </span>
+                    {{ include }}
+                  </li>
+                </ul>
+              </div>
             </div>
             <!-- offset-md-1 -->
             <div class="col-md-6 dirction col-sm-12 d-flex gap-5">
@@ -276,27 +286,30 @@
                 <h6 class="fw-bold">Excludes</h6>
               </div>
 
-              <ul
-                class="list-group list-group-borderless list-group-flush no-gutters"
-              >
-                <li
-                  class="mb-3 text-gray-1 d-flex align-items-center"
-                  *ngFor="let exclude of rows?.Excludes"
-                >
-                  <i
-                    class="fa fa-times fs-4 mr-3 font-size-8"
-                    style="color: #ff681a"
-                  ></i>
+              <div class="exc-div">
 
-                  <span class="font-size-9 d-inline-block">
-                    {{ exclude.title }} <br />
-                    <p *ngIf="exclude?.price > 0">
-                      ( ${{ exclude?.price }} per person :
-                      {{ exclude?.option }})
-                    </p>
-                  </span>
-                </li>
-              </ul>
+                <ul
+                  class="list-group list-group-borderless list-group-flush no-gutters"
+                >
+                  <li
+                    class="mb-3 text-gray-1 d-flex align-items-center"
+                    *ngFor="let exclude of rows?.Excludes"
+                  >
+                    <i
+                      class="fa fa-times fs-4 mr-3 font-size-8"
+                      style="color: #ff681a"
+                    ></i>
+
+                    <span class="font-size-9 d-inline-block">
+                      {{ exclude.title }} <br />
+                      <p *ngIf="exclude?.price > 0">
+                        ( ${{ exclude?.price }} per person :
+                        {{ exclude?.option }})
+                      </p>
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
