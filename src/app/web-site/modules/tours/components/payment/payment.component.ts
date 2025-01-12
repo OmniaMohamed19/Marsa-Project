@@ -138,12 +138,56 @@ export class PaymentComponent {
     this.getNationality();
   }
   applycoupon() {
-    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-      this.Total = this.responseFromAvailableOption
-        ? this.responseFromAvailableOption.TotlaPrice - this.Coupons[0]?.amount
-        : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
-    });
+    this.spinner.show();
+    const model = {
+      trip_id: this.tripId,
+      avilable_option_id: this.avilable_option_id,
+      class: this.class,
+      adult: this.adult,
+      childern: this.childern,
+      infant: this.infant,
+      coupon_code: this.coupon,
+      booking_option: this.activityData?.bookingOption.reduce(
+        (acc: any[], item: any, index: number) => {
+          if (this.checkboxStatus[index]) {
+            acc.push({
+              id: item.id,
+              persons: this.personsInputValues[index] || 0,
+            });
+          }
+          return acc;
+        },
+        []
+      ),
+    };
+    this._httpService
+      .post(environment.marsa, 'Activtes/AvailableOption/price', model)
+      .subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          this.responseFromAvailableOption = res;
+          this.Total = this.responseFromAvailableOption.TotlaPrice
+            //   this.Coupons[0]?.amount
+            // : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
+          // console.log(this.Coupons.length);
+        },
+        error: (err: any) => {
+          this.spinner.hide();
+          this.toastr.error(
+            err.error.message
+          );
+          // Swal.fire(err.error.message,
+          //   'error'
+          // ).then(() => {
+          // });
+        },
+      });
+    // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+    //   this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+    //   this.Total = this.responseFromAvailableOption
+    //     ? this.responseFromAvailableOption.TotlaPrice - this.Coupons[0]?.amount
+    //     : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
+    // });
     // Coupon
   }
   toggleTab(tabId: string, paymentMethod: string) {

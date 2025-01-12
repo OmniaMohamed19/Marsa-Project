@@ -17,7 +17,6 @@ import { Observable, map, startWith } from 'rxjs';
 import { Code } from '../../context/code.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Title } from '@angular/platform-browser';
-
 @Component({
   selector: 'app-liveboard-payment',
   templateUrl: './liveboard-payment.component.html',
@@ -313,12 +312,50 @@ export class LiveboardPaymentComponent implements OnInit {
   }
 
   applycoupon() {
-    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-      this.Total =
-        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
-      console.log(this.Total);
-    });
+    const totalPersons = Object.values(this.personsMap).reduce(
+      (acc: number, val: number) => acc + val,
+      0
+    );
+    if (totalPersons < this.adult) {
+      this.toastr.info('Please allocate all Persons before proceeding.');
+      this.coupon=''
+      return;
+    }
+    const model = {
+      trip_id: this.tripId,
+      class: 'collective',
+      coupon_code: this.coupon,
+      adult: this.adult,
+      schedules_id: this.schedules_id,
+      cabins: this.cabins
+        .map((cabin: any) => ({
+          id: cabin.id,
+          persons:
+            this.personsMap[cabin.id] !== 0
+              ? this.personsMap[cabin.id]
+              : undefined,
+        }))
+        .filter((cabin: any) => cabin.persons !== undefined),
+    };
+    this._httpService
+      .post(environment.marsa, 'liveboard/cabin/price', model)
+      .subscribe({
+        next: (res: any) => {
+          console.log(123);
+
+          this.responseFromAvailableOption = res;
+          this.Total = this.responseFromAvailableOption?.TotlaPrice;
+        },
+        error: (err) => {
+          this.toastr.error(err.error.message);
+        },
+      });
+    // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+    //   this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+    //   this.Total =
+    //     this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
+    //   console.log(this.Total);
+    // });
     // Coupon
   }
   confirmEdit(event: Event) {

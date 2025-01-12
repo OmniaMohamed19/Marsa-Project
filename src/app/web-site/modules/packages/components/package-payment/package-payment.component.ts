@@ -15,6 +15,7 @@ import { Code } from '../../context/code.interface';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Title } from '@angular/platform-browser';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-package-payment',
@@ -27,7 +28,7 @@ export class PackagePaymentComponent {
   customerForm!: FormGroup;
   activeTab: string = 'pills-one-example2';
   payment_method: any;
-  userData: {id?:number, name?: string; phone?: string; email?: string } = {};
+  userData: { id?: number; name?: string; phone?: string; email?: string } = {};
   canProceedToCustomerInfo: boolean = false;
   isConfirmationStepEnabled: boolean = false;
   filteredNationalities: Observable<Code[]> | undefined;
@@ -75,12 +76,11 @@ export class PackagePaymentComponent {
     private translate: TranslateService,
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
-    private titleService: Title,
-
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle("Confirm Booking");
+    this.titleService.setTitle('Confirm Booking');
 
     this.initForm();
     this.edit = localStorage['editPackage']
@@ -100,28 +100,30 @@ export class PackagePaymentComponent {
       this.getDataById(this.model.packege_id);
     });
     if (JSON.parse(localStorage['queryParamsPackages']).BookingInfo) {
-      this.Bookingid = JSON.parse(localStorage['queryParamsPackages'])?.BookingInfo?.Bookingid;
-      this.userData.name=JSON.parse(localStorage['queryParamsPackages']).BookingInfo.name||''
-      this.userData.phone=JSON.parse(localStorage['queryParamsPackages']).BookingInfo.Phone||''
-      this.userData.email=JSON.parse(localStorage['queryParamsPackages']).BookingInfo['E-mail']||''
+      this.Bookingid = JSON.parse(
+        localStorage['queryParamsPackages']
+      )?.BookingInfo?.Bookingid;
+      this.userData.name =
+        JSON.parse(localStorage['queryParamsPackages']).BookingInfo.name || '';
+      this.userData.phone =
+        JSON.parse(localStorage['queryParamsPackages']).BookingInfo.Phone || '';
+      this.userData.email =
+        JSON.parse(localStorage['queryParamsPackages']).BookingInfo['E-mail'] ||
+        '';
       console.log(this.userData);
-
-    }
-
-    else{
-    this._AuthService.getUserData().subscribe(
-      (data: any) => {
+    } else {
+      this._AuthService.getUserData().subscribe(
+        (data: any) => {
           this.userData = JSON.parse(data); // Assigning the received object directly
-
-      },
-      (error) => {
-        // Handle error if needed
-        console.error('Error:', error);
-      }
-    );
-  }
-  this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+        },
+        (error) => {
+          // Handle error if needed
+          console.error('Error:', error);
+        }
+      );
+    }
+    this.customerForm.patchValue(this.userData);
+    this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
   }
   getImageName(url: string): string {
     const imageName = url?.substring(
@@ -166,11 +168,11 @@ export class PackagePaymentComponent {
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
         card_number: this.cardNumber,
       };
 
-console.log(this.Bookingid);
+      console.log(this.Bookingid);
 
       this._httpService
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
@@ -191,7 +193,7 @@ console.log(this.Bookingid);
               'Your request has been send successfully',
               'Your request has been sent successfully. Please check your email for further instructions.',
               'success'
-            )
+            );
           },
           error: (err: any) => {
             this.spinner.hide();
@@ -200,12 +202,11 @@ console.log(this.Bookingid);
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            ).then(()=>{
+            ).then(() => {
               this.goBack();
-            })
+            });
           },
         });
-
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
@@ -228,12 +229,10 @@ console.log(this.Bookingid);
       .subscribe((res: any) => {
         this.packageData = res?.PackageDetails;
         console.log(res);
-
       });
   }
 
   goToPayment(stepper: MatStepper) {
-
     if (!this.showServices) {
       this.locationValue = 'ddd';
     }
@@ -283,32 +282,56 @@ console.log(this.Bookingid);
   }
 
   applycoupon() {
-    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-      this.Total =
-        this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
-    });
+    const model = {
+      packege_id: this.model.packege_id,
+      adult: this.model.adult,
+      childern: this.model.childern,
+      infant: this.model.infant,
+      coupon_code: this.coupon,
+    };
 
+    this._httpService
+      .post(environment.marsa, 'package/price', model)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.responseFromAvailableOption = res;
+          this.Total = this.responseFromAvailableOption?.TotlaPrice;
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.message);
+        },
+      });
+
+    // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+    //   this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+    //   this.Total =
+    //     this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
+    // });
   }
 
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
-    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+    const termsCheckbox = document.getElementById(
+      'termsCheckbox'
+    ) as HTMLInputElement;
 
     // Check if the terms and conditions checkbox is selected
     if (!termsCheckbox.checked) {
-      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.warning(
+        'Please agree to the Terms and Conditions before proceeding.',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       return; // Stop further execution
     }
-
-
-
 
     if (
       this.cardholderName == undefined ||
@@ -346,11 +369,10 @@ console.log(this.Bookingid);
         cardholder_name: this.cardholderName,
         cvv: this.cvv,
         expiry_year: this.expirYear,
-        expiry_month: this.expiryMonth?Number(this.expiryMonth):null,
+        expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
         coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
         card_number: this.cardNumber,
       };
-
 
       this._httpService
         .post(environment.marsa, 'package/book', model)
@@ -402,7 +424,6 @@ console.log(this.Bookingid);
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
         coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
       };
-
 
       this._httpService
         .post(environment.marsa, 'package/book', model)
