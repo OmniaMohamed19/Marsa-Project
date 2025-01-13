@@ -643,7 +643,7 @@
                   *ngIf="selectedOption === 'Collective'"
                 >
                   <span
-                    *ngIf="availableOption?.PriceColective.AdultDiscount != 0"
+                    *ngIf="availableOption?.PriceColective.AdultDiscount> 0"
                     class="badge-sale"
                   >
                     Save {{ availableOption?.PriceColective.AdultDiscount }} %
@@ -1790,6 +1790,13 @@
                         >Age
                         {{ getMinAdultPrice()?.PriceColective.AdultAge }}</span
                       >
+                      <span class="badge bg-green p-2 sale">
+                        {{
+                          selectedOption === "Collective"
+                            ? getMinAdultPrice()?.PriceColective.AdultDiscount
+                            : ""
+                        }}% OFF</span
+                      >
                       <div class="flex-horizontal-center">
                         <a class="js-minus font-size-10 text-dark">
                           <img
@@ -2253,6 +2260,13 @@
                     <span class="d-block"
                       >Age
                       {{ getMinAdultPrice()?.PriceColective.AdultAge }}</span
+                    >
+                    <span class="badge bg-green p-2 sale">
+                      {{
+                        selectedOption === "Collective"
+                          ? getMinAdultPrice()?.PriceColective.AdultDiscount
+                          : ""
+                      }}% OFF</span
                     >
                     <div class="flex-horizontal-center">
                       <a class="js-minus font-size-10 text-dark">

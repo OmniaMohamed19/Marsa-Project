@@ -47,16 +47,16 @@ mapModalOptions: any = {
   ngOnInit(): void {
     this.titleService.setTitle("Confirm Booking");
     this.initForm();
-    
+
     this.route.queryParams.subscribe((params: any) => {
       if (params['res']) {
         const res = JSON.parse(params['res']);
         this.confirmRequest = res;
-  
+
         this.tripId = params['trip_id'];
         this.Bookingid = res.Bookingid;
         this.getTripById(this.tripId);
-        
+
         if (this.confirmRequest) {
           this.Bookingid = this.confirmRequest?.Bookingid;
           this.userData.name = this.confirmRequest?.name || '';
@@ -64,7 +64,7 @@ mapModalOptions: any = {
           this.userData.email = this.confirmRequest?.['E-mail'] || '';
           console.log(this.userData);
         }
-  
+
         this.customerForm.patchValue(this.userData);
         this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
       } else {
@@ -174,35 +174,35 @@ mapModalOptions: any = {
         this.locationValue = `(${result.longitude} - ${result.latitude})`;
       });
     }
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    autoplay: true,
-    margin: 10,
-    navSpeed: 700,
-    navText: [
-      "<i class='fa fa-angle-left'></i>",
-      "<i class='fa fa-angle-right'></i>",
-    ],
-    responsive: {
-      0: {
-        items: 1,
+    customOptions: OwlOptions = {
+      loop: true,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
+      dots: false,
+      autoplay: true,
+      margin: 10,
+      navSpeed: 700,
+      navText: [
+        "<i class='fa fa-angle-left'></i>",
+        "<i class='fa fa-angle-right'></i>",
+      ],
+      responsive: {
+        0: {
+          items: 1,
+        },
+        740: {
+          items: 4,
+        },
+        940: {
+          items: 4,
+        },
+        1200: {
+          items: 4,
+        },
       },
-      740: {
-        items: 4,
-      },
-      940: {
-        items: 4,
-      },
-      1200: {
-        items: 4,
-      },
-    },
-    nav: true,
-  };
+      nav: true,
+    };
   ReturnToPayment() {
 
     if (typeof window !== 'undefined') {

@@ -61,24 +61,24 @@
                         <!-- End Fact List -->
                     </div>
                     <div class="p-5 mt-5" [innerHTML]="confirmRequest?.Bookinginstraction">
-                        
+
                     </div>
-                  
+
                 </div>
                 <ng-container *ngIf="showRelated">
                     <div class="my-tours-work" >
                         <h5 class="text-center mb-5 head">You might also like</h5>
-    
+
                         <owl-carousel-o [options]="customOptions" class="my-tours">
                             <ng-container *ngFor="let item of relatedtrips">
                                 <ng-template carouselSlide>
-                                    <app-activity-card [item]="item"></app-activity-card>
+                                    <app-boat-card [item]="item"></app-boat-card>
                                 </ng-template>
                             </ng-container>
-    
+
                             <ng-container *ngFor="let item of relatedtrips">
                                 <ng-template carouselSlide>
-                                    <app-activity-card [item]="item"></app-activity-card>
+                                    <app-boat-card [item]="item"></app-boat-card>
                                 </ng-template>
                             </ng-container>
                         </owl-carousel-o>

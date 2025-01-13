@@ -36,9 +36,9 @@ export class ConfirmationBoatComponent {
         `Boats/details/` + BoatID
       )
       .subscribe((res: any) => {
-        if(res?.Relatedtrips) {
+        if(res?.relatedtrips?.data) {
           this.showRelated = true;
-          this.relatedtrips = res?.Relatedtrips;
+          this.relatedtrips = res?.relatedtrips.data;
         }
 
       });
