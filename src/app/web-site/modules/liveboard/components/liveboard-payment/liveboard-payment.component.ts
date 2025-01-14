@@ -280,7 +280,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         class: 'collective',
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         adult: this.adult,
         schedules_id: this.schedules_id,
         cabins: this.cabins
@@ -318,7 +318,7 @@ export class LiveboardPaymentComponent implements OnInit {
     );
     if (totalPersons < this.adult) {
       this.toastr.info('Please allocate all Persons before proceeding.');
-      this.coupon=''
+      this.coupon = '';
       return;
     }
     const model = {
@@ -385,7 +385,7 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
@@ -518,7 +518,7 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'tap',
         ...this.customerForm.value,
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
@@ -588,7 +588,7 @@ export class LiveboardPaymentComponent implements OnInit {
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
         ...this.customerForm.value,
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',

@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-step-three',
   templateUrl: './step-three.component.html',
-  styleUrls: ['./step-three.component.scss']
+  styleUrls: ['./step-three.component.scss'],
 })
 export class StepThreeComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
@@ -54,32 +54,28 @@ export class StepThreeComponent implements OnInit {
   activeSection: any;
   SavedaddOnDetails: any;
   AllbookingOption: any;
-  constructor(private _httpService: HttpService,
+  constructor(
+    private _httpService: HttpService,
     private toastr: ToastrService,
     private router: Router,
     private translate: TranslateService,
-    private spinner: NgxSpinnerService,
-
-  ) {
-
-  }
+    private spinner: NgxSpinnerService
+  ) {}
   ngOnInit() {
     const addOnDetails = localStorage.getItem('Add-on-details');
     if (addOnDetails) {
       this.SavedaddOnDetails = JSON.parse(addOnDetails);
-
       this.kilometr = this.SavedaddOnDetails?.kilometer || '';
       this.person = this.SavedaddOnDetails.Numberofpeople || '';
       this.bookingTime = this.SavedaddOnDetails.booking_time || '';
       this.fromName = this.SavedaddOnDetails?.from || '';
-
       this.toName = this.SavedaddOnDetails?.to || '';
       this.price = this.SavedaddOnDetails?.Subtotal || '';
       this.total = this.SavedaddOnDetails?.Total || '';
-
-     // this.returnbookingdate = this.SavedaddOnDetails?.return_booking_date || '';
-     this.returnbookingtime = this.SavedaddOnDetails?.return_booking_time || null;
-     this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
+      // this.returnbookingdate = this.SavedaddOnDetails?.return_booking_date || '';
+      this.returnbookingtime =
+        this.SavedaddOnDetails?.return_booking_time || null;
+      this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
       //this.bookingDate=this.SavedaddOnDetails.booking_date || '';
 
       const bookingDateString = this.SavedaddOnDetails.booking_date || '';
@@ -109,9 +105,8 @@ export class StepThreeComponent implements OnInit {
         this.bookingDate = '';
       }
 
-      console.log(this.bookingDate)
-      console.log(this.returnbookingdate)
-
+      console.log(this.bookingDate);
+      console.log(this.returnbookingdate);
     }
 
     const bookingDetail = localStorage.getItem('bookdetail');
@@ -135,37 +130,110 @@ export class StepThreeComponent implements OnInit {
       this.flightNumper = this.formData1?.flightNumber;
     }
 
-     const savedResponseData = localStorage.getItem('responseData');
-     if(savedResponseData){
+    const savedResponseData = localStorage.getItem('responseData');
+    if (savedResponseData) {
       this.responseData = JSON.parse(savedResponseData);
-     }
-     const savedSection = localStorage.getItem('activeSection');
-    if(savedSection){
+    }
+    const savedSection = localStorage.getItem('activeSection');
+    if (savedSection) {
       this.activeSection = savedSection;
     }
     this.way = localStorage.getItem('activeSection') || '';
-    console.log("hiiii step 33333");
-
+    console.log('hiiii step 33333');
   }
 
-
-
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
 
   applycoupon() {
-    this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-      this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-      if (this.Coupons.length > 0) {
-        this.total = this.total - this.Coupons[0].amount;
-      } else {
-        console.warn('No matching coupons found');
-      }
+    const model = {
+      from_id: this.fromId,
+      to_id: this.toId,
+      person: this.person,
+      car_id: this.carId,
+      way: this.way,
+      booking_time: this.bookingTime,
+      booking_date: this.bookingDate,
+      return_booking_time: this.returnbookingtime,
+      return_booking_date: this.returnbookingdate,
+      booking_option: this.AllbookingOption,
+      flight_n: this.flightNumper,
+      coupon_code: this.coupon
+    };
 
-    });
+    this._httpService.post(environment.marsa, 'transfer/get/price', model)
+      .subscribe({
+        next: (res: any) => {
+            if (res) {
+              this.SavedaddOnDetails =res;
+              this.kilometr = this.SavedaddOnDetails?.kilometer || '';
+              this.person = this.SavedaddOnDetails.Numberofpeople || '';
+              this.bookingTime = this.SavedaddOnDetails.booking_time || '';
+              this.fromName = this.SavedaddOnDetails?.from || '';
+              this.toName = this.SavedaddOnDetails?.to || '';
+              this.price = this.SavedaddOnDetails?.Subtotal || '';
+              this.total = this.SavedaddOnDetails?.Total || '';
+              // this.returnbookingdate = this.SavedaddOnDetails?.return_booking_date || '';
+              this.returnbookingtime =
+                this.SavedaddOnDetails?.return_booking_time || null;
+              this.AllbookingOption = this.SavedaddOnDetails?.Option || [];
+              //this.bookingDate=this.SavedaddOnDetails.booking_date || '';
 
+              const bookingDateString = this.SavedaddOnDetails.booking_date || '';
+              const dateString = this.SavedaddOnDetails?.return_booking_date || '';
+              if (dateString || bookingDateString) {
+                if (dateString) {
+                  const date = new Date(dateString);
+                  const year = date.getFullYear();
+                  const month = String(date.getMonth() + 1).padStart(2, '0');
+                  const day = String(date.getDate()).padStart(2, '0');
+                  this.returnbookingdate = `${year}-${month}-${day}`;
+                } else {
+                  this.returnbookingdate = '';
+                }
+
+                if (bookingDateString) {
+                  const date2 = new Date(bookingDateString);
+                  const year2 = date2.getFullYear();
+                  const month2 = String(date2.getMonth() + 1).padStart(2, '0');
+                  const day2 = String(date2.getDate()).padStart(2, '0');
+                  this.bookingDate = `${year2}-${month2}-${day2}`;
+                } else {
+                  this.bookingDate = '';
+                }
+              } else {
+                this.returnbookingdate = '';
+                this.bookingDate = '';
+              }
+
+              console.log(this.bookingDate);
+              console.log(this.returnbookingdate);
+            }
+            console.log(res);
+
+        },
+        error: (err: any) => {
+          this.spinner.hide();
+          this.toastr.error(err.error.message);
+          // Swal.fire(err.error.message,
+          //   'error'
+          // ).then(() => {
+          // });
+        },
+      });
+    // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
+    //   this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
+    //   if (this.Coupons.length > 0) {
+    //     this.total = this.total - this.Coupons[0].amount;
+    //   } else {
+    //     console.warn('No matching coupons found');
+    //   }
+    // });
   }
 
   nextStep(): void {
@@ -182,7 +250,6 @@ export class StepThreeComponent implements OnInit {
 
   buttonDisabled = false;
 
-
   confirmBookingByCard() {
     if (this.buttonDisabled) {
       return;
@@ -191,34 +258,46 @@ export class StepThreeComponent implements OnInit {
     this.buttonDisabled = true;
 
     // Get the checkbox element
-    const termsCheckbox = (document.getElementById('termsCheckbox') as HTMLInputElement);
+    const termsCheckbox = document.getElementById(
+      'termsCheckbox'
+    ) as HTMLInputElement;
 
     // Check if the terms and conditions checkbox is selected
     if (!termsCheckbox.checked) {
-      this.toastr.warning('Please agree to the Terms and Conditions before proceeding.', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.warning(
+        'Please agree to the Terms and Conditions before proceeding.',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       this.buttonDisabled = false; // Re-enable the button
       return; // Stop further execution
     }
 
     // Validate the required fields
     if (
-      this.cardholderName == undefined || this.cardNumber == undefined ||
-      this.expiryMonth == undefined || this.expirYear == undefined ||
+      this.cardholderName == undefined ||
+      this.cardNumber == undefined ||
+      this.expiryMonth == undefined ||
+      this.expirYear == undefined ||
       this.cvv == undefined
     ) {
-      this.toastr.info('Please fill in all the required fields before confirming your booking. ', '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.info(
+        'Please fill in all the required fields before confirming your booking. ',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
       this.buttonDisabled = false; // Re-enable the button
       return; // Stop further execution
     }
@@ -256,10 +335,11 @@ export class StepThreeComponent implements OnInit {
       cvv: this.cvv?.toString(),
       expiry_year: this.expirYear,
       expiry_month: this.expiryMonth,
-      card_number: this.cardNumber?.toString()
+      card_number: this.cardNumber?.toString(),
     };
 
-    this._httpService.post(environment.marsa, 'transfer/book', model)
+    this._httpService
+      .post(environment.marsa, 'transfer/book', model)
       .subscribe({
         next: (res: any) => {
           if (res && res.link) {
@@ -283,16 +363,15 @@ export class StepThreeComponent implements OnInit {
           this.buttonDisabled = false; // Re-enable the button in case of an error
           console.error('Error during booking:', err);
 
-          const errorMessage = err.error?.message || 'An error occurred while processing your booking. Please try again later.';
+          const errorMessage =
+            err.error?.message ||
+            'An error occurred while processing your booking. Please try again later.';
           Swal.fire('Booking Failed', errorMessage, 'error');
-        }
+        },
       });
   }
 
-  
-
   confirmBooking() {
-
     if (this.buttonDisabled) {
       return; // إذا كان الزر معطلاً، لا تفعل شيئًا
     }
@@ -329,48 +408,46 @@ export class StepThreeComponent implements OnInit {
 
     this.spinner.show();
 
-    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
-      next: (res: any) => {
+    this._httpService
+      .post(environment.marsa, 'transfer/book', model)
+      .subscribe({
+        next: (res: any) => {
+          // Hide spinner after receiving the response
 
-        // Hide spinner after receiving the response
+          if (res && res.link) {
+            window.location.href = res.link;
+          } else {
+            const queryParams = { res: JSON.stringify(res) };
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'transfer', 'confirm'],
+              { queryParams }
+            );
+            Swal.fire(
+              'Your request has been sent successfully.',
+              'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
+              'success'
+            );
+          }
+        },
+        error: (err: any) => {
+          console.error('Error during booking:', err);
 
-        if (res && res.link) {
-          window.location.href = res.link;
-        } else {
-          const queryParams = { res: JSON.stringify(res) };
-          this.router.navigate(
-            ['/', this.translate.currentLang, 'transfer', 'confirm'],
-            { queryParams }
-          );
+          // Hide spinner if there's an error
+          this.buttonDisabled = false;
           Swal.fire(
-            'Your request has been sent successfully.',
-            'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
-            'success'
+            'Booking Failed',
+            'An error occurred while processing your booking. Please try again later.',
+            'error'
           );
-        }
-      },
-      error: (err: any) => {
-        console.error('Error during booking:', err);
-
-        // Hide spinner if there's an error
-        this.buttonDisabled = false;
-        Swal.fire(
-          'Booking Failed',
-          'An error occurred while processing your booking. Please try again later.',
-          'error'
-        );
-      },
-    });
+        },
+      });
   }
 
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
   }
   goback() {
-    this.router.navigate(
-      ['/', this.translate.currentLang, 'transfer'],
-
-    );
+    this.router.navigate(['/', this.translate.currentLang, 'transfer']);
   }
 
   toggleTab(tabId: string, paymentMethod: string) {
@@ -399,7 +476,14 @@ export class StepThreeComponent implements OnInit {
 
   public OnlyNumbers(event: any) {
     let regex: RegExp = new RegExp(/^[0-9]{1,}$/g);
-    let specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowRight', 'ArrowLeft'];
+    let specialKeys: Array<string> = [
+      'Backspace',
+      'Tab',
+      'End',
+      'Home',
+      'ArrowRight',
+      'ArrowLeft',
+    ];
     if (specialKeys.indexOf(event.key) !== -1) {
       return;
     } else {
@@ -410,8 +494,4 @@ export class StepThreeComponent implements OnInit {
       }
     }
   }
-
 }
-
-
-

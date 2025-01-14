@@ -370,7 +370,7 @@ export class PackagePaymentComponent {
         cvv: this.cvv,
         expiry_year: this.expirYear,
         expiry_month: this.expiryMonth ? Number(this.expiryMonth) : null,
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         card_number: this.cardNumber,
       };
 
@@ -422,7 +422,7 @@ export class PackagePaymentComponent {
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
       };
 
       this._httpService

@@ -166,16 +166,14 @@ export class PaymentComponent {
         next: (res: any) => {
           this.spinner.hide();
           this.responseFromAvailableOption = res;
-          this.Total = this.responseFromAvailableOption.TotlaPrice
-            //   this.Coupons[0]?.amount
-            // : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
+          this.Total = this.responseFromAvailableOption.TotlaPrice;
+          //   this.Coupons[0]?.amount
+          // : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
           // console.log(this.Coupons.length);
         },
         error: (err: any) => {
           this.spinner.hide();
-          this.toastr.error(
-            err.error.message
-          );
+          this.toastr.error(err.error.message);
           // Swal.fire(err.error.message,
           //   'error'
           // ).then(() => {
@@ -293,10 +291,7 @@ export class PaymentComponent {
       .subscribe({
         next: (res: any) => {
           this.responseFromAvailableOption = res;
-          this.Total = this.responseFromAvailableOption
-            ? this.responseFromAvailableOption.TotlaPrice -
-              this.Coupons[0]?.amount
-            : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
+          this.Total = this.responseFromAvailableOption.TotlaPrice;
           console.log(this.Coupons.length);
         },
       });
@@ -391,7 +386,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'cash',
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
@@ -523,7 +518,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'tap',
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
@@ -624,7 +619,7 @@ export class PaymentComponent {
         infant: this.infant,
         booking_date: formattedDateString,
         payment_method: this.payment_method ? this.payment_method : 'cash',
-        coupon_code: this.Coupons ? this.Coupons[0]?.code : '',
+        coupon_code: this.coupon,
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
