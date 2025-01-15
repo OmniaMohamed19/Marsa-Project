@@ -166,10 +166,10 @@ export class UpcomingBookingComponent {
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
      // this.profiles = data.userDashboard.data;
-      this.upcoming = data?.userDashboard?.upcomming.data;
-      this.currentPage = data.userDashboard.upcomming.current_page;
-      this.lastPage = data.userDashboard.upcomming.last_page;
-      this.total = data.userDashboard.upcomming.total;
+      this.upcoming = data?.userDashboard?.upcomming;
+      // this.currentPage = data.userDashboard.upcomming.current_page;
+      // this.lastPage = data.userDashboard.upcomming.last_page;
+      // this.total = data.userDashboard.upcomming.total;
       this.allUpcoming = this.upcoming;
 
       this.cdr.markForCheck();
