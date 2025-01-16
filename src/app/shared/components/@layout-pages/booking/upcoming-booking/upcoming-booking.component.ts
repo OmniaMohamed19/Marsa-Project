@@ -28,6 +28,8 @@ export class UpcomingBookingComponent {
   @ViewChild('btn') btn: ElementRef | undefined;
   choosenReason: any;
   upcoming: any = [];
+  Transferupcoming:any=[];
+  upcomingTrips:any=[];
   allUpcoming: any = [];
   activeSection = 'all'; // Initialize with a default value
   activeBooking: any;
@@ -59,14 +61,13 @@ export class UpcomingBookingComponent {
     private fb: FormBuilder,private titleService: Title
   ) {}
   setActiveSection(section: string) {
-    this.upcoming = [];
+    this.upcomingTrips = [];
     this.activeSection = section;
     if (this.activeSection == 'all') {
-      this.upcoming = this.allUpcoming;
-      console.log('hiii')
+      this.upcomingTrips = this.allUpcoming;
     } else {
-      this.upcoming = this.allUpcoming.filter((item: any) => {
-        console.log(item);
+      this.upcomingTrips = this.allUpcoming.filter((item: any) => {
+        console.log(this.upcomingTrips);
         if (item.categoryid == this.activeSection) {
           console.log(item.categoryid);
           return item;
@@ -86,13 +87,12 @@ export class UpcomingBookingComponent {
 
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
     this.tabs = res?.triptypes;
-    this.tabs[0].category = 'Activities';
+    console.log(this.tabs)
+     this.tabs[0].category = 'Activities';
     this.tabs[1].category = 'Liveaboard';
-    this.tabs[2].category = 'Private Boats';
-
-      // this.upcoming = res?.userDashboard?.upcomming;
-      // console.log(this.upcoming);
-
+    this.tabs[2].category = null;
+    this.tabs[3].category = 'Transfer';
+    this.tabs[4].category = 'Package';
 
     });
     this.loadProfiles(this.currentPage);
@@ -167,10 +167,20 @@ export class UpcomingBookingComponent {
     this.profileService.getProfiles(page).subscribe((data) => {
      // this.profiles = data.userDashboard.data;
       this.upcoming = data?.userDashboard?.upcomming;
+      this.Transferupcoming = data?.userDashboard?.upcommingTransfer;
+      this.upcomingTrips = [...(this.upcoming || []), ...(this.Transferupcoming || [])];
+
+//this.upcoming = data?.userDashboard?.upcoming;
+// this.Transferupcoming = data?.userDashboard?.['upcoming transfer'];
+
+     // this.upcomingTrips=this.upcoming + this.Transferupcoming ;
+
+      console.log(this.upcomingTrips);
+
       // this.currentPage = data.userDashboard.upcomming.current_page;
       // this.lastPage = data.userDashboard.upcomming.last_page;
       // this.total = data.userDashboard.upcomming.total;
-      this.allUpcoming = this.upcoming;
+      this.allUpcoming = this.upcomingTrips;
 
       this.cdr.markForCheck();
     });
