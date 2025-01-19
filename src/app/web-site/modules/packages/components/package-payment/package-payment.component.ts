@@ -299,6 +299,22 @@ export class PackagePaymentComponent {
           this.Total = this.responseFromAvailableOption?.TotlaPrice;
         },
         error: (err) => {
+          this.coupon = '';
+          const model2 = {
+            packege_id: this.model.packege_id,
+            adult: this.model.adult,
+            childern: this.model.childern,
+            infant: this.model.infant,
+          };
+          this._httpService
+            .post(environment.marsa, 'package/price', model2)
+            .subscribe({
+              next: (res: any) => {
+                this.responseFromAvailableOption = res;
+                this.Total = this.responseFromAvailableOption.TotlaPrice;
+                console.log(res);
+              },
+            });
           console.log(err);
           this.toastr.error(err.error.message);
         },

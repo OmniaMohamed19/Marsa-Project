@@ -341,13 +341,35 @@ export class LiveboardPaymentComponent implements OnInit {
       .post(environment.marsa, 'liveboard/cabin/price', model)
       .subscribe({
         next: (res: any) => {
-          console.log(123);
-
           this.responseFromAvailableOption = res;
           this.Total = this.responseFromAvailableOption?.TotlaPrice;
         },
         error: (err) => {
           this.toastr.error(err.error.message);
+          this.coupon = '';
+          const model = {
+            trip_id: this.tripId,
+            class: 'collective',
+            adult: this.adult,
+            schedules_id: this.schedules_id,
+            cabins: this.cabins
+              .map((cabin: any) => ({
+                id: cabin.id,
+                persons:
+                  this.personsMap[cabin.id] !== 0
+                    ? this.personsMap[cabin.id]
+                    : undefined,
+              }))
+              .filter((cabin: any) => cabin.persons !== undefined),
+          };
+          this._httpService
+            .post(environment.marsa, 'liveboard/cabin/price', model)
+            .subscribe({
+              next: (res: any) => {
+                this.responseFromAvailableOption = res;
+                this.Total = this.responseFromAvailableOption?.TotlaPrice;
+              },
+            });
         },
       });
     // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
