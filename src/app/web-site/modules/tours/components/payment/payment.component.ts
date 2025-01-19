@@ -302,6 +302,7 @@ export class PaymentComponent {
       class: this.class,
       adult: this.adult,
       childern: this.childern,
+      coupon_code: this.coupon,
       infant: this.infant,
       booking_option: this.activityData?.bookingOption.reduce(
         (acc: any[], item: any, index: number) => {
