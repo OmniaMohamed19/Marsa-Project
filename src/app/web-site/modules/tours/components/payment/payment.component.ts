@@ -174,6 +174,36 @@ export class PaymentComponent {
         error: (err: any) => {
           this.spinner.hide();
           this.toastr.error(err.error.message);
+          this.coupon = '';
+          const model2 = {
+            trip_id: this.tripId,
+            avilable_option_id: this.avilable_option_id,
+            class: this.class,
+            adult: this.adult,
+            childern: this.childern,
+            infant: this.infant,
+            booking_option: this.activityData?.bookingOption.reduce(
+              (acc: any[], item: any, index: number) => {
+                if (this.checkboxStatus[index]) {
+                  acc.push({
+                    id: item.id,
+                    persons: this.personsInputValues[index] || 0,
+                  });
+                }
+                return acc;
+              },
+              []
+            ),
+          };
+          this._httpService
+            .post(environment.marsa, 'Activtes/AvailableOption/price', model2)
+            .subscribe({
+              next: (res: any) => {
+                this.responseFromAvailableOption = res;
+                this.Total = this.responseFromAvailableOption.TotlaPrice;
+                console.log(res);
+              },
+            });
           // Swal.fire(err.error.message,
           //   'error'
           // ).then(() => {
@@ -272,6 +302,7 @@ export class PaymentComponent {
       class: this.class,
       adult: this.adult,
       childern: this.childern,
+      coupon_code: this.coupon,
       infant: this.infant,
       booking_option: this.activityData?.bookingOption.reduce(
         (acc: any[], item: any, index: number) => {

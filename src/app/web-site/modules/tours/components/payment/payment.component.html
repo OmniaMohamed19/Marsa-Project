@@ -1095,7 +1095,8 @@
                     class="d-flex justify-content-between py-2"
                     *ngFor="let item of responseFromAvailableOption?.option"
                   >
-                    <span class="font-weight-medium">{{ item?.title }}</span>
+                    <span class="font-weight-medium">{{ item?.title }} <br>
+                      ( {{item?.size}})</span>
                     <span class="text-secondary">{{ item?.calc_price }}</span>
                     <span class="text-secondary">{{ item?.total }}</span>
                   </li>
