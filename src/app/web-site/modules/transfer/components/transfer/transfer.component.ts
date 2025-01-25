@@ -429,9 +429,9 @@ export class TransferComponent implements OnInit {
 
       localStorage.setItem('selectedFromType', 'airport');
 
-    } else if (option.city) {
+    } else if (option.title) {
       // If a hotel is selected
-      this.selectedFromName = option.city;
+      this.selectedFromName = option.title;
       this.fromId = option.id;
       // Show airports in the second dropdown
       this.availableToOptions = this.transferDetails?.airports || [];
@@ -451,8 +451,8 @@ export class TransferComponent implements OnInit {
   selectOption(option: any) {
     if (option.name) {
       this.selectedOptionName = option.name; // If an airport is selected
-    } else if (option.city) {
-      this.selectedOptionName = option.city; // If a hotel is selected
+    } else if (option.title) {
+      this.selectedOptionName = option.title; // If a hotel is selected
     }
     this.toId = option.id;
   }

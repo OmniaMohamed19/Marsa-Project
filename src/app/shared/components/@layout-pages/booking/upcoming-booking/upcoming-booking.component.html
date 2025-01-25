@@ -231,6 +231,19 @@
                           </span>
                           <span *ngIf="trip?.categoryid!=4">{{ trip?.adult }} Adult (12-98)</span>
                           <span *ngIf="trip?.categoryid==4">{{ trip?.persons }} People</span>
+
+                        </li>
+                        <li *ngIf="trip?.categoryid==4">
+                          <span>
+                            <img
+                              style="    width: 33px !important; height: 35px !important;"
+                              src="../../../../../../assets/icons/car.svg"
+                              alt="Forma"
+                            />
+                          </span>
+                          <span >
+
+                            {{ trip?.car }} </span>
                         </li>
                         <li *ngIf="trip?.childern > 0">
                           <span>
@@ -267,7 +280,7 @@
                       <p class="mt-4">
                         total-price: <b>${{ trip?.price }} </b>
                       </p>
-                      <div class="mobile-btn">
+                      <div class="mobile-btn" *ngIf="trip?.categoryid!=4">
                         <button
                           type="button"
                           data-bs-toggle="modal"
@@ -427,19 +440,22 @@
               name="choosenReason"
               type="radio"
               [value]="reason"
-              id="flexCheckChecked"
+              [id]="'reason-' + reason.id"
             />
-            <label class="form-check-label" for="flexCheckChecked">
+            <label class="form-check-label" [for]="'reason-' + reason.id">
               {{ reason.label }}
             </label>
           </div>
           <div>
-            <textarea *ngIf="choosenReason?.id == 4" class="form-control">
-Write here ...
-
-</textarea
-            >
+            <textarea
+              *ngIf="choosenReason?.id === 4"
+              [(ngModel)]="other"
+              name="other"
+              class="form-control"
+              placeholder="Write here ..."
+            ></textarea>
           </div>
+
         </form>
       </div>
       <div class="modal-footer">

@@ -27,6 +27,7 @@ export class UpcomingBookingComponent {
   ];
   @ViewChild('btn') btn: ElementRef | undefined;
   choosenReason: any;
+  Cancelreason:any;
   upcoming: any = [];
   Transferupcoming:any=[];
   upcomingTrips:any=[];
@@ -77,9 +78,9 @@ export class UpcomingBookingComponent {
     }
   }
 
-  setReason(reason: any) {
-    this.choosenReason = reason;
-  }
+  // setReason(reason: any) {
+  //   this.choosenReason = reason;
+  // }
 
   ngOnInit() {
     this.titleService.setTitle('Upcoming Booking');
@@ -129,14 +130,33 @@ export class UpcomingBookingComponent {
     this.activeBooking = bookingId;
   }
 
+  setReason(reason: any) {
+    this.choosenReason = reason;
+    if (this.choosenReason.id !== 4) {
+      this.other = '';
+    }
+  }
+
+
   cancelBooking() {
+
+
     this.spinner.show();
+
+    if(this.choosenReason.id !== 4) {
+     this.Cancelreason =this.choosenReason.label
+     console.log(this.choosenReason.label);
+    }
+    else  if(this.choosenReason.id == 4) {
+      this.Cancelreason =this.other;
+      console.log(this.other);
+    }
+    const model = {
+      id: this.activeBooking,
+      reason:this.Cancelreason
+    }
     this.httpService
-      .post(environment.marsa, 'user/book/cancel', {
-        id: this.activeBooking,
-        reason:
-          this.choosenReason.id !== 4 ? this.choosenReason.label : this.other,
-      })
+      .post(environment.marsa, 'user/book/cancel', model)
       .pipe(
         catchError((err) => {
           this.spinner.hide();
@@ -160,9 +180,12 @@ export class UpcomingBookingComponent {
             text: 'Your tour has been cancelled successfully!',
             confirmButtonText: 'Ok',
           });
+          this.loadProfiles(this.currentPage);
         }
       });
   }
+
+
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
      // this.profiles = data.userDashboard.data;
@@ -170,16 +193,9 @@ export class UpcomingBookingComponent {
       this.Transferupcoming = data?.userDashboard?.upcommingTransfer;
       this.upcomingTrips = [...(this.upcoming || []), ...(this.Transferupcoming || [])];
 
-//this.upcoming = data?.userDashboard?.upcoming;
-// this.Transferupcoming = data?.userDashboard?.['upcoming transfer'];
-
-     // this.upcomingTrips=this.upcoming + this.Transferupcoming ;
 
       console.log(this.upcomingTrips);
 
-      // this.currentPage = data.userDashboard.upcomming.current_page;
-      // this.lastPage = data.userDashboard.upcomming.last_page;
-      // this.total = data.userDashboard.upcomming.total;
       this.allUpcoming = this.upcomingTrips;
 
       this.cdr.markForCheck();
