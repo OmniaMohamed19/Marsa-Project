@@ -231,7 +231,7 @@
               {{ "header.contact-us" | translate }}
             </a>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ "header.more" | translate }}
             </a>
@@ -255,6 +255,33 @@
               </li>
             </ul>
           </li>
+          <br><br><br> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ "header.more" | translate }}
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" [routerLink]="['/', translate.currentLang, 'blogs']">
+                  {{ "header.blog" | translate }}
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/', translate.currentLang, 'faq']">
+                  {{ "header.faq" | translate }}
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/', translate.currentLang, 'about']">
+                  {{ "header.about" | translate }}
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+
         </ul>
         <div class="line"></div>
         <ul *ngIf="!isLogin" class="navbar-nav me-auto mb-2" style="text-align: justify">

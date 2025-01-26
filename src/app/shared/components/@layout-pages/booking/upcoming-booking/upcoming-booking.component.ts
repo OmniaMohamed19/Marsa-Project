@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MapModalComponent } from '../../map-modal/map-modal.component';
+
 @Component({
   selector: 'app-upcoming-booking',
   templateUrl: './upcoming-booking.component.html',
@@ -252,16 +253,22 @@ export class UpcomingBookingComponent {
         )
         .subscribe({
           next: (res: any) => {
+            console.log(res);
+            this.BookingInfo = res.booking_information;
+
+            // إجبار Angular على تحديث الواجهة
+
 
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'Your request has been sent successfully.',
+              '',
               'success'
             );
+            location.reload();
+
             this.btn?.nativeElement.click();
-
-
           },
+
           error: (err: any) => {
 
             Swal.fire(

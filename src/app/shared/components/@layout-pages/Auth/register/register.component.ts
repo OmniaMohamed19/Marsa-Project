@@ -158,11 +158,11 @@ export class RegisterComponent implements OnInit {
 
       return;
     }
- 
+
 
     const model = {
       ...this.signupForm.value,
-      phone: this.signupForm,
+      phone: this.signupForm.get('phone')?.value['number'],
       country_code: this.signupForm.get('phone')?.value['dialCode'],
     };
 
@@ -179,7 +179,8 @@ export class RegisterComponent implements OnInit {
         this.codeService.setUserData(res.user_id);
       },
       error: (err) => {
-        const errorMessage = err?.error?.message || 'An error occurred'
+        console.error('Error Response:', err); 
+        const errorMessage = err?.error?.message || 'An error occurred';
         this.toastr.error(errorMessage, '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
@@ -187,7 +188,8 @@ export class RegisterComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         });
-      },
+      }
+      ,
     });
   }
 
@@ -199,10 +201,10 @@ export class RegisterComponent implements OnInit {
 urgent:any;
   isUrgent(){
    this.urgent=true;
-   
+
   }
   isUrgent0(){
-    
+
   }
   // ngAfterViewInit(): void {
   //   this.socialAuthService.authState.subscribe((user) => {
