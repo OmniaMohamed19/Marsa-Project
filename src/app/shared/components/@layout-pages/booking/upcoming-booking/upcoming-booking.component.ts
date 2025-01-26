@@ -257,14 +257,14 @@ export class UpcomingBookingComponent {
             this.BookingInfo = res.booking_information;
 
             // إجبار Angular على تحديث الواجهة
-
+            this.loadProfiles(this.currentPage);
 
             Swal.fire(
               'Your request has been sent successfully.',
               '',
               'success'
             );
-            location.reload();
+            // location.reload();
 
             this.btn?.nativeElement.click();
           },
