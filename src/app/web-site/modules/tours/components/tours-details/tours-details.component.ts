@@ -837,6 +837,8 @@ export class ToursDetailsComponent implements AfterViewInit {
       return; // Stop execution if any validation fails
     }
 
+    
+
     if (this.bookedOptionId === avilable_option_id) {
       this.showBookingOption = !this.showBookingOption; // Toggle booking option
       const model = this.createBookingModel(avilable_option_id);
