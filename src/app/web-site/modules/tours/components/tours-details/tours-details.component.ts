@@ -837,7 +837,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       return; // Stop execution if any validation fails
     }
 
-    
+
 
     if (this.bookedOptionId === avilable_option_id) {
       this.showBookingOption = !this.showBookingOption; // Toggle booking option
@@ -847,7 +847,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         .subscribe({
           next: (res: any) => {
             this.dataCheck = this.createDataCheck(res, model);
-            this.showBookingOption = true;
+            // this.showBookingOption = true;
           },
         });
     } else {
