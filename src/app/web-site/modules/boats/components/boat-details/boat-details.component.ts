@@ -257,7 +257,7 @@ export class BoatDetailsComponent {
     }
     else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if(rate >= 4 && rate < 5)  {
+    } else if(rate >= 4 && rate <= 5)  {
       return 'Excellent';
     } else {
       return '';
