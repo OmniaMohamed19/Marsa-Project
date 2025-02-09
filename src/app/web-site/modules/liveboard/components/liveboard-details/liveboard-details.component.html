@@ -69,7 +69,7 @@
               </svg>
               <!-- <img src="assets/custom/Activity/free.svg" alt="icon" /> -->
               <div class="ml-1 text-gray-1 mt-2">
-                {{ formatCancellationTime(liveabourdData?.Cancellation) }}
+                {{ formatCancellationTime(liveabourdData?.Cancellation_time) }}
               </div>
               <div class="ml-1 text-gray-1 mt-2">Free Cancelation</div>
             </li>
@@ -262,7 +262,7 @@
                         </ng-container>
                         <ng-template #elseTemplate>
                           <li  class="list-board text-danger" >
-                            closed
+                            fully booked
                           </li>
                         </ng-template>
 
