@@ -421,9 +421,33 @@
               class="nav nav-classic nav-choose border-0 nav-justified border mx-n3 flex-column flex-md-row"
               role="tablist"
             >
+            <li class="nav-item w-100 mb-md-0">
+              <a
+                class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                id="pills-two-example2-tab"
+                [class.active]="isActiveTab('pills-two-example2')"
+                (click)="toggleTab('pills-two-example2', 'card')"
+              >
+                <div
+                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
+                >
+                  <i class="fa fa-check text-white font-size-15"></i>
+                </div>
+                <div
+                  class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
+                >
+                  <img
+                    class="img-fluid mb-3 payment-img"
+                    src="assets/images/payment.svg"
+                    alt="payment"
+                  />
+                  <div class="w-100 text-dark">Payment with Card</div>
+                </div>
+              </a>
+            </li>
               <li class="nav-item w-100 mb-2 mb-md-0">
                 <a
-                  class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                  class="rounded py-5 border-width-2 border nav-link font-weight-medium "
                   id="pills-one-example2-tab"
                   [class.active]="isActiveTab('pills-one-example2')"
                   (click)="toggleTab('pills-one-example2', 'cash')"
@@ -445,30 +469,7 @@
                   </div>
                 </a>
               </li>
-              <li class="nav-item w-100 mb-md-0">
-                <a
-                  class="rounded py-5 border-width-2 border nav-link font-weight-medium"
-                  id="pills-two-example2-tab"
-                  [class.active]="isActiveTab('pills-two-example2')"
-                  (click)="toggleTab('pills-two-example2', 'card')"
-                >
-                  <div
-                    class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                  >
-                    <i class="fa fa-check text-white font-size-15"></i>
-                  </div>
-                  <div
-                    class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                  >
-                    <img
-                      class="img-fluid mb-3 payment-img"
-                      src="assets/images/payment.svg"
-                      alt="payment"
-                    />
-                    <div class="w-100 text-dark">Payment with Card</div>
-                  </div>
-                </a>
-              </li>
+
             </ul>
 
             <!-- End Nav Classic -->

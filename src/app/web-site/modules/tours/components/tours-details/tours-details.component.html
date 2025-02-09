@@ -736,7 +736,7 @@
                       }}</h5>
                     </ng-container>
                     <ng-template #elseTemplate123>
-                      <h5> {{availableOption?.PricePrivte.Adult}} </h5>
+                      <h5> ${{availableOption?.PricePrivte.Adult}} </h5>
                     </ng-template>
 
                   </ng-container>
@@ -755,7 +755,7 @@
                       }}</h5>
                     </ng-container>
                     <ng-template #elseTemplate321>
-                      <h5> {{availableOption?.PriceColective.Adult}} </h5>
+                      <h5> ${{availableOption?.PriceColective.Adult}} </h5>
                     </ng-template>
                   </ng-template>
 
@@ -764,6 +764,7 @@
                 <div *ngIf="selectedOption === 'Private'; else elseTemplate">
                   <button
                     class="book1 d-flex align-items-center fw-bold"
+                    (click)="bookNow(availableOption?.id)"
                   >
                   <!-- (click)="bookNow(availableOption?.id)" -->
                     <img

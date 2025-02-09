@@ -293,23 +293,19 @@ export class TransferComponent implements OnInit {
 
       // Make the HTTP request
       this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({
-
         next: (res: any) => {
-
           // Store the response data in both the service and localStorage
           this.dataService.setResponseData(res);
-
-
           localStorage.setItem('responseData', JSON.stringify(res));
 
-
           // Navigate to the multi-step page
-          this.router.navigate(
-            ['/', this.translate.currentLang, 'transfer', 'multi-step'],
-
-          );
+          this.router.navigate(['/', this.translate.currentLang, 'transfer', 'multi-step']);
         },
-
+        error: (err) => {
+          // عرض رسالة الخطأ
+          console.error('Error:', err);
+          this.toastr.warning(err.error?.error || 'An error occurred while ordering, please try again.');
+        }
       });
     }
     // Construct the body object

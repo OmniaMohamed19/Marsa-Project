@@ -31,7 +31,7 @@ export class LiveboardPaymentComponent implements OnInit {
   adult: any;
   persons: number = 0;
   customerForm!: FormGroup;
-  activeTab: string = 'pills-one-example2';
+  activeTab: string = 'pills-two-example2';
   payment_method: any;
   canProceedToCustomerInfo: boolean = false;
   isConfirmationStepEnabled: boolean = false;
@@ -455,8 +455,8 @@ export class LiveboardPaymentComponent implements OnInit {
               });
 
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'Your Booking has been send successfully.',
+              'The Liveaboard official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
             localStorage.removeItem('editLiveaboard');
@@ -577,7 +577,7 @@ export class LiveboardPaymentComponent implements OnInit {
                 { queryParams }
               );
               Swal.fire(
-                'Your request has been send successfully.',
+                'Your Booking has been send successfully.',
                 'The Liveaboard official will contact you as soon as possible. For any inquiries, please contact info@marsawaves.com',
                 'success'
               );
@@ -639,8 +639,8 @@ export class LiveboardPaymentComponent implements OnInit {
               { queryParams }
             );
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'Your Booking has been send successfully.',
+              'The Liveaboard official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
           },

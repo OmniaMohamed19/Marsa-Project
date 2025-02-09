@@ -260,7 +260,7 @@ export class UpcomingBookingComponent {
             this.loadProfiles(this.currentPage);
 
             Swal.fire(
-              'Your request has been sent successfully.',
+              'Your Booking has been sent successfully.',
               '',
               'success'
             );

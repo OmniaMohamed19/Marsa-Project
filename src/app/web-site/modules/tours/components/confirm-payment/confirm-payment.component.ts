@@ -130,8 +130,8 @@ mapModalOptions: any = {
           .subscribe({
             next: (res: any) => {
               Swal.fire(
-                'Your request has been send successfully.',
-                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+                'Your Booking has been send successfully.',
+                'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
                 'success'
               );
               this.btn?.nativeElement.click();

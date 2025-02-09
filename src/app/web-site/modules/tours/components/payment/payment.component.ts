@@ -41,7 +41,7 @@ export class PaymentComponent {
   userData: { id?: number; name?: string; phone?: string; email?: string } = {};
   customerForm!: FormGroup;
   payment_method: any;
-  activeTab: string = 'pills-one-example2';
+  activeTab: string = 'pills-two-example2';
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
   coupon: any;
@@ -259,13 +259,36 @@ export class PaymentComponent {
     this.location.back();
   }
 
+  // toggleCheckbox(event: Event, index: number) {
+  //   this.checkboxStatus[index] = !this.checkboxStatus[index];
+  //   const checkbox = event.target as HTMLInputElement;
+  //   const input = document.getElementById(
+  //     `persons-input-${index}`
+  //   ) as HTMLInputElement;
+  //   if (checkbox.checked) {
+  //     input.classList.add('required');
+  //   } else {
+  //     input.classList.remove('required');
+  //   }
+  // }
+
   toggleCheckbox(event: Event, index: number) {
     this.checkboxStatus[index] = !this.checkboxStatus[index];
     const checkbox = event.target as HTMLInputElement;
-    const input = document.getElementById(
-      `persons-input-${index}`
-    ) as HTMLInputElement;
-    if (checkbox.checked) {
+    this.updateInputClass(index, checkbox.checked);
+  }
+  toggleCheckboxByInput(index: number) {
+    if (this.personsInputValues[index] > 0) {
+      this.checkboxStatus[index] = true;
+    } else {
+      this.checkboxStatus[index] = false;
+    }
+  }
+
+  // تحديث الـ input ليصبح مطلوبًا عند تحديد الـ checkbox
+  updateInputClass(index: number, isChecked: boolean) {
+    const input = document.getElementById(`persons-input-${index}`) as HTMLInputElement;
+    if (isChecked) {
       input.classList.add('required');
     } else {
       input.classList.remove('required');
@@ -452,8 +475,8 @@ export class PaymentComponent {
             this.spinner.hide();
 
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'Your Booking has been send successfully.',
+              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
 
@@ -595,8 +618,8 @@ export class PaymentComponent {
                 { queryParams }
               );
               Swal.fire(
-                'Your request has been send successfully.',
-                'The Boat official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+                'Your Booking has been send successfully.',
+                'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
                 'success'
               );
             }
@@ -691,8 +714,8 @@ export class PaymentComponent {
                 { queryParams }
               );
               Swal.fire(
-                'Your request has been sent successfully.',
-                'The Boat official will contact you as soon as possible. To communicate with us, please email info@marsawaves.com.',
+                'Your booking has been sent successfully.',
+                'The Tour official will contact you as soon as possible. To communicate with us, please email info@marsawaves.com.',
                 'success'
               );
             }

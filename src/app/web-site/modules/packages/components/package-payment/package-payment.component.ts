@@ -26,7 +26,7 @@ export class PackagePaymentComponent {
   packageData: any;
   responseFromAvailableOption: any;
   customerForm!: FormGroup;
-  activeTab: string = 'pills-one-example2';
+  activeTab: string = 'pills-two-example2';
   payment_method: any;
   userData: { id?: number; name?: string; phone?: string; email?: string } = {};
   canProceedToCustomerInfo: boolean = false;
@@ -190,8 +190,8 @@ export class PackagePaymentComponent {
               this.tripletails?.Name,
             ]);
             Swal.fire(
-              'Your request has been send successfully',
-              'Your request has been sent successfully. Please check your email for further instructions.',
+              'Your Booking has been send successfully',
+              'Your Tour has been sent successfully. Please check your email for further instructions.',
               'success'
             );
           },
@@ -399,8 +399,8 @@ export class PackagePaymentComponent {
               window.location.href = res.link;
             } else {
               Swal.fire(
-                'Your request has been send successfully',
-                'Your request has been sent successfully. Please check your email for further instructions.',
+                'Your Booking has been send successfully',
+                'Your Tour has been sent successfully. Please check your email for further instructions.',
                 'success'
               );
             }
@@ -455,8 +455,8 @@ export class PackagePaymentComponent {
               { queryParams }
             );
             Swal.fire(
-              'Your request has been send successfully.',
-              'The Liveabourd official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'Your Booking has been send successfully.',
+              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
               'success'
             );
           },

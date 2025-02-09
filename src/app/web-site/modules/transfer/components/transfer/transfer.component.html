@@ -61,7 +61,7 @@
                         <!-- Show filtered hotels -->
                         <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
                           style="cursor: pointer;">
-                          <a class="dropdown-item">{{ hotel.city }}</a>
+                          <a class="dropdown-item">{{ hotel.title }} - {{ hotel.city }}</a>
                         </li>
                       </ul>
                     </div>
@@ -91,7 +91,7 @@
                         <!-- Show filtered To options -->
                         <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                           style="cursor: pointer;">
-                          <a class="dropdown-item">{{ option?.name || option.city }}</a>
+                          <a class="dropdown-item">{{ option.title }} - {{ option?.name || option.city }}</a>
                         </li>
                       </ul>
                     </div>
@@ -379,7 +379,7 @@
                       <!-- Show filtered hotels -->
                       <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ hotel.city }}</a>
+                        <a class="dropdown-item">{{ hotel.title }} - {{ hotel.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -406,7 +406,7 @@
                       <!-- Show filtered To options -->
                       <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option?.name || option.city }}</a>
+                        <a class="dropdown-item">{{ option.title +"-"}}  {{ option?.name || option.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -537,7 +537,7 @@
                       <!-- Show filtered hotels -->
                       <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ hotel.city }}</a>
+                        <a class="dropdown-item">{{ hotel.title }} - {{ hotel.city }}</a>
                       </li>
                     </ul>
                   </div>
@@ -564,7 +564,7 @@
                       <!-- Show filtered To options -->
                       <li *ngFor="let option of filteredToOptions" (click)="selectOption(option)"
                         style="cursor: pointer;">
-                        <a class="dropdown-item">{{ option?.name || option.city }}</a>
+                        <a class="dropdown-item">{{ option.title }} - {{ option?.name || option.city }}</a>
                       </li>
                     </ul>
                   </div>
