@@ -501,7 +501,9 @@
               class="card p-5 my-5"
               *ngFor="let availableOption of activityData?.AvailableOption"
             >
-              <div class="row" (click)="bookNow(availableOption?.id)">
+              <div class="row"
+              >
+              <!-- (click)="bookNow(availableOption?.id)" -->
                 <div class="col-md-8 option">
                   <h3 class="highlighting">{{ availableOption?.Title }}</h3>
                   <div class="content row d-flex">
@@ -764,8 +766,8 @@
                 <div *ngIf="selectedOption === 'Private'; else elseTemplate">
                   <button
                     class="book1 d-flex align-items-center fw-bold"
+                    (click)="bookNow(availableOption?.id)"
                   >
-                  <!-- (click)="bookNow(availableOption?.id)" -->
                     <img
                       style="width: 25px; height: 15px"
                       [ngStyle]="{
@@ -783,8 +785,8 @@
                 <ng-template #elseTemplate>
                   <button
                     class="book1 d-flex align-items-center fw-bold"
+                    (click)="bookNow(availableOption?.id)"
                   >
-                  <!-- (click)="bookNow(availableOption?.id)" -->
                     <img
                       style="width: 25px; height: 15px"
                       [ngStyle]="{
