@@ -6,6 +6,7 @@ import * as L from 'leaflet';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map-modal',
@@ -40,9 +41,12 @@ export class MapModalComponent implements OnInit {
   }
 
   initializeMap(): void {
-    this.map = L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 5);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    this.latitudeValue = 26.8206; // خط عرض مصر
+    this.longitudeValue = 30.8025; // خط طول مصر
+
+    this.map = L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a>',
     }).addTo(this.map);
 
     const customIcon = L.icon({
@@ -61,9 +65,8 @@ export class MapModalComponent implements OnInit {
         this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
       });
     });
-
-    this.setCurrentLocation();
   }
+
 
   setCurrentLocation(): void {
     if (navigator.geolocation) {
@@ -104,31 +107,26 @@ export class MapModalComponent implements OnInit {
   }
 
   private _filter(name: string): Observable<any[]> {
-    this.spinner.hide();
+    if (!name) return new Observable((observer) => observer.next([])); // منع البحث عن نص فارغ
 
-    // إذا كان اسم الدولة الحالية موجود ولم يكتب المستخدم دولة أخرى
-    const query = this.currentCountry && !name.toLowerCase().includes(this.currentCountry.toLowerCase())
-      ? `${name} ${this.currentCountry}`
-      : name;
+    this.spinner.show();
 
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-      query
-    )}&accept-language=en`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&countrycodes=EG&accept-language=en&limit=5`;
 
     return this.http.get<any[]>(url).pipe(
+      debounceTime(300), // يمنع إرسال طلب لكل حرف، وينتظر 300ms قبل إرسال الطلب
+      distinctUntilChanged(), // يمنع إرسال نفس الطلب مرتين متتاليتين
       map((results) => {
-        if (results && results.length > 0) {
-          return results.map((result) => ({
-            name: result.display_name,
-            lat: parseFloat(result.lat),
-            lon: parseFloat(result.lon),
-          }));
-        } else {
-          return [];
-        }
+        this.spinner.hide();
+        return results.map((result) => ({
+          name: result.display_name,
+          lat: parseFloat(result.lat),
+          lon: parseFloat(result.lon),
+        }));
       }),
       catchError((error) => {
-        console.error('Error occurred during location search:', error);
+        this.spinner.hide();
+        console.error('Error during location search:', error);
         return [];
       })
     );

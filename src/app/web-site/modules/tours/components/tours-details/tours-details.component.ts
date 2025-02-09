@@ -320,14 +320,13 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   getRatingDescription(rate: number): string {
     if (rate >= 1 && rate < 2) {
-      return 'Poor';
+      return 'Average';
     } else if (rate >= 2 && rate < 3) {
-      return 'Fair';
-    } else if (rate >= 3 && rate < 4) {
       return 'Good';
-    } else if (rate >= 4 && rate < 5) {
+    }
+    else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if (rate === 5) {
+    } else if(rate >= 4 && rate < 5)  {
       return 'Excellent';
     } else {
       return '';

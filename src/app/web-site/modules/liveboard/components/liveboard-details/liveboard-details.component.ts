@@ -210,17 +210,19 @@ export class LiveboardDetailsComponent {
   }
 
   getRatingDescription(rate: number): string {
-    if (rate >= 3 && rate < 4) {
+    if (rate >= 1 && rate < 2) {
+      return 'Average';
+    } else if (rate >= 2 && rate < 3) {
       return 'Good';
-    } else if (rate >= 4 && rate < 5) {
+    }
+    else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if (rate === 5) {
+    } else if(rate >= 4 && rate < 5)  {
       return 'Excellent';
     } else {
       return '';
     }
   }
-
 
 
   scrollTo(tabId: string) {

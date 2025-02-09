@@ -19,12 +19,12 @@
                 If you need more options please select it from list
               </h5>
               <p>Diving Suits</p>
-              <div class="row">
+              <div class="row" >
                 <div
                   class="col-md-4"
                   *ngFor="let item of activityData?.bookingOption; let i = index"
                 >
-                  <div class="box" [class.checked]="checkboxStatus[i]">
+                  <div class="box"  [class.checked]="checkboxStatus[i]" (click)="toggleCheckboxByDiv(i)">
                     <input
                       type="checkbox"
                       id="checkbox-{{ i }}"

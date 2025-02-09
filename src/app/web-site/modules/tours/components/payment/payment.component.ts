@@ -271,7 +271,10 @@ export class PaymentComponent {
   //     input.classList.remove('required');
   //   }
   // }
-
+  toggleCheckboxByDiv(index: number) {
+    this.checkboxStatus[index] = !this.checkboxStatus[index];
+    this.updateInputClass(index, this.checkboxStatus[index]);
+  }
   toggleCheckbox(event: Event, index: number) {
     this.checkboxStatus[index] = !this.checkboxStatus[index];
     const checkbox = event.target as HTMLInputElement;
