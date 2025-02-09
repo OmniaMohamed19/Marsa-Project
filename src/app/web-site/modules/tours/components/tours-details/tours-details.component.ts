@@ -208,7 +208,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
-
       window.scrollTo({
         top: offset,
         behavior: 'smooth',
@@ -260,7 +259,6 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.desplayedGustImages = Array.from(
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
-
 
     this.activeIndex = index;
     this.displayCustom = true;
@@ -452,7 +450,6 @@ export class ToursDetailsComponent implements AfterViewInit {
     }
   }
 
-
   toggle(): void {
     this.isShow = !this.isShow;
   }
@@ -498,8 +495,6 @@ export class ToursDetailsComponent implements AfterViewInit {
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
         );
-
-
 
         this.availableOptionMap = this.sanitizer.bypassSecurityTrustHtml(
           this.activityData.Map
@@ -596,7 +591,6 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-
   }
 
   openVideoBoat(): void {
@@ -746,8 +740,6 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     // Function to check if the selected date is after a certain cutoff
     const isDateAfterCutoff = (selectedDate: Date): boolean => {
-
-
       return selectedDate > new Date(now.getTime() + cutoffTimeInMillis);
     };
 
@@ -756,7 +748,10 @@ export class ToursDetailsComponent implements AfterViewInit {
       ? new Date(this.selectedDateControl.value)
       : null;
 
-    if (this.activityData?.TypeOfRepeat === 'w' || this.activityData?.TypeOfRepeat === 'd') {
+    if (
+      this.activityData?.TypeOfRepeat === 'w' ||
+      this.activityData?.TypeOfRepeat === 'd'
+    ) {
       if (selectedDate && isDateAfterCutoff(selectedDate)) {
       } else {
         this.showWarning(cutoffTimeInMillis);
@@ -784,29 +779,35 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.scrollTo('availableOptions');
   }
 
-  private getSelectedDateTime(selectedDate: Date | null, selectedTimeValue: string | null): Date | null {
+  private getSelectedDateTime(
+    selectedDate: Date | null,
+    selectedTimeValue: string | null
+  ): Date | null {
     if (!selectedDate || !selectedTimeValue) return null;
 
     const { hours, minutes } = this.parseTimeTo24HourFormat(selectedTimeValue);
     selectedDate.setHours(hours, minutes, 0, 0); // Set hours and minutes
     return selectedDate;
-}
+  }
 
-// Function to parse time in "HH:mm AM/PM" format
-private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number } {
+  // Function to parse time in "HH:mm AM/PM" format
+  private parseTimeTo24HourFormat(time: string): {
+    hours: number;
+    minutes: number;
+  } {
     const [timePart, modifier] = time.split(' ');
     let [hours, minutes] = timePart.split(':').map(Number);
 
     // Adjust hours based on AM/PM
     if (modifier === 'PM' && hours < 12) {
-        hours += 12;
+      hours += 12;
     }
     if (modifier === 'AM' && hours === 12) {
-        hours = 0;
+      hours = 0;
     }
 
     return { hours, minutes };
-}
+  }
   private showWarning(cutoffTimeInMillis: number) {
     this.toastr.warning(
       `You cannot book within ${this.activityData.CutOfTime} hours. Choose another date.`,
@@ -838,6 +839,15 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
 
     if (this.bookedOptionId === avilable_option_id) {
       this.showBookingOption = !this.showBookingOption; // Toggle booking option
+      const model = this.createBookingModel(avilable_option_id);
+      this._httpService
+        .post(environment.marsa, 'Activtes/AvailableOption/price', model)
+        .subscribe({
+          next: (res: any) => {
+            this.dataCheck = this.createDataCheck(res, model);
+            this.showBookingOption = true;
+          },
+        });
     } else {
       this.bookedOptionId = avilable_option_id;
       this.showBookingOption = true;
@@ -926,7 +936,6 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
     return value;
   }
 
-
   private createBookingModel(avilable_option_id: number) {
     return {
       trip_id: this.activityData.id,
@@ -951,8 +960,6 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
       infant: model.infant,
     };
   }
-
-
 
   showImage(img: string) {
     this.coverAndImages = [{ value: img }];
@@ -1064,7 +1071,6 @@ private parseTimeTo24HourFormat(time: string): { hours: number; minutes: number 
         })
         .subscribe({
           next: (res: any) => {
-
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
           },
