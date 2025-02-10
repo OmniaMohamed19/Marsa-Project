@@ -115,6 +115,13 @@ export class BoatDetailsComponent {
   displayCustom: boolean =false;
   activeIndex: number = 0;
   boatImages: any[] = [];
+  items: any[] = [];
+  pagedItems: any[] = [];
+  onPageChange(event: any) {
+    const startIndex = event.first;
+    const endIndex = event.first + event.rows;
+    this.pagedItems = this.items.slice(startIndex, endIndex);
+  }
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -353,6 +360,8 @@ export class BoatDetailsComponent {
       .get(environment.marsa, `Boats/details/` + BoatID)
       .subscribe((res: any) => {
         this.boatData = res?.tripDetails;
+        this.items =this.boatData?.Reviwe.reverse();
+
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
             this.router.navigate(['/',localStorage.getItem('lang'), 'boats',params.id,res?.tripDetails.slugUrl]);

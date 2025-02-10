@@ -241,7 +241,7 @@
               [numVisible]="7"
               [circular]="true"
               [fullScreen]="true"
-              [showItemNavigators]="showNavigation"
+              [showItemNavigators]="true"
               [showThumbnails]="false"
             >
               <ng-template pTemplate="item" let-item>
@@ -1456,6 +1456,12 @@
                     </div>
                   </div>
                 </div>
+                <p-paginator
+                  [rows]="5"
+                  [totalRecords]="items.length"
+                  [rowsPerPageOptions]="[5, 10, 20]"
+                  (onPageChange)="onPageChange($event)"
+                ></p-paginator>
               </div>
 
               <div class="py-4">

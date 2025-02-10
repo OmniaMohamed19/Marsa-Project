@@ -94,6 +94,13 @@ export class LiveboardDetailsComponent {
   displayCustom: boolean = false;
   activeIndex: number = 0;
   boatImages: any[] = [];
+  items: any[] = [];
+  pagedItems: any[] = [];
+  onPageChange(event: any) {
+    const startIndex = event.first;
+    const endIndex = event.first + event.rows;
+    this.pagedItems = this.items.slice(startIndex, endIndex);
+  }
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -319,6 +326,8 @@ export class LiveboardDetailsComponent {
       .get(environment.marsa, `liveboard/details/` + liveabourdID)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
+        this.items =this.liveabourdData?.Reviwe.reverse();
+
         console.log(this.liveabourdData);
 
         this.activatedRoute.params.subscribe((params: any) => {

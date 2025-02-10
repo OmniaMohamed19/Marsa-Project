@@ -129,6 +129,13 @@ export class ToursDetailsComponent implements AfterViewInit {
   displayCustom: boolean = false;
 
   activeIndex: number = 0;
+  items: any[] = [];
+  pagedItems: any[] = [];
+  onPageChange(event: any) {
+    const startIndex = event.first;
+    const endIndex = event.first + event.rows;
+    this.pagedItems = this.items.slice(startIndex, endIndex);
+  }
   @ViewChild('galleria') galleria: Galleria | undefined;
   constructor(
     private _httpService: HttpService,
@@ -475,6 +482,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
+        this.items =this.activityData?.Reviwe.reverse();
         console.log(this.activityData);
 
         this.activatedRoute.params.subscribe((params: any) => {
