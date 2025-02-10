@@ -90,9 +90,22 @@
         </a>
         <div class="text-white my-2">
           <span class="mr-1 font-size-14">From</span>
-          <span class="font-weight-bold font-size-19"
-            >${{ item.PriceColectiv }} </span
+          <span
+            [style.text-decoration]="item.discount > 0 ? 'line-through' : ''"
+            [style.color]="item.discount > 0 ? '#0db1ff' : ''"
           >
+            ${{ item?.PriceColectiv }}
+          </span>
+          <span class="mx-2" *ngIf="item.discount > 0">
+            ${{
+              getRoundedRate(item?.PriceColectiv - item?.PriceColectiv * (item?.discount / 100))
+            }}
+
+          </span>
+
+          <!-- <span class="font-weight-bold font-size-19"
+            >${{ item.PriceColectiv }} </span
+          > -->
           <!-- <span class="mr-1 font-size-14">/ Night</span> -->
         </div>
       </div>

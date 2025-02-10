@@ -18,6 +18,13 @@ export class BoatCardComponent {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
+  getRoundedRate(rate: number | null): number {
+    if (rate !== null && !isNaN(Number(rate))) {
+      return parseFloat(Number(rate).toFixed(1));
+    } else {
+      return 0;
+    }
+  }
   addtoFavorits(btn: any,event:any) {
 
     if (btn.classList.contains('bg-primary')) {
@@ -31,7 +38,7 @@ export class BoatCardComponent {
 
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
-           
+
           }
         });
     }
