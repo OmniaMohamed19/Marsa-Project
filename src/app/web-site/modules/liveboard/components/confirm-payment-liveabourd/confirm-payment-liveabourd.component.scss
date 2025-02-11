@@ -41,7 +41,7 @@ li span {
     background-color: rgba(13, 177, 255, 1);
     border-radius: 10px;
   }
-  
+
 
 p {
     font-family: Lato;
@@ -128,4 +128,10 @@ h3 {
     .content{
         margin-top: 10px;
     }
+}
+@media (max-width: 768px) {
+  .responsive-text {
+      font-size: 16px !important;
+      line-height: 22px !important;
+  }
 }

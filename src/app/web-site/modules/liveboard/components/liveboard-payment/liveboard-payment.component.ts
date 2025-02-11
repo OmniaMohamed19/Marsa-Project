@@ -456,7 +456,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
             Swal.fire(
               'Your Booking has been send successfully.',
-              'The Liveaboard official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'The Liveaboard official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
               'success'
             );
             localStorage.removeItem('editLiveaboard');
@@ -640,7 +640,7 @@ export class LiveboardPaymentComponent implements OnInit {
             );
             Swal.fire(
               'Your Booking has been send successfully.',
-              'The Liveaboard official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'The Liveaboard official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
               'success'
             );
           },

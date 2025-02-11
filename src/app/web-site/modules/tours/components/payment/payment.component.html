@@ -24,7 +24,7 @@
                   class="col-md-4"
                   *ngFor="let item of activityData?.bookingOption; let i = index"
                 >
-                  <div class="box"  [class.checked]="checkboxStatus[i]" (click)="toggleCheckboxByDiv(i)">
+                  <div class="box"  [class.checked]="checkboxStatus[i]">
                     <input
                       type="checkbox"
                       id="checkbox-{{ i }}"
@@ -45,6 +45,8 @@
                         <div class="size">Size: {{ item.size }}</div>
                         <div class="price">Price: ${{ item.price }}</div>
                       </div>
+
+
                       <div class="persons">
                         <input
                           type="number"

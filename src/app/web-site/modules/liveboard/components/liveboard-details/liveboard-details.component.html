@@ -648,7 +648,9 @@
                   *ngFor="let review of liveabourdData?.Reviwe.reverse()">
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
-                      <img class="img-fluid mb-3 mb-md-0 rounded-circle" [src]="review?.avatar" [alt]="review?.name" />
+                      <img
+                      style="width: 198px !important; height: 183px !important;"
+                       class="img-fluid mb-3 mb-md-0 rounded-circle" [src]="review?.avatar" [alt]="review?.name" />
                     </a>
                   </div>
                   <div class="media-body text-center text-md-left">

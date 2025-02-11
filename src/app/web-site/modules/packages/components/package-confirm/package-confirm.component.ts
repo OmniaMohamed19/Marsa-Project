@@ -143,7 +143,7 @@ export class PackageConfirmComponent {
           next: (res: any) => {
             Swal.fire(
               'Your Booking has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
               'success'
             );
             this.btn?.nativeElement.click();

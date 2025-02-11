@@ -429,7 +429,7 @@ export class StepThreeComponent implements OnInit {
             );
             Swal.fire(
               'Your Booking has been sent successfully.',
-              'The Transfer official will contact you as soon as possible. For any further assistance, please contact us at info@marsawaves.com.',
+              'The Transfer official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
               'success'
             );
           }

@@ -271,10 +271,7 @@ export class PaymentComponent {
   //     input.classList.remove('required');
   //   }
   // }
-  toggleCheckboxByDiv(index: number) {
-    this.checkboxStatus[index] = !this.checkboxStatus[index];
-    this.updateInputClass(index, this.checkboxStatus[index]);
-  }
+
   toggleCheckbox(event: Event, index: number) {
     this.checkboxStatus[index] = !this.checkboxStatus[index];
     const checkbox = event.target as HTMLInputElement;
@@ -479,7 +476,7 @@ export class PaymentComponent {
 
             Swal.fire(
               'Your Booking has been send successfully.',
-              'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+              'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
               'success'
             );
 
@@ -622,7 +619,7 @@ export class PaymentComponent {
               );
               Swal.fire(
                 'Your Booking has been send successfully.',
-                'The Tour official will contact you as soon as possible to communicate with us , please send us at info@marsawaves.com',
+                'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
                 'success'
               );
             }
@@ -718,7 +715,7 @@ export class PaymentComponent {
               );
               Swal.fire(
                 'Your booking has been sent successfully.',
-                'The Tour official will contact you as soon as possible. To communicate with us, please email info@marsawaves.com.',
+                'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
                 'success'
               );
             }
