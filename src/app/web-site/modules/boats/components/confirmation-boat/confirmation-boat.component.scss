@@ -114,3 +114,9 @@ h3 {
         margin-top: 10px;
     }
 }
+@media (max-width: 768px) {
+  .responsive-text {
+      font-size: 16px !important;
+      line-height: 22px !important;
+  }
+}

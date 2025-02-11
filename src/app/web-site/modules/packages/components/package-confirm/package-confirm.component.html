@@ -5,21 +5,22 @@
             <div class="col-10 m-auto">
                 <div class="py-3 px-4 px-xl-12 border-bottom">
                     <ul
+                    style="justify-content: center !important;"
                         class="list-group flex-nowrap overflow-auto overflow-md-visble list-group-horizontal list-group-borderless flex-center-between pt-1">
-                        <li class="list-group-item text-center flex-shrink-0 flex-xl-shrink-1">
+                        <!-- <li class="list-group-item text-center flex-shrink-0 flex-xl-shrink-1">
                             <div
                                 class="flex-content-center mb-3 width-40 height-40 border  border-width-2 border-gray mx-auto rounded-circle">
                                 2
                             </div>
                             <div class="text-gray-1">Customer information</div>
-                        </li>
-                        <li class="list-group-item text-center flex-shrink-0 flex-xl-shrink-1">
+                        </li> -->
+                        <!-- <li class="list-group-item text-center flex-shrink-0 flex-xl-shrink-1">
                             <div
                                 class="flex-content-center mb-3 width-40 height-40  border-width-2 border border-gray  mx-auto rounded-circle">
                                 3
                             </div>
                             <div class=" text-gray-1">Payment information</div>
-                        </li>
+                        </li> -->
                         <li class="list-group-item text-center flex-shrink-0 flex-md-shrink-1">
                             <div
                                 class="flex-content-center mb-3 width-40 height-40 border  bg-primary border-width-2 border-primary text-white mx-auto rounded-circle">
@@ -29,28 +30,28 @@
                         </li>
                     </ul>
                 </div>
-                <div class="mb-5  bg-white rounded-sm"
-                    style=" margin: 30px auto !important;">
-                    <div class="py-6 px-5 border-bottom d-flex justify-content-center"
-                        style="background: rgba(235, 240, 247, 1);                ">
-                        <div class="flex-horizontal-center  flex-column flex-sm-row ">
-                            <div class="height-50 width-50 flex-shrink-0 flex-content-center bg-primary rounded-circle">
-                                <i class="fa-solid fa-check text-white font-size-24"></i>
-                            </div>
-                            <div class="ml-3">
-                                <h3 >
-                                    Thank you for choosing Marsa Waves Great News ! we have sent your confirmation to <a
-                                        [href]="'mailto:'+confirmRequest['E-mail']"
-                                        style="font-family: Lato;font-size: 21px;font-weight: 700;line-height: 25px;letter-spacing: 0em;color: rgba(54, 153, 255, 1);">
-                                        {{confirmRequest["E-mail"]}}<br></a>
-                                    Expect a follow up email or what’s app message shortly with your scheduled pickup
-                                    time from your location
-                                </h3>
-                            </div>
+                <div class="mb-5 bg-white rounded-sm"
+                style="margin: 30px auto !important; max-width: 90%; overflow: hidden;">
+                <div class="py-6 px-5 border-bottom d-flex justify-content-center"
+                    style="background: rgba(235, 240, 247, 1); text-align: center;">
+                    <div class="flex-horizontal-center flex-column text-center" style="word-break: break-word; white-space: normal;">
+                        <div class="height-50 width-50 flex-shrink-0 flex-content-center bg-primary rounded-circle">
+                            <i class="fa-solid fa-check text-white font-size-24"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="responsive-text">
+                                Thank you for choosing Marsa Waves Great News! We have sent your confirmation to
+                                <a [href]="'mailto:'+confirmRequest['E-mail']"
+                                    style="font-family: Lato; font-size: 21px; font-weight: 700; line-height: 25px; letter-spacing: 0em; color: rgba(54, 153, 255, 1); word-wrap: break-word;">
+                                    {{confirmRequest["E-mail"]}}<br>
+                                </a>
+                                Expect a follow-up email or WhatsApp message shortly with your scheduled pickup time from your location.
+                            </h3>
                         </div>
                     </div>
-
                 </div>
+            </div>
+
                 <div class="mb-5  bg-white rounded-sm"
                     style=" margin: 30px auto !important;box-shadow: 0.5px 0.8659999966621399px 4px 0px rgba(27, 32, 50, 0.08);">
                     <div class="pt-4 pb-3 px-5 ">
@@ -66,7 +67,7 @@
                         <ul class="list-unstyled font-size-1 mb-0 font-size-16">
                             <li class="d-flex justify-content-between py-2  flex-column flex-sm-row" >
                                 <span class="text-secondary text-right"></span>
-                                <span 
+                                <span
                                 type="button"
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal2"
