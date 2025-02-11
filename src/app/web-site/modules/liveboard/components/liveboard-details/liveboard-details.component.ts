@@ -96,6 +96,7 @@ export class LiveboardDetailsComponent {
   boatImages: any[] = [];
   items: any[] = [];
   pagedItems: any[] = [];
+  selectedOption: string = 'collective';
   onPageChange(event: any) {
     const startIndex = event.first;
     const endIndex = event.first + event.rows;
@@ -121,6 +122,9 @@ export class LiveboardDetailsComponent {
     if (window.screen.width < 768) {
       this.isMobile = true;
     }
+  }
+  changeOption(option: string) {
+    this.selectedOption = option;
   }
 
   @HostListener('document:scroll', ['$event'])
@@ -544,7 +548,7 @@ export class LiveboardDetailsComponent {
         }
         const model = {
           trip_id: this.liveabourdData.id,
-          class: 'collective',
+          class: this.selectedOption,
           adult: this.persons,
           schedules_id: this.schedules_id,
         };
@@ -557,7 +561,7 @@ export class LiveboardDetailsComponent {
               const queryParams = {
                 res: JSON.stringify(res),
                 trip_id: this.liveabourdData.id,
-                class: 'collective',
+                class: this.selectedOption,
                 adult: this.persons,
                 schedules_id: this.schedules_id,
               };

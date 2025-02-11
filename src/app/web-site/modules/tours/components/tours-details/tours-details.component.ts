@@ -949,7 +949,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     return {
       trip_id: this.activityData.id,
       avilable_option_id,
-      class: this.selectedOption === 'Collective' ? 'collective' : 'private',
+      class: this.selectedOption === 'Collective' ? 'collective' : 'privete',
       adult: this.adults,
       childern: this.children,
       infant: this.infant,
