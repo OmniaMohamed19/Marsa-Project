@@ -269,7 +269,7 @@
 
                         <li class="list-board">
                           From $
-                          {{selectedOption === 'public'?
+                          {{selectedOption === 'collective'?
                           getRoundedRate(
                           liveabourdData?.PriceColective?.Adult -
                           (liveabourdData?.PriceColective.AdultDiscount / 100) *
@@ -831,13 +831,13 @@
                         : ''
                     ">
 
-                    ${{ selectedOption === 'public'? liveabourdData?.PriceColective?.Adult : liveabourdData?.Priceprivet?.Adult}}
+                    ${{ selectedOption === 'collective'? liveabourdData?.PriceColective?.Adult : liveabourdData?.Priceprivet?.Adult}}
                     </span>
 
                   <span class="font-size-15 fw-bold text-dark mx-2"
                     *ngIf="liveabourdData?.PriceColective?.AdultDiscount > 0" style="font-weight: 500; color: rgb(13, 177, 255)">
                     ${{
-                      selectedOption === 'public'?
+                      selectedOption === 'collective'?
                     getRoundedRate(
                     liveabourdData?.PriceColective?.Adult -
                     (liveabourdData?.PriceColective.AdultDiscount / 100) *
@@ -1004,10 +1004,10 @@
             <span
               class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
               [ngClass]="{
-                'border collective': selectedOption === 'public',
-                'private collective': selectedOption !== 'Public'
+                'border collective': selectedOption === 'collective',
+                'private collective': selectedOption !== 'collective'
               }"
-              (click)="changeOption('public')"
+              (click)="changeOption('collective')"
               >Public</span
             >
 
@@ -1038,13 +1038,13 @@
                         : ''
                     ">
 
-                    ${{ selectedOption === 'public'? liveabourdData?.PriceColective?.Adult : liveabourdData?.Priceprivet?.Adult}}
+                    ${{ selectedOption === 'collective'? liveabourdData?.PriceColective?.Adult : liveabourdData?.Priceprivet?.Adult}}
                     </span>
 
                   <span class="font-size-15 fw-bold text-dark mx-2"
                     *ngIf="liveabourdData?.PriceColective?.AdultDiscount > 0" style="font-weight: 500; color: rgb(13, 177, 255)">
                     ${{
-                      selectedOption === 'public'?
+                      selectedOption === 'collective'?
                     getRoundedRate(
                     liveabourdData?.PriceColective?.Adult -
                     (liveabourdData?.PriceColective.AdultDiscount / 100) *
