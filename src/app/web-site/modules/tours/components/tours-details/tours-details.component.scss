@@ -13,6 +13,34 @@ h4,
 //   }
 // }
 
+.custom-close {
+  background: transparent !important; /* خلفية شفافة */
+  border: none !important; /* إزالة الحدود */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  outline: none !important; /* إزالة الحدود عند التركيز */
+  box-shadow: none !important; /* منع ظهور أي تأثير */
+}
+
+.custom-close:focus,
+.custom-close:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.custom-close::before {
+  content: "✖"; /* رمز الإغلاق */
+  color: #0db1ff; /* لون الزر */
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+
 .mat-datepicker-content {
 ::ng-deep{
      max-width: 100% !important;
