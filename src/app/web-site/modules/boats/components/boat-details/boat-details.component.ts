@@ -512,6 +512,9 @@ export class BoatDetailsComponent {
   }
 
   onValueChange(event: any) {
+    console.log('====================================');
+    console.log(event);
+    console.log('====================================');
     this.selectedSchedule = event.id;
     this.price = event.price;
   }
