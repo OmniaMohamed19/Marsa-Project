@@ -39,7 +39,7 @@ export class LiveboardPaymentComponent implements OnInit {
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
   coupon = '';
-  Coupons: any;
+  Coupons: boolean = false;
   Total: any;
   nationalities!: Code[];
   cardholderName: any;
@@ -298,10 +298,11 @@ export class LiveboardPaymentComponent implements OnInit {
         .subscribe({
           next: (res: any) => {
             this.responseFromAvailableOption = res;
+            this.Coupons = true;
             stepper.next();
-            this.Total =
-              this.responseFromAvailableOption?.TotlaPrice -
-              this.Coupons[0]?.amount;
+            // this.Total =
+            //   this.responseFromAvailableOption?.TotlaPrice -
+            //   this.Coupons[0]?.amount;
           },
         });
     }

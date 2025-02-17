@@ -808,10 +808,10 @@
                       </li> -->
 
                     <ng-container
-                      *ngIf="Coupons?.length > 0; else elseTemplate2"
+                      *ngIf="!Coupons"
                     >
-                      <li
-                        *ngIf="Coupons?.length > 0"
+                      <!-- <li
+                        *ngIf="Coupons"
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
@@ -819,7 +819,7 @@
                         <span style="font-weight: 700"
                           >{{ Coupons[0]?.amount }}$</span
                         >
-                      </li>
+                      </li> -->
                       <li
                         class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
                       >
@@ -828,7 +828,7 @@
                         <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
                       </li>
                     </ng-container>
-                    <ng-template #elseTemplate2>
+                    <ng-template  *ngIf="Coupons;">
                       <li
                         class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
                       >
