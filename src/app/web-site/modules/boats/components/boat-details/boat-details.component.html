@@ -420,12 +420,18 @@
                       [src]="cabin?.image[0]"
                       [alt]="getImageName(cabin?.image[0])"
                     />
-                    <div class="card-body">
+                    <div class="card-body row ">
                       <p
-                        class="card-text p-3 cabinTitle"
+                        class="card-text p-3 cabinTitle col-6"
                         (click)="openCabinSliderModal(cabin)"
                       >
                         {{ cabin?.accommodation_title }}
+                      </p>
+                      <p
+                        class="card-text p-3  col-6"
+                        (click)="openCabinSliderModal(cabin)"
+                      >
+                      Max Occupancy: {{ cabin?.max_occupancy }}
                       </p>
                     </div>
                   </div>

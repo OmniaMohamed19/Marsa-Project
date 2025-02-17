@@ -554,6 +554,7 @@ export class BoatDetailsComponent {
           startdate: this.startDate,
           enddate: this.endDate,
           distnation_id: this.selectedSchedule,
+          // distnation_name: this.selectedSchedule,
         };
         this._Router.navigate(
           ['/', this.translate.currentLang, 'boats', 'payment'],

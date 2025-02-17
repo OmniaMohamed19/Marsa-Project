@@ -2,10 +2,10 @@
 <div class="container top-155">
   <div class="row">
     <div class="col-lg-8 col-xl-9">
-      <div class="pt-4 pb-5 px-5">
+      <div class=" pb-5">
         <!-- Contacts Form -->
         <form [formGroup]="customerForm">
-          <div class="row col-10 m-auto">
+          <div class="row col-12 ">
             <h5 class="text-center">Let us know who you are</h5>
             <!-- Input -->
             <div class="col-sm-12 mb-4">
@@ -274,12 +274,96 @@
         </form>
         <!-- End Contacts Form -->
       </div>
-      <div class="col-lg-4 col-xl-3">
-        <div class="shadow-soft bg-white rounded-sm">
-          <div class="pt-5 pb-3 px-5 border-bottom">
-            <a href="#" class="d-block mb-3">
-              <img class="img-fluid rounded-sm" [src]="data?.Cover" />
-            </a>
+    </div>
+    <div class="col-lg-4 col-xl-3">
+      <div class="shadow-soft bg-white rounded-sm">
+        <div class="pt-5 pb-3  border-bottom">
+          <a href="#" class="d-block mb-3">
+            <img class="img-fluid rounded-sm" [src]="cover?.value" />
+          </a>
+          <a href="#" class="ptext-dark mb-2 d-block font-weighted">{{
+            boatData?.Name
+          }}</a>
+          <a class="text-dark font-weight-normal mb-2 d-block">{{
+            boatData?.Type
+          }}</a>
+        </div>
+        <div id="basicsAccordion">
+          <!-- Card -->
+          <div class="card rounded-0 border-top-0 border-left-0 border-right-0">
+            <div
+              class="card-header card-collapse bg-transparent border-0"
+              id="basicsHeadingFour"
+            >
+              <h5 class="mb-0">
+                <button
+                  type="button"
+                  class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark font-weighted"
+                  data-toggle="collapse"
+                  data-target="#basicsCollapseFour"
+                  aria-expanded="false"
+                  aria-controls="basicsCollapseFour"
+                >
+                  Details
+
+                  <span class="card-btn-arrow font-size-14 text-dark">
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
+                </button>
+              </h5>
+            </div>
+            <div
+              id="basicsCollapseFour"
+              class="collapse show"
+              aria-labelledby="basicsHeadingFour"
+              data-parent="#basicsAccordion"
+            >
+              <div class="card-body px-4 pt-0">
+                <!-- Fact List -->
+                <ng-container>
+                  <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                    <li class="d-flex justify-content-between py-2">
+                      <span class="font-weight-medium">Start Date</span>
+                      <span class="text-secondary">{{ model.startdate }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between py-2">
+                      <span class="font-weight-medium">End Date</span>
+                      <span class="text-secondary">{{ model.enddate }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between py-2">
+                      <span class="font-weight-medium">Distention</span>
+                      <span class="text-secondary">{{ distention?.distnation }}</span>
+                    </li>
+                    <li class="d-flex justify-content-between py-2">
+                      <span class="font-weight-medium">Price</span>
+                      <span class="text-secondary">{{ distention?.price  }}$</span>
+                    </li>
+
+                    <ng-template #elseTemplate2>
+                      <li
+                        class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                      >
+                        <span class="font-weighted">Total</span>
+                        <span
+                          >{{ "responseFromAvailableOption?.maintotal" }}$</span
+                        >
+                      </li>
+                      <li
+                        class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
+                      >
+                        <span class="font-weighted">Total After Discount</span>
+                        <span
+                          >{{
+                            "responseFromAvailableOption?.TotlaPrice"
+                          }}$</span
+                        >
+                      </li>
+                    </ng-template>
+                  </ul>
+                </ng-container>
+                <!-- End Fact List -->
+              </div>
+            </div>
           </div>
         </div>
       </div>

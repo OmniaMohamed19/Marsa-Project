@@ -16,7 +16,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-payment-boats',
   templateUrl: './payment-boats.component.html',
-  styleUrls: ['./payment-boats.component.scss']
+  styleUrls: ['./payment-boats.component.scss'],
 })
 export class PaymentBoatsComponent {
   data: any;
@@ -24,7 +24,7 @@ export class PaymentBoatsComponent {
   customerForm!: FormGroup;
   showServices: boolean = true;
   filteredNationalities: Observable<Code[]> | undefined;
-  isDisable=false;
+  isDisable = false;
 
   nationalities!: Code[];
   model = {
@@ -32,7 +32,9 @@ export class PaymentBoatsComponent {
     distnation_id: '',
     startdate: '',
     enddate: '',
-  }
+    distnation_name: '',
+  };
+  distention: any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
   locationValue = '';
@@ -43,6 +45,9 @@ export class PaymentBoatsComponent {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
   };
+  cover: any;
+  boatData: any;
+
   constructor(
     private route: ActivatedRoute,
     private _AuthService: AuthService,
@@ -52,26 +57,58 @@ export class PaymentBoatsComponent {
     private translate: TranslateService,
     private _httpService: HttpService,
     private location: Location,
-    private titleService: Title,
-
-
-  ) { }
+    private titleService: Title
+  ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle("Confirm Booking");
+    this.titleService.setTitle('Confirm Booking');
 
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       this.model = params;
-    })
-    this._AuthService.getUserData().subscribe((data: any) => {
-      this.userData = JSON.parse(data);
-      this.customerForm.patchValue(this.userData);
-      this.customerForm?.get('phone')?.patchValue('+'+this.userData.phone);
-    }, (error) => {
-      console.error('Error:', error);
     });
+    this.getActivityById(this.model.trip_id);
+    +this._AuthService.getUserData().subscribe(
+      (data: any) => {
+        this.userData = JSON.parse(data);
+        this.customerForm.patchValue(this.userData);
+        // this.userData.phone.replace(this.userData.countrycode, '');
+        // // this.userData = { phone: '213011212000340', countrycode: '213' };
+        // console.log(
+        //   this.userData.phone.replace(
+        //     new RegExp(`^\\+?${this.userData.countrycode}`),
+        //     ''
+        //   )
+        // );
+        // // ✅ Output: "011212000340"
+        // console.log(this.userData.phone.replace(
+        //   new RegExp(`^\\+?${this.userData.countrycode}`),
+        //   ''
+        // ));
+
+
+        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+
+    console.log(this.boatData);
+  }
+  getActivityById(BoatID: any) {
+    this._httpService
+      .get(environment.marsa, `Boats/details/` + BoatID)
+      .subscribe((res: any) => {
+        this.boatData = res?.tripDetails;
+        this.cover = { value: this.boatData?.Cover };
+
+        this.distention = this.boatData.Distnation.find(
+          (dist: any) => dist.id !== this.model.distnation_id
+        );
+        console.log(this.distention);
+      });
   }
 
   initForm() {
@@ -83,19 +120,19 @@ export class PaymentBoatsComponent {
       note: [''],
       pickup_point: ['', this.showServices ? [Validators.required] : []],
       locationValue: [''],
-    })
+    });
   }
   // map
   openMapModal(): void {
     const dialogRef = this.dialog.open(MapModalComponent, {
       width: '100%',
       data: {
-        mapModalOptions: this.mapModalOptions
+        mapModalOptions: this.mapModalOptions,
       },
-      disableClose: true
+      disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.latitudeValue = result.latitude;
       this.longitudeValue = result.longitude;
       this.locationValue = `(${result.longitude} - ${result.latitude})`;
@@ -110,22 +147,24 @@ export class PaymentBoatsComponent {
 
   bookNow() {
     if (this.showServices) {
-        this.customerForm.get('pickup_point')?.setValidators([Validators.required]);
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
     } else {
-        this.customerForm.get('pickup_point')?.clearValidators();
-        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
 
     if (this.customerForm.valid) {
-      this.isDisable=true;
+      this.isDisable = true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
       const model = {
-        code:code,
+        code: code,
         ...this.model,
         ...this.customerForm.value,
-        phone: phoneNumber.replace("+", ""),
+        phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
         lat: this.latitudeValue ? this.latitudeValue.toString() : '',
       };
@@ -135,26 +174,28 @@ export class PaymentBoatsComponent {
           const queryParams = {
             res: JSON.stringify(res),
             trip_id: this.model.trip_id,
-          }
-          this.router.navigate(['/', this.translate.currentLang, 'boats', 'confirm'], { queryParams });
+          };
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'boats', 'confirm'],
+            { queryParams }
+          );
           Swal.fire(
             'Your request has been sent successfully.',
             'The boat representative will contact you shortly. For further communication, please reach us at info@marsawaves.com.',
             'success'
           );
-        }
-      })
+        },
+      });
     } else {
-      this.isDisable=false;
+      this.isDisable = false;
 
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
   }
 
-
   markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
@@ -162,32 +203,30 @@ export class PaymentBoatsComponent {
     });
   }
 
-
   goBack() {
-
     this.location.back();
   }
-
 
   getNationality() {
     this._httpService.get('marsa', 'countrycode').subscribe({
       next: (nationalities: any) => {
         this.nationalities = nationalities.code;
         if (this.customerForm && this.customerForm.get('nationality')) {
-          this.filteredNationalities = this.customerForm.get('nationality')?.valueChanges.pipe(
-            startWith(''),
-            map(value => this._filterNationalities(value))
-          );
+          this.filteredNationalities = this.customerForm
+            .get('nationality')
+            ?.valueChanges.pipe(
+              startWith(''),
+              map((value) => this._filterNationalities(value))
+            );
         }
-
-      }
-    })
+      },
+    });
   }
 
   private _filterNationalities(value: any): Code[] {
     const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
-    return this.nationalities.filter(nationality => nationality.name.toLowerCase().includes(filterValue));
+    return this.nationalities.filter((nationality) =>
+      nationality.name.toLowerCase().includes(filterValue)
+    );
   }
-
-
 }
