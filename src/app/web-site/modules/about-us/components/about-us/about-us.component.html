@@ -141,7 +141,7 @@
   <div class="bg-img-hero-2">
     <div class="container text-center space-1">
       <div class="row icon-block justify-content-center align-items-center">
-        <div class="col-6 col-sm-6 col-md-3 mb-4" *ngFor="let item of data.counter.slice(0, 4)">
+        <div class="col-6 col-sm-6 col-md-3 mb-4" *ngFor="let item of data?.counter?.slice(0, 4)">
           <div class="d-flex justify-content-center">
             <img [src]="item.icon"  [alt]="getImageName(item.icon)"  class="Why_chosse_us text-center" />
           </div>

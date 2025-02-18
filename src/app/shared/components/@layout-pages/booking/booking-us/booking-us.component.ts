@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { HttpService } from 'src/app/core/services/http/http.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-booking-us',
@@ -7,39 +10,68 @@ import { Component } from '@angular/core';
 })
 export class BookingUsComponent {
   isMobile = false;
-  constructor(){
+  backgroundImageUrl: any = [];
+  data:any;
+
+  constructor( private _HttpService: HttpService,){
     if (window.screen.width < 992) {
       this.isMobile = true;
     }
 }
-  carouselOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    autoplay: true,
-    margin: 0,
-    navSpeed: 900,
-    nav: true,
-    navText: [
-      "<div class='nav-button nav-left'><i class='fas fa-chevron-left'></i></div>",
-      "<div class='nav-button nav-right'><i class='fas fa-chevron-right'></i></div>"
-    ],
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 1
-      },
-      1000: {
-        items: 3
-      }
-    }
-  };
-  // ngOnInit() {
-  //   this.isMobile = window.innerWidth < 992; // Adjust based on your mobile breakpoint
-  // }
+ngOnInit(): void {
+
+  this.getAbout();
+}
+getAbout() {
+
+  this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
+    next: (response: any) => {
+
+      this.data = response;
+
+
+
+
+    },
+  });
+}
+  aboutOptions: OwlOptions = {
+     loop: true,
+     mouseDrag: false,
+     touchDrag: false,
+     pullDrag: false,
+     dots: true,
+     margin: 10,
+     autoplay: false,
+     navSpeed: 700,
+     navText: [
+       "<i class='fa fa-angle-left'></i>",
+       "<i class='fa fa-angle-right'></i>",
+     ],
+     responsive: {
+       0: {
+         items: 1,
+         center: true,
+       },
+       400: {
+         items: 1,
+         center: true,
+       },
+       740: {
+         items: 4,
+       },
+       940: {
+         items: 4,
+       },
+       1200: {
+         items: 4,
+       },
+     },
+     nav: false,
+   };
+   getImageName(url: string): string {
+    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    return imageName || 'Unknown photo';
+  }
 
 }

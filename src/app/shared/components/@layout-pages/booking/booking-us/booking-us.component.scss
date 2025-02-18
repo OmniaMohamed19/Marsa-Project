@@ -5,12 +5,21 @@ h3 {
     line-height: 45px;
     position: relative;
 }
-::ng-deep {
-  .booking-owl .owl-carousel .owl-item img {
-    display: inline !important;
-    width: auto !important;
-  }
+// ::ng-deep {
+//   .booking-owl .owl-carousel .owl-item img {
+//     display: inline !important;
+//     width: auto !important;
+//   }
 
+// }
+
+::ng-deep{
+  .my-destination-why .owl-carousel .owl-item img {
+    display: block;
+    width: fit-content !important;
+    height: 85px !important;
+
+  }
 }
 
 
