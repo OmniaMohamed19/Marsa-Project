@@ -781,26 +781,28 @@
                     avilableOptions?.TotlaPrice
                   }}</span>
                 </li> -->
-                      <li
-                        *ngIf="Coupons?.length === 1"
+                      <!-- <li
+                        *ngIf="Coupons"
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
                         <span style="font-weight: 700">Coupon</span>
                         <span style="font-weight: 700"
-                          >${{ Coupons[0]?.amount }}</span
+                          >
+                          ${{ Coupons[0]?.amount }}
+                          </span
                         >
-                      </li>
+                      </li> -->
                       <li
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
                         <span style="font-weight: 700">Total</span>
 
-                        <ng-container *ngIf="Coupons?.length > 0; else total">
+                        <ng-container *ngIf="!Coupons; ">
                           <span style="font-weight: 700">${{ Total }}</span>
                         </ng-container>
-                        <ng-template #total>
+                        <ng-template  *ngIf="Coupons;">
                           <span style="font-weight: 700"
                             >${{
                               responseFromAvailableOption?.TotlaPrice
@@ -822,7 +824,7 @@
                         }}</span>
                       </li>
 
-                      <li
+                      <!-- <li
                         class="d-flex justify-content-between py-2"
                         *ngFor="let item of responseFromAvailableOption?.option"
                       >
@@ -830,7 +832,7 @@
                           item?.title
                         }}</span>
                         <span class="text-secondary">{{ item?.total }}</span>
-                      </li>
+                      </li> -->
 
                       <li class="d-flex justify-content-between py-2">
                         <span class="font-weight-medium">{{
@@ -846,13 +848,15 @@
                       </li>
 
                       <li
-                        *ngIf="Coupons?.length === 1"
+                        *ngIf="Coupons"
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
                         <span style="font-weight: 700">Coupon</span>
                         <span style="font-weight: 700"
-                          >${{ Coupons[0]?.amount }}</span
+                          >
+                          <!-- ${{ Coupons[0]?.amount }} -->
+                          </span
                         >
                       </li>
                       <li
@@ -860,10 +864,10 @@
                         style="font-weight: 700"
                       >
                         <span style="font-weight: 700">Total</span>
-                        <ng-container *ngIf="Coupons?.length > 0; else total">
+                        <ng-container *ngIf="!Coupons">
                           <span style="font-weight: 700">${{ Total }}</span>
                         </ng-container>
-                        <ng-template #total>
+                        <ng-template  *ngIf="Coupons;">
                           <span style="font-weight: 700"
                             >${{
                               responseFromAvailableOption?.maintotal
@@ -872,7 +876,7 @@
                             }}</span
                           >
                         </ng-template>
-                        <ng-container *ngIf="Coupons?.length > 0">
+                        <ng-container *ngIf="Coupons">
                           <span style="font-weight: 700">${{ Total }}</span>
                         </ng-container>
                         <!-- <span>${{
@@ -880,13 +884,13 @@
                     }}</span> -->
                       </li>
                       <li
-                        #total
+                         *ngIf="Coupons;"
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >
                         <span style="font-weight: 700"
                           >Total After Discount</span
-                        >
+                        >Subtotal
                         <span style="font-weight: 700"
                           >${{
                             responseFromAvailableOption?.TotlaPrice

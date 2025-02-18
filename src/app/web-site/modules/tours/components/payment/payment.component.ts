@@ -45,7 +45,7 @@ export class PaymentComponent {
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
   coupon: any;
-  Coupons: any;
+  Coupons: boolean=false;
   Total: any;
   nationalities!: Code[];
   cardholderName: any;
@@ -167,6 +167,7 @@ export class PaymentComponent {
           this.spinner.hide();
           this.responseFromAvailableOption = res;
           this.Total = this.responseFromAvailableOption.TotlaPrice;
+          this.Coupons=true
           //   this.Coupons[0]?.amount
           // : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
           // console.log(this.Coupons.length);
@@ -346,7 +347,7 @@ export class PaymentComponent {
         next: (res: any) => {
           this.responseFromAvailableOption = res;
           this.Total = this.responseFromAvailableOption.TotlaPrice;
-          console.log(this.Coupons.length);
+          // console.log(this.Coupons.length);
         },
       });
   }

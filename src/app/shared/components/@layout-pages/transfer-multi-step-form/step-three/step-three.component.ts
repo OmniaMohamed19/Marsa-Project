@@ -17,7 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class StepThreeComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
   @Output() previous = new EventEmitter<void>();
-  Coupons: any;
+  Coupons: boolean=false;
   total: any;
   coupon: any;
   price: any;
@@ -171,7 +171,7 @@ export class StepThreeComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           if (res) {
-            this.Coupons = 1;
+            this.Coupons =true;
             this.SavedaddOnDetails = res;
             this.kilometr = this.SavedaddOnDetails?.kilometer || '';
             this.person = this.SavedaddOnDetails.Numberofpeople || '';
@@ -479,7 +479,7 @@ export class StepThreeComponent implements OnInit {
       payment_method: this.payment_method ? this.payment_method : 'cash',
       booking_option: bookingOption,
       flight_n: this.flightNumper,
-      coupon_code: this.Coupons?.[0]?.code || '', // Safely access coupon code or fallback
+      coupon_code: this.coupon, // Safely access coupon code or fallback
     };
 
     this.spinner.show();

@@ -281,7 +281,10 @@ export class LiveboardDetailsComponent {
   //   // Initialize the active tab on load
   this.setupIntersectionObserver();
 }
-  scrollToselectCabinButton() {
+  scrollToselectCabinButton(schedule:any) {
+    this.selectedDateControl.setValue(schedule);
+    this.selectedSchedule = schedule.id;
+    console.log(schedule);
     this.bookNow();
 
   }

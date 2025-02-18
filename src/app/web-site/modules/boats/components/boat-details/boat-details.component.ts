@@ -512,6 +512,9 @@ export class BoatDetailsComponent {
   }
 
   onValueChange(event: any) {
+    console.log('====================================');
+    console.log(event);
+    console.log('====================================');
     this.selectedSchedule = event.id;
     this.price = event.price;
   }
@@ -551,6 +554,7 @@ export class BoatDetailsComponent {
           startdate: this.startDate,
           enddate: this.endDate,
           distnation_id: this.selectedSchedule,
+          // distnation_name: this.selectedSchedule,
         };
         this._Router.navigate(
           ['/', this.translate.currentLang, 'boats', 'payment'],
