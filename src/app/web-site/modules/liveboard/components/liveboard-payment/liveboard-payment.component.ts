@@ -105,12 +105,15 @@ export class LiveboardPaymentComponent implements OnInit {
     this.initForm();
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
+      console.log(params);
+
       this.schedules_id = params['schedules_id'];
       this.Bookingid = params.Bookingid;
       this.tripId = params['trip_id'];
       this.adult = params['adult'];
       this.getDataById(this.tripId);
       this.getCabinBySchedulesId(this.tripId, this.schedules_id);
+      console.log(params);
     });
     if (JSON.parse(localStorage['queryParamsliveaboard']).BookingInfo) {
       this.userData.name =

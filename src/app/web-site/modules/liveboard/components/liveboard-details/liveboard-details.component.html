@@ -415,6 +415,9 @@
                           }}
                           <!-- From ${{ liveabourdData?.PriceColective?.Adult }} -->
                         </li>
+                        <ng-container
+                        *ngIf="schedule.Available > 0; else elseTemplate2"
+                        >
                         <li class="list-board">
                           <button
                             class="btn check d-flex align-items-center justify-content-center w-100 mb-xl-0 mb-lg-1 text-white"
@@ -423,6 +426,17 @@
                             Select Cabin
                           </button>
                         </li>
+                        </ng-container>
+                        <ng-template #elseTemplate2>
+                          <li class="list-board">
+                            <button
+                              class="btn check d-flex align-items-center justify-content-center w-100 mb-xl-0 mb-lg-1 text-white"
+                              disabled="true"
+                            >
+                              Can't Select
+                            </button>
+                          </li>
+                        </ng-template>
                       </ul>
                     </mat-list>
                   </div>
