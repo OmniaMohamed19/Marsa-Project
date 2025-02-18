@@ -21,7 +21,7 @@
               <!-- <p>Diving Suits</p> -->
               <div class="row">
                 <div
-                  class="col-md-4"
+                  class="col-md-4 mb-3"
                   *ngFor="
                     let item of activityData?.bookingOption;
                     let i = index
@@ -49,18 +49,22 @@
                         <div class="price">Price: ${{ item.price }}</div>
                       </div>
 
-                      <div class="persons">
+                      <div class="input-wrapper persons number-input">
+                        <button type="button" class="decrease" (click)="decreaseValue(i)">−</button>
                         <input
                           type="number"
-                          id="persons-input-{{ i }}"
                           placeholder="0"
-                          [attr.min]="0"
-                          class="persons-input form-control"
-                          title="persons"
+                          id="persons-input-{{ i }}"
                           [(ngModel)]="personsInputValues[i]"
                           (ngModelChange)="toggleCheckboxByInput(i)"
+                          class="persons-input"
+                          [attr.min]="0"
                         />
+                        <button type="button" class="increase" (click)="increaseValue(i)">+</button>
                       </div>
+
+
+
                     </div>
                   </div>
                 </div>

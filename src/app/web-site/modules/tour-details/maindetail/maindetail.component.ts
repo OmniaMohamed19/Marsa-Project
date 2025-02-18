@@ -156,11 +156,11 @@ toggleText() {
 
 
       });
-      this.httpService
-      .get(environment.marsa, 'faq')
-      .subscribe((result: any) => {
-        this.questions = result.FAQ;
-      });
+      // this.httpService
+      // .get(environment.marsa, 'faq')
+      // .subscribe((result: any) => {
+      //   this.questions = result.FAQ;
+      // });
       this.checkScreenWidth();
 
     }

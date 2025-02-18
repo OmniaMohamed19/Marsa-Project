@@ -176,3 +176,93 @@ input {
   margin-left:1rem;
   }
 }
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100px; /* تعديل حسب الحاجة */
+}
+
+.persons-input {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding: 5px 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -moz-appearance: textfield; /* إخفاء الأسهم في فايرفوكس */
+}
+
+.persons-input::-webkit-outer-spin-button,
+.persons-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* إخفاء الأسهم في كروم */
+}
+
+.input-wrapper button {
+  position: absolute;
+  width: 25px;
+  height: 100%;
+  border: none;
+  background: transparent; /* إزالة الخلفية */
+  cursor: pointer;
+  font-size: 20px;
+  color: #333; /* لون النص */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-wrapper button:hover {
+  color: #000; /* تغيير اللون عند التمرير */
+}
+
+.decrease {
+  left: 0;
+}
+
+.increase {
+  right: 0;
+}
+
+
+.number-input {
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 120px;
+  height: 35px;
+  background-color: #fff;
+}
+
+// .number-input input {
+//   width: 50%;
+//   text-align: center;
+//   border: none;
+//   outline: none;
+//   font-size: 16px;
+//   padding: 0;
+//   -moz-appearance: textfield; /* لإخفاء الأسهم في فايرفوكس */
+// }
+
+// .number-input input::-webkit-outer-spin-button,
+// .number-input input::-webkit-inner-spin-button {
+//   -webkit-appearance: none; /* لإخفاء الأسهم في كروم وإيدج */
+//   margin: 0;
+// }
+
+// .number-input button {
+//   width: 25%;
+//   height: 100%;
+//   border: none;
+//   background-color: transparent;
+//   color: #333;
+//   font-size: 18px;
+//   cursor: pointer;
+//   transition: background-color 0.2s;
+// }
+
+// .number-input button:hover {
+//   background-color: #e0e0e0;
+// }

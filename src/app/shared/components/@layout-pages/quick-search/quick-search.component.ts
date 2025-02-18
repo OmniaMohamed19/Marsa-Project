@@ -121,8 +121,6 @@ export class QuickSearchComponent {
         this.destination = res.places;
       },
     });
-
-
   }
 
 

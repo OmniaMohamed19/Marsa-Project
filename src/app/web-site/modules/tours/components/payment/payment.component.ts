@@ -272,6 +272,17 @@ export class PaymentComponent {
   //     input.classList.remove('required');
   //   }
   // }
+  increaseValue(index: number) {
+    this.personsInputValues[index] = (this.personsInputValues[index] || 0) + 1;
+    this.toggleCheckboxByInput(index);
+  }
+
+  decreaseValue(index: number) {
+    if (this.personsInputValues[index] > 0) {
+      this.personsInputValues[index] -= 1;
+    }
+    this.toggleCheckboxByInput(index);
+  }
 
   toggleCheckbox(event: Event, index: number) {
     this.checkboxStatus[index] = !this.checkboxStatus[index];
@@ -286,7 +297,6 @@ export class PaymentComponent {
     }
   }
 
-  // تحديث الـ input ليصبح مطلوبًا عند تحديد الـ checkbox
   updateInputClass(index: number, isChecked: boolean) {
     const input = document.getElementById(`persons-input-${index}`) as HTMLInputElement;
     if (isChecked) {
