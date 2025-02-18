@@ -65,6 +65,7 @@ export class LiveboardPaymentComponent implements OnInit {
   edit: boolean = false;
   tripletails: any;
   Bookingid: any;
+  selectedSchedule: any;
   constructor(
     private spinner: NgxSpinnerService,
 
@@ -111,7 +112,7 @@ export class LiveboardPaymentComponent implements OnInit {
       this.Bookingid = params.Bookingid;
       this.tripId = params['trip_id'];
       this.adult = params['adult'];
-      this.getDataById(this.tripId);
+      this.getDataById(this.tripId, params['schedules_id']);
       this.getCabinBySchedulesId(this.tripId, this.schedules_id);
       console.log(params);
     });
@@ -157,12 +158,14 @@ export class LiveboardPaymentComponent implements OnInit {
     });
   }
 
-  getDataById(Id: any) {
+  getDataById(Id: any, schedulesId: any) {
     this._httpService
       .get(environment.marsa, `liveboard/details/` + Id)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
-        console.log(res);
+        this.selectedSchedule = res?.tripDetails?.Schedules.find(
+          (schedule: any) => schedule.id == schedulesId
+        );
       });
   }
 

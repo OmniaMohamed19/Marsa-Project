@@ -59,8 +59,8 @@ export class LiveboardDetailsComponent {
   flattenedCabin: any = [];
   showRelatedtrip: boolean = false;
   selectedStar: number = 0;
-  starNumber: any=null;
-  comment: any=null;
+  starNumber: any = null;
+  comment: any = null;
   availableOptionMap!: SafeHtml;
   Why_chosse_us: any;
   cover: string = '';
@@ -117,7 +117,7 @@ export class LiveboardDetailsComponent {
     private headerService: HeaderService,
     private seoService: SEOService,
     private titleService: Title,
-    private metaService: Meta,
+    private metaService: Meta
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -152,7 +152,8 @@ export class LiveboardDetailsComponent {
   handleImageError(event: Event): void {
     const target = event.target as HTMLImageElement;
     if (target) {
-      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+      target.src =
+        '../../../../../../assets/custom/user-dasboard/avatar-place.png';
     }
   }
 
@@ -225,16 +226,14 @@ export class LiveboardDetailsComponent {
       return 'Average';
     } else if (rate >= 2 && rate < 3) {
       return 'Good';
-    }
-    else if (rate >= 3 && rate < 4) {
+    } else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if(rate >= 4 && rate <= 5)  {
+    } else if (rate >= 4 && rate <= 5) {
       return 'Excellent';
     } else {
       return '';
     }
   }
-
 
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
@@ -243,7 +242,6 @@ export class LiveboardDetailsComponent {
     if (tabElement) {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
-
 
       window.scrollTo({
         top: offset,
@@ -276,17 +274,15 @@ export class LiveboardDetailsComponent {
     });
   }
 
-
   ngAfterViewInit() {
-  //   // Initialize the active tab on load
-  this.setupIntersectionObserver();
-}
-  scrollToselectCabinButton(schedule:any) {
+    //   // Initialize the active tab on load
+    this.setupIntersectionObserver();
+  }
+  scrollToselectCabinButton(schedule: any) {
     this.selectedDateControl.setValue(schedule);
     this.selectedSchedule = schedule.id;
     console.log(schedule);
     this.bookNow();
-
   }
 
   scrollToCabin() {
@@ -300,13 +296,12 @@ export class LiveboardDetailsComponent {
       title: this.liveabourdData?.Name,
       url: this.router.url,
     });
-
   }
   getOverviewItems(overview: string): string[] {
     return overview.split('\n');
   }
   formatCancellationTime(hours: string): string {
-    let hour=Number(hours)
+    let hour = Number(hours);
     if (!hour) return 'No data'; // Handle case where hour is null or undefined
 
     const years = Math.floor(hour / 8760); // 1 year = 8760 hour
@@ -324,7 +319,8 @@ export class LiveboardDetailsComponent {
     if (years) timeParts.push(`${years} year${years > 1 ? 's' : ''}`);
     if (months) timeParts.push(`${months} month${months > 1 ? 's' : ''}`);
     if (days) timeParts.push(`${days} day${days > 1 ? 's' : ''}`);
-    if (remainingHours) timeParts.push(`${remainingHours} hour${remainingHours > 1 ? 's' : ''}`);
+    if (remainingHours)
+      timeParts.push(`${remainingHours} hour${remainingHours > 1 ? 's' : ''}`);
 
     return timeParts.join(' ') || 'Now'; // Return the formatted string or default if no time
   }
@@ -333,14 +329,19 @@ export class LiveboardDetailsComponent {
       .get(environment.marsa, `liveboard/details/` + liveabourdID)
       .subscribe((res: any) => {
         this.liveabourdData = res?.tripDetails;
-        this.items =this.liveabourdData?.Reviwe.reverse();
+        this.items = this.liveabourdData?.Reviwe.reverse();
 
         console.log(this.liveabourdData);
 
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-
-            this.router.navigate(['/',localStorage.getItem('lang'),'liveboard',params.id,res?.tripDetails?.slugUrl]);
+            this.router.navigate([
+              '/',
+              localStorage.getItem('lang'),
+              'liveboard',
+              params.id,
+              res?.tripDetails?.slugUrl,
+            ]);
           }
         });
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
@@ -350,7 +351,6 @@ export class LiveboardDetailsComponent {
           this.liveabourdData.Map
         );
 
-
         this.images = res?.tripDetails?.Images;
         this.cover = res?.tripDetails?.Cover;
         this.coverAndImages = [...this.images, this.cover];
@@ -358,7 +358,6 @@ export class LiveboardDetailsComponent {
           res?.tripDetails?.Video
         );
         this.happyGustImages = this.liveabourdData?.HappyGust;
-
 
         this.remainingImages = this.liveabourdData?.HappyGust.slice(1);
         const boat = this.liveabourdData?.Boats.find(
@@ -382,17 +381,14 @@ export class LiveboardDetailsComponent {
         if (this.liveabourdData) {
           this.titleService.setTitle(this.liveabourdData?.MetaTitle);
 
-         this.metaService.addTags([
-
-           { name: 'description', content: this.liveabourdData?.MetaDesc },
-
-
-         ]);
-         const canonicalURL = this.liveabourdData?.CanonicalUrl;
-         if (canonicalURL) {
-           this.seoService.setCanonicalURL(canonicalURL);
-         }
-       }
+          this.metaService.addTags([
+            { name: 'description', content: this.liveabourdData?.MetaDesc },
+          ]);
+          const canonicalURL = this.liveabourdData?.CanonicalUrl;
+          if (canonicalURL) {
+            this.seoService.setCanonicalURL(canonicalURL);
+          }
+        }
       });
   }
 
@@ -433,8 +429,6 @@ export class LiveboardDetailsComponent {
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-
-
   }
 
   openCabinSliderModal(cabin: any): void {
@@ -454,7 +448,9 @@ export class LiveboardDetailsComponent {
   }
 
   incrementAdult() {
-    if (this.persons < this.getValue('Available')) {
+    console.log(this.persons);
+    console.log(this.persons < this.getValue('AdultMax'));
+    if (this.persons < this.getValue('AdultMax')) {
       setTimeout(() => {
         this.persons++;
         this.cdr.detectChanges();
@@ -462,7 +458,7 @@ export class LiveboardDetailsComponent {
     } else {
       this.toastr.info(
         `Sorry, you cannot exceed the maximum limit of ${this.getValue(
-          'Available'
+          'AdultMax'
         )}. Please adjust the number.`,
         '',
         {
@@ -499,10 +495,16 @@ export class LiveboardDetailsComponent {
 
   getValue(key: any): any {
     if (this.selectedDateControl && this.selectedDateControl.value) {
-
-      return this.selectedDateControl.value[key] || 0;
+      let value = 0;
+      if (this.selectedOption === 'collective') {
+        return this.liveabourdData?.PriceColective[key]
+      } else if (this.selectedOption === 'privete') {
+        return this.liveabourdData?.Priceprivet[key]
+      }
+      return value;
+      // return this.selectedDateControl.value[key] || 0;
     }
-    return 0;
+    // return 0;
   }
 
   onSelectionChange(event: MatSelectChange): void {
@@ -556,7 +558,6 @@ export class LiveboardDetailsComponent {
           schedules_id: this.schedules_id,
         };
 
-
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)
           .subscribe({
@@ -568,8 +569,7 @@ export class LiveboardDetailsComponent {
                 adult: this.persons,
                 schedules_id: this.schedules_id,
               };
-              if (typeof window !== 'undefined' && window.localStorage){
-
+              if (typeof window !== 'undefined' && window.localStorage) {
                 localStorage.setItem(
                   'queryParamsliveaboard',
                   JSON.stringify(queryParams)
@@ -590,7 +590,10 @@ export class LiveboardDetailsComponent {
     }
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
   addtoFavorits(btn: any, event: any) {
@@ -603,7 +606,6 @@ export class LiveboardDetailsComponent {
         })
         .subscribe({
           next: (res: any) => {
-
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
           },
@@ -627,27 +629,35 @@ export class LiveboardDetailsComponent {
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
     } else {
-      if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
+      if (
+        this.starNumber !== null &&
+        this.starNumber !== 0 &&
+        this.comment !== null &&
+        this.comment !== ''
+      ) {
         this._httpService
-        .post(environment.marsa, 'Review/addreview', model)
-        .subscribe({
-          next: (res: any) => {
-            this.toastr.success(res.message);
-            this.loadData();
-            this.starNumber = null;
-            this.comment = null;
-            this.selectedStar = 0;
-          },
-        });
-
-      }else{
-        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
+          .post(environment.marsa, 'Review/addreview', model)
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success(res.message);
+              this.loadData();
+              this.starNumber = null;
+              this.comment = null;
+              this.selectedStar = 0;
+            },
+          });
+      } else {
+        this.toastr.warning(
+          'Please specify the number of stars and write your comment before submitting! Thank you!',
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
       }
     }
   }
