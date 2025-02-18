@@ -544,22 +544,20 @@
                           >{{ Coupons[0]?.amount }}$</span
                         >
                       </li> -->
-                      <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
+                      <!-- <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
                         <span class="font-weighted">Total</span>
                         <span>{{ Total }}$</span>
-                        <!-- <span>{{ responseFromAvailableOption?.TotlaPrice }}</span> -->
-                      </li>
+                        <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
+                      </li> -->
                     </ng-container>
-                    <ng-template *ngIf="Coupons;">
-                      <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
-                        <span class="font-weighted">Total</span>
-                        <span>{{ responseFromAvailableOption?.maintotal }}$</span>
-                      </li>
-                      <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
+                    <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
+                      <span class="font-weighted">Total</span>
+                      <span>{{ responseFromAvailableOption?.maintotal }}$</span>
+                    </li>
+                      <li *ngIf="Coupons===true" class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
                         <span class="font-weighted">Total After Discount</span>
                         <span>{{ responseFromAvailableOption?.TotlaPrice }}$</span>
                       </li>
-                    </ng-template>
                   </ul>
                 </ng-container>
                 <!-- End Fact List -->

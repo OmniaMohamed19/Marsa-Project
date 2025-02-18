@@ -174,6 +174,7 @@ export class PaymentComponent {
         },
         error: (err: any) => {
           this.spinner.hide();
+          this.Coupons=false
           this.toastr.error(err.error.message);
           this.coupon = '';
           const model2 = {

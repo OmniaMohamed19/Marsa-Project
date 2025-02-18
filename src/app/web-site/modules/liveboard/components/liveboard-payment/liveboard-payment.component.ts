@@ -304,11 +304,13 @@ export class LiveboardPaymentComponent implements OnInit {
         .subscribe({
           next: (res: any) => {
             this.responseFromAvailableOption = res;
-            this.Coupons = true;
             stepper.next();
             // this.Total =
             //   this.responseFromAvailableOption?.TotlaPrice -
             //   this.Coupons[0]?.amount;
+          },
+          error:(err:any) =>{
+            // this.Coupons = false;
           },
         });
     }
@@ -350,11 +352,13 @@ export class LiveboardPaymentComponent implements OnInit {
         next: (res: any) => {
           this.responseFromAvailableOption = res;
           this.Total = this.responseFromAvailableOption?.TotlaPrice;
+          this.Coupons = true;
         },
         error: (err) => {
           this.toastr.error(err.error.message);
           this.coupon = '';
-          const model = {
+            this.Coupons = false;
+            const model = {
             trip_id: this.tripId,
             class: 'collective',
             adult: this.adult,

@@ -220,6 +220,7 @@ export class StepThreeComponent implements OnInit {
           console.log(res);
         },
         error: (err: any) => {
+          this.Coupons=false
           this.spinner.hide();
           this.toastr.error(err.error.message);
           this.coupon = '';
