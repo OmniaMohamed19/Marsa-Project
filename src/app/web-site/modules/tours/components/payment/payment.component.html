@@ -434,7 +434,7 @@
                         src="assets/images/payment.svg"
                         alt="payment"
                       />
-                      <div class="w-100 text-dark">Payment with Card</div>
+                      <div class="w-100 text-dark">Payment with Card </div>
                     </div>
                   </a>
                 </li>
@@ -455,10 +455,11 @@
                     >
                       <img
                         class="img-fluid mb-3"
-                        src="../../../../../../assets/custom/Activity/banknotes.png"
+                        style="width: 70px;"
+                        src="../../../../../../assets/custom/Activity/banknotes.svg"
                         alt="banknotes"
                       />
-                      <div class="w-100 text-dark"> Book Now Pay Later  <br> Cash</div>
+                      <div class="w-100 text-dark"> Book Now Pay Later (Cash) </div>
                     </div>
                   </a>
                 </li>
@@ -647,29 +648,20 @@
                         class="col-sm-12 mb-4"
                         [innerHTML]="avilableOptions.Bookingpayment"
                       >
-                        <!-- <img
-                          src="assets/icons/mdi_information-outline.svg"
-                          alt=""
-                        />
-                        <span style="color: #77838f">
-                          Explore one of the world’s best art museums at your
-                          own pace with your ticket to the Louvre. Skip the line
-                          and walk straight inside, after
-                        </span>
+
                       </div>
-                      <div class="col-sm-12 mb-4">
-                        <p>
-                          Once inside the historic palace located on the Right
-                          Bank of the Seine, see unmissable and iconic sights
-                          such as the Mona Lisa and Venus
-                        </p>
-                      </div>
-                      <div class="col-sm-12 mb-4">
-                        <p>
-                          de Milo. Discover masterpieces of the Renaissance and
-                          ancient Egyptian relics, along with paintings from the
-                          13th to 20th centuries,
-                        </p>-->
+                      <div class="js-form-message mb-5">
+                        <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                          <input type="checkbox" class="custom-control-input" id="termsCheckbox2" name="termsCheckbox2"
+                            required="">
+                          <label class="custom-control-label" for="termsCheckbox2">
+                            <small>
+                              By continuing, you agree to the
+                              <a class="link-muted" style="color: rgba(41, 124, 187, 1);">Terms and
+                                Conditions</a>
+                            </small>
+                          </label>
+                        </div>
                       </div>
                       <a
                         (click)="edit ? confirmEdit($event) : confirmBooking()"

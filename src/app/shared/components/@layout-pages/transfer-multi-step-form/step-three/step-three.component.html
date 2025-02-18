@@ -8,56 +8,33 @@
         </div>
 
         <section class="mt-3 row align-items-center justify-content-between">
-          <ul
-            class="nav nav-classic nav-choose border-0 nav-justified border flex-column flex-md-row"
-          >
+          <ul class="nav nav-classic nav-choose border-0 nav-justified border flex-column flex-md-row">
             <li class="nav-item mx-3 mb-3 mb-md-0">
-              <a
-                class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
-                id="pills-two-example2-tab"
-                [class.active]="isActiveTab('pills-two-example2')"
-                (click)="toggleTab('pills-two-example2', 'card')"
-              >
+              <a class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
+                id="pills-two-example2-tab" [class.active]="isActiveTab('pills-two-example2')"
+                (click)="toggleTab('pills-two-example2', 'card')">
                 <div
-                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                >
+                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
                   <i class="fa fa-check text-white font-size-15"></i>
                 </div>
-                <div
-                  class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                >
-                  <img
-                    class="img-fluid mb-3 payment-img"
-                    src="../../../../../../assets/images/payment.svg"
-                    alt="payment"
-                  />
+                <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+                  <img class="img-fluid mb-3 payment-img" src="../../../../../../assets/images/payment.svg"
+                    alt="payment" />
                   <div class="w-100 text-dark">Payment with Card</div>
                 </div>
               </a>
             </li>
             <li class="nav-item mx-3 mb-3 mb-md-0">
-              <a
-                class="rounded py-5 border-width-2 border nav-link font-weight-medium"
-                id="pills-one-example2-tab"
-                [class.active]="isActiveTab('pills-one-example2')"
-                (click)="toggleTab('pills-one-example2', 'cash')"
-              >
+              <a class="rounded py-5 border-width-2 border nav-link font-weight-medium" id="pills-one-example2-tab"
+                [class.active]="isActiveTab('pills-one-example2')" (click)="toggleTab('pills-one-example2', 'cash')">
                 <div
-                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2"
-                >
+                  class="height-25 width-25 flex-content-center bg-primary rounded-circle position-absolute left-0 top-0 ml-2 mt-2">
                   <i class="fa fa-check text-white font-size-15"></i>
                 </div>
-                <div
-                  class="d-md-flex justify-content-md-center align-items-md-center flex-wrap"
-                >
-                  <img
-                    class="img-fluid mb-3"
-                    src="../../../../../../assets/custom/Activity/banknotes.png"
-                    alt="banknotes"
-                  />
-                  <div class="w-100 text-dark"> Book Now Pay Later <br> Cash
-
-                  </div>
+                <div class="d-md-flex justify-content-md-center align-items-md-center flex-wrap">
+                  <img class="img-fluid mb-3" style="width: 70px;"
+                    src="../../../../../../assets/custom/Activity/banknotes.svg" alt="banknotes" />
+                  <div class="w-100 text-dark"> Book Now Pay Later (Cash) </div>
                 </div>
               </a>
             </li>
@@ -67,49 +44,25 @@
         <!--------Bottom Form---------------------->
 
         <div class="tab-content">
-          <div
-            class="tab-pane fade pt-8 show active"
-            id="pills-two-example2"
-            role="tabpanel"
-            aria-labelledby="pills-two-example2-tab"
-            [class.show]="isActiveTab('pills-two-example2')"
-            [class.active]="isActiveTab('pills-two-example2')"
-          >
+          <div class="tab-pane fade pt-8 show active" id="pills-two-example2" role="tabpanel"
+            aria-labelledby="pills-two-example2-tab" [class.show]="isActiveTab('pills-two-example2')"
+            [class.active]="isActiveTab('pills-two-example2')">
             <form class="js-validate" novalidate="novalidate">
               <div class="row">
                 <div class="col-sm-6 mb-4">
                   <div class="js-form-message">
                     <label class="form-label"> Card Holder Name* </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Cardname"
-                      placeholder=""
-                      aria-label=""
-                      required=""
-                      (paste)="onPaste($event)"
-                      [(ngModel)]="cardholderName"
-                      (keypress)="letterOnly($event)"
-                    />
+                    <input type="text" class="form-control" name="Cardname" placeholder="" aria-label="" required=""
+                      (paste)="onPaste($event)" [(ngModel)]="cardholderName" (keypress)="letterOnly($event)" />
                   </div>
                 </div>
                 <div class="col-sm-6 mb-4">
                   <div class="js-form-message">
                     <label class="form-label"> Card Number* </label>
 
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="Cardnumber"
-                      placeholder="xxxx xxxx xxxx xxxx"
-                      aria-label=""
-                      required=""
-                      (paste)="onPaste($event)"
-                      inputmode="numeric"
-                      [(ngModel)]="cardNumber"
-                      maxlength="16"
-                      (keypress)="OnlyNumbers($event)"
-                    />
+                    <input type="text" class="form-control" name="Cardnumber" placeholder="xxxx xxxx xxxx xxxx"
+                      aria-label="" required="" (paste)="onPaste($event)" inputmode="numeric" [(ngModel)]="cardNumber"
+                      maxlength="16" (keypress)="OnlyNumbers($event)" />
                   </div>
                 </div>
 
@@ -121,37 +74,17 @@
                       <div class="js-form-message">
                         <label class="form-label"> Expiry Month*</label>
 
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="Expirymonth"
-                          placeholder="xx"
-                          aria-label=""
-                          [(ngModel)]="expiryMonth"
-                          (paste)="onPaste($event)"
-                          required=""
-                          maxlength="2"
-                          (keypress)="OnlyNumbers($event)"
-                          inputmode="numeric"
-                        />
+                        <input type="text" class="form-control" name="Expirymonth" placeholder="xx" aria-label=""
+                          [(ngModel)]="expiryMonth" (paste)="onPaste($event)" required="" maxlength="2"
+                          (keypress)="OnlyNumbers($event)" inputmode="numeric" />
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="js-form-message">
                         <label class="form-label"> Expiry Year* </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="Expiryyear"
-                          [(ngModel)]="expirYear"
-                          placeholder="xx"
-                          (paste)="onPaste($event)"
-                          aria-label=""
-                          required=""
-                          maxlength="2"
-                          inputmode="numeric"
-                          (keypress)="OnlyNumbers($event)"
-                        />
+                        <input type="text" class="form-control" name="Expiryyear" [(ngModel)]="expirYear"
+                          placeholder="xx" (paste)="onPaste($event)" aria-label="" required="" maxlength="2"
+                          inputmode="numeric" (keypress)="OnlyNumbers($event)" />
                       </div>
                     </div>
                   </div>
@@ -161,20 +94,9 @@
                   <div class="js-form-message">
                     <label class="form-label"> CVV* </label>
 
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="ccvnumber"
-                      placeholder="XXX"
-                      aria-label=""
-                      required=""
-                      (paste)="onPaste($event)"
-                      [(ngModel)]="cvv"
-                      maxlength="3"
-                      autocomplete="cc-number"
-                      inputmode="numeric"
-                      (keypress)="OnlyNumbers($event)"
-                    />
+                    <input type="text" class="form-control" name="ccvnumber" placeholder="XXX" aria-label="" required=""
+                      (paste)="onPaste($event)" [(ngModel)]="cvv" maxlength="3" autocomplete="cc-number"
+                      inputmode="numeric" (keypress)="OnlyNumbers($event)" />
                   </div>
                 </div>
 
@@ -187,36 +109,21 @@
                 <div class="w-100"></div>
                 <div class="col">
                   <div class="js-form-message mb-5">
-                    <div
-                      class="custom-control custom-checkbox d-flex align-items-center text-muted"
-                    >
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="termsCheckbox"
-                        name="termsCheckbox"
-                        required=""
-                      />
+                    <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                      <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox"
+                        required="" />
                       <label class="custom-control-label" for="termsCheckbox">
                         <small>
                           By continuing, you agree to the
-                          <a
-                            routerLink="../../privacy/privacy"
-                            class="link-muted"
-                            style="color: rgba(41, 124, 187, 1)"
-                            >Terms and Conditions</a
-                          >
+                          <a routerLink="../../privacy/privacy" class="link-muted"
+                            style="color: rgba(41, 124, 187, 1)">Terms and Conditions</a>
                         </small>
                       </label>
                     </div>
                   </div>
-                  <a
-                    style="width: 50% !important; margin: auto"
-                    (click)="confirmBookingByCard()"
-                    [class.disabled]="buttonDisabled"
-                    [attr.disabled]="buttonDisabled ? true : null"
-                    class="btn payment text-white w-100 py-3"
-                  >
+                  <a style="width: 50% !important; margin: auto" (click)="confirmBookingByCard()"
+                    [class.disabled]="buttonDisabled" [attr.disabled]="buttonDisabled ? true : null"
+                    class="btn payment text-white w-100 py-3">
                     CONFIRM BOOKING
                   </a>
                 </div>
@@ -228,50 +135,29 @@
             </form>
           </div>
 
-          <div
-            class="tab-pane fade pt-8"
-            id="pills-two-example2"
-            role="tabpanel"
-            [class.show]="isActiveTab('pills-one-example2')"
-            [class.active]="isActiveTab('pills-one-example2')"
-            aria-labelledby="pills-two-example2-tab"
-          >
+          <div class="tab-pane fade pt-8" id="pills-two-example2" role="tabpanel"
+            [class.show]="isActiveTab('pills-one-example2')" [class.active]="isActiveTab('pills-one-example2')"
+            aria-labelledby="pills-two-example2-tab">
             <form class="js-validate" novalidate="novalidate">
               <div class="row">
-                <div
-                  class="col-sm-12 mb-4"
-                  [innerHTML]="responseData?.booking?.Bookingpayment"
-                >
-                  <!-- <img
-                src="assets/icons/mdi_information-outline.svg"
-                alt=""
-              /> -->
-                  <!-- <span style="color: #77838f">
-                Explore one of the world’s best art museums at your
-                own pace with your ticket to the Louvre. Skip the line
-                and walk straight inside, after
-              </span> -->
+                <div class="col-sm-12 mb-4" [innerHTML]="responseData?.booking?.Bookingpayment">
+
                 </div>
-                <!-- <div class="col-sm-12 mb-4">
-              <p>
-                Once inside the historic palace located on the Right
-                Bank of the Seine, see unmissable and iconic sights
-                such as the Mona Lisa and Venus
-              </p>
-            </div>
-            <div class="col-sm-12 mb-4">
-              <p>
-                de Milo. Discover masterpieces of the Renaissance and
-                ancient Egyptian relics, along with paintings from the
-                13th to 20th centuries,
-              </p>
-            </div> -->
-                <a
-                  style="width: 50% !important; margin: auto"
-                  (click)="confirmBooking()"
-                  class="btn payment text-white w-100 py-3"
-                  >CONFIRM BOOKING</a
-                >
+                <div class="js-form-message mb-5">
+                  <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                    <input type="checkbox" class="custom-control-input" id="termsCheckbox2" name="termsCheckbox2"
+                      required="">
+                    <label class="custom-control-label" for="termsCheckbox2">
+                      <small>
+                        By continuing, you agree to the
+                        <a class="link-muted" style="color: rgba(41, 124, 187, 1);">Terms and
+                          Conditions</a>
+                      </small>
+                    </label>
+                  </div>
+                </div>
+                <a style="width: 50% !important; margin: auto" (click)="confirmBooking()"
+                  class="btn payment text-white w-100 py-3">CONFIRM BOOKING</a>
               </div>
             </form>
           </div>
@@ -281,11 +167,8 @@
       <div class="car-data col-lg-4 order-1 order-md-2">
         <div>
           <div class="img-container">
-            <img
-              style="width: auto !important; height: 200px"
-              [src]="selectedCar?.cover"
-              [alt]="getImageName(selectedCar?.cover)"
-            />
+            <img style="width: auto !important; height: 200px" [src]="selectedCar?.cover"
+              [alt]="getImageName(selectedCar?.cover)" />
           </div>
           <!-------------------------------->
           <div class="mt-3 payment2">
@@ -333,12 +216,10 @@
                 <span class="person">Total </span>
               </div>
               <div class="col-4">
-                <span class="age"
-                  >${{
-                       SavedaddOnDetails?.maintotal
+                <span class="age">${{
+                  SavedaddOnDetails?.maintotal
 
-                  }}</span
-                >
+                  }}</span>
               </div>
             </div>
             <ng-container *ngIf="Coupons">
@@ -350,13 +231,11 @@
                   SavedaddOnDetails?.maintotal
                 }}$</span>
               </li> -->
-              <li
-                class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
-              >
+              <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
                 <span class="font-weighted">Total After Discount</span>
                 <span>{{
                   SavedaddOnDetails?.Total
-                }}$</span>
+                  }}$</span>
               </li>
             </ng-container>
             <!-- <div class="d-flex justify-content-between mt-5">
@@ -380,24 +259,10 @@
           <div class="copoun bottom-line">
             <h3>Coupon Code</h3>
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <input
-                type="text"
-                class="form-control"
-                name="email"
-                id="CouponCodeExample1"
-                placeholder=""
-                aria-label=""
-                aria-describedby="CouponCodeExample2"
-                required=""
-                [(ngModel)]="coupon"
-              />
+              <input type="text" class="form-control" name="email" id="CouponCodeExample1" placeholder="" aria-label=""
+                aria-describedby="CouponCodeExample2" required="" [(ngModel)]="coupon" />
               <div class="input-group-append">
-                <button
-                  class="btn py-2"
-                  type="button"
-                  id="CouponCodeExample2"
-                  (click)="applycoupon()"
-                  style="
+                <button class="btn py-2" type="button" id="CouponCodeExample2" (click)="applycoupon()" style="
                     background-color: rgb(13, 177, 255);
                     font-family: Lato;
                     font-size: 16px;
@@ -405,8 +270,7 @@
                     letter-spacing: 0em;
                     text-align: left;
                     color: white;
-                  "
-                >
+                  ">
                   Apply
                 </button>
               </div>
@@ -417,20 +281,14 @@
 
           <div class="row mt-4 justify-content-center align-items-center">
             <div class="col-12 col-text text-center">
-              <span style="font-weight: 700; font-size: 20px"
-                >Booking Detail</span
-              >
+              <span style="font-weight: 700; font-size: 20px">Booking Detail</span>
             </div>
             <!-- <div class="col-4 col-detail">
               <a (click)="goback()">Edit</a>
           </div> -->
             <!------------------->
 
-            <div
-              *ngIf="activeSection == 2"
-              class="col-12 col-text text-center"
-              style="color: #297cbb"
-            >
+            <div *ngIf="activeSection == 2" class="col-12 col-text text-center" style="color: #297cbb">
               <span>Departure trip</span>
             </div>
 
@@ -461,7 +319,7 @@
             <div class="col-5 col-detail">
               <span>
                 {{
-                  "1970-01-01T" + (bookingTime || "00:00:00") | date : "h:mm a"
+                "1970-01-01T" + (bookingTime || "00:00:00") | date : "h:mm a"
                 }}
               </span>
             </div>
@@ -500,7 +358,7 @@
               <div class="col-5 col-detail">
                 <span>{{
                   "1970-01-01T" + returnbookingtime | date : "h:mm a"
-                }}</span>
+                  }}</span>
               </div>
             </div>
 

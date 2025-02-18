@@ -424,6 +424,24 @@ export class PackagePaymentComponent {
   }
 
   confirmBooking() {
+    const termsCheckbox = document.getElementById(
+      'termsCheckbox2'
+    ) as HTMLInputElement;
+
+    if (!termsCheckbox.checked) {
+      this.toastr.warning(
+        'Please agree to the Terms and Conditions before proceeding.',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+      return; // Stop further execution
+    }
     if (this.customerForm.valid) {
       this.spinner.show();
       this.isDisable = true;

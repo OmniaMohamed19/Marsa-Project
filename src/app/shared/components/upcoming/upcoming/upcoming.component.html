@@ -34,8 +34,13 @@
             </a>
             <div class="pl-3 pt-4 mb-1 d-flex align-items-center font-size-18 text-white">
               <i class="fa-regular fa-clock mx-2"></i>
-              {{ 9 }} nights
+              {{ getFirstSchedule(card)?.Night  }} nights
             </div>
+            <div class="pl-3 pt-4 mb-1 d-flex align-items-center font-size-18 text-white">
+              <i class="fa-regular fa-clock mx-2"></i>
+              {{ getFirstSchedule(card)?.Start  }}
+            </div>
+
             <div class="pr-3 pt-4 mb-1 d-flex justify-content-end">
               <button [routerLink]="'liveboard/liveboardDetails/' + card.id"
               [routerLink]="[
