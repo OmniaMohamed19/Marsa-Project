@@ -47,12 +47,22 @@ export class UpcomingComponent {
     },
     nav: false,
   };
+  getFirstSchedule(card: any): any {
+    if (!card?.Schedule || typeof card.Schedule !== 'object') {
+      return null;
+    }
+    const scheduleArray = Object.values(card.Schedule);
+    return scheduleArray.length > 0 ? scheduleArray[0] : null;
+  }
+
+
 
   ngOnInit(): void {
     this.httpService
       .get(environment.marsa, 'upcoming')
       .subscribe((res: any) => {
-        this.upcoming = res['Liveaboard'];
+        this.upcoming = res.Liveaboard;
+
       });
   }
 }

@@ -653,6 +653,23 @@ export class PaymentComponent {
   }
 
   confirmBooking() {
+    const termsCheckbox = document.getElementById(
+      'termsCheckbox'
+    ) as HTMLInputElement;
+    if (!termsCheckbox.checked) {
+      this.toastr.warning(
+        'Please agree to the Terms and Conditions before proceeding.',
+        '',
+        {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        }
+      );
+      return; // Stop further execution
+    }
     this.isDisable = true;
 
     if (this.customerForm.valid) {
