@@ -44,7 +44,6 @@ export class CheckAvailpiltyComponent {
   ) {}
 
   ngOnInit(): void {
-   
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
@@ -57,6 +56,10 @@ export class CheckAvailpiltyComponent {
       this.tripId = trip_id;
       this.avilableOptions = parsedRes;
       this.booking_date = this.dataCheck['booking_date'];
+      console.log(
+        this.booking_date + ' ' + this.activityData?.CancelationtTime
+      );
+
       this.class = this.dataCheck['class'];
       this.avilable_option_id = Number(this.dataCheck['avilable_option_id']);
       this.adult = this.dataCheck['adult'];
@@ -66,7 +69,35 @@ export class CheckAvailpiltyComponent {
       this.getTripById(this.tripId);
     }
   }
+  subtract12Hours(dateString:any) {
+    let [datePart, hourPart] = dateString.split(" ");
+    let [day, month, year] = datePart.split("/").map(Number);
+    let hour = Number(hourPart);
 
+    // Create Date object in UTC to avoid timezone issues
+    let date = new Date(year, month - 1, day, hour, 0); // Month is 0-based
+
+    // Subtract 12 hours
+    date.setHours(date.getHours() - 12);
+
+    // Format output as "DD/MM/YYYY HH:mm"
+    let newDay = String(date.getDate()).padStart(2, "0");
+    let newMonth = String(date.getMonth() + 1).padStart(2, "0"); // Convert 0-based month
+    let newYear = date.getFullYear();
+    let newHour = String(date.getHours()).padStart(2, "0");
+
+    return `${newDay}/${newMonth}/${newYear} ${newHour}:00`;
+}
+
+  // Example usage
+  // const inputDate = "26/02/2025 14:30"; // Input date with time
+  // const result = subtract12Hours(inputDate);
+  // console.log(result); // Output: "26/02/2025 02:30"
+
+  // Example usage
+  // const inputDate = "26/02/2025 14:30"; // Input date with time
+  // const result = subtract12Hours(inputDate);
+  // console.log(result); // Output: "26/02/2025 02:30"
   getAvailableOptionIndexById(id: number): number {
     if (this.activityData && this.activityData.AvailableOption) {
       return this.activityData.AvailableOption.findIndex(
@@ -144,8 +175,7 @@ export class CheckAvailpiltyComponent {
         infant: this.infant,
         booking_time: this.selectedTime,
       };
-      if (typeof window !== 'undefined' && window.localStorage){
-
+      if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.setItem('queryParams', JSON.stringify(queryParams));
       }
       this.router.navigate(
