@@ -120,7 +120,7 @@ export class StepOneComponent implements OnInit {
     } else {
       this.return_date = '';
     }
-    this.return_time = localStorage.getItem('returnPickuptime');
+    // this.return_time = localStorage.set('returnPickuptime');
     const savedSection = localStorage.getItem('activeSection');
 
     if (savedSection) {
@@ -151,7 +151,7 @@ export class StepOneComponent implements OnInit {
     // Set other form fields from responseData
     this.formData.from = this.responseData?.booking?.from || '';
     this.formData.to = this.responseData?.booking?.to || '';
-    this.formData.pickuptime = this.bookdetail?.pickuptime || '';
+    // this.formData.pickuptime = this.bookdetail?.pickuptime || '';
    // this.formData.date = this.bookdetail?.date || '';
     const PicupdateString = this.bookdetail?.date || '';
 
@@ -200,6 +200,7 @@ export class StepOneComponent implements OnInit {
       if (typeof window !== 'undefined' && window.localStorage) {
 
         localStorage.setItem('formData', JSON.stringify(this.formData));
+        localStorage.setItem('returnPickuptime', this.return_time || '');
       }
       this.next.emit();
       window.scrollTo(0, 0);
@@ -213,16 +214,7 @@ export class StepOneComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         });
-        // if (this.formData.phoneNumber==null) {
-        //   this.toastr.info('Please enter your Phone Number. ', '', {
-        //     disableTimeOut: false,
-        //     titleClass: 'toastr_title',
-        //     messageClass: 'toastr_message',
-        //     timeOut: 5000,
-        //     closeButton: true,
-        //   });
 
-        // }
 
       }
 

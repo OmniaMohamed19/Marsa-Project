@@ -23,7 +23,7 @@ export class StepTwoComponent implements OnInit {
   toId: any;
   person: any;
   carId: any;
-  pickuptime: any;
+  pickuptime_fromDta: any;
   bookingDate: any;
   bookingTime: any;
   kilometr: any;
@@ -33,6 +33,7 @@ export class StepTwoComponent implements OnInit {
   returnbookingdate: any;
   optionId:any;
   selectedCar:any;
+
   constructor(private toastr: ToastrService, private _httpService: HttpService,) { }
 
   ngOnInit() {
@@ -56,19 +57,31 @@ export class StepTwoComponent implements OnInit {
     this.way = localStorage.getItem('activeSection') || '';
 
     const bookingDetail = localStorage.getItem('bookdetail');
+    const formdata_time = localStorage.getItem('formData');
     if (bookingDetail) {
       this.bookdetail = JSON.parse(bookingDetail);
     }
+
+
 
     if (this.bookdetail) {
       this.fromId = this.bookdetail.from_id || '';
       this.toId = this.bookdetail.to_id || '';
       this.bookingDate = this.bookdetail.date || '';
-      this.bookingTime = this.bookdetail.pickuptime || '';
+      // this.bookingTime = this.bookdetail.pickuptime || '';
       this.person = this.bookdetail.person || '';
       this.kilometr = this.bookdetail.kilometr || '';
     } else {
       console.warn(' bookdetail is undefined or null');
+    }
+    if (formdata_time ) {
+      this. pickuptime_fromDta = JSON.parse(formdata_time );
+    }
+
+      if ( this. pickuptime_fromDta ) {
+      this.bookingTime = this. pickuptime_fromDta.pickuptime || '';
+      console.log("hiii this.bookingTime")
+      console.log(this.bookingTime)
     }
 
     const savedResponseData = localStorage.getItem('responseData');

@@ -232,8 +232,8 @@ export class TransferComponent implements OnInit {
     }
 
 
-    if (this.activeSection === 'section2' && (this.date === undefined || this.pickuptime === undefined)) {
-      this.toastr.info('Please enter date and time ', '', {
+    if (this.activeSection === 'section2' && (this.date === undefined)) {
+      this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
         messageClass: 'toastr_message',
@@ -246,10 +246,8 @@ export class TransferComponent implements OnInit {
     if (
       this.activeSection === 'section1' && (
         this.date === undefined ||
-        this.pickuptime === undefined ||
-        this.returnDate === undefined ||
-        this.returnPickuptime === undefined)) {
-      this.toastr.info('Please enter date and time ', '', {
+        this.returnDate === undefined )) {
+      this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
         messageClass: 'toastr_message',
@@ -265,7 +263,7 @@ export class TransferComponent implements OnInit {
         from_id: this.fromId,
         to_id: this.toId,
         date: this.date,
-        pickuptime: this.pickuptime,
+        // pickuptime: this.pickuptime,
         person: this.persons,
       };
 
@@ -273,42 +271,25 @@ export class TransferComponent implements OnInit {
         (k: any) => (body[k] === '' || body[k] === null) && delete body[k]
       );
 
-      // Save the body object in localStorage
-
 
       localStorage.setItem('bookdetail', JSON.stringify(body));
-
-
-      // Save the return date and return pickup time separately
       localStorage.setItem('returnDate', this.returnDate || '');
-      localStorage.setItem('returnPickuptime', this.returnPickuptime || '');
-
-
-      // Save the activeSection value separately
       const activeSectionValue = this.activeSection === 'section1' ? '2' : '1';
 
 
       localStorage.setItem('activeSection', activeSectionValue);
-
-
-      // Make the HTTP request
       this.httpService.post(environment.marsa, 'transfer/get/car', body).subscribe({
         next: (res: any) => {
-          // Store the response data in both the service and localStorage
           this.dataService.setResponseData(res);
           localStorage.setItem('responseData', JSON.stringify(res));
-
-          // Navigate to the multi-step page
           this.router.navigate(['/', this.translate.currentLang, 'transfer', 'multi-step']);
         },
         error: (err) => {
-          // عرض رسالة الخطأ
           console.error('Error:', err);
           this.toastr.warning(err.error?.error || 'An error occurred while ordering, please try again.');
         }
       });
     }
-    // Construct the body object
 
   }
 
@@ -399,15 +380,15 @@ export class TransferComponent implements OnInit {
     );
 
     // Filter the hotels based on the search term for "From"
-    this.filteredFromHotels = this.transferDetails?.hotel?.filter((hotel: { city: string; }) =>
-      hotel.city.toLowerCase().includes(this.searchFrom.toLowerCase())
+    this.filteredFromHotels = this.transferDetails?.hotel?.filter((hotel: { title: string; }) =>
+      hotel.title.toLowerCase().includes(this.searchFrom.toLowerCase())
     );
   }
 
   filterToOptions() {
     // Filter the options (airports or hotels) in the second dropdown based on the search term for "To"
     this.filteredToOptions = this.availableToOptions?.filter(option =>
-      (option.name || option.city).toLowerCase().includes(this.searchTo.toLowerCase())
+      (option.name || option.title).toLowerCase().includes(this.searchTo.toLowerCase())
     );
   }
 

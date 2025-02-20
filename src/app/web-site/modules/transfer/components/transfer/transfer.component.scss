@@ -1,11 +1,19 @@
 
 
 
+.dropdown button span {
+  width: 100%;
+  max-height: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* يضيف "..." إذا كان النص طويلًا */
+  max-width: 100%;
+}
+
+
+
 ::ng-deep{
 
-  // .review-carousel .owl-item{
-  //   width: 630px !important;
-  // }
 
   .mat-datepicker-toggle button svg {
     color: #0057FF !important;
@@ -42,11 +50,11 @@
 
 }
 
-::ng-deep ngx-material-timepicker-toggle button svg {
-  fill: #0057FF; /* لون الأيقونة الجديد */
-  width: 24px; /* حجم الأيقونة */
-  height: 24px;
-}
+// ::ng-deep ngx-material-timepicker-toggle button svg {
+//   fill: #0057FF; /* لون الأيقونة الجديد */
+//   width: 24px; /* حجم الأيقونة */
+//   height: 24px;
+// }
 
 .time-calendar .p-inputwrapper {
   position: relative;
@@ -191,7 +199,6 @@ p {
 }
 
 h3 {
-  // font-family: Lato;
   font-size: 25px;
   font-weight: 700;
   line-height: 30px;
@@ -265,14 +272,12 @@ h5 {
 }
 .reviews {
   margin-top: 80px;
-  // background-image: url(../../../../../../assets/custom/Activity/transfer-bg.png);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 466px;
 }
 .faq {
-  // font-family: Lato;
   font-size: 21px;
   font-weight: 700;
   line-height: 25px;
@@ -413,10 +418,6 @@ input[type="date"] {
     color: #d9d9d9;
   }
 }
-// input[type="date"] {
-//   color: #d9d9d9 !important;
-//   font-size: 14px !important;
-// }
 
 label,
 ::placeholder {
@@ -447,7 +448,6 @@ label,
   padding-bottom: 5px;
   width: 172px;
   height: 52px;
-  margin-bottom: 9px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 10px;
@@ -575,7 +575,8 @@ p-calendar{
 @media screen and (max-width: 1200px) {
   ::ng-deep{
     .feature-carousel .owl-theme{
-      height: 200px;
+      height: 210px;
+      white-space: nowrap;
     }
   }
 

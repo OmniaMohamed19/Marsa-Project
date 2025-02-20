@@ -450,7 +450,7 @@ export class StepThreeComponent implements OnInit {
 
   confirmBooking() {
     const termsCheckbox = document.getElementById(
-      'termsCheckbox'
+      'termsCheckbox2'
     ) as HTMLInputElement;
     if (!termsCheckbox.checked) {
       this.toastr.warning(
