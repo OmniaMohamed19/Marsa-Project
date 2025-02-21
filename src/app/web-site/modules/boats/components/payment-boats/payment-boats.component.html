@@ -2,10 +2,10 @@
 <div class="container top-155">
   <div class="row">
     <div class="col-lg-12 col-xl-12">
-      <div class=" pb-5">
+      <div class="pb-5">
         <!-- Contacts Form -->
         <form [formGroup]="customerForm">
-          <div class="row col-12 ">
+          <div class="row col-12">
             <h5 class="text-center">Let us know who you are</h5>
             <!-- Input -->
             <div class="col-sm-12 mb-4">
@@ -79,6 +79,8 @@
                 [customPlaceholder]="'Enter phone number'"
                 [preferredCountries]="['de']"
                 formControlName="phone"
+                (countryChange)="onCountryChange($event)"
+                (countryChange)="onCountryChange($event)"
               ></ngx-intl-tel-input>
 
               <ng-container

@@ -45,7 +45,7 @@ export class PaymentComponent {
   filteredNationalities: Observable<Code[]> | undefined;
   showServices: boolean = true;
   coupon: any;
-  Coupons: boolean=false;
+  Coupons: boolean = false;
   Total: any;
   nationalities!: Code[];
   cardholderName: any;
@@ -167,14 +167,14 @@ export class PaymentComponent {
           this.spinner.hide();
           this.responseFromAvailableOption = res;
           this.Total = this.responseFromAvailableOption.TotlaPrice;
-          this.Coupons=true
+          this.Coupons = true;
           //   this.Coupons[0]?.amount
           // : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
           // console.log(this.Coupons.length);
         },
         error: (err: any) => {
           this.spinner.hide();
-          this.Coupons=false
+          this.Coupons = false;
           this.toastr.error(err.error.message);
           this.coupon = '';
           const model2 = {
@@ -219,6 +219,16 @@ export class PaymentComponent {
     //     : this.avilableOptions?.TotlaPrice - this.Coupons[0]?.amount;
     // });
     // Coupon
+  }
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
   }
   toggleTab(tabId: string, paymentMethod: string) {
     this.activeTab = tabId;
@@ -299,7 +309,9 @@ export class PaymentComponent {
   }
 
   updateInputClass(index: number, isChecked: boolean) {
-    const input = document.getElementById(`persons-input-${index}`) as HTMLInputElement;
+    const input = document.getElementById(
+      `persons-input-${index}`
+    ) as HTMLInputElement;
     if (isChecked) {
       input.classList.add('required');
     } else {

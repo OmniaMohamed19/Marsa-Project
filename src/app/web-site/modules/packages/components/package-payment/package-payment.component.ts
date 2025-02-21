@@ -212,6 +212,16 @@ export class PackagePaymentComponent {
       this.markFormGroupTouched(this.customerForm);
     }
   }
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
+  }
   initForm() {
     this.customerForm = this.fb.group({
       name: ['', Validators.required],

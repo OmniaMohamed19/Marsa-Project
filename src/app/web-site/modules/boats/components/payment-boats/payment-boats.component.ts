@@ -69,7 +69,7 @@ export class PaymentBoatsComponent {
       this.model = params;
     });
     this.getActivityById(this.model.trip_id);
-    +this._AuthService.getUserData().subscribe(
+    this._AuthService.getUserData().subscribe(
       (data: any) => {
         this.userData = JSON.parse(data);
         this.customerForm.patchValue(this.userData);
@@ -87,6 +87,10 @@ export class PaymentBoatsComponent {
         //   ''
         // ));
 
+        const result = this.userData.phone.substring(4);
+        this.customerForm?.get('phone')?.patchValue(result);
+        console.log(data);
+        console.log(this.userData.countrycode);
 
         this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
       },
@@ -96,6 +100,16 @@ export class PaymentBoatsComponent {
     );
 
     console.log(this.boatData);
+  }
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
   }
   getActivityById(BoatID: any) {
     this._httpService

@@ -15,7 +15,9 @@ declare const google: any;
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 // Custom email validator
-export function emailFormatValidator(control: AbstractControl): ValidationErrors | null {
+export function emailFormatValidator(
+  control: AbstractControl
+): ValidationErrors | null {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const isValid = emailRegex.test(control.value);
   return isValid ? null : { invalidEmail: true };
@@ -32,7 +34,7 @@ export class RegisterComponent implements OnInit {
   isPasswordVisible2 = false;
   socialUser!: SocialUser;
   isLoggedin?: boolean;
-  idToken :any;
+  idToken: any;
   signupForm!: FormGroup;
   terms: boolean = false;
   showRegisterForm: boolean = true;
@@ -53,16 +55,21 @@ export class RegisterComponent implements OnInit {
   }
 
   initialForm(): void {
-    this.signupForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, emailFormatValidator]], // Use the custom email validator
-      phone: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: ['', [Validators.required, Validators.minLength(8)]],
-      country_code: [''],
-      role: [0, [Validators.required, Validators.min(1)]],
-    },
-    { validators: this.passwordMatchValidator });
+    this.signupForm = this.fb.group(
+      {
+        name: ['', Validators.required],
+        email: ['', [Validators.required, emailFormatValidator]], // Use the custom email validator
+        phone: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        password_confirmation: [
+          '',
+          [Validators.required, Validators.minLength(8)],
+        ],
+        country_code: [''],
+        role: [0, [Validators.required, Validators.min(1)]],
+      },
+      { validators: this.passwordMatchValidator }
+    );
 
     this.signupForm.get('role')?.valueChanges.subscribe((value) => {
       this.signupForm
@@ -125,6 +132,16 @@ export class RegisterComponent implements OnInit {
     return this.signupForm.get('role')!;
   }
 
+  // onCountryChange(event: any) {
+  //   console.log(event);
+  //   console.log(this.customerForm.value);
+  //   let x =
+  //     '+' +
+  //     event.dialCode +
+  //     this.customerForm.value.phone.nationalNumber?.replace('-', '');
+  //   this.customerForm?.get('phone')?.patchValue(x);
+  //   console.log(x);
+  // }
   register(form: FormGroup) {
     if (form.invalid) {
       if (this.email.errors && this.email.errors['invalidEmail']) {
@@ -135,9 +152,13 @@ export class RegisterComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         });
-      } else if (this.email.errors || this.password.errors || this.name.errors || this.email.errors || this.phone.errors) {
-
-
+      } else if (
+        this.email.errors ||
+        this.password.errors ||
+        this.name.errors ||
+        this.email.errors ||
+        this.phone.errors
+      ) {
         this.toastr.error('Check Missing Fields', '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
@@ -145,20 +166,18 @@ export class RegisterComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         });
+      } else if (this.role.errors) {
+        this.toastr.error('Please agree to the Terms and Privacy Policy', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
       }
-      else if(this.role.errors){
-          this.toastr.error('Please agree to the Terms and Privacy Policy', '', {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          });
-        }
 
       return;
     }
-
 
     const model = {
       ...this.signupForm.value,
@@ -179,7 +198,7 @@ export class RegisterComponent implements OnInit {
         this.codeService.setUserData(res.user_id);
       },
       error: (err) => {
-        console.error('Error Response:', err); 
+        console.error('Error Response:', err);
         const errorMessage = err?.error?.message || 'An error occurred';
         this.toastr.error(errorMessage, '', {
           disableTimeOut: false,
@@ -188,24 +207,19 @@ export class RegisterComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         });
-      }
-      ,
+      },
     });
   }
-
 
   toggleForm(): void {
     this.showRegisterForm = !this.showRegisterForm;
   }
 
-urgent:any;
-  isUrgent(){
-   this.urgent=true;
-
+  urgent: any;
+  isUrgent() {
+    this.urgent = true;
   }
-  isUrgent0(){
-
-  }
+  isUrgent0() {}
   // ngAfterViewInit(): void {
   //   this.socialAuthService.authState.subscribe((user) => {
   //     this.socialUser = user;
@@ -225,14 +239,11 @@ urgent:any;
   //   google.accounts.id.prompt(); // Display the One Tap dialog
   // }
 
-
-
   handleCredentialResponse(response: any) {
     const model = {
       idToken: this.idToken,
-      provider: "GOOGLE"
-    }
-   this.authService.externalLogin(model)
+      provider: 'GOOGLE',
+    };
+    this.authService.externalLogin(model);
   }
-
 }

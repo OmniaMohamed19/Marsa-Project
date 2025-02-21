@@ -50,7 +50,13 @@
                       </div>
 
                       <div class="input-wrapper persons number-input">
-                        <button type="button" class="decrease" (click)="decreaseValue(i)">−</button>
+                        <button
+                          type="button"
+                          class="decrease"
+                          (click)="decreaseValue(i)"
+                        >
+                          −
+                        </button>
                         <input
                           type="number"
                           placeholder="0"
@@ -60,11 +66,14 @@
                           class="persons-input"
                           [attr.min]="0"
                         />
-                        <button type="button" class="increase" (click)="increaseValue(i)">+</button>
+                        <button
+                          type="button"
+                          class="increase"
+                          (click)="increaseValue(i)"
+                        >
+                          +
+                        </button>
                       </div>
-
-
-
                     </div>
                   </div>
                 </div>
@@ -181,6 +190,7 @@
                         [customPlaceholder]="'Enter phone number'"
                         [preferredCountries]="['de']"
                         formControlName="phone"
+                        (countryChange)="onCountryChange($event)"
                       ></ngx-intl-tel-input>
 
                       <ng-container
@@ -434,7 +444,7 @@
                         src="assets/images/payment.svg"
                         alt="payment"
                       />
-                      <div class="w-100 text-dark">Payment with Card </div>
+                      <div class="w-100 text-dark">Payment with Card</div>
                     </div>
                   </a>
                 </li>
@@ -455,11 +465,13 @@
                     >
                       <img
                         class="img-fluid mb-3"
-                        style="width: 70px;"
+                        style="width: 70px"
                         src="../../../../../../assets/custom/Activity/banknotes.svg"
                         alt="banknotes"
                       />
-                      <div class="w-100 text-dark"> Book Now Pay Later (Cash) </div>
+                      <div class="w-100 text-dark">
+                        Book Now Pay Later (Cash)
+                      </div>
                     </div>
                   </a>
                 </li>
@@ -647,18 +659,29 @@
                       <div
                         class="col-sm-12 mb-4"
                         [innerHTML]="avilableOptions.Bookingpayment"
-                      >
-
-                      </div>
+                      ></div>
                       <div class="js-form-message mb-5">
-                        <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                          <input type="checkbox" class="custom-control-input" id="termsCheckbox2" name="termsCheckbox2"
-                            required="">
-                          <label class="custom-control-label" for="termsCheckbox2">
+                        <div
+                          class="custom-control custom-checkbox d-flex align-items-center text-muted"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="termsCheckbox2"
+                            name="termsCheckbox2"
+                            required=""
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="termsCheckbox2"
+                          >
                             <small>
                               By continuing, you agree to the
-                              <a class="link-muted" style="color: rgba(41, 124, 187, 1);">Terms and
-                                Conditions</a>
+                              <a
+                                class="link-muted"
+                                style="color: rgba(41, 124, 187, 1)"
+                                >Terms and Conditions</a
+                              >
                             </small>
                           </label>
                         </div>
@@ -730,14 +753,12 @@
                 <h5 class="mb-0">
                   <button
                     type="button"
-                    class="btn btn-link border-0 btn-block d-flex
-                    justify-content-between card-btn py-3 px-4
-                    font-size-17 text-dark"
+                    class="btn btn-link border-0 btn-block d-flex justify-content-between card-btn py-3 px-4 font-size-17 text-dark"
                     data-toggle="collapse"
                     data-target="#basicsCollapseFour"
                     aria-expanded="false"
                     aria-controls="basicsCollapseFour"
-                    style="font-weight: bold;"
+                    style="font-weight: bold"
                   >
                     Payment
                     <span class="card-btn-arrow font-size-14 text-dark">
@@ -795,10 +816,10 @@
                       >
                         <span style="font-weight: 700">Total</span>
 
-                        <ng-container *ngIf="!Coupons; ">
+                        <ng-container *ngIf="!Coupons">
                           <span style="font-weight: 700">${{ Total }}</span>
                         </ng-container>
-                        <ng-template  *ngIf="Coupons;">
+                        <ng-template *ngIf="Coupons">
                           <span style="font-weight: 700"
                             >${{
                               responseFromAvailableOption?.TotlaPrice
@@ -873,14 +894,16 @@
                           >
                         </ng-template>
                         <ng-container *ngIf="Coupons">
-                          <span style="font-weight: 700">${{ responseFromAvailableOption?.maintotal }}</span>
+                          <span style="font-weight: 700"
+                            >${{ responseFromAvailableOption?.maintotal }}</span
+                          >
                         </ng-container>
                         <!-- <span>${{
                     responseFromAvailableOption?.TotlaPrice
                     }}</span> -->
                       </li>
                       <li
-                         *ngIf="Coupons;"
+                        *ngIf="Coupons"
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
                       >

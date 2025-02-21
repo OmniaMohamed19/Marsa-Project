@@ -77,7 +77,9 @@
           class="js-form-message js-focus-state border border-width-2 rounded-sm m-auto element-width"
         >
           <label class="sr-only" for="signinSrEmail">Email</label>
-          <div class="input-group input-group-tranparent input-group-borderless input-group-radiusless">
+          <div
+            class="input-group input-group-tranparent input-group-borderless input-group-radiusless"
+          >
             <div class="input-group-prepend">
               <span class="input-text" id="signinSrEmail">
                 <img src="assets/icons/sms.svg" alt="sms" />
@@ -93,12 +95,14 @@
               [class.is-invalid]="email.errors && email.touched"
             />
           </div>
-          <div *ngIf="email.errors && email.errors['invalidEmail'] && email.touched" class="text-danger">
+          <div
+            *ngIf="
+              email.errors && email.errors['invalidEmail'] && email.touched
+            "
+            class="text-danger"
+          >
             Please enter a valid email address in the format XXX&#64;XX.XX.
           </div>
-
-
-
         </div>
         <ng-container *ngIf="email.errors && email.touched">
           <div
@@ -137,7 +141,8 @@
               [customPlaceholder]="'Enter phone number'"
               [preferredCountries]="['de']"
               formControlName="phone"
-            ></ngx-intl-tel-input>
+              ></ngx-intl-tel-input>
+              <!-- (countryChange)="onCountryChange($event)" -->
           </div>
         </div>
         <ng-container *ngIf="phone.errors && phone.touched">
@@ -151,12 +156,19 @@
         </ng-container>
       </div>
       <div class="form-group pb-1">
-        <div class="js-form-message js-focus-state border border-width-2 rounded-sm m-auto element-width">
+        <div
+          class="js-form-message js-focus-state border border-width-2 rounded-sm m-auto element-width"
+        >
           <label class="sr-only" for="signinSrPassword">Password</label>
-          <div class="input-group input-group-tranparent input-group-borderless input-group-radiusless">
+          <div
+            class="input-group input-group-tranparent input-group-borderless input-group-radiusless"
+          >
             <div class="input-group-prepend">
               <span class="input-text" id="signinSrPassword">
-                <img src="assets/icons/Icon awesome-lock.svg" alt="awesome-lock" />
+                <img
+                  src="assets/icons/Icon awesome-lock.svg"
+                  alt="awesome-lock"
+                />
               </span>
             </div>
             <input
@@ -169,7 +181,11 @@
               [class.is-invalid]="password.errors && password.touched"
             />
             <div class="input-group-prepend">
-              <span class="input-group-text" id="signinSrPassword" (click)="toggleVisibility1()">
+              <span
+                class="input-group-text"
+                id="signinSrPassword"
+                (click)="toggleVisibility1()"
+              >
                 <img
                   src="assets/icons//eye-closed.svg"
                   alt="eye closed"
@@ -184,10 +200,16 @@
             </div>
           </div>
           <ng-container *ngIf="password.errors && password.touched">
-            <div *ngIf="password.errors?.['required']" class="alert alert-danger my-2 text-white element-width">
+            <div
+              *ngIf="password.errors?.['required']"
+              class="alert alert-danger my-2 text-white element-width"
+            >
               <p class="mb-0">Password is required</p>
             </div>
-            <div *ngIf="password.errors?.['minlength']" class="alert alert-danger my-2 text-white element-width">
+            <div
+              *ngIf="password.errors?.['minlength']"
+              class="alert alert-danger my-2 text-white element-width"
+            >
               <p class="mb-0">Min length of Password is 8</p>
             </div>
           </ng-container>
@@ -195,12 +217,21 @@
       </div>
 
       <div class="form-group pb-1">
-        <div class="js-form-message js-focus-state border border-width-2 rounded-sm m-auto element-width">
-          <label class="sr-only" for="signinSrrePassword">Confirm Password</label>
-          <div class="input-group input-group-tranparent input-group-borderless input-group-radiusless">
+        <div
+          class="js-form-message js-focus-state border border-width-2 rounded-sm m-auto element-width"
+        >
+          <label class="sr-only" for="signinSrrePassword"
+            >Confirm Password</label
+          >
+          <div
+            class="input-group input-group-tranparent input-group-borderless input-group-radiusless"
+          >
             <div class="input-group-prepend">
               <span class="input-text" id="signinSrrePassword">
-                <img src="assets/icons/Icon awesome-lock.svg" alt="awesome-lock" />
+                <img
+                  src="assets/icons/Icon awesome-lock.svg"
+                  alt="awesome-lock"
+                />
               </span>
             </div>
             <input
@@ -210,10 +241,16 @@
               id="signinSrrePassword"
               placeholder="Confirm Password"
               formControlName="password_confirmation"
-              [class.is-invalid]="password_confirmation.errors && password_confirmation.touched"
+              [class.is-invalid]="
+                password_confirmation.errors && password_confirmation.touched
+              "
             />
             <div class="input-group-prepend">
-              <span class="input-group-text" id="signinSrrePassword" (click)="toggleVisibility2()">
+              <span
+                class="input-group-text"
+                id="signinSrrePassword"
+                (click)="toggleVisibility2()"
+              >
                 <img
                   src="assets/icons//eye-closed.svg"
                   alt="eye closed"
@@ -227,14 +264,27 @@
               </span>
             </div>
           </div>
-          <ng-container *ngIf="password_confirmation.errors && password_confirmation.touched">
-            <div *ngIf="password_confirmation.errors?.['required']" class="alert alert-danger my-2 text-white element-width">
+          <ng-container
+            *ngIf="
+              password_confirmation.errors && password_confirmation.touched
+            "
+          >
+            <div
+              *ngIf="password_confirmation.errors?.['required']"
+              class="alert alert-danger my-2 text-white element-width"
+            >
               <p class="mb-0">Password confirmation is required</p>
             </div>
-            <div *ngIf="password_confirmation.errors?.['minlength']" class="alert alert-danger my-2 text-white element-width">
+            <div
+              *ngIf="password_confirmation.errors?.['minlength']"
+              class="alert alert-danger my-2 text-white element-width"
+            >
               <p class="mb-0">Min length of Password is 8</p>
             </div>
-            <div *ngIf="password_confirmation.errors?.['mismatch']" class="alert alert-danger my-2 text-white element-width">
+            <div
+              *ngIf="password_confirmation.errors?.['mismatch']"
+              class="alert alert-danger my-2 text-white element-width"
+            >
               <p class="mb-0">Passwords do not match</p>
             </div>
           </ng-container>
@@ -255,7 +305,9 @@
           />
           <label class="custom-control-label" for="customCheckboxInline2"
             >I have read and accept the
-            <a routerLink="/{{ translate.currentLang }}/privacy/privacy" style="color: #008ccf !important"
+            <a
+              routerLink="/{{ translate.currentLang }}/privacy/privacy"
+              style="color: #008ccf !important"
               >Terms and Privacy Policy</a
             ></label
           >
@@ -272,9 +324,7 @@
           <!-- <a class="btn">
             <img src="assets/icons/logos_facebook.svg" alt="Facebook" />
           </a> -->
-          <a class="btn"   id="google-signin-button" class="google-link "
-
-          >
+          <a class="btn" id="google-signin-button" class="google-link">
             <img
               src="assets/images/flat-color-icons_google.png"
               alt="icons google"

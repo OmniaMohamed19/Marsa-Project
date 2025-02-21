@@ -21,7 +21,7 @@ export class ConfirmPaymentComponent implements OnInit {
   confirmRequest: any;
   relatedtrips: any[] = [];
   tripletails: any;
-mapModalOptions: any = {
+  mapModalOptions: any = {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
   };
@@ -31,7 +31,7 @@ mapModalOptions: any = {
   longitudeValue: any;
   showServices: boolean = false;
   customerForm!: FormGroup;
-  userData: any={};
+  userData: any = {};
   @ViewChild('btn') btn: ElementRef | undefined;
   constructor(
     private _httpService: HttpService,
@@ -41,11 +41,10 @@ mapModalOptions: any = {
     private _AuthService: AuthService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private titleService: Title,
-
+    private titleService: Title
   ) {}
   ngOnInit(): void {
-    this.titleService.setTitle("Confirm Booking");
+    this.titleService.setTitle('Confirm Booking');
     this.initForm();
 
     this.route.queryParams.subscribe((params: any) => {
@@ -72,6 +71,16 @@ mapModalOptions: any = {
       }
     });
   }
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
+  }
   getTripById(activityID: any) {
     this._httpService
       .get(environment.marsa, `Activtes/details/` + activityID)
@@ -81,130 +90,125 @@ mapModalOptions: any = {
       });
   }
 
-    initForm() {
-      this.customerForm = this.fb.group({
-        name: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.required]],
-        note: [''],
-        pickup_point: ['', this.showServices ? [Validators.required] : []],
-        locationValue: [''],
-        // locationValue: [''],
-      });
+  initForm() {
+    this.customerForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
+      note: [''],
+      pickup_point: ['', this.showServices ? [Validators.required] : []],
+      locationValue: [''],
+      // locationValue: [''],
+    });
+  }
+  confirmEdit() {
+    if (this.showServices) {
+      this.customerForm
+        .get('pickup_point')
+        ?.setValidators([Validators.required]);
+    } else {
+      this.customerForm.get('pickup_point')?.clearValidators();
+      this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
-    confirmEdit() {
-      if (this.showServices) {
-        this.customerForm
-          .get('pickup_point')
-          ?.setValidators([Validators.required]);
-      } else {
-        this.customerForm.get('pickup_point')?.clearValidators();
-        this.customerForm.get('pickup_point')?.updateValueAndValidity();
+    if (this.customerForm.valid) {
+      let phoneNumber = this.customerForm.get('phone')?.value['number'];
+      let code = this.customerForm.get('phone')?.value['dialCode'];
+
+      const model = {
+        code: code,
+        userid: this.userData?.id,
+
+        ...this.customerForm.value,
+        phone: phoneNumber.replace('+', ''),
+        lng: this.longitudeValue ? this.longitudeValue.toString() : '',
+        lat: this.latitudeValue ? this.latitudeValue.toString() : '',
+        note: '',
+      };
+
+      Object.keys(model).forEach(
+        (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
+      );
+      console.log(this.BookingInfo);
+
+      this._httpService
+        .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
+        .subscribe({
+          next: (res: any) => {
+            Swal.fire(
+              'Your Booking has been send successfully.',
+              'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
+              'success'
+            );
+            this.btn?.nativeElement.click();
+            this.confirmRequest = res.booking_information;
+          },
+          error: (err: any) => {
+            Swal.fire(
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            ).then(() => {});
+          },
+        });
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      this.markFormGroupTouched(this.customerForm);
+    }
+  }
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
       }
-      if (this.customerForm.valid) {
-        let phoneNumber = this.customerForm.get('phone')?.value['number'];
-        let code = this.customerForm.get('phone')?.value['dialCode'];
-
-        const model = {
-          code: code,
-          userid: this.userData?.id,
-
-          ...this.customerForm.value,
-          phone: phoneNumber.replace('+', ''),
-          lng: this.longitudeValue ? this.longitudeValue.toString() : '',
-          lat: this.latitudeValue ? this.latitudeValue.toString() : '',
-          note: '',
-        };
-
-        Object.keys(model).forEach(
-          (k) => (model[k] == '' || model[k]?.length == 0) && delete model[k]
-        );
-        console.log(this.BookingInfo);
-
-        this._httpService
-          .post(
-            environment.marsa,
-            'bookinfo/' + this.Bookingid,
-            model
-          )
-          .subscribe({
-            next: (res: any) => {
-              Swal.fire(
-                'Your Booking has been send successfully.',
-                'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
-                'success'
-              );
-              this.btn?.nativeElement.click();
-              this.confirmRequest=res.booking_information
-            },
-            error: (err: any) => {
-              Swal.fire(
-                'Booking Failed',
-                'An error occurred while processing your booking. Please try again later.',
-                'error'
-              ).then(() => {});
-            },
-          });
-      } else {
-        // Mark all form controls as touched to trigger validation messages
-        this.markFormGroupTouched(this.customerForm);
-      }
-    }
-    markFormGroupTouched(formGroup: FormGroup) {
-      Object.values(formGroup.controls).forEach((control) => {
-        control.markAsTouched();
-        if (control instanceof FormGroup) {
-          this.markFormGroupTouched(control);
-        }
-      });
-    }
-    // map
-    openMapModal(): void {
-      const dialogRef = this.dialog.open(MapModalComponent, {
-        width: '100%',
-        data: {
-          mapModalOptions: this.mapModalOptions,
-        },
-        disableClose: true,
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        this.latitudeValue = result.latitude;
-        this.longitudeValue = result.longitude;
-        this.locationValue = `(${result.longitude} - ${result.latitude})`;
-      });
-    }
-    customOptions: OwlOptions = {
-      loop: true,
-      mouseDrag: true,
-      touchDrag: true,
-      pullDrag: true,
-      dots: false,
-      autoplay: true,
-      margin: 10,
-      navSpeed: 700,
-      navText: [
-        "<i class='fa fa-angle-left'></i>",
-        "<i class='fa fa-angle-right'></i>",
-      ],
-      responsive: {
-        0: {
-          items: 1,
-        },
-        740: {
-          items: 4,
-        },
-        940: {
-          items: 4,
-        },
-        1200: {
-          items: 4,
-        },
+    });
+  }
+  // map
+  openMapModal(): void {
+    const dialogRef = this.dialog.open(MapModalComponent, {
+      width: '100%',
+      data: {
+        mapModalOptions: this.mapModalOptions,
       },
-      nav: true,
-    };
-  ReturnToPayment() {
+      disableClose: true,
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      this.latitudeValue = result.latitude;
+      this.longitudeValue = result.longitude;
+      this.locationValue = `(${result.longitude} - ${result.latitude})`;
+    });
+  }
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    autoplay: true,
+    margin: 10,
+    navSpeed: 700,
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      740: {
+        items: 4,
+      },
+      940: {
+        items: 4,
+      },
+      1200: {
+        items: 4,
+      },
+    },
+    nav: true,
+  };
+  ReturnToPayment() {
     if (typeof window !== 'undefined') {
       const storedQueryParams = localStorage.getItem('queryParams');
       if (storedQueryParams) {

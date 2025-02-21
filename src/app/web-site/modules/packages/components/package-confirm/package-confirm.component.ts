@@ -30,7 +30,7 @@ export class PackageConfirmComponent {
   longitudeValue: any;
   showServices: boolean = false;
   customerForm!: FormGroup;
-  userData: any={};
+  userData: any = {};
   @ViewChild('btn') btn: ElementRef | undefined;
   constructor(
     private _httpService: HttpService,
@@ -40,11 +40,10 @@ export class PackageConfirmComponent {
     private _AuthService: AuthService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private titleService: Title,
-
+    private titleService: Title
   ) {}
   ngOnInit(): void {
-    this.titleService.setTitle("Confirm Booking");
+    this.titleService.setTitle('Confirm Booking');
 
     this.initForm();
     this.route.queryParams.subscribe((params: any) => {
@@ -72,6 +71,16 @@ export class PackageConfirmComponent {
       .subscribe((res: any) => {
         this.relatedtrips = res.Relatedtrips;
       });
+  }
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
   }
   initForm() {
     this.customerForm = this.fb.group({
@@ -134,11 +143,7 @@ export class PackageConfirmComponent {
       console.log(this.BookingInfo);
 
       this._httpService
-        .post(
-          environment.marsa,
-          'bookinfo/' + this.Bookingid,
-          model
-        )
+        .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
             Swal.fire(
@@ -147,7 +152,7 @@ export class PackageConfirmComponent {
               'success'
             );
             this.btn?.nativeElement.click();
-            this.confirmRequest=res.booking_information
+            this.confirmRequest = res.booking_information;
           },
           error: (err: any) => {
             Swal.fire(

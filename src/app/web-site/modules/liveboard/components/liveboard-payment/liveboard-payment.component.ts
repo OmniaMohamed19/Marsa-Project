@@ -309,7 +309,7 @@ export class LiveboardPaymentComponent implements OnInit {
             //   this.responseFromAvailableOption?.TotlaPrice -
             //   this.Coupons[0]?.amount;
           },
-          error:(err:any) =>{
+          error: (err: any) => {
             // this.Coupons = false;
           },
         });
@@ -357,8 +357,8 @@ export class LiveboardPaymentComponent implements OnInit {
         error: (err) => {
           this.toastr.error(err.error.message);
           this.coupon = '';
-            this.Coupons = false;
-            const model = {
+          this.Coupons = false;
+          const model = {
             trip_id: this.tripId,
             class: 'collective',
             adult: this.adult,
@@ -390,6 +390,16 @@ export class LiveboardPaymentComponent implements OnInit {
     //   console.log(this.Total);
     // });
     // Coupon
+  }
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
   }
   confirmEdit(event: Event) {
     if (!this.showServices) {
