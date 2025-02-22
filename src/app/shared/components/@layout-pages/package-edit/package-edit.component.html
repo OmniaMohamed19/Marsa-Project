@@ -150,13 +150,27 @@
 
             <div *ngIf="isSmallScreen; else normalImages" class="diving-carousel">
               <owl-carousel-o [options]="carouselOptions">
-                <ng-container *ngFor="let img of [package?.cover1, package?.cover2, package?.cover3]">
+                <ng-container >
                   <ng-template carouselSlide>
-                    <div class="carousel-card" [ngStyle]="{'background-image': 'url(' + img + ')'}">
+                    <div class="carousel-card">
+
+                      <img [src]="package?.cover1" />
+                    </div>
+                  </ng-template>
+                  <ng-template carouselSlide >
+                    <div class="carousel-card">
+                      <img [src]="package?.cover2" />
+                    </div>
+                  </ng-template>
+                  <ng-template carouselSlide>
+                    <div class="carousel-card">
+                      <img [src]="package?.cover3" />
                     </div>
                   </ng-template>
                 </ng-container>
               </owl-carousel-o>
+
+
 
             </div>
 

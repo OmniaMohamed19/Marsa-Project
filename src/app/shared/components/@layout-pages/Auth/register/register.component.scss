@@ -10,14 +10,24 @@ h3 {
   .country-dropdown{
     width: 100% !important;
     padding-top: 16px !important;
+    padding-left: 10px !important;
   }
   ngx-intl-tel-input .dropdown-menu{
     transform: translateX(49px) !important;
 
   }
+  .phone-input .form-control{
+    padding-left: 1px;
+    padding-right: 1px;
+  }
   .iti input#country-search-box {
     font-size: 14px !important;
   }
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input{
+    padding-left: 78px !important;
+
+  }
+
 
 
 }

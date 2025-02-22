@@ -14,7 +14,7 @@ export class PackageEditComponent implements OnInit {
 
   carouselOptions = {
     loop: true,
-    autoplay:true,
+    autoplay:false,
     margin: 10,
     nav: false,
     dots: false,
@@ -66,7 +66,9 @@ export class PackageEditComponent implements OnInit {
         console.error('Error fetching data:', error);
       },
     });
+
   }
+
 
   selectTab(index: number) {
     this.selectedTabId = index;
