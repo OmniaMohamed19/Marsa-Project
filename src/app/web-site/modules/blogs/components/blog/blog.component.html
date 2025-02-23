@@ -97,7 +97,43 @@
 
 
           </div>
+          <div *ngIf="isMobile">
 
+            <div class="border border-color-7 rounded p-4 mb-5 booking">
+              <h6 class="mx-2 mb-3 pb-1 head">Why Book With Us?</h6>
+              <div
+                class="d-flex align-items-center mb-3"
+                *ngFor="let about of Why_chosse_us"
+              >
+                <img
+                  [src]="about.icon"
+                  class="me-3"
+                  [alt]="about.title"
+                  loading="lazy"
+                  width="24"
+                  height="24"
+                />
+                <h6 class="mb-0 font-size-14 text-gray-1">
+                  <a>{{ about.title }}</a>
+                </h6>
+              </div>
+            </div>
+    
+            <div class="border border-color-7 rounded p-4">
+              <h6 class="tags mx-1 mb-3 pb-1">Tags</h6>
+              <div class="d-flex flex-wrap">
+                <ng-container *ngFor="let tag of allTags">
+                  <a
+                  class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
+                  style="white-space: normal; word-break: break-word;"
+                >
+                  {{ tag }}
+                </a>
+    
+                </ng-container>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -203,55 +239,53 @@
                 >{{ item.name }}</span
               >
             </a>
-            <!-- <a class="d-block">
-              <span
-                class="font-weight-normal ps-3"
-                (click)="filterByCategory(item.id)"
-                [class.activeLink]="activeCategory === item.id"
-                >{{ item.name }}</span
-              >
-            </a> -->
+           
 
 
 
           </li>
         </ul>
 
-        <div class="border border-color-7 rounded p-4 mb-5 booking">
-          <h6 class="mx-2 mb-3 pb-1 head">Why Book With Us?</h6>
-          <div
-            class="d-flex align-items-center mb-3"
-            *ngFor="let about of Why_chosse_us"
-          >
-            <img
-              [src]="about.icon"
-              class="me-3"
-              [alt]="about.title"
-              loading="lazy"
-              width="24"
-              height="24"
-            />
-            <h6 class="mb-0 font-size-14 text-gray-1">
-              <a>{{ about.title }}</a>
-            </h6>
-          </div>
-        </div>
+        <div *ngIf="!isMobile">
 
-        <div class="border border-color-7 rounded p-4">
-          <h6 class="tags mx-1 mb-3 pb-1">Tags</h6>
-          <div class="d-flex flex-wrap">
-            <ng-container *ngFor="let tag of getUniqueTags()">
-              <a
-              class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
-              style="white-space: normal; word-break: break-word;"
+          <div class="border border-color-7 rounded p-4 mb-5 booking">
+            <h6 class="mx-2 mb-3 pb-1 head">Why Book With Us?</h6>
+            <div
+              class="d-flex align-items-center mb-3"
+              *ngFor="let about of Why_chosse_us"
             >
-              {{ tag }}
-            </a>
-
-            </ng-container>
+              <img
+                [src]="about.icon"
+                class="me-3"
+                [alt]="about.title"
+                loading="lazy"
+                width="24"
+                height="24"
+              />
+              <h6 class="mb-0 font-size-14 text-gray-1">
+                <a>{{ about.title }}</a>
+              </h6>
+            </div>
+          </div>
+  
+          <div class="border border-color-7 rounded p-4">
+            <h6 class="tags mx-1 mb-3 pb-1">Tags</h6>
+            <div class="d-flex flex-wrap">
+              <ng-container *ngFor="let tag of getUniqueTags()">
+                <a
+                class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
+                style="white-space: normal; word-break: break-word;"
+              >
+                {{ tag }}
+              </a>
+  
+              </ng-container>
+            </div>
           </div>
         </div>
+
       </div>
+      
     </div>
   </div>
   <div class="border border-color-8"></div>

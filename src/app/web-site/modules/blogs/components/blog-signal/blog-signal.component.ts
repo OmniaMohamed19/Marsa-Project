@@ -29,6 +29,8 @@ export class BlogSignalComponent implements OnInit {
   comment: any;
   userData: any;
   review:any;
+  isMobile = false;
+
   constructor(
     public translate: TranslateService,
     private route: ActivatedRoute,
@@ -38,7 +40,11 @@ export class BlogSignalComponent implements OnInit {
     private headerService: HeaderService,
     private _AuthService: AuthService,
     private titleService: Title,
-  ) {}
+  ) {
+    if (window.screen.width < 992) {
+      this.isMobile = true;
+    }
+  }
 
   ngOnInit(): void {
     this.titleService.setTitle('Blog Single');

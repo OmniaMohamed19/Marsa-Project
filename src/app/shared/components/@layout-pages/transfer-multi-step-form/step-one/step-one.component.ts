@@ -228,7 +228,10 @@ export class StepOneComponent implements OnInit {
       });
       hasError = true;
     }
-    if (!this.return_time) {
+    if (this.activeSection == 2){
+
+    
+     if( !this.return_time) {
       this.toastr.info('Please choose your return time.', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -238,8 +241,8 @@ export class StepOneComponent implements OnInit {
       });
       hasError = true;
     }
+  }
 
-    // إذا لم تكن هناك أخطاء، تابع حفظ البيانات
     if (!hasError) {
       if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.setItem('formData', JSON.stringify(this.formData));

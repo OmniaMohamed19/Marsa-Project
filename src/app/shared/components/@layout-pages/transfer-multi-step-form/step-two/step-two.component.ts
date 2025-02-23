@@ -174,18 +174,17 @@ export class StepTwoComponent implements OnInit {
       option.number = 0;
     }
     option.number++;
-    this.savenumberOfOption(option); // تحديث القيمة
+    this.savenumberOfOption(option); 
   }
 
   decrement(option: any): void {
     if (option.number > 0) {
       option.number--;
-      this.savenumberOfOption(option); // تحديث القيمة
+      this.savenumberOfOption(option); 
     }
   }
 
   nextStep(): void {
-    // تحقق من الخيارات غير الصالحة
     const invalidOptions = Object.values(this.formData.selectedOptions).filter((option: any) => {
       return option && (!option.number || option.number <= 0);
     });
