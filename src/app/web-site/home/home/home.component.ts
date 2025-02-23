@@ -110,7 +110,6 @@ export class HomeComponent implements OnInit {
         const sitemap = this.metaDetail?.sitemap;
 
         if (sitemap) {
-          // استخدم الرابط الخاص بـ sitemap.xml
           this.seoService.setSitemapURL(sitemap);
         }
       }

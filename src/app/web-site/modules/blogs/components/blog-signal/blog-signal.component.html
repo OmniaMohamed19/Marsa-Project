@@ -101,7 +101,7 @@
                       *ngFor="let review of review?.slice(0, 1).reverse()">
                       <div class="mr-md-5">
                         <a class="d-block" href="#">
-                          <img style="" class="comment-img mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
+                          <img  class="comment-img mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
                             [alt]="review?.name || '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
                             (error)="handleImageError($event)" />
                         </a>
