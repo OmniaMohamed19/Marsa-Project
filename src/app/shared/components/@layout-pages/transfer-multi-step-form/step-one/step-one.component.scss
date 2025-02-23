@@ -133,7 +133,7 @@ font-size: 20px;
     margin-top: 3.2rem;
     .bold-heading{
       font-weight: 700;
-      margin-top: 2rem;
+      margin-bottom: 2rem;
       color: #2d303c;
       font-size: 22px;
     }
@@ -319,9 +319,9 @@ font-size: 20px;
 
 /********************************/
 @media screen and (max-width:992px){
-  .car1  .bold-heading{
+  .car1  .thin-heading{
     font-size: 20px;
-    margin-top: 0rem;
+    margin-top: -1rem;
     margin-bottom: 1rem;
   }
   h2.title {

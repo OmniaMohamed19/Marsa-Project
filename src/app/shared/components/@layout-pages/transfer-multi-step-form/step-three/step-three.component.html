@@ -242,12 +242,18 @@
                   SavedaddOnDetails?.maintotal
                 }}$</span>
               </li> -->
-              <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
-                <span class="font-weighted">Total After Discount</span>
-                <span>{{
-                  SavedaddOnDetails?.Total
-                  }}$</span>
-              </li>
+             
+              <div class="d-flex justify-content-between mt-5">
+                <div class="col-6 px-0">
+                  <span class="person">Total After Discount </span>
+                </div>
+                <div class="col-4">
+                  <span class="age">${{
+                   SavedaddOnDetails?.Total
+  
+                    }}</span>
+                </div>
+              </div>
             </ng-container>
             <!-- <div class="d-flex justify-content-between mt-5">
               <div class="col-6 px-0">

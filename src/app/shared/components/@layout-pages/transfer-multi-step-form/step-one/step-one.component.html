@@ -230,7 +230,9 @@
             <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
               [separateDialCode]="true" [selectFirstCountry]="true" readonly [maxLength]="20" name="phoneNumber"
               [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
-              [(ngModel)]="formData.phoneNumber" class="custom-tel-input" required #phoneNumberInput="ngModel"
+              [(ngModel)]="formData.phoneNumber"
+              
+               class="custom-tel-input" required #phoneNumberInput="ngModel"
               required > </ngx-intl-tel-input>
           </div>
         </div>
