@@ -8,7 +8,7 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { HeaderService } from 'src/app/shared/services/header.service';
 import { environment } from 'src/environments/environment.prod';
-
+import { format, parse, subHours } from 'date-fns';
 @Component({
   selector: 'app-check-availpilty',
   templateUrl: './check-availpilty.component.html',
@@ -69,6 +69,35 @@ export class CheckAvailpiltyComponent {
       this.getTripById(this.tripId);
     }
   }
+   formatDate(CancelationtTime:any, selected_date:any) {
+    if (!selected_date) {
+      throw new Error('selected_date is undefined');
+    }
+    // Parsear la fecha seleccionada
+    const [day, month, year] = selected_date?.split('/').map(Number);
+    const parsedDate = new Date(year, month - 1, day);
+
+    // Restar las horas de cancelación
+    parsedDate.setHours(parsedDate.getHours() - CancelationtTime);
+
+    // Formatear la nueva fecha
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const dayOfWeek = daysOfWeek[parsedDate.getDay()];
+    const dayOfMonth = parsedDate.getDate();
+    const monthName = monthsOfYear[parsedDate.getMonth()];
+    const yearNumber = parsedDate.getFullYear();
+
+    let hours = parsedDate.getHours();
+    const minutes = parsedDate.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+
+    const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${monthName}, ${yearNumber} ${hours}:${minutes} ${ampm}`;
+    return formattedDate;
+   }
   subtract12Hours(dateString:any) {
     let [datePart, hourPart] = dateString.split(" ");
     let [day, month, year] = datePart.split("/").map(Number);
