@@ -24,14 +24,19 @@ export class BlogComponent implements OnInit {
   page!: number;
   last_page!: number;
   productTotal!: number;
-
+  isMobile = false;
+  allTags:any=[];
   constructor(
     private _httpService: HttpService,
     public translate: TranslateService,
     private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
-  ) {}
+  ) {
+    if (window.screen.width < 992) {
+      this.isMobile = true;
+    }
+  }
 
   ngOnInit(): void {
     this.titleService.setTitle('Blogs');
@@ -56,22 +61,27 @@ export class BlogComponent implements OnInit {
   }
 
   getBlogs() {
-    //this.blogs = [];
     this.pages = [];
     this._httpService.get('marsa', `blog`, { page: this.page }).subscribe({
       next: (response: any) => {
-
         this.blogs = response?.Blogs?.data;
-       
         this.cover = response?.cover;
         this.filteredBlogs = this.blogs;
         this.allCategories = response?.allCategory;
         this.last_page = response?.Blogs?.last_page;
         this.productTotal = response?.Blogs?.total;
         this.pages = Array.from({ length: this.last_page }, (_, i) => i + 1);
+  
+        // استخراج جميع "Tages" في مصفوفة واحدة
+        this.allTags = this.blogs
+          .map((blog: { Tages: any; }) => blog.Tages || []) // استخراج المصفوفات
+          .flat(); // دمج جميع المصفوفات في مصفوفة واحدة
+  
+        this.allTags = Array.from(new Set(this.allTags));
       },
     });
   }
+  
 
   next() {
     this.page = this.page < this.last_page ? this.page + 1 : this.page;
@@ -113,8 +123,8 @@ export class BlogComponent implements OnInit {
     const uniqueTags = new Set<string>();
     if (this.filteredBlogs && Array.isArray(this.filteredBlogs)) {
       this.filteredBlogs.forEach((blog: any) => {
-        if (blog.seo && Array.isArray(blog.seo)) {
-          blog.seo.forEach((tag: any) => {
+        if (blog.Tages && Array.isArray(blog.Tages)) {
+          blog.Tages.forEach((tag: any) => {
             uniqueTags.add(tag);
           });
         }

@@ -91,7 +91,7 @@
               <mat-form-field appearance="outline">
                 <mat-label>Pickup Time</mat-label>
                 <input matInput  [(ngModel)]="formData.pickuptime" placeholder="Pick up time"
-                 name="formData.pickuptime" [ngxTimepicker]="pickuptime" >
+                 name="formData.pickuptime" [ngxTimepicker]="pickuptime" required>
                 <ngx-material-timepicker-toggle matSuffix [for]="pickuptime"></ngx-material-timepicker-toggle>
                 <ngx-material-timepicker #pickuptime></ngx-material-timepicker>
               </mat-form-field>
@@ -176,7 +176,8 @@
 
                 <mat-form-field appearance="outline">
                   <mat-label>Return Time</mat-label>
-                  <input matInput [(ngModel)]="return_time" name="return_time" [ngxTimepicker]="returnpicker" placeholder="Return time">
+                  <input matInput [(ngModel)]="return_time" name="return_time" [ngxTimepicker]="returnpicker" placeholder="Return time"
+                  required>
                   <ngx-material-timepicker-toggle matSuffix [for]="returnpicker"></ngx-material-timepicker-toggle>
                   <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
                 </mat-form-field>
