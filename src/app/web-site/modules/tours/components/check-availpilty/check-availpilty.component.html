@@ -92,9 +92,9 @@
                 <p>
                   Cancel before
                   {{
-                    subtract12Hours(
-                      booking_date + " " + activityData?.CancelationtTime
-                    )
+                    activityData?.CancelationtTime && booking_date
+                      ? formatDate(activityData.CancelationtTime, booking_date)
+                      : 'Invalid date'
                   }}
                   a full refund
                 </p>

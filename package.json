@@ -38,6 +38,7 @@
     "@popperjs/core": "^2.11.6",
     "@types/intl-tel-input": "^18.1.4",
     "bootstrap": "^5.3.3",
+    "date-fns": "^4.1.0",
     "dragula": "^3.7.3",
     "express": "^4.15.2",
     "google-libphonenumber": "^3.2.34",
