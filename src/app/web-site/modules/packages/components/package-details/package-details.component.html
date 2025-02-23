@@ -94,14 +94,22 @@
       <div class="col-lg-6 position-relative">
         <div *ngIf="isSmallScreen; else normalImages" class="diving-carousel">
           <owl-carousel-o [options]="carouselOptions">
-            <ng-container
-              *ngFor="let img of [rows?.cover1, rows?.cover2, rows?.cover3]"
-            >
+            <ng-container >
               <ng-template carouselSlide>
-                <div
-                  class="carousel-card"
-                  [ngStyle]="{ 'background-image': 'url(' + img + ')' }"
-                ></div>
+                <div class="carousel-card">
+
+                  <img [src]="rows?.cover1" />
+                </div>
+              </ng-template>
+              <ng-template carouselSlide >
+                <div class="carousel-card">
+                  <img [src]="rows?.cover2" />
+                </div>
+              </ng-template>
+              <ng-template carouselSlide>
+                <div class="carousel-card">
+                  <img [src]="rows?.cover3" />
+                </div>
               </ng-template>
             </ng-container>
           </owl-carousel-o>
