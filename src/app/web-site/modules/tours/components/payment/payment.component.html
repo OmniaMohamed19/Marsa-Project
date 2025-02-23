@@ -11,7 +11,7 @@
               activityData.bookingOption.length > 0
             "
           >
-            <div class="pt-4 pb-5 px-5">
+            <div class="pt-4 pb-5 px-md-5">
               <h5
                 id="scroll-description"
                 class="font-size-21 font-weight-bold text-dark mb-4"
@@ -448,7 +448,7 @@
                     </div>
                   </a>
                 </li>
-                <li class="nav-item w-100 mb-2 mb-md-0">
+                <li class="nav-item w-100 mb-2 mb-md-0 mt-md-0 mt-3">
                   <a
                     class="rounded py-5 border-width-2 border nav-link font-weight-medium"
                     id="pills-one-example2-tab"
@@ -784,32 +784,8 @@
                         }}</span>
                       </li>
 
-                      <!-- <li class="d-flex justify-content-between py-2">
-                                          <span class="font-weight-medium">Tax</span>
-                                          <span class="text-secondary">0 %</span>
-                                      </li> -->
-
-                      <!-- <li
-                  class="d-flex justify-content-between py-2 font-size-17"
-                  style="font-weight: 700"
-                >
-                  <span style="font-weight: 700">Price</span>
-                  <span style="font-weight: 700">{{
-                    avilableOptions?.TotlaPrice
-                  }}</span>
-                </li> -->
-                      <!-- <li
-                        *ngIf="Coupons"
-                        class="d-flex justify-content-between py-2 font-size-17"
-                        style="font-weight: 700"
-                      >
-                        <span style="font-weight: 700">Coupon</span>
-                        <span style="font-weight: 700"
-                          >
-                          ${{ Coupons[0]?.amount }}
-                          </span
-                        >
-                      </li> -->
+            
+                    
                       <li
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
@@ -841,15 +817,7 @@
                         }}</span>
                       </li>
 
-                      <!-- <li
-                        class="d-flex justify-content-between py-2"
-                        *ngFor="let item of responseFromAvailableOption?.option"
-                      >
-                        <span class="font-weight-medium">{{
-                          item?.title
-                        }}</span>
-                        <span class="text-secondary">{{ item?.total }}</span>
-                      </li> -->
+                    
 
                       <li class="d-flex justify-content-between py-2">
                         <span class="font-weight-medium">{{
@@ -864,18 +832,7 @@
                         >
                       </li>
 
-                      <!-- <li
-                        *ngIf="Coupons"
-                        class="d-flex justify-content-between py-2 font-size-17"
-                        style="font-weight: 700"
-                      >
-                        <span style="font-weight: 700">Coupon</span>
-                        <span style="font-weight: 700"
-                          >
-                          ${{ Coupons[0]?.amount }}
-                          </span
-                        >
-                      </li> -->
+                     
                       <li
                         class="d-flex justify-content-between py-2 font-size-17"
                         style="font-weight: 700"
@@ -898,9 +855,7 @@
                             >${{ responseFromAvailableOption?.maintotal }}</span
                           >
                         </ng-container>
-                        <!-- <span>${{
-                    responseFromAvailableOption?.TotlaPrice
-                    }}</span> -->
+                      
                       </li>
                       <li
                         *ngIf="Coupons"

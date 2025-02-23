@@ -19,216 +19,86 @@
           ></i>
           <span class="text-primary ml-2">Boats Filter</span>
         </button>
-        <div id="sidebar" *ngIf="showFilter || !isMobile">
-          <div class="mb-6 w-100">
-            <div class="pb-4 mb-2">
-              <div class="sidebar border border-color-1 rounded-xs">
-                <div class="p-4 mx-1 mb-1">
-                  <!-- Input -->
-                  <span
-                    class="d-block text-gray-1 font-weight-normal mb-0 text-left"
-                    >Destination</span
+        <div class="pb-4 mb-2">
+          <div class="sidebar border border-color-1 rounded-xs">
+            <div class="p-4 mx-1 mb-1">
+              <!-- Input -->
+              <span
+                class="d-block text-gray-1 font-weight-normal mb-0 text-left"
+                >Destination</span
+              >
+              <div class="mb-4">
+                <div
+                  class="input-group border-bottom border-width-2 border-color-1"
+                >
+                  <img
+                    src="/assets/custom/Activity/location.svg"
+                    class="me-2"
+                    alt="loation"
+                  />
+                  <select
+                    [(ngModel)]="place_id"
+                    (change)="searchDestination($event)"
+                    class="form-select border-0 border-bottom"
+                    aria-label="Select example"
                   >
-                  <div class="mb-4">
-                    <div
-                      class="input-group border-bottom border-width-2 border-color-1"
+                    <option
+                      class="input-field"
+                      selected
+                      disabled
+                      [value]="null"
+                      hidden
                     >
-                      <img
-                        src="/assets/custom/Activity/location.svg"
-                        class="me-2"
-                        alt="loation"
-                      />
-                      <select
-                        [(ngModel)]="place_id"
-                        (change)="searchDestination($event)"
-                        class="form-select border-0 border-bottom"
-                        aria-label="Select example"
-                      >
-                        <option
-                          class="input-field"
-                          selected
-                          disabled
-                          [value]="null"
-                          hidden
-                        >
-                          Where are you going?
-                        </option>
-                        <option
-                          *ngFor="let dist of destination"
-                          [value]="dist.id"
-                        >
-                          {{ dist.name }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- End Input -->
-                  <!-- Input -->
-                  <!-- <span
-                    class="d-block text-gray-1 text-left font-weight-normal mb-0"
-                    >Date</span
-                  >
-                  <div class="border-bottom border-width-2 border-color-1 mb-4">
-                    <div
-                      id="datepickerWrapperFromOne"
-                      class="u-datepicker input-group flex-nowrap"
+                      Where are you going?
+                    </option>
+                    <option
+                      *ngFor="let dist of destination"
+                      [value]="dist.id"
                     >
-                      <div class="input-group-prepend">
-                        <span
-                          class="d-flex align-items-center mr-2 font-size-21"
-                        >
-                          <img
-                            src="assets/custom/Activity/calender.svg"
-                            class="me-2"
-                            alt="calendar"
-                          />
-                        </span>
-                      </div>
-                      <input
-                      [(ngModel)]="start_d"
-                      (change)="filterByDate($event)"
-                      [min]="minDate"
-                      class="js-range-datepicker font-size-16 ml-1 shadow-none font-weight-bold form-control hero-form bg-transparent border-0 flatpickr-input p-0"
-                      type="date"
-                      data-rp-wrapper="#datepickerWrapperFromOne"
-                      data-rp-type="range"
-                      data-rp-date-format="M d / Y"
-                      data-rp-default-date='["Jul 7 / 2020", "Aug 25 / 2020"]'
-                    />
-                    </div>
-                  </div> -->
-                  <!-- End Input -->
+                      {{ dist.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+             
 
-                  <div class="col dropdown-custom px-0 mb-5">
-                    <!-- Input -->
-                    <span
-                      class="d-block text-gray-1 text-left font-weight-normal mb-2"
-                      >Trip Type</span
-                    >
-                    <div
-                      class="flex-horizontal-center border-bottom border-width-2 border-color-1 pb-2"
-                    >
-                      <img
-                        src="assets/custom/Activity/booking.svg"
-                        class="me-2"
-                        alt="boking"
-                      />
-                      <select
-                        class="form-select js-select selectpicker dropdown-select bootstrap-select__custom-nav truncate-select"
-                        (change)="searchByType($event)"
-                      >
-                        <option [value]="null" selected>All</option>
-                        <option *ngFor="let item of types" [value]="item.id">
-                          {{ item.type }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
+              <div class="col dropdown-custom px-0 mb-5">
+                <!-- Input -->
+                <span
+                  class="d-block text-gray-1 text-left font-weight-normal mb-2"
+                  >Trip Type</span
+                >
+                <div
+                  class="flex-horizontal-center border-bottom border-width-2 border-color-1 pb-2"
+                >
+                  <img
+                    src="assets/custom/Activity/booking.svg"
+                    class="me-2"
+                    alt="boking"
+                  />
+                  <select
+                    class="form-select js-select selectpicker dropdown-select bootstrap-select__custom-nav truncate-select"
+                    (change)="searchByType($event)"
+                  >
+                    <option [value]="null" selected>All</option>
+                    <option *ngFor="let item of types" [value]="item.id">
+                      {{ item.type }}
+                    </option>
+                  </select>
                 </div>
               </div>
             </div>
-            <!-- <div class="pb-4 mb-2">
-                                    <a href="https://goo.gl/maps/kCVqYkjHX3XvoC4B9"
-                                        class="d-block border border-color-1 rounded-xs">
-                                        <img src="assets/img/map-markers/map.jpg" alt="" width="100%">
-                                    </a>
-                                </div> -->
+          </div>
+        </div>
+
+        <div id="sidebar" *ngIf="showFilter || !isMobile">
+          <div class="mb-6 w-100">
+
+
 
             <div class="sidenav border border-color-8 rounded-xs">
               <!-- Accordiaon -->
-              <!-- <div id="shopRatingAccordion" class="accordion rounded-0 shadow-none border-bottom">
-                                        <div class="border-0">
-                                            <div class="card-collapse" id="shopCategoryHeadingOne">
-                                                <h3 class="mb-0">
-                                                    <button type="button"
-                                                        class="btn btn-link btn-block card-btn py-2 px-5 text-lh-3 collapsed"
-                                                        data-toggle="collapse" data-target="#shopRatingOne" aria-expanded="false"
-                                                        aria-controls="shopRatingOne">
-                                                        <span class="row align-items-center">
-                                                            <span class="col-9">
-                                                                <span class="heading">Star Ratings</span>
-                                                            </span>
 
-                                                        </span>
-                                                    </button>
-                                                </h3>
-                                            </div>
-                                            <div id="shopRatingOne" class="collapse show" aria-labelledby="shopCategoryHeadingOne"
-                                                data-parent="#shopRatingAccordion">
-                                                <div class="card-body pt-0 mt-1 px-5">
-                                                    <div class="form-group font-size-14 text-lh-md text-secondary mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="brandAdidas">
-                                                            <label class="custom-control-label text-lh-inherit text-color-1"
-                                                                for="brandAdidas">
-                                                                <div
-                                                                    class="d-inline-flex align-items-center font-size-13 text-lh-1 text-primary">
-                                                                    <div class="ml-1 letter-spacing-2" style="color: #FFF500;">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group font-size-14 text-lh-md text-secondary mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="brandNewBalance">
-                                                            <label class="custom-control-label text-lh-inherit text-color-1"
-                                                                for="brandNewBalance">
-                                                                <div
-                                                                    class="d-inline-flex align-items-center font-size-13 text-lh-1 text-primary">
-                                                                    <div class="green-lighter ml-1 letter-spacing-2"
-                                                                        style="color: #FFF500;">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group font-size-14 text-lh-md text-secondary mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="brandNike">
-                                                            <label class="custom-control-label text-lh-inherit text-color-1"
-                                                                for="brandNike">
-                                                                <div
-                                                                    class="d-inline-flex align-items-center font-size-13 text-lh-1 text-primary">
-                                                                    <div class="green-lighter ml-1 letter-spacing-2"
-                                                                        style="color: #FFF500;">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group font-size-14 text-lh-md text-secondary mb-3">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="brandFredPerry">
-                                                            <label class="custom-control-label text-lh-inherit text-color-1"
-                                                                for="brandFredPerry">
-                                                                <div
-                                                                    class="d-inline-flex align-items-center font-size-13 text-lh-1 text-primary">
-                                                                    <div class="green-lighter ml-1 letter-spacing-2"
-                                                                        style="color: #FFF500;">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
               <div
                 id="priceCartAccordion"
                 class="accordion rounded shadow-none"

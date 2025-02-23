@@ -107,8 +107,22 @@ body {
   //height: 65vh;
   margin: auto;
 }
+.liveaboard-contant{
+  margin-top: 50px
+}
+.comment-img{
+  width: 198px ; 
+  height: 183px ;
+}
 
 @media (max-width: 768px) {
+  .comment-img{
+    width: 160px ; 
+    height: 160px ;
+  }
+  .liveaboard-contant{
+    margin-top: 20px
+  }
   .my-tours-work {
     .owl-item {
       max-width: 100% !important;

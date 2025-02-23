@@ -617,7 +617,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
   confirmBooking() {
     const termsCheckbox = document.getElementById(
-      'termsCheckbox'
+      'termsCheckbox2'
     ) as HTMLInputElement;
 
     if (!termsCheckbox.checked) {

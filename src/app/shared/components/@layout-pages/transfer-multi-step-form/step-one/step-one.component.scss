@@ -67,7 +67,7 @@ h2.title {
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    line-height: 35px;
     margin-bottom: 23px;
     margin-top: 40px;
 }
@@ -122,15 +122,15 @@ h2.title {
 
 
 
+.thin-heading{
+  font-weight: 300;
+color: #5e616f;
+margin-bottom: .5em;
+font-family: 'Open Sans', sans-serif !important;
+font-size: 20px;
+}
 .car1 {
     margin-top: 3.2rem;
-    .thin-heading{
-      font-weight: 300;
-    color: #5e616f;
-    margin-bottom: .5em;
-    font-family: 'Open Sans', sans-serif !important;
-    font-size: 20px;
-    }
     .bold-heading{
       font-weight: 700;
       margin-top: 2rem;
@@ -321,6 +321,8 @@ h2.title {
 @media screen and (max-width:992px){
   .car1  .bold-heading{
     font-size: 20px;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
   }
   h2.title {
     font-size: 19px;

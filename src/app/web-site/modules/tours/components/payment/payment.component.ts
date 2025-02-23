@@ -667,7 +667,7 @@ export class PaymentComponent {
 
   confirmBooking() {
     const termsCheckbox = document.getElementById(
-      'termsCheckbox'
+      'termsCheckbox2'
     ) as HTMLInputElement;
     if (!termsCheckbox.checked) {
       this.toastr.warning(

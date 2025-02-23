@@ -170,17 +170,17 @@ span {
   text-align: left;
 }
 .top-margin {
-  margin-top: 50px;
+  margin-top:20px;
 }
 .truncate-select {
-  max-width: 200px;
+ // max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .truncate-select option {
-  white-space: normal; 
+  white-space: normal;
 }
 
 @media (max-width:1480px) {

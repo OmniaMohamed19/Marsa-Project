@@ -264,15 +264,6 @@
 
 
         </div>
-
-
-
-
-
-
-
-
-
       </div>
     </div>
 
@@ -280,7 +271,78 @@
     <!-- /////////All Activities///// -->
     <div id="all-activity mb-3">
       <h4>All Activities</h4>
-      <div class="d-flex justify-content-between align-items-center mt-5 w-100 flex-wrap mb-3">
+
+      <!-- <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
+        <div class="dropdown-container">
+          <label for="tripType" class="form-label">Trip Types</label>
+          <select id="tripType" class="form-select" (change)="filterTripType($event)">
+            <option [value]="null">All Trip types</option>
+            <option *ngFor="let type of placeDetails?.typeTrip" [value]="type?.id">
+              {{ type?.type }}
+            </option>
+          </select>
+        </div>
+
+        <div class="dropdown-container">
+          <label for="duration" class="form-label">Duration</label>
+          <select id="duration" class="form-select" (change)="filterDuration($event)">
+            <option [value]="'all'">All Durations</option>
+            <option *ngFor="let type of placeDetails?.duration" [value]="type?.id">
+              {{ type?.start }} - {{ type?.end }} {{ type?.typetime }}
+            </option>
+          </select>
+        </div>
+
+        <div class="dropdown-container">
+          <label for="time" class="form-label">Time</label>
+          <select id="time" class="form-select" (change)="filterTime($event)">
+            <option [value]="'all'">All Times</option>
+            <option *ngFor="let type of placeDetails?.time" [value]="type?.id">
+              {{ type?.start }} - {{ type?.end }}
+            </option>
+          </select>
+        </div>
+      </div> -->
+
+      <div *ngIf="isMobile; else normalFilters" class="dropdown">
+        <button
+        style="border-radius: 8px !important; width: 55%;"
+         class="btn btn-outline-primary mt-4 mb-4 dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Filter
+        </button>
+        <ul class="dropdown-menu p-3" aria-labelledby="filterDropdown">
+          <li>
+            <label for="tripType" class="form-label">Trip Types</label>
+            <select id="tripType" class="form-select" (change)="filterTripType($event)">
+              <option [value]="null">All Trip types</option>
+              <option *ngFor="let type of placeDetails?.typeTrip" [value]="type?.id">
+                {{ type?.type }}
+              </option>
+            </select>
+          </li>
+          <li>
+            <label for="duration" class="form-label mt-2">Duration</label>
+            <select id="duration" class="form-select" (change)="filterDuration($event)">
+              <option [value]="'all'">All Durations</option>
+              <option *ngFor="let type of placeDetails?.duration" [value]="type?.id">
+                {{ type?.start }} - {{ type?.end }} {{ type?.typetime }}
+              </option>
+            </select>
+          </li>
+          <li>
+            <label for="time" class="form-label mt-2">Time</label>
+            <select id="time" class="form-select" (change)="filterTime($event)">
+              <option [value]="'all'">All Times</option>
+              <option *ngFor="let type of placeDetails?.time" [value]="type?.id">
+                {{ type?.start }} - {{ type?.end }}
+              </option>
+            </select>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 🖥️ الشاشات الكبيرة -->
+      <ng-template #normalFilters>
         <div class="d-flex justify-content-start align-items-center gap-3 flex-wrap">
           <div class="dropdown-container">
             <label for="tripType" class="form-label">Trip Types</label>
@@ -312,9 +374,8 @@
             </select>
           </div>
         </div>
+      </ng-template>
 
-
-      </div>
 
       <h5>{{ AllActivities?.length }} Activities found</h5>
       <div class="row g-4 p-4">

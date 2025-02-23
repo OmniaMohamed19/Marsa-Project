@@ -38,7 +38,7 @@ ul li button {
   width: auto;
 }
 .truncate-select {
-  max-width: 200px; 
+ // max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -59,14 +59,6 @@ ul li button {
   font-size: 20px;
 }
 
-// .card p {
-//     color: #3B444F;
-//     font-family: Lato;
-//     font-size: 17px;
-//     font-style: normal;
-//     font-weight: 700;
-//     line-height: normal;
-// }
 
 .btns button {
   color: #0057ff;
@@ -194,10 +186,20 @@ span {
   letter-spacing: 0em;
   text-align: left;
 }
-.top-margin {
-  margin-top: 50px;
-}
+
 @media (max-width: 768px) {
+  ::ng-deep  p-inputnumber{
+    margin-top: 1rem !important;
+    width: 100% !important;
+    justify-content: center;
+   span{
+    width: 50% !important;
+   }
+   input{
+    max-width: 100% !important;
+    text-align: center;
+   }
+  }
   h3 {
 
     font-size: 20px;

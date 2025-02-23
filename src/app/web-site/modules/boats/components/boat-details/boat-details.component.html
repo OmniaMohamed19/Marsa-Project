@@ -25,7 +25,7 @@
       </nav>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-xl-9 py-5">
+      <div class="col-lg-8 col-xl-9 py-md-5 py-2">
         <div
           class="d-block d-md-flex flex-center-between align-items-start mb-3"
         >
@@ -110,7 +110,10 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.PrintedOrMobileVoucherAccepted > 0"
             >
-              <img src="assets/custom/Activity/booking.svg" alt="booking" />
+              <img src="assets/custom/Activity/booking.svg"
+              width="24"
+              height="24"
+              alt="booking" />
               <div class="ml-1 text-gray-1">
                 Printed or mobile voucher accepted
               </div>
@@ -123,7 +126,9 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.OpenDateTicket > 0"
             >
-              <img src="assets/custom/Activity/document.svg" alt="document" />
+              <img src="assets/custom/Activity/document.svg"
+              width="24"
+              height="24" alt="document" />
               <div class="ml-1 text-gray-1">Open Date Ticket</div>
             </li>
             <li
@@ -728,11 +733,8 @@
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
                         <img
-                          style="
-                            width: 198px !important;
-                            height: 183px !important;
-                          "
-                          class="mb-3 mb-md-0 rounded-circle"
+                         
+                          class=" comment-img mb-3 mb-md-0 rounded-circle"
                           [src]="
                             review?.avatar ||
                             '../../../../../../assets/custom/user-dasboard/avatar-place.png'
@@ -832,8 +834,8 @@
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
                       <img
-                      style="width: 198px !important; height: 183px !important;"
-                        class="img-fluid mb-3 mb-md-0 rounded-circle"
+                     
+                        class=" comment-img img-fluid mb-3 mb-md-0 rounded-circle"
                         [src]="review?.avatar"
                         [alt]="review?.name"
                       />

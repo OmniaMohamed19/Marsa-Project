@@ -194,45 +194,62 @@ export class StepOneComponent implements OnInit {
   }
   // Function to proceed to the next step
   saveFormData(form: NgForm): void {
+    let hasError = false; // متغير لتتبع الأخطاء
 
-    if (form.valid && this.selectedCarId != undefined) {
-      // Save the entire formData to localStorage
+    if (!form.valid) {
+      this.toastr.info('Please enter all required fields.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      hasError = true;
+    }
+
+    if (!this.selectedCarId) {
+      this.toastr.info('Please choose a car before booking.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      hasError = true;
+    }
+
+    if (!this.formData.pickuptime) {
+      this.toastr.info('Please choose your pickup time.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      hasError = true;
+    }
+    if (!this.return_time) {
+      this.toastr.info('Please choose your return time.', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      hasError = true;
+    }
+
+    // إذا لم تكن هناك أخطاء، تابع حفظ البيانات
+    if (!hasError) {
       if (typeof window !== 'undefined' && window.localStorage) {
-
         localStorage.setItem('formData', JSON.stringify(this.formData));
         localStorage.setItem('returnPickuptime', this.return_time || '');
       }
       this.next.emit();
       window.scrollTo(0, 0);
     }
-    else {
-      if (form.valid == false) {
-        this.toastr.info('Please enter all required fields. ', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-
-
-      }
-
-      if (this.selectedCarId == undefined) {
-
-        this.toastr.info('Please choose a car before booking. ', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
-      }
-
-    }
-
-
   }
+
   updatePersonsTotal() {
     this.formData.personsTotal = this.adultCount + this.childCount + this.infantCount;
   }

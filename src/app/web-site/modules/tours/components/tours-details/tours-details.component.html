@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="list-img">
           <ul
             class="list-group list-group-borderless list-group-horizontal row"
           >
@@ -78,8 +78,9 @@
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                style="width: 31px;
+                height: 23px;" 
+               
                 viewBox="0 0 22 22"
                 fill="none"
               >
@@ -108,6 +109,7 @@
             >
               <img
                 src="assets/custom/Activity/free.svg"
+               
                 class="pe-2"
                 alt="free"
               />
@@ -119,8 +121,7 @@
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="24"
+               
                 viewBox="0 0 16 24"
                 fill="none"
               >
@@ -136,8 +137,7 @@
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="25"
-                height="25"
+                
                 viewBox="0 0 25 25"
                 fill="none"
               >
@@ -161,8 +161,7 @@
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="17"
-                height="22"
+                
                 viewBox="0 0 17 22"
                 fill="none"
               >
@@ -178,8 +177,7 @@
             >
               <img
                 src="../../../../../../assets/icons/pickUp.svg"
-                width="24"
-                height="24"
+                style="width:30px"
               />
 
               <div class="ml-2 text-gray-1 list">{{activityData?.PickUpinclude==='0'?'Meet Us In Meeting':'Pick Up Including'}}
@@ -190,8 +188,7 @@
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="23"
-                height="23"
+                
                 viewBox="0 0 23 23"
                 fill="none"
               >
@@ -1323,8 +1320,8 @@
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
                       <img
-                      style="width: 198px !important; height: 183px !important;"
-                        class="mb-3 mb-md-0 rounded-circle"
+                     
+                        class="comment-img mb-3 mb-md-0 rounded-circle"
                         [src]="
                           review?.avatar ||
                           '../../../../../../assets/custom/user-dasboard/avatar-place.png'
@@ -1425,8 +1422,8 @@
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
                       <img
-                      style="width: 198px !important; height: 183px !important;"
-                        class="img-fluid mb-3 mb-md-0 rounded-circle"
+                     
+                        class="comment-img img-fluid mb-3 mb-md-0 rounded-circle"
                         [src]="review?.avatar"
                         [alt]="review?.name"
                       />
@@ -2478,6 +2475,7 @@
                 <a
                   class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
                   (click)="addAvailableOptions()"
+                  data-bs-dismiss="modal"
                 >
                   Check availability
                 </a>

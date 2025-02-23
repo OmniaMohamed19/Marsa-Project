@@ -369,7 +369,7 @@
 
                       <p-calendar [(ngModel)]="date" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
                         [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate" placeholder="Date"
-                        class="custom-calendar" (onSelect)="onDateSelect($event)">
+                        class="custom-calendar" (onSelect)="onDateSelect($event)"  [readonlyInput]="true">
                       </p-calendar>
 
 
@@ -412,7 +412,7 @@
                   <!-------------------------------->
                 </div>
 
-                <div class="d-flex btn-content justify-content-center align-items-end">
+                <div class="d-flex btn-content justify-content-center align-items-end mt-2">
                   <div class="">
                     <!-- Input -->
                     <a class="text-capitalize submit" (click)="seePrice()">See Price</a>
@@ -501,52 +501,26 @@
                       <p-calendar [(ngModel)]="date" [showIcon]="true" [iconDisplay]="'input'"
                         inputId="departureCalendar" [showTime]="false" [dateFormat]="'yy-mm-dd'"
                         [minDate]="minSelectableDate" (onSelect)="updateMinReturnDate()" placeholder="Departure"
-                        class="custom-calendar">
+                        class="custom-calendar"[readonlyInput]="true">
+                        >
                       </p-calendar>
 
 
                     </div>
                     <!-- End Input -->
                   </div>
-                  <div class="mb-4 mb-lg-0">
-                    <!-- Input -->
-                    <div class="input-label-1">
-                      <div class="input-group-prepend input-border">
-                        <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
-                          [for]="picker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="pickuptime" name="pickuptime" [ngxTimepicker]="picker" class="form-control"
-                          placeholder="Pickup time"
-                          style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
-                        <ngx-material-timepicker #picker></ngx-material-timepicker>
-                      </div>
 
-                    </div>
-                    <!-- End Input -->
-                  </div>
 
                   <div class="mb-4 mb-lg-0">
 
                     <p-calendar [(ngModel)]="returnDate" [showIcon]="true" [iconDisplay]="'input'"
                       inputId="returnCalendar" [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minReturnDate"
-                      placeholder="Return" class="custom-calendar">
+                      placeholder="Return" class="custom-calendar"  [readonlyInput]="true">
                     </p-calendar>
                   </div>
 
 
-                  <div class="mb-4 mb-lg-0">
-                    <div class="input-label-1">
-                      <div class="input-group-prepend input-border">
-                        <ngx-material-timepicker-toggle style="top: 10px; position: relative;"
-                          [for]="returnpicker"></ngx-material-timepicker-toggle>
-                        <input [(ngModel)]="returnPickuptime" name="returnPickuptime" [ngxTimepicker]="returnpicker"
-                          class="form-control" placeholder="Return time"
-                          style="border: none !important; box-shadow: none !important; padding: 0px !important;" />
-                        <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
-                      </div>
 
-                    </div>
-
-                  </div>
 
 
                   <!----------------------------------->
@@ -578,7 +552,7 @@
                   <!-------------------------------->
                 </div>
 
-                <div class="d-flex btn-content justify-content-center align-items-end">
+                <div class="d-flex btn-content justify-content-center align-items-end mt-2">
                   <div class="">
                     <!-- Input -->
                     <a class="text-capitalize submit" (click)="seePrice()">See Price</a>
@@ -616,7 +590,7 @@
       </div>
 
       <!-- Owl Carousel for Mobile Only -->
-      <owl-carousel-o class="d-block d-md-none feature-carousel" [options]="carouselOptions2">
+      <owl-carousel-o class="d-block d-md-none feature-carousel mb-5" [options]="carouselOptions2">
         <ng-container *ngFor="let feature of transferDetails?.features">
           <ng-template carouselSlide>
             <div class="text-center">
@@ -625,7 +599,14 @@
               </div>
               <div class="caption text-center">
                 <h4 class="pt-4">{{ feature?.title }}</h4>
-                <p>
+                <p class="text-wrap" style="color:#3b444f; font-size: 13px;
+                 max-width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  padding: 10px;
+                  ">
                   {{ feature?.desc }}
                 </p>
               </div>
@@ -678,6 +659,15 @@
         <p>
           {{highestRatedReview?.comment}}
         </p>
+        <div class="d-flex align-items-center font-size-16 text-gray-1 gap-3">
+
+          <div>
+              <i *ngFor="let star of [1, 2, 3, 4, 5]"
+              class="fa-solid fa-star"
+              [ngClass]="{ 'fa-star-filled': star <= highestRatedReview?.rate, 'yellow-star': star <= highestRatedReview?.rate }"></i>
+          </div>
+
+      </div>
       </div>
     </div>
   </section>

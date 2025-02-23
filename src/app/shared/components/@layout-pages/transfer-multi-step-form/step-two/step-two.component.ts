@@ -107,7 +107,34 @@ export class StepTwoComponent implements OnInit {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
+
+
+  // onOptionChange(option: any, event: any): void {
+  //   if (event.target.checked) {
+  //     this.formData.selectedOptions[option.id] = {
+  //       id: option.id,
+  //       number: option.number || 0,
+  //       name: option.name
+  //     };
+  //   } else {
+  //     delete this.formData.selectedOptions[option.id];
+  //   }
+  //   if (typeof window !== 'undefined' && window.localStorage) {
+  //     localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
+  //   }
+  // }
+
+  // savenumberOfOption(option: any): void {
+  //   option.number = Math.max(0, option.number || 0);
+  //   if (this.formData.selectedOptions[option.id]) {
+  //     this.formData.selectedOptions[option.id].number = option.number;
+  //   }
+  //   localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
+  // }
+
   onOptionChange(option: any, event: any): void {
+    option.selected = event.target.checked; // تحديث الحالة عند التغيير يدويًا
+
     if (event.target.checked) {
       this.formData.selectedOptions[option.id] = {
         id: option.id,
@@ -117,6 +144,7 @@ export class StepTwoComponent implements OnInit {
     } else {
       delete this.formData.selectedOptions[option.id];
     }
+
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
     }
@@ -124,11 +152,22 @@ export class StepTwoComponent implements OnInit {
 
   savenumberOfOption(option: any): void {
     option.number = Math.max(0, option.number || 0);
-    if (this.formData.selectedOptions[option.id]) {
-      this.formData.selectedOptions[option.id].number = option.number;
+
+    if (option.number > 0) {
+      option.selected = true; // تحديد الـ checkbox تلقائيًا عند إدخال رقم
+      this.formData.selectedOptions[option.id] = {
+        id: option.id,
+        number: option.number,
+        name: option.name
+      };
+    } else {
+      option.selected = false; // إلغاء التحديد إذا أصبح الرقم 0
+      delete this.formData.selectedOptions[option.id];
     }
+
     localStorage.setItem('selectedOptions', JSON.stringify(this.formData.selectedOptions));
   }
+
 
   increment(option: any): void {
     if (!option.number) {
