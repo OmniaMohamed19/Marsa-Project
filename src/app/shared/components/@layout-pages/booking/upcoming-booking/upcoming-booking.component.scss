@@ -68,6 +68,7 @@ h4 {
     }
     .img-content {
       margin-left: 0px;
+      width: 100%;
       div:nth-of-type(2) {
         span:nth-of-type(1) {
           color: #ff681a;
@@ -416,66 +417,7 @@ h4 {
   box-shadow: none;
 }
 /***************************************************/
-@media screen and (max-width: 400px) {
-  .place-card {
-    flex-direction: column;
-    gap: 30px;
-    .first-place {
-      flex-direction: column;
-      justify-content: center;
-      gap: 25px;
-      width: 90%;
-      margin: 5px auto;
-      .trip {
-        margin-left: 18px;
-        padding: 6px;
-        .trip-rating {
-          margin-left: -1rem;
-          margin-top: 4rem;
-          justify-content: end;
-        }
-      }
-      .img {
-        width: 290px;
-      }
-    }
-    .img-content div:nth-of-type(2) span:nth-of-type(2) {
-      position: absolute;
-      top: 20px;
-      right: -21%;
-    }
-  }
-}
-@media screen and (max-width: 576px) {
-  .place-card {
-    flex-direction: column;
-    gap: 30px;
-    .first-place {
-      flex-direction: column;
-      justify-content: center;
-      gap: 25px;
-      width: 90%;
-      margin: 5px auto;
-      .trip {
-        margin-left: 18px;
-        padding: 6px;
-        .trip-rating {
-          margin-left: -1rem;
-          margin-top: 4rem;
-          justify-content: end;
-        }
-      }
-      .img {
-        width: 311px;
-      }
-    }
-    .img-content div:nth-of-type(2) span:nth-of-type(2) {
-      position: absolute;
-      top: 20px;
-      right: -21%;
-    }
-  }
-}
+
 @media screen and (max-width: 768px) {
   .nav {
     gap: 13px;
@@ -494,19 +436,19 @@ h4 {
       flex-direction: column;
       justify-content: center;
       gap: 25px;
-      width: 90%;
+      width: 100%;
       margin: 5px auto;
       .trip {
         margin-left: 18px;
         padding: 6px;
         .trip-rating {
-          margin-left: -1rem;
+          margin-left: -11rem;
           margin-top: 4rem;
           justify-content: end;
         }
       }
       .img {
-        width: 324px;
+        width:100%;
       }
     }
     .img-content div:nth-of-type(2) span:nth-of-type(2) {
@@ -529,7 +471,7 @@ h4 {
       gap: 25px;
       width: 100%;
       .img {
-        width: 311px;
+        width: 100%;
       }
     }
   }
@@ -542,6 +484,7 @@ h4 {
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   .place-card {
+    width: 100%;
     .first-place .trip {
       flex-direction: column;
       .trip-rating {

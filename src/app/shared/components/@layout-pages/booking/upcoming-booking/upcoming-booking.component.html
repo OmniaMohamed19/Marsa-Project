@@ -199,10 +199,12 @@
                       <div></div>
                     </div>
 
-                    <div class="trip-rating">
-                      <p class="mt-4">
-                        total-price: <b>${{ trip?.price }} </b>
-                      </p>
+                    <div class="trip-rating flex-row flex-md-col">
+
+                        <p class="mt-4">
+                          total-price: <b>${{ trip?.price }} </b>
+                        </p>
+
                       <div class="mobile-btn" *ngIf="trip?.categoryid!=4">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2"
                           (click)="setBookingId(trip?.booking_inform)">
