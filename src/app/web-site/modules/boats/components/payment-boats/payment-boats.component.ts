@@ -195,7 +195,7 @@ export class PaymentBoatsComponent {
           );
           Swal.fire(
             'Your request has been sent successfully.',
-            'The boat representative will contact you shortly. For further communication, please reach us at info@marsawaves.com.',
+            'The boat representative will contact you shortly. For Future communication, please reach us at info@marsawaves.com.',
             'success'
           );
         },

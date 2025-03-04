@@ -98,6 +98,14 @@
               </div>
 
               <div class="col-xl-8 col-m-12">
+                <div class="row mb-3" *ngIf="selectedpackage?.cancellation==1">
+
+                  <div class="col-xl-4 col-12">
+
+                    <span class="cancel"> Canceled</span>
+
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-xl col-m-12">
                     <h6>Title</h6>
@@ -105,8 +113,8 @@
                   </div>
                   <div class="col-xl col-sm-12">
                     <div class="row">
-                      
-                  
+
+
                         <h6>Place</h6>
                         <p>{{ selectedpackage?.tripinfo?.place }}</p>
 
@@ -172,7 +180,7 @@
                       <div class="imageTrip-container" [style.backgroundImage]="'url(' + (trip.cover || '') + ')'">
                       </div>
                     </div>
-  
+
                     <div class="col-xl-7 col-m-12">
                       <div class="row">
                         <div class="col-xl col-m-12">
@@ -185,13 +193,13 @@
                               <h6>Type</h6>
                               <p>{{ trip?.type }}</p>
                             </div>
-                           
-  
-  
-  
+
+
+
+
                           </div>
-  
-  
+
+
                         </div>
                       </div>
                       <div class="row">
@@ -205,22 +213,22 @@
                             Price
                           </h6>
                           <p>${{ trip?.price }}</p>
-    
+
 
                         </div>
-  
-  
+
+
                       </div>
-  
-  
-  
-  
-  
+
+
+
+
+
                     </div>
-  
+
                   </div>
                 </div>
-                
+
               </div>
 
             </div>

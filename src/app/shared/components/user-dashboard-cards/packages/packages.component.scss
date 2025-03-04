@@ -5,9 +5,25 @@
   flex: 1;
   height: 5px;
   background-color: #c8ddf1;
- 
+
 }
+
 .modal-body{
+  .cancel{
+    display: inline-flex;
+    padding: 6px 11.5px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    background: #FFE8EB;
+    color: #E5021E;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 80px;
+  }
   .booking-info{
     // border: 1px gray dashed;
     width:100%;

@@ -191,7 +191,7 @@ export class PackagePaymentComponent {
             ]);
             Swal.fire(
               'Your Booking has been send successfully',
-              'Your Tour has been sent successfully. Please check your email for further instructions.',
+              'Your Tour has been sent successfully. Please check your email For Future instructions.',
               'success'
             );
           },
@@ -410,7 +410,7 @@ export class PackagePaymentComponent {
             } else {
               Swal.fire(
                 'Your Booking has been send successfully',
-                'Your Tour has been sent successfully. Please check your email for further instructions.',
+                'Your Tour has been sent successfully. Please check your email For Future instructions.',
                 'success'
               );
             }
@@ -484,7 +484,7 @@ export class PackagePaymentComponent {
             );
             Swal.fire(
               'Your Booking has been send successfully.',
-              'The Tour official will contact you as soon as possible. For further communication, please reach out to info@marsawaves.com',
+              'The Tour official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
               'success'
             );
           },

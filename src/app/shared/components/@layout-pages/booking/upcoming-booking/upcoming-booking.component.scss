@@ -68,7 +68,6 @@ h4 {
     }
     .img-content {
       margin-left: 0px;
-      width: 100%;
       div:nth-of-type(2) {
         span:nth-of-type(1) {
           color: #ff681a;
@@ -442,7 +441,7 @@ h4 {
         margin-left: 18px;
         padding: 6px;
         .trip-rating {
-          margin-left: -11rem;
+          margin-left: -6rem;
           margin-top: 4rem;
           justify-content: end;
         }
@@ -451,10 +450,14 @@ h4 {
         width:100%;
       }
     }
-    .img-content div:nth-of-type(2) span:nth-of-type(2) {
-      position: absolute;
-      top: 20px;
-      right: -21%;
+    .img-content {
+      width: 100%;
+
+      div:nth-of-type(2) span:nth-of-type(2) {
+        position: absolute;
+        top: 20px;
+        right: -21%;
+      }
     }
   }
 }
@@ -486,7 +489,7 @@ h4 {
   .place-card {
     width: 100%;
     .first-place .trip {
-      flex-direction: column;
+      // flex-direction: column;
       .trip-rating {
         flex-direction: row;
         height: auto;

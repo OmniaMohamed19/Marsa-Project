@@ -232,7 +232,8 @@ export class TransferComponent implements OnInit {
     }
 
 
-    if (this.activeSection === 'section2' && (this.date === undefined)) {
+    if (this.activeSection === 'section2' && (!this.date || this.date.trim() === ''))
+      {
       this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -243,10 +244,8 @@ export class TransferComponent implements OnInit {
       return;
     }
 
-    if (
-      this.activeSection === 'section1' && (
-        this.date === undefined ||
-        this.returnDate === undefined )) {
+    if (this.activeSection === 'section1' && (!this.date || this.date.trim() === '' || !this.returnDate || this.returnDate.trim() === '')) 
+      {
       this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
