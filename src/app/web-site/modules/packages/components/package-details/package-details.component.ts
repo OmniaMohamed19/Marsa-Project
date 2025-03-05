@@ -64,7 +64,7 @@ export class PackageDetailsComponent {
 
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
-
+  isMobile = false;
   rows: any;
   faq:any;
   packageID: any;
@@ -128,7 +128,11 @@ export class PackageDetailsComponent {
     private seoService: SEOService,
     private titleService: Title,
     private metaService: Meta,
-  ) {}
+  ) {
+     if (window.screen.width < 768) {
+      this.isMobile = true;
+    }
+  }
 
   seeMore: boolean = false;
   showFullDescription = false;
@@ -200,6 +204,7 @@ export class PackageDetailsComponent {
       observer.observe(tab);
     });
   }
+  hideMobileFooter = false;
 
   @HostListener('window:scroll', ['$event']) isScrolledIntoView() {
     if (this.checkAvailabilityButton) {
@@ -211,7 +216,7 @@ export class PackageDetailsComponent {
       this.isTestDivScrolledIntoView = topShown && bottomShown;
 
       // Set hideMobileFooter based on visibility
-      // this.hideMobileFooter = this.isTestDivScrolledIntoView;
+       this.hideMobileFooter = this.isTestDivScrolledIntoView;
     }
   }
 
