@@ -226,12 +226,16 @@
                               alt="clock"
                             />
                           </span>
-                          <span>
+                          <span *ngIf="trip?.categoryid!=2">
                             Starting Time :
                             {{
                               "1970-01-01T" + trip?.booking_time
                                 | date : "h:mm a"
                             }}
+                          </span>
+                          <span *ngIf="trip?.categoryid==2">
+                            Starting Time : 8:30 AM
+
                           </span>
                         </li>
                         <li>
