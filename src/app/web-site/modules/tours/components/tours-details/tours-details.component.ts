@@ -330,10 +330,9 @@ export class ToursDetailsComponent implements AfterViewInit {
       return 'Average';
     } else if (rate >= 2 && rate < 3) {
       return 'Good';
-    }
-    else if (rate >= 3 && rate < 4) {
+    } else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if(rate >= 4 && rate <= 5)  {
+    } else if (rate >= 4 && rate <= 5) {
       return 'Excellent';
     } else {
       return '';
@@ -342,41 +341,63 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   // Increment the number of adults
   incrementAdult() {
-    const maxAdults = this.getMaxValue('AdultMax');
-    if (this.adults < maxAdults) {
-      this.adults++;
+    if (this.selectedOption === 'Collective') {
+      const maxAdults = this.getMaxValue('AdultMax');
+      if (this.adults < maxAdults) {
+        this.adults++;
+      } else {
+        this.toastr.info(
+          `Sorry, you cannot exceed the maximum limit of ${maxAdults} adults. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      }
     } else {
-      this.toastr.info(
-        `Sorry, you cannot exceed the maximum limit of ${maxAdults} adults. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
+      this.adults++;
     }
   }
 
   decrementAdult() {
     const minAdults = this.getMinValue('Adultmin');
-
-    if (this.adults > minAdults) {
-      this.adults--;
-    } else {
-      this.toastr.info(
-        `Sorry, the minimum required number of adults is ${minAdults}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
+    if (this.selectedOption === 'Collective') {
+      if (this.adults > minAdults) {
+        this.adults--;
+      } else {
+        this.toastr.info(
+          `Sorry, the minimum required number of adults is ${minAdults}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      }
+    }
+    else{
+      if (this.adults <= this.getMaxValue('AdultMax')) {
+        this.toastr.info(
+          `Sorry, the minimum required number of adults is ${this.getMaxValue('AdultMax')}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      } else {
+        this.adults--;
+      }
     }
   }
 
@@ -482,7 +503,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
-        this.items =this.activityData?.Reviwe.reverse();
+        this.items = this.activityData?.Reviwe.reverse();
         console.log(this.activityData);
 
         this.activatedRoute.params.subscribe((params: any) => {
@@ -843,8 +864,6 @@ export class ToursDetailsComponent implements AfterViewInit {
     if (!this.validateMinimumParticipants() || !this.validateParticipants()) {
       return; // Stop execution if any validation fails
     }
-
-
 
     if (this.bookedOptionId === avilable_option_id) {
       this.showBookingOption = !this.showBookingOption; // Toggle booking option

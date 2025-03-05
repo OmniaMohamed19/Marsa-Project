@@ -77,8 +77,8 @@ export class BoatDetailsComponent {
   flattenedCabin: any = [];
   showRelatedtrip: boolean = false;
   selectedStar: number = 0;
-  starNumber: any=null;
-  comment: any=null;
+  starNumber: any = null;
+  comment: any = null;
   availableOptionMap!: SafeHtml;
   Why_chosse_us: any;
   cover: any;
@@ -106,13 +106,14 @@ export class BoatDetailsComponent {
   endDate: any;
   isSingleImage: boolean = false;
   price: any;
+  discount: any;
   isMobile = false;
   isTestDivScrolledIntoView: any;
   hideMobileFooter = false;
   desplayedGustImages: any[] = [];
   displayBasic: boolean = false;
   displayBoats: boolean = false;
-  displayCustom: boolean =false;
+  displayCustom: boolean = false;
   activeIndex: number = 0;
   boatImages: any[] = [];
   items: any[] = [];
@@ -138,7 +139,7 @@ export class BoatDetailsComponent {
     private seoService: SEOService,
     private router: Router,
     private titleService: Title,
-    private metaService: Meta,
+    private metaService: Meta
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -164,7 +165,10 @@ export class BoatDetailsComponent {
     }
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
   @HostListener('document:scroll', ['$event'])
@@ -187,34 +191,32 @@ export class BoatDetailsComponent {
       Object.entries(this.happyGustImages)
     ).map(([key, value]) => ({ value }));
 
-
     this.activeIndex = index;
     this.displayCustom = true;
-}
+  }
   ngOnInit(): void {
-
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
-        numVisible: 6
-    },
-    {
-      breakpoint: '1200px',
-      numVisible: 6
-  },
-      {
-          breakpoint: '1024px',
-          numVisible: 6
+        numVisible: 6,
       },
       {
-          breakpoint: '768px',
-          numVisible: 5
+        breakpoint: '1200px',
+        numVisible: 6,
       },
       {
-          breakpoint: '560px',
-          numVisible: 3
-      }
-  ];
+        breakpoint: '1024px',
+        numVisible: 6,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 5,
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 3,
+      },
+    ];
     this.range = this.fb.group({
       start: ['', Validators.required],
       end: ['', Validators.required],
@@ -253,7 +255,8 @@ export class BoatDetailsComponent {
   handleImageError(event: Event): void {
     const target = event.target as HTMLImageElement;
     if (target) {
-      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+      target.src =
+        '../../../../../../assets/custom/user-dasboard/avatar-place.png';
     }
   }
   getRatingDescription(rate: number): string {
@@ -261,10 +264,9 @@ export class BoatDetailsComponent {
       return 'Average';
     } else if (rate >= 2 && rate < 3) {
       return 'Good';
-    }
-    else if (rate >= 3 && rate < 4) {
+    } else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if(rate >= 4 && rate <= 5)  {
+    } else if (rate >= 4 && rate <= 5) {
       return 'Excellent';
     } else {
       return '';
@@ -299,8 +301,6 @@ export class BoatDetailsComponent {
     }
   }
 
-
-
   scrollTo(tabId: string) {
     this.activeTabId = tabId;
     const tabElement = document.getElementById(tabId);
@@ -308,7 +308,6 @@ export class BoatDetailsComponent {
     if (tabElement) {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
-
 
       window.scrollTo({
         top: offset,
@@ -329,7 +328,6 @@ export class BoatDetailsComponent {
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
 
-
       if (visibleEntries.length > 0) {
         // Set activeTabId to the id of the first visible element
         this.activeTabId = visibleEntries[0].target.id;
@@ -342,11 +340,10 @@ export class BoatDetailsComponent {
     });
   }
 
-
   ngAfterViewInit() {
-  //   // Initialize the active tab on load
-  this.setupIntersectionObserver();
-}
+    //   // Initialize the active tab on load
+    this.setupIntersectionObserver();
+  }
 
   share() {
     window.navigator.share({
@@ -360,11 +357,17 @@ export class BoatDetailsComponent {
       .get(environment.marsa, `Boats/details/` + BoatID)
       .subscribe((res: any) => {
         this.boatData = res?.tripDetails;
-        this.items =this.boatData?.Reviwe.reverse();
+        this.items = this.boatData?.Reviwe.reverse();
 
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), 'boats',params.id,res?.tripDetails.slugUrl]);
+            this.router.navigate([
+              '/',
+              localStorage.getItem('lang'),
+              'boats',
+              params.id,
+              res?.tripDetails.slugUrl,
+            ]);
           }
         });
         this.googleIframe = this.sanitizer.bypassSecurityTrustHtml(
@@ -404,17 +407,14 @@ export class BoatDetailsComponent {
         if (this.boatData) {
           this.titleService.setTitle(this.boatData?.MetaTitle);
 
-         this.metaService.addTags([
-
-           { name: 'description', content: this.boatData?.MetaDesc },
-
-
-         ]);
-         const canonicalURL = this.boatData?.CanonicalUrl;
-         if (canonicalURL) {
-           this.seoService.setCanonicalURL(canonicalURL);
-         }
-       }
+          this.metaService.addTags([
+            { name: 'description', content: this.boatData?.MetaDesc },
+          ]);
+          const canonicalURL = this.boatData?.CanonicalUrl;
+          if (canonicalURL) {
+            this.seoService.setCanonicalURL(canonicalURL);
+          }
+        }
       });
   }
 
@@ -453,11 +453,10 @@ export class BoatDetailsComponent {
   }
 
   openBoatSliderModal(boat: any): void {
-    this.displayBoats=true
+    this.displayBoats = true;
     this.boatImages = Array.from(Object.entries(boat.images)).map(
       ([key, value]) => ({ value })
     );
-
   }
 
   openCabinSliderModal(cabin: any): void {
@@ -517,6 +516,7 @@ export class BoatDetailsComponent {
     console.log('====================================');
     this.selectedSchedule = event.id;
     this.price = event.price;
+    this.discount = event.discount;
   }
 
   showMap(): void {
@@ -563,20 +563,18 @@ export class BoatDetailsComponent {
       }
     }
   }
-
-  addtoFavorits(btn: any,event:any) {
+  addtoFavorits(btn: any, event: any) {
     if (btn.classList.contains('bg-primary')) {
       // Remove from favorites/wishlist
-
-      } else {
-        // Add to favorites/wishlist
-        this._httpService
-        .post(environment.marsa,'Wishlist/add', { trip_id: this.boatData?.id })
+    } else {
+      // Add to favorites/wishlist
+      this._httpService
+        .post(environment.marsa, 'Wishlist/add', { trip_id: this.boatData?.id })
         .subscribe({
           next: (res: any) => {
             event.target.classList.add('text-danger');
             event.target.classList.remove('text-black-50');
-          }
+          },
         });
     }
   }
@@ -596,29 +594,36 @@ export class BoatDetailsComponent {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-    }
-     else {
-      if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
+    } else {
+      if (
+        this.starNumber !== null &&
+        this.starNumber !== 0 &&
+        this.comment !== null &&
+        this.comment !== ''
+      ) {
         this._httpService
-        .post(environment.marsa, 'Review/addreview', model)
-        .subscribe({
-          next: (res: any) => {
-            this.toastr.success(res.message);
-            this.loadData();
-            this.starNumber = null;
-            this.comment = null;
-            this.selectedStar = 0;
-          },
-        });
-
-      }else{
-        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
+          .post(environment.marsa, 'Review/addreview', model)
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success(res.message);
+              this.loadData();
+              this.starNumber = null;
+              this.comment = null;
+              this.selectedStar = 0;
+            },
+          });
+      } else {
+        this.toastr.warning(
+          'Please specify the number of stars and write your comment before submitting! Thank you!',
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
       }
     }
   }
@@ -681,7 +686,6 @@ export class BoatDetailsComponent {
   };
 
   getOverviewItems(overview: string): string[] {
-
     return overview.split('\n');
   }
 

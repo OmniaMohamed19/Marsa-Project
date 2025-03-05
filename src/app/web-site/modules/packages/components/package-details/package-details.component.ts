@@ -60,13 +60,11 @@ import {
   ],
 })
 export class PackageDetailsComponent {
-
-
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
 
   rows: any;
-  faq:any;
+  faq: any;
   packageID: any;
   relatedtrips: any[] = [];
   Why_chosse_us: any;
@@ -75,8 +73,8 @@ export class PackageDetailsComponent {
   happyGuestImages: any[] = [];
   remainingImages: string[] = [];
   selectedStar = 0;
-  starNumber: any=null;
-  comment: any=null;
+  starNumber: any = null;
+  comment: any = null;
   adults: number = 1;
   children: number = 0;
   infant: number = 0;
@@ -85,7 +83,7 @@ export class PackageDetailsComponent {
 
   carouselOptions = {
     loop: true,
-    autoplay:true,
+    autoplay: true,
     margin: 10,
     nav: false,
     dots: false,
@@ -94,9 +92,9 @@ export class PackageDetailsComponent {
     pullDrag: true,
     responsive: {
       0: {
-        items: 1
-      }
-    }
+        items: 1,
+      },
+    },
   };
   // duration: any;
   @ViewChild('startPicker') startPicker!: MatDatepicker<any>;
@@ -127,7 +125,7 @@ export class PackageDetailsComponent {
     private router: Router,
     private seoService: SEOService,
     private titleService: Title,
-    private metaService: Meta,
+    private metaService: Meta
   ) {}
 
   seeMore: boolean = false;
@@ -139,11 +137,11 @@ export class PackageDetailsComponent {
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
 
-
   handleImageError(event: Event): void {
     const target = event.target as HTMLImageElement; // التأكد من أن الهدف هو عنصر صورة
     if (target) {
-      target.src = '../../../../../../assets/custom/user-dasboard/avatar-place.png';
+      target.src =
+        '../../../../../../assets/custom/user-dasboard/avatar-place.png';
     }
   }
   // Method to get the displayed description
@@ -156,9 +154,8 @@ export class PackageDetailsComponent {
     }
   }
   ngAfterViewInit() {
-     //   // Initialize the active tab on load
+    //   // Initialize the active tab on load
     this.setupIntersectionObserver();
-
   }
 
   scrollTo(tabId: string) {
@@ -168,7 +165,6 @@ export class PackageDetailsComponent {
     if (tabElement) {
       const elementRect = tabElement.getBoundingClientRect();
       const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
-
 
       window.scrollTo({
         top: offset,
@@ -216,7 +212,6 @@ export class PackageDetailsComponent {
   }
 
   ngOnInit(): void {
-
     this.activatedRoute.params.subscribe((params: any) => {
       this.packageID = params.id;
       this.loadData();
@@ -240,28 +235,30 @@ export class PackageDetailsComponent {
 
         this.activatedRoute.params.subscribe((params: any) => {
           if ('name' in params) {
-            this.router.navigate(['/',localStorage.getItem('lang'), 'packages',params.id,res?.PackageDetails.slugUrl]);
+            this.router.navigate([
+              '/',
+              localStorage.getItem('lang'),
+              'packages',
+              params.id,
+              res?.PackageDetails.slugUrl,
+            ]);
           }
         });
         this.duration = this.rows.duration;
         if (this.rows) {
           this.titleService.setTitle(this.rows?.MetaTitle);
 
-         this.metaService.addTags([
-
-           { name: 'description', content: this.rows?.MetaDesc },
-
-
-         ]);
-         const canonicalURL = this.rows?.CanonicalUrl;
-         if (canonicalURL) {
-           this.seoService.setCanonicalURL(canonicalURL);
-         }
-       }
+          this.metaService.addTags([
+            { name: 'description', content: this.rows?.MetaDesc },
+          ]);
+          const canonicalURL = this.rows?.CanonicalUrl;
+          if (canonicalURL) {
+            this.seoService.setCanonicalURL(canonicalURL);
+          }
+        }
         this.duration = res?.PackageDetails.duration;
         this.calculateEndDate();
       });
-
   }
   hasDiscount(packageData: any): boolean {
     // Check if a discount is present for adults
@@ -277,9 +274,31 @@ export class PackageDetailsComponent {
     if (!this.startDate || !this.duration) {
       return;
     }
-    const durationInDays = parseInt(this.duration.split(' ')[0], 10);
+
+    const durationParts = this.duration.split(' ');
+    const durationValue = parseInt(durationParts[0], 10);
+    const durationUnit = durationParts[1].toLowerCase();
+
     const endDate = new Date(this.startDate);
-    endDate.setDate(endDate.getDate() + durationInDays - 1);
+
+    switch (durationUnit) {
+      case 'Day':
+      case 'days':
+        endDate.setDate(endDate.getDate() + durationValue - 1);
+        break;
+      case 'hour':
+      case 'hours':
+        endDate.setHours(endDate.getHours() + durationValue);
+        break;
+      case 'minute':
+      case 'minutes':
+        endDate.setMinutes(endDate.getMinutes() + durationValue);
+        break;
+      default:
+        console.error('Invalid duration unit');
+        return;
+    }
+
     this.endDate = endDate;
     const formattedEndDate = this.datePipe.transform(
       this.endDate,
@@ -304,11 +323,11 @@ export class PackageDetailsComponent {
     this.selectedDateControl.markAsTouched();
   }
 
-dateFilter = (date: Date | null): boolean => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
-  return date ? date >= today : false; // Allow only today and future dates
-};
+  dateFilter = (date: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+    return date ? date >= today : false; // Allow only today and future dates
+  };
 
   getAbout() {
     this.httpService.get(environment.marsa, 'Aboutus').subscribe({
@@ -322,8 +341,7 @@ dateFilter = (date: Date | null): boolean => {
   incrementAdult() {
     if (this.adults < this.getMaxValue('adultsMax')) {
       this.adults++;
-    }
-    else {
+    } else {
       this.toastr.info(
         `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
           'adultsMax'
@@ -350,8 +368,7 @@ dateFilter = (date: Date | null): boolean => {
   incrementChildren() {
     if (this.children < this.getMaxValue('childrenMax')) {
       this.children++;
-    }
-    else {
+    } else {
       this.toastr.info(
         `Sorry, you cannot exceed the maximum limit of ${this.getMaxValue(
           'childrenMax'
@@ -428,10 +445,9 @@ dateFilter = (date: Date | null): boolean => {
       return 'Average';
     } else if (rate >= 2 && rate < 3) {
       return 'Good';
-    }
-    else if (rate >= 3 && rate < 4) {
+    } else if (rate >= 3 && rate < 4) {
       return 'Very Good';
-    } else if(rate >= 4 && rate <= 5)  {
+    } else if (rate >= 4 && rate <= 5) {
       return 'Excellent';
     } else {
       return '';
@@ -471,32 +487,38 @@ dateFilter = (date: Date | null): boolean => {
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
     } else {
-      if(this.starNumber !==null && this.starNumber !==0 && this.comment !==null && this.comment !==''){
+      if (
+        this.starNumber !== null &&
+        this.starNumber !== 0 &&
+        this.comment !== null &&
+        this.comment !== ''
+      ) {
         this.httpService
-        .post(environment.marsa, 'Review/addreview', model)
-        .subscribe({
-          next: (res: any) => {
-            this.toastr.success(res.message);
-            this.loadData();
-            this.starNumber = null;
-            this.comment = null;
-            this.selectedStar = 0;
-          },
-        });
-
-      }else{
-        this.toastr.warning('Please specify the number of stars and write your comment before submitting! Thank you!', '', {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        });
+          .post(environment.marsa, 'Review/addreview', model)
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success(res.message);
+              this.loadData();
+              this.starNumber = null;
+              this.comment = null;
+              this.selectedStar = 0;
+            },
+          });
+      } else {
+        this.toastr.warning(
+          'Please specify the number of stars and write your comment before submitting! Thank you!',
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
       }
-
     }
   }
-
 
   checkPrice() {
     if (this.selectedDateControl.invalid) {
@@ -535,9 +557,11 @@ dateFilter = (date: Date | null): boolean => {
                 booking_date: this.formattedStartDate,
                 end_date: this.formattedEndDate,
               };
-              if (typeof window !== 'undefined' && window.localStorage){
-
-                localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
+              if (typeof window !== 'undefined' && window.localStorage) {
+                localStorage.setItem(
+                  'queryParamsPackages',
+                  JSON.stringify(queryParams)
+                );
               }
               this.router.navigate(
                 ['/', this.translate.currentLang, 'packages', 'packagePayment'],
@@ -549,7 +573,10 @@ dateFilter = (date: Date | null): boolean => {
     }
   }
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    const imageName = url?.substring(
+      url.lastIndexOf('/') + 1,
+      url.lastIndexOf('.')
+    );
     return imageName || 'Unknown photo';
   }
 

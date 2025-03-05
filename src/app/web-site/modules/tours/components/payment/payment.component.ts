@@ -438,7 +438,7 @@ export class PaymentComponent {
     }
     if (this.customerForm.valid) {
       this.spinner.show();
-      const parts = this.booking_date.split('/');
+      const parts = this.booking_date?.split('/');
       const formattedDate = new Date(
         parseInt(parts[2]),
         parseInt(parts[1]) - 1,
@@ -688,7 +688,8 @@ export class PaymentComponent {
     if (this.customerForm.valid) {
       this.spinner.show(); // Show spinner
 
-      const parts = this.booking_date.split('/');
+      const parts = this.booking_date?.split('/');
+      console.log(this.booking_date);
       const formattedDate = new Date(
         parseInt(parts[2]),
         parseInt(parts[1]) - 1,

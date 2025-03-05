@@ -185,7 +185,16 @@ export class UpcomingBookingComponent {
         }
       });
   }
-
+  onCountryChange(event: any) {
+    console.log(event);
+    console.log(this.customerForm.value);
+    let x =
+      '+' +
+      event.dialCode +
+      this.customerForm.value.phone.nationalNumber?.replace('-', '');
+    this.customerForm?.get('phone')?.patchValue(x);
+    console.log(x);
+  }
 
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {

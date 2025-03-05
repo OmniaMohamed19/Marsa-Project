@@ -81,8 +81,8 @@ export class PackagePaymentComponent {
 
   ngOnInit(): void {
     this.titleService.setTitle('Confirm Booking');
-
     this.initForm();
+
     this.edit = localStorage['editPackage']
       ? localStorage['editPackage']
       : false;
@@ -111,10 +111,16 @@ export class PackagePaymentComponent {
         JSON.parse(localStorage['queryParamsPackages']).BookingInfo['E-mail'] ||
         '';
       console.log(this.userData);
+      this.customerForm.patchValue(this.userData);
+      this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
     } else {
       this._AuthService.getUserData().subscribe(
         (data: any) => {
           this.userData = JSON.parse(data); // Assigning the received object directly
+          this.customerForm.patchValue(this.userData);
+          this.customerForm
+            ?.get('phone')
+            ?.patchValue('+' + this.userData.phone);
         },
         (error) => {
           // Handle error if needed
@@ -122,8 +128,12 @@ export class PackagePaymentComponent {
         }
       );
     }
-    this.customerForm.patchValue(this.userData);
-    this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+    // this.customerForm.patchValue(this.userData);
+    // console.log(this.userData);
+
+    // this.customerForm.patchValue(this.userData);
+
+    // this.initForm();
   }
   getImageName(url: string): string {
     const imageName = url?.substring(

@@ -450,46 +450,76 @@ export class LiveboardDetailsComponent {
   incrementAdult() {
     console.log(this.persons);
     console.log(this.persons < this.getValue('AdultMax'));
-    if (this.persons < this.getValue('AdultMax')) {
+    if (this.selectedOption === 'collective') {
+      if (this.persons < this.getValue('AdultMax')) {
+        setTimeout(() => {
+          this.persons++;
+          this.cdr.detectChanges();
+        });
+      } else {
+        this.toastr.info(
+          `Sorry, you cannot exceed the maximum limit of ${this.getValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      }
+    } else {
       setTimeout(() => {
         this.persons++;
         this.cdr.detectChanges();
       });
-    } else {
-      this.toastr.info(
-        `Sorry, you cannot exceed the maximum limit of ${this.getValue(
-          'AdultMax'
-        )}. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
     }
   }
 
   decrementAdult() {
-    if (this.persons > 1) {
-      setTimeout(() => {
-        this.persons--;
-        this.cdr.detectChanges();
-      });
+    if (this.selectedOption === 'collective') {
+      if (this.persons > 1) {
+        setTimeout(() => {
+          this.persons--;
+          this.cdr.detectChanges();
+        });
+      } else {
+        this.toastr.info(
+          `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      }
     } else {
-      this.toastr.info(
-        `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
-        '',
-        {
-          disableTimeOut: false,
-          titleClass: 'toastr_title',
-          messageClass: 'toastr_message',
-          timeOut: 5000,
-          closeButton: true,
-        }
-      );
+      if (this.persons <= this.getValue('AdultMax')) {
+        this.toastr.info(
+          `Sorry, you cannot exceed the minimum limit of ${this.getValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      } else {
+        setTimeout(() => {
+          this.persons--;
+          this.cdr.detectChanges();
+        });
+      }
     }
   }
 
@@ -497,9 +527,9 @@ export class LiveboardDetailsComponent {
     if (this.selectedDateControl && this.selectedDateControl.value) {
       let value = 0;
       if (this.selectedOption === 'collective') {
-        return this.liveabourdData?.PriceColective[key]
+        return this.liveabourdData?.PriceColective[key];
       } else if (this.selectedOption === 'privete') {
-        return this.liveabourdData?.Priceprivet[key]
+        return this.liveabourdData?.Priceprivet[key];
       }
       return value;
       // return this.selectedDateControl.value[key] || 0;
