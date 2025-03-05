@@ -110,10 +110,12 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.PrintedOrMobileVoucherAccepted > 0"
             >
-              <img src="assets/custom/Activity/booking.svg"
-              width="24"
-              height="24"
-              alt="booking" />
+              <img
+                src="assets/custom/Activity/booking.svg"
+                width="24"
+                height="24"
+                alt="booking"
+              />
               <div class="ml-1 text-gray-1">
                 Printed or mobile voucher accepted
               </div>
@@ -126,9 +128,12 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.OpenDateTicket > 0"
             >
-              <img src="assets/custom/Activity/document.svg"
-              width="24"
-              height="24" alt="document" />
+              <img
+                src="assets/custom/Activity/document.svg"
+                width="24"
+                height="24"
+                alt="document"
+              />
               <div class="ml-1 text-gray-1">Open Date Ticket</div>
             </li>
             <li
@@ -425,7 +430,7 @@
                       [src]="cabin?.image[0]"
                       [alt]="getImageName(cabin?.image[0])"
                     />
-                    <div class="card-body row ">
+                    <div class="card-body row">
                       <p
                         class="card-text p-3 cabinTitle col-6"
                         (click)="openCabinSliderModal(cabin)"
@@ -433,10 +438,10 @@
                         {{ cabin?.accommodation_title }}
                       </p>
                       <p
-                        class="card-text p-3  col-6"
+                        class="card-text p-3 col-6"
                         (click)="openCabinSliderModal(cabin)"
                       >
-                      Max Occupancy: {{ cabin?.max_occupancy }}
+                        Max Occupancy: {{ cabin?.max_occupancy }}
                       </p>
                     </div>
                   </div>
@@ -733,8 +738,7 @@
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
                         <img
-
-                          class=" comment-img mb-3 mb-md-0 rounded-circle"
+                          class="comment-img mb-3 mb-md-0 rounded-circle"
                           [src]="
                             review?.avatar ||
                             '../../../../../../assets/custom/user-dasboard/avatar-place.png'
@@ -834,8 +838,7 @@
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
                       <img
-
-                        class=" comment-img img-fluid mb-3 mb-md-0 rounded-circle"
+                        class="comment-img img-fluid mb-3 mb-md-0 rounded-circle"
                         [src]="review?.avatar"
                         [alt]="review?.name"
                       />
@@ -970,483 +973,518 @@
       <!-- Filter -->
 
       <div
-      *ngIf="!isMobile"
-      class="col-lg-4 col-xl-3 p-0 order-1 order-md-2"
-      style="margin-top: 9.5rem">
-      <div class="mb-4 sticky-container">
-        <ul
-          class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
-        >
-          <ng-container *ngIf="boatData?.wishlist; else elseTemplate2">
-            <li
-              type="button"
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Save for later"
-              class="list-group-item px-1"
-            >
-              <a
-                class="h-100 width-45 border rounded border-width-2 flex-content-center"
+        *ngIf="!isMobile"
+        class="col-lg-4 col-xl-3 p-0 order-1 order-md-2"
+        style="margin-top: 9.5rem"
+      >
+        <div class="mb-4 sticky-container">
+          <ul
+            class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
+          >
+            <ng-container *ngIf="boatData?.wishlist; else elseTemplate2">
+              <li
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
+                class="list-group-item px-1"
               >
-                <i class="fa fa-heart fs-3 text-danger"></i>
-              </a>
-            </li>
-          </ng-container>
-          <ng-template #elseTemplate2>
-            <li
-              type="button"
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Save for later"
-              class="list-group-item px-1"
-            >
-              <a
-                #btn
-                (click)="addtoFavorits(btn, $event)"
-                class="h-100 width-45 border rounded border-width-2 flex-content-center"
-              >
-                <i class="fa fa-heart fs-3 text-black-50"></i>
-              </a>
-            </li>
-          </ng-template>
-          <li class="list-group-item px-1">
-            <a
-              type="button"
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Share Trip"
-              (click)="share()"
-              class="height-45 width-45 border rounded border-width-2 flex-content-center"
-            >
-              <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
-            </a>
-          </li>
-          <li class="list-group-item px-1">
-            <a class="border rounded border-width-2 flex-content-center">
-              <span class="text-white review">
-                {{ getRoundedRate(boatData?.rate) }} /5</span
-              >
-            </a>
-          </li>
-          <li class="list-group-item px-1 d-flex flex-column">
-            <span class="top fw-bold" style="color: #297cbb">{{
-              getRatingDescription(boatData?.rate)
-            }}</span>
-            <small class="d-block"
-              >({{ boatData?.CountReview }} Reviews)</small
-            >
-          </li>
-        </ul>
-
-
-
-
-
-        <div
-          class="border border-color-7 rounded mb-5 p-5"
-          #selectCabinButton
-        >
-          <div>
-            <!-- Input -->
-
-            <div class="mb-4">
-              <div
-                class="priceTitle d-flex justify-content-between"
-                *ngIf="price"
-              >
-                <span class="d-block text-gray-1 font-weight-normal text-left"
-                  >Price</span
+                <a
+                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
                 >
-                <p>From ${{ price }}</p>
-              </div>
-              <div class="border-bottom border-width-2 border-color-1 pb-1">
-                <span class="d-block">Date</span>
+                  <i class="fa fa-heart fs-3 text-danger"></i>
+                </a>
+              </li>
+            </ng-container>
+            <ng-template #elseTemplate2>
+              <li
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Save for later"
+                class="list-group-item px-1"
+              >
+                <a
+                  #btn
+                  (click)="addtoFavorits(btn, $event)"
+                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                >
+                  <i class="fa fa-heart fs-3 text-black-50"></i>
+                </a>
+              </li>
+            </ng-template>
+            <li class="list-group-item px-1">
+              <a
+                type="button"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Share Trip"
+                (click)="share()"
+                class="height-45 width-45 border rounded border-width-2 flex-content-center"
+              >
+                <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
+              </a>
+            </li>
+            <li class="list-group-item px-1">
+              <a class="border rounded border-width-2 flex-content-center">
+                <span class="text-white review">
+                  {{ getRoundedRate(boatData?.rate) }} /5</span
+                >
+              </a>
+            </li>
+            <li class="list-group-item px-1 d-flex flex-column">
+              <span class="top fw-bold" style="color: #297cbb">{{
+                getRatingDescription(boatData?.rate)
+              }}</span>
+              <small class="d-block"
+                >({{ boatData?.CountReview }} Reviews)</small
+              >
+            </li>
+          </ul>
+
+          <div
+            class="border border-color-7 rounded mb-5 p-5"
+            #selectCabinButton
+          >
+            <div>
+              <!-- Input -->
+
+              <div class="mb-4">
                 <div
-                  class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
+                  class="priceTitle d-flex justify-content-between"
+                  *ngIf="price"
                 >
-                  <div id="datepickerWrapperFromOne" class="w-100">
-                    <mat-form-field class="w-100 mt-2">
-                      <mat-label>Enter a date range</mat-label>
-                      <mat-date-range-input
-                        [formGroup]="range"
-                        class="fs-6"
-                        [rangePicker]="picker"
-                        (click)="picker.open()"
-                      >
-                        <input
-                          matStartDate
-                          formControlName="start"
-                          placeholder="Start date"
-                          (dateInput)="onStartDateChanged()"
-                          [min]="today"
-                        />
-                        <input
-                          matEndDate
-                          formControlName="end"
-                          placeholder="End date"
-                          (dateInput)="onEndDateChanged()"
-                          [min]="range.get('start')?.value || today"
-                        />
-                      </mat-date-range-input>
-                      <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="picker"
-                      ></mat-datepicker-toggle>
-                      <mat-date-range-picker #picker></mat-date-range-picker>
-                    </mat-form-field>
+                  <span class="d-block text-gray-1 font-weight-normal text-left"
+                    >Price</span
+                  >
+                  <p>
+                    <span>From </span>
+                    <span
+                      class="font-size-15 fw-bold text-dark"
+                      [style.text-decoration]="
+                        discount > 0 ? 'line-through' : ''
+                      "
+                      [style.color]="
+                        discount > 0 ? 'rgb(13, 177, 255) !important' : ''
+                      "
+                    >
+                      ${{ price }}
+                    </span>
+                    <span
+                      class="font-size-15 fw-bold text-dark mx-2"
+                      *ngIf="discount > 0"
+                      style="font-weight: 500; color: rgb(13, 177, 255)"
+                    >
+                      ${{ getRoundedRate(price - (discount / 100) * price) }}
+                    </span>
+                  </p>
+                </div>
+                <div class="border-bottom border-width-2 border-color-1 pb-1">
+                  <span class="d-block">Date</span>
+                  <div
+                    class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
+                  >
+                    <div id="datepickerWrapperFromOne" class="w-100">
+                      <mat-form-field class="w-100 mt-2">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input
+                          [formGroup]="range"
+                          class="fs-6"
+                          [rangePicker]="picker"
+                          (click)="picker.open()"
+                        >
+                          <input
+                            matStartDate
+                            formControlName="start"
+                            placeholder="Start date"
+                            (dateInput)="onStartDateChanged()"
+                            [min]="today"
+                          />
+                          <input
+                            matEndDate
+                            formControlName="end"
+                            placeholder="End date"
+                            (dateInput)="onEndDateChanged()"
+                            [min]="range.get('start')?.value || today"
+                          />
+                        </mat-date-range-input>
+                        <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="border-bottom border-width-2 border-color-1 pb-1 mt-3"
-              >
-                <span class="d-block">Destination</span>
+                <div
+                  class="border-bottom border-width-2 border-color-1 pb-1 mt-3"
+                >
+                  <span class="d-block">Destination</span>
 
-                <ng-container *ngIf="boatData?.Distnation">
-                  <mat-form-field class="w-100 mt-2">
-                    <!-- <mat-label>Date</mat-label> -->
-                    <mat-select
-                      [formControl]="selectedDateControl"
-                      (selectionChange)="onSelectionChange($event)"
-                      (valueChange)="onValueChange($event)"
-                    >
-                      <mat-option selected disabled [value]="null" hidden
-                        >Where are you going</mat-option
+                  <ng-container *ngIf="boatData?.Distnation">
+                    <mat-form-field class="w-100 mt-2">
+                      <!-- <mat-label>Date</mat-label> -->
+                      <mat-select
+                        [formControl]="selectedDateControl"
+                        (selectionChange)="onSelectionChange($event)"
+                        (valueChange)="onValueChange($event)"
                       >
-                      <mat-option
-                        *ngFor="let time of boatData?.Distnation"
-                        [value]="time"
-                        >{{ time?.distnation }}</mat-option
-                      >
-                    </mat-select>
-                  </mat-form-field>
-                </ng-container>
+                        <mat-option selected disabled [value]="null" hidden
+                          >Where are you going</mat-option
+                        >
+                        <mat-option
+                          *ngFor="let time of boatData?.Distnation"
+                          [value]="time"
+                          >{{ time?.distnation }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </ng-container>
+                </div>
               </div>
-            </div>
-            <!-- End Input -->
-            <div>
-              <!-- <div class="alert alert-info my-2 text-white">
+              <!-- End Input -->
+              <div>
+                <!-- <div class="alert alert-info my-2 text-white">
                 <p class="mb-0 text-dark">
                   Maximum of guests {{ boatData?.MaxPersons }}
                 </p>
               </div> -->
-            </div>
-            <!-- End Input -->
-            <div
-              *ngIf="
-                range.get('start')?.invalid &&
-                (range.get('start')?.dirty || range.get('start')?.touched)
-              "
-              class="text-danger"
-            >
-              <div *ngIf="range.get('start')?.errors?.['required']">
-                Start date is required.
               </div>
-            </div>
-
-            <div
-              *ngIf="
-                range.get('end')?.invalid &&
-                (range.get('end')?.dirty || range.get('end')?.touched)
-              "
-              class="text-danger"
-            >
-              <div *ngIf="range.get('end')?.errors?.['required']">
-                End date is required.
-              </div>
-            </div>
-            <div
-              *ngIf="
-                selectedDateControl.invalid &&
-                (selectedDateControl.dirty || selectedDateControl.touched)
-              "
-              class="text-danger"
-            >
-              <div *ngIf="selectedDateControl.errors?.['required']">
-                Destination required.
-              </div>
-            </div>
-            <div class="text-center">
-              <a
-                class="btn check d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 text-white"
-                style="font-weight: 700"
-                (click)="bookNow()"
+              <!-- End Input -->
+              <div
+                *ngIf="
+                  range.get('start')?.invalid &&
+                  (range.get('start')?.dirty || range.get('start')?.touched)
+                "
+                class="text-danger"
               >
-                Check availability
-              </a>
+                <div *ngIf="range.get('start')?.errors?.['required']">
+                  Start date is required.
+                </div>
+              </div>
+
+              <div
+                *ngIf="
+                  range.get('end')?.invalid &&
+                  (range.get('end')?.dirty || range.get('end')?.touched)
+                "
+                class="text-danger"
+              >
+                <div *ngIf="range.get('end')?.errors?.['required']">
+                  End date is required.
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  selectedDateControl.invalid &&
+                  (selectedDateControl.dirty || selectedDateControl.touched)
+                "
+                class="text-danger"
+              >
+                <div *ngIf="selectedDateControl.errors?.['required']">
+                  Destination required.
+                </div>
+              </div>
+              <div class="text-center">
+                <a
+                  class="btn check d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 text-white"
+                  style="font-weight: 700"
+                  (click)="bookNow()"
+                >
+                  Check availability
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="border border-color-7 rounded p-4 mb-5">
+            <h6 class="book">Why Book With Us?</h6>
+            <div
+              class="d-flex align-items-center mb-3"
+              *ngFor="let about of Why_chosse_us"
+            >
+              <img
+                [src]="about.icon"
+                class="me-3"
+                [alt]="about.title"
+                loading="lazy"
+                width="24"
+                height="24"
+              />
+              <h6 class="mb-0 font-size-14 text-gray-1">
+                <a>{{ about.title }}</a>
+              </h6>
             </div>
           </div>
         </div>
-        <div class="border border-color-7 rounded p-4 mb-5">
-          <h6 class="book">Why Book With Us?</h6>
-          <div
-            class="d-flex align-items-center mb-3"
-            *ngFor="let about of Why_chosse_us"
-          >
-            <img
-              [src]="about.icon"
-              class="me-3"
-              [alt]="about.title"
-              loading="lazy"
-              width="24"
-              height="24"
-            />
-            <h6 class="mb-0 font-size-14 text-gray-1">
-              <a>{{ about.title }}</a>
-            </h6>
-          </div>
-        </div>
+        <!--End Filter -->
       </div>
-      <!--End Filter -->
-    </div>
-      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="exampleModal2"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close custom-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
 
             <div *ngIf="isMobile" class="container">
-              <div
-              class="col-lg-4 col-xl-3 p-0 order-1 order-md-2"
-              >
-              <div class="mb-4 sticky-container">
-                <ul
-                  class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
-                >
-                  <ng-container *ngIf="boatData?.wishlist; else elseTemplate2">
-                    <li
-                      type="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="bottom"
-                      title="Save for later"
-                      class="list-group-item px-1"
+              <div class="col-lg-4 col-xl-3 p-0 order-1 order-md-2">
+                <div class="mb-4 sticky-container">
+                  <ul
+                    class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
+                  >
+                    <ng-container
+                      *ngIf="boatData?.wishlist; else elseTemplate2"
                     >
-                      <a
-                        class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                      <li
+                        type="button"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="Save for later"
+                        class="list-group-item px-1"
                       >
-                        <i class="fa fa-heart fs-3 text-danger"></i>
-                      </a>
-                    </li>
-                  </ng-container>
-                  <ng-template #elseTemplate2>
-                    <li
-                      type="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="bottom"
-                      title="Save for later"
-                      class="list-group-item px-1"
-                    >
-                      <a
-                        #btn
-                        (click)="addtoFavorits(btn, $event)"
-                        class="h-100 width-45 border rounded border-width-2 flex-content-center"
-                      >
-                        <i class="fa fa-heart fs-3 text-black-50"></i>
-                      </a>
-                    </li>
-                  </ng-template>
-                  <li class="list-group-item px-1">
-                    <a
-                      type="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="bottom"
-                      title="Share Trip"
-                      (click)="share()"
-                      class="height-45 width-45 border rounded border-width-2 flex-content-center"
-                    >
-                      <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
-                    </a>
-                  </li>
-                  <li class="list-group-item px-1">
-                    <a class="border rounded border-width-2 flex-content-center">
-                      <span class="text-white review">
-                        {{ getRoundedRate(boatData?.rate) }} /5</span
-                      >
-                    </a>
-                  </li>
-                  <li class="list-group-item px-1 d-flex flex-column">
-                    <span class="top fw-bold" style="color: #297cbb">{{
-                      getRatingDescription(boatData?.rate)
-                    }}</span>
-                    <small class="d-block"
-                      >({{ boatData?.CountReview }} Reviews)</small
-                    >
-                  </li>
-                </ul>
-
-
-
-
-
-                <div
-                  class="border border-color-7 rounded mb-5 p-5"
-                  #selectCabinButton
-                >
-                  <div>
-                    <!-- Input -->
-
-                    <div class="mb-4">
-                      <div
-                        class="priceTitle d-flex justify-content-between"
-                        *ngIf="price"
-                      >
-                        <span class="d-block text-gray-1 font-weight-normal text-left"
-                          >Price</span
+                        <a
+                          class="h-100 width-45 border rounded border-width-2 flex-content-center"
                         >
-                        <p>From ${{ price }}</p>
-                      </div>
-                      <div class="border-bottom border-width-2 border-color-1 pb-1">
-                        <span class="d-block">Date</span>
+                          <i class="fa fa-heart fs-3 text-danger"></i>
+                        </a>
+                      </li>
+                    </ng-container>
+                    <ng-template #elseTemplate2>
+                      <li
+                        type="button"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="Save for later"
+                        class="list-group-item px-1"
+                      >
+                        <a
+                          #btn
+                          (click)="addtoFavorits(btn, $event)"
+                          class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                        >
+                          <i class="fa fa-heart fs-3 text-black-50"></i>
+                        </a>
+                      </li>
+                    </ng-template>
+                    <li class="list-group-item px-1">
+                      <a
+                        type="button"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="Share Trip"
+                        (click)="share()"
+                        class="height-45 width-45 border rounded border-width-2 flex-content-center"
+                      >
+                        <i
+                          class="fa-solid fa-share-nodes font-size-18 text-dark"
+                        ></i>
+                      </a>
+                    </li>
+                    <li class="list-group-item px-1">
+                      <a
+                        class="border rounded border-width-2 flex-content-center"
+                      >
+                        <span class="text-white review">
+                          {{ getRoundedRate(boatData?.rate) }} /5</span
+                        >
+                      </a>
+                    </li>
+                    <li class="list-group-item px-1 d-flex flex-column">
+                      <span class="top fw-bold" style="color: #297cbb">{{
+                        getRatingDescription(boatData?.rate)
+                      }}</span>
+                      <small class="d-block"
+                        >({{ boatData?.CountReview }} Reviews)</small
+                      >
+                    </li>
+                  </ul>
+
+                  <div
+                    class="border border-color-7 rounded mb-5 p-5"
+                    #selectCabinButton
+                  >
+                    <div>
+                      <!-- Input -->
+
+                      <div class="mb-4">
                         <div
-                          class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
+                          class="priceTitle d-flex justify-content-between"
+                          *ngIf="price"
                         >
-                          <div id="datepickerWrapperFromOne" class="w-100">
-                            <mat-form-field class="w-100 mt-2">
-                              <mat-label>Enter a date range</mat-label>
-                              <mat-date-range-input
-                                [formGroup]="range"
-                                class="fs-6"
-                                [rangePicker]="picker"
-                                (click)="picker.open()"
-                              >
-                                <input
-                                  matStartDate
-                                  formControlName="start"
-                                  placeholder="Start date"
-                                  (dateInput)="onStartDateChanged()"
-                                  [min]="today"
-                                />
-                                <input
-                                  matEndDate
-                                  formControlName="end"
-                                  placeholder="End date"
-                                  (dateInput)="onEndDateChanged()"
-                                  [min]="range.get('start')?.value || today"
-                                />
-                              </mat-date-range-input>
-                              <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                              <mat-datepicker-toggle
-                                matSuffix
-                                [for]="picker"
-                              ></mat-datepicker-toggle>
-                              <mat-date-range-picker #picker></mat-date-range-picker>
-                            </mat-form-field>
+                          <span
+                            class="d-block text-gray-1 font-weight-normal text-left"
+                            >Price</span
+                          >
+                          <p>From ${{ price }}</p>
+                        </div>
+                        <div
+                          class="border-bottom border-width-2 border-color-1 pb-1"
+                        >
+                          <span class="d-block">Date</span>
+                          <div
+                            class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
+                          >
+                            <div id="datepickerWrapperFromOne" class="w-100">
+                              <mat-form-field class="w-100 mt-2">
+                                <mat-label>Enter a date range</mat-label>
+                                <mat-date-range-input
+                                  [formGroup]="range"
+                                  class="fs-6"
+                                  [rangePicker]="picker"
+                                  (click)="picker.open()"
+                                >
+                                  <input
+                                    matStartDate
+                                    formControlName="start"
+                                    placeholder="Start date"
+                                    (dateInput)="onStartDateChanged()"
+                                    [min]="today"
+                                  />
+                                  <input
+                                    matEndDate
+                                    formControlName="end"
+                                    placeholder="End date"
+                                    (dateInput)="onEndDateChanged()"
+                                    [min]="range.get('start')?.value || today"
+                                  />
+                                </mat-date-range-input>
+                                <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker"
+                                ></mat-datepicker-toggle>
+                                <mat-date-range-picker
+                                  #picker
+                                ></mat-date-range-picker>
+                              </mat-form-field>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class="border-bottom border-width-2 border-color-1 pb-1 mt-3"
-                      >
-                        <span class="d-block">Destination</span>
+                        <div
+                          class="border-bottom border-width-2 border-color-1 pb-1 mt-3"
+                        >
+                          <span class="d-block">Destination</span>
 
-                        <ng-container *ngIf="boatData?.Distnation">
-                          <mat-form-field class="w-100 mt-2">
-                            <!-- <mat-label>Date</mat-label> -->
-                            <mat-select
-                              [formControl]="selectedDateControl"
-                              (selectionChange)="onSelectionChange($event)"
-                              (valueChange)="onValueChange($event)"
-                            >
-                              <mat-option selected disabled [value]="null" hidden
-                                >Where are you going</mat-option
+                          <ng-container *ngIf="boatData?.Distnation">
+                            <mat-form-field class="w-100 mt-2">
+                              <!-- <mat-label>Date</mat-label> -->
+                              <mat-select
+                                [formControl]="selectedDateControl"
+                                (selectionChange)="onSelectionChange($event)"
+                                (valueChange)="onValueChange($event)"
                               >
-                              <mat-option
-                                *ngFor="let time of boatData?.Distnation"
-                                [value]="time"
-                                >{{ time?.distnation }}</mat-option
-                              >
-                            </mat-select>
-                          </mat-form-field>
-                        </ng-container>
+                                <mat-option
+                                  selected
+                                  disabled
+                                  [value]="null"
+                                  hidden
+                                  >Where are you going</mat-option
+                                >
+                                <mat-option
+                                  *ngFor="let time of boatData?.Distnation"
+                                  [value]="time"
+                                  >{{ time?.distnation }}</mat-option
+                                >
+                              </mat-select>
+                            </mat-form-field>
+                          </ng-container>
+                        </div>
                       </div>
-                    </div>
-                    <!-- End Input -->
-                    <div>
-                      <!-- <div class="alert alert-info my-2 text-white">
+                      <!-- End Input -->
+                      <div>
+                        <!-- <div class="alert alert-info my-2 text-white">
                         <p class="mb-0 text-dark">
                           Maximum of guests {{ boatData?.MaxPersons }}
                         </p>
                       </div> -->
-                    </div>
-                    <!-- End Input -->
-                    <div
-                      *ngIf="
-                        range.get('start')?.invalid &&
-                        (range.get('start')?.dirty || range.get('start')?.touched)
-                      "
-                      class="text-danger"
-                    >
-                      <div *ngIf="range.get('start')?.errors?.['required']">
-                        Start date is required.
                       </div>
-                    </div>
-
-                    <div
-                      *ngIf="
-                        range.get('end')?.invalid &&
-                        (range.get('end')?.dirty || range.get('end')?.touched)
-                      "
-                      class="text-danger"
-                    >
-                      <div *ngIf="range.get('end')?.errors?.['required']">
-                        End date is required.
-                      </div>
-                    </div>
-                    <div
-                      *ngIf="
-                        selectedDateControl.invalid &&
-                        (selectedDateControl.dirty || selectedDateControl.touched)
-                      "
-                      class="text-danger"
-                    >
-                      <div *ngIf="selectedDateControl.errors?.['required']">
-                        Destination required.
-                      </div>
-                    </div>
-                    <div class="text-center">
-                      <a
-                        class="btn check d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 text-white"
-                        style="font-weight: 700"
-                        (click)="bookNow()"
-                        data-bs-dismiss="modal"
+                      <!-- End Input -->
+                      <div
+                        *ngIf="
+                          range.get('start')?.invalid &&
+                          (range.get('start')?.dirty ||
+                            range.get('start')?.touched)
+                        "
+                        class="text-danger"
                       >
-                        Check availability
-                      </a>
+                        <div *ngIf="range.get('start')?.errors?.['required']">
+                          Start date is required.
+                        </div>
+                      </div>
+
+                      <div
+                        *ngIf="
+                          range.get('end')?.invalid &&
+                          (range.get('end')?.dirty || range.get('end')?.touched)
+                        "
+                        class="text-danger"
+                      >
+                        <div *ngIf="range.get('end')?.errors?.['required']">
+                          End date is required.
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+                          selectedDateControl.invalid &&
+                          (selectedDateControl.dirty ||
+                            selectedDateControl.touched)
+                        "
+                        class="text-danger"
+                      >
+                        <div *ngIf="selectedDateControl.errors?.['required']">
+                          Destination required.
+                        </div>
+                      </div>
+                      <div class="text-center">
+                        <a
+                          class="btn check d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 text-white"
+                          style="font-weight: 700"
+                          (click)="bookNow()"
+                          data-bs-dismiss="modal"
+                        >
+                          Check availability
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border border-color-7 rounded p-4 mb-5">
+                    <h6 class="book">Why Book With Us?</h6>
+                    <div
+                      class="d-flex align-items-center mb-3"
+                      *ngFor="let about of Why_chosse_us"
+                    >
+                      <img
+                        [src]="about.icon"
+                        class="me-3"
+                        [alt]="about.title"
+                        loading="lazy"
+                        width="24"
+                        height="24"
+                      />
+                      <h6 class="mb-0 font-size-14 text-gray-1">
+                        <a>{{ about.title }}</a>
+                      </h6>
                     </div>
                   </div>
                 </div>
-                <div class="border border-color-7 rounded p-4 mb-5">
-                  <h6 class="book">Why Book With Us?</h6>
-                  <div
-                    class="d-flex align-items-center mb-3"
-                    *ngFor="let about of Why_chosse_us"
-                  >
-                    <img
-                      [src]="about.icon"
-                      class="me-3"
-                      [alt]="about.title"
-                      loading="lazy"
-                      width="24"
-                      height="24"
-                    />
-                    <h6 class="mb-0 font-size-14 text-gray-1">
-                      <a>{{ about.title }}</a>
-                    </h6>
-                  </div>
-                </div>
+                <!--End Filter -->
               </div>
-              <!--End Filter -->
             </div>
-            </div>
-
-
           </div>
         </div>
       </div>
-
-
     </div>
     <div class="my-liveBoard-work" *ngIf="relatedtrips.length > 0">
       <h5 class="text-center mb-5">Based on what’s you’re looking for ....</h5>
@@ -1499,7 +1537,6 @@
   >
     <a
       class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
-
       data-bs-toggle="modal"
       data-bs-target="#exampleModal2"
     >
