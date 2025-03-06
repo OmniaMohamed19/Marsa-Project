@@ -37,6 +37,7 @@ import {
   CUSTOM_DATE_FORMATS,
   CustomDateAdapter,
 } from 'src/app/shared/components/Date/custom-date-adapter';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-package-details',
@@ -131,6 +132,35 @@ export class PackageDetailsComponent {
       this.isMobile = true;
     }
   }
+    customOptions: OwlOptions = {
+      loop: this.relatedtrips.length > 4 ? true : false,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
+      dots: false,
+      autoplay: true,
+      margin: 10,
+      navSpeed: 700,
+      navText: [
+        "<i class='fa fa-angle-left'></i>",
+        "<i class='fa fa-angle-right'></i>",
+      ],
+      responsive: {
+        0: {
+          items: 1,
+        },
+        740: {
+          items: 4,
+        },
+        940: {
+          items: 4,
+        },
+        1200: {
+          items: 4,
+        },
+      },
+      nav: true,
+    };
 
   seeMore: boolean = false;
   showFullDescription = false;
@@ -236,6 +266,7 @@ export class PackageDetailsComponent {
       .get(environment.marsa, `package/details/` + packageID)
       .subscribe((res: any) => {
         this.rows = res?.PackageDetails;
+        this.relatedtrips = res.Relatedtrips;
         // this.faq=res?.PackageDetails?.faq;
 
         this.activatedRoute.params.subscribe((params: any) => {

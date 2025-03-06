@@ -106,13 +106,13 @@ export class PackagePaymentComponent {
       this.userData.name =
         JSON.parse(localStorage['queryParamsPackages']).BookingInfo.name || '';
       this.userData.phone =
-        JSON.parse(localStorage['queryParamsPackages']).BookingInfo.Phone || '';
+        JSON.parse(localStorage['queryParamsPackages']).BookingInfo?.Phone || '';
       this.userData.email =
         JSON.parse(localStorage['queryParamsPackages']).BookingInfo['E-mail'] ||
         '';
       console.log(this.userData);
       this.customerForm.patchValue(this.userData);
-      this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+      this.customerForm?.get('phone')?.patchValue('+' + this.userData?.phone);
     } else {
       this._AuthService.getUserData().subscribe(
         (data: any) => {
@@ -120,7 +120,7 @@ export class PackagePaymentComponent {
           this.customerForm.patchValue(this.userData);
           this.customerForm
             ?.get('phone')
-            ?.patchValue('+' + this.userData.phone);
+            ?.patchValue('+' + this.userData?.phone);
         },
         (error) => {
           // Handle error if needed

@@ -416,6 +416,16 @@
           </div>
         </div>
       </div>
+      <div class="my-tours-work">
+        <h5 class="text-center mb-5 mt-5">Based on what’s you’re looking for ....</h5>
+        <owl-carousel-o [options]="customOptions" class="my-tours">
+          <ng-container *ngFor="let item of relatedtrips">
+            <ng-template carouselSlide>
+              <app-activity-card [item]="item"></app-activity-card>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
     </div>
   </div>
   <div *ngIf="!isMobile" class="col-md-3 col-sm-12 order-1 order-md-2">
@@ -769,17 +779,9 @@
     </div>
   </div>
 
-  <!-- <div class="my-tours-work">
-    <h5 class="text-center mb-5">Based on what’s you’re looking for ....</h5>
-    <owl-carousel-o [options]="customOptions" class="my-tours">
-      <ng-container *ngFor="let item of relatedtrips">
-        <ng-template carouselSlide>
-          <app-activity-card [item]="item"></app-activity-card>
-        </ng-template>
-      </ng-container>
-    </owl-carousel-o>
-  </div> -->
+
 </div>
+
 
 <!-- <div
   style="position: fixed; bottom: 0px; z-index: 99999"
@@ -788,7 +790,7 @@
 >
   <div class="d-flex justify-content-between p-3" style="background: white">
     <div class="priceTitle d-flex justify-content-between">
-     
+
       <p style="font-weight: 500" class="mb-0 pt-1">
         <span
           class="font-size-16 fw-bold text-dark"

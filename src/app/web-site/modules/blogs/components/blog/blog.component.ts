@@ -26,6 +26,7 @@ export class BlogComponent implements OnInit {
   productTotal!: number;
   isMobile = false;
   allTags:any=[];
+  allTagss:any=[];
   constructor(
     private _httpService: HttpService,
     public translate: TranslateService,
@@ -71,17 +72,17 @@ export class BlogComponent implements OnInit {
         this.last_page = response?.Blogs?.last_page;
         this.productTotal = response?.Blogs?.total;
         this.pages = Array.from({ length: this.last_page }, (_, i) => i + 1);
-  
-        // استخراج جميع "Tages" في مصفوفة واحدة
+
         this.allTags = this.blogs
-          .map((blog: { Tages: any; }) => blog.Tages || []) // استخراج المصفوفات
-          .flat(); // دمج جميع المصفوفات في مصفوفة واحدة
-  
+          .map((blog: { Tages: any; }) => blog.Tages || []) 
+          .flat(); 
+
         this.allTags = Array.from(new Set(this.allTags));
+        console.log( this.allTags)
       },
     });
   }
-  
+
 
   next() {
     this.page = this.page < this.last_page ? this.page + 1 : this.page;

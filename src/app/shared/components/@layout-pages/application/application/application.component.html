@@ -8,14 +8,20 @@
           alt="home"
           loading="lazy"
         />
+        <!-- <img
+        class="home"
+        [src]="mobile_image"
+        alt="home"
+        loading="lazy"
+      /> -->
       </div>
 
       <div class="col-md-6 apps-container">
         <div class="content">
           <h3>Get Marsa Waves App</h3>
-          <p>
-            Use code : {{ details?.[0].code }} to get {{ details?.[0].amount }}%
-            off
+          <p [innerhtml]="mobile_description">
+            <!-- Use code : {{ details?.[0].code }} to get {{ details?.[0].amount }}%
+            off -->
           </p>
         </div>
 
@@ -28,7 +34,9 @@
             <a href="https://play.google.com/store/apps/details?id=com.misk.marsa" target="_blank">
 
               <img
-                src="../../../../../../assets/images/appStore.webp"
+              width="205px"
+style="margin-bottom: -5rem;"
+                src="../../../../../../assets/images/appStore.svg"
                 class="appstore"
                 alt="app-Store"
                 loading="lazy"

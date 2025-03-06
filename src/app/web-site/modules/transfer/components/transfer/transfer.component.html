@@ -47,23 +47,25 @@
                         <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                        style="width: 100%; max-height: 200px; overflow-y: auto;">
-                        <!-- Search input for the first dropdown -->
-                        <li>
-                          <input type="text" class="form-control" placeholder="Search..." name="searchFrom"
-                            [(ngModel)]="searchFrom" (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
-                        </li>
-                        <!-- Show filtered airports -->
-                        <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)"
-                          style="cursor: pointer;">
-                          <a class="dropdown-item">{{ airport?.name }}</a>
-                        </li>
-                        <!-- Show filtered hotels -->
-                        <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)"
-                          style="cursor: pointer;">
-                          <a class="dropdown-item">{{ hotel.title }}</a>
-                        </li>
-                      </ul>
+                      style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
+
+                    <!-- Search input for the first dropdown -->
+                    <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                      <input type="text" class="form-control" placeholder="Search..." name="searchFrom"
+                        [(ngModel)]="searchFrom" (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
+                    </li>
+
+                    <!-- Show filtered airports -->
+                    <li *ngFor="let airport of filteredFromAirports" (click)="selectFromOption(airport)" style="cursor: pointer;">
+                      <a class="dropdown-item">{{ airport?.name }}</a>
+                    </li>
+
+                    <!-- Show filtered hotels -->
+                    <li *ngFor="let hotel of filteredFromHotels" (click)="selectFromOption(hotel)" style="cursor: pointer;">
+                      <a class="dropdown-item">{{ hotel.title }}</a>
+                    </li>
+                  </ul>
+
                     </div>
                   </div>
 
@@ -82,9 +84,9 @@
                         <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                        style="width: 100%;max-height: 200px; overflow-y: auto;">
+                      style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                         <!-- Search input for the second dropdown -->
-                        <li>
+                        <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                           <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
                             (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                         </li>
@@ -172,9 +174,9 @@
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                      style="width: 100%; max-height: 200px; overflow-y: auto;">
+                    style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                       <!-- Search input for the first dropdown -->
-                      <li>
+                      <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
                           (input)="filterFromOptions()" name="searchFrom" style="margin: 5px; width: 95%;" />
                       </li>
@@ -206,9 +208,9 @@
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                      style="width: 100%;max-height: 200px; overflow-y: auto;">
+                    style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                       <!-- Search input for the second dropdown -->
-                      <li>
+                      <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
                           (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                       </li>
@@ -314,9 +316,9 @@
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                      style="width: 100%; max-height: 200px; overflow-y: auto;">
+                    style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                       <!-- Search input for the first dropdown -->
-                      <li>
+                      <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchFrom"
                           (input)="filterFromOptions()" name="searchFrom" style="margin: 5px; width: 95%;" />
                       </li>
@@ -346,9 +348,9 @@
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                      style="width: 100%;max-height: 200px; overflow-y: auto;">
+                    style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                       <!-- Search input for the second dropdown -->
-                      <li>
+                      <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTo"
                           (input)="filterToOptions()" name="searchTo" style="margin: 5px; width: 95%;" />
                       </li>
@@ -446,9 +448,9 @@
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                      style="width: 100%; max-height: 200px; overflow-y: auto;">
+                    style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                       <!-- Search input for the first dropdown -->
-                      <li>
+                      <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                         <input type="text" class="form-control" name="searchFrom" placeholder="Search..."
                           [(ngModel)]="searchFrom" (input)="filterFromOptions()" style="margin: 5px; width: 95%;" />
                       </li>
@@ -478,9 +480,9 @@
                       <span class="dropdown-toggle-icon" style="position: absolute; right: 10px;"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                      style="width: 100%;max-height: 200px; overflow-y: auto;">
+                    style="width: 100%; max-height: 200px; overflow-y: auto; padding: 0;">
                       <!-- Search input for the second dropdown -->
-                      <li>
+                      <li style="position: sticky; top: 0; background-color: white; z-index: 1;">
                         <input type="text" class="form-control" name="searchTo" placeholder="Search..."
                           [(ngModel)]="searchTo" (input)="filterToOptions()" style="margin: 5px; width: 95%;" />
                       </li>
