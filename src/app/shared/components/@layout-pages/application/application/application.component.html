@@ -1,4 +1,9 @@
-<section>
+<section   [style.backgroundImage]="'url(' + mobile_image + ')'" style="
+background-position: center center;
+    background-size: cover;
+    height: 596px;
+    margin-top: 70px;
+">
   <div class="container text-center">
     <div class="res row">
       <div class="col-md-6">
@@ -17,13 +22,8 @@
       </div>
 
       <div class="col-md-6 apps-container">
-        <div class="content">
-          <h3>Get Marsa Waves App</h3>
-          <p [innerhtml]="mobile_description">
-            <!-- Use code : {{ details?.[0].code }} to get {{ details?.[0].amount }}%
-            off -->
-          </p>
-        </div>
+        <div class="" *ngIf="mobile_description" [innerHTML]="mobile_description"></div>
+
 
         <div class="mobile">
           <!--<div class="qr-bg">

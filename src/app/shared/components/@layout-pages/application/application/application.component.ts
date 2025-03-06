@@ -19,6 +19,7 @@ export class ApplicationComponent {
     });
     this.httpService.get(environment.marsa, 'Background').subscribe((res: any) => {
       this.mobile_description = res?.mobile_section_text;
+      console.log( this.mobile_description)
      this.mobile_image=res?.mobile_section;
     });
   }

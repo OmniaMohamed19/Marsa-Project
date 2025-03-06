@@ -47,6 +47,7 @@ export class ClientsComponent {
 ngOnInit(): void {
   this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
     next: (response: any) => {
+      //this.data = response?.SocialReview;
       this.data = response;
     },
     error: (err) => {
@@ -60,6 +61,6 @@ ngOnInit(): void {
   }
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-    return imageName || 'Unknown photo'; 
+    return imageName || 'Unknown photo';
   }
 }
