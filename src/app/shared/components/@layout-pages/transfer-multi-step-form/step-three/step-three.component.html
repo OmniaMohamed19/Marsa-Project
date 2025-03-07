@@ -8,7 +8,7 @@
         </div>
 
         <section class="mt-3 row align-items-center justify-content-between">
-          <ul class="nav nav-classic nav-choose border-0 nav-justified border flex-column flex-md-row">
+          <ul class="nav nav-classic nav-choose border-0 nav-justified flex-column flex-md-row">
             <li class="nav-item mx-3 mb-3 mb-md-0">
               <a class="rounded py-5 border-width-2 border nav-link font-weight-medium active"
                 id="pills-two-example2-tab" [class.active]="isActiveTab('pills-two-example2')"
@@ -242,16 +242,13 @@
                   SavedaddOnDetails?.maintotal
                 }}$</span>
               </li> -->
-             
+
               <div class="d-flex justify-content-between mt-5">
                 <div class="col-6 px-0">
                   <span class="person">Total After Discount </span>
                 </div>
                 <div class="col-4">
-                  <span class="age">${{
-                   SavedaddOnDetails?.Total
-  
-                    }}</span>
+                  <span class="age">${{SavedaddOnDetails?.Total}}</span>
                 </div>
               </div>
             </ng-container>

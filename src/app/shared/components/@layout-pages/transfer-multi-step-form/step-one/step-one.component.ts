@@ -20,6 +20,7 @@ export class StepOneComponent implements OnInit {
   selectedItemId: number | null = null;
   userDetails: any;
   phone: any;
+  country_Code:any;
   phoneNumber: any;
   bookdetail: any;
   adultCount = 0;
@@ -66,6 +67,7 @@ export class StepOneComponent implements OnInit {
     to: '',
     flightNumber: '',
     phoneNumber: '',
+    countrycode:'',
     date: '',
     pickuptime: '',
     personsTotal: 0,
@@ -91,9 +93,11 @@ export class StepOneComponent implements OnInit {
       this.userDetails = res?.userDashboard;
       this.phone = this.userDetails?.overviwe?.phonenumber;
       this.email = this.userDetails?.overviwe?.email
+      this.country_Code = this.userDetails?.overviwe?.countrycode; // حفظ كود الدولة
 
       this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
       this.formData.phoneNumber = this.phoneNumber || '';
+      this.formData.countrycode = this.country_Code || '';
       this.formData.email = this.email || '';
 
     });
@@ -168,6 +172,32 @@ export class StepOneComponent implements OnInit {
     }
 
   }
+  
+  onCountryChange(event: any) {
+    if (event) {
+     
+  
+      // تحديث كود الدولة في الفورم داتا
+      this.formData.countrycode = event.dialCode;
+  
+      // تحديث رقم الهاتف بدون كائنات إضافية
+      //this.formData.phoneNumber = this.formData.phoneNumber?.nationalNumber?.replace('-', '') || '';
+   
+
+    }
+  }
+  onPhoneNumberChange(event: any) {
+    if (event) {
+      this.formData.phoneNumber = event.nationalNumber || ''; // حفظ الرقم بدون كود الدولة
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
 
   // onPickUpTimeChange(newTime: any) {
   //   this.formData.pickuptime = newTime;
@@ -230,7 +260,7 @@ export class StepOneComponent implements OnInit {
     }
     if (this.activeSection == 2){
 
-    
+
      if( !this.return_time) {
       this.toastr.info('Please choose your return time.', '', {
         disableTimeOut: false,
