@@ -227,13 +227,36 @@
         </div>
         <div class="col-md col-12 mt-2 ">
           <div class="d-flex ms-2 position-relative phone">
-            <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-              [separateDialCode]="true" [selectFirstCountry]="true" readonly [maxLength]="20" name="phoneNumber"
-              [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
-              [(ngModel)]="formData.phoneNumber"
-              
-               class="custom-tel-input" required #phoneNumberInput="ngModel"
-              required > </ngx-intl-tel-input>
+            <!-- <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+            [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
+            [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
+            [(ngModel)]="formData.phoneNumber" (ngModelChange)="onPhoneNumberChange($event)"
+            (countryChange)="onCountryChange($event)"
+            class="custom-tel-input" required #phoneNumberInput="ngModel" required>
+          </ngx-intl-tel-input> -->
+          <ngx-intl-tel-input
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="true"
+          [separateDialCode]="true"
+          [maxLength]="20"
+          [phoneValidation]="false"
+          name="phoneNumber"
+          [customPlaceholder]="'Enter phone number'"
+          [preferredCountries]="['de']"
+          [(ngModel)]="formData.phoneNumber"
+          (ngModelChange)="formData.phoneNumber = '+' + formData.countrycode + ' ' + ($event?.nationalNumber || '')"
+          (countryChange)="onCountryChange($event)"
+        ></ngx-intl-tel-input>
+        
+        
+        
+
+        
+          
+          
+          
           </div>
         </div>
       </div>

@@ -54,6 +54,8 @@ export class StepThreeComponent implements OnInit {
   activeSection: any;
   SavedaddOnDetails: any;
   AllbookingOption: any;
+  phoneNumber:any;
+  countrycode:any;
   constructor(
     private _httpService: HttpService,
     private toastr: ToastrService,
@@ -128,6 +130,8 @@ export class StepThreeComponent implements OnInit {
     if (savedFlightNumper) {
       this.formData1 = JSON.parse(savedFlightNumper);
       this.flightNumper = this.formData1?.flightNumber;
+      this.phoneNumber=this.formData1?.phoneNumber;
+      this.countrycode=this.formData1?.countrycode;
     }
 
     const savedResponseData = localStorage.getItem('responseData');
@@ -151,6 +155,18 @@ export class StepThreeComponent implements OnInit {
   }
 
   applycoupon() {
+    const bookingOption = [];
+    for (const key in this.selectedOption) {
+      if (this.selectedOption.hasOwnProperty(key)) {
+        const option = this.selectedOption[key];
+        if (option && option.id) {
+          bookingOption.push({
+            id: option.id,
+            persons: option.number,
+          });
+        }
+      }
+    }
     const model = {
       from_id: this.fromId,
       to_id: this.toId,
@@ -161,7 +177,7 @@ export class StepThreeComponent implements OnInit {
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime,
       return_booking_date: this.returnbookingdate,
-      booking_option: this.AllbookingOption,
+      booking_option: bookingOption,
       flight_n: this.flightNumper,
       coupon_code: this.coupon,
     };
@@ -400,6 +416,8 @@ export class StepThreeComponent implements OnInit {
       person: this.person,
       car_id: this.carId,
       way: this.way,
+      code:this.countrycode,
+      phone:this.phoneNumber,
       booking_time: this.bookingTime,
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime || '',
@@ -490,6 +508,8 @@ export class StepThreeComponent implements OnInit {
       person: this.person,
       car_id: this.carId,
       way: this.way,
+      code:this.countrycode,
+      phone:this.phoneNumber,
       booking_time: this.bookingTime,
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime,
