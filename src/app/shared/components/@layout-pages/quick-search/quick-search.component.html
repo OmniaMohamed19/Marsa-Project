@@ -798,13 +798,13 @@
     <div [ngClass]="{ 'active show': showSearch == 'transfer' }"  class="tab-pane fade" id="pills-four-example2"
       role="tabpanel" aria-labelledby="pills-four-example2-tab">
       <!-- Search Jobs Form -->
-      <div class="card border-0 tab-shadow p-4" style="margin-bottom: 0px;padding-bottom: 0px; height: 100%;">
+      <div class="card border-0 tab-shadow p-md-4 p-1" style="margin-bottom: 0px;padding-bottom: 0px; height: 100%;">
         <div class="card-body ">
           <div>
             <div class="d-flex flex-column flex-lg-row justify-content-start align-items-center">
 
 
-              <div class="col-md-3 col-6" style="margin-bottom: 0px !important;">
+              <div class="col-md-3 col-12" style="margin-bottom: 0px !important;">
                 <!-- First dropdown (From) with search -->
                 <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                   <button
@@ -841,7 +841,7 @@
                 </div>
               </div>
 
-              <div class="col-md-3 col-6" style="margin-bottom: 0px !important;">
+              <div class="col-md-3 col-12" style="margin-bottom: 0px !important;">
                 <!-- Second dropdown (To) with search -->
                 <div class="mb-4 mb-lg-0 dropdown" style="position: relative;">
                   <button
@@ -873,7 +873,7 @@
 
 
               <!-- Date Picker -->
-              <div class="col-md-2 col-6 mt-1 ">
+              <div class="col-md-2 col-12 mt-1 home-transfer-date ">
 
 
                 <p-calendar [(ngModel)]="date" [appendTo]="'body'" [showIcon]="true" [iconDisplay]="'input'"
@@ -889,8 +889,8 @@
 
               <!-- Pickup Time -->
 
-              <!----------------------------------->
-              <div class="col-md-2 col-6">
+              <!--------------------------------- -->
+              <div class="col-md-2 col-12 mb-md-0 mb-2 mt-md-0 mt-2 home-transfer-person">
                 <div class="persons">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>

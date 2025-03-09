@@ -7,9 +7,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../../../../../core/services/http/http.service';
@@ -38,6 +37,7 @@ import {
   CustomDateAdapter,
 } from 'src/app/shared/components/Date/custom-date-adapter';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-package-details',
@@ -114,6 +114,7 @@ export class PackageDetailsComponent {
   isTestDivScrolledIntoView: any;
 
   constructor(
+    private modalService: NgbModal,
     public translate: TranslateService,
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -131,7 +132,9 @@ export class PackageDetailsComponent {
      if (window.screen.width < 768) {
       this.isMobile = true;
     }
+
   }
+
     customOptions: OwlOptions = {
       loop: this.relatedtrips.length > 4 ? true : false,
       mouseDrag: true,
@@ -571,8 +574,14 @@ export class PackageDetailsComponent {
           closeButton: true,
         });
 
-        this.headerService.toggleDropdown();
-      } else {
+        this.modalService.dismissAll();
+        setTimeout(() => {
+          this.modalService.dismissAll();
+          document.body.classList.remove('modal-open');
+          const backdrops = document.querySelectorAll('.modal-backdrop');
+          backdrops.forEach(backdrop => backdrop.remove());
+        }, 300);
+              } else {
         const model = {
           packege_id: this.packageID,
           adult: this.adults,
@@ -580,34 +589,42 @@ export class PackageDetailsComponent {
           infant: this.infant,
         };
 
-        this.httpService
-          .post(environment.marsa, 'package/price', model)
-          .subscribe({
-            next: (res: any) => {
-              const queryParams = {
-                res: JSON.stringify(res),
-                packege_id: this.packageID,
-                adult: this.adults,
-                childern: this.children,
-                infant: this.infant,
-                booking_date: this.formattedStartDate,
-                end_date: this.formattedEndDate,
-              };
-              if (typeof window !== 'undefined' && window.localStorage) {
-                localStorage.setItem(
-                  'queryParamsPackages',
-                  JSON.stringify(queryParams)
-                );
-              }
-              this.router.navigate(
-                ['/', this.translate.currentLang, 'packages', 'packagePayment'],
-                { queryParams }
-              );
-            },
-          });
+        this.httpService.post(environment.marsa, 'package/price', model).subscribe({
+          next: (res: any) => {
+            const queryParams = {
+              res: JSON.stringify(res),
+              packege_id: this.packageID,
+              adult: this.adults,
+              childern: this.children,
+              infant: this.infant,
+              booking_date: this.formattedStartDate,
+              end_date: this.formattedEndDate,
+            };
+
+            this.modalService.dismissAll();
+            if (typeof window !== 'undefined' && window.localStorage) {
+              localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
+              this.modalService.dismissAll();
+            }
+
+            this.router.navigate(
+              ['/', this.translate.currentLang, 'packages', 'packagePayment'],
+              { queryParams }
+            );
+            this.modalService.dismissAll();
+setTimeout(() => {
+  this.modalService.dismissAll();
+  document.body.classList.remove('modal-open');
+  const backdrops = document.querySelectorAll('.modal-backdrop');
+  backdrops.forEach(backdrop => backdrop.remove());
+}, 300);
+
+          },
+        });
       }
     }
   }
+
   getImageName(url: string): string {
     const imageName = url?.substring(
       url.lastIndexOf('/') + 1,

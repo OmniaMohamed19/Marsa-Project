@@ -46,14 +46,22 @@ a {
     color: $color-dark;
   }
 }
-
+.btns {
+  a {
+    color: var(--Main-Title, #0db1ff);
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration-line: underline;
+  }
+}
 p,
 .collapse li {
   font-family: $font-family;
   font-size: $font-size-regular;
   font-weight: $font-weight-regular;
   line-height: $line-height-regular;
-  text-align: center;
+  // text-align: center;
   color: $color-light;
 }
 #sidebarNav {

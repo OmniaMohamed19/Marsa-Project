@@ -402,6 +402,18 @@ input[type="date"] {
   .search-quick {
     width: 90%;
   }
+ 
+}
+::ng-deep .home-transfer-date p-calendar span{
+width: 100%;
+}
+@media screen and (max-width: 992px) {
+  .home-transfer-person{
+    display: flex;
+    justify-content: center;
+  }
+  
+ 
 }
 
 

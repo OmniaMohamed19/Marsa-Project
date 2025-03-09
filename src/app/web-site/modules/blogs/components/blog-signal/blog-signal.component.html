@@ -113,18 +113,18 @@
                             <a>{{ review?.user }}</a>
                           </h6>
                           <div class="font-weight-normal font-size-14 text-gray-9 mb-2">
-                            {{ review?.date | date : "MMMM d y" }} at
-                            {{ review?.date | date : "hh:mm a" }}
+                             at
+                            {{ review?.date}}
                           </div>
 
                           <p class="text-lh-1dot6 mb-0 pr-lg-5">
                             {{ review?.comment }}
                           </p>
-                          <h5 *ngIf="review?.reply!=null || review?.reply!='' " style="color:rgba(41, 124, 187, 1);" class="mt-3 text-lh-1dot6 mb-0 pr-lg-5">
+                          <h5 *ngIf="review?.reply" style="color:rgba(41, 124, 187, 1);" class="mt-3 text-lh-1dot6 mb-0 pr-lg-5">
                             Reply:
-
                             <span style="color:black">{{ review?.reply }}</span>
                           </h5>
+
 
                         </div>
                       </div>
@@ -188,7 +188,28 @@
 
 
             <div class="comment-section mt-5">
-              <h5 class=" mb-4">Write a Comment</h5>
+              <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
+
+                <div>
+
+                <h5 class=" mb-4">Write a Comment</h5>
+                </div>
+                <div>
+                  <div *ngIf="review?.length > 0" class="btns">
+                    <a
+                      (click)="showAllReviews = !showAllReviews"
+                      *ngIf="!showAllReviews"
+                      class="text-decoration-underline"
+                      >Read All Reviews</a>
+                    <a
+                      (click)="showAllReviews = !showAllReviews"
+                      *ngIf="showAllReviews"
+                      class="text-decoration-underline"
+                      >Hide All Reviews</a
+                    >
+                  </div>
+                </div>
+              </div>
               <form class="js-validate" novalidate="novalidate">
                 <div class="row mb-5 mb-lg-0">
 

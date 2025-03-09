@@ -224,7 +224,7 @@ h3 {
   border-radius: 10px;
 }
 .layer-img {
-  img {
+  :is(img) {
     width: 100%;
     height: 334px !important;
     border-radius: 10px;
@@ -308,7 +308,7 @@ h5 {
   gap: 10px;
   margin-bottom: 25px;
   margin-top: 25px;
-  li {
+  :is(li) {
     color: #67747c !important;
     font-family: Lato;
     font-size: 16px;
@@ -392,10 +392,10 @@ input[type="date"] {
 }
 .input-label {
   position: relative;
-  input {
+  :is(input) {
     padding-left: 40px;
   }
-  label {
+  :is(label) {
     position: absolute;
     left: 26px;
     top: 18px;
@@ -434,7 +434,7 @@ label,
   text-shadow: 0.5px 0.5px #ffea01;
 }
 ::ng-deep{
- p-calendar span {
+  :is(p-calendar) span {
     height: 54px !important;
   }
 }
@@ -447,7 +447,7 @@ label,
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 10px;
-  button {
+  :is(button) {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -496,7 +496,7 @@ label,
   margin-bottom: 13px;
 }
 .nav {
-  li {
+  :is(li) {
     color: #fff;
     font-family: Lato;
     font-size: 20px;
@@ -551,7 +551,7 @@ label,
     height: 220px !important;
 
     .caption {
-        h1 {
+      :is(h1){
             font-size: 20px;
         }
 
