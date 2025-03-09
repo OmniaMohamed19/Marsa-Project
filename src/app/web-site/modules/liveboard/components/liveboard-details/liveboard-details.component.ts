@@ -562,6 +562,41 @@ export class LiveboardDetailsComponent {
     return typeof value === 'object' && 'id' in value;
   }
   bookNow() {
+    if (this.selectedOption === 'collective') {
+      if (this.persons > 1) {
+      } else {
+        this.toastr.info(
+          `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return;
+      }
+    } else {
+      if (this.persons <= this.getValue('AdultMax')) {
+        this.toastr.info(
+          `Sorry, you cannot exceed the minimum limit of ${this.getValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return;
+      }
+    }
+
     if (this.selectedDateControl.invalid) {
       this.selectedDateControl.markAsTouched();
       return;

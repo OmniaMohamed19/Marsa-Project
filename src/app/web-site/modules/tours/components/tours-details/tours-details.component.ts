@@ -381,11 +381,12 @@ export class ToursDetailsComponent implements AfterViewInit {
           }
         );
       }
-    }
-    else{
+    } else {
       if (this.adults <= this.getMaxValue('AdultMax')) {
         this.toastr.info(
-          `Sorry, the minimum required number of adults is ${this.getMaxValue('AdultMax')}. Please adjust the number.`,
+          `Sorry, the minimum required number of adults is ${this.getMaxValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
           '',
           {
             disableTimeOut: false,
@@ -756,6 +757,41 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   addAvailableOptions() {
+    const minAdults = this.getMinValue('Adultmin');
+    if (this.selectedOption === 'Collective') {
+      if (this.adults > minAdults) {
+      } else {
+        this.toastr.info(
+          `Sorry, the minimum required number of adults is ${minAdults}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return;
+      }
+    } else {
+      if (this.adults <= this.getMaxValue('AdultMax')) {
+        this.toastr.info(
+          `Sorry, the minimum required number of adults is ${this.getMaxValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return;
+      }
+    }
     if (this.selectedDateControl.invalid) {
       this.selectedDateControl.markAsTouched();
       return;
