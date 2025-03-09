@@ -93,7 +93,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   bookedOptionId: any;
   videoUrl!: SafeResourceUrl;
   selectedImage: string | null = null;
-  selectedOption: string = 'Collective';
+  selectedOption: string = 'collective';
   @ViewChild('videoModal') videoModal!: TemplateRef<any>;
   @ViewChild('videoBoatModal') videoBoatModal!: TemplateRef<any>;
   @ViewChild('checkAvailabilityButton') checkAvailabilityButton!: ElementRef;
@@ -341,7 +341,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   // Increment the number of adults
   incrementAdult() {
-    if (this.selectedOption === 'Collective') {
+    if (this.selectedOption === 'collective') {
       const maxAdults = this.getMaxValue('AdultMax');
       if (this.adults < maxAdults) {
         this.adults++;
@@ -365,7 +365,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   decrementAdult() {
     const minAdults = this.getMinValue('Adultmin');
-    if (this.selectedOption === 'Collective') {
+    if (this.selectedOption === 'collective') {
       if (this.adults > minAdults) {
         this.adults--;
       } else {
@@ -758,7 +758,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   addAvailableOptions() {
     const minAdults = this.getMinValue('Adultmin');
-    if (this.selectedOption === 'Collective') {
+    if (this.selectedOption === 'collective') {
       if (this.adults > minAdults) {
       } else {
         this.toastr.info(
@@ -992,7 +992,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   private getMinValue(property: string): number {
     let value = 0;
-    if (this.selectedOption === 'Collective') {
+    if (this.selectedOption === 'collective') {
       value = this.getMinAdultPrice()?.PriceColective[property] || 0;
     } else if (this.selectedOption === 'Private') {
       value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
@@ -1004,7 +1004,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     return {
       trip_id: this.activityData.id,
       avilable_option_id,
-      class: this.selectedOption === 'Collective' ? 'collective' : 'privete',
+      class: this.selectedOption === 'collective' ? 'collective' : 'privete',
       adult: this.adults,
       childern: this.children,
       infant: this.infant,
@@ -1039,7 +1039,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   getMaxValue(property: string): number {
     let value = 0;
-    if (this.selectedOption === 'Collective') {
+    if (this.selectedOption === 'collective') {
       value = this.getMinAdultPrice()?.PriceColective[property] || 0;
     } else if (this.selectedOption === 'Private') {
       value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
