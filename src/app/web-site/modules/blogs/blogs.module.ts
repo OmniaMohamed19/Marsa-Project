@@ -6,6 +6,7 @@ import { BlogsRoutingModule } from './blogs-routing.module';
 import { LandingBlogsComponent } from './landing-blogs/landing-blogs.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { BlogSignalComponent } from './components/blog-signal/blog-signal.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { BlogSignalComponent } from './components/blog-signal/blog-signal.compon
   imports: [
     CommonModule,
     BlogsRoutingModule,
-    SharedModule
+    SharedModule,
+    PaginatorModule
   ]
 })
 export class BlogsModule { }

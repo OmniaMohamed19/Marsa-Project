@@ -30,6 +30,9 @@ export class BlogSignalComponent implements OnInit {
   userData: any;
   review:any;
   isMobile = false;
+  items: any[] = [];
+  pagedItems: any[] = [];
+
 
   constructor(
     public translate: TranslateService,
@@ -93,6 +96,7 @@ export class BlogSignalComponent implements OnInit {
       next: (res: any) => {
         this.blog = res.Blog[0];
       this.review=this.blog.comments;
+      this.items = this.review.reverse();
       console.log(this.review);
         this.getAdjacentBlogs(blogID);
         // this.seoService.updateSEO(
@@ -102,6 +106,11 @@ export class BlogSignalComponent implements OnInit {
         // );
       },
     });
+  }
+  onPageChange(event: any) {
+    const startIndex = event.first;
+    const endIndex = event.first + event.rows;
+    this.pagedItems = this.items.slice(startIndex, endIndex);
   }
 
   getAdjacentBlogs(blogID: any) {
