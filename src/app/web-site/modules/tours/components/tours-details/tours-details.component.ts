@@ -757,41 +757,6 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   addAvailableOptions() {
-    const minAdults = this.getMinValue('Adultmin');
-    if (this.selectedOption === 'collective') {
-      if (this.adults > minAdults) {
-      } else {
-        this.toastr.info(
-          `Sorry, the minimum required number of adults is ${minAdults}. Please adjust the number.`,
-          '',
-          {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          }
-        );
-        return;
-      }
-    } else {
-      if (this.adults <= this.getMaxValue('AdultMax')) {
-        this.toastr.info(
-          `Sorry, the minimum required number of adults is ${this.getMaxValue(
-            'AdultMax'
-          )}. Please adjust the number.`,
-          '',
-          {
-            disableTimeOut: false,
-            titleClass: 'toastr_title',
-            messageClass: 'toastr_message',
-            timeOut: 5000,
-            closeButton: true,
-          }
-        );
-        return;
-      }
-    }
     if (this.selectedDateControl.invalid) {
       this.selectedDateControl.markAsTouched();
       return;
@@ -928,10 +893,16 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   private validateParticipants(): boolean {
+    console.log(this.selectedOption)
+
+    const maxAdults = this.getMaxValue('AdultMax');
+    const maxChildren = this.getMaxValue('childernMax');
+    const maxInfant = this.getMaxValue('infantMax');
+
     const validationMessages = [
-      { type: 'adults', max: this.getMaxValue('AdultMax') },
-      { type: 'children', max: this.getMaxValue('childernMax') },
-      { type: 'infant', max: this.getMaxValue('infantMax') },
+      { type: 'adults', max: maxAdults },
+      { type: 'children', max: maxChildren },
+      { type: 'infant', max: maxInfant },
     ];
 
     const participantCounts: Record<ParticipantType, number> = {
@@ -941,6 +912,9 @@ export class ToursDetailsComponent implements AfterViewInit {
     };
 
     for (const { type, max } of validationMessages) {
+      if(this.selectedOption === 'privete'){
+        return true
+      }
       if (participantCounts[type as ParticipantType] > max) {
         this.toastr.info(
           `Sorry, you cannot exceed the maximum limit of ${type} is ${max}. Please adjust the number.`,
@@ -956,18 +930,56 @@ export class ToursDetailsComponent implements AfterViewInit {
         return false;
       }
     }
+
     return true;
   }
   private validateMinimumParticipants(): boolean {
+    const minAdults = this.getMinValue('AdultMin');
+    const minChildren = this.getMinValue('childernMin');
+    const minInfant = this.getMinValue('infantMin');
+
+    if (this.selectedOption === 'collective') {
+      if (this.adults < minAdults) {
+        this.toastr.info(
+          `Sorry, the minimum required number of adults is ${minAdults}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return false;
+      }
+    } else {
+      if (this.adults < this.getMaxValue('AdultMax')) {
+        this.toastr.info(
+          `Sorry, the minimum required number of adults is ${this.getMaxValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+        return false;
+      }
+    }
+
     const validationMessages = [
-      { type: 'adults', min: this.getMinValue('AdultMin') },
-      { type: 'children', min: this.getMinValue('childernMin') },
-      { type: 'infant', min: this.getMinValue('infantMin') },
+      { type: 'children', min: minChildren },
+      { type: 'infant', min: minInfant },
     ];
 
     const participantCounts: Record<ParticipantType, number> = {
-      adults: this.adults,
       children: this.children,
+      adults: this.adults,
       infant: this.infant,
     };
 
@@ -987,6 +999,7 @@ export class ToursDetailsComponent implements AfterViewInit {
         return false;
       }
     }
+
     return true;
   }
 
@@ -994,7 +1007,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     let value = 0;
     if (this.selectedOption === 'collective') {
       value = this.getMinAdultPrice()?.PriceColective[property] || 0;
-    } else if (this.selectedOption === 'Private') {
+    } else if (this.selectedOption === 'privete') {
       value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
     }
     return value;
@@ -1041,7 +1054,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     let value = 0;
     if (this.selectedOption === 'collective') {
       value = this.getMinAdultPrice()?.PriceColective[property] || 0;
-    } else if (this.selectedOption === 'Private') {
+    } else if (this.selectedOption === 'privete') {
       value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
     }
     return value;
