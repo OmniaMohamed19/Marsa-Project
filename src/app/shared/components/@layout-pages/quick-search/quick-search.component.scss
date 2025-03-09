@@ -1,3 +1,4 @@
+@import url(../../../../web-site/modules/transfer/components/transfer/transfer.component.scss);
 .custom-dropdown {
   appearance: none;
   -webkit-appearance: none;
@@ -148,7 +149,6 @@ input[type="date"] {
   }
 }
 .card-body {
-  //   height: 105px;
   flex-shrink: 0;
   padding: 6px;
 }
@@ -163,7 +163,6 @@ input[type="date"] {
   width: 80%;
   display: flex;
   justify-content: space-around;
-  // align-items: center;
   gap: 2rem;
   margin-bottom: 15px;
   margin-top: 15px;
@@ -181,7 +180,6 @@ input[type="date"] {
   font-weight: 700;
   line-height: normal;
 
-  // margin-bottom: 10px;
 }
 
 .form-select {
@@ -191,7 +189,6 @@ input[type="date"] {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  // width: 209px;
   flex-shrink: 0;
 }
 .last {
@@ -403,7 +400,6 @@ input[type="date"] {
 /*******************************************/
 @media screen and (min-width: 1800px) {
   .search-quick {
-    // width: 58%;
     width: 90%;
   }
 }

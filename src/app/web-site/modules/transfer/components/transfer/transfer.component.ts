@@ -144,13 +144,7 @@ export class TransferComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  onTimeSelect(event: Date) {
-    const hours = event.getHours() > 12 ? event.getHours() - 12 : event.getHours();
-    const minutes = event.getMinutes().toString().padStart(2, '0');
-    const ampm = event.getHours() >= 12 ? 'PM' : 'AM';
-
-    this.pickuptime = `${hours}:${minutes} ${ampm}`;
-  }
+  
 
 
 
@@ -244,7 +238,7 @@ export class TransferComponent implements OnInit {
       return;
     }
 
-    if (this.activeSection === 'section1' && (!this.date || this.date.trim() === '' || !this.returnDate || this.returnDate.trim() === '')) 
+    if (this.activeSection === 'section1' && (!this.date || this.date.trim() === '' || !this.returnDate || this.returnDate.trim() === ''))
       {
       this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
