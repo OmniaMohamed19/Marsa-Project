@@ -79,9 +79,9 @@ export class NavbarComponent {
 
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },
+    { value: 'du', label: 'Deutsch', flag: 'du.webp' },
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
-    { value: 'du', label: 'Deutsch', flag: 'du.webp' },
   ];
   changeLang() {
     this.langService.setCurrentLang(this.selectedLang);
@@ -106,6 +106,11 @@ export class NavbarComponent {
       flagUrl: '../../../../../assets/images/flags/en.webp',
     },
     {
+      value: 'du',
+      label: 'Deutsch',
+      flagUrl: '../../../../../assets/images/flags/du.webp',
+    },
+    {
       value: 'rs',
       label: 'Русский',
       flagUrl: '../../../../../assets/images/flags/rs.webp',
@@ -115,11 +120,7 @@ export class NavbarComponent {
       label: 'Čeština',
       flagUrl: '../../../../../assets/images/flags/cez.webp',
     },
-    {
-      value: 'du',
-      label: 'Deutsch',
-      flagUrl: '../../../../../assets/images/flags/du.webp',
-    },
+
     // Add more countries as needed
   ];
 

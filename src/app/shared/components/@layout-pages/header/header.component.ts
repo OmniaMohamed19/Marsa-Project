@@ -88,9 +88,9 @@ export class HeaderComponent implements OnInit {
   // ];
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },
+    { value: 'du', label: 'Deutsch', flag: 'du.webp' },
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
-    { value: 'du', label: 'Deutsch', flag: 'du.webp' },
   ];
   registerBehavoiur: string = 'login';
   signClick: boolean = false;
