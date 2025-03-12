@@ -448,8 +448,6 @@ export class LiveboardDetailsComponent {
   }
 
   incrementAdult() {
-    console.log(this.persons);
-    console.log(this.persons < this.getValue('AdultMax'));
     if (this.selectedOption === 'collective') {
       if (this.persons < this.getValue('AdultMax')) {
         setTimeout(() => {
@@ -579,7 +577,7 @@ export class LiveboardDetailsComponent {
         return;
       }
     } else {
-      if (this.persons <= this.getValue('AdultMax')) {
+      if (this.persons < this.getValue('AdultMax')) {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum limit of ${this.getValue(
             'AdultMax'
@@ -622,6 +620,7 @@ export class LiveboardDetailsComponent {
           adult: this.persons,
           schedules_id: this.schedules_id,
         };
+        console.log(this.selectedOption)
 
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)

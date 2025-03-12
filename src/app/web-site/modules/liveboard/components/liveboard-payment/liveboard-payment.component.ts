@@ -66,6 +66,7 @@ export class LiveboardPaymentComponent implements OnInit {
   tripletails: any;
   Bookingid: any;
   selectedSchedule: any;
+  selectedOption: any;
   constructor(
     private spinner: NgxSpinnerService,
 
@@ -107,7 +108,7 @@ export class LiveboardPaymentComponent implements OnInit {
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
-
+      this.selectedOption=params['class']
       this.schedules_id = params['schedules_id'];
       this.Bookingid = params.Bookingid;
       this.tripId = params['trip_id'];
@@ -285,7 +286,7 @@ export class LiveboardPaymentComponent implements OnInit {
     } else {
       const model = {
         trip_id: this.tripId,
-        class: 'collective',
+        class: this.selectedOption,
         coupon_code: this.coupon,
         adult: this.adult,
         schedules_id: this.schedules_id,
@@ -299,6 +300,8 @@ export class LiveboardPaymentComponent implements OnInit {
           }))
           .filter((cabin: any) => cabin.persons !== undefined),
       };
+      console.log(model);
+      
       this._httpService
         .post(environment.marsa, 'liveboard/cabin/price', model)
         .subscribe({
@@ -310,6 +313,8 @@ export class LiveboardPaymentComponent implements OnInit {
             //   this.Coupons[0]?.amount;
           },
           error: (err: any) => {
+            console.log(err);
+            
             // this.Coupons = false;
           },
         });
@@ -332,7 +337,7 @@ export class LiveboardPaymentComponent implements OnInit {
     }
     const model = {
       trip_id: this.tripId,
-      class: 'collective',
+      class: this.selectedOption,
       coupon_code: this.coupon,
       adult: this.adult,
       schedules_id: this.schedules_id,
@@ -360,7 +365,7 @@ export class LiveboardPaymentComponent implements OnInit {
           this.Coupons = false;
           const model = {
             trip_id: this.tripId,
-            class: 'collective',
+            class: this.selectedOption,
             adult: this.adult,
             schedules_id: this.schedules_id,
             cabins: this.cabins
@@ -422,7 +427,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
       const model = {
         trip_id: this.tripId,
-        class: 'collective',
+        class: this.selectedOption,
         code: code,
         adult: this.adult,
         schedules_id: this.schedules_id,
@@ -555,7 +560,7 @@ export class LiveboardPaymentComponent implements OnInit {
 
       const model = {
         trip_id: this.tripId,
-        class: 'collective',
+        class: this.selectedOption,
         code: code,
         adult: this.adult,
         schedules_id: this.schedules_id,
@@ -642,7 +647,7 @@ export class LiveboardPaymentComponent implements OnInit {
       const model = {
         trip_id: this.tripId,
         // userid: this.userData?.id,
-        class: 'collective',
+        class: this.selectedOption,
         adult: this.adult,
         // schedules_id: 4,
         code: code,
