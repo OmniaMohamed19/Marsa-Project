@@ -18,7 +18,7 @@ export class ClientsComponent {
     center: false,
     dots: false,
     margin:60,
-    // autoplay: true,
+     autoplay: true,
     navSpeed: 700,
     // navText: [],
     responsive: {
