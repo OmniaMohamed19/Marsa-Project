@@ -2,24 +2,19 @@ section {
     background-image: url("../../../../../../assets/images/application.webp");
     background-position: center center;
     background-size: cover;
-    /*height: 100vh;*/
     height: 596px;
     margin-top: 70px;
+}
+.gradient-overlay-half-black-gradient::before {
+  background-color: #18181a !important;
+  opacity: 0.5 !important;
 }
 
 .home {
     height: 479px;
     transform: scale(1.8) translate(10px, 45px);
 }
-
-h3 {
-    /* font-family: Poppins;
-    font-size: 27px;
-    font-weight: 600;
-    line-height: 70px;
-    letter-spacing: 0em;
-    color: #FFFFFF;
-    padding-top: 50px;*/
+ h3 {
     color: var(--White, #FFF);
     font-family: Poppins;
     font-size: 60px;
@@ -29,12 +24,7 @@ h3 {
 }
 
 p {
-    /* font-family: Poppins;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 15px;
-    letter-spacing: 0em;
-    color: #FFFFFF;*/
+
     color: var(--White, #FFF);
     font-family: Poppins;
     font-size: 30px;
@@ -43,11 +33,6 @@ p {
     line-height: normal;
     margin-bottom: 40px;
 }
-
-
-
-
-
 .appstore {
     margin-bottom: 20px;
 }
@@ -83,23 +68,20 @@ p {
         margin-top: -170px;
     }
 
-    h3 {
-        padding-top: 5px;
-        font-size: 20px;
+    ::ng-deep .mobile-content h1 span {
+        padding-top: 5px !important;
+        font-size: 28px !important;
     }
 
-    p {
-        font-size: 15px;
-        margin-bottom: 5px;
+    ::ng-deep .mobile-content p {
+        font-size: 18px !important;
+        margin-bottom: 5px !important;
     }
 
     .mobile {
         flex-direction: column;
         gap: 10px;
 
-        img {
-            width: 60%;
-        }
     }
 
     .qr {
@@ -133,12 +115,12 @@ p {
 
     }
 
-    h3 {
-        font-size: 30px;
+    ::ng-deep .mobile-content h1 span {
+        font-size: 30px !important;
     }
 
-    p {
-        font-size: 20px;
+    ::ng-deep .mobile-content p {
+        font-size: 20px !important;
     }
 
     .mobile {
@@ -160,13 +142,13 @@ p {
         flex-direction: column;
     }
 
-    h3 {
-        font-size: 29px;
+    ::ng-deep .mobile-content h1 span {
+        font-size: 29px !important;
     }
 
-    p {
-        margin-top: 10px;
-        font-size: 20px;
+    ::ng-deep .mobile-content p {
+        margin-top: 10px !important;
+      font-size: 20px !important;
     }
 }
 
@@ -175,222 +157,11 @@ p {
         padding-top: 40px;
     }
 
-    h3 {
-        font-size: 39px;
+    ::ng-deep .mobile-content h1 span {
+        font-size: 39px !important;
     }
 
-    p {
-        font-size: 27px;
-    }
-}
-
-/*
-@media screen and (min-width:992px) {
-    .container {
-        display: flex;
-    }
-
-    .home {
-        height: 721px;
-        position: relative;
-        top: -12%;
-    }
-
-    h3 {
-        font-family: Poppins;
-        font-size: 60px;
-        font-weight: 700;
-        line-height: 90px;
-        letter-spacing: 0em;
-        color: #FFFFFF;
-    }
-
-    p {
-        font-family: Poppins;
-        font-size: 30px;
-        font-weight: 600;
-        line-height: 45px;
-        letter-spacing: 2px;
-        color: #FFFFFF;
-
-    }
-
-    section {
-        height: 500px;
-    }
-
-    .res {
-        margin-top: 60px;
-    }
-
-    .mobile {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .appstore {
-        display: block;
+    ::ng-deep .mobile-content p {
+        font-size: 27px !important;
     }
 }
-
-@media screen and (min-width:768px)and (max-width:992px) {
-    .container {
-        display: flex;
-    }
-
-    .home {
-        height: 620px;
-        position: relative;
-        top: -12%;
-
-    }
-
-    h3 {
-        font-family: Poppins;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 55px;
-        letter-spacing: 0em;
-        color: #FFFFFF;
-    }
-
-    p {
-        font-family: Poppins;
-        font-size: 30px;
-        font-weight: 600;
-        line-height: 45px;
-        letter-spacing: 0em;
-        color: #FFFFFF;
-
-    }
-
-    section {
-        height: 500px;
-    }
-
-    .res {
-        position: relative;
-        margin: 0;
-        top: -31px;
-        padding: 0;
-        left: -19px;
-
-        .content {
-            text-align: left;
-            margin-top: 45px;
-        }
-
-    }
-
-.appstore {
-    display: block;
-}
-}
-
-/*****************************************
-@media  screen and (max-width: 500px) {
-    section{
-        height: auto;
-    }
-    .res{
-        transform: translateY(-120px);
-    }
-    .home{
-        transform: scale(1.1);
-    }
-    h3{
-        padding-top: 0;
-    }
-}
-@media screen and (max-width:768px) {
-    .home {
-        height: 520px;
-        position: relative;
-        top: -12%;
-    }
-
-}
-@media screen and (min-width:500px)and (max-width:768px) {
-    .container {
-        display: flex;
-    }
-
-    section {
-        height: 425px;
-    }
-
-    h3 {
-        font-family: Poppins;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 55px;
-        letter-spacing: 0em;
-        color: #FFFFFF;
-    }
-
-    p {
-        font-family: Poppins;
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 15px;
-        letter-spacing: 0em;
-        color: #FFFFFF;
-    }
-}
-
-@media screen and (min-width:360px)and (max-width:500px) {}
-
-@media only screen and (min-width : 1824px) {
-    .res {
-        padding-left: 12.4rem !important;
-        margin-left: 10rem !important;
-        margin-top: 20px;
-    }
-
-    .mobile {
-        padding-top: 2rem !important;
-        margin: auto !important;
-    }
-}
-
-@media (max-width: 400px),  (max-width: 450px), (max-width: 800px) {
-   .home {
-        height: 400px;
-        text-align: center;
-        position: relative;
-        bottom: 120px;
-        left: 15px;
-    }
-
-    .res {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .mobile .qr {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-
-    }
-
-    .mobile div {
-        padding-right: 0 !important;
-    }
-}
-
-
-@media screen and (min-width:768px)and (max-width:992px) {
-    .container {
-        display: flex;
-    }
-
-    .home {
-        height: 620px;
-        position: relative;
-        top: -12%;
-
-    }
-}*/

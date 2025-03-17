@@ -38,28 +38,7 @@ export class TrendingComponent  {
       this.isMobile = window.innerWidth < 768;
     });
 
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 3,
-        numScroll: 3
-      },
-      {
-        breakpoint: '992px',
-        numVisible: 2,
-        numScroll: 1
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 1,
-        numScroll: 1
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1,
-        numScroll: 1
-      }
-    ];
+
   }
 
   ngOnChanges() {
@@ -132,8 +111,6 @@ export class TrendingComponent  {
   isSingleCardVisible(): boolean {
     return this.activeNowTrend.length === 1;
   }
-
-
 
   customOptions: OwlOptions = {
     loop: false,

@@ -1,4 +1,4 @@
-<section   [style.backgroundImage]="'url(' + mobile_image + ')'" style="
+<section class="gradient-overlay-half-black-gradient"  [style.backgroundImage]="'url(' + mobile_image + ')'" style="
 background-position: center center;
     background-size: cover;
     height: 596px;
@@ -22,13 +22,13 @@ background-position: center center;
       </div>
 
       <div class="col-md-6 apps-container">
-        <div class="" *ngIf="mobile_description" [innerHTML]="mobile_description"></div>
+        <div *ngIf="mobile_description" class="mobile-content" [innerHTML]="mobile_description"></div>
 
 
         <div class="mobile">
-          <!--<div class="qr-bg">
+          <!-- <div class="qr-bg">
                     <img src="assets/images/qr.webp" class="qr mb-3"  alt="qr">
-                </div>-->
+                </div> -->
 
           <div class="d-flex align-items-center flex-column gap-3">
             <a href="https://play.google.com/store/apps/details?id=com.misk.marsa" target="_blank">

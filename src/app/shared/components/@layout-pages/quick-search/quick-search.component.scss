@@ -7,6 +7,12 @@
   padding-right: 40px;
   position: relative;
 }
+input[type="date"]{
+  color:  #3b444f !important;
+  padding: 0 15px;
+  padding-left: 45px;
+}
+
 
 .carousel-card {
   width: 100%;
@@ -349,7 +355,7 @@ input[type="date"] {
       align-items: flex-start;
     }
     .nav-select-item {
-      border-bottom: 1px solid #eaeaea;
+      //border-bottom: 1px solid #eaeaea;
       width: 100%;
     }
     .form-select {
@@ -402,7 +408,7 @@ input[type="date"] {
   .search-quick {
     width: 90%;
   }
- 
+
 }
 ::ng-deep .home-transfer-date p-calendar span{
 width: 100%;
@@ -412,8 +418,8 @@ width: 100%;
     display: flex;
     justify-content: center;
   }
-  
- 
+
+
 }
 
 
