@@ -69,7 +69,7 @@ private dataService: DataService,
   returnDate: any;
 
    ngOnInit(): void {
-
+   
 
       this.filteredFromAirports = this.transferDetails?.airports || [];
       this.filteredFromHotels = this.transferDetails?.hotel || [];
@@ -173,6 +173,16 @@ private dataService: DataService,
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
+  }
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    const dropdownElement = document.querySelector('.dropdown');
+    if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+      this.dropdownOpen = false;
+      this.dropdownOpen2 = false;
+      this.dropdownOpen3 = false;
+      this.dropdownOpen4 = false;
+    }
   }
   toggleDropdown2() {
     this.dropdownOpen2 = !this.dropdownOpen2;

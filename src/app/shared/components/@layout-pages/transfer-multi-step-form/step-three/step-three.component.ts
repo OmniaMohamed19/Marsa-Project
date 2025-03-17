@@ -343,19 +343,10 @@ export class StepThreeComponent implements OnInit {
 
   buttonDisabled = false;
 
+
   confirmBookingByCard() {
-    if (this.buttonDisabled) {
-      return;
-    }
-
-    this.buttonDisabled = true;
-
-    // Get the checkbox element
-    const termsCheckbox = document.getElementById(
-      'termsCheckbox'
-    ) as HTMLInputElement;
-
-    // Check if the terms and conditions checkbox is selected
+    // التحقق من الموافقة على الشروط
+    const termsCheckbox = document.getElementById('termsCheckbox') as HTMLInputElement;
     if (!termsCheckbox.checked) {
       this.toastr.warning(
         'Please agree to the Terms and Conditions before proceeding.',
@@ -368,20 +359,13 @@ export class StepThreeComponent implements OnInit {
           closeButton: true,
         }
       );
-      this.buttonDisabled = false; // Re-enable the button
-      return; // Stop further execution
+      return;
     }
 
-    // Validate the required fields
-    if (
-      this.cardholderName == undefined ||
-      this.cardNumber == undefined ||
-      this.expiryMonth == undefined ||
-      this.expirYear == undefined ||
-      this.cvv == undefined
-    ) {
+    // التحقق من الحقول المطلوبة
+    if (!this.cardholderName || !this.cardNumber || !this.expiryMonth || !this.expirYear || !this.cvv) {
       this.toastr.info(
-        'Please fill in all the required fields before confirming your booking. ',
+        'Please fill in all the required fields before confirming your booking.',
         '',
         {
           disableTimeOut: false,
@@ -391,13 +375,17 @@ export class StepThreeComponent implements OnInit {
           closeButton: true,
         }
       );
-      this.buttonDisabled = false; // Re-enable the button
-      return; // Stop further execution
+      return;
     }
 
-    // Proceed with booking if all validations pass
-    const bookingOption = [];
+    // منع النقر المتكرر على الزر أثناء التحميل
+    if (this.buttonDisabled) {
+      return;
+    }
 
+    this.buttonDisabled = true; // ⛔ تعطيل الزر أثناء التحميل
+
+    const bookingOption = [];
     for (const key in this.selectedOption) {
       if (this.selectedOption.hasOwnProperty(key)) {
         const option = this.selectedOption[key];
@@ -416,8 +404,8 @@ export class StepThreeComponent implements OnInit {
       person: this.person,
       car_id: this.carId,
       way: this.way,
-      code:this.countrycode,
-      phone:this.phoneNumber,
+      code: this.countrycode,
+      phone: this.phoneNumber,
       booking_time: this.bookingTime,
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime || '',
@@ -433,43 +421,42 @@ export class StepThreeComponent implements OnInit {
       card_number: this.cardNumber?.toString(),
     };
 
-    this._httpService
-      .post(environment.marsa, 'transfer/book', model)
-      .subscribe({
-        next: (res: any) => {
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
-            const queryParams = {
-              res: JSON.stringify(res),
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'transfer', 'confirm'],
-              { queryParams }
-            );
-            Swal.fire(
-              'Your Booking has been sent successfully.',
-              'The Transfer official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
-              'success'
-            );
-          }
-        },
-        error: (err: any) => {
-          this.buttonDisabled = false; // Re-enable the button in case of an error
-          console.error('Error during booking:', err);
+    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+      next: (res: any) => {
+        this.buttonDisabled = false; // ✅ يرجع الزر إلى حالته الطبيعية بعد نجاح الحجز
 
-          const errorMessage =
-            err.error?.message ||
-            'An error occurred while processing your booking. Please try again later.';
-          Swal.fire('Booking Failed', errorMessage, 'error');
-        },
-      });
+        if (res && res.link) {
+          window.location.href = res.link;
+        } else {
+          const queryParams = { res: JSON.stringify(res) };
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'transfer', 'confirm'],
+            { queryParams }
+          );
+          Swal.fire(
+            'Your Booking has been sent successfully.',
+            'The Transfer official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
+            'success'
+          );
+        }
+      },
+      error: (err: any) => {
+        console.error('Error during booking:', err);
+        this.buttonDisabled = false; // ✅ إعادة تمكين الزر في حال الخطأ
+
+        const errorMessage =
+          err.error?.message ||
+          'An error occurred while processing your booking. Please try again later.';
+        Swal.fire('Booking Failed', errorMessage, 'error');
+      },
+      complete: () => {
+        this.buttonDisabled = false; // ✅ تأكيد إعادة تفعيل الزر بعد اكتمال العملية
+      },
+    });
   }
 
   confirmBooking() {
-    const termsCheckbox = document.getElementById(
-      'termsCheckbox2'
-    ) as HTMLInputElement;
+    const termsCheckbox = document.getElementById('termsCheckbox2') as HTMLInputElement;
     if (!termsCheckbox.checked) {
       this.toastr.warning(
         'Please agree to the Terms and Conditions before proceeding.',
@@ -482,13 +469,15 @@ export class StepThreeComponent implements OnInit {
           closeButton: true,
         }
       );
-      return; // Stop further execution
-    }
-    if (this.buttonDisabled) {
-      return; // إذا كان الزر معطلاً، لا تفعل شيئًا
+      return;
     }
 
-    this.buttonDisabled = true;
+    if (this.buttonDisabled) {
+      return; // 🔥 يمنع النقر على الزر أثناء التحميل
+    }
+
+    this.buttonDisabled = true; // ⛔ تعطيل الزر أثناء التحميل
+
     const bookingOption = [];
     for (const key in this.selectedOption) {
       if (this.selectedOption.hasOwnProperty(key)) {
@@ -508,8 +497,8 @@ export class StepThreeComponent implements OnInit {
       person: this.person,
       car_id: this.carId,
       way: this.way,
-      code:this.countrycode,
-      phone:this.phoneNumber,
+      code: this.countrycode,
+      phone: this.phoneNumber,
       booking_time: this.bookingTime,
       booking_date: this.bookingDate,
       return_booking_time: this.returnbookingtime,
@@ -517,45 +506,47 @@ export class StepThreeComponent implements OnInit {
       payment_method: this.payment_method ? this.payment_method : 'cash',
       booking_option: bookingOption,
       flight_n: this.flightNumper,
-      coupon_code: this.coupon, // Safely access coupon code or fallback
+      coupon_code: this.coupon,
     };
 
-    this.spinner.show();
+    this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
+      next: (res: any) => {
+        this.buttonDisabled = false; // ✅ يرجع الزر إلى حالته الطبيعية بعد نجاح الحجز
 
-    this._httpService
-      .post(environment.marsa, 'transfer/book', model)
-      .subscribe({
-        next: (res: any) => {
-          // Hide spinner after receiving the response
-
-          if (res && res.link) {
-            window.location.href = res.link;
-          } else {
-            const queryParams = { res: JSON.stringify(res) };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'transfer', 'confirm'],
-              { queryParams }
-            );
-            Swal.fire(
-              'Your Booking has been sent successfully.',
-              'The Transfer official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
-              'success'
-            );
-          }
-        },
-        error: (err: any) => {
-          console.error('Error during booking:', err);
-
-          // Hide spinner if there's an error
-          this.buttonDisabled = false;
-          Swal.fire(
-            'Booking Failed',
-            'An error occurred while processing your booking. Please try again later.',
-            'error'
+        if (res && res.link) {
+          window.location.href = res.link;
+        } else {
+          const queryParams = { res: JSON.stringify(res) };
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'transfer', 'confirm'],
+            { queryParams }
           );
-        },
-      });
+          Swal.fire(
+            'Your Booking has been sent successfully.',
+            'The Transfer official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
+            'success'
+          );
+        }
+      },
+      error: (err: any) => {
+        console.error('Error during booking:', err);
+        this.buttonDisabled = false; // ✅ في حال الخطأ يرجع الزر لحالته الطبيعية
+
+        Swal.fire(
+          'Booking Failed',
+          'An error occurred while processing your booking. Please try again later.',
+          'error'
+        );
+      },
+      complete: () => {
+        this.buttonDisabled = false; // ✅ تأكيد إرجاع الزر للحالة الطبيعية
+      },
+    });
   }
+
+
+
+
 
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();

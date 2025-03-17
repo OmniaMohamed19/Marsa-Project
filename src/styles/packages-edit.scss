@@ -489,6 +489,12 @@
 }
 
 @media (max-width: 992px) {
+  .packages-edit {
+    :is(header) {
+      margin-top: 0.5rem;
+
+    }
+  }
   .discount-small {
     position: relative;
     margin-bottom: 10px;
@@ -578,6 +584,13 @@
 
 /*****************************************/
 @media (min-width: 992.9px) and (max-width: 1200px) {
+  .packages-edit {
+    :is(header) {
+      margin-top: 2rem;
+
+    }
+  }
+
   .discount-2 {
     .percent {
       left: 12px;

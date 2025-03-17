@@ -121,20 +121,26 @@
                       </label>
                     </div>
                   </div>
-                  <a style="width: 50% !important; margin: auto" (click)="confirmBookingByCard()"
-                    [class.disabled]="buttonDisabled" [attr.disabled]="buttonDisabled ? true : null"
-                    class="btn payment text-white w-100 py-3">
-                    CONFIRM BOOKING
-                  </a>
+                 <a
+  style="width: 50% !important; margin: auto"
+  (click)="confirmBooking()"
+  class="btn payment text-white w-100 py-3"
+  [disabled]="buttonDisabled">
+  <span *ngIf="buttonDisabled">
+    <i class="fa fa-spinner fa-spin"></i> Processing...
+  </span>
+  <span *ngIf="!buttonDisabled">CONFIRM BOOKING</span>
+</a>
+
                 </div>
               </div>
-              <ngx-spinner
+              <!-- <ngx-spinner
                     bdColor="rgba(0, 0, 0, 0.8)"
                     [fullScreen]="true"
                   >
                     <img width="400"
                     height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                  </ngx-spinner>
+                  </ngx-spinner> -->
             </form>
           </div>
 
@@ -159,16 +165,26 @@
                     </label>
                   </div>
                 </div>
-                <a style="width: 50% !important; margin: auto" (click)="confirmBooking()"
-                  class="btn payment text-white w-100 py-3">CONFIRM BOOKING</a>
+               <a
+  style="width: 50% !important; margin: auto"
+  (click)="confirmBooking()"
+  class="btn payment text-white w-100 py-3"
+  [disabled]="buttonDisabled">
+  <span *ngIf="buttonDisabled">
+    <i class="fa fa-spinner fa-spin"></i> Processing...
+  </span>
+  <span *ngIf="!buttonDisabled">CONFIRM BOOKING</span>
+</a>
+
+
               </div>
-              <ngx-spinner
+              <!-- <ngx-spinner
                     bdColor="rgba(0, 0, 0, 0.8)"
                     [fullScreen]="true"
                   >
                     <img width="400"
                     height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                  </ngx-spinner>
+                  </ngx-spinner> -->
             </form>
           </div>
         </div>

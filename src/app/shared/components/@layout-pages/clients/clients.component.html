@@ -7,48 +7,36 @@ margin-bottom: -73px;" class="reviews">
             <h3 class="mb-5">Our Customer’s Reviews </h3>
         </div>
         <section class="myDestination pt-5  ">
+          <div class="my-destination-work">
             <div class="my-destination-work">
-                <owl-carousel-o [options]="customOptions" class="my-destination client-review">
-                    <ng-template carouselSlide *ngFor="let item of data?.SocialReview">
-                        <div class="card rounded-xs border-color-7 w-100">
-                            <div class="card-body p-2">
-                                <div class="row">
-                                  <div class="col-12 pt-4">
-                                    <a [href]="item.link" target="_blank">
-                                      <img class="rounded"  [src]="item.Reviwe" width="100%" height="180px" alt="">
-                                    </a>
-                                  </div>
-                                  <!-- <div class="col-3">
-                                    <img class="rounded-circle" [src]="item.from" style="width: 80px;height: 80px; float: inline-end;" alt="">
-                                  </div> -->
-
-                                </div>
-
-                            </div>
-                            <div class="card-img z-index-2 mb-3">
-                                <div class="ml-3" >
-                                  <img
-                                  style="position: absolute;
-                                  right: 0;
-                                  top: -100px;
-                                  background-color: white; border-radius: 50%;
-                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                                padding: 1rem;
-                                  width:85px;height: 85px;"
-                                  class="img-fluid rounded-circle"
-                                  (onError)="onImgError($event)"
-                                  [src]="item.from"
-                                  [alt]="getImageName(item.from)"
-                                  loading="lazy"
-                                >
-
-                                </div>
-                            </div>
-                        </div>
-                    </ng-template>
-
-                </owl-carousel-o>
+              <owl-carousel-o [options]="customOptions" class="my-destination client-review">
+                <ng-template carouselSlide *ngFor="let item of data?.SocialReview">
+                  <div class="card rounded-xs border-color-7 w-100">
+                    <div class="card-body w-100 review-card p-2" [href]="item.link" target="_blank">
+                      <div class="dynamic-image-container">
+                        <img 
+                          [src]="item.Reviwe" 
+                          class="dynamic-review-img"
+                          (load)="adjustImageSize($event)"
+                          (error)="onImgError($event)">
+                      </div>
+                    </div>
+                    <div class="card-img z-index-2 mb-3">
+                      <div class="ml-3">
+                        <img 
+                          style="position: absolute; right: 0; top: -100px; background-color: white; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 1rem; width:85px; height: 85px;"
+                          class="img-fluid rounded-circle"
+                          (error)="onImgError($event)"
+                          [src]="item.from"
+                          [alt]="getImageName(item.from)"
+                          loading="lazy">
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </owl-carousel-o>
             </div>
+          </div>
         </section>
     </div>
 
