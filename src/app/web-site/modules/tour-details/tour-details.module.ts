@@ -17,6 +17,7 @@ import { AllTicketsComponent } from './all-tickets/all-tickets.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
     CommonModule,
+    CarouselModule,
     TourDetailsRoutingModule,
     SharedModule,
     CarouselModule,
