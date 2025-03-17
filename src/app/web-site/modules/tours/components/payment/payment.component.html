@@ -4,108 +4,110 @@
     <div class="row">
       <div class="col-lg-8 col-xl-9">
         <mat-horizontal-stepper #stepper [linear]="true">
-          <mat-step
-            [label]="'Optional Items'"
-            *ngIf="
-              activityData?.bookingOption &&
-              activityData.bookingOption.length > 0
-            "
-          >
-            <div class="pt-4 pb-5 px-md-5">
-              <h5
-                id="scroll-description"
-                class="font-size-21 font-weight-bold text-dark mb-4"
-              >
-                If you need more options please select it from list
-              </h5>
-              <!-- <p>Diving Suits</p> -->
-              <div class="row">
-                <div
-                  class="col-md-4 mb-3"
-                  *ngFor="
-                    let item of activityData?.bookingOption;
-                    let i = index
-                  "
+          <mat-step [label]="'Optional Items'">
+            <ng-container
+              *ngIf="
+                activityData?.bookingOption &&
+                activityData.bookingOption.length > 0
+              "
+            >
+              <div class="pt-4 pb-5 px-md-5">
+                <h5
+                  id="scroll-description"
+                  class="font-size-21 font-weight-bold text-dark mb-4"
                 >
-                  <div class="box" [class.checked]="checkboxStatus[i]">
-                    <input
-                      type="checkbox"
-                      id="checkbox-{{ i }}"
-                      (change)="toggleCheckbox($event, i)"
-                      #checkboxRef
-                      [(ngModel)]="checkboxStatus[i]"
-                    />
-                    <label for="checkbox-{{ i }}"></label>
-
-                    <div class="content">
-                      <img
-                        [src]="item.icon"
-                        [alt]="getImageName(item?.icon)"
-                        class="image"
-                      />
-                      <div class="details">
-                        <div class="title">Title: {{ item.title }}</div>
-                        <div class="size">Size: {{ item.size }}</div>
-                        <div class="price">Price: ${{ item.price }}</div>
-                      </div>
-
-                      <div class="input-wrapper persons number-input">
-                        <button
-                          type="button"
-                          class="decrease"
-                          (click)="decreaseValue(i)"
-                        >
-                          −
-                        </button>
-                        <input
-                          type="number"
-                          placeholder="0"
-                          id="persons-input-{{ i }}"
-                          [(ngModel)]="personsInputValues[i]"
-                          (ngModelChange)="toggleCheckboxByInput(i)"
-                          class="persons-input"
-                          [attr.min]="0"
-                        />
-                        <button
-                          type="button"
-                          class="increase"
-                          (click)="increaseValue(i)"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Contacts Form -->
-              <form class="js-validate mt-3" novalidate="novalidate">
+                  If you need more options please select it from list
+                </h5>
+                <!-- <p>Diving Suits</p> -->
                 <div class="row">
-                  <div class="w-100"></div>
-                  <div class="col align-self-end">
-                    <div class="text-right gap-3 d-flex justify-content-end">
-                      <button
-                        type="submit"
-                        class="btn payment bg-transparent py-3"
-                        (click)="goBack()"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        (click)="goToNextStep(stepper)"
-                        type="submit"
-                        class="btn payment text-white py-3"
-                      >
-                        Continue
-                      </button>
+                  <div
+                    class="col-md-4 mb-3"
+                    *ngFor="
+                      let item of activityData?.bookingOption;
+                      let i = index
+                    "
+                  >
+                    <div class="box" [class.checked]="checkboxStatus[i]">
+                      <input
+                        type="checkbox"
+                        id="checkbox-{{ i }}"
+                        (change)="toggleCheckbox($event, i)"
+                        #checkboxRef
+                        [(ngModel)]="checkboxStatus[i]"
+                      />
+                      <label for="checkbox-{{ i }}"></label>
+
+                      <div class="content">
+                        <img
+                          [src]="item.icon"
+                          [alt]="getImageName(item?.icon)"
+                          class="image"
+                        />
+                        <div class="details">
+                          <div class="title">Title: {{ item.title }}</div>
+                          <div class="size">Size: {{ item.size }}</div>
+                          <div class="price">Price: ${{ item.price }}</div>
+                        </div>
+
+                        <div class="input-wrapper persons number-input">
+                          <button
+                            type="button"
+                            class="decrease"
+                            (click)="decreaseValue(i)"
+                          >
+                            −
+                          </button>
+                          <input
+                            type="number"
+                            placeholder="0"
+                            id="persons-input-{{ i }}"
+                            [(ngModel)]="personsInputValues[i]"
+                            (ngModelChange)="toggleCheckboxByInput(i)"
+                            class="persons-input"
+                            [attr.min]="0"
+                          />
+                          <button
+                            type="button"
+                            class="increase"
+                            (click)="increaseValue(i)"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </form>
-              <!-- End Contacts Form -->
-            </div>
+
+                <!-- Contacts Form -->
+                <form class="js-validate mt-3" novalidate="novalidate">
+                  <div class="row">
+                    <div class="w-100"></div>
+                    <div class="col align-self-end">
+                      <div class="text-right gap-3 d-flex justify-content-end">
+                        <button
+                          type="submit"
+                          class="btn payment bg-transparent py-3"
+                          (click)="goBack()"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          (click)="goToNextStep(stepper)"
+                          type="submit"
+                          class="btn payment text-white py-3"
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <!-- End Contacts Form -->
+              </div>
+            </ng-container>
           </mat-step>
+
           <mat-step [label]="'Customer Information'">
             <div class="">
               <h5
@@ -421,7 +423,7 @@
               </h5>
               <!-- Nav Classic -->
               <ul
-                class="nav nav-classic nav-choose border-0 nav-justified  mx-n3 flex-column flex-md-row"
+                class="nav nav-classic nav-choose border-0 nav-justified mx-n3 flex-column flex-md-row"
                 role="tablist"
               >
                 <li class="nav-item w-100">
@@ -636,12 +638,16 @@
                     </div>
 
                     <ngx-spinner
-                    bdColor="rgba(0, 0, 0, 0.8)"
-                    [fullScreen]="true"
-                  >
-                    <img width="400"
-                    height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                  </ngx-spinner>
+                      bdColor="rgba(0, 0, 0, 0.8)"
+                      [fullScreen]="true"
+                    >
+                      <img
+                        width="400"
+                        height="400"
+                        src="../../../../../../assets/icons/loadingicon.gif"
+                        alt="Loading..."
+                      />
+                    </ngx-spinner>
                   </form>
                 </div>
 
@@ -695,13 +701,16 @@
                     </div>
 
                     <ngx-spinner
-                    bdColor="rgba(0, 0, 0, 0.8)"
-                    [fullScreen]="true"
-                  >
-                    <img width="400"
-                    height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                  </ngx-spinner>
-
+                      bdColor="rgba(0, 0, 0, 0.8)"
+                      [fullScreen]="true"
+                    >
+                      <img
+                        width="400"
+                        height="400"
+                        src="../../../../../../assets/icons/loadingicon.gif"
+                        alt="Loading..."
+                      />
+                    </ngx-spinner>
                   </form>
                 </div>
               </div>
@@ -783,12 +792,10 @@
                         <span class="font-weight-medium">{{
                           avilableOptions?.AddetionalCost[0]?.Exclude
                         }}</span>
-                        <span class="text-secondary"
-                          >{{ avilableOptions?.AddetionalCost[0]?.Total }}</span
-                        >
+                        <span class="text-secondary">{{
+                          avilableOptions?.AddetionalCost[0]?.Total
+                        }}</span>
                       </li>
-
-
 
                       <li
                         class="d-flex justify-content-between py-2 font-size-17"
@@ -821,21 +828,15 @@
                         }}</span>
                       </li>
 
-
-
                       <li class="d-flex justify-content-between py-2">
                         <span class="font-weight-medium">{{
                           responseFromAvailableOption?.AddetionalCost[0]
                             ?.Exclude
                         }}</span>
-                        <span class="text-secondary"
-                          >{{
-                            responseFromAvailableOption?.AddetionalCost[0]
-                              ?.Total
-                          }}</span
-                        >
+                        <span class="text-secondary">{{
+                          responseFromAvailableOption?.AddetionalCost[0]?.Total
+                        }}</span>
                       </li>
-
 
                       <li
                         class="d-flex justify-content-between py-2 font-size-17"
@@ -859,7 +860,6 @@
                             >${{ responseFromAvailableOption?.maintotal }}</span
                           >
                         </ng-container>
-
                       </li>
 
                       <li
@@ -1082,9 +1082,9 @@
                   <span class="font-weight-medium">{{
                     avilableOptions?.AddetionalCost[0]?.Exclude
                   }}</span>
-                  <span class="text-secondary"
-                    >{{ avilableOptions?.AddetionalCost[0]?.Total }}</span
-                  >
+                  <span class="text-secondary">{{
+                    avilableOptions?.AddetionalCost[0]?.Total
+                  }}</span>
                 </li>
               </ul>
               <ng-container *ngIf="responseFromAvailableOption?.option">
