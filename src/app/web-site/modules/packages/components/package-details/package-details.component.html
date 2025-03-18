@@ -889,7 +889,7 @@
 
   <div
     class="modal fade"
-
+    (hidden.bs.modal)="closeModal()"
     id="exampleModal2"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
@@ -1198,6 +1198,7 @@
   style="position: fixed; bottom: 0px; z-index: 99999"
   *ngIf="isMobile && !hideMobileFooter"
   class="text-center w-100"
+  [ngClass]="{ 'd-none': isModalOpen }"
 >
   <div class="d-flex justify-content-between p-3" style="background: white">
     <div class="priceTitle d-flex justify-content-between">

@@ -2035,7 +2035,8 @@
       </div>
       <!--End Filter -->
     </div>
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal2"
+    (hidden.bs.modal)="closeModal()" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -2516,6 +2517,7 @@
   style="position: fixed; bottom: 0px; z-index: 99999"
   *ngIf="isMobile && !hideMobileFooter"
   class="text-center w-100"
+  [ngClass]="{ 'd-none': isModalOpen }"
 >
   <div class="d-flex justify-content-between p-3" style="background: white">
     <div class="priceTitle d-flex justify-content-between">
@@ -2582,11 +2584,13 @@
       <a
         class="btn check text-white d-flex align-items-center justify-content-center height-40 w-100 mb-xl-0 mb-lg-1 fw-bold"
         type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal2"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal2"
+        (click)="openModal()"
       >
         Check availability
       </a>
     </div>
+    
   </div>
 </div>

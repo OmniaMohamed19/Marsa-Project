@@ -640,4 +640,13 @@ setTimeout(() => {
     });
     dialogRef.componentInstance.packages = this.rows.PackageTrips;
   }
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
 }

@@ -1355,7 +1355,8 @@
     </div>
 
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal2"
+    (hidden.bs.modal)="closeModal()" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -1661,6 +1662,7 @@
 <div
   style="position: fixed; bottom: 0px; z-index: 99999"
   *ngIf="isMobile"
+  [ngClass]="{ 'd-none': isModalOpen }"
   class="text-center w-100">
   <div class="d-flex justify-content-between p-2" style="background: white">
     <div class="priceTitle d-flex justify-content-evenly align-items-center">

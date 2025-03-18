@@ -820,4 +820,13 @@ export class LiveboardDetailsComponent {
     },
     nav: true,
   };
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
 }

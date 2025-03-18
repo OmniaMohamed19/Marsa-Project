@@ -1222,6 +1222,7 @@
       </div>
       <div
         class="modal fade"
+        (hidden.bs.modal)="closeModal()"
         id="exampleModal2"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
@@ -1510,6 +1511,7 @@
 <div
   style="position: fixed; bottom: 0px; z-index: 99999"
   *ngIf="isMobile "
+  [ngClass]="{ 'd-none': isModalOpen }"
   class="text-center w-100"
 >
   <div

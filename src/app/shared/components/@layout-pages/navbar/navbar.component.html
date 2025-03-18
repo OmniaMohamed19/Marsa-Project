@@ -109,7 +109,7 @@
 <!------------------------->
 
 <div class="container-fluid">
-  <nav class="d-block d-lg-none" >
+  <nav class="d-block d-lg-none fixed-nav">
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <a class="navbar-brand me-0" [routerLink]="['/', translate.currentLang]">
@@ -118,19 +118,20 @@
       </div>
 
       <div class="form-container">
-
-
-        <div>
-          <button class="btn-bars" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
-            aria-controls="staticBackdrop">
-            <i class="fa-solid fa-bars"></i>
-          </button>
-        </div>
+        <button class="btn-bars" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+          aria-controls="staticBackdrop">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
-      <!---------------------->
     </div>
   </nav>
 </div>
+
+<div class="main-content">
+  <router-outlet></router-outlet> 
+</div>
+
+
 
 <!------------------------------>
 <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"

@@ -1239,4 +1239,13 @@ export class ToursDetailsComponent implements AfterViewInit {
     },
     nav: true,
   };
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
 }
