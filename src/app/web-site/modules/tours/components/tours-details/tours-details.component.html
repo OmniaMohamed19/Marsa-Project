@@ -583,7 +583,7 @@
                         class="mx-2 font-size-18 fw-bold text-dark"
                         *ngIf="
                           selectedOption === 'privete' &&
-                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0
+                          getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0
                         "
                         style="font-weight: 700"
                         >${{
@@ -672,7 +672,7 @@
                         class="mx-2 font-size-18 fw-bold text-dark"
                         *ngIf="
                           selectedOption === 'collective' &&
-                          getMinAdultPrice()?.PriceColective.AdultDiscount > 0
+                          getFirstAdultPrice()?.PriceColective.AdultDiscount > 0
                         "
                         style="font-weight: 700"
                         >${{
@@ -820,7 +820,7 @@
                       <span>
                         {{
                           selectedOption === "privete"
-                            ? getMinAdultPrice()?.PricePrivte.Adult
+                            ? getFirstAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}
                         $
@@ -829,17 +829,17 @@
                         class="mx-2 font-size-18 fw-bold text-dark"
                         *ngIf="
                           selectedOption === 'privete' &&
-                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0
+                          getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0
                         "
                         style="font-weight: 700"
                         >{{
                           selectedOption === "privete"
                             ? getRoundedRate(
-                                getMinAdultPrice()?.PricePrivte.Adult -
-                                  (getMinAdultPrice()?.PricePrivte
+                                getFirstAdultPrice()?.PricePrivte.Adult -
+                                  (getFirstAdultPrice()?.PricePrivte
                                     .AdultDiscount /
                                     100) *
-                                    getMinAdultPrice()?.PricePrivte.Adult
+                                    getFirstAdultPrice()?.PricePrivte.Adult
                               )
                             : ""
                         }}
@@ -857,7 +857,7 @@
                       <span>
                         {{
                           selectedOption === "privete"
-                            ? getMinAdultPrice()?.PricePrivte.Adult
+                            ? getFirstAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}
                         $
@@ -898,9 +898,9 @@
                       >
                         {{
                           selectedOption === "collective"
-                            ? getMinAdultPrice()?.PriceColective.Adult
+                            ? getFirstAdultPrice()?.PriceColective.Adult
                             : selectedOption === "privete"
-                            ? getMinAdultPrice()?.PricePrivte.Adult
+                            ? getFirstAdultPrice()?.PricePrivte.Adult
                             : ""
                         }}$</span
                       >
@@ -909,25 +909,25 @@
                         class="mx-2 font-size-18 fw-bold text-dark"
                         *ngIf="
                           selectedOption === 'collective' &&
-                          getMinAdultPrice()?.PriceColective.AdultDiscount > 0
+                          getFirstAdultPrice()?.PriceColective.AdultDiscount > 0
                         "
                         style="font-weight: 700"
                         >{{
                           selectedOption === "collective"
                             ? getRoundedRate(
-                                getMinAdultPrice()?.PriceColective.Adult -
-                                  (getMinAdultPrice()?.PriceColective
+                                getFirstAdultPrice()?.PriceColective.Adult -
+                                  (getFirstAdultPrice()?.PriceColective
                                     .AdultDiscount /
                                     100) *
-                                    getMinAdultPrice()?.PriceColective.Adult
+                                    getFirstAdultPrice()?.PriceColective.Adult
                               )
                             : selectedOption === "privete"
                             ? getRoundedRate(
-                                getMinAdultPrice()?.PricePrivte.Adult -
-                                  (getMinAdultPrice()?.PricePrivte
+                                getFirstAdultPrice()?.PricePrivte.Adult -
+                                  (getFirstAdultPrice()?.PricePrivte
                                     .AdultDiscount /
                                     100) *
-                                    getMinAdultPrice()?.PricePrivte.Adult
+                                    getFirstAdultPrice()?.PricePrivte.Adult
                               )
                             : ""
                         }}
@@ -945,7 +945,7 @@
                       <span>
                         {{
                           selectedOption === "collective"
-                            ? getMinAdultPrice()?.PriceColective.Adult
+                            ? getFirstAdultPrice()?.PriceColective.Adult
                             : ""
                         }}
                         $
@@ -1636,7 +1636,7 @@
                 'private collective': selectedOption !== 'collective'
               }"
               (click)="changeOption('collective')"
-              >collective</span
+              >Collective</span
             >
 
             <span
@@ -1662,19 +1662,19 @@
                       class="font-size-18 fw-bold text-dark"
                       [style.text-decoration]="
                         (selectedOption === 'collective' &&
-                          getMinAdultPrice()?.PriceColective.AdultDiscount >
+                          getFirstAdultPrice()?.PriceColective.AdultDiscount >
                             0) ||
                         (selectedOption === 'privete' &&
-                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                          getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
                           ? 'line-through'
                           : ''
                       "
                       [style.color]="
                         (selectedOption === 'collective' &&
-                          getMinAdultPrice()?.PriceColective.AdultDiscount >
+                          getFirstAdultPrice()?.PriceColective.AdultDiscount >
                             0) ||
                         (selectedOption === 'privete' &&
-                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                          getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
                           ? ' rgb(13, 177, 255) !important'
                           : ''
                       "
@@ -1682,9 +1682,9 @@
                       <!-- From -->
                       ${{
                         selectedOption === "collective"
-                          ? getMinAdultPrice()?.PriceColective.Adult
+                          ? getFirstAdultPrice()?.PriceColective.Adult
                           : selectedOption === "privete"
-                          ? getMinAdultPrice()?.PricePrivte.Adult
+                          ? getFirstAdultPrice()?.PricePrivte.Adult
                           : ""
                       }}
                     </span>
@@ -1692,27 +1692,27 @@
                       class="mx-2 font-size-18 fw-bold text-dark"
                       *ngIf="
                         (selectedOption === 'collective' &&
-                          getMinAdultPrice()?.PriceColective.AdultDiscount >
+                          getFirstAdultPrice()?.PriceColective.AdultDiscount >
                             0) ||
                         (selectedOption === 'privete' &&
-                          getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                          getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
                       "
                       style="font-weight: 700"
                       >${{
                         selectedOption === "collective"
                           ? getRoundedRate(
-                              getMinAdultPrice()?.PriceColective.Adult -
-                                (getMinAdultPrice()?.PriceColective
+                              getFirstAdultPrice()?.PriceColective.Adult -
+                                (getFirstAdultPrice()?.PriceColective
                                   .AdultDiscount /
                                   100) *
-                                  getMinAdultPrice()?.PriceColective.Adult
+                                  getFirstAdultPrice()?.PriceColective.Adult
                             )
                           : selectedOption === "privete"
                           ? getRoundedRate(
-                              getMinAdultPrice()?.PricePrivte.Adult -
-                                (getMinAdultPrice()?.PricePrivte.AdultDiscount /
+                              getFirstAdultPrice()?.PricePrivte.Adult -
+                                (getFirstAdultPrice()?.PricePrivte.AdultDiscount /
                                   100) *
-                                  getMinAdultPrice()?.PricePrivte.Adult
+                                  getFirstAdultPrice()?.PricePrivte.Adult
                             )
                           : ""
                       }}
@@ -1794,12 +1794,12 @@
                     >
                       <span class="d-block"
                         >Age
-                        {{ getMinAdultPrice()?.PriceColective.AdultAge }}</span
+                        {{ getFirstAdultPrice()?.PriceColective.AdultAge }}</span
                       >
                       <span class="badge bg-green p-2 sale">
                         {{
                           selectedOption === "collective"
-                            ? getMinAdultPrice()?.PriceColective.AdultDiscount
+                            ? getFirstAdultPrice()?.PriceColective.AdultDiscount
                             : ""
                         }}% OFF</span
                       >
@@ -1816,7 +1816,7 @@
                           class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
                           type="text"
                           [attr.min]="1"
-                          [attr.max]="getMaxValue('AdultMax')"
+                          [attr.max]="getFirstValue('AdultMax')"
                           [(ngModel)]="adults"
                           disabled
                         />
@@ -1846,14 +1846,14 @@
                       <span class="d-inline-block"
                         >Age
                         {{
-                          getMinAdultPrice()?.PriceColective.childernAge
+                          getFirstAdultPrice()?.PriceColective.childernAge
                         }}</span
                       >
 
                       <span class="badge bg-orange p-2 sale">
                         {{
                           selectedOption === "collective"
-                            ? getMinAdultPrice()?.PriceColective
+                            ? getFirstAdultPrice()?.PriceColective
                                 .childernDiscount
                             : ""
                         }}% OFF</span
@@ -1872,7 +1872,7 @@
                           type="text"
                           [attr.min]="0"
                           [(ngModel)]="children"
-                          [attr.max]="getMaxValue('ChildernMax')"
+                          [attr.max]="getFirstValue('ChildernMax')"
                           disabled
                         />
                         <a class="js-plus font-size-10 text-dark">
@@ -1899,12 +1899,12 @@
                     >
                       <span class="d-block"
                         >Age
-                        {{ getMinAdultPrice()?.PriceColective.infantAge }}</span
+                        {{ getFirstAdultPrice()?.PriceColective.infantAge }}</span
                       >
                       <span class="badge bg-green p-2 sale">
                         {{
                           selectedOption === "collective"
-                            ? getMinAdultPrice()?.PriceColective.infantDiscount
+                            ? getFirstAdultPrice()?.PriceColective.infantDiscount
                             : ""
                         }}% OFF</span
                       >
@@ -1922,7 +1922,7 @@
                           type="text"
                           [attr.min]="0"
                           [(ngModel)]="infant"
-                          [attr.max]="getMaxValue('InfantMax')"
+                          [attr.max]="getFirstValue('InfantMax')"
                           disabled
                         />
                         <a class="js-plus font-size-10 text-dark">
@@ -1962,7 +1962,7 @@
                           class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
                           type="text"
                           [attr.min]="1"
-                          [attr.max]="getMaxValue('AdultMax')"
+                          [attr.max]="getFirstValue('AdultMax')"
                           [(ngModel)]="adults"
                           disabled
                         />
@@ -1982,21 +1982,21 @@
                 <!-- <div *ngIf="selectedDateControl.value" [@fadeInOut]>
                 <div class="alert alert-info my-2 text-white">
                   <p class="mb-0" style="font-weight: 700">
-                    Adult Max : {{ getMaxValue("AdultMax") }}
+                    Adult Max : {{ getFirstValue("AdultMax") }}
                   </p>
                   <p
                     class="mb-0"
                     style="font-weight: 700"
                     *ngIf="selectedOption === 'collective'"
                   >
-                    Childern Max : {{ getMaxValue("childernMax") }}
+                    Childern Max : {{ getFirstValue("childernMax") }}
                   </p>
                   <p
                     class="mb-0"
                     style="font-weight: 700"
                     *ngIf="selectedOption === 'collective'"
                   >
-                    Infant Max : {{ getMaxValue("infantMax") }}
+                    Infant Max : {{ getFirstValue("infantMax") }}
                   </p>
                 </div>
               </div> -->
@@ -2144,26 +2144,26 @@
                     class="font-size-18 fw-bold text-dark"
                     [style.text-decoration]="
                       (selectedOption === 'collective' &&
-                        getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
+                        getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
                       (selectedOption === 'privete' &&
-                        getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                        getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
                         ? 'line-through'
                         : ''
                     "
                     [style.color]="
                       (selectedOption === 'collective' &&
-                        getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
+                        getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
                       (selectedOption === 'privete' &&
-                        getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                        getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
                         ? 'red !important'
                         : ''
                     "
                   >
                     From ${{
                       selectedOption === "collective"
-                        ? getMinAdultPrice()?.PriceColective.Adult
+                        ? getFirstAdultPrice()?.PriceColective.Adult
                         : selectedOption === "privete"
-                        ? getMinAdultPrice()?.PricePrivte.Adult
+                        ? getFirstAdultPrice()?.PricePrivte.Adult
                         : ""
                     }}
                   </span>
@@ -2171,26 +2171,26 @@
                     class="mx-2 font-size-18 fw-bold text-dark"
                     *ngIf="
                       (selectedOption === 'collective' &&
-                        getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
+                        getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
                       (selectedOption === 'privete' &&
-                        getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+                        getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
                     "
                     style="font-weight: 700"
                     >${{
                       selectedOption === "collective"
                         ? getRoundedRate(
-                            getMinAdultPrice()?.PriceColective.Adult -
-                              (getMinAdultPrice()?.PriceColective
+                            getFirstAdultPrice()?.PriceColective.Adult -
+                              (getFirstAdultPrice()?.PriceColective
                                 .AdultDiscount /
                                 100) *
-                                getMinAdultPrice()?.PriceColective.Adult
+                                getFirstAdultPrice()?.PriceColective.Adult
                           )
                         : selectedOption === "privete"
                         ? getRoundedRate(
-                            getMinAdultPrice()?.PricePrivte.Adult -
-                              (getMinAdultPrice()?.PricePrivte.AdultDiscount /
+                            getFirstAdultPrice()?.PricePrivte.Adult -
+                              (getFirstAdultPrice()?.PricePrivte.AdultDiscount /
                                 100) *
-                                getMinAdultPrice()?.PricePrivte.Adult
+                                getFirstAdultPrice()?.PricePrivte.Adult
                           )
                         : ""
                     }}
@@ -2265,12 +2265,12 @@
                   >
                     <span class="d-block"
                       >Age
-                      {{ getMinAdultPrice()?.PriceColective.AdultAge }}</span
+                      {{ getFirstAdultPrice()?.PriceColective.AdultAge }}</span
                     >
                     <span class="badge bg-green p-2 sale">
                       {{
                         selectedOption === "collective"
-                          ? getMinAdultPrice()?.PriceColective.AdultDiscount
+                          ? getFirstAdultPrice()?.PriceColective.AdultDiscount
                           : ""
                       }}% OFF</span
                     >
@@ -2287,7 +2287,7 @@
                         class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
                         type="text"
                         [attr.min]="1"
-                        [attr.max]="getMaxValue('AdultMax')"
+                        [attr.max]="getFirstValue('AdultMax')"
                         [(ngModel)]="adults"
                         disabled
                       />
@@ -2316,13 +2316,13 @@
                   >
                     <span class="d-inline-block"
                       >Age
-                      {{ getMinAdultPrice()?.PriceColective.childernAge }}</span
+                      {{ getFirstAdultPrice()?.PriceColective.childernAge }}</span
                     >
 
                     <span class="badge bg-orange p-2 sale">
                       {{
                         selectedOption === "collective"
-                          ? getMinAdultPrice()?.PriceColective.childernDiscount
+                          ? getFirstAdultPrice()?.PriceColective.childernDiscount
                           : ""
                       }}% OFF</span
                     >
@@ -2340,7 +2340,7 @@
                         type="text"
                         [attr.min]="0"
                         [(ngModel)]="children"
-                        [attr.max]="getMaxValue('ChildernMax')"
+                        [attr.max]="getFirstValue('ChildernMax')"
                         disabled
                       />
                       <a class="js-plus font-size-10 text-dark">
@@ -2367,12 +2367,12 @@
                   >
                     <span class="d-block"
                       >Age
-                      {{ getMinAdultPrice()?.PriceColective.infantAge }}</span
+                      {{ getFirstAdultPrice()?.PriceColective.infantAge }}</span
                     >
                     <span class="badge bg-green p-2 sale">
                       {{
                         selectedOption === "collective"
-                          ? getMinAdultPrice()?.PriceColective.infantDiscount
+                          ? getFirstAdultPrice()?.PriceColective.infantDiscount
                           : ""
                       }}% OFF</span
                     >
@@ -2390,7 +2390,7 @@
                         type="text"
                         [attr.min]="0"
                         [(ngModel)]="infant"
-                        [attr.max]="getMaxValue('InfantMax')"
+                        [attr.max]="getFirstValue('InfantMax')"
                         disabled
                       />
                       <a class="js-plus font-size-10 text-dark">
@@ -2430,7 +2430,7 @@
                         class="js-result form-control h-auto width-30 fw-bold font-size-16 shadow-none bg-transparent border-0 rounded p-0 mx-1 text-center"
                         type="text"
                         [attr.min]="1"
-                        [attr.max]="getMaxValue('AdultMax')"
+                        [attr.max]="getFirstValue('AdultMax')"
                         [(ngModel)]="adults"
                         disabled
                       />
@@ -2459,7 +2459,7 @@
               </div>
             </div>
           </div>
-        
+
         </div>
       </div>
     </div>
@@ -2530,26 +2530,26 @@
           class="font-size-16 fw-bold text-dark"
           [style.text-decoration]="
             (selectedOption === 'collective' &&
-              getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
+              getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
             (selectedOption === 'privete' &&
-              getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+              getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
               ? 'line-through'
               : ''
           "
           [style.color]="
             (selectedOption === 'collective' &&
-              getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
+              getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
             (selectedOption === 'privete' &&
-              getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+              getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
               ? 'red !important'
               : ''
           "
         >
           From ${{
             selectedOption === "collective"
-              ? getMinAdultPrice()?.PriceColective.Adult
+              ? getFirstAdultPrice()?.PriceColective.Adult
               : selectedOption === "privete"
-              ? getMinAdultPrice()?.PricePrivte.Adult
+              ? getFirstAdultPrice()?.PricePrivte.Adult
               : ""
           }}
         </span>
@@ -2557,23 +2557,23 @@
           class="mx-1 font-size-16 fw-bold text-dark"
           *ngIf="
             (selectedOption === 'collective' &&
-              getMinAdultPrice()?.PriceColective.AdultDiscount > 0) ||
+              getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
             (selectedOption === 'privete' &&
-              getMinAdultPrice()?.PricePrivte.AdultDiscount > 0)
+              getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
           "
           style="font-weight: 500"
           >${{
             selectedOption === "collective"
               ? getRoundedRate(
-                  getMinAdultPrice()?.PriceColective.Adult -
-                    (getMinAdultPrice()?.PriceColective.AdultDiscount / 100) *
-                      getMinAdultPrice()?.PriceColective.Adult
+                  getFirstAdultPrice()?.PriceColective.Adult -
+                    (getFirstAdultPrice()?.PriceColective.AdultDiscount / 100) *
+                      getFirstAdultPrice()?.PriceColective.Adult
                 )
               : selectedOption === "privete"
               ? getRoundedRate(
-                  getMinAdultPrice()?.PricePrivte.Adult -
-                    (getMinAdultPrice()?.PricePrivte.AdultDiscount / 100) *
-                      getMinAdultPrice()?.PricePrivte.Adult
+                  getFirstAdultPrice()?.PricePrivte.Adult -
+                    (getFirstAdultPrice()?.PricePrivte.AdultDiscount / 100) *
+                      getFirstAdultPrice()?.PricePrivte.Adult
                 )
               : ""
           }}
@@ -2591,6 +2591,6 @@
         Check availability
       </a>
     </div>
-    
+
   </div>
 </div>
