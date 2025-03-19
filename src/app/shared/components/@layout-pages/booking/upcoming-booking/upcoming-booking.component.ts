@@ -125,7 +125,7 @@ export class UpcomingBookingComponent {
   setBookingId(arg0: any) {
     this.BookingInfo = arg0;
     this.customerForm.patchValue(this.BookingInfo);
-    this.customerForm?.get('phone')?.patchValue('+' + this.BookingInfo.phone);
+    this.customerForm?.get('phone')?.patchValue(this.BookingInfo?.code  + this.BookingInfo.phone);
   }
   setActiveBooking(bookingId: any) {
     this.activeBooking = bookingId;

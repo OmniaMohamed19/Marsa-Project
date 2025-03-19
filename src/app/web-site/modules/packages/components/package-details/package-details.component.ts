@@ -127,43 +127,42 @@ export class PackageDetailsComponent {
     private router: Router,
     private seoService: SEOService,
     private titleService: Title,
-    private metaService: Meta,
+    private metaService: Meta
   ) {
-     if (window.screen.width < 768) {
+    if (window.screen.width < 768) {
       this.isMobile = true;
     }
-
   }
 
-    customOptions: OwlOptions = {
-      loop: this.relatedtrips.length > 4 ? true : false,
-      mouseDrag: true,
-      touchDrag: true,
-      pullDrag: true,
-      dots: false,
-      autoplay: true,
-      margin: 10,
-      navSpeed: 700,
-      navText: [
-        "<i class='fa fa-angle-left'></i>",
-        "<i class='fa fa-angle-right'></i>",
-      ],
-      responsive: {
-        0: {
-          items: 1,
-        },
-        740: {
-          items: 4,
-        },
-        940: {
-          items: 4,
-        },
-        1200: {
-          items: 4,
-        },
+  customOptions: OwlOptions = {
+    loop: this.relatedtrips.length > 4 ? true : false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    autoplay: true,
+    margin: 10,
+    navSpeed: 700,
+    navText: [
+      "<i class='fa fa-angle-left'></i>",
+      "<i class='fa fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 1,
       },
-      nav: true,
-    };
+      740: {
+        items: 4,
+      },
+      940: {
+        items: 4,
+      },
+      1200: {
+        items: 4,
+      },
+    },
+    nav: true,
+  };
 
   seeMore: boolean = false;
   showFullDescription = false;
@@ -245,7 +244,7 @@ export class PackageDetailsComponent {
       this.isTestDivScrolledIntoView = topShown && bottomShown;
 
       // Set hideMobileFooter based on visibility
-       this.hideMobileFooter = this.isTestDivScrolledIntoView;
+      this.hideMobileFooter = this.isTestDivScrolledIntoView;
     }
   }
 
@@ -322,6 +321,7 @@ export class PackageDetailsComponent {
 
     switch (durationUnit) {
       case 'Day':
+      case 'day':
       case 'days':
         endDate.setDate(endDate.getDate() + durationValue - 1);
         break;
@@ -339,6 +339,8 @@ export class PackageDetailsComponent {
     }
 
     this.endDate = endDate;
+    console.log(this.endDate);
+
     const formattedEndDate = this.datePipe.transform(
       this.endDate,
       'yyyy/MM/dd'
@@ -579,9 +581,9 @@ export class PackageDetailsComponent {
           this.modalService.dismissAll();
           document.body.classList.remove('modal-open');
           const backdrops = document.querySelectorAll('.modal-backdrop');
-          backdrops.forEach(backdrop => backdrop.remove());
+          backdrops.forEach((backdrop) => backdrop.remove());
         }, 300);
-              } else {
+      } else {
         const model = {
           packege_id: this.packageID,
           adult: this.adults,
@@ -589,38 +591,42 @@ export class PackageDetailsComponent {
           infant: this.infant,
         };
 
-        this.httpService.post(environment.marsa, 'package/price', model).subscribe({
-          next: (res: any) => {
-            const queryParams = {
-              res: JSON.stringify(res),
-              packege_id: this.packageID,
-              adult: this.adults,
-              childern: this.children,
-              infant: this.infant,
-              booking_date: this.formattedStartDate,
-              end_date: this.formattedEndDate,
-            };
+        this.httpService
+          .post(environment.marsa, 'package/price', model)
+          .subscribe({
+            next: (res: any) => {
+              const queryParams = {
+                res: JSON.stringify(res),
+                packege_id: this.packageID,
+                adult: this.adults,
+                childern: this.children,
+                infant: this.infant,
+                booking_date: this.formattedStartDate,
+                end_date: this.formattedEndDate,
+              };
 
-            this.modalService.dismissAll();
-            if (typeof window !== 'undefined' && window.localStorage) {
-              localStorage.setItem('queryParamsPackages', JSON.stringify(queryParams));
               this.modalService.dismissAll();
-            }
+              if (typeof window !== 'undefined' && window.localStorage) {
+                localStorage.setItem(
+                  'queryParamsPackages',
+                  JSON.stringify(queryParams)
+                );
+                this.modalService.dismissAll();
+              }
 
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'packages', 'packagePayment'],
-              { queryParams }
-            );
-            this.modalService.dismissAll();
-setTimeout(() => {
-  this.modalService.dismissAll();
-  document.body.classList.remove('modal-open');
-  const backdrops = document.querySelectorAll('.modal-backdrop');
-  backdrops.forEach(backdrop => backdrop.remove());
-}, 300);
-
-          },
-        });
+              this.router.navigate(
+                ['/', this.translate.currentLang, 'packages', 'packagePayment'],
+                { queryParams }
+              );
+              this.modalService.dismissAll();
+              setTimeout(() => {
+                this.modalService.dismissAll();
+                document.body.classList.remove('modal-open');
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach((backdrop) => backdrop.remove());
+              }, 300);
+            },
+          });
       }
     }
   }
