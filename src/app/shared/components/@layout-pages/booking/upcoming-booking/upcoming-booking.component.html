@@ -226,7 +226,7 @@
                               alt="clock"
                             />
                           </span>
-                          <span *ngIf="trip?.categoryid!=2">
+                          <span *ngIf="trip?.categoryid!=2 && trip?.categoryid !=5">
                             Starting Time :
                             {{
                               "1970-01-01T" + trip?.booking_time
@@ -237,6 +237,11 @@
                             Starting Time : 8:30 AM
 
                           </span>
+                          <span *ngIf="trip?.categoryid==5">
+                            Starting Time : 8:00 AM
+
+                          </span>
+
                         </li>
                         <li>
                           <span>
@@ -424,13 +429,13 @@
           Cancel
         </button>
       </div>
-      <ngx-spinner
+      <!-- <ngx-spinner
       bdColor="rgba(0, 0, 0, 0.8)"
       [fullScreen]="true"
     >
       <img width="400"
       height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-    </ngx-spinner>
+    </ngx-spinner> -->
     </div>
   </div>
 </div>

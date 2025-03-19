@@ -56,7 +56,7 @@ export class UpcomingBookingComponent {
         private cdr: ChangeDetectorRef,
 
     private profileService: ProfileService,
-    private spinner: NgxSpinnerService,
+
     private httpService: HttpService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
@@ -140,10 +140,6 @@ export class UpcomingBookingComponent {
 
 
   cancelBooking() {
-
-
-    this.spinner.show();
-
     if(this.choosenReason.id !== 4) {
      this.Cancelreason =this.choosenReason.label
      console.log(this.choosenReason.label);
@@ -160,7 +156,6 @@ export class UpcomingBookingComponent {
       .post(environment.marsa, 'user/book/cancel', model)
       .pipe(
         catchError((err) => {
-          this.spinner.hide();
           Swal.fire({
             icon: 'error',
             title: 'Failed',
@@ -173,7 +168,6 @@ export class UpcomingBookingComponent {
         finalize(() => {})
       )
       .subscribe((res: any) => {
-        this.spinner.hide();
         if (res) {
           Swal.fire({
             icon: 'success',
