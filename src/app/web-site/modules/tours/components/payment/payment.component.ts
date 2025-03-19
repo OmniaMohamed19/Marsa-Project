@@ -84,6 +84,10 @@ export class PaymentComponent {
     private dialog: MatDialog
   ) {}
 
+  @ViewChild('myDiv') myDiv!: ElementRef;
+  scrollToTop() {
+    this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
   ngOnInit(): void {
     this.titleService.setTitle('Confirm Booking');
     this.initForm();
@@ -343,6 +347,7 @@ export class PaymentComponent {
       return;
     }
     stepper.next();
+    this.scrollToTop();
     const model = {
       trip_id: this.tripId,
       avilable_option_id: this.avilable_option_id,

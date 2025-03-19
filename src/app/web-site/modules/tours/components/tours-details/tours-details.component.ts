@@ -342,7 +342,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   // Increment the number of adults
   incrementAdult() {
     if (this.selectedOption === 'collective') {
-      const maxAdults = this.getMaxValue('AdultMax');
+      const maxAdults = this.getFirstValue('AdultMax');
       if (this.adults < maxAdults) {
         this.adults++;
       } else {
@@ -382,9 +382,9 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
       }
     } else {
-      if (this.adults <= this.getMaxValue('AdultMax')) {
+      if (this.adults <= this.getFirstValue('AdultMax')) {
         this.toastr.info(
-          `Sorry, the minimum required number of adults is ${this.getMaxValue(
+          `Sorry, the minimum required number of adults is ${this.getFirstValue(
             'AdultMax'
           )}. Please adjust the number.`,
           '',
@@ -403,7 +403,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   incrementChildren() {
-    const maxChildren = this.getMaxValue('childernMax');
+    const maxChildren = this.getFirstValue('childernMax');
     if (this.children < maxChildren) {
       this.children++;
     } else {
@@ -441,7 +441,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   incrementInfant() {
-    const maxInfants = this.getMaxValue('infantMax');
+    const maxInfants = this.getFirstValue('infantMax');
     if (this.infant < maxInfants) {
       this.infant++;
     } else {
@@ -803,6 +803,10 @@ export class ToursDetailsComponent implements AfterViewInit {
         return;
       }
     }
+    // if (this.validateParticipants()) return;
+    if (!this.validateMinimumParticipants() || !this.validateParticipants()) {
+      return; // Stop execution if any validation fails
+    }
 
     this.bookNow(this.activityData?.AvailableOption[0]?.id);
     this.scrollTo('availableOptions');
@@ -893,11 +897,11 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   private validateParticipants(): boolean {
-    console.log(this.selectedOption)
+    console.log(this.selectedOption);
 
-    const maxAdults = this.getMaxValue('AdultMax');
-    const maxChildren = this.getMaxValue('childernMax');
-    const maxInfant = this.getMaxValue('infantMax');
+    const maxAdults = this.getFirstValue('AdultMax');
+    const maxChildren = this.getFirstValue('childernMax');
+    const maxInfant = this.getFirstValue('infantMax');
 
     const validationMessages = [
       { type: 'adults', max: maxAdults },
@@ -912,8 +916,8 @@ export class ToursDetailsComponent implements AfterViewInit {
     };
 
     for (const { type, max } of validationMessages) {
-      if(this.selectedOption === 'privete'){
-        return true
+      if (this.selectedOption === 'privete') {
+        return true;
       }
       if (participantCounts[type as ParticipantType] > max) {
         this.toastr.info(
@@ -934,9 +938,9 @@ export class ToursDetailsComponent implements AfterViewInit {
     return true;
   }
   private validateMinimumParticipants(): boolean {
-    const minAdults = this.getMinValue('AdultMin');
-    const minChildren = this.getMinValue('childernMin');
-    const minInfant = this.getMinValue('infantMin');
+    const minAdults = this.getMinValue('Adultmin');
+    const minChildren = this.getMinValue('childernmin');
+    const minInfant = this.getMinValue('infantmin');
 
     if (this.selectedOption === 'collective') {
       if (this.adults < minAdults) {
@@ -954,9 +958,9 @@ export class ToursDetailsComponent implements AfterViewInit {
         return false;
       }
     } else {
-      if (this.adults < this.getMaxValue('AdultMax')) {
+      if (this.adults < this.getFirstValue('AdultMax')) {
         this.toastr.info(
-          `Sorry, the minimum required number of adults is ${this.getMaxValue(
+          `Sorry, the minimum required number of adults is ${this.getFirstValue(
             'AdultMax'
           )}. Please adjust the number.`,
           '',
@@ -1006,9 +1010,9 @@ export class ToursDetailsComponent implements AfterViewInit {
   private getMinValue(property: string): number {
     let value = 0;
     if (this.selectedOption === 'collective') {
-      value = this.getMinAdultPrice()?.PriceColective[property] || 0;
+      value = this.getFirstAdultPrice()?.PriceColective[property] || 0;
     } else if (this.selectedOption === 'privete') {
-      value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
+      value = this.getFirstAdultPrice()?.PricePrivte[property] || 0;
     }
     return value;
   }
@@ -1047,20 +1051,21 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   changeOption(option: string) {
+    this.adults = 1;
     this.selectedOption = option;
   }
 
-  getMaxValue(property: string): number {
+  getFirstValue(property: string): number {
     let value = 0;
     if (this.selectedOption === 'collective') {
-      value = this.getMinAdultPrice()?.PriceColective[property] || 0;
+      value = this.getFirstAdultPrice()?.PriceColective[property] || 0;
     } else if (this.selectedOption === 'privete') {
-      value = this.getMinAdultPrice()?.PricePrivte[property] || 0;
+      value = this.getFirstAdultPrice()?.PricePrivte[property] || 0;
     }
     return value;
   }
 
-  getMinAdultPrice(): any {
+  getFirstAdultPrice(): any {
     if (
       !this.activityData ||
       !this.activityData.AvailableOption ||
@@ -1068,17 +1073,7 @@ export class ToursDetailsComponent implements AfterViewInit {
     ) {
       return null;
     }
-    const minAdultPrice = Math.min(
-      ...this.activityData.AvailableOption.map(
-        (option: any) => option.PriceColective?.Adult
-      )
-    );
-    if (!isFinite(minAdultPrice)) {
-      return null;
-    }
-    return this.activityData.AvailableOption.find(
-      (option: any) => option.PriceColective?.Adult === minAdultPrice
-    );
+    return this.activityData.AvailableOption[0];
   }
 
   onStarHover(starNumber: number) {
