@@ -45,43 +45,46 @@ formData = new FormData();
     return imageName || 'Unknown photo';
   }
   ngOnInit() {
-   
+
   }
   selectedCountry:any;
   ngOnChanges() {
     this.name = this.userDetails?.name;
     this.phone = this.userDetails?.overviwe?.phonenumber;
-  
+
     this.phoneNumber =
       '+' +
       (this.userDetails?.overviwe?.countrycode || '') +
       (this.phone ? this.phone.replace(/\s/g, '') : '');
-  
+
     this.email = this.userDetails?.overviwe?.email;
     this.dob = this.userDetails?.overviwe?.dateofbirth;
     this.gender = this.userDetails?.overviwe?.gender;
-  
+
     if (this.gender === 1) {
-      this.selectedItem = this.items[0]; 
+      this.selectedItem = this.items[0];
     } else if (this.gender === 0) {
-      this.selectedItem = this.items[1]; 
+      this.selectedItem = this.items[1];
     } else {
-      this.selectedItem = null; 
+      this.selectedItem = null;
     }
   }
-  
- 
+  onCountryChange(event: any) {
+    if (event) {
+      const dialCode = event.dialCode;
+      const currentNumber = this.phone ? this.phone.replace(/\s/g, '') : '';
+
+      setTimeout(() => {
+        this.phoneNumber = `+${dialCode}${currentNumber}`;
+      });
+    }
+  }
 
 
-  /**************************/
- 
 
-
-  
-  /*******************************/
   items: Item[] = [
-    { id: 1, name: 'Male', value: 1 }, 
-    { id: 2, name: 'Female', value: 0 }, 
+    { id: 1, name: 'Male', value: 1 },
+    { id: 2, name: 'Female', value: 0 },
   ];
 
   selectedItem: Item | null = null;

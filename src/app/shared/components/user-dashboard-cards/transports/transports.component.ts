@@ -8,10 +8,11 @@ import { ProfileService } from '../user-card/profile-service.service';
 })
 export class TransportsComponent {
   booking:any[] = [];
+  years: { label: string; value: string }[] = [];
 
   activeTab: string = 'year';
 
-  thisYear: any;
+  thisYear: number = new Date().getFullYear();
   filterdPackages: any = [];
   profiles: any[] = [];
   currentPage: number = 1;
@@ -59,20 +60,26 @@ export class TransportsComponent {
   ngOnInit() {
     this.loadProfiles(this.currentPage);
     this.filterdPackages = this.booking;
-    this.thisYear = new Date().getFullYear();
+   
+    this.generateYears();
+    this.activeTab = this.thisYear.toString();
+    
+  } generateYears() {
+    const currentYear = new Date().getFullYear();
+    this.years = [
+      { label: 'This Year', value: currentYear.toString() },
+      { label: (currentYear - 1).toString(), value: (currentYear - 1).toString() },
+      { label: (currentYear - 2).toString(), value: (currentYear - 2).toString() },
+      { label: (currentYear - 3).toString(), value: (currentYear - 3).toString() }
+    ];
   }
 
-  setFilter(interval: string) {
-    // Implement your logic to filter the table based on the selected interval
-    this.activeTab = interval;
-    if (interval == 'year') {
-      this.filterdPackages = this.booking?.filter((item: any) => {
-        return item.time.substr(0, 4) == this.thisYear.toString();
-      });
-    } else {
-      this.filterdPackages = this.booking?.filter((item: any) => {
-        return item.time.substr(0, 4) == interval.toString();
-      });
-    }
+
+
+  setFilter(year: string) {
+    this.activeTab = year;
+    this.filterdPackages = this.booking?.filter((item: any) => {
+      return item.time.substr(0, 4) === year;
+    });
   }
 }

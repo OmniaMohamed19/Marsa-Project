@@ -59,10 +59,21 @@
         <label>Phone Number</label>
       </div>
       <div class="col-lg-8">
-        <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-          [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
-          [phoneValidation]="false" [enablePlaceholder]="true" [customPlaceholder]="'Enter phone number'"
-          [preferredCountries]="['de']" [(ngModel)]="phoneNumber"></ngx-intl-tel-input>
+        <ngx-intl-tel-input
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [separateDialCode]="true"
+        [selectFirstCountry]="true"
+        [maxLength]="20"
+        name="phoneNumber"
+        [phoneValidation]="false"
+        [customPlaceholder]="'Enter phone number'"
+        [preferredCountries]="['de']"
+        [(ngModel)]="phoneNumber"
+        (countryChange)="onCountryChange($event)">
+      </ngx-intl-tel-input>
+
       </div>
     </div>
 
@@ -92,9 +103,9 @@
           <div class="dropdown-btn-2 d-flex align-items-center gap-1">
             {{ userDetails?.overviwe?.country}}
           </div>
-         
+
         </div>
-        
+
       </div>
 
     </div>
@@ -162,7 +173,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <div class="submit">
       <button routerLink="/">Discard</button>

@@ -3,17 +3,13 @@
     <section class="table-content-general">
       <header class="flex-wrap">
         <div class="tabs">
-          <div class="tab" (click)="setFilter('year')" [class.active]="activeTab === 'year'">
-            This Year
-          </div>
-          <div class="tab" (click)="setFilter('2019')" [class.active]="activeTab === '2019'">
-            2019
-          </div>
-          <div class="tab" (click)="setFilter('2018')" [class.active]="activeTab === '2018'">
-            2018
-          </div>
-          <div class="tab" (click)="setFilter('2018')" [class.active]="activeTab === '2018'">
-            2017
+          <div
+            class="tab"
+            *ngFor="let year of years"
+            (click)="setFilter(year.toString())"
+            [class.active]="activeTab === year.value"
+      >
+        {{ year.label }}
           </div>
         </div>
       </header>

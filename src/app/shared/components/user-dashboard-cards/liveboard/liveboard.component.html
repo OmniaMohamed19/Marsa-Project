@@ -4,31 +4,11 @@
       <div class="tabs">
         <div
           class="tab"
-          (click)="setFilter('year')"
-          [class.active]="activeTab === 'year'"
-        >
-          This Year
-        </div>
-        <div
-          class="tab"
-          (click)="setFilter('2023')"
-          [class.active]="activeTab === '2023'"
-        >
-          2023
-        </div>
-        <div
-          class="tab"
-          (click)="setFilter('2022')"
-          [class.active]="activeTab === '2022'"
-        >
-          2022
-        </div>
-        <div
-          class="tab"
-          (click)="setFilter('2021')"
-          [class.active]="activeTab === '2021'"
-        >
-          2021
+          *ngFor="let year of years"
+          (click)="setFilter(year.toString())"
+          [class.active]="activeTab === year.value"
+    >
+      {{ year.label }}
         </div>
       </div>
     </header>
@@ -205,17 +185,17 @@
                     </h6>
                     <p>${{ selectedLiveAboard?.tripinfo?.child }}</p>
                   </div>
-                  <div class="col-xl col-sm-12">
+                  <div class="col-xl col-12">
                     <h6>
-                      Age Of Child
+                      Number of people
                     </h6>
-                    <p>6 To 12 Years Old </p>
+                    <p>{{ selectedLiveAboard?.tripinfo?.adult }}</p>
                   </div>
                   <div class="col-xl col-sm-12">
                     <h6>
                       Date
                     </h6>
-                    <p>{{ selectedLiveAboard?.tripinfo?.date }}</p>
+                    <p>{{ selectedLiveAboard?.tripinfo?.Schedule }}</p>
                   </div>
 
                 </div>
