@@ -803,6 +803,10 @@ export class ToursDetailsComponent implements AfterViewInit {
         return;
       }
     }
+    // if (this.validateParticipants()) return;
+    if (!this.validateMinimumParticipants() || !this.validateParticipants()) {
+      return; // Stop execution if any validation fails
+    }
 
     this.bookNow(this.activityData?.AvailableOption[0]?.id);
     this.scrollTo('availableOptions');
