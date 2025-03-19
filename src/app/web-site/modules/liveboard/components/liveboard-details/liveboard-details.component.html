@@ -390,9 +390,7 @@
                         <li class="list-board">
                           {{ schedule?.Day }} D/ {{ schedule?.Night }} N
                         </li>
-                        <ng-container
-                          *ngIf="schedule.Available > 0; else elseTemplate"
-                        >
+                        <ng-container *ngIf="schedule.Available > 0; else elseTemplate">
                           <li class="list-board" style="color: #009f19">
                             Available {{ schedule.Available }}
                           </li>
