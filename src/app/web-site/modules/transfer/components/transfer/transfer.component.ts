@@ -144,7 +144,7 @@ export class TransferComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  
+
 
 
 
@@ -226,7 +226,7 @@ export class TransferComponent implements OnInit {
     }
 
 
-    if (this.activeSection === 'section2' && (!this.date || this.date.trim() === ''))
+    if (this.activeSection === 'section2' &&(typeof this.date === 'string' && this.date.trim() === ''))
       {
       this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
@@ -238,7 +238,14 @@ export class TransferComponent implements OnInit {
       return;
     }
 
-    if (this.activeSection === 'section1' && (!this.date || this.date.trim() === '' || !this.returnDate || this.returnDate.trim() === ''))
+    if (
+      this.activeSection === 'section1' &&
+      (
+        (typeof this.date === 'string' && this.date.trim() === '') ||
+        !this.returnDate ||
+        (typeof this.returnDate === 'string' && this.returnDate.trim() === '')
+      )
+    )
       {
       this.toastr.info('Please enter date ', '', {
         disableTimeOut: false,
