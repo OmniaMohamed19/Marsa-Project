@@ -28,10 +28,10 @@ export class UpcomingBookingComponent {
   ];
   @ViewChild('btn') btn: ElementRef | undefined;
   choosenReason: any;
-  Cancelreason:any;
+  Cancelreason: any;
   upcoming: any = [];
-  Transferupcoming:any=[];
-  upcomingTrips:any=[];
+  Transferupcoming: any = [];
+  upcomingTrips: any = [];
   allUpcoming: any = [];
   activeSection = 'all'; // Initialize with a default value
   activeBooking: any;
@@ -53,14 +53,15 @@ export class UpcomingBookingComponent {
   };
   BookingInfo: any;
   constructor(
-        private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
 
     private profileService: ProfileService,
 
     private httpService: HttpService,
     private _AuthService: AuthService,
     private dialog: MatDialog,
-    private fb: FormBuilder,private titleService: Title
+    private fb: FormBuilder,
+    private titleService: Title
   ) {}
   setActiveSection(section: string) {
     this.upcomingTrips = [];
@@ -74,7 +75,6 @@ export class UpcomingBookingComponent {
           console.log(item.categoryid);
           return item;
         }
-
       });
     }
   }
@@ -88,14 +88,13 @@ export class UpcomingBookingComponent {
     this.initForm();
 
     this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
-    this.tabs = res?.triptypes;
-    console.log(this.tabs)
-     this.tabs[0].category = 'Activities';
-    this.tabs[1].category = 'Liveaboard';
-    this.tabs[2].category = null;
-    this.tabs[3].category = 'Transfer';
-    this.tabs[4].category = 'Package';
-
+      this.tabs = res?.triptypes;
+      console.log(this.tabs);
+      this.tabs[0].category = 'Activities';
+      this.tabs[1].category = 'Liveaboard';
+      this.tabs[2].category = null;
+      this.tabs[3].category = 'Transfer';
+      this.tabs[4].category = 'Package';
     });
     this.loadProfiles(this.currentPage);
 
@@ -125,7 +124,9 @@ export class UpcomingBookingComponent {
   setBookingId(arg0: any) {
     this.BookingInfo = arg0;
     this.customerForm.patchValue(this.BookingInfo);
-    this.customerForm?.get('phone')?.patchValue(this.BookingInfo?.code  + this.BookingInfo.phone);
+    this.customerForm
+      ?.get('phone')
+      ?.patchValue(this.BookingInfo?.code + this.BookingInfo.phone);
   }
   setActiveBooking(bookingId: any) {
     this.activeBooking = bookingId;
@@ -138,20 +139,18 @@ export class UpcomingBookingComponent {
     }
   }
 
-
   cancelBooking() {
-    if(this.choosenReason.id !== 4) {
-     this.Cancelreason =this.choosenReason.label
-     console.log(this.choosenReason.label);
-    }
-    else  if(this.choosenReason.id == 4) {
-      this.Cancelreason =this.other;
+    if (this.choosenReason.id !== 4) {
+      this.Cancelreason = this.choosenReason.label;
+      console.log(this.choosenReason.label);
+    } else if (this.choosenReason.id == 4) {
+      this.Cancelreason = this.other;
       console.log(this.other);
     }
     const model = {
       id: this.activeBooking,
-      reason:this.Cancelreason
-    }
+      reason: this.Cancelreason,
+    };
     this.httpService
       .post(environment.marsa, 'user/book/cancel', model)
       .pipe(
@@ -192,11 +191,13 @@ export class UpcomingBookingComponent {
 
   loadProfiles(page: number): void {
     this.profileService.getProfiles(page).subscribe((data) => {
-     // this.profiles = data.userDashboard.data;
+      // this.profiles = data.userDashboard.data;
       this.upcoming = data?.userDashboard?.upcomming;
       this.Transferupcoming = data?.userDashboard?.upcommingTransfer;
-      this.upcomingTrips = [...(this.upcoming || []), ...(this.Transferupcoming || [])];
-
+      this.upcomingTrips = [
+        ...(this.upcoming || []),
+        ...(this.Transferupcoming || []),
+      ];
 
       console.log(this.upcomingTrips);
 
@@ -213,7 +214,6 @@ export class UpcomingBookingComponent {
   }
 
   prevPage(): void {
-
     if (this.currentPage > 1) {
       this.loadProfiles(this.currentPage - 1);
     }
@@ -228,7 +228,6 @@ export class UpcomingBookingComponent {
       this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
     if (this.customerForm.valid) {
-
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -236,7 +235,7 @@ export class UpcomingBookingComponent {
         code: code,
         userid: this.userData?.id,
 
-        note:'',
+        note: '',
         ...this.customerForm.value,
         phone: phoneNumber.replace('+', ''),
         lng: this.longitudeValue ? this.longitudeValue.toString() : '',
@@ -273,17 +272,14 @@ export class UpcomingBookingComponent {
           },
 
           error: (err: any) => {
-
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
               'error'
-            ).then(() => {
-            });
+            ).then(() => {});
           },
         });
     } else {
-
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
@@ -311,5 +307,42 @@ export class UpcomingBookingComponent {
       this.longitudeValue = result.longitude;
       this.locationValue = `(${result.longitude} - ${result.latitude})`;
     });
+  }
+
+  calculateEndDate(startDate: string, duration: string) {
+    if (!startDate || !duration) {
+      return;
+    }
+
+    const durationParts = duration.split(' ');
+    const durationValue = parseInt(durationParts[0], 10);
+    const durationUnit = durationParts[1].toLowerCase();
+
+    const endDate = new Date(startDate);
+
+    switch (durationUnit) {
+      case 'Day':
+      case 'day':
+      case 'days':
+        endDate.setDate(endDate.getDate() + durationValue - 1);
+        break;
+      case 'hour':
+      case 'hours':
+        endDate.setHours(endDate.getHours() + durationValue);
+        break;
+      case 'minute':
+      case 'minutes':
+        endDate.setMinutes(endDate.getMinutes() + durationValue);
+        break;
+      default:
+        console.error('Invalid duration unit');
+        return;
+    }
+
+    // لو محتاجاه التاريخبفورمات معين 
+    const formattedEndDate = this.datePipe.transform(endDate, 'yyyy/MM/dd');
+    // ودا العادى 
+    // شوفة المناسب واعملى ليه  return
+    return endDate;
   }
 }

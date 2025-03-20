@@ -561,7 +561,7 @@ export class LiveboardDetailsComponent {
   }
   bookNow() {
     if (this.selectedOption === 'collective') {
-      if (this.persons > 1) {
+      if (this.persons >= this.getValue('AdultMin')) {
       } else {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
@@ -577,7 +577,7 @@ export class LiveboardDetailsComponent {
         return;
       }
     } else {
-      if (this.persons < this.getValue('AdultMax')) {
+      if (this.persons <= this.getValue('AdultMax')) {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum limit of ${this.getValue(
             'AdultMax'
