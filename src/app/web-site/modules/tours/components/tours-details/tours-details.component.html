@@ -2482,36 +2482,43 @@
 
 <ng-template #videoBoatModal>
   <div class="h-100" mat-dialog-content>
+    <button mat-icon-button class="close-btn" (click)="closeVideoBoatModal()">
+      <mat-icon>close</mat-icon>
+    </button>
     <iframe
       [src]="videoBoatUrl"
       id="inneriframe"
       class="w-100"
-      scrolling="no"
       style="height: 90%"
+      scrolling="no"
       allowfullscreen
     ></iframe>
   </div>
 </ng-template>
 <ng-template #videoModal>
-  <video
-    #videoElement
-    class="w-100 h-100"
-    [src]="videoUrl"
-    controls
-    autoplay
-    name="media"
-  ></video>
-  <!-- <div class="h-100 vid" mat-dialog-content>
-    <iframe
+  <div class="video-container">
+    <button mat-icon-button class="close-btn" (click)="closeVideoModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <video
+      #videoElement
+      class="w-100 h-100"
       [src]="videoUrl"
-      id="inneriframe"
-      class="w-100"
-      style="height: 90%"
-      scrolling="no"
-      allowfullscreen
-    ></iframe>
-  </div> -->
+      controls
+      autoplay
+    ></video>
+  </div>
 </ng-template>
+<!-- <div class="h-100 vid" mat-dialog-content>
+  <iframe
+    [src]="videoUrl"
+    id="inneriframe"
+    class="w-100"
+    style="height: 90%"
+    scrolling="no"
+    allowfullscreen
+  ></iframe>
+</div> -->
 
 <div
   style="position: fixed; bottom: 0px; z-index: 99999"

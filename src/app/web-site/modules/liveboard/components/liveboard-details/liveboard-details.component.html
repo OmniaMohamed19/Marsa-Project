@@ -1,5 +1,5 @@
 <app-header [background]="'#0DB1FF'"></app-header>
-<div class="container details-page">
+<div class="container live details-page">
   <div>
     <div>
       <nav class="py-3" aria-label="breadcrumb">
@@ -110,10 +110,12 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="liveabourdData?.PrintedOrMobileVoucherAccepted > 0"
             >
-              <img src="assets/custom/Activity/booking.svg"
-              width="24"
-              height="24"
-              alt="booking" />
+              <img
+                src="assets/custom/Activity/booking.svg"
+                width="24"
+                height="24"
+                alt="booking"
+              />
               <div class="ml-1 text-gray-1">
                 Printed or mobile voucher accepted
               </div>
@@ -126,10 +128,12 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="liveabourdData?.OpenDateTicket > 0"
             >
-              <img src="assets/custom/Activity/document.svg"
-              width="24"
-              height="24"
-              alt="document" />
+              <img
+                src="assets/custom/Activity/document.svg"
+                width="24"
+                height="24"
+                alt="document"
+              />
               <div class="ml-1 text-gray-1">Open Date Ticket</div>
             </li>
             <li
@@ -390,7 +394,9 @@
                         <li class="list-board">
                           {{ schedule?.Day }} D/ {{ schedule?.Night }} N
                         </li>
-                        <ng-container *ngIf="schedule.Available > 0; else elseTemplate">
+                        <ng-container
+                          *ngIf="schedule.Available > 0; else elseTemplate"
+                        >
                           <li class="list-board" style="color: #009f19">
                             Available {{ schedule.Available }}
                           </li>
@@ -420,16 +426,16 @@
                           <!-- From ${{ liveabourdData?.PriceColective?.Adult }} -->
                         </li>
                         <ng-container
-                        *ngIf="schedule.Available > 0; else elseTemplate2"
+                          *ngIf="schedule.Available > 0; else elseTemplate2"
                         >
-                        <li class="list-board">
-                          <button
-                            class="btn check d-flex align-items-center justify-content-center w-100 mb-xl-0 mb-lg-1 text-white"
-                            (click)="scrollToselectCabinButton(schedule)"
-                          >
-                            Select Cabin
-                          </button>
-                        </li>
+                          <li class="list-board">
+                            <button
+                              class="btn check d-flex align-items-center justify-content-center w-100 mb-xl-0 mb-lg-1 text-white"
+                              (click)="scrollToselectCabinButton(schedule)"
+                            >
+                              Select Cabin
+                            </button>
+                          </li>
                         </ng-container>
                         <ng-template #elseTemplate2>
                           <li class="list-board">
@@ -525,7 +531,7 @@
                       [src]="cabin?.images[0]"
                       [alt]="getImageName(cabin?.images[0])"
                     />
-                    <div class="card-body row ">
+                    <div class="card-body row">
                       <p
                         class="card-text p-3 cabinTitle col-6"
                         (click)="openCabinSliderModal(cabin)"
@@ -533,10 +539,10 @@
                         {{ cabin?.accommodation_title }}
                       </p>
                       <p
-                        class="card-text p-3  col-6"
+                        class="card-text p-3 col-6"
                         (click)="openCabinSliderModal(cabin)"
                       >
-                      Max Occupancy: {{ cabin?.max_occupancy }}
+                        Max Occupancy: {{ cabin?.max_occupancy }}
                       </p>
                     </div>
                   </div>
@@ -839,7 +845,6 @@
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
                         <img
-
                           class="comment-img mb-3 mb-md-0 rounded-circle"
                           [src]="review?.avatar"
                           [alt]="
@@ -941,7 +946,6 @@
                   <div class="mr-md-5">
                     <a class="d-block" href="#">
                       <img
-
                         class="comment-img img-fluid mb-3 mb-md-0 rounded-circle"
                         [src]="review?.avatar"
                         [alt]="review?.name"
@@ -1352,274 +1356,302 @@
       </div>
     </div>
 
-
-    <div class="modal fade" id="exampleModal2"
-    (hidden.bs.modal)="closeModal()" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal2"
+      (hidden.bs.modal)="closeModal()"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="btn-close custom-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close custom-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-     <div *ngIf="isMobile" class="container">
-
-      <div class="col-lg-12 order-1 order-md-2 top-margin">
-        <div class="mb-4 sticky-container">
-          <ul
-            class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
-          >
-            <ng-container *ngIf="liveabourdData?.wishlist; else elseTemplate2">
-              <li
-                type="button"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Save for later"
-                class="list-group-item px-1"
-              >
-                <a
-                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
+          <div *ngIf="isMobile" class="container">
+            <div class="col-lg-12 order-1 order-md-2 top-margin">
+              <div class="mb-4 sticky-container">
+                <ul
+                  class="list-group list-group-borderless list-group-horizontal custom-social-share pb-3"
                 >
-                  <i class="fa fa-heart fs-3 text-danger"></i>
-                </a>
-              </li>
-            </ng-container>
-            <ng-template #elseTemplate2>
-              <li
-                type="button"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Save for later"
-                class="list-group-item px-1"
-              >
-                <a
-                  #btn
-                  (click)="addtoFavorits(btn, $event)"
-                  class="h-100 width-45 border rounded border-width-2 flex-content-center"
-                >
-                  <i class="fa fa-heart fs-3 text-black-50"></i>
-                </a>
-              </li>
-            </ng-template>
-            <li class="list-group-item px-1">
-              <a
-                type="button"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Share Trip"
-                (click)="shareLiveaboard(liveabourdID)"
-                class="height-45 width-45 border rounded border-width-2 flex-content-center"
-              >
-                <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
-              </a>
-            </li>
-            <li class="list-group-item px-1">
-              <a class="border rounded border-width-2 flex-content-center">
-                <span class="text-white review">
-                  {{ getRoundedRate(liveabourdData?.rate) }} /5</span
-                >
-              </a>
-            </li>
-            <li class="list-group-item px-1 d-flex flex-column">
-              <span class="top fw-bold" style="color: #297cbb">{{
-                getRatingDescription(liveabourdData?.rate)
-              }}</span>
-              <small class="d-block"
-                >({{ liveabourdData?.CountReview }} Reviews)</small
-              >
-            </li>
-          </ul>
-          <div class="border border-color-7 rounded mb-5" #selectCabinButton>
-            <span
-              class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
-              [ngClass]="{
-                'border collective': selectedOption === 'collective',
-                'private collective': selectedOption !== 'collective'
-              }"
-              (click)="changeOption('collective')"
-              >Collective</span
-            >
-
-            <span
-              class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
-              *ngIf="liveabourdData?.Privete > 0"
-              [ngClass]="{
-                'border private': selectedOption === 'privete',
-                'collective private': selectedOption !== 'privete'
-              }"
-              (click)="changeOption('privete')"
-              >Private</span
-            >
-            <div class="p-4">
-              <!-- Input -->
-              <div class="priceTitle d-flex justify-content-between">
-                <span
-                  class="d-block text-gray-1 font-weight-normal mb-2 text-left"
-                  >Price</span
-                >
-
-                <p style="font-weight: 500">
-                  <span>From </span>
-                  <span
-                    class="font-size-15 fw-bold text-dark"
-                    [style.text-decoration]="
-                      liveabourdData?.PriceColective?.AdultDiscount > 0
-                        ? 'line-through'
-                        : ''
-                    "
-                    [style.color]="
-                      liveabourdData?.PriceColective?.AdultDiscount > 0
-                        ? 'rgb(13, 177, 255) !important'
-                        : ''
-                    "
+                  <ng-container
+                    *ngIf="liveabourdData?.wishlist; else elseTemplate2"
                   >
-                    ${{
-                      selectedOption === "collective"
-                        ? liveabourdData?.PriceColective?.Adult
-                        : liveabourdData?.Priceprivet?.Adult
-                    }}
-                  </span>
-
-                  <span
-                    class="font-size-15 fw-bold text-dark mx-2"
-                    *ngIf="liveabourdData?.PriceColective?.AdultDiscount > 0"
-                    style="font-weight: 500; color: rgb(13, 177, 255)"
-                  >
-                    ${{
-                      selectedOption === "collective"
-                        ? getRoundedRate(
-                            liveabourdData?.PriceColective?.Adult -
-                              (liveabourdData?.PriceColective.AdultDiscount /
-                                100) *
-                                liveabourdData?.PriceColective.Adult
-                          )
-                        : getRoundedRate(
-                            liveabourdData?.Priceprivet?.Adult -
-                              (liveabourdData?.Priceprivet.AdultDiscount /
-                                100) *
-                                liveabourdData?.Priceprivet.Adult
-                          )
-                    }}
-                  </span>
-                </p>
-              </div>
-              <div class="mb-4">
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <span class="d-block">Date</span>
-                  <div
-                    class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
-                  >
-                    <div
-                      id="datepickerWrapperFromOne"
-                      class="u-datepicker input-group flex-nowrap"
+                    <li
+                      type="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="Save for later"
+                      class="list-group-item px-1"
                     >
-                      <mat-form-field class="w-100" appearance="fill">
-                        <mat-select
-                          [formControl]="selectedDateControl"
-                          placeholder="Select Date"
-                          required
+                      <a
+                        class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                      >
+                        <i class="fa fa-heart fs-3 text-danger"></i>
+                      </a>
+                    </li>
+                  </ng-container>
+                  <ng-template #elseTemplate2>
+                    <li
+                      type="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="Save for later"
+                      class="list-group-item px-1"
+                    >
+                      <a
+                        #btn
+                        (click)="addtoFavorits(btn, $event)"
+                        class="h-100 width-45 border rounded border-width-2 flex-content-center"
+                      >
+                        <i class="fa fa-heart fs-3 text-black-50"></i>
+                      </a>
+                    </li>
+                  </ng-template>
+                  <li class="list-group-item px-1">
+                    <a
+                      type="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="Share Trip"
+                      (click)="shareLiveaboard(liveabourdID)"
+                      class="height-45 width-45 border rounded border-width-2 flex-content-center"
+                    >
+                      <i
+                        class="fa-solid fa-share-nodes font-size-18 text-dark"
+                      ></i>
+                    </a>
+                  </li>
+                  <li class="list-group-item px-1">
+                    <a
+                      class="border rounded border-width-2 flex-content-center"
+                    >
+                      <span class="text-white review">
+                        {{ getRoundedRate(liveabourdData?.rate) }} /5</span
+                      >
+                    </a>
+                  </li>
+                  <li class="list-group-item px-1 d-flex flex-column">
+                    <span class="top fw-bold" style="color: #297cbb">{{
+                      getRatingDescription(liveabourdData?.rate)
+                    }}</span>
+                    <small class="d-block"
+                      >({{ liveabourdData?.CountReview }} Reviews)</small
+                    >
+                  </li>
+                </ul>
+                <div
+                  class="border border-color-7 rounded mb-5"
+                  #selectCabinButton
+                >
+                  <span
+                    class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
+                    [ngClass]="{
+                      'border collective': selectedOption === 'collective',
+                      'private collective': selectedOption !== 'collective'
+                    }"
+                    (click)="changeOption('collective')"
+                    >Collective</span
+                  >
+
+                  <span
+                    class="ps-5 d-inline-block p-3 mt-5 d-inline-block py-1 px-3"
+                    *ngIf="liveabourdData?.Privete > 0"
+                    [ngClass]="{
+                      'border private': selectedOption === 'privete',
+                      'collective private': selectedOption !== 'privete'
+                    }"
+                    (click)="changeOption('privete')"
+                    >Private</span
+                  >
+                  <div class="p-4">
+                    <!-- Input -->
+                    <div class="priceTitle d-flex justify-content-between">
+                      <span
+                        class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                        >Price</span
+                      >
+
+                      <p style="font-weight: 500">
+                        <span>From </span>
+                        <span
+                          class="font-size-15 fw-bold text-dark"
+                          [style.text-decoration]="
+                            liveabourdData?.PriceColective?.AdultDiscount > 0
+                              ? 'line-through'
+                              : ''
+                          "
+                          [style.color]="
+                            liveabourdData?.PriceColective?.AdultDiscount > 0
+                              ? 'rgb(13, 177, 255) !important'
+                              : ''
+                          "
                         >
-                          <mat-option value="0" disabled
-                            >Select Date</mat-option
+                          ${{
+                            selectedOption === "collective"
+                              ? liveabourdData?.PriceColective?.Adult
+                              : liveabourdData?.Priceprivet?.Adult
+                          }}
+                        </span>
+
+                        <span
+                          class="font-size-15 fw-bold text-dark mx-2"
+                          *ngIf="
+                            liveabourdData?.PriceColective?.AdultDiscount > 0
+                          "
+                          style="font-weight: 500; color: rgb(13, 177, 255)"
+                        >
+                          ${{
+                            selectedOption === "collective"
+                              ? getRoundedRate(
+                                  liveabourdData?.PriceColective?.Adult -
+                                    (liveabourdData?.PriceColective
+                                      .AdultDiscount /
+                                      100) *
+                                      liveabourdData?.PriceColective.Adult
+                                )
+                              : getRoundedRate(
+                                  liveabourdData?.Priceprivet?.Adult -
+                                    (liveabourdData?.Priceprivet.AdultDiscount /
+                                      100) *
+                                      liveabourdData?.Priceprivet.Adult
+                                )
+                          }}
+                        </span>
+                      </p>
+                    </div>
+                    <div class="mb-4">
+                      <div
+                        class="border-bottom border-width-2 border-color-1 pb-1"
+                      >
+                        <span class="d-block">Date</span>
+                        <div
+                          class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
+                        >
+                          <div
+                            id="datepickerWrapperFromOne"
+                            class="u-datepicker input-group flex-nowrap"
                           >
-                          <mat-option
-                            (valueChange)="onValueChange(time)"
-                            *ngFor="let time of liveabourdData?.Schedules"
-                            [value]="time"
-                          >
-                            {{ time?.Start }} to {{ time.End }}
-                          </mat-option>
-                        </mat-select>
-                        <!-- <mat-error *ngIf="selectedDateControl.invalid && selectedDateControl.touched">
+                            <mat-form-field class="w-100" appearance="fill">
+                              <mat-select
+                                [formControl]="selectedDateControl"
+                                placeholder="Select Date"
+                                required
+                              >
+                                <mat-option value="0" disabled
+                                  >Select Date</mat-option
+                                >
+                                <mat-option
+                                  (valueChange)="onValueChange(time)"
+                                  *ngFor="let time of liveabourdData?.Schedules"
+                                  [value]="time"
+                                >
+                                  {{ time?.Start }} to {{ time.End }}
+                                </mat-option>
+                              </mat-select>
+                              <!-- <mat-error *ngIf="selectedDateControl.invalid && selectedDateControl.touched">
                                                     Please select a date
                                                 </mat-error> -->
-                      </mat-form-field>
-                    </div>
-                    <!-- End Datepicker -->
-                  </div>
+                            </mat-form-field>
+                          </div>
+                          <!-- End Datepicker -->
+                        </div>
 
-                  <div
-                    *ngIf="
-                      selectedDateControl.invalid &&
-                      (selectedDateControl.dirty || selectedDateControl.touched)
-                    "
-                    class="text-danger"
-                  >
-                    <div *ngIf="selectedDateControl.errors?.['required']">
-                      Date is required.
+                        <div
+                          *ngIf="
+                            selectedDateControl.invalid &&
+                            (selectedDateControl.dirty ||
+                              selectedDateControl.touched)
+                          "
+                          class="text-danger"
+                        >
+                          <div *ngIf="selectedDateControl.errors?.['required']">
+                            Date is required.
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Input -->
-              <!-- Input -->
-              <div class="mb-4" *ngIf="selectedDateControl.value" [@fadeInOut]>
-                <div class="border-bottom border-width-2 border-color-1 pb-1">
-                  <div
-                    class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
-                  >
-                    <span
-                      class="d-block text-gray-1 font-weight-normal mb-2 text-left"
-                      >Persons</span
+                    <!-- End Input -->
+                    <!-- Input -->
+                    <div
+                      class="mb-4"
+                      *ngIf="selectedDateControl.value"
+                      [@fadeInOut]
                     >
-                    <div class="flex-horizontal-center">
-                      <a class="js-minus font-size-10 text-dark">
-                        <img
-                          (click)="decrementAdult()"
-                          src="assets/custom/Activity/Indeterminate check box.svg"
-                          alt="Decrement Icon"
-                        />
-                      </a>
-                      <input
-                        class="js-result form-control h-auto width-60 font-weight-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
-                        type="number"
-                        [attr.min]="1"
-                        [attr.max]="getValue('AdultMax')"
-                        [(ngModel)]="persons"
-                        disabled
-                      />
-                      <a class="js-plus font-size-10 text-dark">
-                        <img
-                          (click)="incrementAdult()"
-                          src="assets/custom/Activity/Add box.svg"
-                          alt="Increment Icon"
-                        />
-                      </a>
+                      <div
+                        class="border-bottom border-width-2 border-color-1 pb-1"
+                      >
+                        <div
+                          class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
+                        >
+                          <span
+                            class="d-block text-gray-1 font-weight-normal mb-2 text-left"
+                            >Persons</span
+                          >
+                          <div class="flex-horizontal-center">
+                            <a class="js-minus font-size-10 text-dark">
+                              <img
+                                (click)="decrementAdult()"
+                                src="assets/custom/Activity/Indeterminate check box.svg"
+                                alt="Decrement Icon"
+                              />
+                            </a>
+                            <input
+                              class="js-result form-control h-auto width-60 font-weight-bold font-size-16 shadow-none bg-tranparent border-0 rounded p-0 mx-1 text-center"
+                              type="number"
+                              [attr.min]="1"
+                              [attr.max]="getValue('AdultMax')"
+                              [(ngModel)]="persons"
+                              disabled
+                            />
+                            <a class="js-plus font-size-10 text-dark">
+                              <img
+                                (click)="incrementAdult()"
+                                src="assets/custom/Activity/Add box.svg"
+                                alt="Increment Icon"
+                              />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!-- <div *ngIf="selectedDateControl.value" [@fadeInOut]>
+                    <!-- <div *ngIf="selectedDateControl.value" [@fadeInOut]>
                 <div class="alert alert-info my-2 text-white">
                   <p class="mb-0 text-dark">
                     Avilabile is {{ getValue("Avilabile") }}
                   </p>
                 </div>
               </div> -->
-              <!-- End Input -->
+                    <!-- End Input -->
 
-              <div class="text-center">
-                <a
-                  class="btn check d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 text-white"
-                  style="font-weight: 700"
-                  (click)="bookNow()"
-                  data-bs-dismiss="modal"
-                >
-                  Select Cabin
-                </a>
+                    <div class="text-center">
+                      <a
+                        class="btn check d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 text-white"
+                        style="font-weight: 700"
+                        (click)="bookNow()"
+                        data-bs-dismiss="modal"
+                      >
+                        Select Cabin
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <!--End Filter -->
             </div>
           </div>
-
         </div>
-        <!--End Filter -->
       </div>
     </div>
-    </div>
-    </div>
-    </div>
-
 
     <div *ngIf="showRelatedtrip" class="my-tours-work">
-      <h5 class="text-center mb-5"> Based on what’s you’re looking for ....</h5>
+      <h5 class="text-center mb-5">Based on what’s you’re looking for ....</h5>
       <owl-carousel-o [options]="customOptions" class="my-tours">
         <ng-container *ngFor="let item of relatedtrips">
           <ng-template carouselSlide>
@@ -1632,6 +1664,9 @@
 
   <ng-template #videoBoatModal>
     <div class="h-100" mat-dialog-content>
+      <button mat-icon-button class="close-btn" (click)="closeVideoBoatModal()">
+        <mat-icon>close</mat-icon>
+      </button>
       <iframe
         [src]="videoBoatUrl"
         id="inneriframe"
@@ -1643,17 +1678,18 @@
     </div>
   </ng-template>
   <ng-template #videoModal>
-    <!-- <div class="h-100" mat-dialog-content>
-      <iframe [src]="videoUrl" id="inneriframe" class="w-100" scrolling="no" style="height: 90%"
-        allowfullscreen></iframe>
-    </div> -->
-    <video
-      #videoElement
-      class="w-100 h-100"
-      [src]="videoUrl"
-      controls
-      autoplay
-    ></video>
+    <div class="video-container">
+      <button mat-icon-button class="close-btn" (click)="closeVideoModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <video
+        #videoElement
+        class="w-100 h-100"
+        [src]="videoUrl"
+        controls
+        autoplay
+      ></video>
+    </div>
   </ng-template>
 </div>
 
@@ -1661,10 +1697,10 @@
   style="position: fixed; bottom: 0px; z-index: 99999"
   *ngIf="isMobile"
   [ngClass]="{ 'd-none': isModalOpen }"
-  class="text-center w-100">
+  class="text-center w-100"
+>
   <div class="d-flex justify-content-between p-2" style="background: white">
     <div class="priceTitle d-flex justify-content-evenly align-items-center">
-
       <p style="font-weight: 700">
         <span
           class="font-size-18 fw-bold text-dark"
