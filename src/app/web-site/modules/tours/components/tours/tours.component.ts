@@ -48,6 +48,11 @@ export class ToursComponent {
     // Set minDate to today's date
     this.minDate = `${yyyy}-${mm}-${dd}`;
   }
+  openCalendar(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.showPicker(); // يجبر المتصفح على فتح التقويم
+  }
+  
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
       if (params.place_id || params.date) {

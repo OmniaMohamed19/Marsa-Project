@@ -1,7 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
+  Renderer2,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -127,7 +129,9 @@ export class PackageDetailsComponent {
     private router: Router,
     private seoService: SEOService,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private renderer: Renderer2,
+    private cdRef: ChangeDetectorRef
   ) {
     if (window.screen.width < 768) {
       this.isMobile = true;
@@ -249,6 +253,19 @@ export class PackageDetailsComponent {
   }
 
   ngOnInit(): void {
+    const modal = document.getElementById('exampleModal2');
+
+    if (modal) {
+      this.renderer.listen(modal, 'shown.bs.modal', () => {
+        this.isModalOpen = true;
+        this.cdRef.detectChanges(); // تحديث واجهة المستخدم فورًا
+      });
+
+      this.renderer.listen(modal, 'hidden.bs.modal', () => {
+        this.isModalOpen = false;
+        this.cdRef.detectChanges(); // تحديث واجهة المستخدم فورًا
+      });
+    }
     this.activatedRoute.params.subscribe((params: any) => {
       this.packageID = params.id;
       this.loadData();

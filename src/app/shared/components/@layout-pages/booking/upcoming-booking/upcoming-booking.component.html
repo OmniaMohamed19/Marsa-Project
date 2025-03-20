@@ -77,20 +77,25 @@
               <div *ngFor="let trip of upcomingTrips" class="d-flex place-card">
                 <section class="first-place">
                   <div class="position-relative img-content">
-                    <!-- <div class="img">
-                      <img [src]="trip?.image" style="height: 290px" />
-                    </div> -->
-                    <!-- <div
-                      class="img"
-                      [style.background-image]="'url(' + trip?.image + ')'"
-                    ></div> -->
+                   
                     <div
+                    *ngIf="trip?.categoryid != 4"
                       class="img"
                       [style.backgroundImage]="'url(' + trip?.image + ')'"
                       style="
                         background-position: center center;
                         background-size: cover;
                         height: 285px;
+                      "
+                    ></div>
+                    <div
+                    *ngIf="trip?.categoryid == 4"
+                      class="img"
+                      [style.backgroundImage]="'url(' + trip?.image + ')'"
+                      style="
+                        background-position: center center;
+                        background-size: cover;
+                        height: 250px;
                       "
                     ></div>
 
@@ -139,8 +144,8 @@
                             <span class="d-inline-block">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="22"
-                                height="22"
+                                width="23"
+                                height="23"
                                 viewBox="0 0 16 19"
                                 fill="none"
                               >
@@ -162,8 +167,8 @@
                                 <span class="d-inline-block">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="22"
-                                    height="22"
+                                    width="23"
+                                    height="23"
                                     viewBox="0 0 16 19"
                                     fill="none"
                                   >
@@ -190,8 +195,8 @@
                               <span class="d-inline-block">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
-                                  width="22"
-                                  height="22"
+                                  width="23"
+                                  height="23"
                                   viewBox="0 0 16 19"
                                   fill="none"
                                 >
@@ -244,37 +249,52 @@
 
                         </li>
                         <li>
-                          <span>
-                            <img
-                              src="../../../../../assets/images/Forma1.svg"
-                              alt="Forma"
-                            />
-                          </span>
-                          <span
-                            *ngIf="
-                              trip?.categoryid != 4 && trip?.categoryid != 2
-                            "
-                            >{{ trip?.adult }} Adult (11-99)</span
-                          >
-                          <span
-                            *ngIf="
-                              trip?.categoryid == 4 || trip?.categoryid == 2
-                            "
-                            >{{ trip?.persons }} People</span
-                          >
+                          <div class="d-flex">
+                            <div>
+                              <span>
+                                <img
+                                  src="../../../../../assets/images/Forma1.svg"
+                                  alt="Forma"
+                                />
+                              </span>
+                            </div>
+                            <div class="pt-2 ps-3">
+                              <span
+                              *ngIf="
+                                trip?.categoryid != 4 && trip?.categoryid != 2
+                              "
+                              >No.Of People: {{ trip?.adult }} Adult (11-90)</span
+                            >
+                            <span
+                              *ngIf="
+                                trip?.categoryid == 4 || trip?.categoryid == 2"
+                              >No.Of People: {{ trip?.persons }} People</span
+                            >
+                            </div>
+                          </div>
+                          
+                        
                         </li>
                         <li *ngIf="trip?.categoryid == 4">
-                          <span>
-                            <img
-                              style="
-                                width: 33px !important;
-                                height: 35px !important;
-                              "
-                              src="../../../../../../assets/icons/car.svg"
-                              alt="Forma"
-                            />
-                          </span>
-                          <span> {{ trip?.car }} </span>
+                          <div class="d-flex">
+                            <div>
+                              <span>
+                                <img
+                                  style="
+                                    width: 33px !important;
+                                    height: 35px !important;
+                                  "
+                                  src="../../../../../../assets/icons/car.svg"
+                                  alt="Forma"
+                                />
+                              </span>
+                            </div>
+                            <div class="pt-2 ps-2">
+                              <span >Car type: {{ trip?.car }} </span>
+                            </div>
+                          </div>
+                         
+                        
                         </li>
                         <li *ngIf="trip?.childern > 0">
                           <span>
@@ -291,7 +311,7 @@
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="23"
-                              height="24"
+                              height="23"
                               viewBox="0 0 23 24"
                               fill="none"
                             >

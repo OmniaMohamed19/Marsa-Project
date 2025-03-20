@@ -45,12 +45,18 @@
                 {{item.title}}
             </div>
         </a>
-        <!-- <a class="card-title   mb-0 ">{{item.type}}</a> -->
+        <a class="card-title mb-0">{{ item?.typename }}</a>
+        
         <div class="my-2">
-            <div class="d-inline-flex align-items-center review">
-                <p> {{ item?.rate }} /5.0</p>
-                <span >({{item?.countRev}} Reviews)</span>
-            </div>
+          <div class="d-inline-flex align-items-center review">
+            <span class="stars">
+              <i *ngFor="let star of [1, 2, 3, 4, 5]" class="fa-solid fa-star" style="color: #bfbfbf" [ngClass]="{
+                  'fa-star-filled': star <= getRoundedRate(item?.rate),
+                  'yellow-star': star <= getRoundedRate(item?.rate)
+                }"></i>
+            </span>
+            <span>{{ item?.countRev }} Reviews</span>
+          </div>
         </div>
         <div class="mb-1  review">
             <div class="py-3">

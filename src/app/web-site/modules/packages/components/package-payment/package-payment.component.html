@@ -241,7 +241,7 @@
               Your Card Information
             </h5>
             <ul
-              class="nav nav-classic nav-choose border-0 nav-justified mx-n3"
+              class="nav nav-classic nav-choose border-0 nav-justified mx-n3 flex-column flex-md-row"
               role="tablist"
             >
               <li class="nav-item mx-3 mb-4 mb-md-0">
@@ -439,25 +439,24 @@
                       </div>
 
                       <a
-                        (click)="
-                          edit
-                            ? confirmEdit($event)
-                            : confirmBookingByCard($event)
-                        "
-                        class="btn payment text-white w-100 py-3"
-                        [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                      >
-                        {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
-                      </a>
+                    (click)="edit ? confirmEdit($event) : confirmBooking()"
+                    class="btn payment text-white w-100 py-3"
+                    [ngStyle]="{
+                      'cursor': isDisable ? 'not-allowed' : 'pointer',
+                      'pointer-events': isDisable ? 'none' : 'auto',
+                      'opacity': isDisable ? '0.6' : '1'
+                    }"
+                  >
+                    <span *ngIf="isLoading">
+                      <i class="fa fa-spinner fa-spin"></i> Loading...
+                    </span>
+                    <span *ngIf="!isLoading">
+                      {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
+                    </span>
+                  </a>
                     </div>
                   </div>
-                  <ngx-spinner
-                    bdColor="rgba(0, 0, 0, 0.8)"
-                    [fullScreen]="true"
-                  >
-                    <img width="400"
-                    height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                  </ngx-spinner>
+
                 </form>
               </div>
               <div
@@ -501,23 +500,28 @@
                       </div>
                     </div>
                     <a
-                      (click)="edit ? confirmEdit($event) : confirmBooking()"
-                      class="btn payment text-white w-100 py-3"
-                      [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                    >
+                    (click)="edit ? confirmEdit($event) : confirmBooking()"
+                    class="btn payment text-white w-100 py-3"
+                    [ngStyle]="{
+                      'cursor': isDisable ? 'not-allowed' : 'pointer',
+                      'pointer-events': isDisable ? 'none' : 'auto',
+                      'opacity': isDisable ? '0.6' : '1'
+                    }"
+                  >
+                    <span *ngIf="isLoading">
+                      <i class="fa fa-spinner fa-spin"></i> Loading...
+                    </span>
+                    <span *ngIf="!isLoading">
                       {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
-                    </a>
+                    </span>
+                  </a>
+
+
                     <!-- <a (click)="confirmBooking()" class="btn  payment text-white w-100 py-3">CONFIRM
                         BOOKING</a> -->
                   </div>
 
-                  <ngx-spinner
-                    bdColor="rgba(0, 0, 0, 0.8)"
-                    [fullScreen]="true"
-                  >
-                    <img width="400"
-                    height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                  </ngx-spinner>
+
                 </form>
               </div>
             </div>

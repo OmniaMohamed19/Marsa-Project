@@ -345,7 +345,6 @@ export class StepThreeComponent implements OnInit {
 
 
   confirmBookingByCard() {
-    // التحقق من الموافقة على الشروط
     const termsCheckbox = document.getElementById('termsCheckbox') as HTMLInputElement;
     if (!termsCheckbox.checked) {
       this.toastr.warning(
@@ -362,7 +361,6 @@ export class StepThreeComponent implements OnInit {
       return;
     }
 
-    // التحقق من الحقول المطلوبة
     if (!this.cardholderName || !this.cardNumber || !this.expiryMonth || !this.expirYear || !this.cvv) {
       this.toastr.info(
         'Please fill in all the required fields before confirming your booking.',
@@ -378,12 +376,11 @@ export class StepThreeComponent implements OnInit {
       return;
     }
 
-    // منع النقر المتكرر على الزر أثناء التحميل
     if (this.buttonDisabled) {
       return;
     }
 
-    this.buttonDisabled = true; // ⛔ تعطيل الزر أثناء التحميل
+    this.buttonDisabled = true;
 
     const bookingOption = [];
     for (const key in this.selectedOption) {
@@ -423,7 +420,7 @@ export class StepThreeComponent implements OnInit {
 
     this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
       next: (res: any) => {
-        this.buttonDisabled = false; // ✅ يرجع الزر إلى حالته الطبيعية بعد نجاح الحجز
+        this.buttonDisabled = false;
 
         if (res && res.link) {
           window.location.href = res.link;
@@ -442,7 +439,7 @@ export class StepThreeComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Error during booking:', err);
-        this.buttonDisabled = false; // ✅ إعادة تمكين الزر في حال الخطأ
+        this.buttonDisabled = false;
 
         const errorMessage =
           err.error?.message ||
@@ -450,7 +447,7 @@ export class StepThreeComponent implements OnInit {
         Swal.fire('Booking Failed', errorMessage, 'error');
       },
       complete: () => {
-        this.buttonDisabled = false; // ✅ تأكيد إعادة تفعيل الزر بعد اكتمال العملية
+        this.buttonDisabled = false;
       },
     });
   }
@@ -473,10 +470,10 @@ export class StepThreeComponent implements OnInit {
     }
 
     if (this.buttonDisabled) {
-      return; // 🔥 يمنع النقر على الزر أثناء التحميل
+      return;
     }
 
-    this.buttonDisabled = true; // ⛔ تعطيل الزر أثناء التحميل
+    this.buttonDisabled = true;
 
     const bookingOption = [];
     for (const key in this.selectedOption) {
@@ -511,7 +508,7 @@ export class StepThreeComponent implements OnInit {
 
     this._httpService.post(environment.marsa, 'transfer/book', model).subscribe({
       next: (res: any) => {
-        this.buttonDisabled = false; // ✅ يرجع الزر إلى حالته الطبيعية بعد نجاح الحجز
+        this.buttonDisabled = false;
 
         if (res && res.link) {
           window.location.href = res.link;
@@ -530,7 +527,7 @@ export class StepThreeComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Error during booking:', err);
-        this.buttonDisabled = false; // ✅ في حال الخطأ يرجع الزر لحالته الطبيعية
+        this.buttonDisabled = false;
 
         Swal.fire(
           'Booking Failed',
@@ -539,7 +536,7 @@ export class StepThreeComponent implements OnInit {
         );
       },
       complete: () => {
-        this.buttonDisabled = false; // ✅ تأكيد إرجاع الزر للحالة الطبيعية
+        this.buttonDisabled = false;
       },
     });
   }
@@ -566,7 +563,7 @@ export class StepThreeComponent implements OnInit {
   letterOnly(event: any) {
     var charCode = event.keyCode;
 
-    // Allow letters (uppercase and lowercase), backspace, and space
+
     if (
       (charCode > 64 && charCode < 91) || // A-Z
       (charCode > 96 && charCode < 123) || // a-z

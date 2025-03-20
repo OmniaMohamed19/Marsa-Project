@@ -75,7 +75,6 @@ export class PackagePaymentComponent {
     private router: Router,
     private translate: TranslateService,
     private dialog: MatDialog,
-    private spinner: NgxSpinnerService,
     private titleService: Title
   ) {}
 
@@ -164,7 +163,6 @@ export class PackagePaymentComponent {
       this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
     if (this.customerForm.valid) {
-      this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -188,7 +186,6 @@ export class PackagePaymentComponent {
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide();
 
             this.getTripById(this.model.packege_id);
             this.router.navigate([
@@ -206,7 +203,6 @@ export class PackagePaymentComponent {
             );
           },
           error: (err: any) => {
-            this.spinner.hide();
 
             Swal.fire(
               'Booking Failed',
@@ -347,13 +343,16 @@ export class PackagePaymentComponent {
     // });
   }
 
+  isLoading = false;
+
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
+    this.isLoading = true; // بدء تحميل الزر
+
     const termsCheckbox = document.getElementById(
       'termsCheckbox'
     ) as HTMLInputElement;
 
-    // Check if the terms and conditions checkbox is selected
     if (!termsCheckbox.checked) {
       this.toastr.warning(
         'Please agree to the Terms and Conditions before proceeding.',
@@ -366,7 +365,9 @@ export class PackagePaymentComponent {
           closeButton: true,
         }
       );
-      return; // Stop further execution
+      this.isDisable = false;
+      this.isLoading = false; // إيقاف التحميل
+      return;
     }
 
     if (
@@ -377,7 +378,7 @@ export class PackagePaymentComponent {
       this.cvv == undefined
     ) {
       this.toastr.info(
-        'Please fill in all the required fields before confirming your booking. ',
+        'Please fill in all the required fields before confirming your booking.',
         '',
         {
           disableTimeOut: false,
@@ -387,10 +388,12 @@ export class PackagePaymentComponent {
           closeButton: true,
         }
       );
+      this.isDisable = false;
+      this.isLoading = false; // إيقاف التحميل
       return;
     }
+
     if (this.customerForm.valid) {
-      this.spinner.show();
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -414,20 +417,24 @@ export class PackagePaymentComponent {
         .post(environment.marsa, 'package/book', model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide();
+            this.isDisable = false;
+            this.isLoading = false; // إيقاف التحميل بعد نجاح الطلب
+
             if (res && res.link) {
               window.location.href = res.link;
             } else {
               Swal.fire(
-                'Your Booking has been send successfully',
+                'Your Booking has been sent successfully',
                 'Your Tour has been sent successfully. Please check your email For Future instructions.',
                 'success'
               );
             }
           },
           error: (err: any) => {
-            this.spinner.hide(); // Hide spinner on error
             console.error('Error during booking:', err);
+            this.isDisable = false;
+            this.isLoading = false; // إيقاف التحميل في حالة حدوث خطأ
+
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
@@ -437,11 +444,13 @@ export class PackagePaymentComponent {
         });
     } else {
       this.isDisable = false;
+      this.isLoading = false; // إيقاف التحميل في حالة عدم صحة النموذج
 
       // Mark all form controls as touched to trigger validation messages
       this.markFormGroupTouched(this.customerForm);
     }
   }
+
 
   confirmBooking() {
     const termsCheckbox = document.getElementById(
@@ -460,11 +469,13 @@ export class PackagePaymentComponent {
           closeButton: true,
         }
       );
-      return; // Stop further execution
+      return;
     }
+
     if (this.customerForm.valid) {
-      this.spinner.show();
       this.isDisable = true;
+      this.isLoading = true; // بدء التحميل
+
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
 
@@ -479,42 +490,47 @@ export class PackagePaymentComponent {
         coupon_code: this.coupon,
       };
 
-      this._httpService
-        .post(environment.marsa, 'package/book', model)
-        .subscribe({
-          next: (res: any) => {
-            this.spinner.hide();
-            const queryParams = {
-              res: JSON.stringify(res),
-              packege_id: this.model.packege_id,
-            };
-            this.router.navigate(
-              ['/', this.translate.currentLang, 'packages', 'packageConfirm'],
-              { queryParams }
-            );
-            Swal.fire(
-              'Your Booking has been send successfully.',
-              'The Tour official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
-              'success'
-            );
-          },
-          error: (err: any) => {
-            this.spinner.hide(); // Hide spinner on error
-            console.error('Error during booking:', err);
-            Swal.fire(
-              'Booking Failed',
-              'An error occurred while processing your booking. Please try again later.',
-              'error'
-            );
-          },
-        });
+      this._httpService.post(environment.marsa, 'package/book', model).subscribe({
+        next: (res: any) => {
+          this.isDisable = false;
+          this.isLoading = false;
+
+          const queryParams = {
+            res: JSON.stringify(res),
+            packege_id: this.model.packege_id,
+          };
+
+          this.router.navigate(
+            ['/', this.translate.currentLang, 'packages', 'packageConfirm'],
+            { queryParams }
+          );
+
+          Swal.fire(
+            'Your Booking has been sent successfully.',
+            'The Tour official will contact you as soon as possible. For future communication, please reach out to info@marsawaves.com',
+            'success'
+          );
+        },
+        error: (err: any) => {
+          this.isDisable = false;
+          this.isLoading = false;
+
+          console.error('Error during booking:', err);
+          Swal.fire(
+            'Booking Failed',
+            'An error occurred while processing your booking. Please try again later.',
+            'error'
+          );
+        },
+      });
     } else {
       this.isDisable = false;
-
-      // Mark all form controls as touched to trigger validation messages
+      this.isLoading = false;
       this.markFormGroupTouched(this.customerForm);
     }
   }
+
+
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
   }

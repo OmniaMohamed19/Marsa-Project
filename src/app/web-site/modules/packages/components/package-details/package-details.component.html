@@ -220,7 +220,7 @@
             class="col-lg-4 col-sm-12 py-3"
             *ngFor="let item of rows?.PackageTrips"
           >
-            <app-package-card [item]="item"></app-package-card>
+             <app-package-card [item]="item"></app-package-card>
           </div>
         </div>
       </div>
@@ -334,11 +334,13 @@
             <!-- Card -->
             <div class="card border-0 mb-4 pb-1">
               <mat-accordion>
-                <mat-expansion-panel *ngFor="let faqItem of rows?.faq_package">
+                <mat-expansion-panel *ngFor="let faqItem of rows?.faq_package"
+                                     (opened)="faqItem.isOpen = true"
+                                     (closed)="faqItem.isOpen = false">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <div class="me-4 faq">
-                        <i class="fa-solid fa-minus"></i>
+                        <i class="fa-solid" [ngClass]="faqItem.isOpen ? 'fa-minus' : 'fa-plus'"></i>
                       </div>
                       {{ faqItem.Question }}
                     </mat-panel-title>
@@ -348,6 +350,7 @@
                   </p>
                 </mat-expansion-panel>
               </mat-accordion>
+
             </div>
           </div>
         </div>
@@ -1174,7 +1177,7 @@
                     </div>
                   </div>
 
-                 
+
                   <div class="text-center">
                     <a
                       class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1"

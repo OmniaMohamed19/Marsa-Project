@@ -3,6 +3,7 @@
   margin-top: 150px;
 }
 
+
 .carousel-card {
   width: 100%;
   height: 250px;
@@ -14,6 +15,9 @@
 }
 
 ::ng-deep{
+  .package-date .mat-datepicker-popup{
+    left:1800px !important
+  }
 
   // .cdk-overlay-pane{
   //   top: 59px;
