@@ -1328,7 +1328,25 @@
                             class="d-block text-gray-1 font-weight-normal text-left"
                             >Price</span
                           >
-                          <p>From ${{ price }}</p>
+                          <p><span>From </span>
+                            <span
+                              class="font-size-15 fw-bold text-dark"
+                              [style.text-decoration]="
+                                discount > 0 ? 'line-through' : ''
+                              "
+                              [style.color]="
+                                discount > 0 ? 'rgb(13, 177, 255) !important' : ''
+                              "
+                            >
+                              ${{ price }}
+                            </span>
+                            <span
+                              class="font-size-15 fw-bold text-dark mx-2"
+                              *ngIf="discount > 0"
+                              style="font-weight: 500; color: rgb(13, 177, 255)"
+                            >
+                              ${{ getRoundedRate(price - (discount / 100) * price) }}
+                            </span></p>
                         </div>
                         <div
                           class="border-bottom border-width-2 border-color-1 pb-1"
@@ -1510,7 +1528,7 @@
 
 <div
   style="position: fixed; bottom: 0px; z-index: 99999"
-  *ngIf="isMobile "
+  *ngIf="isMobile &&hideMobileFooter "
   [ngClass]="{ 'd-none': isModalOpen }"
   class="text-center w-100"
 >
@@ -1522,8 +1540,9 @@
       class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1 fw-bold"
       data-bs-toggle="modal"
       data-bs-target="#exampleModal2"
+      (click)="hideMobileFooter=false"
     >
-      Check availability
+      Check availability 
     </a>
   </div>
 </div>
