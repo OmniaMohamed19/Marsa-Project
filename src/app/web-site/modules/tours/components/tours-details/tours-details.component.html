@@ -2533,6 +2533,7 @@
         >Price</span
       > -->
       <p style="font-weight: 500" class="mb-0 pt-1">
+        From
         <span
           class="font-size-16 fw-bold text-dark"
           [style.text-decoration]="
@@ -2548,11 +2549,14 @@
               getFirstAdultPrice()?.PriceColective.AdultDiscount > 0) ||
             (selectedOption === 'privete' &&
               getFirstAdultPrice()?.PricePrivte.AdultDiscount > 0)
-              ? 'red !important'
+              ? 'rgb(13, 177, 255) !important'
               : ''
           "
         >
-          From ${{
+
+
+
+          ${{
             selectedOption === "collective"
               ? getFirstAdultPrice()?.PriceColective.Adult
               : selectedOption === "privete"

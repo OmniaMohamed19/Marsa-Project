@@ -77,7 +77,7 @@
               <div *ngFor="let trip of upcomingTrips" class="d-flex place-card">
                 <section class="first-place">
                   <div class="position-relative img-content">
-                   
+
                     <div
                     *ngIf="trip?.categoryid != 4"
                       class="img"
@@ -138,8 +138,7 @@
                         <div
                           class="w-m-100 d-flex mt-1"
                           style="width: 200px"
-                          *ngIf="trip?.categoryid == 4"
-                        >
+                          *ngIf="trip?.categoryid == 4">
                           <div>
                             <span class="d-inline-block">
                               <svg
@@ -160,6 +159,7 @@
                             <h5 class="mb-0 ms-1">{{ trip?.From }}</h5>
                           </div>
                         </div>
+
                         <div>
                           <span *ngIf="trip?.categoryid != 4">
                             <div class="d-flex">
@@ -212,6 +212,9 @@
                             </div>
                           </div>
                         </div>
+                        <div *ngIf="trip.way==2">
+
+                        </div>
                       </div>
 
                       <ul class="timing list-unstyled">
@@ -231,11 +234,22 @@
                               alt="clock"
                             />
                           </span>
-                          <span *ngIf="trip?.categoryid!=2 && trip?.categoryid !=5">
+                          <span *ngIf="trip?.categoryid!=2 && trip?.categoryid !=5 && trip?.categoryid!=4">
                             Starting Time : {{trip?.booking_time}}
                           </span>
                           <span *ngIf="trip?.categoryid==2">
                             Starting Time : 8:30 AM
+
+                          </span>
+                          <span *ngIf="trip?.categoryid ==4">
+                            <span>
+                              Starting Time:
+                              {{
+                                "1970-01-01T" + (trip?.booking_time || "00:00:00")
+                                  | date : "h:mm a"
+                              }}
+                            </span>
+
 
                           </span>
                           <span *ngIf="trip?.categoryid==5">
@@ -268,8 +282,8 @@
                             >
                             </div>
                           </div>
-                          
-                        
+
+
                         </li>
                         <li *ngIf="trip?.categoryid == 4">
                           <div class="d-flex">
@@ -289,8 +303,8 @@
                               <span >Car type: {{ trip?.car }} </span>
                             </div>
                           </div>
-                         
-                        
+
+
                         </li>
                         <li *ngIf="trip?.childern > 0">
                           <span>

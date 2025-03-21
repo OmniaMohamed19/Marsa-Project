@@ -114,6 +114,29 @@
                 <div class="image-container"
                   [style.backgroundImage]="'url(' + (selectedtransfer?.tripinfo?.cover || '') + ')'">
                 </div>
+                <div>
+                  <div class="row mt-5">
+                    <h5 class="d-inline">Total price:
+                      <p class="d-inline ms-2">{{ selectedtransfer?.tripinfo?.total }}</p>
+                     </h5>
+                  </div>
+                  <div class="row mt-5" *ngIf="selectedtransfer?.tripinfo?.option?.length">
+                    <h5>Additional Options :</h5>
+                    <div class="row" *ngFor="let option of selectedtransfer?.tripinfo?.option">
+                      <p class="col-6">
+                        {{ option.name }}
+                      </p>
+                      <p class="col-6">
+                        {{ option.price }}
+                      </p>
+
+
+                    </div>
+
+
+                  </div>
+
+                </div>
               </div>
               <div class="col-xl-1 col-m-12">
                 <!-- <div>
@@ -124,13 +147,6 @@
               <div class="col-xl-6 col-m-12">
                 <div class="row">
 
-                  <!-- <div class="d-flex justify-content-between">
-
-                    <div>
-                      <span *ngIf="selectedtransfer?.payment_status == 'paid'" class="completed">
-                        {{ selectedtransfer?.payment_status }}</span>
-                    </div>
-                  </div> -->
                   <div class="row">
                     <div class="col-xl-6 col-12">
 

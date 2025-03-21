@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-step-four',
   templateUrl: './step-four.component.html',
@@ -15,6 +16,35 @@ export class StepFourComponent {
     // { section: 3, label: 'Payment information' },
     { section: 4, label: 'Booking is Confirmed' },
   ];
+   customOptions: OwlOptions = {
+      loop: true,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
+      dots: false,
+      autoplay: true,
+      margin: 10,
+      navSpeed: 700,
+      navText: [
+        "<i class='fa fa-angle-left'></i>",
+        "<i class='fa fa-angle-right'></i>",
+      ],
+      responsive: {
+        0: {
+          items: 1,
+        },
+        740: {
+          items: 4,
+        },
+        940: {
+          items: 4,
+        },
+        1200: {
+          items: 4,
+        },
+      },
+      nav: true,
+    };
   constructor(
 
     private route: ActivatedRoute,

@@ -301,7 +301,7 @@ export class LiveboardPaymentComponent implements OnInit {
           .filter((cabin: any) => cabin.persons !== undefined),
       };
       console.log(model);
-      
+
       this._httpService
         .post(environment.marsa, 'liveboard/cabin/price', model)
         .subscribe({
@@ -314,7 +314,7 @@ export class LiveboardPaymentComponent implements OnInit {
           },
           error: (err: any) => {
             console.log(err);
-            
+
             // this.Coupons = false;
           },
         });
@@ -507,8 +507,10 @@ export class LiveboardPaymentComponent implements OnInit {
       this.markFormGroupTouched(this.customerForm);
     }
   }
-
+ isLoading = false;
   confirmBookingByCard(event: Event) {
+    this.isDisable = true;
+    this.isLoading = true;
     const termsCheckbox = document.getElementById(
       'termsCheckbox'
     ) as HTMLInputElement;
@@ -525,7 +527,10 @@ export class LiveboardPaymentComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         }
+
       );
+      this.isDisable = false;
+      this.isLoading = false;
       return; // Stop further execution
     }
 
@@ -549,6 +554,8 @@ export class LiveboardPaymentComponent implements OnInit {
           closeButton: true,
         }
       );
+      this.isDisable = false;
+      this.isLoading = false;
       return;
     }
     event.preventDefault();
@@ -590,6 +597,8 @@ export class LiveboardPaymentComponent implements OnInit {
         .post(environment.marsa, 'liveboard/book', model)
         .subscribe({
           next: (res: any) => {
+            this.isDisable = false;
+            this.isLoading = false;
             this.spinner.hide();
             if (res && res.link) {
               window.location.href = res.link;
@@ -610,11 +619,14 @@ export class LiveboardPaymentComponent implements OnInit {
             }
           },
           error: (err) => {
+            this.isDisable = false;
+            this.isLoading = false;
             Swal.fire(err.error.message);
           },
         });
     } else {
       this.isDisable = false;
+      this.isLoading = false;
 
       this.markFormGroupTouched(this.customerForm);
     }
@@ -640,8 +652,9 @@ export class LiveboardPaymentComponent implements OnInit {
       return; // Stop further execution
     }
     if (this.customerForm.valid) {
-      this.spinner.show();
+
       this.isDisable = true;
+      this.isLoading = true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
       let code = this.customerForm.get('phone')?.value['dialCode'];
       const model = {
@@ -673,7 +686,8 @@ export class LiveboardPaymentComponent implements OnInit {
         .post(environment.marsa, 'liveboard/book', model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide();
+            this.isDisable = false;
+            this.isLoading = false;
             const queryParams = {
               res: JSON.stringify(res),
               trip_id: this.tripId,
@@ -688,14 +702,21 @@ export class LiveboardPaymentComponent implements OnInit {
               'success'
             );
           },
-          error(err) {
-            // this.spinner.hide();
-            Swal.fire(err.error.message);
-          },
-        });
+         error: (err: any) => {
+        this.isDisable = false;
+        this.isLoading = false;
+        console.error('Error during booking:', err);
+        Swal.fire(
+          'Booking Failed',
+          'An error occurred while processing your booking. Please try again later.',
+          'error'
+        );
+      },
+    });
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.isDisable = false;
+      this.isLoading = false;
 
       this.markFormGroupTouched(this.customerForm);
     }

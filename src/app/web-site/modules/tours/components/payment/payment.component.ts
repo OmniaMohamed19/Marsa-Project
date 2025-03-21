@@ -13,7 +13,6 @@ import { MapModalComponent } from 'src/app/shared/components/@layout-pages/map-m
 import Swal from 'sweetalert2';
 import { Code } from '../../context/code.interface';
 import { Observable, map, startWith } from 'rxjs';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -70,8 +69,6 @@ export class PaymentComponent {
   Bookingid: any;
   constructor(
     private titleService: Title,
-
-    private spinner: NgxSpinnerService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
@@ -142,7 +139,6 @@ export class PaymentComponent {
     this.getNationality();
   }
   applycoupon() {
-    this.spinner.show();
     const model = {
       trip_id: this.tripId,
       avilable_option_id: this.avilable_option_id,
@@ -168,7 +164,6 @@ export class PaymentComponent {
       .post(environment.marsa, 'Activtes/AvailableOption/price', model)
       .subscribe({
         next: (res: any) => {
-          this.spinner.hide();
           this.responseFromAvailableOption = res;
           this.Total = this.responseFromAvailableOption.TotlaPrice;
           this.Coupons = true;
@@ -177,7 +172,6 @@ export class PaymentComponent {
           // console.log(this.Coupons.length);
         },
         error: (err: any) => {
-          this.spinner.hide();
           this.Coupons = false;
           this.toastr.error(err.error.message);
           this.coupon = '';
@@ -442,7 +436,6 @@ export class PaymentComponent {
       this.customerForm.get('pickup_point')?.updateValueAndValidity();
     }
     if (this.customerForm.valid) {
-      this.spinner.show();
       const parts = this.booking_date?.split('/');
       const formattedDate = new Date(
         parseInt(parts[2]),
@@ -501,7 +494,6 @@ export class PaymentComponent {
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide();
 
             Swal.fire(
               'Your Booking has been send successfully.',
@@ -515,7 +507,6 @@ export class PaymentComponent {
             // }
           },
           error: (err: any) => {
-            this.spinner.hide();
 
             Swal.fire(
               'Booking Failed',
@@ -531,7 +522,12 @@ export class PaymentComponent {
       this.markFormGroupTouched(this.customerForm);
     }
   }
+  isLoading = false;
+
   confirmBookingByCard(event: Event) {
+    this.isDisable = true;
+    this.isLoading = true;
+
     const termsCheckbox = document.getElementById(
       'termsCheckbox'
     ) as HTMLInputElement;
@@ -548,11 +544,13 @@ export class PaymentComponent {
           timeOut: 5000,
           closeButton: true,
         }
+
       );
+      this.isDisable = false;
+      this.isLoading = false;
       return; // Stop further execution
     }
     this.isDisable = true;
-    this.spinner.show();
     if (
       this.cardholderName == undefined ||
       this.cardNumber == undefined ||
@@ -571,11 +569,12 @@ export class PaymentComponent {
           closeButton: true,
         }
       );
+      this.isDisable = false;
+      this.isLoading = false;
       return;
     }
     event.preventDefault();
     if (this.customerForm.valid) {
-      this.spinner.show();
       const parts = this.booking_date.split('/');
       const formattedDate = new Date(
         parseInt(parts[2]),
@@ -634,7 +633,8 @@ export class PaymentComponent {
         .post(environment.marsa, 'Activtes/book', model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide();
+            this.isDisable = false;
+            this.isLoading = false;
             if (res && res.link) {
               window.location.href = res.link;
             } else {
@@ -656,7 +656,7 @@ export class PaymentComponent {
           error: (err: any) => {
             console.error('Error during booking:', err);
             this.isDisable = false;
-            this.spinner.hide();
+            this.isLoading = false;
             // Extract and display error details if available
             const errorMessage =
               err.error?.message ||
@@ -666,6 +666,8 @@ export class PaymentComponent {
           },
         });
     } else {
+      this.isDisable = false;
+      this.isLoading = false;
       this.markFormGroupTouched(this.customerForm);
     }
   }
@@ -688,10 +690,11 @@ export class PaymentComponent {
       );
       return; // Stop further execution
     }
-    this.isDisable = true;
+
 
     if (this.customerForm.valid) {
-      this.spinner.show(); // Show spinner
+      this.isDisable = true;
+      this.isLoading = true;
 
       const parts = this.booking_date?.split('/');
       console.log(this.booking_date);
@@ -748,7 +751,8 @@ export class PaymentComponent {
         .post(environment.marsa, 'Activtes/book', model)
         .subscribe({
           next: (res: any) => {
-            this.spinner.hide(); // Hide spinner
+            this.isDisable = false;
+            this.isLoading = false;
             if (res && res.link) {
               window.location.href = res.link;
             } else {
@@ -768,7 +772,8 @@ export class PaymentComponent {
             }
           },
           error: (err: any) => {
-            this.spinner.hide(); // Hide spinner on error
+            this.isDisable = false;
+            this.isLoading = false;
             console.error('Error during booking:', err);
             Swal.fire(
               'Booking Failed',
@@ -779,7 +784,7 @@ export class PaymentComponent {
         });
     } else {
       this.isDisable = false;
-      // Mark all form controls as touched to trigger validation messages
+      this.isLoading = false;
       this.markFormGroupTouched(this.customerForm);
     }
   }

@@ -97,6 +97,23 @@
       <app-car-data></app-car-data>
     </div> -->
   </div>
+  <div class="my-tours-work">
+    <h5 class="text-center mb-5 head">You might also like</h5>
+
+    <owl-carousel-o [options]="customOptions" class="my-tours">
+      <ng-container *ngFor="let item of relatedtrips">
+        <ng-template carouselSlide>
+          <app-activity-card [item]="item"></app-activity-card>
+        </ng-template>
+      </ng-container>
+
+      <!-- <ng-container *ngFor="let item of relatedtrips">
+        <ng-template carouselSlide>
+          <app-activity-card [item]="item"></app-activity-card>
+        </ng-template>
+      </ng-container> -->
+    </owl-carousel-o>
+  </div>
 
 </section>
 

@@ -347,7 +347,7 @@ export class PackagePaymentComponent {
 
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
-    this.isLoading = true; // بدء تحميل الزر
+    this.isLoading = true; 
 
     const termsCheckbox = document.getElementById(
       'termsCheckbox'

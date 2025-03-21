@@ -641,16 +641,21 @@
                       </div>
                       <!-- End Checkbox -->
                       <a
-                        (click)="
-                          edit
-                            ? confirmEdit($event)
-                            : confirmBookingByCard($event)
-                        "
-                        [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                        class="btn payment text-white w-100 py-3"
-                      >
+                      (click)="edit ? confirmEdit($event) : confirmBookingByCard($event)"
+                      class="btn payment text-white w-100 py-3"
+                      [ngStyle]="{
+                        'cursor': isDisable ? 'not-allowed' : 'pointer',
+                        'pointer-events': isDisable ? 'none' : 'auto',
+                        'opacity': isDisable ? '0.6' : '1'
+                      }"
+                    >
+                      <span *ngIf="isLoading">
+                        <i class="fa fa-spinner fa-spin"></i> Loading...
+                      </span>
+                      <span *ngIf="!isLoading">
                         {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
-                      </a>
+                      </span>
+                    </a>
                     </div>
                   </div>
                   <ngx-spinner
@@ -708,20 +713,23 @@
                       </div>
                     </div>
                     <a
-                      (click)="edit ? confirmEdit($event) : confirmBooking()"
-                      class="btn payment text-white w-100 py-3"
-                      [ngStyle]="{'cursor': isDisable ? 'not-allowed' : 'pointer', }"
-                    >
+                    (click)="edit ? confirmEdit($event) : confirmBooking()"
+                    class="btn payment text-white w-100 py-3"
+                    [ngStyle]="{
+                      'cursor': isDisable ? 'not-allowed' : 'pointer',
+                      'pointer-events': isDisable ? 'none' : 'auto',
+                      'opacity': isDisable ? '0.6' : '1'
+                    }"
+                  >
+                    <span *ngIf="isLoading">
+                      <i class="fa fa-spinner fa-spin"></i> Loading...
+                    </span>
+                    <span *ngIf="!isLoading">
                       {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
-                    </a>
+                    </span>
+                  </a>
                   </div>
-                  <ngx-spinner
-                  bdColor="rgba(0, 0, 0, 0.8)"
-                  [fullScreen]="true"
-                >
-                  <img width="400"
-                  height="400" src="../../../../../../assets/icons/loadingicon.gif" alt="Loading..."/>
-                </ngx-spinner>
+
                 </form>
               </div>
             </div>
@@ -737,7 +745,8 @@
         <div class="border-bottom">
           <a href="#" class="d-block mb-3">
             <img
-              class="img-fluid rounded-sm"
+              class="img-fluid rounded-sm w-100"
+              style="height: 220px !important;"
               [src]="liveabourdData?.Cover"
               [alt]="getImageName(liveabourdData?.Cover)"
             />

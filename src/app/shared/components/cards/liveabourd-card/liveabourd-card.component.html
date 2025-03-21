@@ -1,8 +1,9 @@
 <ng-container>
   <div class="board-container mt-5">
-    <div class="row flex-column flex-md-row">
+    <div class="row flex-column flex-md-row" style="margin-bottom: -0.4rem;">
       <div class="col-md-5 col-lg-6 col-xl-4 pr-0">
-        <div class="product-item__header h-100" style="overflow: hidden"  [style.background]="'url(' + item?.cover + ') no-repeat center center / cover'">
+        <!-- <div class="product-item__header h-100" style="overflow: hidden"  [style.background]="'url(' + item?.cover + ') no-repeat center center / cover'"> -->
+          <div class="product-item__header h-100" style="overflow: hidden" >
           <a
             [routerLink]="[
               '/',
@@ -14,7 +15,7 @@
             ]"
             class="d-block h-100"
           >
-            <img [src]="item?.cover" alt="Aquavita" class="w-100"  style="height: 236px;"/>
+            <img [src]="item?.cover" alt="Aquavita" class="w-100"  style="    height: 295px;"/>
           </a>
         </div>
       </div>

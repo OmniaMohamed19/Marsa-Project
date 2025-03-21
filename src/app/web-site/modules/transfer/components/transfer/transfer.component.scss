@@ -523,10 +523,21 @@ label,
   }
 }
 .faq-title{
-  width: 30%;
+  width: 35%;
+  margin-right:0.5rem;
+  h4{
+    color: rgb(128, 127, 127) !important;
+    text-align: center;
+    font-weight: 400;
+    font-size: 23px;
+    letter-spacing: 2px;
+  }
+}
+.faq-2{
+
 }
 .faq-question{
-  width: 70%;
+  width: 65%;
 }
 /*********************************************/
 @media screen and (max-width: 993px) {
