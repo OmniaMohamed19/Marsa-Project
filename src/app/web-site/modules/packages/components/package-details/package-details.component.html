@@ -1206,12 +1206,13 @@
   <div class="d-flex justify-content-between p-3" style="background: white">
     <div class="priceTitle d-flex justify-content-between">
       <p style="font-weight: 500" class="mb-0 pt-1">
+        From
         <span
           class="font-size-16 fw-bold text-dark"
           [style.text-decoration]="hasDiscount(rows) ? 'line-through' : ''"
-          [style.color]="hasDiscount(rows) ? 'red !important' : ''"
+          [style.color]="hasDiscount(rows) ? 'rgb(13, 177, 255) !important' : ''"
         >
-          From ${{ rows?.Price.Adult }}
+          ${{ rows?.Price.Adult }}
         </span>
         <span
           *ngIf="hasDiscount(rows)"
