@@ -10,7 +10,10 @@
   max-width: 100%;
 }
 
-
+::ng-deep  .p-datepicker-touch-ui {
+  width: 250px !important; /* تقليل العرض */
+  min-width:30%; /* التأكد من عدم تجاوز الشاشة */
+}
 
 ::ng-deep{
 
@@ -41,9 +44,10 @@
     color: #0057FF !important;
   }
   .custom-calendar .p-datepicker {
-    top: auto !important;
-    bottom: auto !important;
+   margin-top: 4rem;
+
   }
+
 
 
 

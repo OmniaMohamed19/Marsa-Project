@@ -82,7 +82,7 @@ export class UpcomingBookingComponent {
   // setReason(reason: any) {
   //   this.choosenReason = reason;
   // }
-
+person:any;
   ngOnInit() {
     this.titleService.setTitle('Upcoming Booking');
     this.initForm();
@@ -97,6 +97,11 @@ export class UpcomingBookingComponent {
     this.tabs[4].category = 'Package';
 
     });
+    this.httpService.get(environment.marsa, 'Aboutus').subscribe((res: any) => {
+      this.person = res.ages;
+      
+  
+      });
     this.loadProfiles(this.currentPage);
 
     this._AuthService.getUserData().subscribe(

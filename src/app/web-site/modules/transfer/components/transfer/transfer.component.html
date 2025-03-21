@@ -101,19 +101,23 @@
 
 
                   <!-- Date Picker -->
-                  <div class="col-md-2 col-6 mt-1 ">
-
-
-                    <p-calendar [(ngModel)]="date" [appendTo]="'body'" [showIcon]="true" [iconDisplay]="'input'"
-                      inputId="icondisplay" [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate"
-                      placeholder="Date" class="custom-calendar " (onSelect)="onDateSelect($event)">
+                  <div class="col-md-2 col-6 mt-1">
+                    <p-calendar
+                      [(ngModel)]="date"
+                      [appendTo]="'body'"
+                      [showIcon]="true"
+                      [iconDisplay]="'input'"
+                      inputId="icondisplay"
+                      [showTime]="false"
+                      [dateFormat]="'yy-mm-dd'"
+                      [minDate]="minSelectableDate"
+                      placeholder="Date"
+                      class="custom-calendar"
+                      (onSelect)="onDateSelect($event)"
+                      [touchUI]="true">
                     </p-calendar>
-
-
-
-
-
                   </div>
+
 
                   <!-- Pickup Time -->
 
@@ -227,7 +231,7 @@
                   <!-- Departure Date -->
                   <p-calendar [(ngModel)]="date"  [showIcon]="true" [iconDisplay]="'input'" inputId="departureCalendar"
                     [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minSelectableDate"
-                    (onSelect)="updateMinReturnDate()" placeholder="Departure" class="custom-calendar">
+                    (onSelect)="updateMinReturnDate()" placeholder="Departure" class="custom-calendar"  [touchUI]="true">
                   </p-calendar>
                 </div>
 
@@ -235,7 +239,7 @@
                 <div class="col-md-2 col-6" style="margin-bottom: 0px !important;">
                   <p-calendar [(ngModel)]="returnDate" [showIcon]="true" [iconDisplay]="'input'"
                     inputId="returnCalendar" [showTime]="false" [dateFormat]="'yy-mm-dd'" [minDate]="minReturnDate"
-                    placeholder="Return" class="custom-calendar">
+                    placeholder="Return" class="custom-calendar"  [touchUI]="true">
                   </p-calendar>
                 </div>
                 <div class="col-md-2 col-6" style="margin-bottom: 0px;">
@@ -655,22 +659,23 @@
       <div class="align-self-start">
         <h5>What People Say</h5>
       </div>
-      <div class="layer-card">
-        <h5>{{highestRatedReview?.name}}</h5>
-        <span>Client</span>
-        <p>
-          {{highestRatedReview?.comment}}
-        </p>
-        <div class="d-flex align-items-center font-size-16 text-gray-1 gap-3">
+      <div class="d-flex flex-wrap flex-md-nowrap gap-3 w-100">
+        <div *ngFor="let review of topTwoReviews" class="layer-card col-12 col-md-6">
+          <h5>{{ review?.name }}</h5>
+          <span>Client</span>
+          <p>{{ review?.comment }}</p>
 
-          <div>
+          <div class="d-flex align-items-center font-size-16 text-gray-1 gap-3">
+            <div>
               <i *ngFor="let star of [1, 2, 3, 4, 5]"
-              class="fa-solid fa-star"
-              [ngClass]="{ 'fa-star-filled': star <= highestRatedReview?.rate, 'yellow-star': star <= highestRatedReview?.rate }"></i>
+                class="fa-solid fa-star"
+                [ngClass]="{ 'fa-star-filled': star <= review?.rate, 'yellow-star': star <= review?.rate }">
+              </i>
+            </div>
           </div>
+        </div>
+      </div>
 
-      </div>
-      </div>
     </div>
   </section>
 

@@ -51,6 +51,7 @@ export class TransferComponent implements OnInit {
   selectedStar: number = 0;
   starNumber: any=null;
   comment: any=null;
+  topTwoReviews: any;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -115,11 +116,10 @@ export class TransferComponent implements OnInit {
           this.reviews = Object.values(this.transferDetails.reviwe);
 
           if (this.reviews.length > 0) {
-            const highestRatedReview = this.reviews.reduce((prev: Review, current: Review) => {
-              return (prev.rate > current.rate) ? prev : current;
-            });
-
-            this.highestRatedReview = highestRatedReview;
+            // ترتيب التقييمات تنازليًا وأخذ أعلى 2
+            this.topTwoReviews = this.reviews
+              .sort((a: Review, b: Review) => b.rate - a.rate) // ترتيب تنازلي
+              .slice(0, 2); // أخذ أول اثنين فقط
           }
         }
       },
@@ -373,23 +373,66 @@ export class TransferComponent implements OnInit {
 
   availableToOptions: any[] = []; // This will hold the filtered options for the second dropdown
 
-  filterFromOptions() {
-    // Filter the airports based on the search term for "From"
-    this.filteredFromAirports = this.transferDetails?.airports?.filter((airport: { name: string; }) =>
-      airport.name.toLowerCase().includes(this.searchFrom.toLowerCase())
-    );
+  // filterFromOptions() {
+  //   // Filter the airports based on the search term for "From"
+  //   this.filteredFromAirports = this.transferDetails?.airports?.filter((airport: { name: string; }) =>
+  //     airport.name.toLowerCase().includes(this.searchFrom.toLowerCase())
+  //   );
 
-    // Filter the hotels based on the search term for "From"
-    this.filteredFromHotels = this.transferDetails?.hotel?.filter((hotel: { title: string; }) =>
-      hotel.title.toLowerCase().includes(this.searchFrom.toLowerCase())
-    );
+  //   // Filter the hotels based on the search term for "From"
+  //   this.filteredFromHotels = this.transferDetails?.hotel?.filter((hotel: { title: string; }) =>
+  //     hotel.title.toLowerCase().includes(this.searchFrom.toLowerCase())
+  //   );
+  // }
+   normalizeText(text: string): string {
+    return text
+      .toLowerCase()       // تحويل النص إلى حروف صغيرة
+      .replace(/\s+/g, '') // إزالة المسافات الزائدة
+      .replace(/[^a-zA-Z0-9]/g, ''); // إزالة أي رموز أو علامات مثل (-, _, ., etc.)
   }
 
-  filterToOptions() {
-    // Filter the options (airports or hotels) in the second dropdown based on the search term for "To"
-    this.filteredToOptions = this.availableToOptions?.filter(option =>
-      (option.name || option.title).toLowerCase().includes(this.searchTo.toLowerCase())
+   levenshteinDistance(a: string, b: string): number {
+    const matrix = Array.from({ length: a.length + 1 }, (_, i) =>
+      Array.from({ length: b.length + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0))
     );
+
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,     // حذف حرف
+          matrix[i][j - 1] + 1,     // إضافة حرف
+          matrix[i - 1][j - 1] + cost // استبدال حرف
+        );
+      }
+    }
+    return matrix[a.length][b.length];
+  }
+  filterFromOptions() {
+    const searchTerm = this.normalizeText(this.searchFrom); // تنظيف مصطلح البحث
+
+    this.filteredFromAirports = this.transferDetails?.airports?.filter((airport: { name: string }) => {
+      const name = this.normalizeText(airport.name); // تنظيف أسماء المطارات
+      return name.includes(searchTerm) || this.levenshteinDistance(name, searchTerm) <= 2;
+    });
+
+    this.filteredFromHotels = this.transferDetails?.hotel?.filter((hotel: { title: string }) => {
+      const title = this.normalizeText(hotel.title); // تنظيف أسماء الفنادق
+      return title.includes(searchTerm) ||  this.levenshteinDistance(title, searchTerm) <= 2;
+    });
+  }
+
+
+
+  filterToOptions() {
+    const searchTerm = this.normalizeText(this.searchTo); // تنظيف مصطلح البحث
+
+    this.filteredToOptions = this.availableToOptions?.filter(option => {
+      const name = this.normalizeText(option.name || option.title); // تنظيف أسماء المطارات أو الفنادق
+
+      // البحث بالأحرف المتقاربة + التجاهل التام للرموز والمسافات
+      return name.includes(searchTerm) ||  this.levenshteinDistance(name, searchTerm) <= 2;
+    });
   }
 
 

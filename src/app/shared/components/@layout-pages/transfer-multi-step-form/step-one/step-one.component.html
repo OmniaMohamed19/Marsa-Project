@@ -249,14 +249,14 @@
           (ngModelChange)="formData.phoneNumber = '+' + formData.countrycode + ' ' + ($event?.nationalNumber || '')"
           (countryChange)="onCountryChange($event)"
         ></ngx-intl-tel-input>
-        
-        
-        
 
-        
-          
-          
-          
+
+
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -288,7 +288,7 @@
         <label style="font-weight: bold;">
           Special Requirements
         </label>
-        <textarea class="form-control" name="specialRequirements" [(ngModel)]="formData.specialRequirements" rows="2"
+        <textarea class="form-control" placeholder="I need Child seat" name="specialRequirements" [(ngModel)]="formData.specialRequirements" rows="2"
           style="font-size: 16px;">
         </textarea>
       </div>
