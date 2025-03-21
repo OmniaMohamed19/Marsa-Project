@@ -20,7 +20,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from '../../../../../core/services/http/http.service';
 import { environment } from '../../../../../../environments/environment.prod';
 import { ImageSliderModalComponent } from '../../../../../shared/sliders/image-slider-modal/image-slider-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BoatSliderModalComponent } from '../../../../../shared/sliders/boat-slider-modal/boat-slider-modal.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { TranslateService } from '@ngx-translate/core';
@@ -590,13 +590,21 @@ export class ToursDetailsComponent implements AfterViewInit {
     });
   }
 
-  openVideotrip(): void {
-    this.dialog.open(this.videoModal, {
+  private dialogRef!: MatDialogRef<any>;
+  
+    // Method to open the modal
+    openVideotrip(): void {
+      this.dialogRef =this.dialog.open(this.videoModal, {
       width: '100%',
       height: '70%',
     });
   }
-
+// Method to close the modal
+closeVideoModal(): void {
+  if (this.dialogRef) {
+    this.dialogRef.close();
+  }
+}
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
       width: '70%',
@@ -622,11 +630,20 @@ export class ToursDetailsComponent implements AfterViewInit {
     );
   }
 
+
+  // Method to open the modal
   openVideoBoat(): void {
-    this.dialog.open(this.videoBoatModal, {
+    this.dialogRef =this.dialog.open(this.videoBoatModal, {
       width: '100%',
-      height: '50%',
+      height: '70%',
     });
+  }
+
+  // Method to close the modal
+  closeVideoBoatModal(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
   toggleVisibility(item: any): void {

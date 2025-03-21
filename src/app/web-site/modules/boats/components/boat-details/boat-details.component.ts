@@ -109,7 +109,7 @@ export class BoatDetailsComponent {
   discount: any;
   isMobile = false;
   isTestDivScrolledIntoView: any;
-  hideMobileFooter = false;
+  hideMobileFooter = true;
   desplayedGustImages: any[] = [];
   displayBasic: boolean = false;
   displayBoats: boolean = false;
@@ -179,9 +179,9 @@ export class BoatDetailsComponent {
       const bottomShown = rect.bottom <= window.innerHeight;
       this.isTestDivScrolledIntoView = topShown && bottomShown;
       if (this.isTestDivScrolledIntoView) {
-        this.hideMobileFooter = true;
+        // this.hideMobileFooter = true;
       } else {
-        this.hideMobileFooter = false;
+        // this.hideMobileFooter = false;
       }
     }
   }
@@ -725,6 +725,7 @@ export class BoatDetailsComponent {
   }
 
   closeModal() {
+    this.hideMobileFooter = true;
     this.isModalOpen = false;
   }
 }

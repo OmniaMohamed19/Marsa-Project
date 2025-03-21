@@ -17,6 +17,7 @@ import { environment } from '../../../../../../environments/environment.prod';
 import { ImageSliderModalComponent } from '../../../../../shared/sliders/image-slider-modal/image-slider-modal.component';
 import { BoatSliderModalComponent } from '../../../../../shared/sliders/boat-slider-modal/boat-slider-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../../shared/services/auth.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -110,6 +111,7 @@ export class LiveboardDetailsComponent {
     private toastr: ToastrService,
     private router: Router,
     private dialog: MatDialog,
+    // public dialogRef: MatDialogRef<LiveboardDetailsComponent>,
     private activatedRoute: ActivatedRoute,
     private _AuthService: AuthService,
     private cdr: ChangeDetectorRef,
@@ -399,14 +401,19 @@ export class LiveboardDetailsComponent {
       },
     });
   }
-
   openVideotrip(): void {
-    this.dialog.open(this.videoModal, {
+    this.dialogRef = this.dialog.open(this.videoModal, {
       width: '100%',
       height: '70%',
     });
   }
 
+  // Method to close the modal
+  closeVideoModal(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
       width: '100%',
@@ -440,11 +447,22 @@ export class LiveboardDetailsComponent {
     dialogRef.componentInstance.data = cabin;
   }
 
+  // Reference to the dialog
+  private dialogRef!: MatDialogRef<any>;
+
+  // Method to open the modal
   openVideoBoat(): void {
-    this.dialog.open(this.videoBoatModal, {
+    this.dialogRef =this.dialog.open(this.videoBoatModal, {
       width: '100%',
       height: '70%',
     });
+  }
+
+  // Method to close the modal
+  closeVideoBoatModal(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
   incrementAdult() {
@@ -561,7 +579,7 @@ export class LiveboardDetailsComponent {
   }
   bookNow() {
     if (this.selectedOption === 'collective') {
-      if (this.persons > 1) {
+      if (this.persons >= this.getValue('AdultMin')) {
       } else {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
@@ -577,7 +595,7 @@ export class LiveboardDetailsComponent {
         return;
       }
     } else {
-      if (this.persons < this.getValue('AdultMax')) {
+      if (this.persons <= this.getValue('AdultMax')) {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum limit of ${this.getValue(
             'AdultMax'
@@ -620,7 +638,7 @@ export class LiveboardDetailsComponent {
           adult: this.persons,
           schedules_id: this.schedules_id,
         };
-        console.log(this.selectedOption)
+        console.log(this.selectedOption);
 
         this._httpService
           .post(environment.marsa, 'liveboard/cabin/price', model)
