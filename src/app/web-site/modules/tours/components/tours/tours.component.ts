@@ -52,20 +52,27 @@ export class ToursComponent {
     const input = event.target as HTMLInputElement;
     input.showPicker(); // يجبر المتصفح على فتح التقويم
   }
-  
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
+      // استدعاء القيم من queryParams
       if (params.place_id || params.date) {
         this.place_id = params['place_id'];
         this.start_d = params['date'];
         this.filter();
       } else {
-        this.getAllactivity();
+        const storedPlaceId = localStorage.getItem('placeId');
+        if (storedPlaceId) {
+          this.searchDestination({ target: { value: storedPlaceId } });
+        } else {
+          this.getAllactivity();
+        }
       }
     });
-    this.titleService.setTitle('Tours & Activities');
 
+    this.titleService.setTitle('Tours & Activities');
   }
+
   getAllactivity() {
     this._httpsService.get(environment.marsa, 'Activtes').subscribe({
       next: (response: any) => {

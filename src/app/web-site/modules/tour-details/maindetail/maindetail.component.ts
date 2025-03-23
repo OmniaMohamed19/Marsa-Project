@@ -1,9 +1,10 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import { Meta, Title } from '@angular/platform-browser';
+import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-maindetail',
@@ -72,33 +73,10 @@ export class MaindetailComponent implements OnInit {
       numScroll: 1 // Add this line
     }
   ];
+  carouselCurrentIndex = 0;
+  @ViewChild('owlCarousel') owlCarousel: CarouselComponent | undefined;
 
-  carouselOptions = {
-    loop: false,
-    margin: 10,
-    dots: false,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    autoplay: false,
-    navSpeed: 900,
-    nav: true,
-    navText: [
-      "<div class='nav-button nav-left'><i class='fas fa-chevron-left'></i></div>",
-      "<div class='nav-button nav-right'><i class='fas fa-chevron-right'></i></div>"
-    ],
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 2
-      },
-      1000: {
-        items: 3
-      }
-    }
-  };
+
 
 
 
@@ -116,6 +94,7 @@ export class MaindetailComponent implements OnInit {
 
   }
 
+
 toggleText() {
   this.showFullText = !this.showFullText;
 }
@@ -130,7 +109,7 @@ toggleText() {
         if (this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
           this.selectedSight = this.placeDetails.places.placesshigts[0];
           this.selectedSightId = this.selectedSight.id;
-                }
+        }
 
         this.typetrips = res.typeTrip;
 
@@ -156,17 +135,61 @@ toggleText() {
 
 
       });
-      // this.httpService
-      // .get(environment.marsa, 'faq')
-      // .subscribe((result: any) => {
-      //   this.questions = result.FAQ;
-      // });
+
       this.checkScreenWidth();
 
     }
-    isFewItems(): boolean {
-      return this.placeDetails?.places?.placesshigts?.length < 3;
+    manualSelectionActive = false; // متغير جديد لتتبع اختيار المستخدم
+
+    onCarouselTranslated(event: any) {
+      // تحديث مؤشر العنصر الحالي
+      this.carouselCurrentIndex = event.startPosition;
+
+      // تحديث العنصر المحدد فقط إذا لم يكن هناك اختيار يدوي نشط
+      if (!this.manualSelectionActive && this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
+        const activeSightIndex = this.carouselCurrentIndex;
+
+        if (activeSightIndex >= 0 && activeSightIndex < this.placeDetails.places.placesshigts.length) {
+          const sight = this.placeDetails.places.placesshigts[activeSightIndex];
+          // استخدام setActiveSight مع تحديد أن هذا ليس اختيارًا يدويًا
+          this.setActiveSight(sight, false);
+        }
+      }
     }
+    onSightHoverExit(){
+
+    }
+
+    carouselOptions: OwlOptions = {
+      loop: false,
+      margin: 10,
+      dots: false,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
+      autoplay: false,
+      navSpeed: 900,
+      nav: true,
+      navText: [
+        "<div class='nav-button nav-left'><i class='fas fa-chevron-left'></i></div>",
+        "<div class='nav-button nav-right'><i class='fas fa-chevron-right'></i></div>"
+      ],
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+      // Removed the onTranslated property from here
+    };
+  isFewItems(): boolean {
+    return this.placeDetails?.places?.placesshigts?.length < 3;
+  }
 
     getImageName(url: string): string {
       const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
@@ -254,6 +277,11 @@ toggleText() {
     //this.router.navigate(['/', this.translate.currentLang, 'destination', 'all-tickets']);
   }
 
+  savePlaceId(placeId: string | undefined): void {
+    if (placeId) {
+      localStorage.setItem('placeId', placeId);
+    }
+  }
 
 
 
@@ -307,10 +335,25 @@ toggleText() {
   private checkScreenWidth() {
     this.isMobile = window.innerWidth <= 560;
   }
-  setActiveSight(sight: any) {
-    this.selectedSight = sight;
-    this.selectedSightId = sight.id;
+  setActiveSight(sight: any, isManualClick = true) {
+    if (sight && sight.id) {
+      this.selectedSight = sight;
+      this.selectedSightId = sight.id;
+
+      // عند النقر يدويًا، نقوم بتعيين علامة الاختيار اليدوي
+      if (isManualClick) {
+        this.manualSelectionActive = true;
+        // إعادة تعيين علامة الاختيار اليدوي بعد فترة لتجنب تداخل الأحداث
+        setTimeout(() => {
+          this.manualSelectionActive = false;
+        }, 1000); // ضبط المدة المناسبة لتجنب تداخل الأحداث
+      }
+    }
   }
+
+
+
+
   getRoundedRate(rate: number | null): number {
     if (rate !== null && !isNaN(Number(rate))) {
       return parseFloat(Number(rate).toFixed(1));

@@ -69,7 +69,8 @@ export class StepFourComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
       const res = JSON.parse(params['res']);
-      this.confirmRequest = res;
+      this.confirmRequest = res.bookingDetails;
+      this.relatedtrips = res.Relatedtrips;
     })
   }
 }
