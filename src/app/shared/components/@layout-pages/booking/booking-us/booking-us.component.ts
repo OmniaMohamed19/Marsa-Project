@@ -26,12 +26,7 @@ getAbout() {
 
   this._HttpService.get(environment.marsa, 'Aboutus').subscribe({
     next: (response: any) => {
-
       this.data = response;
-
-
-
-
     },
   });
 }
@@ -73,5 +68,4 @@ getAbout() {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
-
 }

@@ -9,11 +9,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./terms-and-privacy.component.scss'],
 })
 export class TermsAndPrivacyComponent {
-  tabs: any = [
-    // { label: 'Terms of services', section: 'section1',desc:"" },
-    // { label: 'Refund Policy', section: 'section2' },
-    // { label: 'Privacy Policy', section: 'section3' },
-  ];
+  tabs: any = [];
 
   activeSection = 'section1'; // Initialize with a default value
 

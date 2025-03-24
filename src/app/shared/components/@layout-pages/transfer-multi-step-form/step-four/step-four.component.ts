@@ -11,9 +11,6 @@ export class StepFourComponent {
   @Output() previous = new EventEmitter<void>();
   formData: any = {};
   tabs = [
-    // { section: 1, label: 'Customer information' },
-    // { section: 2, label: 'Optional items' },
-    // { section: 3, label: 'Payment information' },
     { section: 4, label: 'Booking is Confirmed' },
   ];
    customOptions: OwlOptions = {

@@ -26,7 +26,7 @@ input::placeholder {
 }
 /*******************************/
 
-  
+
 /**************************/
 .nav-item {
     font-size: 14.5px;
@@ -57,23 +57,11 @@ input::placeholder {
         border-right: 1px solid #eee;
         color: #000 !important;
         padding: 12px 0;
-        position: relative; 
+        position: relative;
         &:last-of-type {
             border-bottom: none;
         }
     }
-
-    // .menu-item {
-    //     border-bottom: 1px solid #cccccc;
-    //     border-right: 1px solid #eee;
-    //     color: #000 !important;
-    //     padding: 12px 0;
-    //     position: relative; 
-
-    //     &:last-of-type {
-    //         border-bottom: none;
-    //     }
-    // }
 
     #navbarSupportedContent ul {
         position: relative;
@@ -139,10 +127,6 @@ input::placeholder {
         font-size: 38px;
     }
 
-    /*.u-header__topbar-lg div {
-        display: ruby !important;
-    }*/
-
     svg.ml-3 {
         margin-left: 0 !important;
     }
@@ -161,10 +145,6 @@ input::placeholder {
     .caption h1 {
         font-size: 38px;
     }
-
-   /* .u-header__topbar-lg div {
-        display: ruby !important;
-    }*/
 
     svg.ml-3 {
         margin-left: 0 !important;
@@ -191,10 +171,6 @@ input::placeholder {
     .caption h1 {
         font-size: 38px;
     }
-
-    /*.u-header__topbar-lg div {
-        display: ruby !important;
-    }*/
 
     svg.ml-3 {
         margin-left: 0 !important;

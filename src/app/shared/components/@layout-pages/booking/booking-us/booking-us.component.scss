@@ -5,13 +5,7 @@ h3 {
     line-height: 45px;
     position: relative;
 }
-// ::ng-deep {
-//   .booking-owl .owl-carousel .owl-item img {
-//     display: inline !important;
-//     width: auto !important;
-//   }
 
-// }
 
 ::ng-deep{
   .my-destination-why .owl-carousel .owl-item img {
@@ -56,9 +50,6 @@ p {
     font-size:25px;
 
 }
-// .title{
-//   margin-bottom: 4rem;
-// }
 
 h3::after {
     left: 40%;

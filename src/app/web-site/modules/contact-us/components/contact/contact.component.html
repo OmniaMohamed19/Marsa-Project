@@ -192,9 +192,7 @@
                       <div class="alert alert-danger my-2" *ngIf="email.errors?.['email']">
                         <p class="mb-0">Please enter a valid email address in the format XXX@XX.XX.</p>
                       </div>
-                      <!-- <div class="alert alert-danger my-2" *ngIf="email.errors?.['pattern']">
-                        <p class="mb-0">Email must be in the format XXX@XX.XX</p>
-                      </div> -->
+
                     </ng-container>
                   </div>
 
@@ -256,17 +254,7 @@
           <h2 class="title mb-0">Deticated Team</h2>
         </div>
         <div class="row text-center pb-2 pt-5">
-          <!-- <div class="col-lg-4 col-md-6 inner-right inner-bottom-sm inner-left" *ngFor="let item of data.team">
-            <div class="pb-3">
-              <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
-                <img [src]="item.icon" alt="Image-Descrition" />
-              </figure>
-            </div>
-            <h6 class="mb-0">{{ item.title }}</h6>
-            <span class="l">
-              {{ item.desc }}
-            </span>
-          </div> -->
+          
 
           <owl-carousel-o [options]="aboutOptions" class="my-destination">
             <ng-container *ngFor="let item of data?.team">

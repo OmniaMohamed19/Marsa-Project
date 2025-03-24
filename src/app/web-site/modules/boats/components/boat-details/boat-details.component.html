@@ -32,7 +32,6 @@
           <div class="mb-1">
             <div class="mb-2 mb-md-0 d-flex align-items-center">
               <h4 class="mb-1 mr-3">{{ boatData?.Name }}</h4>
-              <!-- <button class="btn popular">Popular</button> -->
             </div>
             <div class="d-block mt-4">
               <div class="d-block font-size-14 text-gray-1 mb-2 mb-md-0">
@@ -68,7 +67,6 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.Cancellation === 0"
             >
-              <!-- <img src="assets/custom/Activity/free.svg" alt="icon" /> -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -87,11 +85,7 @@
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.Cancellation > 0"
             >
-              <!-- <img
-            src="assets/custom/Activity/free.svg"
-            class="pe-2"
-            alt="free"
-          /> -->
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -120,10 +114,7 @@
                 Printed or mobile voucher accepted
               </div>
             </li>
-            <!-- <li class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2">
-                            <img src="assets/custom/Activity/alarm.svg" alt="icon">
-                            <div class="ml-1 text-gray-1">90 Min Duration</div>
-                        </li> -->
+
             <li
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
               *ngIf="boatData?.OpenDateTicket > 0"
@@ -152,22 +143,7 @@
         </div>
         <div class="col mb-5">
           <div class="image">
-            <!-- <owl-carousel-o [options]="coverAndImagesOptions" class="trending">
-              <ng-container *ngFor="let imgs of coverAndImages">
-                <ng-template carouselSlide>
-                  <div class="position-relative mt-4">
-                    <img
-                      [src]="imgs?.value"
-                      alt="item"
-                      loading="lazy"
-                      style="height: 480px; min-width: 720px"
-                      class="cover-image"
-                      id="mobile-img"
-                    />
-                  </div>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o> -->
+
 
             <p-galleria
               [value]="coverAndImages"
@@ -207,7 +183,6 @@
                 />
               </ng-template>
             </p-galleria>
-            <!--- style="min-height: 100%; min-width: 100%; height: 437px;" -->
             <div
               class="flex-horizontal-center position-absolute video-gallery"
               style="bottom: 18%; right: 25px; z-index: 1"
@@ -238,30 +213,7 @@
                 />
               </a>
             </div>
-            <!-- <owl-carousel-o [options]="imagesOptions" id="mobile-img-removed">
-              <ng-container
-                *ngFor="
-                  let img of images;
-                  let isFirst = first;
-                  let isLast = last
-                "
-              >
-                <ng-template carouselSlide>
-                  <div class="pt-2" style="border: 0.4px solid #d7d6d6">
-                    <img
-                      [src]="img.value"
-                      alt="item"
-                      width="210"
-                      height="135"
-                      loading="lazy"
-                      class="px-1"
-                      [ngStyle]="{ 'max-width.%': isSingleImage ? 20 : 100 }"
-                      style="cursor: pointer; width: 100%; height: 135px"
-                    />
-                  </div>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o> -->
+
           </div>
         </div>
         <!-- details section for taps -->
@@ -596,10 +548,7 @@
                   style="cursor: pointer; max-width: 100%; height: 100%"
                   (click)="imageClick(0)"
                 />
-                <!-- <img
-                  class="w-100 h-100"
-                  [src]="happyGustImages[0]"
-                /> -->
+
               </div>
               <div class="col-md-7">
                 <div class="row g-3">
@@ -617,14 +566,7 @@
                       style="cursor: pointer; max-width: 100%; height: 100%"
                       (click)="imageClick(index + 1)"
                     />
-                    <!-- <img
-                      class="w-100 "
-                      [src]="image"
-                      alt="tour"
-                      loading="lazy"
-                      style="height: 125px;"
-                    /> -->
-                    <!-- Overlay -->
+
                     <div class="overlay"></div>
                   </div>
 
@@ -639,12 +581,7 @@
                       style="cursor: pointer; max-width: 100%; height: 100%"
                       (click)="imageClick(4)"
                     />
-                    <!-- <img
-                      class="w-100 remainingImages"
-                      [src]="remainingImages[3]"
-                      alt="tour"
-                      loading="lazy"
-                    /> -->
+
                     <!-- Overlay and button -->
                     <div class="see-more-container">
                       <div class="position-relative">
@@ -770,53 +707,7 @@
                         <p class="text-lh-1dot6 mb-0 pr-lg-5">
                           {{ review?.comment }}
                         </p>
-                        <!-- <div class="mt-5">
-                          <div
-                            class="row no-gutters justify-content-between align-items-center border border-color-8 border-width-2 rounded-xs p-3 px-md-3 py-md-2 pr-xl-5"
-                          >
-                            <div class="col">
-                              <div
-                                class="font-weight-normal font-size-14 text-gray-1 mx-lg-1 my-lg-1 mb-3 mb-md-0"
-                              >
-                                Was This Review...?
-                              </div>
-                            </div>
-                            <div class="col-md-6 col-lg-7 col-xl-4">
-                              <div
-                                class="d-flex justify-content-between my-lg-1"
-                              >
-                                <a class="text-indigo-light">
-                                  <img
-                                    src="assets/custom/Activity/like.svg"
-                                    class="me-2"
-                                    alt="like"
-                                  />
-                                  <span class="font-size-14 font-weight-normal"
-                                    >Like</span
-                                  >
-                                </a>
-                                <a class="text-gray-7">
-                                  <img
-                                    src="assets/custom/Activity/dislike.svg"
-                                    class="me-2"
-                                    alt="dislike"
-                                  />
-                                  <span class="font-size-14 font-weight-normal"
-                                    >Dislike</span
-                                  >
-                                </a>
-                                <a class="text-red-light-2">
-                                  <i
-                                    class="fa-regular fa-heart font-size-15 mr-1"
-                                  ></i>
-                                  <span class="font-size-14 font-weight-normal"
-                                    >Love</span
-                                  >
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div> -->
+
                       </div>
                     </div>
                   </div>
@@ -1146,11 +1037,7 @@
               </div>
               <!-- End Input -->
               <div>
-                <!-- <div class="alert alert-info my-2 text-white">
-                <p class="mb-0 text-dark">
-                  Maximum of guests {{ boatData?.MaxPersons }}
-                </p>
-              </div> -->
+
               </div>
               <!-- End Input -->
               <div
@@ -1423,11 +1310,7 @@
                       </div>
                       <!-- End Input -->
                       <div>
-                        <!-- <div class="alert alert-info my-2 text-white">
-                        <p class="mb-0 text-dark">
-                          Maximum of guests {{ boatData?.MaxPersons }}
-                        </p>
-                      </div> -->
+                      
                       </div>
                       <!-- End Input -->
                       <div
@@ -1542,7 +1425,7 @@
       data-bs-target="#exampleModal2"
       (click)="hideMobileFooter=false"
     >
-      Check availability 
+      Check availability
     </a>
   </div>
 </div>

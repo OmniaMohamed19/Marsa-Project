@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  // @Input() background: string = '';
   selectedLang = '';
   showForm: boolean = true;
   isLogin: boolean = false;
@@ -142,7 +141,7 @@ export class HomeComponent implements OnInit {
         this.currentIndex = (this.currentIndex + 1) % this.coverImages.length;
         this.changeCoverImage();
       }
-    }, 4000); // تغيير الصورة كل 4 ثوانٍ
+    }, 4000);
   }
 
   changeCoverImage() {
@@ -157,7 +156,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval); // تنظيف الinterval عند تدمير المكون
+    clearInterval(this.interval); 
   }
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },

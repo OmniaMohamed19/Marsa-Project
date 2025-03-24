@@ -13,7 +13,6 @@ import { HeaderComponent } from './components/@layout-pages/header/header.compon
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/@layout-pages/Auth/login/login.component';
 import { RegisterComponent } from './components/@layout-pages/Auth/register/register.component';
-import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/@layout-pages/navbar/navbar.component';
 import { HeaderTransComponent } from './components/@layout-pages/header-trans/header-trans.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -46,18 +45,13 @@ import { BreadcrumbComponent } from './components/user-dashboard-cards/breadcrum
 import { UserCardComponent } from './components/user-dashboard-cards/user-card/user-card.component';
 import { OverviewCardComponent } from './components/user-dashboard-cards/overview-card/overview-card.component';
 import { UserSettingsComponent } from './components/user-dashboard-cards/user-settings/user-settings.component';
-import { LoginInfoComponent } from './components/user-dashboard-cards/login-info/login-info.component';
 import { PackageSliderModalComponent } from './sliders/package-slider-modal/package-slider-modal.component';
 
-import { SiteSettingsComponent } from './components/user-dashboard-cards/site-settings/site-settings.component';
-import { PaymentMethodComponent } from './components/user-dashboard-cards/payment-method/payment-method.component';
-import { PaymentTableComponent } from './components/user-dashboard-cards/payment-table/payment-table.component';
 import { ToursComponent } from './components/user-dashboard-cards/tours/tours.component';
 import { LiveboardComponent } from './components/user-dashboard-cards/liveboard/liveboard.component';
 import { PackagesComponent } from './components/user-dashboard-cards/packages/packages.component';
 import { TransportsComponent } from './components/user-dashboard-cards/transports/transports.component';
-import { FeaturedCardComponent } from './components/user-dashboard-cards/featured-card/featured-card.component';
-import { FeaturedSliderComponent } from './components/user-dashboard-cards/featured-slider/featured-slider.component';
+
 import { ToursTableComponent } from './components/user-dashboard-cards/tours-table/tours-table.component';
 import { PackageEditComponent } from './components/@layout-pages/package-edit/package-edit.component';
 import { WishListComponent } from './components/@layout-pages/wish-list/wish-list.component';
@@ -123,17 +117,12 @@ const cardComponents = [
   UserCardComponent,
   OverviewCardComponent,
   UserSettingsComponent,
-  LoginInfoComponent,
-  SiteSettingsComponent,
-  PaymentMethodComponent,
-
-  PaymentTableComponent,
+ 
   ToursComponent,
   LiveboardComponent,
   PackagesComponent,
   TransportsComponent,
-  FeaturedCardComponent,
-  FeaturedSliderComponent,
+
   ToursTableComponent,
   WishListComponent,
   SingleWishlistComponent,

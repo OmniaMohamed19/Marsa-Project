@@ -3,7 +3,6 @@
   <form #bookingForm="ngForm" (ngSubmit)="saveFormData(bookingForm)" novalidate>
     <div class="thin-heading"> Please select your car:</div>
     <div class="cars">
-
       <owl-carousel-o [options]="customOptions" class="owl-theme">
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
@@ -28,7 +27,6 @@
                 </span>
                 <span>Fits {{item.bags}} medium suitcases</span>
               </div>
-
               <div class="car-data mt-3">
                 <span>
                   <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-clipboard-user"></i>
@@ -43,15 +41,11 @@
     color: #2d303c;">$ {{item.price}} </span>
                 </span>
               </div>
-
             </div>
           </ng-template>
         </ng-container>
       </owl-carousel-o>
-
     </div>
-
-    <!-- Start of Car Details Section -->
     <div class="car1">
       <div class="row">
         <div class="col">
@@ -67,10 +61,7 @@
                   <mat-label>Arrival flight number (optional)</mat-label>
                   <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber" />
                 </mat-form-field>
-
-
               </div>
-
             </div>
             <div class="col" *ngIf="!Isairport">
               <div class="bold-heading">Pickup Date:</div>
@@ -87,7 +78,6 @@
             </div>
             <div class="col">
               <div class="bold-heading">Pickup Time</div>
-
               <mat-form-field appearance="outline">
                 <mat-label>Pickup Time</mat-label>
                 <input matInput  [(ngModel)]="formData.pickuptime" placeholder="Pick up time"
@@ -95,25 +85,10 @@
                 <ngx-material-timepicker-toggle matSuffix [for]="pickuptime"></ngx-material-timepicker-toggle>
                 <ngx-material-timepicker #pickuptime></ngx-material-timepicker>
               </mat-form-field>
-
-              <!-- <div class="input-group-prepend input-border">
-                <ngx-material-timepicker-toggle class="pickup-time" style="top: 10px; position: relative;"
-                  [for]="picker"></ngx-material-timepicker-toggle>
-                <input [(ngModel)]="formData.pickuptime" name="pickuptime"
-                [value]="formData.pickuptime"
-                 [ngxTimepicker]="picker" class="form-control "
-                  placeholder="Pickup time"
-                   />
-                <ngx-material-timepicker #picker></ngx-material-timepicker>
-              </div> -->
-
-
             </div>
           </div>
-
         </div>
       </div>
-
       <div class="row mt-4">
         <div class="col">
           <div class="bold-heading">Going to:</div>
@@ -123,33 +98,20 @@
           <div class="row">
             <div class="col" *ngIf="!Isairport">
               <div class="bold-heading">Flight Number</div>
-
               <div class="form-outline" data-mdb-input-init>
                 <form class="example-form">
                   <mat-form-field appearance="outline">
                     <mat-label>Departure flight number (optional)</mat-label>
                     <input matInput placeholder="e.g. EK 213" name="flightNumber" [(ngModel)]="formData.flightNumber">
                   </mat-form-field>
-
-
                 </form>
-
-
-
               </div>
             </div>
-
           </div>
-
         </div>
-
-
       </div>
-
-
       <div *ngIf="activeSection == 2">
         <hr class="horizontal-line">
-
         <div class="row">
           <div class="col">
             <div class="bold-heading">Returning From:</div>
@@ -162,18 +124,15 @@
                 <div class="form-outline" data-mdb-input-init>
                   <form class="example-form">
                     <mat-form-field appearance="outline">
-                      <!-- <mat-label>Outline form field</mat-label> -->
                       <input [(ngModel)]="return_date" [value]="return_date" #returndateInput="ngModel" matInput
                         readonly>
                       <mat-icon matSuffix>calendar_today</mat-icon>
                     </mat-form-field>
                   </form>
-
                 </div>
               </div>
               <div class="col">
                 <div class="bold-heading">Return Time:</div>
-
                 <mat-form-field appearance="outline">
                   <mat-label>Return Time</mat-label>
                   <input matInput [(ngModel)]="return_time" name="return_time" [ngxTimepicker]="returnpicker" placeholder="Return time"
@@ -181,13 +140,10 @@
                   <ngx-material-timepicker-toggle matSuffix [for]="returnpicker"></ngx-material-timepicker-toggle>
                   <ngx-material-timepicker #returnpicker></ngx-material-timepicker>
                 </mat-form-field>
-
               </div>
             </div>
-
           </div>
         </div>
-
         <div class="row mt-5">
           <div class="col">
             <div class="bold-heading">Returning To:</div>
@@ -197,29 +153,19 @@
             <div class="row">
               <div class="col" *ngIf="Isairport">
                 <div class="bold-heading">Flight Number</div>
-
                 <div class="form-outline" data-mdb-input-init>
                   <form class="example-form">
                     <mat-form-field appearance="outline">
                       <mat-label>Departure flight number (optional)</mat-label>
                       <input matInput placeholder="e.g. EK 213">
                     </mat-form-field>
-
-
                   </form>
-
                 </div>
               </div>
-
             </div>
-
           </div>
-
         </div>
       </div>
-
-
-
       <hr class="horizontal-line">
       <div class="row mb-5">
         <div class="col-md col-12">
@@ -227,13 +173,7 @@
         </div>
         <div class="col-md col-12 mt-2 ">
           <div class="d-flex ms-2 position-relative phone">
-            <!-- <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-            [separateDialCode]="true" [selectFirstCountry]="true" [maxLength]="20" name="phoneNumber"
-            [phoneValidation]="false" [customPlaceholder]="'Enter phone number'" [preferredCountries]="['de']"
-            [(ngModel)]="formData.phoneNumber" (ngModelChange)="onPhoneNumberChange($event)"
-            (countryChange)="onCountryChange($event)"
-            class="custom-tel-input" required #phoneNumberInput="ngModel" required>
-          </ngx-intl-tel-input> -->
+
           <ngx-intl-tel-input
           [enableAutoCountrySelect]="true"
           [enablePlaceholder]="true"
@@ -247,16 +187,7 @@
           [preferredCountries]="['de']"
           [(ngModel)]="formData.phoneNumber"
           (ngModelChange)="formData.phoneNumber = '+' + formData.countrycode + ' ' + ($event?.nationalNumber || '')"
-          (countryChange)="onCountryChange($event)"
-        ></ngx-intl-tel-input>
-
-
-
-
-
-
-
-
+          (countryChange)="onCountryChange($event)"></ngx-intl-tel-input>
           </div>
         </div>
       </div>
@@ -275,15 +206,9 @@
                 </mat-error>
               </mat-form-field>
             </form>
-
-
-
           </div>
         </div>
       </div>
-
-
-
       <div class="message mt-5">
         <label style="font-weight: bold;">
           Special Requirements
@@ -294,13 +219,9 @@
       </div>
 
     </div>
-
     <div class="btns">
       <button type="button" routerLink="/{{ translate.currentLang }}/privacy/privacy">Cancel</button>
       <button type="submit">Book Now</button>
     </div>
   </form>
-
-
-
 </div>

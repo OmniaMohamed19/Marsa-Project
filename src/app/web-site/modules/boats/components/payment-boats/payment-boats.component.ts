@@ -73,19 +73,7 @@ export class PaymentBoatsComponent {
       (data: any) => {
         this.userData = JSON.parse(data);
         this.customerForm.patchValue(this.userData);
-        // this.userData.phone.replace(this.userData.countrycode, '');
-        // // this.userData = { phone: '213011212000340', countrycode: '213' };
-        // console.log(
-        //   this.userData.phone.replace(
-        //     new RegExp(`^\\+?${this.userData.countrycode}`),
-        //     ''
-        //   )
-        // );
-        // // ✅ Output: "011212000340"
-        // console.log(this.userData.phone.replace(
-        //   new RegExp(`^\\+?${this.userData.countrycode}`),
-        //   ''
-        // ));
+        
 
         const result = this.userData.phone.substring(4);
         this.customerForm?.get('phone')?.patchValue(result);

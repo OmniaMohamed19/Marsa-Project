@@ -79,9 +79,6 @@ export class UpcomingBookingComponent {
     }
   }
 
-  // setReason(reason: any) {
-  //   this.choosenReason = reason;
-  // }
 person:any;
   ngOnInit() {
     this.titleService.setTitle('Upcoming Booking');
@@ -98,16 +95,14 @@ person:any;
     });
     this.httpService.get(environment.marsa, 'Aboutus').subscribe((res: any) => {
       this.person = res.ages;
-      
-  
+
+
       });
     this.loadProfiles(this.currentPage);
 
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        // this.userData = JSON.parse(data); // Assigning the received object directly
-        // this.customerForm.patchValue(this.userData);
-        // this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+
       },
       (error) => {
         // Handle error if needed
@@ -344,9 +339,9 @@ person:any;
         return;
     }
 
-    // لو محتاجاه التاريخبفورمات معين 
+    // لو محتاجاه التاريخبفورمات معين
     const formattedEndDate = this.datePipe.transform(endDate, 'yyyy/MM/dd');
-    // ودا العادى 
+    // ودا العادى
     // شوفة المناسب واعملى ليه  return
     return endDate;
   }

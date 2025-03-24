@@ -17,9 +17,7 @@
             <p>
               Save favorites to your wish list by clicking on the heart icon
             </p>
-            <!-- <button>
-                            Find your favorites
-                        </button> -->
+
           </div>
         </div>
       </section>
@@ -27,10 +25,7 @@
     <!-------------------------------------->
     <div *ngIf="!whishlistEmpty">
       <section class="wishlist-notempty">
-        <!-- <header class="d-flex justify-content-between align-items-center">
-                    <h4>Your Wish list</h4>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New List</button>
-                </header> -->
+
         <div *ngFor="let item of result">
           <ng-container class="card p-4 my-5" *ngIf="item.trips.length > 0">
             <p-carousel
@@ -85,20 +80,7 @@
           </ng-container>
         </div>
         <div class="d-flex flex-column whishlist-card-content">
-          <!-- <a routerLink="../wishname" class="d-block"> -->
-          <!-- <div class="whishlist-card" >
-                        <div class="d-flex gap-4 img-container">
-                            <div>
-                                <img src="../../../../../assets/images/wish-1.jpg">
-                            </div>
-                           <div>
-                            <img src="../../../../../assets/images/wish-2.jpg">
-                           </div>
-                        </div>
-                        <h5>Hurghada </h5>
-                        <span>2 Activities & Tours</span>
-                    </div> -->
-          <!-- </a> -->
+         
         </div>
         <!----------------------------->
       </section>

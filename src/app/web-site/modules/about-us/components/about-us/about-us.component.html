@@ -26,9 +26,7 @@
 
   <div class="slider border-bottom border-color-3">
     <div class="container space-1">
-      <!-- <div class="w-md-80 w-lg-70 text-center mx-md-auto mb-5 mt-3">
-        <h2 class="mb-0 title ">{{ data.aboutus?.title }}</h2>
-      </div> -->
+
       <section class="mx-auto content">
         <div class="container">
           <div class="row mt-2">
@@ -115,7 +113,6 @@
     <div class="text-center banner mt-xl-2 h-100 d-flex justify-content-center align-items-center flex-column vid">
       <h5 class="mb-2">Travelling Highlights</h5>
       <h6 class="mb-lg-5 opacity-7">Your New Travelling Idea</h6>
-      <!-- (click)="openVideo()" -->
       <a class="js-fancybox d-inline-block u-media-player" data-src="//vimeo.com/167434033" data-speed="700"
         data-animate-in="zoomIn" data-animate-out="zoomOut" data-caption="MyTravel - Responsive Website Template"
         (click)="showDialog()">
@@ -129,7 +126,7 @@
         <video controls="" style="width: 92% ; max-height:100% " muted name="media">
           <source [src]="videoUrl" type="video/mp4">
         </video>
-        <!-- <video src="//vimeo.com/167434033"></video> -->
+
       </p-dialog>
     </div>
   </div>
@@ -180,18 +177,7 @@
         <h2 class="title mb-0">Deticated Team</h2>
       </div>
       <div class="row text-center pb-2 pt-5">
-        <!-- <div class="col-lg-4 col-md-6 inner-right inner-bottom-sm inner-left" *ngFor="let item of data.team">
-          <div class="pb-3">
-            <figure class="d-inline-block u-avatar-image rounded-circle overflow-hidden">
-              <img [src]="item.icon" alt="Image-Descrition" />
-            </figure>
-          </div>
-          <h6 class="mb-0">{{ item.title }}</h6>
-          <span class="l">
-            {{ item.desc }}
-          </span>
-        </div> -->
-
+      
         <owl-carousel-o [options]="aboutOptions" class="my-destination">
           <ng-container *ngFor="let item of data.team">
             <ng-template carouselSlide>

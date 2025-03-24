@@ -15,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpService } from '../../../../../core/services/http/http.service';
 import { environment } from '../../../../../../environments/environment.prod';
 import { ImageSliderModalComponent } from '../../../../../shared/sliders/image-slider-modal/image-slider-modal.component';
-import { BoatSliderModalComponent } from '../../../../../shared/sliders/boat-slider-modal/boat-slider-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';

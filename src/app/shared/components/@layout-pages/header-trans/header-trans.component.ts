@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./header-trans.component.scss']
 })
 export class HeaderTransComponent {
-  // registerBehavoiur: string = 'login'; // Initialize to 'login' or 'signup' based on your requirement
   registerBehavoiur!:string
   signClick: boolean = false;
   constructor(

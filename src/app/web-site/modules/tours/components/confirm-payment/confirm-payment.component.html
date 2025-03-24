@@ -80,14 +80,7 @@
               >
                 Traveler Information
               </h5>
-              <!-- <a
-                            href="#"
-                            (click)="ReturnToPayment()"
-                            class=" payment text-white  ">Edit</a> -->
-              <!-- ,tripletails?.id,
-                            [routerLink]="['/', translate.currentLang, 'tours', 'payment']
-                            tripletails?.Name] -->
-              <!-- <a class="text-decoration-underline">Edit</a> -->
+
             </div>
             <!-- Fact List -->
             <ul class="list-unstyled font-size-1 mb-0 font-size-16">
@@ -145,30 +138,7 @@
             class="pt-4 pb-3 px-5"
             [innerHTML]="confirmRequest?.Bookinginstraction"
           >
-            <!-- <div class="d-flex justify-content-between" >
-                            <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-3">
-                                Payment
-                            </h5>
-                            <a class="text-decoration-underline">Edit</a>
-                            <a href="/home/tours/payment" class="text-decoration-underline">Edit</a>
 
-                        </div>
-                        <p >
-                            Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec
-                            lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi
-                            adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
-                        </p>
-
-                    </div>
-                    <div class="pt-4 px-5">
-                        <h5 id="scroll-description" class="font-size-21 font-weight-bold text-dark mb-3">
-                            View Booking Details
-                        </h5>
-                        <p >
-                            Praesent dolor lectus, rutrum sit amet risus vitae, imperdiet cursus neque. Nulla tempor nec
-                            lorem eu suscipit. Donec dignissim lectus a nunc molestie consectetur. Nulla eu urna in nisi
-                            adipiscing placerat. Nam vel scelerisque magna. Donec justo urna, posuere ut dictum quis.
-                        </p> -->
           </div>
         </div>
         <div class="my-tours-work">
@@ -310,47 +280,7 @@
 
             <div class="w-100"></div>
 
-            <!-- Input -->
-            <!-- <div class="col-sm-12 mb-4">
-              <div class="js-form-message">
-                <label class="form-label"> Nationality </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Nationality"
-                  formControlName="nationality"
-                  [matAutocomplete]="auto"
-                />
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option
-                    *ngFor="
-                      let nationality of filteredNationalities | async
-                    "
-                    [value]="nationality.name"
-                  >
-                    <img
-                      [src]="nationality.image"
-                      alt="{{ nationality.name }}"
-                      class="flag-icon"
-                    />
-                    <span>{{ nationality.name }}</span>
-                    <span>({{ nationality.isoName }})</span>
-                  </mat-option>
-                </mat-autocomplete>
 
-                <div
-                  *ngIf="
-                    customerForm.get('nationality')?.invalid &&
-                    (customerForm.get('nationality')?.dirty ||
-                      customerForm.get('nationality')?.touched)
-                  "
-                  class="alert alert-danger my-2"
-                >
-                  Nationality is required
-                </div>
-              </div>
-            </div> -->
-            <!-- End Input -->
             <div class="w-100"></div>
             <p class="text-left fs-6">Do you want a pick up services ?</p>
             <div class="d-flex gap-3 flex-wrap mb-2">
@@ -437,29 +367,7 @@
                 </div>
               </div>
             </ng-template>
-            <!-- <ng-container *ngIf="showServices" class="mb-2">
-              <div class="col-sm-6 mb-4">
-                <label class="form-label"> Pick up Place </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="pickup_point"
-                  placeholder="Enter Pick up Place"
-                />
-              </div>
-              <div
-                  *ngIf="
-                    customerForm.get('pickup_point')?.invalid &&
-                    (customerForm.get('pickup_point')?.dirty ||
-                      customerForm.get('pickup_point')?.touched)
-                  "
-                  class="alert alert-danger my-2"
-                >
-                Pick up Place is required
-                </div>
-              <p>You must choose location before 24 hours</p>
-            </ng-container> -->
-            <!-- End Input -->
+           
             <div class="w-100"></div>
             <!-- Input -->
 

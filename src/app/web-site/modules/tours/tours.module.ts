@@ -4,7 +4,6 @@ import { ToursRoutingModule } from './tours-routing.module';
 import { LandingToursComponent } from './landing-tours/landing-tours.component';
 import { ToursComponent } from './components/tours/tours.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { FilterComponent } from './components/filter/filter.component';
 import { ToursDetailsComponent } from './components/tours-details/tours-details.component';
 import { CheckAvailpiltyComponent } from './components/check-availpilty/check-availpilty.component';
 import { PaymentComponent } from './components/payment/payment.component';
@@ -18,7 +17,6 @@ import { PaginatorModule } from 'primeng/paginator';
   declarations: [
     LandingToursComponent,
     ToursComponent,
-    FilterComponent,
     ToursDetailsComponent,
     CheckAvailpiltyComponent,
     PaymentComponent,

@@ -127,12 +127,7 @@ export class PackagePaymentComponent {
         }
       );
     }
-    // this.customerForm.patchValue(this.userData);
-    // console.log(this.userData);
 
-    // this.customerForm.patchValue(this.userData);
-
-    // this.initForm();
   }
   getImageName(url: string): string {
     const imageName = url?.substring(
@@ -336,18 +331,14 @@ export class PackagePaymentComponent {
         },
       });
 
-    // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-    //   this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-    //   this.Total =
-    //     this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
-    // });
+
   }
 
   isLoading = false;
 
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
-    this.isLoading = true; 
+    this.isLoading = true;
 
     const termsCheckbox = document.getElementById(
       'termsCheckbox'
@@ -562,7 +553,6 @@ export class PackagePaymentComponent {
     localStorage.removeItem('queryParamsPackages');
     this.location.back();
   }
-
   getNationality() {
     this._httpService.get('marsa', 'countrycode').subscribe({
       next: (nationalities: any) => {
@@ -587,8 +577,6 @@ export class PackagePaymentComponent {
   }
   letterOnly(event: any) {
     var charCode = event.keyCode;
-
-    // Allow letters (uppercase and lowercase), backspace, and space
     if (
       (charCode > 64 && charCode < 91) || // A-Z
       (charCode > 96 && charCode < 123) || // a-z

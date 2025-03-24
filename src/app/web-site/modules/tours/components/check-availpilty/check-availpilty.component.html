@@ -1,13 +1,6 @@
-<!-- <app-header [background]="'#0DB1FF'"></app-header> -->
-<!-- <div class="modal-header">
-  <h4 class="modal-title">Available Options</h4>
-  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div> -->
+
 <div class="modal-body p-0">
   <div id="AvailableOptions">
-    <!-- <h6 class="heading">Available Options</h6> -->
     <div class="card p-1" style="border: none">
       <div class="row" style="padding-left: 0px !important">
         <div class="col border-top">
@@ -40,26 +33,6 @@
                 </span>
               </div>
 
-              <!-- <ng-container *ngIf="
-                  activityData?.TypeOfRepeat === 'w' ||
-                  activityData?.TypeOfRepeat === 'd'
-                ">
-                <span class="headingTime">
-                  <div class="d-flex">
-                    <img src="assets/custom/Activity/timer-start.svg" class="me-1" alt="timer start" />
-                    <p>
-                      Starting time at : <span class="text-dark fs-5 font-weight-bold">{{
-                        "1970-01-01T" +
-                        activityData?.AvailableOption[
-                        getAvailableOptionIndexById(avilable_option_id)
-                        ]?.PickUpTime | date : "h:mm a"
-                        }}</span>
-                    </p>
-                  </div>
-
-                </span>
-
-              </ng-container> -->
 
               <ng-container
                 *ngIf="
@@ -195,16 +168,7 @@
                       </div>
                     </li>
                   </ul>
-                  <!-- <ul class="list-unstyled price-list" style="margin-top: -1.9rem;">
-                    <li class="pt-3">{{ avilableOptions?.TotalAdult }}</li>
-                    <li class="pt-3" *ngIf="avilableOptions?.TotalChildren!=='0$'">{{
-                      avilableOptions?.TotalChildern=='0$'?'':avilableOptions?.TotalChildern }}</li>
-                    <li class="pt-3">{{
-                      avilableOptions?.TotalInfant=='0$'?'':avilableOptions?.TotalInfant }}</li>
-                    <li class="pt-3">
-                      {{ avilableOptions?.AddetionalCost[0]?.Total }}$
-                    </li>
-                  </ul> -->
+                 
                 </div>
                 <div
                   class="d-flex align-items-center gap-5"

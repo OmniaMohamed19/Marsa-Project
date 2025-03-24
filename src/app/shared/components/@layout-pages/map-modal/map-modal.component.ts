@@ -77,7 +77,6 @@ export class MapModalComponent implements OnInit {
           this.map.setView([this.latitudeValue, this.longitudeValue], 10);
           this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
 
-          // الحصول على اسم الدولة باستخدام Nominatim API
           const reverseGeocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${this.latitudeValue}&lon=${this.longitudeValue}&accept-language=en`;
           this.http.get<any>(reverseGeocodeUrl).subscribe((result) => {
             if (result && result.address && result.address.country) {
@@ -114,8 +113,8 @@ export class MapModalComponent implements OnInit {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&countrycodes=EG&accept-language=en&limit=5`;
 
     return this.http.get<any[]>(url).pipe(
-      debounceTime(300), // يمنع إرسال طلب لكل حرف، وينتظر 300ms قبل إرسال الطلب
-      distinctUntilChanged(), // يمنع إرسال نفس الطلب مرتين متتاليتين
+      debounceTime(300),
+      distinctUntilChanged(), 
       map((results) => {
         this.spinner.hide();
         return results.map((result) => ({

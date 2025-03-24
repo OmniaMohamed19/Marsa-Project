@@ -308,9 +308,6 @@ export class LiveboardPaymentComponent implements OnInit {
           next: (res: any) => {
             this.responseFromAvailableOption = res;
             stepper.next();
-            // this.Total =
-            //   this.responseFromAvailableOption?.TotlaPrice -
-            //   this.Coupons[0]?.amount;
           },
           error: (err: any) => {
             console.log(err);
@@ -388,13 +385,7 @@ export class LiveboardPaymentComponent implements OnInit {
             });
         },
       });
-    // this._httpService.get(environment.marsa, `Coupon`).subscribe((res: any) => {
-    //   this.Coupons = res.coupon.filter((item: any) => item.code == this.coupon);
-    //   this.Total =
-    //     this.responseFromAvailableOption?.TotlaPrice - this.Coupons[0]?.amount;
-    //   console.log(this.Total);
-    // });
-    // Coupon
+
   }
   onCountryChange(event: any) {
     console.log(event);
@@ -659,10 +650,8 @@ export class LiveboardPaymentComponent implements OnInit {
       let code = this.customerForm.get('phone')?.value['dialCode'];
       const model = {
         trip_id: this.tripId,
-        // userid: this.userData?.id,
         class: this.selectedOption,
         adult: this.adult,
-        // schedules_id: 4,
         code: code,
         schedules_id: this.schedules_id,
         payment_method: this.payment_method ? this.payment_method : 'cash',
@@ -752,7 +741,6 @@ export class LiveboardPaymentComponent implements OnInit {
     dots: true,
     margin: 10,
     navSpeed: 700,
-    // navText: ["", ""],
     responsive: {
       0: {
         items: 1, // Display one item per slide for smaller screen sizes
@@ -767,7 +755,6 @@ export class LiveboardPaymentComponent implements OnInit {
         items: 4,
       },
     },
-    // nav: true
   };
 
   goBack() {
@@ -800,8 +787,6 @@ export class LiveboardPaymentComponent implements OnInit {
   }
   letterOnly(event: any) {
     var charCode = event.keyCode;
-
-    // Allow letters (uppercase and lowercase), backspace, and space
     if (
       (charCode > 64 && charCode < 91) || // A-Z
       (charCode > 96 && charCode < 123) || // a-z

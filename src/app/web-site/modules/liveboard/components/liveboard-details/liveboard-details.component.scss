@@ -9,14 +9,11 @@ h4,
 }
 
 ::ng-deep {
-  // .mat-mdc-dialog-container .mdc-dialog__surface {
-  //   background-color: transparent !important;
-  // }
+
   .cdk-overlay-pane {
     overflow: auto !important;
     left: unset !important;
     right: 20px !important;
-    // top: 238.734px !important;
   }
 }
 
@@ -194,9 +191,7 @@ h3.highlighting {
   #mobile-img-removed {
     display: none;
   }
-  // .video-gallery {
-  //   // bottom: 15% !important;
-  // }
+ 
 }
 ::ng-deep {
   .Map {

@@ -128,7 +128,7 @@
 </div>
 
 <div class="main-content">
-  <router-outlet></router-outlet> 
+  <router-outlet></router-outlet>
 </div>
 
 
@@ -186,14 +186,7 @@
 
                 {{ "Download the APP" | translate }}
               </li>
-              <!-- <li
-                class="menu-item"
-                routerLink="/{{ translate.currentLang }}/your-account/saved"
-              >
-                <img src="assets/icons/setting.svg" alt="setting" />
 
-                {{ "Settings" | translate }}
-              </li> -->
               <li (click)="callLogout()" class="menu-item" style="border-top: 1px solid #eee">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
 
@@ -232,31 +225,7 @@
               {{ "header.contact-us" | translate }}
             </a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ "header.more" | translate }}
-            </a>
-            <ul class="dropdown-menu" id="navbarSupportedContent2">
-              <li>
-                <a class="dropdown-item" [routerLink]="['/', translate.currentLang, 'blogs']"
-                  routerLinkActive="active1">
-                  {{ "header.blog" | translate }}
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" [routerLink]="['/', translate.currentLang, 'faq']" routerLinkActive="active1">
-                  {{ "header.faq" | translate }}
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" [routerLink]="['/', translate.currentLang, 'about']"
-                  routerLinkActive="active1">
-                  {{ "header.about" | translate }}
-                </a>
-              </li>
-            </ul>
-          </li>
-          <br><br><br> -->
+        
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ "header.more" | translate }}

@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class PacakagesSearchComponent implements OnInit {
   packages: any = [];
-  selectedTabId: number = 0; // Initially select the first tab
+  selectedTabId: number = 0; 
   showAll: boolean = false;
 
   showAllTrips() {
@@ -29,7 +29,7 @@ export class PacakagesSearchComponent implements OnInit {
     this.httpService.get(environment.marsa, 'package').subscribe({
       next: (res: any) => {
         this.packages = res.Packeges;
-        
+
       },
       error: (error: any) => {
         console.error('Error fetching data:', error);
@@ -42,7 +42,7 @@ export class PacakagesSearchComponent implements OnInit {
   }
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-    return imageName || 'Unknown photo'; 
+    return imageName || 'Unknown photo';
   }
 
   openPackModal(packageId: number) {

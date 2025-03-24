@@ -10,7 +10,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* حل التداخل مع المحتوى المتغير */
 
 
 .nav-item a {
@@ -261,17 +260,6 @@ ul.menu-login {
   background-color: #ddd;
 }
 
-/*
-::ng-deep {
-    .ng-select {
-        position: relative;
-        display: block;
-        box-sizing: border-box;
-        color: #0DB1FF;
-        padding: 10px;
-    }
-}
-*/
 ::ng-deep {
   .ng-select {
     position: relative;
@@ -352,9 +340,9 @@ ul.menu-login {
 /********************************/
 @media (max-width: 992px) {
   .main-content {
-    padding-top: 70px; 
+    padding-top: 70px;
   }
-  
+
   .nav-item a {
     border-bottom: 1px solid #cccccc;
     border-right: 1px solid #eee;
@@ -384,19 +372,7 @@ ul.menu-login {
 }
 
 @media (min-width: 768.98px) and (max-width: 992px) {
-  /*form {
-        margin-top: 10px;
-        width: 100% !important;
-
-        input {
-            width: 100% !important;
-        }
-
-        .search {
-            right: 0 !important;
-            left: auto !important;
-        }
-    }*/
+ 
   ul {
     li {
       margin-bottom: 18px;

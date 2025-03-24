@@ -69,7 +69,7 @@ private dataService: DataService,
   returnDate: any;
 
    ngOnInit(): void {
-   
+
 
       this.filteredFromAirports = this.transferDetails?.airports || [];
       this.filteredFromHotels = this.transferDetails?.hotel || [];
@@ -169,8 +169,6 @@ private dataService: DataService,
       this.persons--;
     }
   }
-
-
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
@@ -249,21 +247,8 @@ private dataService: DataService,
       containerElement.scrollLeft = activeElementRight - containerWidth + 120;
     }
   }
-
-  // ngOnInit() {
-
-  //   this.httpService.get('marsa', 'place').subscribe({
-  //     next: (res: any) => {
-  //       this.destination = res.places;
-  //     },
-  //   });
-  // }
-
-
-
   seePrice() {
     if (!this.isLogin) {
-      // this.dialogRef.close();
       this.toastr.info('Please login first ', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -299,23 +284,11 @@ private dataService: DataService,
       return;
     }
 
-    // if (!this.date || (typeof this.date === 'string' && this.date.trim() === '')) {
-    //   this.toastr.info('Please enter date ', '', {
-    //     disableTimeOut: false,
-    //     titleClass: 'toastr_title',
-    //     messageClass: 'toastr_message',
-    //     timeOut: 5000,
-    //     closeButton: true,
-    //   });
-    //   return;
-    // }
-
     else {
       let body: any = {
         from_id: this.fromId,
         to_id: this.toId,
         date: this.date,
-        // pickuptime: this.pickuptime,
         person: this.persons,
       };
 

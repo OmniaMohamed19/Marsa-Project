@@ -246,18 +246,7 @@
 
                 {{ "Download the APP" | translate }}
               </li>
-              <!-- <li
-                class="menu-item"
-                routerLink="/{{ translate.currentLang }}/your-account/saved"
-              >
-                <img
-                  src="assets/icons/setting.svg"
-                  alt="setting"
-                  loading="lazy"
-                />
 
-                {{ "Settings" | translate }}
-              </li> -->
               <li
                 class="menu-item"
                 (click)="callLogout()"
@@ -304,8 +293,8 @@
     </div>
 
     <app-navbar [isWhiteByDefault]="false" ></app-navbar>
-    
-  
+
+
   </div>
 </header>
 
@@ -338,7 +327,6 @@
   <!-- ========== END HERO ========== -->
 
   <app-destination></app-destination>
-  <!--<app-pacakages-search></app-pacakages-search>-->
   <app-package-edit></app-package-edit>
   <app-trending></app-trending>
   <app-upcoming></app-upcoming>

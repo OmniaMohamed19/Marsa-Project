@@ -198,10 +198,4 @@ export class NavbarComponent {
   toggleOffcanvas() {
     this.isOffCanvasOpen = false;
   }
-
-  // closeOffcanvas(event: MouseEvent) {
-  //   if ((event.target as HTMLElement).classList.contains('offcanvas-content')) {
-  //     this.isOffCanvasOpen = false;
-  //   }
-  // }
 }

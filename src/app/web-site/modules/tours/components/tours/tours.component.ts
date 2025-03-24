@@ -63,6 +63,7 @@ export class ToursComponent {
       } else {
         const storedPlaceId = localStorage.getItem('placeId');
         if (storedPlaceId) {
+          localStorage.removeItem('placeId'); // حذف القيم بعد استدعائها مباشرة
           this.searchDestination({ target: { value: storedPlaceId } });
         } else {
           this.getAllactivity();
@@ -72,6 +73,7 @@ export class ToursComponent {
 
     this.titleService.setTitle('Tours & Activities');
   }
+
 
   getAllactivity() {
     this._httpsService.get(environment.marsa, 'Activtes').subscribe({

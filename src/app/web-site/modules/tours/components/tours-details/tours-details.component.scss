@@ -7,12 +7,10 @@ h4,
   font-family: Lato;
   font-weight: 700;
 }
-// ::ng-deep  {
-// .tour-time .cdk-overlay-pane {
-//     width: 158.542px !important;
-//   }
-// }
 
+.travel-img1{
+  height: 500px
+}
 .custom-close {
   background: transparent !important; /* خلفية شفافة */
   border: none !important; /* إزالة الحدود */
@@ -252,7 +250,10 @@ h3.highlighting {
   z-index: 2;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 992px) and (-webkit-device-pixel-ratio: 2) {
+  .travel-img1{
+    height: 250px
+  }
   h3.highlighting{
     font-size: 19px;
     margin-top: 2rem;
@@ -266,9 +267,7 @@ h3.highlighting {
   #mobile-img-removed {
     display: none;
   }
-  // .video-gallery {
-  //   // bottom: 5% !important;
-  // }
+
 }
 ::ng-deep {
   .Map {

@@ -3,7 +3,6 @@
   <div class="row">
     <div class="col-lg-8 col-xl-9">
       <mat-horizontal-stepper #stepper [linear]="true">
-        <!-- [completed]="canProceedToCustomerInfo" -->
         <mat-step [label]="'Select Cabin'">
           <div class="">
             <h5
@@ -159,7 +158,6 @@
                           Available is {{ getValue(item?.available) }}
                         </p>
                       </div>
-                      <!-- <a class="btn outline-button mt-5 d-flex align-items-center justify-content-center font-weight-bold min-height-50 border-radius-3 border-width-2 px-2 px-5 py-2">Select</a> -->
                     </div>
                   </div>
                 </div>
@@ -826,29 +824,10 @@
                         }}$</span
                       >
                     </li>
-                    <!-- <li
-                        class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
-                      >
-                        <span class="font-weighted">Total</span>
-                        <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
-                      </li> -->
+
 
                     <ng-container *ngIf="!Coupons">
-                      <!-- <li
-                        *ngIf="Coupons"
-                        class="d-flex justify-content-between py-2 font-size-17"
-                        style="font-weight: 700"
-                      >
-                        <span style="font-weight: 700">Coupon</span>
-                        <span style="font-weight: 700"
-                          >{{ Coupons[0]?.amount }}$</span
-                        >
-                      </li> -->
-                      <!-- <li class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted">
-                        <span class="font-weighted">Total</span>
-                        <span>{{ Total }}$</span>
-                        <span>{{ responseFromAvailableOption?.TotlaPrice }}</span>
-                      </li> -->
+
                     </ng-container>
                     <li
                       class="d-flex justify-content-between py-2 font-size-17 mt-3 border-top-1 font-weighted"
@@ -975,9 +954,7 @@
                     </span>
                   </li>
 
-                  <!-- <li class="d-flex justify-content-between py-2">
-                                        <span class="font-weight-medium">Collective</span>
-                                    </li> -->
+                
 
                   <li class="d-flex justify-content-between py-2">
                     <span class="font-weight-medium">Adult</span>

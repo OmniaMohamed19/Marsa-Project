@@ -18,18 +18,11 @@ h3 {
 .owl-carousel .owl-item img{
    height: 65vh;
 }
-
-
 ::ng-deep {
   .my-tours.single-item .owl-item {
     width: 350px !important;
   }
-  // .owl-item {
-  //   width: 350px !important;
-  // }
 }
-
-
 h3::after {
   content: "";
   position: absolute;
@@ -39,7 +32,6 @@ h3::after {
   top: 100%;
   left: 50px;
 }
-
 .yellow-star {
   color: #ffd700 !important;
 }
@@ -197,7 +189,6 @@ section {
 }
 
 .imgBox {
-  /* now a container for the image */
   display: inline-block; /* shrink wrap to image */
   overflow: hidden; /* hide the excess */
   height: 200px;

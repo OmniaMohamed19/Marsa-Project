@@ -20,8 +20,8 @@ div.title h3::after {
 
 .tabs-bg{
   background-image: url(../../../../../assets/images/bgPackages.webp);
-  background-position: center center; 
-  background-size: cover; 
+  background-position: center center;
+  background-size: cover;
   height: 743px;
 }
 /**********************************/
@@ -39,9 +39,4 @@ div.title h3::after {
   .tabs-bg{
      height: 80vh;
   }
-}
-@media screen and (max-width: 1400px){
-  /*.tabs-bg{
-     height: 100vh;
-  }*/
 }
