@@ -13,6 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from 'primeng/image';
 import { PaginatorModule } from 'primeng/paginator';
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     LandingToursComponent,
@@ -26,6 +27,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CommonModule,
     ToursRoutingModule,
     SharedModule,
+    CalendarModule,
     MatDialogModule,
     MatSliderModule,
     GalleriaModule,
