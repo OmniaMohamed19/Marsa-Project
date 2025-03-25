@@ -22,7 +22,7 @@ import { environment } from '../../../../../../environments/environment.prod';
 import { ImageSliderModalComponent } from '../../../../../shared/sliders/image-slider-modal/image-slider-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BoatSliderModalComponent } from '../../../../../shared/sliders/boat-slider-modal/boat-slider-modal.component';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -591,7 +591,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   private dialogRef!: MatDialogRef<any>;
-  
+
     // Method to open the modal
     openVideotrip(): void {
       this.dialogRef =this.dialog.open(this.videoModal, {
@@ -769,9 +769,31 @@ closeVideoModal(): void {
     // Return days that are not in the selectedDays set
     return [];
   }
-  addEvent(event: MatDatepickerInputEvent<Date>): void {
+  addEvent2(event: MatDatepickerInputEvent<Date>): void {
     this.formattedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
   }
+
+  // في component.ts
+// تحديد التاريخ الأدنى مع استبعاد الأيام الممنوعة
+minAllowedDate: Date = (() => {
+  const today = new Date();
+  const allDays = [0, 1, 2, 3, 4, 5, 6];
+  const availableDays = allDays.filter(day => !this.disabledDays.includes(day));
+
+  if (availableDays.length === 0) {
+    return today;
+  }
+
+  while (!availableDays.includes(today.getDay())) {
+    today.setDate(today.getDate() + 1);
+  }
+
+  return today;
+})();
+  addEvent(date: Date) {
+    this.formattedDate = this.datePipe.transform(date, 'dd/MM/yyyy');
+  }
+
 
   addAvailableOptions() {
     if (this.selectedDateControl.invalid) {
