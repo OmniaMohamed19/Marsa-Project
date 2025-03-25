@@ -776,19 +776,28 @@ closeVideoModal(): void {
   // في component.ts
 // تحديد التاريخ الأدنى مع استبعاد الأيام الممنوعة
 minAllowedDate: Date = (() => {
-  const today = new Date();
-  const allDays = [0, 1, 2, 3, 4, 5, 6];
-  const availableDays = allDays.filter(day => !this.disabledDays.includes(day));
+  console.log('DisabledDays:', this.disabledDays); // تأكد من المحتوى
 
-  if (availableDays.length === 0) {
+  const today = new Date();
+
+  // التأكد من وجود قيم في disabledDays
+  if (!this.disabledDays || this.disabledDays.length === 0) {
     return today;
   }
 
-  while (!availableDays.includes(today.getDay())) {
-    today.setDate(today.getDate() + 1);
+  // البحث عن أول تاريخ غير معطل
+  let currentDate = new Date(today);
+  for (let i = 0; i < 30; i++) {
+    console.log('Checking date:', currentDate, 'Day:', currentDate.getDay()); 
+
+    if (!this.disabledDays.includes(currentDate.getDay())) {
+      return currentDate;
+    }
+
+    currentDate.setDate(currentDate.getDate() + 1);
   }
 
-  return today;
+  return today; // العودة لليوم الحالي كملاذ أخير
 })();
   addEvent(date: Date) {
     this.formattedDate = this.datePipe.transform(date, 'dd/MM/yyyy');
