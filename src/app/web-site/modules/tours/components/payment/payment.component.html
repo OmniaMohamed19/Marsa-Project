@@ -214,8 +214,6 @@
 
                   <div class="w-100"></div>
 
-
-                
                   <div class="w-100"></div>
                   <p>Do you want a pick up services ?</p>
                   <div class="d-flex gap-3 flex-wrap mb-2">
@@ -564,25 +562,27 @@
                         </div>
 
                         <a
-                        (click)="edit ? confirmEdit($event) : confirmBookingByCard($event)"
-                        class="btn payment text-white w-100 py-3"
-                        [ngStyle]="{
-                          'cursor': isDisable ? 'not-allowed' : 'pointer',
-                          'pointer-events': isDisable ? 'none' : 'auto',
-                          'opacity': isDisable ? '0.6' : '1'
-                        }"
-                      >
-                        <span *ngIf="isLoading">
-                          <i class="fa fa-spinner fa-spin"></i> Loading...
-                        </span>
-                        <span *ngIf="!isLoading">
-                          {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
-                        </span>
-                      </a>
+                          (click)="
+                            edit
+                              ? confirmEdit($event)
+                              : confirmBookingByCard($event)
+                          "
+                          class="btn payment text-white w-100 py-3"
+                          [ngStyle]="{
+                            cursor: isDisable ? 'not-allowed' : 'pointer',
+                            'pointer-events': isDisable ? 'none' : 'auto',
+                            opacity: isDisable ? '0.6' : '1'
+                          }"
+                        >
+                          <span *ngIf="isLoading">
+                            <i class="fa fa-spinner fa-spin"></i> Loading...
+                          </span>
+                          <span *ngIf="!isLoading">
+                            {{ edit ? "CONFIRM EDIT" : "CONFIRM BOOKING" }}
+                          </span>
+                        </a>
                       </div>
                     </div>
-
-
                   </form>
                 </div>
 
@@ -630,9 +630,9 @@
                         (click)="edit ? confirmEdit($event) : confirmBooking()"
                         class="btn payment text-white w-100 py-3"
                         [ngStyle]="{
-                          'cursor': isDisable ? 'not-allowed' : 'pointer',
+                          cursor: isDisable ? 'not-allowed' : 'pointer',
                           'pointer-events': isDisable ? 'none' : 'auto',
-                          'opacity': isDisable ? '0.6' : '1'
+                          opacity: isDisable ? '0.6' : '1'
                         }"
                       >
                         <span *ngIf="isLoading">
@@ -675,6 +675,14 @@
                 class="pe-2"
                 alt=""
               />{{ activityData?.Place }}
+            </div>
+            <div class=" text-gray-1">
+              <ul class="list-unstyled font-size-1 mb-0 font-size-16">
+                <li class="d-flex justify-content-between py-2">
+                  <span class="font-weight-medium">Date</span>
+                  <span class="text-secondary">{{ booking_date }}</span>
+                </li>
+              </ul>
             </div>
           </div>
           <!-- Basics Accordion -->

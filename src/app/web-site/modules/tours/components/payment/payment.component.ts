@@ -54,6 +54,7 @@ export class PaymentComponent {
   cardNumber: any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
+  @ViewChild('stepper') stepper: MatStepper | undefined;
 
   locationValue = '';
   latitudeValue: any;
@@ -134,6 +135,9 @@ export class PaymentComponent {
           console.error('Error:', error);
         }
       );
+    }
+    if (this.activityData.bookingOption.length == 0) {
+      this.goToNextStep(this.stepper);
     }
 
     this.getNationality();
@@ -330,7 +334,7 @@ export class PaymentComponent {
     return this.checkboxChecked && !this.personsInputValues[index];
   }
 
-  goToNextStep(stepper: MatStepper) {
+  goToNextStep(stepper: MatStepper | undefined) {
     const missingValues = this.activityData.bookingOption.map(
       (item: any, index: number) =>
         this.checkboxStatus[index] && !this.personsInputValues[index]
@@ -340,7 +344,7 @@ export class PaymentComponent {
       this.toastr.info('Please enter the number of people ');
       return;
     }
-    stepper.next();
+    stepper?.next();
     this.scrollToTop();
     const model = {
       trip_id: this.tripId,
@@ -494,7 +498,6 @@ export class PaymentComponent {
         .post(environment.marsa, 'bookinfo/' + this.Bookingid, model)
         .subscribe({
           next: (res: any) => {
-
             Swal.fire(
               'Your Booking has been send successfully.',
               'The Tour official will contact you as soon as possible. For Future communication, please reach out to info@marsawaves.com',
@@ -507,7 +510,6 @@ export class PaymentComponent {
             // }
           },
           error: (err: any) => {
-
             Swal.fire(
               'Booking Failed',
               'An error occurred while processing your booking. Please try again later.',
@@ -544,7 +546,6 @@ export class PaymentComponent {
           timeOut: 5000,
           closeButton: true,
         }
-
       );
       this.isDisable = false;
       this.isLoading = false;
@@ -690,7 +691,6 @@ export class PaymentComponent {
       );
       return; // Stop further execution
     }
-
 
     if (this.customerForm.valid) {
       this.isDisable = true;

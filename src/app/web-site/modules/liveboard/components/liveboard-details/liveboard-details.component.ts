@@ -542,7 +542,10 @@ export class LiveboardDetailsComponent {
     if (this.selectedDateControl && this.selectedDateControl.value) {
       let value = 0;
       if (this.selectedOption === 'collective') {
-        return this.liveabourdData?.PriceColective[key];
+        let data=this.liveabourdData.Schedules
+
+        return data.reduce((max: number, item: { Available: number; }) => 
+          item.Available > max ? item.Available : max, -Infinity);
       } else if (this.selectedOption === 'privete') {
         return this.liveabourdData?.Priceprivet[key];
       }
@@ -594,7 +597,7 @@ export class LiveboardDetailsComponent {
         return;
       }
     } else {
-      if (this.persons <= this.getValue('AdultMax')) {
+      if (this.persons < this.getValue('AdultMax')) {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum limit of ${this.getValue(
             'AdultMax'
