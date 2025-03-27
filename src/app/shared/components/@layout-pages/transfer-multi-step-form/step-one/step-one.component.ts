@@ -23,9 +23,7 @@ export class StepOneComponent implements OnInit {
   country_Code:any;
   phoneNumber: any;
   bookdetail: any;
-  adultCount = 0;
-  childCount = 0;
-  infantCount = 0;
+  personCount = 0;
   selectedCarId: any;
   return_date: any;
   return_time: any;
@@ -70,7 +68,7 @@ export class StepOneComponent implements OnInit {
     countrycode:'',
     date: '',
     pickuptime: '',
-    personsTotal: 0,
+    personTotal: 0,
     specialRequirements: '',
     selectedCarId: null,
     email: ''
@@ -152,11 +150,9 @@ export class StepOneComponent implements OnInit {
       this.formData.selectedCarId = this.selectedCar.id;  // Set the car ID in formData
     }
 
-    // Set other form fields from responseData
     this.formData.from = this.responseData?.booking?.from || '';
     this.formData.to = this.responseData?.booking?.to || '';
-    // this.formData.pickuptime = this.bookdetail?.pickuptime || '';
-   // this.formData.date = this.bookdetail?.date || '';
+   this.formData.personTotal=this.bookdetail?.person;
     const PicupdateString = this.bookdetail?.date || '';
 
 
@@ -172,18 +168,10 @@ export class StepOneComponent implements OnInit {
     }
 
   }
-  
+
   onCountryChange(event: any) {
     if (event) {
-     
-  
-      // تحديث كود الدولة في الفورم داتا
       this.formData.countrycode = event.dialCode;
-  
-      // تحديث رقم الهاتف بدون كائنات إضافية
-      //this.formData.phoneNumber = this.formData.phoneNumber?.nationalNumber?.replace('-', '') || '';
-   
-
     }
   }
   onPhoneNumberChange(event: any) {
@@ -191,17 +179,8 @@ export class StepOneComponent implements OnInit {
       this.formData.phoneNumber = event.nationalNumber || ''; // حفظ الرقم بدون كود الدولة
     }
   }
-  
-  
-  
-  
-  
-  
-  
 
-  // onPickUpTimeChange(newTime: any) {
-  //   this.formData.pickuptime = newTime;
-  // }
+
   getImageName(url: string): string {
     const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
@@ -283,9 +262,7 @@ export class StepOneComponent implements OnInit {
     }
   }
 
-  updatePersonsTotal() {
-    this.formData.personsTotal = this.adultCount + this.childCount + this.infantCount;
-  }
+
 
   previousStep(): void {
     this.previous.emit();

@@ -7,7 +7,8 @@
         <ng-container *ngFor="let item of responseData.car">
           <ng-template carouselSlide>
             <div class="car custom-carousel-item" (click)="onCarClick($event, item.id)"
-              [class.active]="selectedCarId === item.id">
+              [class.active]="selectedCarId === item.id ||
+              (this.formData.personTotal === item.people ||  item.people === this.formData.personTotal  +1)">
 
               <img [src]="item.cover" [alt]="getImageName(item.cover)" class="img-fluid" style="height: 200px;
                  width: 400px;
