@@ -7,7 +7,7 @@
     <div class="row justify-content-center py-xl-4">
       <!-- Info -->
       <div class="py-xl-10 py-5">
-        <h1 class="font-size-40 font-size-xs-30 text-white font-weight-bold mb-0">Blog Single</h1>
+        <h1 class="font-size-40 font-size-xs-30 text-white font-weight-bold mb-0">{{blog?.title}}</h1>
         <nav aria-label="breadcrumb ">
           <ol class="breadcrumb breadcrumb-no-gutter mb-0 d-flex justify-content-center py-3">
             <li class="breadcrumb-item font-size-14"><a class="text-white" [routerLink]="['/']">Home</a>
@@ -15,7 +15,7 @@
             <li class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white " aria-current="page"
               [routerLink]="['/' , translate.currentLang , 'blogs']">Blogs</li>
             <li class="breadcrumb-item custom-breadcrumb-item font-size-14 text-white " aria-current="page">
-              Blog Single</li>
+              {{blog?.title}}</li>
           </ol>
         </nav>
       </div>

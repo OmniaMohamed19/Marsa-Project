@@ -74,8 +74,8 @@ export class BlogComponent implements OnInit {
         this.pages = Array.from({ length: this.last_page }, (_, i) => i + 1);
 
         this.allTags = this.blogs
-          .map((blog: { Tages: any; }) => blog.Tages || []) 
-          .flat(); 
+          .map((blog: { Tages: any; }) => blog.Tages || [])
+          .flat();
 
         this.allTags = Array.from(new Set(this.allTags));
         console.log( this.allTags)
@@ -162,7 +162,7 @@ export class BlogComponent implements OnInit {
         items: 1,
       },
     },
-    nav: true,
+    nav: false,
   };
 
 

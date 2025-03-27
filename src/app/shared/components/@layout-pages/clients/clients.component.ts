@@ -16,7 +16,7 @@ export class ClientsComponent {
     touchDrag: true,
     pullDrag: true,
     center: false,
-    dots: false,
+    dots: true,
     margin:60,
      autoplay: false,
     navSpeed: 700,
@@ -56,7 +56,7 @@ ngOnInit(): void {
           }
         });
       }
-      
+
       this.data = response;
     },
     error: (err) => {
@@ -69,29 +69,29 @@ adjustImageSize(event: any) {
   const container = img.parentElement;
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
-  
+
   // Get natural image dimensions
   const imgWidth = img.naturalWidth;
   const imgHeight = img.naturalHeight;
-  
+
   // Remove all classes first
   img.classList.remove('img-fill', 'img-contain', 'img-stretch');
-  
+
   // If image is too small (both dimensions smaller than container)
   if (imgWidth < containerWidth && imgHeight < containerHeight) {
     // Small images will be stretched to fill the container
     img.classList.add('img-stretch');
-  } 
+  }
   // If image is too large in either dimension
   else if (imgWidth > containerWidth || imgHeight > containerHeight) {
     // Large images will be contained to show the entire image
     img.classList.add('img-contain');
-  } 
+  }
   // Otherwise use cover
   else {
     img.classList.add('img-fill');
   }
-  
+
   // Alternatively, you could calculate a specific scale factor
   // if you want more precise control
 }

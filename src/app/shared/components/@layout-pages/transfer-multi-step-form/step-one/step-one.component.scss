@@ -3,9 +3,13 @@
   margin-right: 0.4rem !important;
 }
 
+.message textarea::placeholder {
+  color: rgb(199, 196, 196);
+  opacity: 1;
+}
+
 ::ng-deep{
   .phone #phone {
-
   border: 1px solid #77838f !important;
 }
 .phone .country-dropdown{
