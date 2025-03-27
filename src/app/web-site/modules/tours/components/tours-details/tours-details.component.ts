@@ -22,7 +22,10 @@ import { environment } from '../../../../../../environments/environment.prod';
 import { ImageSliderModalComponent } from '../../../../../shared/sliders/image-slider-modal/image-slider-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BoatSliderModalComponent } from '../../../../../shared/sliders/boat-slider-modal/boat-slider-modal.component';
-import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatDatepickerInputEvent,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -592,19 +595,19 @@ export class ToursDetailsComponent implements AfterViewInit {
 
   private dialogRef!: MatDialogRef<any>;
 
-    // Method to open the modal
-    openVideotrip(): void {
-      this.dialogRef =this.dialog.open(this.videoModal, {
+  // Method to open the modal
+  openVideotrip(): void {
+    this.dialogRef = this.dialog.open(this.videoModal, {
       width: '100%',
       height: '70%',
     });
   }
-// Method to close the modal
-closeVideoModal(): void {
-  if (this.dialogRef) {
-    this.dialogRef.close();
+  // Method to close the modal
+  closeVideoModal(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
-}
   openMainImagesModal(): void {
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
       width: '70%',
@@ -630,10 +633,9 @@ closeVideoModal(): void {
     );
   }
 
-
   // Method to open the modal
   openVideoBoat(): void {
-    this.dialogRef =this.dialog.open(this.videoBoatModal, {
+    this.dialogRef = this.dialog.open(this.videoBoatModal, {
       width: '100%',
       height: '70%',
     });
@@ -769,40 +771,33 @@ closeVideoModal(): void {
     // Return days that are not in the selectedDays set
     return [];
   }
+
+  // في component.ts
+  // تحديد التاريخ الأدنى مع استبعاد الأيام الممنوعة
+  minAllowedDate: Date = (() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to midnight for accurate comparison
+
+    // Ensure disabledDays is initialized
+    if (!this.disabledDays || this.disabledDays.length === 0) {
+      return today; // If no disabled days, allow today
+    }
+
+    // Find the first available date
+    let currentDate = new Date(today);
+    while (this.disabledDays.includes(currentDate.getDay())) {
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return currentDate; // Return the first allowed date
+  })();
+
   addEvent2(event: MatDatepickerInputEvent<Date>): void {
     this.formattedDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
   }
-
-  // في component.ts
-// تحديد التاريخ الأدنى مع استبعاد الأيام الممنوعة
-minAllowedDate: Date = (() => {
-  console.log('DisabledDays:', this.disabledDays); // تأكد من المحتوى
-
-  const today = new Date();
-
-  // التأكد من وجود قيم في disabledDays
-  if (!this.disabledDays || this.disabledDays.length === 0) {
-    return today;
-  }
-
-  // البحث عن أول تاريخ غير معطل
-  let currentDate = new Date(today);
-  for (let i = 0; i < 30; i++) {
-    console.log('Checking date:', currentDate, 'Day:', currentDate.getDay()); 
-
-    if (!this.disabledDays.includes(currentDate.getDay())) {
-      return currentDate;
-    }
-
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  return today; // العودة لليوم الحالي كملاذ أخير
-})();
   addEvent(date: Date) {
     this.formattedDate = this.datePipe.transform(date, 'dd/MM/yyyy');
   }
-
 
   addAvailableOptions() {
     if (this.selectedDateControl.invalid) {
