@@ -451,7 +451,7 @@ export class LiveboardDetailsComponent {
 
   // Method to open the modal
   openVideoBoat(): void {
-    this.dialogRef =this.dialog.open(this.videoBoatModal, {
+    this.dialogRef = this.dialog.open(this.videoBoatModal, {
       width: '100%',
       height: '70%',
     });
@@ -487,10 +487,26 @@ export class LiveboardDetailsComponent {
         );
       }
     } else {
-      setTimeout(() => {
-        this.persons++;
-        this.cdr.detectChanges();
-      });
+      if (this.persons < this.getValue('AdultMax')) {
+        setTimeout(() => {
+          this.persons++;
+          this.cdr.detectChanges();
+        });
+      } else {
+        this.toastr.info(
+          `Sorry, you cannot exceed the maximum limit of ${this.getValue(
+            'AdultMax'
+          )}. Please adjust the number.`,
+          '',
+          {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          }
+        );
+      }
     }
   }
 
@@ -515,10 +531,10 @@ export class LiveboardDetailsComponent {
         );
       }
     } else {
-      if (this.persons <= this.getValue('AdultMax')) {
+      if (this.persons <= this.getValue('Adultmin')) {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum limit of ${this.getValue(
-            'AdultMax'
+            'Adultmin'
           )}. Please adjust the number.`,
           '',
           {
@@ -542,10 +558,13 @@ export class LiveboardDetailsComponent {
     if (this.selectedDateControl && this.selectedDateControl.value) {
       let value = 0;
       if (this.selectedOption === 'collective') {
-        let data=this.liveabourdData.Schedules
+        let data = this.liveabourdData.Schedules;
 
-        return data.reduce((max: number, item: { Available: number; }) => 
-          item.Available > max ? item.Available : max, -Infinity);
+        return data.reduce(
+          (max: number, item: { Available: number }) =>
+            item.Available > max ? item.Available : max,
+          -Infinity
+        );
       } else if (this.selectedOption === 'privete') {
         return this.liveabourdData?.Priceprivet[key];
       }
