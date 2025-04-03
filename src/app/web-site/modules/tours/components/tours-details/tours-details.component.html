@@ -1392,17 +1392,16 @@
                     <span class="d-block">Date</span>
 
                     <p-calendar
-  [formControl]="selectedDateControl"
-  [showIcon]="true"
-  class="custom-calendar"
-  [readonlyInput]="true"
-  (onSelect)="addEvent($event)"
-  [touchUI]="true"
-  [appendTo]="'body'"
-  [minDate]="minAllowedDate"
-  [disabledDays]="disabledDays"
-></p-calendar>
-
+                      [formControl]="selectedDateControl"
+                      [showIcon]="true"
+                      class="custom-calendar"
+                      [readonlyInput]="true"
+                      (onSelect)="addEvent($event)"
+                      [touchUI]="true"
+                      [appendTo]="'body'"
+                      [minDate]="minAllowedDate"
+                      [disabledDays]="disabledDays"
+                    ></p-calendar>
 
                     <ng-container
                       class="tour-time"
