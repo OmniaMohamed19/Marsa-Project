@@ -210,7 +210,24 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.setupIntersectionObserver();
   }
 
-  scrollTo(tabId: string) {
+  scrollTo(tabId: string, tab?: boolean, index?: number) {
+    console.log(index);
+
+    if (tab && index !== 0) {
+      const tabElement = document.getElementById(tabId);
+      if (tabElement) {
+        const elementRect = tabElement.getBoundingClientRect();
+        const offset = window.scrollY + elementRect.top - 950; // Adjust offset as needed
+
+        window.scrollTo({
+          top: offset,
+          behavior: 'smooth',
+        });
+      } else {
+        console.error(`Element with ID ${tabId} not found.`);
+      }
+      return;
+    }
     this.activeTabId = tabId;
     const tabElement = document.getElementById(tabId);
 
@@ -898,7 +915,9 @@ export class ToursDetailsComponent implements AfterViewInit {
     );
   }
 
-  bookNow(avilable_option_id: number) {
+  bookNow(avilable_option_id: number, index?: number) {
+    console.log(index);
+
     if (!this.availabilityChecked) {
       this.toastr.info(
         'Please choose a date and click on "Check availability" first.'
@@ -915,6 +934,7 @@ export class ToursDetailsComponent implements AfterViewInit {
 
     if (this.bookedOptionId === avilable_option_id) {
       this.showBookingOption = !this.showBookingOption; // Toggle booking option
+      // this.scrollTo('openOption' + avilable_option_id + index, true, index);
       const model = this.createBookingModel(avilable_option_id);
       this._httpService
         .post(environment.marsa, 'Activtes/AvailableOption/price', model)
@@ -925,6 +945,7 @@ export class ToursDetailsComponent implements AfterViewInit {
           },
         });
     } else {
+      this.scrollTo('openOption' + avilable_option_id + index, true, index);
       this.bookedOptionId = avilable_option_id;
       this.showBookingOption = true;
 
