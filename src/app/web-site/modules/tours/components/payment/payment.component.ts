@@ -84,7 +84,7 @@ export class PaymentComponent {
 
   @ViewChild('myDiv') myDiv!: ElementRef;
   scrollToTop() {
-    this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    this.myDiv?.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngOnInit(): void {
     this.titleService.setTitle('Confirm Booking');

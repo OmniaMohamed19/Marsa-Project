@@ -269,9 +269,9 @@
         </div>
 
         <!-- details section for taps -->
-        <div class="container p-0" style="max-width: 100%">
+        <div  class="container p-0" style="max-width: 100%">
           <!-- Tabs -->
-          <div class="sticky-nav">
+          <div *ngIf="!isMobile" class="sticky-nav">
             <ul
               class="list-unstyled d-flex justify-content-around navs tours sticky-nav"
               role="tablist"
@@ -569,7 +569,7 @@
                     Today</span
                   >
                   <div
-                    class="w-100 mt-3 ms-5"
+                    class="w-100 mt-sm-3 ms-sm-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
                   >
                     <small>From </small>
@@ -618,7 +618,7 @@
                     </small>
                   </div>
                   <div
-                    class="w-100 mt-3 ms-5"
+                    class="w-100 mt-sm-3 ms-sm-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount == 0"
                   >
                     <small>From</small>
