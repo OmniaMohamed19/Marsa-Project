@@ -271,7 +271,7 @@
         <!-- details section for taps -->
         <div class="container p-0" style="max-width: 100%">
 
-          <div  class="sticky-nav">
+          <div *ngIf="!isMobile" class="sticky-nav">
             <ul
               class="list-unstyled d-flex justify-content-around navs tours sticky-nav"
               role="tablist"
@@ -445,7 +445,11 @@
             <h5 class="heading">Available Options</h5>
             <div
               class="card p-5 my-5"
-              *ngFor="let availableOption of activityData?.AvailableOption"
+              *ngFor="
+                let availableOption of activityData?.AvailableOption;
+                let i = index
+              "
+              [id]="'openOption' + availableOption?.id + i"
             >
               <div class="row">
                 <div class="col-md-8 option">
@@ -576,7 +580,7 @@
                     Today</span
                   >
                   <div
-                    class="w-100 mt-3 ms-5"
+                    class="w-100 mt-sm-3 ms-sm-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount > 0"
                   >
                     <small>From </small>
@@ -625,7 +629,7 @@
                     </small>
                   </div>
                   <div
-                    class="w-100 mt-3 ms-5"
+                    class="w-100 mt-sm-3 ms-sm-5"
                     *ngIf="availableOption?.PriceColective.AdultDiscount == 0"
                   >
                     <small>From</small>
@@ -703,7 +707,7 @@
                 <div *ngIf="selectedOption === 'privete'; else elseTemplate">
                   <button
                     class="book1 d-flex align-items-center fw-bold"
-                    (click)="bookNow(availableOption?.id)"
+                    (click)="bookNow(availableOption?.id, i)"
                   >
                     <img
                       style="width: 25px; height: 15px"
@@ -722,7 +726,7 @@
                 <ng-template #elseTemplate>
                   <button
                     class="book1 d-flex align-items-center fw-bold"
-                    (click)="bookNow(availableOption?.id)"
+                    (click)="bookNow(availableOption?.id, i)"
                   >
                     <img
                       style="width: 25px; height: 15px"
@@ -1390,17 +1394,16 @@
                     <span class="d-block">Date</span>
 
                     <p-calendar
-  [formControl]="selectedDateControl"
-  [showIcon]="true"
-  class="custom-calendar"
-  [readonlyInput]="true"
-  (onSelect)="addEvent($event)"
-  [touchUI]="true"
-  [appendTo]="'body'"
-  [minDate]="minAllowedDate"
-  [disabledDays]="disabledDays"
-></p-calendar>
-
+                      [formControl]="selectedDateControl"
+                      [showIcon]="true"
+                      class="custom-calendar"
+                      [readonlyInput]="true"
+                      (onSelect)="addEvent($event)"
+                      [touchUI]="true"
+                      [appendTo]="'body'"
+                      [minDate]="minAllowedDate"
+                      [disabledDays]="disabledDays"
+                    ></p-calendar>
 
                     <ng-container
                       class="tour-time"

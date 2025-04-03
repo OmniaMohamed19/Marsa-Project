@@ -541,3 +541,12 @@ body {
 .mat-mdc-dialog-container .mdc-dialog__surface {
   background-color: transparent !important;
 }
+
+@media (max-width: 767px) {
+  .mat-step-label {
+    display: none !important;
+  }
+}
+// .mat-horizontal-stepper-header-container {
+//   flex-wrap: wrap;
+// }

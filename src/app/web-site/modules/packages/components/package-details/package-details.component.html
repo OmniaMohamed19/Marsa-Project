@@ -151,7 +151,7 @@
     <!-- details section for taps -->
     <div class="container p-2">
       <!-- Tabs -->
-      <div class="sticky-nav">
+      <div *ngIf="!isMobile" class="sticky-nav">
         <ul
           class="list-unstyled d-flex justify-content-around navs tours sticky-nav"
           role="tablist"
@@ -871,7 +871,7 @@
             </div>
           </div>
 
-          
+
           <div class="text-center">
             <a
               class="btn check text-white d-flex align-items-center justify-content-center height-60 w-100 mb-xl-0 mb-lg-1"
