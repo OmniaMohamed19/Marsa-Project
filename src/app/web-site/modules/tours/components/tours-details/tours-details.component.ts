@@ -199,7 +199,7 @@ export class ToursDetailsComponent implements AfterViewInit {
   @ViewChild('myDiv') myDiv!: ElementRef;
 
   scrollToTop() {
-    this.myDiv.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    this.myDiv?.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   ngAfterViewInit() {
     if (this.videoElement?.nativeElement) {
