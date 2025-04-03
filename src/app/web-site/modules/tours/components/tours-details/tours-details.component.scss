@@ -249,6 +249,12 @@ h5 {
   z-index: 200;
   background-color: #fff;
   margin-top: 20px;
+  overflow-x: auto;
+}
+.sticky-nav ul {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
 }
 h3.highlighting {
   color: #004796;
@@ -307,7 +313,7 @@ h3.highlighting {
   z-index: 2;
 }
 
-@media (max-width: 992px) and (-webkit-device-pixel-ratio: 2) {
+@media (max-width: 992px){
   .travel-img1{
     height: 250px
   }
@@ -315,16 +321,15 @@ h3.highlighting {
     font-size: 19px;
     margin-top: 2rem;
   }
-  .sticky-nav {
-    display: none;
-  }
+  // .sticky-nav {
+  //   display: none;
+  // }
   #mobile-img {
     min-width: auto !important;
   }
   #mobile-img-removed {
     display: none;
   }
-
 }
 ::ng-deep {
   .Map {
@@ -555,4 +560,13 @@ h3.highlighting {
   background-color: rgba(117, 110, 110, 0.658); /* Optional: Add background for better visibility */
   border: none;
   cursor: pointer;
+}
+@supports (-webkit-touch-callout: none) {
+  .travel-img1{
+    height: 250px;
+  }
+  .travel-img1, .secondary-img {
+      object-position: center;
+      width: 100%;
+  }
 }

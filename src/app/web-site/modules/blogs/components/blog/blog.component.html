@@ -122,19 +122,18 @@
             <div class="border border-color-7 rounded p-4">
               <h6 class="tags mx-1 mb-3 pb-1">Tags</h6>
 
-              <div class="d-flex flex-wrap">
-
+              <div class="d-flex flex-wrap" >
                 <ng-container *ngFor="let tag of allTags">
-
                   <a
-                  class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
-                  style="white-space: normal; word-break: break-word;"
-                >
-                   {{tag}}
-                </a>
-
+                    class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
+                    style="white-space: normal; word-break: break-word;"
+                    [routerLink]="['/', translate.currentLang, 'blogs', 'blogSignal', tag.blogId]"
+                  >
+                    {{tag.name}}, {{tag.name2}}, {{tag.name3}}
+                  </a>
                 </ng-container>
               </div>
+
             </div>
           </div>
 
@@ -275,15 +274,13 @@
             <h6 class="tags mx-1 mb-3 pb-1">Tags</h6>
             <div class="d-flex flex-wrap">
               <ng-container *ngFor="let tag of allTags">
-
-                  <a
+                <a
                   class="btn d-flex align-items-center justify-content-center btn-gray-1 rounded-xs transition-3d-hover font-size-14 text-gray-1 width-auto mr-2 mb-2 text-wrap"
                   style="white-space: normal; word-break: break-word;"
+                  [routerLink]="['/', translate.currentLang, 'blogs', 'blogSignal', tag.blogId]"
                 >
-                   {{tag}}
+                  {{tag.name}}, {{tag.name2}}, {{tag.name3}}
                 </a>
-
-
               </ng-container>
             </div>
           </div>

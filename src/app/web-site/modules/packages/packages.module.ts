@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PackageDetailsComponent } from './components/package-details/package-details.component';
 import { PackagePaymentComponent } from './components/package-payment/package-payment.component';
 import { PackageConfirmComponent } from './components/package-confirm/package-confirm.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PackageConfirmComponent } from './components/package-confirm/package-co
     CommonModule,
     PackagesRoutingModule,
     SharedModule,
+      CalendarModule,
   ],
   providers:[DatePipe ]
 })

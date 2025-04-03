@@ -206,7 +206,6 @@ export class ToursDetailsComponent implements AfterViewInit {
       this.videoElement.nativeElement.style.width = '100%';
       this.videoElement.nativeElement.style.height = '100%';
     }
-    //   // Initialize the active tab on load
     this.setupIntersectionObserver();
   }
 

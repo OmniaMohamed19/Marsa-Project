@@ -104,15 +104,15 @@
       </div>
     </div>
   </div>
-  <div class="bg-img-hero space-3 space-top-lg-4 space-bottom-lg-3" style="
-      background-image: url(../../../../../../assets/images/about.png);
-      background-position: center center;
-      background-size: cover;
-      height: 406px;
-    ">
+  <div class="bg-img-hero space-3 space-top-lg-4 space-bottom-lg-3"
+     [style.backgroundImage]="'url(' + data.aboutus?.chosse_us_background + ')'" style="
+     background-position: center center;
+     background-size: cover;
+     height: 406px;"
+    >
     <div class="text-center banner mt-xl-2 h-100 d-flex justify-content-center align-items-center flex-column vid">
-      <h5 class="mb-2">Travelling Highlights</h5>
-      <h6 class="mb-lg-5 opacity-7">Your New Travelling Idea</h6>
+      <h5 class="mb-2">Traveling Highlights</h5>
+      <h6 class="mb-lg-5 opacity-7">{{data.aboutus?.chosse_us_text}}</h6>
       <a class="js-fancybox d-inline-block u-media-player" data-src="//vimeo.com/167434033" data-speed="700"
         data-animate-in="zoomIn" data-animate-out="zoomOut" data-caption="MyTravel - Responsive Website Template"
         (click)="showDialog()">
@@ -177,7 +177,7 @@
         <h2 class="title mb-0">Deticated Team</h2>
       </div>
       <div class="row text-center pb-2 pt-5">
-      
+
         <owl-carousel-o [options]="aboutOptions" class="my-destination">
           <ng-container *ngFor="let item of data.team">
             <ng-template carouselSlide>

@@ -114,7 +114,7 @@ export class PackageDetailsComponent {
   // Define selectedDateControl as a FormControl
   selectedDateControl = new FormControl('', Validators.required);
   isTestDivScrolledIntoView: any;
-
+  today = new Date();
   constructor(
     private modalService: NgbModal,
     public translate: TranslateService,
@@ -133,6 +133,7 @@ export class PackageDetailsComponent {
     private renderer: Renderer2,
     private cdRef: ChangeDetectorRef
   ) {
+    this.today.setHours(0, 0, 0, 0);
     if (window.screen.width < 768) {
       this.isMobile = true;
     }
@@ -325,7 +326,7 @@ export class PackageDetailsComponent {
     return Math.round(price - (discount / 100) * price);
   }
 
-  calculateEndDate() {
+  calculateEndDate2() {
     if (!this.startDate || !this.duration) {
       return;
     }
@@ -365,7 +366,7 @@ export class PackageDetailsComponent {
     this.formattedEndDate = formattedEndDate;
   }
 
-  onStartDateChange(event: MatDatepickerInputEvent<Date>) {
+  onStartDateChange2(event: MatDatepickerInputEvent<Date>) {
     this.startDate = event.value;
     this.calculateEndDate();
     if (this.startDate) {
@@ -379,6 +380,62 @@ export class PackageDetailsComponent {
       this.selectedDateControl.setValue(null);
     }
     this.selectedDateControl.markAsTouched();
+  }
+
+  onStartDateChange(event: Date) {
+    this.startDate = event;
+    this.calculateEndDate();
+
+    if (this.startDate) {
+      this.selectedDateControl.setValue(this.startDate);
+      const formattedStartDate = this.datePipe.transform(
+        this.startDate,
+        'yyyy/MM/dd'
+      );
+      this.formattedStartDate = formattedStartDate;
+    } else {
+      this.selectedDateControl.setValue(null);
+    }
+    this.selectedDateControl.markAsTouched();
+  }
+
+  calculateEndDate() {
+    if (!this.startDate || !this.duration) {
+      return;
+    }
+
+    const durationParts = this.duration.split(' ');
+    const durationValue = parseInt(durationParts[0], 10);
+    const durationUnit = durationParts[1].toLowerCase();
+
+    const endDate = new Date(this.startDate);
+
+    switch (durationUnit) {
+      case 'day':
+      case 'days':
+        endDate.setDate(endDate.getDate() + durationValue - 1);
+        break;
+      case 'hour':
+      case 'hours':
+        endDate.setHours(endDate.getHours() + durationValue);
+        break;
+      case 'minute':
+      case 'minutes':
+        endDate.setMinutes(endDate.getMinutes() + durationValue);
+        break;
+      default:
+        console.error('Invalid duration unit');
+        return;
+    }
+
+    this.endDate = endDate;
+    console.log(this.endDate);
+
+    const formattedEndDate = this.datePipe.transform(
+      this.endDate,
+      'yyyy/MM/dd'
+    );
+    this.formattedEndDate = formattedEndDate;
   }
 
   dateFilter = (date: Date | null): boolean => {

@@ -91,7 +91,7 @@ export class StepOneComponent implements OnInit {
       this.userDetails = res?.userDashboard;
       this.phone = this.userDetails?.overviwe?.phonenumber;
       this.email = this.userDetails?.overviwe?.email
-      this.country_Code = this.userDetails?.overviwe?.countrycode; // حفظ كود الدولة
+      this.country_Code = this.userDetails?.overviwe?.countrycode;
 
       this.phoneNumber = '+' + this.userDetails?.overviwe?.countrycode + this.phone.replace(/\s/g, '');
       this.formData.phoneNumber = this.phoneNumber || '';
@@ -166,6 +166,10 @@ export class StepOneComponent implements OnInit {
     } else {
       this.formData.date  = '';
     }
+    if (this.responseData?.car && this.responseData.car.length > 0) {
+      const firstCar = this.responseData.car[0];
+      this.onCarClick(null, firstCar.id);
+    }
 
   }
 
@@ -196,11 +200,12 @@ export class StepOneComponent implements OnInit {
     if (selectedCarObject) {
       this.selectedCar = selectedCarObject;
       if (typeof window !== 'undefined' && window.localStorage) {
-
         localStorage.setItem('selectedCar', JSON.stringify(this.selectedCar));
       }
     }
   }
+
+ 
   // Function to proceed to the next step
   saveFormData(form: NgForm): void {
     let hasError = false; // متغير لتتبع الأخطاء
@@ -261,7 +266,6 @@ export class StepOneComponent implements OnInit {
       window.scrollTo(0, 0);
     }
   }
-
 
 
   previousStep(): void {

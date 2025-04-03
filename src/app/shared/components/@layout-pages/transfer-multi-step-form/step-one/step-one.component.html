@@ -4,24 +4,26 @@
     <div class="thin-heading"> Please select your car:</div>
     <div class="cars">
       <owl-carousel-o [options]="customOptions" class="owl-theme">
-        <ng-container *ngFor="let item of responseData.car">
+        <ng-container *ngFor="let item of responseData.car; let first = first">
           <ng-template carouselSlide>
-            <div class="car custom-carousel-item" (click)="onCarClick($event, item.id)"
-              [class.active]="selectedCarId === item.id ||
-              (this.formData.personTotal === item.people ||  item.people === this.formData.personTotal  +1)">
-
-              <img [src]="item.cover" [alt]="getImageName(item.cover)" class="img-fluid" style="height: 200px;
-                 width: 400px;
-                 margin: auto;" />
+            <div 
+              class="car custom-carousel-item" 
+              (click)="onCarClick($event, item.id)"
+              [class.active]="selectedCarId === item.id"
+            >
+              <img 
+                [src]="item.cover" 
+                [alt]="getImageName(item.cover)" 
+                class="img-fluid" 
+                style="height: 200px; width: 400px; margin: auto;" 
+              />
               <h2 class="text-center mt-3">{{ item.name }}</h2>
-
               <div class="car-data mb-3 mt-1">
                 <span>
                   <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-user"></i>
                 </span>
                 <span>Up to {{item.people}} people</span>
               </div>
-
               <div class="car-data">
                 <span>
                   <i style="color: #292D32; padding-right: 5px;" class="fa-solid fa-briefcase"></i>
@@ -38,8 +40,11 @@
                 <span>
                   <i style="color: #292D32; padding-right: 5px; padding-top: 10px;" class="fa-solid fa-tag "></i>
                 </span>
-                <span class="meet">Car price: <span style="font-weight: 700; font-size: 20px;
-    color: #2d303c;">$ {{item.price}} </span>
+                <span class="meet">
+                  Car price: 
+                  <span style="font-weight: 700; font-size: 20px; color: #2d303c;">
+                    $ {{item.price}} 
+                  </span>
                 </span>
               </div>
             </div>
@@ -187,7 +192,7 @@
           [customPlaceholder]="'Enter phone number'"
           [preferredCountries]="['de']"
           [(ngModel)]="formData.phoneNumber"
-          (ngModelChange)="formData.phoneNumber = '+' + formData.countrycode + ' ' + ($event?.nationalNumber || '')"
+          (ngModelChange)="formData.phoneNumber = ($event?.nationalNumber || '')"
           (countryChange)="onCountryChange($event)"></ngx-intl-tel-input>
           </div>
         </div>

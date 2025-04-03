@@ -644,7 +644,7 @@
               class="border-bottom border-width-2 border-color-1 pb-1 package-date"
             >
               <span class="d-block">Date</span>
-              <mat-form-field class="w-100" (click)="startPicker.open()">
+              <!-- <mat-form-field class="w-100" (click)="startPicker.open()">
                 <mat-label>Start Date</mat-label>
                 <input
                   matInput
@@ -663,9 +663,25 @@
                   #startPicker
                   panelClass="custom-datepicker-panel"
                 ></mat-datepicker>
-              </mat-form-field>
+              </mat-form-field> -->
+              <label for="endDate">Start date</label>
+             <p-calendar 
+              id="startDate"
+              [(ngModel)]="startDate"
+              [showIcon]="true"
+              [readonlyInput]="true"
+              [minDate]="today"
+              [touchUI]="true"
+             [appendTo]="'body'"
+              (onSelect)="onStartDateChange($event)"
+              dateFormat="yy/mm/dd"
+          
+               placeholder="Start Date"
+              [formControl]="selectedDateControl"
+            ></p-calendar> 
+              
 
-              <mat-form-field class="w-100" *ngIf="startDate">
+              <!-- <mat-form-field class="w-100" *ngIf="startDate">
                 <mat-label>End date</mat-label>
                 <input
                   matInput
@@ -683,8 +699,18 @@
                   #endPicker
                   panelClass="custom-datepicker-panel"
                 ></mat-datepicker>
-              </mat-form-field>
-
+              </mat-form-field> -->
+              <div class="p-field" *ngIf="startDate">
+                <label for="endDate">End Date</label>
+                <p-calendar 
+                  id="endDate"
+                  [(ngModel)]="endDate"
+                  [showIcon]="true"
+                  [readonlyInput]="true"
+                  dateFormat="yy/mm/dd"
+                  [disabled]="true"
+                ></p-calendar>
+              </div>
               <div
                 *ngIf="
                   selectedDateControl.invalid &&
@@ -951,7 +977,7 @@
                       class="border-bottom border-width-2 border-color-1 pb-1 package-date"
                     >
                       <span class="d-block">Date</span>
-                      <mat-form-field
+                       <mat-form-field
                         class="w-100"
                         (click)="startPicker.open()"
                       >
@@ -962,7 +988,7 @@
                           [matDatepicker]="startPicker"
                           [matDatepickerFilter]="dateFilter"
                           [formControl]="selectedDateControl"
-                          (dateInput)="onStartDateChange($event)"
+                          (dateInput)="onStartDateChange2($event)"
                           [readonly]="true"
                         />
                         <mat-datepicker-toggle
@@ -973,7 +999,7 @@
                           #startPicker
                           panelClass="custom-datepicker-panel"
                         ></mat-datepicker>
-                      </mat-form-field>
+                      </mat-form-field> 
 
                       <mat-form-field class="w-100" *ngIf="startDate">
                         <mat-label>End date</mat-label>

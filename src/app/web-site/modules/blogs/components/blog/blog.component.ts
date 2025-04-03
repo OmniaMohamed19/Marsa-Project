@@ -41,16 +41,54 @@ export class BlogComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Blogs');
-    this.getBlogs();
+    // this.getBlogs();
+    // console.log('All Tags:', this.allTags);
     this.getAbout();
+    this.pages = [];
+    this._httpService.get('marsa', `blog`, { page: this.page }).subscribe({
+      next: (response: any) => {
+        this.blogs = response?.Blogs?.data;
+        this.cover = response?.cover;
+        this.filteredBlogs = this.blogs;
+        this.allCategories = response?.allCategory;
+        this.last_page = response?.Blogs?.last_page;
+        this.productTotal = response?.Blogs?.total;
+        this.pages = Array.from({ length: this.last_page }, (_, i) => i + 1);
+  
+        // معالجة البيانات وتحويل الكائنات إلى نصوص
+        this.allTags = this.blogs.map((blog: any) => {
+          // التأكد من أن `Tage` مصفوفة، وإذا لم تكن كذلك، تحويلها إلى مصفوفة فارغة
+          const tags = Array.isArray(blog.Tage) 
+            ? blog.Tage.map((tag: { name: { toString: () => any; }; toString: () => any; } | null) => {
+                // إذا كان `tag` كائنًا، نحوله إلى نص JSON أو نأخذ قيمة `name` منه
+                if (typeof tag === 'object' && tag !== null) {
+                  return tag.name ? tag.name.toString() : JSON.stringify(tag);
+                }
+                return tag; // إذا كان نصًا عاديًا
+              }) 
+            : []; 
+  
+          // استخراج القيم وضمان عدم ظهور `undefined`
+          const [name, name2, name3] = tags;
+  
+          return {
+            name: name || '', 
+            name2: name2 || '',
+            name3: name3 || '',
+            blogId: blog.id
+          };
+        });
+      
+      },
+    });
     this.route.queryParams.subscribe((params: any) => {
       this.page = +params.page ? +params.page : 1;
 
       if (this.page) {
-        // this.updatePageQueryParam();
         this.getBlogs();
       }
     });
+      console.log('All Tags:', this.allTags);
   }
 
   getAbout() {
@@ -62,26 +100,9 @@ export class BlogComponent implements OnInit {
   }
 
   getBlogs() {
-    this.pages = [];
-    this._httpService.get('marsa', `blog`, { page: this.page }).subscribe({
-      next: (response: any) => {
-        this.blogs = response?.Blogs?.data;
-        this.cover = response?.cover;
-        this.filteredBlogs = this.blogs;
-        this.allCategories = response?.allCategory;
-        this.last_page = response?.Blogs?.last_page;
-        this.productTotal = response?.Blogs?.total;
-        this.pages = Array.from({ length: this.last_page }, (_, i) => i + 1);
-
-        this.allTags = this.blogs
-          .map((blog: { Tages: any; }) => blog.Tages || [])
-          .flat();
-
-        this.allTags = Array.from(new Set(this.allTags));
-        console.log( this.allTags)
-      },
-    });
+   
   }
+  
 
 
   next() {

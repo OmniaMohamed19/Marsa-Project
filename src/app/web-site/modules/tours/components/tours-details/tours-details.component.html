@@ -270,8 +270,8 @@
 
         <!-- details section for taps -->
         <div class="container p-0" style="max-width: 100%">
-          <!-- Tabs -->
-          <div class="sticky-nav">
+
+          <div  class="sticky-nav">
             <ul
               class="list-unstyled d-flex justify-content-around navs tours sticky-nav"
               role="tablist"
@@ -280,8 +280,9 @@
                 class="nav-item"
                 role="presentation"
                 [class.active]="activeTabId === 'description'"
+
               >
-                <button class="nav-link" (click)="scrollTo('description')">
+                <button class="nav-link" (click)="scrollTo('description')"  data-section="description">
                   Description
                 </button>
               </li>
@@ -289,8 +290,9 @@
                 class="nav-item"
                 role="presentation"
                 [class.active]="activeTabId === 'experience'"
+
               >
-                <button class="nav-link" (click)="scrollTo('experience')">
+                <button class="nav-link" (click)="scrollTo('experience')"  data-section="experience">
                   Experience
                 </button>
               </li>
@@ -298,8 +300,9 @@
                 class="nav-item"
                 role="presentation"
                 [class.active]="activeTabId === 'availableOptions'"
+
               >
-                <button class="nav-link" (click)="scrollTo('availableOptions')">
+                <button class="nav-link" (click)="scrollTo('availableOptions')"  data-section="availableOptions">
                   Available Options
                 </button>
               </li>
@@ -307,10 +310,12 @@
                 class="nav-item"
                 role="presentation"
                 [class.active]="activeTabId === 'importantInformation'"
+
               >
                 <button
                   class="nav-link"
                   (click)="scrollTo('importantInformation')"
+                  data-section="importantInformation"
                 >
                   Important Information
                 </button>
@@ -319,8 +324,9 @@
                 class="nav-item"
                 role="presentation"
                 [class.active]="activeTabId === 'showmap'"
+
               >
-                <button class="nav-link" (click)="scrollTo('showmap')">
+                <button class="nav-link" (click)="scrollTo('showmap')" data-section="showmap">
                   Map
                 </button>
               </li>
@@ -329,8 +335,9 @@
                 class="nav-item"
                 role="presentation"
                 [class.active]="activeTabId === 'boat'"
+
               >
-                <button class="nav-link" (click)="scrollTo('boat')">
+                <button class="nav-link" (click)="scrollTo('boat')" data-section="boat">
                   Boat
                 </button>
               </li>
@@ -893,84 +900,75 @@
               <h6>Traveler Photos</h6>
 
               <div class="row Traveler g-5">
-                <div class="col-md-5">
-                  <img
-                    class="travel-img1"
-                    [src]="happyGustImages[0]"
-                    [alt]="getImageName(happyGustImages[0])"
-                    style="cursor: pointer; max-width: 100%"
-                    (click)="imageClick(0)"
-                  />
-                </div>
-                <div class="col-md-7">
-                  <div class="row g-3">
-                    <!-- Display first three images -->
-                    <div
-                      class="col-md-6 position-relative"
-                      *ngFor="
-                        let image of remainingImages.slice(0, 3);
-                        let index = index
-                      "
-                      key="index"
-                    >
-                      <img
-                        [src]="image"
-                        [alt]="getImageName(image)"
-                        style="
-                          cursor: pointer;
-                          max-width: 100%;
-                          height: 240px;
-                          width: 100%;
-                        "
-                        (click)="imageClick(index + 1)"
-                      />
+    <div class="col-md-5">
+        <img
+            class="travel-img1 w-100 img-fluid"
+            [src]="happyGustImages[0]"
+            [alt]="getImageName(happyGustImages[0])"
+            style="cursor: pointer; object-fit: cover;"
+            (click)="imageClick(0)"
+        />
+    </div>
+    <div class="col-md-7">
+        <div class="row g-3">
+            <!-- الصور الباقية -->
+            <div
+                class="col-md-6 position-relative"
+                *ngFor="let image of remainingImages.slice(0, 3); let index = index"
+            >
+                <img
+                    class="w-100 img-fluid"
+                    [src]="image"
+                    [alt]="getImageName(image)"
+                    style="
+                        cursor: pointer;
+                        height: 240px;
+                        object-fit: cover;
+                        object-position: center;"
+                    (click)="imageClick(index + 1)"
+                />
+                <div class="overlay"></div>
+            </div>
 
-                      <div class="overlay"></div>
-                    </div>
+            <!-- الصورة الأخيرة -->
+            <div
+                class="col-md-6 position-relative pt-1"
+                *ngIf="remainingImages.length > 3"
+            >
+                <img
+                    class="w-100 img-fluid"
+                    [src]="remainingImages[3]"
+                    [alt]="getImageName(remainingImages[3])"
+                    style="
+                        cursor: pointer;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center;"
+                    (click)="imageClick(4)"
+                />
 
-                    <!-- Last Image -->
-                    <div
-                      class="col-md-6 position-relative pt-1"
-                      *ngIf="remainingImages.length > 3"
-                    >
-                      <img
-                        [src]="remainingImages[3]"
-                        [alt]="getImageName(remainingImages[3])"
-                        alt="tour"
-                        style="cursor: pointer; max-width: 100%; height: 100%"
-                        (click)="imageClick(4)"
-                      />
-
-                      <!-- Overlay and button -->
-                      <div class="see-more-container">
-                        <div class="position-relative">
-                          <!-- Overlay -->
-                          <div class="overlay"></div>
-                          <!-- Button -->
-                          <button
+                <!-- الoverlay والزر -->
+                <div class="see-more-container">
+                    <div class="position-relative">
+                        <div class="overlay"></div>
+                        <button
                             class="see-more-button"
                             (click)="imageClick(4)"
-                          >
+                        >
                             See More
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M8.9101 20.6695C8.7201 20.6695 8.5301 20.5995 8.3801 20.4495C8.0901 20.1595 8.0901 19.6795 8.3801 19.3895L14.9001 12.8695C15.3801 12.3895 15.3801 11.6095 14.9001 11.1295L8.3801 4.60953C8.0901 4.31953 8.0901 3.83953 8.3801 3.54953C8.6701 3.25953 9.1501 3.25953 9.4401 3.54953L15.9601 10.0695C16.4701 10.5795 16.7601 11.2695 16.7601 11.9995C16.7601 12.7295 16.4801 13.4195 15.9601 13.9295L9.4401 20.4495C9.2901 20.5895 9.1001 20.6695 8.9101 20.6695Z"
-                                fill="white"
-                              />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M8.9101 20.6695C8.7201 20.6695 8.5301 20.5995 8.3801 20.4495C8.0901 20.1595 8.0901 19.6795 8.3801 19.3895L14.9001 12.8695C15.3801 12.3895 15.3801 11.6095 14.9001 11.1295L8.3801 4.60953C8.0901 4.31953 8.0901 3.83953 8.3801 3.54953C8.6701 3.25953 9.1501 3.25953 9.4401 3.54953L15.9601 10.0695C16.4701 10.5795 16.7601 11.2695 16.7601 11.9995C16.7601 12.7295 16.4801 13.4195 15.9601 13.9295L9.4401 20.4495C9.2901 20.5895 9.1001 20.6695 8.9101 20.6695Z"
+                                    fill="white"
+                                />
                             </svg>
-                          </button>
-                        </div>
-                      </div>
+                        </button>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
           </div>
           <p-galleria
@@ -1804,6 +1802,7 @@
                         >Price</span
                       >
                       <p style="font-weight: 700">
+                        From
                         <span
                           class="font-size-18 fw-bold text-dark"
                           [style.text-decoration]="
@@ -1823,11 +1822,11 @@
                             (selectedOption === 'privete' &&
                               getFirstAdultPrice()?.PricePrivte.AdultDiscount >
                                 0)
-                              ? 'red !important'
+                              ? 'rgb(13, 177, 255) !important'
                               : ''
                           "
                         >
-                          From ${{
+                           ${{
                             selectedOption === "collective"
                               ? getFirstAdultPrice()?.PriceColective.Adult
                               : selectedOption === "privete"
