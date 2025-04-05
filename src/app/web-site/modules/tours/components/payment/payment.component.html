@@ -5,10 +5,10 @@
       <div class="col-lg-8 col-xl-9">
         <mat-horizontal-stepper #stepper [linear]="true">
           <mat-step [label]="'Optional Items'">
-            <ng-container
+            <ng-container           
               *ngIf="
                 activityData?.bookingOption &&
-                activityData.bookingOption.length > 0
+                activityData.bookingOption.length > 0 ;else noAvailableOption
               "
             >
               <div class="pt-4 pb-5 px-md-5">
@@ -106,6 +106,12 @@
                 <!-- End Contacts Form -->
               </div>
             </ng-container>
+            <ng-template #noAvailableOption>
+              <div class=" d-flex w-100 fs-2 fw-bold h-100 mt-5 justify-content-center align-items-center  "
+              style="min-height:500px">
+                No Option Available      
+                  </div>
+            </ng-template>
           </mat-step>
 
           <mat-step [label]="'Customer Information'">
