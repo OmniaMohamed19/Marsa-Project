@@ -512,7 +512,7 @@ export class LiveboardDetailsComponent {
 
   decrementAdult() {
     if (this.selectedOption === 'collective') {
-      if (this.persons >= 1) {
+      if (this.persons > 1) {
         setTimeout(() => {
           this.persons--;
           this.cdr.detectChanges();
@@ -599,9 +599,11 @@ export class LiveboardDetailsComponent {
     return typeof value === 'object' && 'id' in value;
   }
   bookNow() {
+    console.log(this.getValue('AdultMin'))
     if (this.selectedOption === 'collective') {
-      if (this.persons >= 1) {
+      if (this.persons >= this.getValue('AdultMin')) {
       } else {
+        console.log(this.getValue('AdultMin'))
         this.toastr.info(
           `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
           '',
