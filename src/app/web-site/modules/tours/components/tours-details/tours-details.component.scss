@@ -213,7 +213,6 @@ h5 {
   box-shadow: 6px 3px 30px 8px rgba(0, 0, 0, 0.3);
   padding: 10px 0;
 }
-
 .nav-item .nav-link {
   cursor: pointer;
 }
@@ -225,13 +224,11 @@ h5 {
   border-radius: 25px;
   color: #fff;
 }
-
 .tab-pane {
   margin-top: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #ebf0f7;
 }
-
 .tab-content {
   background-color: #fff;
   padding: 20px;
@@ -240,8 +237,6 @@ h5 {
   margin-top: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-
 .sticky-nav {
   border-radius: 10px;
   position: sticky;
@@ -249,11 +244,9 @@ h5 {
   z-index: 200;
   background-color: #fff;
   margin-top: 20px;
-  overflow-x: auto;
 }
 .sticky-nav ul {
   display: flex;
-  overflow-x: auto;
   scroll-behavior: smooth;
 }
 h3.highlighting {

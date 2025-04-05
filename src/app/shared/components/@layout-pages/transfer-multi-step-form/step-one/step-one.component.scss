@@ -323,6 +323,15 @@ font-size: 20px;
 
 /********************************/
 @media screen and (max-width:992px){
+  .car1 {
+    margin-top: 3.2rem;
+    .bold-heading{
+      margin-bottom: 1rem;
+    }
+    .horizontal-line {
+      margin-bottom: 1rem;
+    }
+}
   .car1  .thin-heading{
     font-size: 20px;
     margin-top: -1rem;

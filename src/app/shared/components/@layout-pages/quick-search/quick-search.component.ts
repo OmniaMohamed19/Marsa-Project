@@ -69,8 +69,11 @@ private dataService: DataService,
   returnDate: any;
 
    ngOnInit(): void {
-
-
+    this.httpService.get('marsa', 'place').subscribe({
+      next: (res: any) => {
+        this.destination = res.places;
+      },
+    });
       this.filteredFromAirports = this.transferDetails?.airports || [];
       this.filteredFromHotels = this.transferDetails?.hotel || [];
       this.filteredToOptions = [];

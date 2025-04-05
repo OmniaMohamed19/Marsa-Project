@@ -7,7 +7,9 @@ h4,
   font-family: Lato;
   font-weight: 700;
 }
-
+.travel-img1{
+  height: 500px
+}
 ::ng-deep {
 
   .cdk-overlay-pane {
@@ -182,6 +184,9 @@ h3.highlighting {
 }
 
 @media (max-width: 992px) {
+  .travel-img1{
+    height: 250px
+  }
   .sticky-nav {
     display: none;
   }
@@ -191,7 +196,7 @@ h3.highlighting {
   #mobile-img-removed {
     display: none;
   }
- 
+
 }
 ::ng-deep {
   .Map {
@@ -451,4 +456,14 @@ h3.highlighting {
   background-color: rgba(117, 110, 110, 0.658); /* Optional: Add background for better visibility */
   border: none;
   cursor: pointer;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .travel-img1{
+    height: 250px;
+  }
+  .travel-img1, .secondary-img {
+      object-position: center;
+      width: 100%;
+  }
 }

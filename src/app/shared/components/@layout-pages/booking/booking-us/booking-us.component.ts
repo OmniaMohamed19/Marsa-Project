@@ -32,9 +32,9 @@ getAbout() {
 }
   aboutOptions: OwlOptions = {
      loop: true,
-     mouseDrag: false,
-     touchDrag: false,
-     pullDrag: false,
+     mouseDrag: true,
+     touchDrag: true,
+     pullDrag: true,
      dots: true,
      margin: 10,
      autoplay: false,

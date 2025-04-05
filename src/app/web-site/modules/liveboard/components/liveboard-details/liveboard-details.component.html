@@ -638,94 +638,79 @@
                 </div>
               </div>
             </div>
-            <h5 class="font-size-21 font-weight-bold text-dark mb-4">
-              Traveler Photos
-            </h5>
-            <div class="row Traveler g-5">
-              <div class="col-md-5">
-                <img
-                  [src]="happyGustImages[0]"
-                  [alt]="getImageName(happyGustImages[0])"
-                  [alt]=""
-                  style="cursor: pointer; max-width: 100%; height: 100%"
-                  (click)="imageClick(0)"
-                />
-                <!-- <img
-                  class="w-100 h-100"
-                  [src]="happyGustImages[0]"
-                /> -->
-              </div>
-              <div class="col-md-7">
-                <div class="row g-3">
-                  <!-- Display first three images -->
-                  <div
-                    class="col-md-6 position-relative"
-                    *ngFor="
-                      let image of remainingImages.slice(0, 3);
-                      let index = index
-                    "
-                  >
-                    <img
-                      [src]="image"
-                      [alt]="getImageName(image)"
-                      style="cursor: pointer; max-width: 100%; height: 100%"
-                      (click)="imageClick(index + 1)"
-                    />
-                    <!-- <img
-                      class="w-100 "
-                      [src]="image"
-                      alt="tour"
-                      loading="lazy"
-                      style="height: 125px;"
-                    /> -->
-                    <!-- Overlay -->
-                    <div class="overlay"></div>
-                  </div>
+            <div *ngIf="happyGustImages.length > 0">
+              <h5 class="heading">Traveler Photos</h5>
 
-                  <!-- Last Image -->
-                  <div
-                    class="col-md-6 position-relative pt-1"
-                    *ngIf="remainingImages.length > 3"
-                  >
-                    <img
-                      [src]="remainingImages[3]"
-                      [alt]="getImageName(remainingImages[3])"
-                      alt="tour"
-                      style="cursor: pointer; max-width: 100%; height: 100%"
-                      (click)="imageClick(4)"
-                    />
-                    <!-- <img
-                      class="w-100 remainingImages"
-                      [src]="remainingImages[3]"
-                      alt="tour"
-                      loading="lazy"
-                    /> -->
-                    <!-- Overlay and button -->
-                    <div class="see-more-container">
-                      <div class="position-relative">
-                        <!-- Overlay -->
+              <div class="row Traveler g-5">
+    <div class="col-md-5">
+        <img
+            class="travel-img1 w-100 img-fluid"
+            [src]="happyGustImages[0]"
+            [alt]="getImageName(happyGustImages[0])"
+            style="cursor: pointer; object-fit: cover;"
+            (click)="imageClick(0)"
+        />
+    </div>
+    <div class="col-md-7">
+        <div class="row g-3">
+            <!-- الصور الباقية -->
+            <div
+                class="col-md-6 position-relative"
+                *ngFor="let image of remainingImages.slice(0, 3); let index = index"
+            >
+                <img
+                    class="w-100 img-fluid"
+                    [src]="image"
+                    [alt]="getImageName(image)"
+                    style="
+                        cursor: pointer;
+                        height: 240px;
+                        object-fit: cover;
+                        object-position: center;"
+                    (click)="imageClick(index + 1)"
+                />
+                <div class="overlay"></div>
+            </div>
+
+            <!-- الصورة الأخيرة -->
+            <div
+                class="col-md-6 position-relative pt-1"
+                *ngIf="remainingImages.length > 3"
+            >
+                <img
+                    class="w-100 img-fluid"
+                    [src]="remainingImages[3]"
+                    [alt]="getImageName(remainingImages[3])"
+                    style="
+                        cursor: pointer;
+                        height: 240px;
+                        object-fit: cover;
+                        object-position: center;"
+                    (click)="imageClick(4)"
+                />
+
+                <!-- الoverlay والزر -->
+                <div class="see-more-container">
+                    <div class="position-relative">
                         <div class="overlay"></div>
-                        <!-- Button -->
-                        <button class="see-more-button" (click)="imageClick(4)">
-                          See More
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <path
-                              d="M8.9101 20.6695C8.7201 20.6695 8.5301 20.5995 8.3801 20.4495C8.0901 20.1595 8.0901 19.6795 8.3801 19.3895L14.9001 12.8695C15.3801 12.3895 15.3801 11.6095 14.9001 11.1295L8.3801 4.60953C8.0901 4.31953 8.0901 3.83953 8.3801 3.54953C8.6701 3.25953 9.1501 3.25953 9.4401 3.54953L15.9601 10.0695C16.4701 10.5795 16.7601 11.2695 16.7601 11.9995C16.7601 12.7295 16.4801 13.4195 15.9601 13.9295L9.4401 20.4495C9.2901 20.5895 9.1001 20.6695 8.9101 20.6695Z"
-                              fill="white"
-                            />
-                          </svg>
+                        <button
+                            class="see-more-button"
+                            (click)="imageClick(4)"
+                        >
+                            See More
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M8.9101 20.6695C8.7201 20.6695 8.5301 20.5995 8.3801 20.4495C8.0901 20.1595 8.0901 19.6795 8.3801 19.3895L14.9001 12.8695C15.3801 12.3895 15.3801 11.6095 14.9001 11.1295L8.3801 4.60953C8.0901 4.31953 8.0901 3.83953 8.3801 3.54953C8.6701 3.25953 9.1501 3.25953 9.4401 3.54953L15.9601 10.0695C16.4701 10.5795 16.7601 11.2695 16.7601 11.9995C16.7601 12.7295 16.4801 13.4195 15.9601 13.9295L9.4401 20.4495C9.2901 20.5895 9.1001 20.6695 8.9101 20.6695Z"
+                                    fill="white"
+                                />
+                            </svg>
                         </button>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
           </div>
           <p-galleria
