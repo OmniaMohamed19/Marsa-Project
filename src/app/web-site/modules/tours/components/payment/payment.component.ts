@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -54,7 +54,7 @@ export class PaymentComponent {
   cardNumber: any;
   // map
   @ViewChild('mapModalDeatails') mapModalDeatails: ElementRef | undefined;
-  @ViewChild('stepper') stepper: MatStepper | undefined;
+  @ViewChild('stepper') stepper!: MatStepper;
 
   locationValue = '';
   latitudeValue: any;
@@ -107,7 +107,7 @@ export class PaymentComponent {
       this.adult = params['adult'];
       this.childern = params['childern'];
       this.infant = params['infant'];
-      this.getDataById(this.tripId);
+      // this.getDataById(this.tripId);
     });
     this.activityData?.bookingOption.forEach(() =>
       this.checkboxStatus.push(false)
@@ -135,9 +135,6 @@ export class PaymentComponent {
           console.error('Error:', error);
         }
       );
-    }
-    if (this.activityData.bookingOption.length == 0) {
-      this.goToNextStep(this.stepper);
     }
 
     this.getNationality();
@@ -258,12 +255,23 @@ export class PaymentComponent {
     );
     return imageName || 'Unknown photo';
   }
+  ngAfterViewInit(): void {
+
+    this.getDataById(this.tripId);
+  }
 
   getDataById(activityID: any) {
     this._httpService
       .get(environment.marsa, `Activtes/details/` + activityID)
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
+        console.log(res?.tripDetails?.bookingOption.length);
+        if (res?.tripDetails?.bookingOption?.length === 0) {
+          // Wait for view to initialize before using the stepper
+          setTimeout(() => {
+            this.stepper.next(); // ✅ Move to next step
+          });
+        }
       });
   }
 
@@ -335,7 +343,8 @@ export class PaymentComponent {
   }
 
   goToNextStep(stepper: MatStepper | undefined) {
-    const missingValues = this.activityData.bookingOption.map(
+    console.log(stepper);
+    const missingValues = this.activityData?.bookingOption?.map(
       (item: any, index: number) =>
         this.checkboxStatus[index] && !this.personsInputValues[index]
     );
