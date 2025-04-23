@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, Inject, PLATFORM_ID } from '@angular/core';
+import { RouterModule, Routes, Router, NavigationEnd } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 // import { LangValidatorGuard } from './core/guards/lang-validator.guard';
-
+import { isPlatformBrowser } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -12,20 +12,35 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: localStorage.getItem('lang')!
-      ? localStorage.getItem('lang')!
-      : 'en',
+    redirectTo: 'en',
     pathMatch: 'full',
   },
-
-
-
   { path: '**', component: NotFoundComponent },
 ];
 
-
 @NgModule({
-  imports: [    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', initialNavigation: 'enabledBlocking',onSameUrlNavigation: 'reload' }),],
+  imports: [
+    RouterModule.forRoot(routes, { 
+      scrollPositionRestoration: 'enabled', 
+      initialNavigation: 'enabledBlocking',
+      onSameUrlNavigation: 'reload' 
+    })
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd && event.url === '/') {
+          const storedLang = localStorage.getItem('lang');
+          const redirectLang = storedLang || 'en';
+          this.router.navigate([redirectLang]);
+        }
+      });
+    }
+  }
+}

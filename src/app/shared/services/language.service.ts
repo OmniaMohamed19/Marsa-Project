@@ -1,27 +1,28 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
   private currentLang: BehaviorSubject<string>;
+  private isBrowser: boolean;
 
   constructor(
     private translateService: TranslateService,
     @Inject(DOCUMENT) private document: Document,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.currentLang = new BehaviorSubject<string>('en');
-    // route.params.subscribe((params) => {
-    // });
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   setCurrentLang(language: string, init: boolean = false) {
-   
     if (language === 'rs' || language === 'en' || language === 'du' || language === 'cez') {
       let htmlTag = this.document.getElementsByTagName(
         'html'
@@ -29,28 +30,28 @@ export class LanguageService {
       htmlTag.dir = language === 'en' ? 'ltr' : 'ltr';
       htmlTag.lang = language;
       this.translateService.use(language);
-      if (typeof window !== 'undefined' && window.localStorage){
-
+      
+      if (this.isBrowser) {
         localStorage.setItem('lang', language);
       }
+      
       this.currentLang.next(language);
 
-      /// Get the current URL segments
-      const currentUrlSegments = this.router.url.split('/');
-      currentUrlSegments[1] = language;
-      // Construct the new URL and navigate to it
-      const newUrl = currentUrlSegments.join('/');
+      // Only perform URL-related operations in browser
+      if (this.isBrowser && !init) {
+        // Get the current URL segments
+        const currentUrlSegments = this.router.url.split('/');
+        currentUrlSegments[1] = language;
+        // Construct the new URL and navigate to it
+        const newUrl = currentUrlSegments.join('/');
 
-      if (!init) {
         this.router.navigateByUrl(newUrl).then(() => {
           window.location.reload();
-        })
+        });
       }
-
     } else {
       this.setCurrentLang('en');
     }
-
   }
 
   getCurrentLang() {

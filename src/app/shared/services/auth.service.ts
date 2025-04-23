@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import { MatDialog } from '@angular/material/dialog';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -25,15 +26,19 @@ export class AuthService {
   $changePassError = new Subject<any>();
   $profileUpdated = new Subject<any>();
   user: BehaviorSubject<any> = new BehaviorSubject(null);
+  private isBrowser: boolean;
+  
   constructor(
     private _HttpClient: HttpClient,
     private router: Router,
     private httpservice: HttpService,
     private toastr: ToastrService,
     private transtale: TranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.registerBehavoir = new BehaviorSubject<string>('login');
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
   updateRegisterBehavoir(value: string): void {
     this.registerBehavoir.next(value);
@@ -54,8 +59,7 @@ export class AuthService {
           // set auth status and token
           this.$isAuthenticated.next(true);
           this.token = res.data.accessToken;
-          if (typeof window !== 'undefined' && window.localStorage){
-
+          if (this.isBrowser) {
             localStorage.setItem('userToken', res.data.accessToken);
             // set user data
             localStorage.setItem('userData', JSON.stringify(res.data.userData));
@@ -104,23 +108,22 @@ export class AuthService {
               // set auth status and token
               this.$isAuthenticated.next(true);
               this.token = res.access_token;
-              if (typeof window !== 'undefined' && window.localStorage){
-
+              if (this.isBrowser) {
                 localStorage.setItem('userToken', res.access_token);
                 // set user data
                 localStorage.setItem('userData', JSON.stringify(res.user));
               }
-              if (typeof window !== 'undefined') {
-
               this.$userData.next(res.user);
-              this.dialog?.closeAll();
-              window.location.href =
-                window.origin +
-                '/' +
-                localStorage.getItem('lang') +
-                '/new-password';
+              
+              if (this.isBrowser) {
+                this.dialog?.closeAll();
+                window.location.href =
+                  window.origin +
+                  '/' +
+                  localStorage.getItem('lang') +
+                  '/new-password';
+              }
             }
-          }
           } else {
             this.$loginError.next(true);
           }
@@ -148,14 +151,17 @@ export class AuthService {
           this.$isAuthenticated.next(true);
           this.token = res.access_token;
 
-          if (typeof window !== 'undefined' && window.localStorage) {
+          if (this.isBrowser) {
             localStorage.setItem('userToken', res.access_token);
             localStorage.setItem('userData', JSON.stringify(res.user));
           }
 
           this.$userData.next(res.user);
           this.dialog?.closeAll();
-          window.location.reload();
+          
+          if (this.isBrowser) {
+            window.location.reload();
+          }
         } else {
           this.$loginError.next(true);
           this.toastr.error(res.message || 'Login failed. Please try again.');
@@ -183,9 +189,7 @@ export class AuthService {
               closeButton: true,
             });
             this.dialog?.closeAll();
-
           }
-
         } else if (err.statusText === 'Unauthorized') {
           this.toastr.error(this.transtale.instant('validation.Unauthorized'));
         } else {
@@ -216,31 +220,29 @@ export class AuthService {
   }
 
   autoAuth() {
-    if (typeof window !== 'undefined') {
-
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      // Set authentication status only if token exists
-      this.token = token;
-      this.isAuthenticated = true;
-      this.$isAuthenticated.next(true);
-    } else {
-      // If token doesn't exist (page refresh), reset authentication status
-      this.isAuthenticated = false;
-      this.$isAuthenticated.next(false);
+    if (this.isBrowser) {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        // Set authentication status only if token exists
+        this.token = token;
+        this.isAuthenticated = true;
+        this.$isAuthenticated.next(true);
+      } else {
+        // If token doesn't exist (page refresh), reset authentication status
+        this.isAuthenticated = false;
+        this.$isAuthenticated.next(false);
+      }
     }
   }
-}
 
   getToken() {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       if (localStorage.getItem('userToken')) {
         this.token = localStorage.getItem('userToken')!;
         return this.token;
       }
     }
     return '';
-
   }
 
   getAuthStatus() {

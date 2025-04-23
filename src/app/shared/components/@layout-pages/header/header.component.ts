@@ -1,4 +1,5 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/core/services/http/http.service';
@@ -20,6 +21,8 @@ export class HeaderComponent implements OnInit {
   userDate: any;
   social: any;
   userDetails: any;
+  private isBrowser: boolean;
+  
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
@@ -27,29 +30,34 @@ export class HeaderComponent implements OnInit {
     private headerService: HeaderService,
     private httpService: HttpService,
     private toastr: ToastrService,
-
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.langService.getCurrentLang().subscribe((lang) => {
       this.selectedLang = lang;
     });
   }
+  
   ngOnInit(): void {
     this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
       this.userDetails = res?.user_inform;
-
     });
-     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+    
+    this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
+    
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userDate = JSON.parse(data); // Assigning the received object directly
+        if (data) {
+          this.userDate = JSON.parse(data);
+        }
       },
       (error) => {
-        // Handle error if needed
         console.error('Error:', error);
       }
     );
+    
     this.headerService.toggleDropdown$.subscribe(() => {
       this.toggleDropdown();
     });
@@ -60,8 +68,10 @@ export class HeaderComponent implements OnInit {
         this.social = res?.social;
       });
   }
+  
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    if (!url) return 'Unknown photo';
+    const imageName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
  
@@ -71,31 +81,42 @@ export class HeaderComponent implements OnInit {
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
   ];
+  
   registerBehavoiur: string = 'login';
   signClick: boolean = false;
+  
   @HostListener('document:click', ['$event'])
   OnClickSignIn(event: any) {
     if (event.target.matches('.signUpDropdownInvoker')) {
       this.signClick = !this.signClick;
     }
   }
+  
   toggleDropdown() {
     this.signClick = !this.signClick;
   }
+  
   changeLang() {
     this.langService.setCurrentLang(this.selectedLang);
   }
+  
   toggleLoginForm() {
     this.signClick = !this.signClick;
   }
+  
   callLogout(): void {
     this._AuthService.logout();
   }
 
   call(option: any) {
-     window.open('mailto:' + this.social.Mail, '_blank');
+    if (this.isBrowser && this.social?.Mail) {
+      window.open('mailto:' + this.social.Mail, '_blank');
+    }
   }
+  
   contactWhatsapp() {
-    window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
+    if (this.isBrowser) {
+      window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
+    }
   }
 }

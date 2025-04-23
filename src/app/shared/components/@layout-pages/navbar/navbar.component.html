@@ -5,8 +5,8 @@
 
   }">
   <div class="container-fluid p-0">
-    <a [routerLink]="'/'" class="navbar-brand me-0">
-      <img alt="Marsa Waves" class="logo-img" src="assets/images/Logo.webp" />
+    <a [routerLink]="['/', translate.currentLang]" class="navbar-brand me-0">
+      <img alt="Marsa Waves" class="logo-img" src="../../../../../assets/images/logo.webp" />
     </a>
     <div class="input-group" style="width: 320px !important; margin-left: 1rem; position: relative;">
       <input
@@ -34,8 +34,7 @@
         <li
           *ngFor="let result of results?.trip"
           class="dropdown-item"
-          [routerLink]="['/', translate.currentLang, 'tours', 'details',result?.id,
-            result?.Name]"
+          (click)="navigateToRoute(['/', translate.currentLang, 'tours', 'details', result?.id, result?.Name])"
           style="cursor: pointer;"
         >
           {{ result.Name }}
@@ -113,7 +112,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <a class="navbar-brand me-0" [routerLink]="['/', translate.currentLang]">
-          <img alt="Marsa Waves" class="logo-img" src="assets/images/Logo.webp" />
+          <img alt="Marsa Waves" class="logo-img" src="../../../../../assets/images/logo.webp" />
         </a>
       </div>
 
@@ -138,7 +137,7 @@
   aria-labelledby="staticBackdropLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="staticBackdropLabel">
-      <img [routerLink]="'/'" alt="Marsa Waves" src="assets/images/Logo.webp" />
+      <img [routerLink]="['/', translate.currentLang]" alt="Marsa Waves" src="../../../../../assets/images/logo.webp" />
     </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -162,27 +161,27 @@
             </a>
             <ul class="dropdown-menu menu-login">
               <li class="menu-item" style="border-bottom: 1px solid #eee"
-                routerLink="/{{ translate.currentLang }}/userDashboard">
+                [routerLink]="['/', translate.currentLang, 'userDashboard']">
                 Hello {{ userDetails?.name }}
 
               </li>
-              <li class="menu-item" routerLink="/{{ translate.currentLang }}/userDashboard">
-                <img src="assets/icons/dashbourd.svg" alt="dashbourd" />
+              <li class="menu-item" [routerLink]="['/', translate.currentLang, 'userDashboard']">
+                <img src="../../../../../assets/icons/dashbourd.svg" alt="dashbourd" />
 
                 {{ "Profile" | translate }}
               </li>
-              <li class="menu-item" routerLink="/{{ translate.currentLang }}/wishlist">
-                <img src="assets/icons/heart.svg" alt="heart" />
+              <li class="menu-item" [routerLink]="['/', translate.currentLang, 'wishlist']">
+                <img src="../../../../../assets/icons/heart.svg" alt="heart" />
 
                 {{ "Wishlist" | translate }}
               </li>
-              <li class="menu-item" routerLink="/{{ translate.currentLang }}/booking">
-                <img src="assets/icons/booking.svg" alt="booking" />
+              <li class="menu-item" [routerLink]="['/', translate.currentLang, 'booking']">
+                <img src="../../../../../assets/icons/booking.svg" alt="booking" />
 
                 {{ "Bookings" | translate }}
               </li>
-              <li class="menu-item" routerLink="/{{ translate.currentLang }}/app-download">
-                <img src="assets/icons/downloadMobile.svg" alt="downloadMobile" />
+              <li class="menu-item" [routerLink]="['/', translate.currentLang, 'app-download']">
+                <img src="../../../../../assets/icons/downloadMobile.svg" alt="downloadMobile" />
 
                 {{ "Download the APP" | translate }}
               </li>
@@ -196,7 +195,7 @@
           </li>
           <!---------------------------------------->
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" [routerLink]="['/']" routerLinkActive="active1">
+            <a class="nav-link" aria-current="page" [routerLink]="['/', translate.currentLang]" routerLinkActive="active1">
               {{ "header.home" | translate }}
             </a>
           </li>

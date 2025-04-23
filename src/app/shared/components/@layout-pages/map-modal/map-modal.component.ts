@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnInit } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID, Optional } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import * as L from 'leaflet';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
+import { LEAFLET } from 'src/app/app.config';
 
 @Component({
   selector: 'app-map-modal',
@@ -16,21 +17,30 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class MapModalComponent implements OnInit {
   latitudeValue: number = 0;
   longitudeValue: number = 0;
-  map!: L.Map;
-  marker!: L.Marker;
+  map: any;
+  marker: any;
   searchControl = new FormControl();
   filteredOptions!: Observable<any[]>;
   currentCountry: string = '';
+  private isBrowser: boolean;
+  
   constructor(
     private ngZone: NgZone,
     public dialogRef: MatDialogRef<MapModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
-    private spinner: NgxSpinnerService
-  ) {}
+    private spinner: NgxSpinnerService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Optional() @Inject(LEAFLET) private L: any
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    this.initializeMap();
+    if (this.isBrowser && this.L) {
+      this.initializeMap();
+    }
+    
     this.spinner.hide();
 
     this.filteredOptions = this.searchControl.valueChanges.pipe(
@@ -41,24 +51,26 @@ export class MapModalComponent implements OnInit {
   }
 
   initializeMap(): void {
+    if (!this.isBrowser || !this.L) return;
+    
     this.latitudeValue = 26.8206; // خط عرض مصر
     this.longitudeValue = 30.8025; // خط طول مصر
 
-    this.map = L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    this.map = this.L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
+    this.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a>',
     }).addTo(this.map);
 
-    const customIcon = L.icon({
+    const customIcon = this.L.icon({
       iconUrl: 'assets/images/locatio.svg',
       iconSize: [37, 37],
     });
 
-    this.marker = L.marker([this.latitudeValue, this.longitudeValue], {
+    this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
       icon: customIcon,
     }).addTo(this.map);
 
-    this.map.on('click', (e) => {
+    this.map.on('click', (e: any) => {
       this.ngZone.run(() => {
         this.latitudeValue = e.latlng.lat;
         this.longitudeValue = e.latlng.lng;
@@ -67,15 +79,19 @@ export class MapModalComponent implements OnInit {
     });
   }
 
-
   setCurrentLocation(): void {
+    if (!this.isBrowser) return;
+    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.ngZone.run(() => {
           this.latitudeValue = position.coords.latitude;
           this.longitudeValue = position.coords.longitude;
-          this.map.setView([this.latitudeValue, this.longitudeValue], 10);
-          this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+          
+          if (this.map) {
+            this.map.setView([this.latitudeValue, this.longitudeValue], 10);
+            this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+          }
 
           const reverseGeocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${this.latitudeValue}&lon=${this.longitudeValue}&accept-language=en`;
           this.http.get<any>(reverseGeocodeUrl).subscribe((result) => {
@@ -87,7 +103,6 @@ export class MapModalComponent implements OnInit {
       });
     }
   }
-
 
   closeDialog(): void {
     this.dialogRef.close({
@@ -101,13 +116,18 @@ export class MapModalComponent implements OnInit {
 
     this.latitudeValue = location.lat;
     this.longitudeValue = location.lon;
-    this.map.setView([this.latitudeValue, this.longitudeValue], 10);
-    this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+    
+    if (this.map) {
+      this.map.setView([this.latitudeValue, this.longitudeValue], 10);
+      this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+    }
   }
 
   private _filter(name: string): Observable<any[]> {
-    if (!name) return new Observable((observer) => observer.next([])); // منع البحث عن نص فارغ
+    if (!name) return of([]); // Return empty array for empty search
 
+    if (!this.isBrowser) return of([]); // Return empty array in server-side rendering
+    
     this.spinner.show();
 
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&countrycodes=EG&accept-language=en&limit=5`;
@@ -126,12 +146,10 @@ export class MapModalComponent implements OnInit {
       catchError((error) => {
         this.spinner.hide();
         console.error('Error during location search:', error);
-        return [];
+        return of([]);
       })
     );
   }
-
-
 
   displayFn(location: any): string {
     return location && location.name ? location.name : '';

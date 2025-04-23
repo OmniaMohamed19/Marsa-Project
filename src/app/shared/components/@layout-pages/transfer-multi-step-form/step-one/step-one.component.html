@@ -208,7 +208,7 @@
                 <input matInput placeholder="xxx@xxx.com" [(ngModel)]="formData.email" name="email" required
                   #email="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" [validators]="emailValidator()">
                 <mat-error *ngIf="email.invalid && email.touched">
-                  Please enter a valid email address (e.g., xxx@xxx.com).
+                  Please enter a valid email address (e.g., xxx&#64;xxx.com).
                 </mat-error>
               </mat-form-field>
             </form>

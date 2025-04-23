@@ -18,13 +18,13 @@
         <div class="row pt-5 tabs-bg">
           <div class="col-lg-6">
             <div class="images vacation  pl-12 pt-0">
-              <img src="assets/custom/Vacation.webp" class="vacations pl-9 pt-4" alt="Vacation" loading="lazy">
-              <img src="assets/custom/Packages.webp" class="package pl-14 pb-5 pt-0 b-1" alt="Packages" loading="lazy">
+              <img src="../../../../../assets/custom/Vacation.webp" class="vacations pl-9 pt-4" alt="Vacation" loading="lazy">
+              <img src="../../../../../assets/custom/Packages.webp" class="package pl-14 pb-5 pt-0 b-1" alt="Packages" loading="lazy">
             </div>
             <div class="pr-12 d-flex justify-content-center info">
               <ul class="list-group">
                 <li *ngFor="let trip of package.Trips.slice(0, 3); let j = index">
-                  <img src="assets/custom/list.svg" class="pe-2" alt="list" loading="lazy">
+                  <img src="../../../../../assets/custom/list.svg" class="pe-2" alt="list" loading="lazy">
                   {{trip?.title}}
                   <!-- Show "See more" button only for the last item -->
                   <button *ngIf="j === 2 && package.Trips.length > 3" class="p-0 m-0 btn text-white btn-outline-primary"
@@ -37,7 +37,7 @@
             <div class="row">
               <div class="col-md-6 position-relative">
                 <div class="discount">
-                  <img src="assets/custom/Vector Smart Object.svg" alt="Vector Smart Object" loading="lazy">
+                  <img src="../../../../../assets/custom/Vector Smart Object.svg" alt="Vector Smart Object" loading="lazy">
                   <div>
                     <h3 style="font-size: 40px;">UP TO</h3>
                     <h3 class="num ">
@@ -50,14 +50,14 @@
               <div class="col-md-6 order-1 trip-details d-grid justify-content-center">
                 <h6>Trip details :</h6>
                 <ul class="list-unstyled trip pl-5">
-                  <li class="pt-2"><img src="assets/images/location.svg" class="pe-4" alt="location" loading="lazy">
+                  <li class="pt-2"><img src="../../../../../assets/images/location.svg" class="pe-4" alt="location" loading="lazy">
                     {{package?.place}}
                   </li>
-                  <li class="pt-3"><img src="assets/images/chronometer.svg" class="pe-4" alt="chronometer"
+                  <li class="pt-3"><img src="../../../../../assets/images/chronometer.svg" class="pe-4" alt="chronometer"
                       loading="lazy">
                     {{package?.duration}}
                   </li>
-                  <li class="pt-3"><img src="assets/images/discount.svg" class="pe-4" alt="discount" loading="lazy">
+                  <li class="pt-3"><img src="../../../../../assets/images/discount.svg" class="pe-4" alt="discount" loading="lazy">
                     {{package?.CountTrips}} Trips
                   </li>
                 </ul>

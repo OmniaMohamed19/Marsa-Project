@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -9,12 +10,14 @@ import { HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   @Input() background: string = '';
   @Input() isWhiteByDefault: boolean = true;
   selectedLang = '';
@@ -25,10 +28,12 @@ export class NavbarComponent {
   isOffCanvasOpen = false;
   showSearch: boolean = false;
   userDate: any;
-  keyword:any;
-  results: any= [];
+  keyword: any = '';
+  results: any = { trip: [] };
   showDropdown: boolean = false;
   userDetails: any;
+  private isBrowser: boolean;
+  
   constructor(
     public translate: TranslateService,
     private langService: LanguageService,
@@ -36,35 +41,41 @@ export class NavbarComponent {
     private dialog: MatDialog,
     private toastr: ToastrService,
     private _HttpService: HttpService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.langService.getCurrentLang().subscribe((lang) => {
       this.selectedLang = lang;
     });
   }
 
   getImageName(url: string): string {
-    const imageName = url?.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+    if (!url) return 'Unknown photo';
+    const imageName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
 
   onSearch() {
-    if (this.keyword.trim()) {
+    if (this.keyword && this.keyword.trim()) {
       this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
         (data) => {
-
           this.results = data;
-          this.showDropdown = this.results.trip.length > 0;
+          this.showDropdown = this.results.trip && this.results.trip.length > 0;
         },
         (error) => {
           console.error('Error:', error);
         }
       );
     } else {
-      Swal.fire('Error', 'Please enter a Keyword', 'error');
+      if (this.isBrowser) {
+        Swal.fire('Error', 'Please enter a Keyword', 'error');
+      }
     }
   }
-  navigateTo(link: string) {
-    window.location.href = link;
+  
+  navigateToRoute(route: string[]) {
+    this.router.navigate(route);
   }
 
   hideDropdown() {
@@ -72,6 +83,7 @@ export class NavbarComponent {
       this.showDropdown = false;
     }, 200);
   }
+  
   search(input: HTMLInputElement) {
     const currentLang = this.translate.currentLang;
     const queryParams = { search: input.value, page: 1 };
@@ -83,22 +95,24 @@ export class NavbarComponent {
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
   ];
+  
   changeLang() {
     this.langService.setCurrentLang(this.selectedLang);
   }
-  /******************************/
-
+  
   toggleSearch() {
     this.showSearch = !this.showSearch;
   }
-  /************To make scroll event******************** */
+  
   isScrolled = false;
 
   @HostListener('window:scroll', [])
   checkScroll() {
-    this.isScrolled = window.scrollY > 100;
+    if (this.isBrowser) {
+      this.isScrolled = window.scrollY > 100;
+    }
   }
-  /************************************* */
+  
   countries = [
     {
       value: 'en',
@@ -120,34 +134,36 @@ export class NavbarComponent {
       label: 'Čeština',
       flagUrl: '../../../../../assets/images/flags/cez.webp',
     },
-
-    // Add more countries as needed
   ];
 
   ngOnInit() {
     this._HttpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
       this.userDetails = res?.user_inform;
-
     });
+    
     // Initialize selectedLabel with the first country's label
     if (this.countries.length > 0) {
-      this.selectedLabel = this.countries[0].label;
-      this.selectedImg = this.countries[0].flagUrl;
+      const initialCountry = this.countries.find(c => c.value === this.selectedLang) || this.countries[0];
+      this.selectedLabel = initialCountry.label;
+      this.selectedImg = initialCountry.flagUrl;
     }
 
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
+    
     this._AuthService.getUserData().subscribe(
       (data: any) => {
-        this.userDate = JSON.parse(data); // Assigning the received object directly
+        if (data) {
+          this.userDate = JSON.parse(data);
+        }
       },
       (error) => {
-        // Handle error if needed
         console.error('Error:', error);
       }
     );
   }
+  
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
@@ -156,13 +172,11 @@ export class NavbarComponent {
     this._AuthService.logout();
   }
 
-
-
   closeOffcanvas() {
+    if (!this.isBrowser) return;
+    
     const offcanvasElement = document.getElementById('staticBackdrop');
-    const offcanvasBackdropElement = document.querySelector(
-      '.offcanvas-backdrop'
-    );
+    const offcanvasBackdropElement = document.querySelector('.offcanvas-backdrop');
 
     if (offcanvasElement) {
       offcanvasElement.classList.remove('show');
@@ -175,6 +189,7 @@ export class NavbarComponent {
     if (offcanvasBackdropElement && offcanvasBackdropElement.parentNode) {
       offcanvasBackdropElement.parentNode.removeChild(offcanvasBackdropElement);
     }
+    
     this.dialog.open(LoginComponent, {
       width: '100%',
       maxHeight: '80vh',
@@ -189,12 +204,13 @@ export class NavbarComponent {
     this.selectedLabel = country.label;
     this.selectedImg = country.flagUrl;
     this.langService.setCurrentLang(country.value);
-    this.isOpen = true;
+    this.isOpen = false;
   }
-  /**********************************************/
+  
   openOffcanvas() {
     this.isOffCanvasOpen = true;
   }
+  
   toggleOffcanvas() {
     this.isOffCanvasOpen = false;
   }
