@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { DatePipe, Location } from '@angular/common';
 import { MatStepper } from '@angular/material/stepper';
@@ -79,7 +85,8 @@ export class LiveboardPaymentComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private dialog: MatDialog,
-    private titleService: Title
+    private titleService: Title,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   setDisplay(id: any) {
@@ -108,7 +115,7 @@ export class LiveboardPaymentComponent implements OnInit {
     this.getNationality();
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
-      this.selectedOption=params['class']
+      this.selectedOption = params['class'];
       this.schedules_id = params['schedules_id'];
       this.Bookingid = params.Bookingid;
       this.tripId = params['trip_id'];
@@ -226,10 +233,23 @@ export class LiveboardPaymentComponent implements OnInit {
     }
     if (!this.personsMap[item.id]) {
       this.personsMap[item.id] = 0;
+      console.log(item.id);
+      console.log(this.personsMap);
     }
-    if (this.personsMap[item.id] < item.available) {
+    if (this.selectedOption == 'privete') {
+      if (this.personsMap[item.id] < item.max_occupancy      ) {
+        this.personsMap[item.id]++;
+      }
+    }
+    else{
+      if (this.personsMap[item.id] < item.available) {
       this.personsMap[item.id]++;
     }
+
+    }
+    this.cdRef.detectChanges(); // Add
+
+    console.log(!this.personsMap[item.id]);
   }
 
   decrementAdult(item: any) {
@@ -251,6 +271,7 @@ export class LiveboardPaymentComponent implements OnInit {
         }
       );
     }
+    this.cdRef.detectChanges(); // Add
   }
 
   getValue(item: any): number {
@@ -385,7 +406,6 @@ export class LiveboardPaymentComponent implements OnInit {
             });
         },
       });
-
   }
   onCountryChange(event: any) {
     console.log(event);
@@ -498,7 +518,7 @@ export class LiveboardPaymentComponent implements OnInit {
       this.markFormGroupTouched(this.customerForm);
     }
   }
- isLoading = false;
+  isLoading = false;
   confirmBookingByCard(event: Event) {
     this.isDisable = true;
     this.isLoading = true;
@@ -518,7 +538,6 @@ export class LiveboardPaymentComponent implements OnInit {
           timeOut: 5000,
           closeButton: true,
         }
-
       );
       this.isDisable = false;
       this.isLoading = false;
@@ -643,7 +662,6 @@ export class LiveboardPaymentComponent implements OnInit {
       return; // Stop further execution
     }
     if (this.customerForm.valid) {
-
       this.isDisable = true;
       this.isLoading = true;
       let phoneNumber = this.customerForm.get('phone')?.value['number'];
@@ -691,17 +709,17 @@ export class LiveboardPaymentComponent implements OnInit {
               'success'
             );
           },
-         error: (err: any) => {
-        this.isDisable = false;
-        this.isLoading = false;
-        console.error('Error during booking:', err);
-        Swal.fire(
-          'Booking Failed',
-          'An error occurred while processing your booking. Please try again later.',
-          'error'
-        );
-      },
-    });
+          error: (err: any) => {
+            this.isDisable = false;
+            this.isLoading = false;
+            console.error('Error during booking:', err);
+            Swal.fire(
+              'Booking Failed',
+              'An error occurred while processing your booking. Please try again later.',
+              'error'
+            );
+          },
+        });
     } else {
       // Mark all form controls as touched to trigger validation messages
       this.isDisable = false;
