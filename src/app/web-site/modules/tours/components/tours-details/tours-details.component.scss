@@ -12,16 +12,16 @@ h4,
   height: 500px
 }
 .custom-close {
-  background: transparent !important; /* خلفية شفافة */
-  border: none !important; /* إزالة الحدود */
+  background: transparent !important;
+  border: none !important;
   width: 30px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 1;
-  outline: none !important; /* إزالة الحدود عند التركيز */
-  box-shadow: none !important; /* منع ظهور أي تأثير */
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .custom-close:focus,
@@ -31,15 +31,15 @@ h4,
 }
 
 .custom-close::before {
-  content: "✖"; /* رمز الإغلاق */
-  color: #0db1ff; /* لون الزر */
+  content: "✖";
+  color: #0db1ff;
   font-size: 20px;
   font-weight: bold;
 }
 
 ::ng-deep  .p-datepicker-touch-ui {
-  width: 250px !important; /* تقليل العرض */
-  min-width:30%; /* التأكد من عدم تجاوز الشاشة */
+  width: 250px !important;
+  min-width:30%; 
 }
 
 .p-calendar-overlay-visible .sticky-nav {

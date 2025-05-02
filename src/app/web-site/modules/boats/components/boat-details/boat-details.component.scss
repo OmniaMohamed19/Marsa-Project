@@ -12,14 +12,77 @@ h4,
   .mat-mdc-dialog-container .mdc-dialog__surface {
     background-color: transparent !important;
   }
-  .mat-datepicker-content {
-    margin: auto !important;
+
+}
+::ng-deep  .p-datepicker-touch-ui {
+  width: 250px !important;
+  min-width:30%;
+}
+
+.p-calendar-overlay-visible .sticky-nav {
+  position: static !important;
+  top: auto !important;
+}
+.p-calendar-overlay {
+  z-index: 9999 !important;
+}
+
+.p-datepicker {
+  z-index: 10000 !important;
+}
+
+body.p-overflow-hidden .sticky-nav {
+  position: static !important;
+  top: auto !important;
+}
+::ng-deep{
+  .p-calendar{
+width:100%  !important;
   }
-  .cdk-overlay-container .cdk-overlay-pane {
-    display: flex !important;
-    justify-content: center !important;
+  .p-button{
+    background: transparent !important;
   }
-  
+  .p-calendar-overlay {
+    z-index: 9999 !important;
+  }
+
+  .p-datepicker {
+    z-index: 10000 !important;
+  }
+
+  body.p-overflow-hidden .sticky-nav {
+    position: static !important;
+    top: auto !important;
+  }
+  // .mat-datepicker-toggle button svg {
+  //   color: #0057FF !important;
+  // }
+  .custom-calendar .p-inputwrapper .p-datepicker-trigger {
+    background-color: transparent !important;
+    border: none;
+  }
+
+  .custom-calendar calendaricon svg {
+    color: #0057FF !important;
+    font-size: 1.2rem;
+  }
+  .custom-calendar .p-input-icon-right>.p-icon-wrapper{
+    left: 0 !important;
+    padding-left: 0.5rem;
+  }
+  .custom-calendar .p-inputtext, .time-calendar .p-inputtext{
+    padding-left: 1.9rem;
+  }
+  .custom-calendar .p-inputtext::placeholder, .time-calendar .p-inputtext::placeholder {
+    color: #3b444f;
+  }
+  .pickup-time svg {
+    color: #0057FF !important;
+  }
+  .custom-calendar .p-datepicker {
+   margin-top: 4rem;
+
+  }
 
 }
 .travel-img1{

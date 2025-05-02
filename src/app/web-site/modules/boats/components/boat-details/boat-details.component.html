@@ -987,6 +987,8 @@
                         [readonlyInput]="true"
                         [showIcon]="true"
                         [minDate]="today"
+                        [appendTo]="'body'"
+                        [touchUI]="true"
                         placeholder="MM/DD/YYYY - MM/DD/YYYY"
                         styleClass="w-100"
                         inputStyleClass="w-100"
@@ -994,7 +996,8 @@
                         [monthNavigator]="true"
                         [yearNavigator]="true"
                         yearRange="2024:2030"
-                        class="w-100"
+                        dateFormat="dd MM, yy"
+                        class="w-100 custom-calendar"
                       ></p-calendar>
                       <small class="text-muted">MM/DD/YYYY - MM/DD/YYYY</small>
                     </div>
@@ -1240,6 +1243,8 @@
                                 [readonlyInput]="true"
                                 [showIcon]="true"
                                 [minDate]="today"
+                                [appendTo]="'body'"
+                                [touchUI]="true"
                                 placeholder="MM/DD/YYYY - MM/DD/YYYY"
                                 styleClass="w-100"
                                 inputStyleClass="w-100"
