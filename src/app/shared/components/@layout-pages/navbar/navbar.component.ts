@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   showDropdown: boolean = false;
   userDetails: any;
   private isBrowser: boolean;
-  
+
   constructor(
     public translate: TranslateService,
     private langService: LanguageService,
@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
       }
     }
   }
-  
+
   navigateToRoute(route: string[]) {
     this.router.navigate(route);
   }
@@ -83,7 +83,7 @@ export class NavbarComponent implements OnInit {
       this.showDropdown = false;
     }, 200);
   }
-  
+
   search(input: HTMLInputElement) {
     const currentLang = this.translate.currentLang;
     const queryParams = { search: input.value, page: 1 };
@@ -95,15 +95,15 @@ export class NavbarComponent implements OnInit {
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
   ];
-  
+
   changeLang() {
     this.langService.setCurrentLang(this.selectedLang);
   }
-  
+
   toggleSearch() {
     this.showSearch = !this.showSearch;
   }
-  
+
   isScrolled = false;
 
   @HostListener('window:scroll', [])
@@ -112,7 +112,7 @@ export class NavbarComponent implements OnInit {
       this.isScrolled = window.scrollY > 100;
     }
   }
-  
+
   countries = [
     {
       value: 'en',
@@ -140,7 +140,7 @@ export class NavbarComponent implements OnInit {
     this._HttpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
       this.userDetails = res?.user_inform;
     });
-    
+
     // Initialize selectedLabel with the first country's label
     if (this.countries.length > 0) {
       const initialCountry = this.countries.find(c => c.value === this.selectedLang) || this.countries[0];
@@ -151,7 +151,7 @@ export class NavbarComponent implements OnInit {
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
-    
+
     this._AuthService.getUserData().subscribe(
       (data: any) => {
         if (data) {
@@ -163,7 +163,7 @@ export class NavbarComponent implements OnInit {
       }
     );
   }
-  
+
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
@@ -174,7 +174,7 @@ export class NavbarComponent implements OnInit {
 
   closeOffcanvas() {
     if (!this.isBrowser) return;
-    
+
     const offcanvasElement = document.getElementById('staticBackdrop');
     const offcanvasBackdropElement = document.querySelector('.offcanvas-backdrop');
 
@@ -189,7 +189,7 @@ export class NavbarComponent implements OnInit {
     if (offcanvasBackdropElement && offcanvasBackdropElement.parentNode) {
       offcanvasBackdropElement.parentNode.removeChild(offcanvasBackdropElement);
     }
-    
+
     this.dialog.open(LoginComponent, {
       width: '100%',
       maxHeight: '80vh',
@@ -206,11 +206,11 @@ export class NavbarComponent implements OnInit {
     this.langService.setCurrentLang(country.value);
     this.isOpen = false;
   }
-  
+
   openOffcanvas() {
     this.isOffCanvasOpen = true;
   }
-  
+
   toggleOffcanvas() {
     this.isOffCanvasOpen = false;
   }

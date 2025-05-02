@@ -12,6 +12,14 @@ h4,
   .mat-mdc-dialog-container .mdc-dialog__surface {
     background-color: transparent !important;
   }
+  .mat-datepicker-content {
+    margin: auto !important;
+  }
+  .cdk-overlay-container .cdk-overlay-pane {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
 
 }
 .travel-img1{

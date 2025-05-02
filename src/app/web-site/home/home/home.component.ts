@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval); 
+    clearInterval(this.interval);
   }
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },

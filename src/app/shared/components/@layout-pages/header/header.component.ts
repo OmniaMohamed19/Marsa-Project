@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   social: any;
   userDetails: any;
   private isBrowser: boolean;
-  
+
   constructor(
     private _AuthService: AuthService,
     private langService: LanguageService,
@@ -37,16 +37,16 @@ export class HeaderComponent implements OnInit {
       this.selectedLang = lang;
     });
   }
-  
+
   ngOnInit(): void {
     this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
       this.userDetails = res?.user_inform;
     });
-    
+
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
-    
+
     this._AuthService.getUserData().subscribe(
       (data: any) => {
         if (data) {
@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
         console.error('Error:', error);
       }
     );
-    
+
     this.headerService.toggleDropdown$.subscribe(() => {
       this.toggleDropdown();
     });
@@ -68,42 +68,42 @@ export class HeaderComponent implements OnInit {
         this.social = res?.social;
       });
   }
-  
+
   getImageName(url: string): string {
     if (!url) return 'Unknown photo';
     const imageName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
- 
+
   public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },
     { value: 'du', label: 'Deutsch', flag: 'du.webp' },
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
     { value: 'cez', label: 'Čeština', flag: 'cez.webp' },
   ];
-  
+
   registerBehavoiur: string = 'login';
   signClick: boolean = false;
-  
+
   @HostListener('document:click', ['$event'])
   OnClickSignIn(event: any) {
     if (event.target.matches('.signUpDropdownInvoker')) {
       this.signClick = !this.signClick;
     }
   }
-  
+
   toggleDropdown() {
     this.signClick = !this.signClick;
   }
-  
+
   changeLang() {
     this.langService.setCurrentLang(this.selectedLang);
   }
-  
+
   toggleLoginForm() {
     this.signClick = !this.signClick;
   }
-  
+
   callLogout(): void {
     this._AuthService.logout();
   }
@@ -113,7 +113,7 @@ export class HeaderComponent implements OnInit {
       window.open('mailto:' + this.social.Mail, '_blank');
     }
   }
-  
+
   contactWhatsapp() {
     if (this.isBrowser) {
       window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
