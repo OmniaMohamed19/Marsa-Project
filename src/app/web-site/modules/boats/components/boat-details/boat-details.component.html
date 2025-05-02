@@ -981,36 +981,22 @@
                     class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
                   >
                     <div id="datepickerWrapperFromOne" class="w-100">
-                      <mat-form-field class="w-100 mt-2">
-                        <mat-label>Enter a date range</mat-label>
-                        <mat-date-range-input
-                          [formGroup]="range"
-                          class="fs-6"
-                          [rangePicker]="picker"
-                          (click)="picker.open()"
-                        >
-                          <input
-                            matStartDate
-                            formControlName="start"
-                            placeholder="Start date"
-                            (dateInput)="onStartDateChanged()"
-                            [min]="today"
-                          />
-                          <input
-                            matEndDate
-                            formControlName="end"
-                            placeholder="End date"
-                            (dateInput)="onEndDateChanged()"
-                            [min]="range.get('start')?.value || today"
-                          />
-                        </mat-date-range-input>
-                        <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle
-                          matSuffix
-                          [for]="picker"
-                        ></mat-datepicker-toggle>
-                        <mat-date-range-picker #picker></mat-date-range-picker>
-                      </mat-form-field>
+                      <p-calendar
+                        [(ngModel)]="dateRange"
+                        selectionMode="range"
+                        [readonlyInput]="true"
+                        [showIcon]="true"
+                        [minDate]="today"
+                        placeholder="MM/DD/YYYY - MM/DD/YYYY"
+                        styleClass="w-100"
+                        inputStyleClass="w-100"
+                        (onSelect)="onDateSelect($event)"
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        yearRange="2024:2030"
+                        class="w-100"
+                      ></p-calendar>
+                      <small class="text-muted">MM/DD/YYYY - MM/DD/YYYY</small>
                     </div>
                   </div>
                 </div>
@@ -1248,38 +1234,22 @@
                             class="js-quantity flex-center-between mb-1 text-dark font-weight-bold"
                           >
                             <div id="datepickerWrapperFromOne" class="w-100">
-                              <mat-form-field class="w-100 mt-2">
-                                <mat-label>Enter a date range</mat-label>
-                                <mat-date-range-input
-                                  [formGroup]="range"
-                                  class="fs-6"
-                                  [rangePicker]="picker"
-                                  (click)="picker.open()"
-                                >
-                                  <input
-                                    matStartDate
-                                    formControlName="start"
-                                    placeholder="Start date"
-                                    (dateInput)="onStartDateChanged()"
-                                    [min]="today"
-                                  />
-                                  <input
-                                    matEndDate
-                                    formControlName="end"
-                                    placeholder="End date"
-                                    (dateInput)="onEndDateChanged()"
-                                    [min]="range.get('start')?.value || today"
-                                  />
-                                </mat-date-range-input>
-                                <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle
-                                  matSuffix
-                                  [for]="picker"
-                                ></mat-datepicker-toggle>
-                                <mat-date-range-picker
-                                  #picker
-                                ></mat-date-range-picker>
-                              </mat-form-field>
+                              <p-calendar
+                                [(ngModel)]="dateRange"
+                                selectionMode="range"
+                                [readonlyInput]="true"
+                                [showIcon]="true"
+                                [minDate]="today"
+                                placeholder="MM/DD/YYYY - MM/DD/YYYY"
+                                styleClass="w-100"
+                                inputStyleClass="w-100"
+                                (onSelect)="onDateSelect($event)"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="2024:2030"
+                                class="w-100"
+                              ></p-calendar>
+                              <small class="text-muted">MM/DD/YYYY - MM/DD/YYYY</small>
                             </div>
                           </div>
                         </div>
@@ -1375,7 +1345,7 @@
       </div>
     </div>
     <div class="my-liveBoard-work" *ngIf="relatedtrips.length > 0">
-      <h5 class="text-center mb-5">Based on what’s you’re looking for ....</h5>
+      <h5 class="text-center mb-5">Based on what's you're looking for ....</h5>
       <owl-carousel-o [options]="customOptions" class="row">
         <ng-container *ngFor="let item of relatedtrips">
           <ng-template carouselSlide>

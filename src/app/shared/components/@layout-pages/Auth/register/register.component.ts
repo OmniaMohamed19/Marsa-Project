@@ -41,10 +41,10 @@ export class RegisterComponent implements OnInit {
   showCodeSignForm: boolean = true;
 
   constructor(
-    private socialAuthService: SocialAuthService,
+    // private socialAuthService: SocialAuthService,
     private authService: AuthService,
     private fb: FormBuilder,
-    private _Router: Router,
+    // private _Router: Router,
     public translate: TranslateService,
     private codeService: CodeService,
     private toastr: ToastrService,
