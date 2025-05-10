@@ -68,14 +68,9 @@ p {
         margin-top: -170px;
     }
 
-    ::ng-deep .mobile-content h1 span {
-        padding-top: 5px !important;
-        font-size: 28px !important;
-    }
 
-    ::ng-deep .mobile-content p {
-        font-size: 18px !important;
-        margin-bottom: 5px !important;
+    ::ng-deep .mobile-content * {
+      font-size: 22px !important;
     }
 
     .mobile {
@@ -115,13 +110,10 @@ p {
 
     }
 
-    ::ng-deep .mobile-content h1 span {
-        font-size: 30px !important;
+    ::ng-deep .mobile-content * {
+      font-size: 25px !important;
     }
 
-    ::ng-deep .mobile-content p {
-        font-size: 20px !important;
-    }
 
     .mobile {
         flex-direction: column;
@@ -142,14 +134,10 @@ p {
         flex-direction: column;
     }
 
-    ::ng-deep .mobile-content h1 span {
-        font-size: 29px !important;
+    ::ng-deep .mobile-content * {
+      font-size: 29px !important;
     }
 
-    ::ng-deep .mobile-content p {
-        margin-top: 10px !important;
-      font-size: 20px !important;
-    }
 }
 
 @media screen and (min-width:992.9px) and (max-width:1200px) {
@@ -157,9 +145,9 @@ p {
         padding-top: 40px;
     }
 
-    ::ng-deep .mobile-content h1 span {
-        font-size: 39px !important;
-    }
+    // ::ng-deep .mobile-content h1 span {
+    //     font-size: 39px !important;
+    // }
 
     ::ng-deep .mobile-content p {
         font-size: 27px !important;

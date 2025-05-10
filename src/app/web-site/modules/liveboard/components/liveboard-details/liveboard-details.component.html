@@ -1122,25 +1122,23 @@
                       id="datepickerWrapperFromOne"
                       class="u-datepicker input-group flex-nowrap"
                     >
-                      <mat-form-field class="w-100" appearance="fill">
-                        <mat-select
-                          [formControl]="selectedDateControl"
-                          placeholder="Select Date"
-                          required
-                        >
-                          <mat-option value="0" disabled
-                            >Select Date</mat-option
-                          >
-                          <mat-option
-                            (valueChange)="onValueChange(time)"
-                            *ngFor="let time of liveabourdData?.Schedules"
-                            [value]="time"
-                          >
-                            {{ time?.Start }} to {{ time.End }}
-                          </mat-option>
-                        </mat-select>
-
-                      </mat-form-field>
+                      <p-dropdown
+                        class="w-100"
+                        [options]="liveabourdData?.Schedules"
+                        [formControl]="selectedDateControl"
+                        optionLabel="Start"
+                        [placeholder]="'Select Date'"
+                        [showClear]="true"
+                        [filter]="false"
+                        [disabled]="!liveabourdData?.Schedules?.length"
+                        (onChange)="onValueChange($event.value)"
+                        [ngStyle]="{ 'min-width': '100%' }"
+                        [autoDisplayFirst]="false"
+                      >
+                        <ng-template let-time pTemplate="item">
+                          {{ time?.Start }} to {{ time?.End }}
+                        </ng-template>
+                      </p-dropdown>
                     </div>
                     <!-- End Datepicker -->
                   </div>
@@ -1416,25 +1414,23 @@
                             id="datepickerWrapperFromOne"
                             class="u-datepicker input-group flex-nowrap"
                           >
-                            <mat-form-field class="w-100" appearance="fill">
-                              <mat-select
-                                [formControl]="selectedDateControl"
-                                placeholder="Select Date"
-                                required
-                              >
-                                <mat-option value="0" disabled
-                                  >Select Date</mat-option
-                                >
-                                <mat-option
-                                  (valueChange)="onValueChange(time)"
-                                  *ngFor="let time of liveabourdData?.Schedules"
-                                  [value]="time"
-                                >
-                                  {{ time?.Start }} to {{ time.End }}
-                                </mat-option>
-                              </mat-select>
-
-                            </mat-form-field>
+                            <p-dropdown
+                              class="w-100"
+                              [options]="liveabourdData?.Schedules"
+                              [formControl]="selectedDateControl"
+                              optionLabel="Start"
+                              [placeholder]="'Select Date'"
+                              [showClear]="true"
+                              [filter]="false"
+                              [disabled]="!liveabourdData?.Schedules?.length"
+                              (onChange)="onValueChange($event.value)"
+                              [ngStyle]="{ 'min-width': '100%' }"
+                              [autoDisplayFirst]="false"
+                            >
+                              <ng-template let-time pTemplate="item">
+                                {{ time?.Start }} to {{ time?.End }}
+                              </ng-template>
+                            </p-dropdown>
                           </div>
                           <!-- End Datepicker -->
                         </div>
@@ -1520,7 +1516,7 @@
     </div>
 
     <div *ngIf="showRelatedtrip" class="my-tours-work">
-      <h5 class="text-center mb-5">Based on what’s you’re looking for ....</h5>
+      <h5 class="text-center mb-5">Based on what's you're looking for ....</h5>
       <owl-carousel-o [options]="customOptions" class="my-tours">
         <ng-container *ngFor="let item of relatedtrips">
           <ng-template carouselSlide>

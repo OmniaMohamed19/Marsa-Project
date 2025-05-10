@@ -110,6 +110,11 @@ export class LiveboardsComponent implements OnInit {
   onPageChange(event: any) {
     const pageNumber = event.page + 1; // PrimeNG uses 0-based index
     this.loadPageData(pageNumber);
+    // Scroll to top of the page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
   loadPageData(pageNumber: number) {

@@ -11,6 +11,9 @@ h4,
   height: 500px
 }
 ::ng-deep {
+  .p-dropdown{
+    width: 100%;
+  }
 
   .cdk-overlay-pane {
     overflow: auto !important;

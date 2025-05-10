@@ -56,22 +56,37 @@ export class NavbarComponent implements OnInit {
     return imageName || 'Unknown photo';
   }
 
-  onSearch() {
-    if (this.keyword && this.keyword.trim()) {
-      this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
-        (data) => {
-          this.results = data;
-          this.showDropdown = this.results.trip && this.results.trip.length > 0;
-        },
-        (error) => {
-          console.error('Error:', error);
-        }
-      );
-    } else {
+  onSearch(event?: any) {
+    // If event is from focus, don't show error
+    if (event?.type === 'focus') {
+      if (this.keyword && this.keyword.trim()) {
+        this.performSearch();
+      }
+      return;
+    }
+
+    // For enter key or button click
+    if (!this.keyword || !this.keyword.trim()) {
       if (this.isBrowser) {
         Swal.fire('Error', 'Please enter a Keyword', 'error');
       }
+      return;
     }
+
+    this.performSearch();
+  }
+
+  private performSearch() {
+    this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
+      (data) => {
+        console.log('Search results:', data);
+        this.results = data;
+        this.showDropdown = this.results.trip && this.results.trip.length > 0;
+      },
+      (error) => {
+        console.error('Search Error:', error);
+      }
+    );
   }
 
   navigateToRoute(route: string[]) {
@@ -214,4 +229,24 @@ export class NavbarComponent implements OnInit {
   toggleOffcanvas() {
     this.isOffCanvasOpen = false;
   }
+
+  // navigateToTrip(result: any) {
+  //   console.log('Navigating to trip:', result);
+
+  //   // Close dropdown and clear search
+  //   this.showDropdown = false;
+  //   this.keyword = '';
+
+  //   // Simple navigation to tours page with search parameter
+  //   const route = ['/', this.translate.currentLang, 'tours'];
+  //   const queryParams = { search: result.Name };
+
+  //   this.router.navigate(route, { queryParams }).then(success => {
+  //     console.log('Navigation success:', success);
+  //   }).catch(error => {
+  //     console.error('Navigation error:', error);
+  //   });
+  // }
 }
+
+

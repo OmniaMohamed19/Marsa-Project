@@ -12,6 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from 'primeng/image';
 import { PaginatorModule } from 'primeng/paginator';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PaginatorModule } from 'primeng/paginator';
     MatSliderModule,
     GalleriaModule,
     ImageModule,
-    PaginatorModule
+    PaginatorModule,
+    DropdownModule
   ],
 })
 export class LiveboardModule {}

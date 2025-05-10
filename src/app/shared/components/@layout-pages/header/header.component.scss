@@ -26,6 +26,11 @@ input::placeholder {
 }
 /*******************************/
 
+::ng-deep{
+  .cdk-overlay-pane.mat-mdc-dialog-panel{
+    margin: auto !important;
+  }
+}
 
 /**************************/
 .nav-item {
@@ -38,8 +43,6 @@ input::placeholder {
 .nav-item a {
     color: #000;
 }
-
-
 .nav-link {
     color: #FFFFFF !important;
     line-height: 24px;
@@ -47,10 +50,9 @@ input::placeholder {
     font-weight: 700;
     font-family: Poppins;
 }
-
 @media (max-width: 600px) {
     .u-header__hide-content {
-        display: none !important;
+     display: none !important;
     }
     .nav-item a {
         border-bottom: 1px solid #cccccc;

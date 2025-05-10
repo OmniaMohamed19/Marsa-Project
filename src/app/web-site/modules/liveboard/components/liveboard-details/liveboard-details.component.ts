@@ -102,6 +102,10 @@ export class LiveboardDetailsComponent {
     const endIndex = event.first + event.rows;
     this.pagedItems = this.items.slice(startIndex, endIndex);
   }
+  isScrolling: boolean = false;
+  sections: string[] = ['overview', 'itinerary', 'cabin', 'boat', 'reviews', 'faq', 'important'];
+  activeSection: string = 'overview';
+  private scrollTimeout: any;
   constructor(
     private el: ElementRef,
     private _httpService: HttpService,
@@ -869,5 +873,71 @@ export class LiveboardDetailsComponent {
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    if (this.isScrolling) return;
+
+    // Debounce scroll events
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
+
+    this.scrollTimeout = setTimeout(() => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const scrollThreshold = windowHeight * 0.3; // 30% of viewport height
+
+      const sections = this.sections.map((section: string) => {
+        const element = document.getElementById(section);
+        if (!element) return null;
+
+        const rect = element.getBoundingClientRect();
+        const offset = rect.top + window.scrollY;
+        const height = rect.height;
+        const isVisible = rect.top <= scrollThreshold && rect.bottom >= 0;
+
+        return {
+          id: section,
+          element,
+          offset,
+          height,
+          isVisible,
+          distanceFromTop: Math.abs(rect.top)
+        };
+      }).filter(Boolean);
+
+      // Find the most visible section
+      const currentSection = sections.reduce((closest: any, section: any) => {
+        if (!section.isVisible) return closest;
+        return section.distanceFromTop < closest.distanceFromTop ? section : closest;
+      }, sections[0]);
+
+      if (currentSection && this.activeSection !== currentSection.id) {
+        this.activeSection = currentSection.id;
+        this.scrollToSection(currentSection.id);
+      }
+    }, 100); // Debounce time
+  }
+
+  scrollToSection(sectionId: string) {
+    this.isScrolling = true;
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100; // Increased offset for better positioning
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      // Reset scrolling flag after animation completes
+      setTimeout(() => {
+        this.isScrolling = false;
+      }, 800); // Reduced timeout for better responsiveness
+    }
   }
 }

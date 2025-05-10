@@ -12,8 +12,8 @@
       <input
         type="search"
         [(ngModel)]="keyword"
-        (keyup.enter)="onSearch()"
-        (focus)="onSearch()"
+        (keyup.enter)="onSearch($event)"
+        (focus)="onSearch($event)"
         (blur)="hideDropdown()"
         style="height: 44px; border-bottom-right-radius: 0px !important; border-top-right-radius: 0px !important;"
         class="form-control rounded"
@@ -25,7 +25,7 @@
         type="button"
         style="background-color: #0db1ff; color: #ffffff; padding-top: 0.5rem; height: 44px;"
         class="btn"
-        (click)="onSearch()"
+        (click)="onSearch($event)"
       >
         Search
       </button>
@@ -34,7 +34,8 @@
         <li
           *ngFor="let result of results?.trip"
           class="dropdown-item"
-          (click)="navigateToRoute(['/', translate.currentLang, 'tours', 'details', result?.id, result?.Name])"
+          (click)="navigateToRoute(['/', translate.currentLang, 'tours', result?.id, result?.Name])"
+          
           style="cursor: pointer;"
         >
           {{ result.Name }}
@@ -224,7 +225,7 @@
               {{ "header.contact-us" | translate }}
             </a>
           </li>
-        
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ "header.more" | translate }}

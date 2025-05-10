@@ -3,7 +3,7 @@
 <div class="container content">
   <div class="row mb-5 mb-md-8 mt-xl-1 pb-md-1">
     <div class="col-lg-4 col-xl-3 col-sm-12 order-lg-1 width-md-50 top-margin">
-      
+
       <div class="navbar-expand-lg navbar-expand-lg-collapse-block">
         <button (click)="showFilter = !showFilter" class="btn d-lg-none mb-5 p-0" type="button" data-toggle="collapse"
           data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,12 +94,12 @@
                     data-parent="#shopCartAccordion">
                     <div class="card-body pt-0 px-5">
                       <div class="pb-3 mb-1 d-flex text-lh-1">
-                        <span>£</span>
+                        <span>$</span>
                         <span id="rangeSliderExample3MinResult" class="">{{
                           min_priceChoosen ? min_priceChoosen : min_price
                           }}</span>
                         <span class="mx-0dot5"> — </span>
-                        <span>£</span>
+                        <span>$</span>
                         <span id="rangeSliderExample3MaxResult" class="">{{
                           max_priceChoosen ? max_priceChoosen : max_price
                           }}</span>
@@ -183,7 +183,7 @@
                               {{ duration?.typetime }}
                             </label>
                           </div>
-                          <span>{{ duration?.count }}</span>
+                          <!-- <span>{{ duration?.count }}</span> -->
                         </div>
                       </div>
                     </div>
@@ -225,7 +225,7 @@
                               {{ duration?.start }} - {{ duration?.end }}
                             </label>
                           </div>
-                          <span>{{ duration?.count }}</span>
+                          <!-- <span>{{ duration?.count }}</span> -->
                         </div>
 
                         <!-- End Checkboxes -->
