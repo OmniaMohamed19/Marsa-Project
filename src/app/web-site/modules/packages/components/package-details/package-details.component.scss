@@ -4,15 +4,41 @@
 }
 
 
-.carousel-card {
-  width: 100%;
-  height: 250px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-  margin-bottom: 0.2rem;
+.diving-carousel {
+    ::ng-deep {
+    .p-carousel {
+      .p-carousel-indicators {
+        margin-top: 1rem;
+      }
+
+      .p-carousel-indicator {
+        button {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #D6D6D6;
+          border: none;
+          margin: 0 5px;
+          transition: all 0.3s ease;
+
+          &.p-highlight {
+            background: #0db1ff;
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-card {
+    img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
 }
+
 .p-calendar-overlay-visible .sticky-nav {
   position: static !important;
   top: auto !important;
@@ -84,8 +110,8 @@ width:100%  !important;
   min-width:30%; /* التأكد من عدم تجاوز الشاشة */
 }
 ::ng-deep{
- 
- 
+
+
  .mat-datepicker-content {
     max-width: 90vw !important;
     max-height: 90vh !important;

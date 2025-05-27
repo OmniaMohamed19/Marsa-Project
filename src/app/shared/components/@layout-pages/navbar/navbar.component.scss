@@ -10,7 +10,21 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.search-result-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
 
+.search-result-item:hover {
+  background-color: #f8f9fa;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
 
 .nav-item a {
   font-family: Lato;
@@ -372,7 +386,7 @@ ul.menu-login {
 }
 
 @media (min-width: 768.98px) and (max-width: 992px) {
- 
+
   ul {
     li {
       margin-bottom: 18px;

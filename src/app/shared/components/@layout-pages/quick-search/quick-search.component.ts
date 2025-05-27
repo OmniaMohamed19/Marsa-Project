@@ -30,6 +30,10 @@ export class QuickSearchComponent {
   placeTours: any;
   dateTours: any;
   adultsNumber = 1;
+    adultsNumber2 = 1;
+        adultsNumber3 = 1;
+
+
   childrenNumber = 1;
   infantNumber = 1;
   activeIndex = 0;
@@ -172,6 +176,47 @@ private dataService: DataService,
       this.persons--;
     }
   }
+  increaseAdults(event: Event) {
+  event.stopPropagation();
+  if (this.adultsNumber < 10) {
+    this.adultsNumber++;
+  }
+}
+
+
+
+decreaseAdults(event: Event) {
+  event.stopPropagation();
+  if (this.adultsNumber > 0) {
+    this.adultsNumber--;
+  }
+}
+decreaseAdults2(event: Event) {
+  event.stopPropagation();
+  if (this.adultsNumber2 > 0) {
+    this.adultsNumber2--;
+  }
+}
+increaseAdults2(event: Event) {
+  event.stopPropagation();
+  if (this.adultsNumber2 < 10) {
+    this.adultsNumber2++;
+  }
+}
+decreaseAdults3(event: Event) {
+  event.stopPropagation();
+  if (this.adultsNumber2 > 0) {
+    this.adultsNumber2--;
+  }
+}
+increaseAdults3(event: Event) {
+  event.stopPropagation();
+  if (this.adultsNumber2 < 10) {
+    this.adultsNumber2++;
+  }
+}
+
+
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }

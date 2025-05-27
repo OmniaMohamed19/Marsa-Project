@@ -47,7 +47,7 @@
 </div>
 
 <div *ngIf="isMobile">
-  <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="2" [numScroll]="1" [showIndicators]="false"
+  <p-carousel [value]="placeDetails?.typeTrip" [numVisible]="2" [numScroll]="1" [showIndicators]="true"
     [showNavigators]="false">
     <ng-template pTemplate="item" let-type>
       <div class="mobile-trip-item"  [ngClass]="{ 'selected': selectedTrip === type.id }" (click)="selectTrip(type.id)">

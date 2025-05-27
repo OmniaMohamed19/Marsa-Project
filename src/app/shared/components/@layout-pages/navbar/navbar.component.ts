@@ -55,56 +55,145 @@ export class NavbarComponent implements OnInit {
     const imageName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
     return imageName || 'Unknown photo';
   }
+  private searchTimeout: any;
+private blurTimeout: any;
+isSearching = false;
+showNoResults = false;
 
-  onSearch(event?: any) {
-    // If event is from focus, don't show error
-    if (event?.type === 'focus') {
-      if (this.keyword && this.keyword.trim()) {
-        this.performSearch();
+
+  onInput(event: any) {
+  const value = event.target.value.trim();
+
+  // إلغاء البحث السابق
+  if (this.searchTimeout) {
+    clearTimeout(this.searchTimeout);
+  }
+
+  // إخفاء النتائج إذا كان النص فارغ
+  if (!value) {
+    this.showDropdown = false;
+    this.showNoResults = false;
+    return;
+  }
+
+  // البحث بعد تأخير قصير (500ms)
+  this.searchTimeout = setTimeout(() => {
+    this.performAutoSearch();
+  }, 500);
+}
+
+
+// دالة للتعامل مع keyup (للحفاظ على وظيفة Enter)
+onKeyup(event: any) {
+  if (event.key === 'Enter') {
+    this.onButtonSearch();
+  }
+}
+
+// دالة للتعامل مع focus
+onFocus(event: any) {
+  if (this.keyword && this.keyword.trim()) {
+    this.performAutoSearch();
+  }
+}
+
+// دالة للتعامل مع blur
+onInputBlur() {
+  this.blurTimeout = setTimeout(() => {
+    this.hideDropdown();
+  }, 200);
+}
+
+// البحث التلقائي
+private performAutoSearch() {
+  if (!this.keyword || !this.keyword.trim()) {
+    this.showDropdown = false;
+    return;
+  }
+
+  this.isSearching = true;
+  this.showDropdown = true;
+  this.showNoResults = false;
+
+  this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword.trim() }).subscribe(
+    (data) => {
+      console.log('Auto search results:', data);
+      this.results = data;
+      this.isSearching = false;
+
+      // التحقق من وجود نتائج
+      if (this.results?.trip && this.results.trip.length > 0) {
+        this.showDropdown = true;
+        this.showNoResults = false;
+      } else {
+        this.showDropdown = true;
+        this.showNoResults = true;
       }
-      return;
+    },
+    (error) => {
+      console.error('Auto Search Error:', error);
+      this.isSearching = false;
+      this.showDropdown = true;
+      this.showNoResults = true;
     }
+  );
+}
 
-    // For enter key or button click
-    if (!this.keyword || !this.keyword.trim()) {
-      if (this.isBrowser) {
-        Swal.fire('Error', 'Please enter a Keyword', 'error');
-      }
-      return;
+// البحث عند الضغط على الزر أو Enter
+onButtonSearch() {
+  if (!this.keyword || !this.keyword.trim()) {
+    if (this.isBrowser) {
+      Swal.fire('Error', 'Please enter a Keyword', 'error');
     }
-
-    this.performSearch();
+    return;
   }
 
-  private performSearch() {
-    this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword }).subscribe(
-      (data) => {
-        console.log('Search results:', data);
-        this.results = data;
-        this.showDropdown = this.results.trip && this.results.trip.length > 0;
-      },
-      (error) => {
-        console.error('Search Error:', error);
-      }
-    );
+  this.performSearch();
+}
+private performSearch() {
+  this.isSearching = true;
+  this.showDropdown = false;
+
+  this._HttpService.post(environment.marsa, 'search/keyword', { keyword: this.keyword.trim() }).subscribe(
+    (data) => {
+      console.log('Main search results:', data);
+      this.results = data;
+      this.isSearching = false;
+
+
+    },
+    (error) => {
+      console.error('Main Search Error:', error);
+      this.isSearching = false;
+    }
+  );
+}
+
+navigateToResult(result: any) {
+  if (this.blurTimeout) {
+    clearTimeout(this.blurTimeout);
   }
 
-  navigateToRoute(route: string[]) {
-    this.router.navigate(route);
-  }
+  this.router.navigate(['/', this.translate.currentLang, 'tours', result?.id, result?.Name]);
+  this.hideDropdown();
+  this.keyword = result.Name;
+}
 
-  hideDropdown() {
-    setTimeout(() => {
-      this.showDropdown = false;
-    }, 200);
-  }
+hideDropdown() {
+  this.showDropdown = false;
+  this.showNoResults = false;
+}
 
-  search(input: HTMLInputElement) {
-    const currentLang = this.translate.currentLang;
-    const queryParams = { search: input.value, page: 1 };
+ngOnDestroy() {
+  if (this.searchTimeout) {
+    clearTimeout(this.searchTimeout);
   }
+  if (this.blurTimeout) {
+    clearTimeout(this.blurTimeout);
+  }
+}
 
-  public languageOptions = [
+    public languageOptions = [
     { value: 'en', label: 'English', flag: 'en.webp' },
     { value: 'du', label: 'Deutsch', flag: 'du.webp' },
     { value: 'rs', label: 'Русский', flag: 'rs.webp' },
@@ -115,11 +204,7 @@ export class NavbarComponent implements OnInit {
     this.langService.setCurrentLang(this.selectedLang);
   }
 
-  toggleSearch() {
-    this.showSearch = !this.showSearch;
-  }
-
-  isScrolled = false;
+   isScrolled = false;
 
   @HostListener('window:scroll', [])
   checkScroll() {

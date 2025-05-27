@@ -39,7 +39,11 @@ h4,
 
 ::ng-deep  .p-datepicker-touch-ui {
   width: 250px !important;
-  min-width:30%; 
+  min-width:30%;
+}
+.mat-expansion-panel{
+  padding-top:1rem !important;
+  padding-bottom:1rem !important;
 }
 
 .p-calendar-overlay-visible .sticky-nav {
@@ -307,6 +311,7 @@ h3.highlighting {
 }
 
 @media (max-width: 992px){
+
   .travel-img1{
     height: 250px
   }
@@ -314,9 +319,12 @@ h3.highlighting {
     font-size: 19px;
     margin-top: 2rem;
   }
-  // .sticky-nav {
-  //   display: none;
-  // }
+  h5, #faq h5 {
+  margin-top:0rem;
+}
+#faq h5 {
+  margin-bottom:0.5rem;
+}
   #mobile-img {
     min-width: auto !important;
   }

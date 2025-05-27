@@ -287,6 +287,33 @@ export class BoatDetailsComponent {
       this.endDate = this.datePipe.transform(endDate, 'yyyy-MM-dd');
     }
   }
+ onStartDateChanged2(): void {
+    const startDate = this.range.get('start')?.value;
+    const formattedDate = this.datePipe.transform(startDate, 'yyyy/MM/dd');
+    this.startDate = formattedDate;
+
+    if (startDate) {
+      const selectedStartDate = new Date(startDate);
+      if (selectedStartDate < this.today) {
+        this.range.get('start')?.setValue(this.today);
+      }
+      // Automatically set minimum date for end date
+      this.range.get('end')?.setValue(null); // Reset end date when start date changes
+    }
+  }
+
+  onEndDateChanged2(): void {
+    const endDate = this.range.get('end')?.value;
+    const formattedDate = this.datePipe.transform(endDate, 'yyyy/MM/dd');
+    this.endDate = formattedDate;
+
+    if (endDate) {
+      const selectedEndDate = new Date(endDate);
+      if (selectedEndDate < this.today) {
+        this.range.get('end')?.setValue(this.today);
+      }
+    }
+  }
 
   // New method for PrimeNG calendar
   onDateSelect(event: any): void {
@@ -297,7 +324,7 @@ export class BoatDetailsComponent {
         // Update the Angular Material FormGroup for compatibility with existing code
         this.range.get('start')?.setValue(this.dateRange[0]);
       }
-      
+
       // For end date
       if (this.dateRange[1]) {
         this.endDate = this.datePipe.transform(this.dateRange[1], 'yyyy-MM-dd');
@@ -450,7 +477,6 @@ export class BoatDetailsComponent {
   }
 
   openImageSliderModal(): void {
-    // this.showSeeMore = true;
     const dialogRef = this.dialog.open(ImageSliderModalComponent, {
       width: '80%',
     });
@@ -540,7 +566,7 @@ export class BoatDetailsComponent {
   bookNow() {
     // Check if dates are selected in PrimeNG calendar
     const datesValid = this.dateRange && this.dateRange.length === 2 && this.dateRange[0] && this.dateRange[1];
-    
+
     if (!datesValid || this.selectedDateControl.invalid) {
       // If using PrimeNG calendar without form controls, we need to show validation visually
       if (!datesValid) {
@@ -549,7 +575,7 @@ export class BoatDetailsComponent {
           closeButton: true,
         });
       }
-      
+
       // Still mark Angular Material form controls as touched for backwards compatibility
       this.range.markAllAsTouched();
       this.selectedDateControl.markAsTouched();

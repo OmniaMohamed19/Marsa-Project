@@ -54,15 +54,15 @@ width:100%  !important;
     position: static !important;
     top: auto !important;
   }
-  // .mat-datepicker-toggle button svg {
-  //   color: #0057FF !important;
-  // }
+  .mat-datepicker-toggle button svg {
+    color: #0057FF !important;
+  }
   .custom-calendar .p-inputwrapper .p-datepicker-trigger {
     background-color: transparent !important;
     border: none;
   }
 
-  .custom-calendar calendaricon svg {
+.custom-calendar calendaricon svg {
     color: #0057FF !important;
     font-size: 1.2rem;
   }
@@ -254,8 +254,18 @@ mat-hint {
   outline: none;
   z-index: 2;
 }
+.mat-expansion-panel{
+  padding-top:1rem !important;
+  padding-bottom:1rem !important;
+}
 
 @media (max-width: 992px) {
+   h5, #faq h5 {
+  margin-top:0rem;
+}
+#faq h5 {
+  margin-bottom:0.5rem;
+}
   .travel-img1{
     height: 250px
   }

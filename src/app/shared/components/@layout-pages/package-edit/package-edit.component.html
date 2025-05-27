@@ -149,36 +149,26 @@
 
 
             <div *ngIf="isSmallScreen; else normalImages" class="diving-carousel">
-              <owl-carousel-o [options]="carouselOptions">
-                <ng-container >
-                  <ng-template carouselSlide>
-                    <div class="carousel-card">
-
-                      <img [src]="package?.cover1" />
-                    </div>
-                  </ng-template>
-                  <ng-template carouselSlide >
-                    <div class="carousel-card">
-                      <img [src]="package?.cover2" />
-                    </div>
-                  </ng-template>
-                  <ng-template carouselSlide>
-                    <div class="carousel-card">
-                      <img [src]="package?.cover3" />
-                    </div>
-                  </ng-template>
-                </ng-container>
-              </owl-carousel-o>
-
-
-
+              <p-carousel [value]="[package?.cover1, package?.cover2, package?.cover3]" 
+                         [numVisible]="1" 
+                         [numScroll]="1"
+                         [responsiveOptions]="responsiveOptions"
+                         [circular]="true"
+                         [showIndicators]="true"
+                         [autoplayInterval]="0">
+                <ng-template let-item pTemplate="item">
+                  <div class="carousel-card">
+                    <img [src]="item" alt="" />
+                  </div>
+                </ng-template>
+              </p-carousel>
             </div>
 
             <ng-template #normalImages>
               <div class="diving-images">
-                <div><img [src]="package?.cover1" /></div>
-                <div><img [src]="package?.cover2" /></div>
-                <div class="div2"><img [src]="package?.cover3" /></div>
+                <div><img [src]="package?.cover1 " alt=""/></div>
+                <div><img [src]="package?.cover2 " alt="" /></div>
+                <div class="div2"><img [src]="package?.cover3" alt=""/></div>
               </div>
             </ng-template>
 

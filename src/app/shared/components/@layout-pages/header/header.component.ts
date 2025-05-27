@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
       this.userDetails = res?.user_inform;
     });

@@ -15,6 +15,7 @@
   min-width:30%; /* التأكد من عدم تجاوز الشاشة */
 }
 
+
 ::ng-deep{
 
 
@@ -539,6 +540,11 @@ label,
 }
 /*********************************************/
 @media screen and (max-width: 993px) {
+  .mat-expansion-panel-header{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+}
   .reviews {
     margin-top: 1rem;
 

@@ -14,6 +14,7 @@ export class ToursComponent {
   activeView = 'grid';
   FilterTimeid: any = [];
   FilterDurationid: any = [];
+  isDestinationFilterActive = false;
 
   duration: any = [];
   time: any = [];
@@ -119,8 +120,9 @@ export class ToursComponent {
     this.place_id = 'null';
     this.start_d = null;
     this.rate = null;
-    this.min_priceChoosen = this.min_price; // Reset to default minimum price
-    this.max_priceChoosen = this.max_price; // Reset to default maximum price
+    this.isDestinationFilterActive = false;
+    this.min_priceChoosen = this.min_price;
+    this.max_priceChoosen = this.max_price;
     for (let i = 2; i <= 5; i++) {
       if (i != 2) {
         document.getElementById('btn-' + i)?.classList.remove('active-rate');
@@ -172,7 +174,12 @@ export class ToursComponent {
 
   searchDestination(ev: any) {
     this.place_id = ev.target.value;
-    this.filter();
+    this.isDestinationFilterActive = this.place_id !== 'null' && this.place_id !== null;
+    if (!this.isDestinationFilterActive) {
+      this.getAllactivity();
+    } else {
+      this.filter();
+    }
   }
 
   setRate(number: any) {

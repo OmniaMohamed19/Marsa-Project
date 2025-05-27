@@ -12,6 +12,51 @@ input[type="date"]{
   padding: 0 15px;
   padding-left: 45px;
 }
+.border-color-1 {
+    border-color: #959292 !important;
+    border-radius: 0px;
+}
+.btn-icon.btn-medium {
+    font-size: 1rem;
+    width: 3.188rem;
+    height: 2.188rem;
+}
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: transparent !important;
+  border: none;
+  box-shadow: none;
+
+}
+
+::ng-deep .custom-datepicker-field .mat-form-field-underline {
+border-bottom: 1px solid #eaeaea;
+}
+
+.calendar-icon-button {
+  margin-right: 8px;
+}
+
+.calendar-icon-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+/* لون النص المكتوب */
+.custom-datepicker-color input.mat-input-element {
+  color: #3b444f !important;
+}
+
+/* لون placeholder (mat-label قبل الكتابة) */
+.custom-datepicker-color .mat-form-field-label {
+  color: #3b444f !important;
+  opacity: 1; /* حتى لا يظهر باهتًا */
+}
+
+/* لون الـ label عند التركيز (float فوق) */
+// .custom-datepicker-color .mat-form-field-label.mat-form-field-empty.mat-form-field-label-floating {
+//   color: #3b444f !important;
+// }
+
 
 
 .carousel-card {

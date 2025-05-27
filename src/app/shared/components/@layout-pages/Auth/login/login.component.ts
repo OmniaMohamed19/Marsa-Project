@@ -26,13 +26,13 @@ export class LoginComponent implements OnInit {
   showRegisterComponent = false;
   isPasswordVisible = false;
   showResetComponent = false;
-  showCodeSignForm=false;
+  showCodeSignForm = false;
   baseURL = environment.APIURL;
-   private isAuthenticated = false;
-    $isAuthenticated = new BehaviorSubject<boolean>(false);
-    private token!: string;
-    private $userData = new BehaviorSubject<any | null>(null);
-    $loginError = new Subject();
+  private isAuthenticated = false;
+  $isAuthenticated = new BehaviorSubject<boolean>(false);
+  private token!: string;
+  private $userData = new BehaviorSubject<any | null>(null);
+  $loginError = new Subject();
 
   constructor(
     private authService: AuthService,
@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
   toggleVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
+
   changeReqister(value: string) {
     if (value === 'signup') {
       this.showRegisterComponent = true;
@@ -66,13 +67,10 @@ export class LoginComponent implements OnInit {
     } else if (value == 'reset') {
       this.showResetComponent = true;
       this.loginForm.get('showForm')?.setValue(false);
-    }
-     else if (value == 'otp') {
-      this.showCodeSignForm=true;
+    } else if (value == 'otp') {
+      this.showCodeSignForm = true;
       this.loginForm.get('showForm')?.setValue(false);
-
-    }
-    else {
+    } else {
       this.showRegisterComponent = false;
       this.loginForm.get('showForm')?.setValue(true);
     }
@@ -81,6 +79,7 @@ export class LoginComponent implements OnInit {
   get email() {
     return this.loginForm.get('email')!;
   }
+
   get password() {
     return this.loginForm.get('password')!;
   }
@@ -94,8 +93,7 @@ export class LoginComponent implements OnInit {
         timeOut: 5000,
         closeButton: true,
       });
-    }
-     else if (this.email.invalid) {
+    } else if (this.email.invalid) {
       this.toastr.error('please enter a valid email address', '', {
         disableTimeOut: false,
         titleClass: 'toastr_title',
@@ -103,15 +101,13 @@ export class LoginComponent implements OnInit {
         timeOut: 5000,
         closeButton: true,
       });
-    }
-    else {
+    } else {
       this.authenticate(this.loginForm.value);
-
     }
-
   }
+
   authenticate(userData: { email: string; password: string }) {
-    this._HttpClient.post<any>(`${this.baseURL}login`, userData).subscribe({
+    this._HttpClient.post<any>(`https://admin.marsawaves.org/api/login`, userData).subscribe({
       next: (res: any) => {
         if (res && res.result) {
           // set auth status and token
@@ -125,7 +121,18 @@ export class LoginComponent implements OnInit {
 
           this.$userData.next(res.user);
           this.dialog?.closeAll();
-          window.location.reload();
+
+          // استدعاء دالة لجلب بيانات المستخدم بعد تسجيل الدخول بنجاح
+          this.fetchUserInformation();
+
+          // إشعار باقي التطبيق بنجاح تسجيل الدخول
+          this.authService.$isAuthenticated.next(true);
+
+          // إعادة تحميل الصفحة بعد تأخير قصير لضمان حفظ البيانات
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+
         } else {
           this.$loginError.next(true);
           this.toastr.error(res.message || 'Login failed. Please try again.');
@@ -135,7 +142,7 @@ export class LoginComponent implements OnInit {
         this.$loginError.next(true);
 
         if (err.error && err.error.message) {
-          if(err.error.message === 'User not found'){
+          if (err.error.message === 'User not found') {
             this.toastr.error('User not found', '', {
               disableTimeOut: false,
               titleClass: 'toastr_title',
@@ -143,8 +150,7 @@ export class LoginComponent implements OnInit {
               timeOut: 5000,
               closeButton: true,
             });
-          }
-          else if (err.error.message === 'Please verify your account'){
+          } else if (err.error.message === 'Please verify your account') {
             this.showCodeSignForm = !this.showCodeSignForm;
             this.toastr.error(err.error.message, '', {
               disableTimeOut: false,
@@ -153,13 +159,7 @@ export class LoginComponent implements OnInit {
               timeOut: 5000,
               closeButton: true,
             });
-            // this.loginForm.reset({
-            //   showForm: true,
-            // });
-
-
-          }
-          else if (err.error.message === 'Unauthorized'){
+          } else if (err.error.message === 'Unauthorized') {
             this.toastr.error('Incorrect Email or password', '', {
               disableTimeOut: false,
               titleClass: 'toastr_title',
@@ -168,7 +168,6 @@ export class LoginComponent implements OnInit {
               closeButton: true,
             });
           }
-
         } else if (err.statusText === 'Unauthorized') {
           this.toastr.error(this.transtale.instant('validation.Unauthorized'));
         } else {
@@ -176,6 +175,31 @@ export class LoginComponent implements OnInit {
         }
       },
     });
+  }
+
+  // دالة منفصلة لجلب بيانات المستخدم
+  private fetchUserInformation() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      };
+
+      this._HttpClient.get<any>(`${environment.APIURL}user/inform`, { headers }).subscribe({
+        next: (res: any) => {
+          console.log('User information fetched successfully:', res);
+          // يمكنك حفظ بيانات المستخدم هنا إذا لزم الأمر
+          if (res?.user_inform) {
+            localStorage.setItem('userInform', JSON.stringify(res.user_inform));
+          }
+        },
+        error: (err: any) => {
+          console.error('Error fetching user information:', err);
+          this.toastr.error('Failed to fetch user information');
+        }
+      });
+    }
   }
 
   closeDiv() {

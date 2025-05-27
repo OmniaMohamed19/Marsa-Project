@@ -9,6 +9,7 @@ import { PackageDetailsComponent } from './components/package-details/package-de
 import { PackagePaymentComponent } from './components/package-payment/package-payment.component';
 import { PackageConfirmComponent } from './components/package-confirm/package-confirm.component';
 import { CalendarModule } from 'primeng/calendar';
+import { CarouselModule } from 'primeng/carousel';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CalendarModule } from 'primeng/calendar';
   ],
   imports: [
     CommonModule,
+    CarouselModule,
     PackagesRoutingModule,
     SharedModule,
       CalendarModule,

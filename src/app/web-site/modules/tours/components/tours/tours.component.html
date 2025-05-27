@@ -320,16 +320,11 @@
         </div>
       </div>
       <!--  -->
-      <p-paginator
-      [rows]="10"
-      [totalRecords]="rows?.trips?.total || rows?.trips?.data?.length"
-      [first]="(rows?.trips?.current_page - 1) * 10"
-      (onPageChange)="onPageChange($event)"
-      [showFirstLastIcon]="true"
-      [showJumpToPageInput]="true"
-      class="m-auto border border-color-4 rounded-sm mb-5 mb-lg-0 overflow-auto overflow-xl-visible justify-content-center align-items-center py-2 w-100"
-    >
-    </p-paginator>
+      <p-paginator *ngIf="!isDestinationFilterActive" [rows]="10" [totalRecords]="rows?.trips?.total || rows?.trips?.data?.length"
+        [first]="(rows?.trips?.current_page - 1) * 10" (onPageChange)="onPageChange($event)"
+        [showFirstLastIcon]="true" [showJumpToPageInput]="true"
+        class="m-auto border border-color-4 rounded-sm mb-5 mb-lg-0 overflow-auto overflow-xl-visible justify-content-center align-items-center py-2 w-100">
+      </p-paginator>
     </div>
   </div>
 </div>

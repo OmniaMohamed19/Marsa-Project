@@ -84,21 +84,23 @@ export class PackageDetailsComponent {
   showAllReviews = false;
   isSmallScreen = window.innerWidth <= 768;
 
-  carouselOptions = {
-    loop: true,
-    autoplay: true,
-    margin: 10,
-    nav: false,
-    dots: false,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
+   responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 3
     },
-  };
+    {
+      breakpoint: '768px',
+      numVisible: 1,
+      numScroll: 1
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+      numScroll: 1
+    }
+  ];
   // duration: any;
   @ViewChild('startPicker') startPicker!: MatDatepicker<any>;
   @ViewChild('endPicker') endPicker!: MatDatepicker<Date>;

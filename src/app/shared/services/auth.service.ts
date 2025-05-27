@@ -27,7 +27,7 @@ export class AuthService {
   $profileUpdated = new Subject<any>();
   user: BehaviorSubject<any> = new BehaviorSubject(null);
   private isBrowser: boolean;
-  
+
   constructor(
     private _HttpClient: HttpClient,
     private router: Router,
@@ -114,7 +114,7 @@ export class AuthService {
                 localStorage.setItem('userData', JSON.stringify(res.user));
               }
               this.$userData.next(res.user);
-              
+
               if (this.isBrowser) {
                 this.dialog?.closeAll();
                 window.location.href =
@@ -144,7 +144,7 @@ export class AuthService {
   }
 
   authenticate(userData: { email: string; password: string }) {
-    this._HttpClient.post<any>(`${this.baseURL}login`, userData).subscribe({
+    this._HttpClient.post<any>(`https://admin.marsawaves.org/api/login`, userData).subscribe({
       next: (res: any) => {
         if (res && res.result) {
           // set auth status and token
@@ -158,7 +158,7 @@ export class AuthService {
 
           this.$userData.next(res.user);
           this.dialog?.closeAll();
-          
+
           if (this.isBrowser) {
             window.location.reload();
           }

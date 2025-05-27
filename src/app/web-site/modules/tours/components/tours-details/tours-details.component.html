@@ -231,8 +231,8 @@
                 <li [innerHTML]="activityData?.Highlights" class="text-wrap"></li>
               </ul>
             </div>
-            <div class="d-flex gap-5 mt-5 w-100">
-              <div class="row mt-5 w-100">
+            <div class="d-flex gap-5 mt-lg-5 mt-0 w-100">
+              <div class="row mt-lg-5 mt-0 w-100">
                 <div class="col-md-6 dirction col-sm-12 d-flex gap-2">
                   <div class="w-25">
                     <h6 class="fw-bold">Includes</h6>
@@ -269,9 +269,9 @@
               </div>
             </div>
           </div>
-          <div id="availableOptions" class="tab-pane p mx-2">
+          <div id="availableOptions" class="tab-pane  mt-0 p mx-2">
             <h5 class="heading">Available Options</h5>
-            <div class="card p-5 my-5" *ngFor="
+            <div class="card p-5 my-lg-5 my-1" *ngFor="
                 let availableOption of activityData?.AvailableOption;
                 let i = index
               " [id]="'openOption' + availableOption?.id + i">
@@ -316,7 +316,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 mt-5 text-center bookDetails" *ngIf="selectedOption === 'privete'">
+                <div class="col-md-4 mt-lg-5 mt-0 text-center bookDetails" *ngIf="selectedOption === 'privete'">
                   <span class="badge-sale mb-2 ms-5" *ngIf="availableOption?.PriceColective.AdultDiscount > 0">
                     Save {{ availableOption?.PricePrivte.AdultDiscount }} %
                     Today</span>
@@ -360,7 +360,7 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-4 mt-5 pt-5 text-center bookDetails" *ngIf="selectedOption === 'collective'">
+                <div class="col-md-4 mt-0 mb-lg-0 mb-3 mt-lg-5 pt-lg-5 pt-1 text-center bookDetails" *ngIf="selectedOption === 'collective'">
                   <span *ngIf="availableOption?.PriceColective.AdultDiscount > 0" class="badge-sale">
                     Save {{ availableOption?.PriceColective.AdultDiscount }} %
                     Today</span>
@@ -562,10 +562,10 @@
           </div>
           <div id="faq" class="tab-pane pb-5">
             <div class="py-4">
-              <h5 class="heading text-uppercase mb-5 pb-5">FAQ</h5>
+              <h5 class="heading text-uppercase mb-lg-5 mb-1 pb-lg-5 pb-3">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
-                <div class="card border-0 mb-4 pb-1">
+                <div class="card border-0 mb-lg-4 mb-0 pb-lg-1 pb-0">
                   <mat-accordion>
                     <mat-expansion-panel #panel hideToggle="true" *ngFor="let faqItem of activityData?.FAQ">
                       <mat-expansion-panel-header>
@@ -935,7 +935,7 @@
                     ></p-calendar>
 
 
- 
+
 
 
                     <ng-container
@@ -1200,47 +1200,11 @@
               <div *ngIf="isMobile" class="container">
                 <div class="col-lg-12 col-xl-3 order-1 order-md-2 top-margin">
                   <div class="mb-4 sticky-container">
-                    <ul class="list-group list-group-borderless list-group-horizontal custom-social-share">
-                      <ng-container *ngIf="activityData?.wishlist; else elseTemplate2">
-                        <li type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Save for later"
-                          class="list-group-item px-1">
-                          <a class="h-100 width-45 border rounded border-width-2 flex-content-center">
-                            <i class="fa fa-heart fs-3 text-danger"></i>
-                          </a>
-                        </li>
-                      </ng-container>
-                      <ng-template #elseTemplate2>
-                        <li type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Save for later"
-                          class="list-group-item px-1">
-                          <a #btn (click)="addtoFavorits(btn, $event)"
-                            class="h-100 width-45 border rounded border-width-2 flex-content-center">
-                            <i class="fa fa-heart fs-3 text-black-50"></i>
-                          </a>
-                        </li>
-                      </ng-template>
-                      <li type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share Trip"
-                        class="list-group-item px-1">
-                        <a (click)="share()"
-                          class="height-45 width-45 border rounded border-width-2 flex-content-center">
-                          <i class="fa-solid fa-share-nodes font-size-18 text-dark"></i>
-                        </a>
-                      </li>
-                      <li class="list-group-item px-1">
-                        <a class="border rounded border-width-2 flex-content-center">
-                          <span class="text-white review">{{ getRoundedRate(activityData?.rate) }} /5</span>
-                        </a>
-                      </li>
-                      <li class="list-group-item px-1">
-                        <span class="top">{{
-                          getRatingDescription(activityData?.rate)
-                          }}</span>
-                        <small class="d-block">({{ activityData?.CountReview }} Reviews)</small>
-                      </li>
-                    </ul>
-                    <span class="mt-5 d-inline-block p-3" [ngClass]="{
+
+                    <span class="mt-1 d-inline-block p-3" [ngClass]="{
                     'border collective': selectedOption === 'collective',
-                    'private collective': selectedOption !== 'collective'
-                  }" (click)="changeOption('collective')">collective</span>
+                    'private collective': selectedOption !== 'collective'}"
+                     (click)="changeOption('collective')">collective</span>
 
                     <span class="ps-5 d-inline-block p-3" *ngIf="activityData?.Privete > 0" [ngClass]="{
                     'border private': selectedOption === 'privete',

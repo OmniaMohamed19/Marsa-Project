@@ -6,5 +6,4 @@ export const environment = {
   facebookAppId: 'YOUR_FACEBOOK_APP_ID',
   linkedInClientId: 'YOUR_LINKEDIN_CLIENT_ID',
   enableInterceptor: false
-
 };

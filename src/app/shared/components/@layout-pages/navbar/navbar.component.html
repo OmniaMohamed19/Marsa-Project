@@ -9,36 +9,45 @@
       <img alt="Marsa Waves" class="logo-img" src="../../../../../assets/images/logo.webp" />
     </a>
     <div class="input-group" style="width: 320px !important; margin-left: 1rem; position: relative;">
-      <input
-        type="search"
-        [(ngModel)]="keyword"
-        (keyup.enter)="onSearch($event)"
-        (focus)="onSearch($event)"
-        (blur)="hideDropdown()"
+      <input type="search" [(ngModel)]="keyword" (keyup)="onKeyup($event)" (input)="onInput($event)"
+        (focus)="onFocus($event)" (blur)="onInputBlur()"
         style="height: 44px; border-bottom-right-radius: 0px !important; border-top-right-radius: 0px !important;"
-        class="form-control rounded"
-        placeholder="Where are you going?"
-        aria-label="Search"
-        aria-describedby="search-addon"
-      />
-      <button
-        type="button"
-        style="background-color: #0db1ff; color: #ffffff; padding-top: 0.5rem; height: 44px;"
-        class="btn"
-        (click)="onSearch($event)"
-      >
+        class="form-control rounded" placeholder="Where are you going?" aria-label="Search"
+        aria-describedby="search-addon" />
+      <button type="button" style="background-color: #0db1ff; color: #ffffff; padding-top: 0.5rem; height: 44px;"
+        class="btn" (click)="onButtonSearch()">
         Search
       </button>
 
-      <ul *ngIf="showDropdown" class="dropdown-menu show" style="width: 100%; position: absolute; top: 44px; z-index: 1000;">
-        <li
-          *ngFor="let result of results?.trip"
-          class="dropdown-item"
-          (click)="navigateToRoute(['/', translate.currentLang, 'tours', result?.id, result?.Name])"
-          
-          style="cursor: pointer;"
-        >
-          {{ result.Name }}
+      <!-- Dropdown for search results -->
+      <ul *ngIf="showDropdown" class="dropdown-menu show search-dropdown"
+        style="width: 100%; position: absolute; top: 44px; z-index: 1000; max-height: 300px; overflow-y: auto;">
+
+        <!-- Loading indicator -->
+        <li *ngIf="isSearching" class="dropdown-item text-center" style="padding: 15px;">
+          <i class="fas fa-spinner fa-spin"></i> Searching...
+        </li>
+
+        <!-- No results message -->
+        <li *ngIf="!isSearching && showNoResults" class="dropdown-item text-center no-results"
+          style="padding: 15px; color: #666;">
+          <i class="fas fa-search"></i> No tours found for "{{ keyword }}"
+        </li>
+
+        <!-- Search results -->
+        <li *ngFor="let result of results?.trip" class="dropdown-item search-result-item"
+          (mousedown)="navigateToResult(result)" [title]="result.Name" style="cursor: pointer;">
+          <div class="search-result-content">
+            <i class="fas fa-map-marker-alt search-icon"></i>
+            <span class="search-text">{{ result.Name }}</span>
+          </div>
+        </li>
+        <!-- بدلاً من الرسالة الحالية -->
+        <li *ngIf="!isSearching && showNoResults" class="dropdown-item text-center no-results"
+          style="padding: 15px; color: #666;">
+          <i class="fas fa-info-circle"></i>
+          <div>No tours found</div>
+          <small>Try searching with different keywords</small>
         </li>
       </ul>
     </div>
@@ -196,7 +205,8 @@
           </li>
           <!---------------------------------------->
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" [routerLink]="['/', translate.currentLang]" routerLinkActive="active1">
+            <a class="nav-link" aria-current="page" [routerLink]="['/', translate.currentLang]"
+              routerLinkActive="active1">
               {{ "header.home" | translate }}
             </a>
           </li>
@@ -267,14 +277,8 @@
         <div class="dropdown-lang" tabindex="0" (click)="toggleDropdown()">
           <div class="dropdown-btn-lang d-flex align-items-center justify-content-between gap-1">
             <div>
-              <img
-              [src]="selectedImg"
-              [alt]="getImageName(selectedImg)"
-              width="20"
-              height="20"
-              class="me-3"
-            />
-                          {{ selectedLabel }}
+              <img [src]="selectedImg" [alt]="getImageName(selectedImg)" width="20" height="20" class="me-3" />
+              {{ selectedLabel }}
             </div>
 
             <div class="mb-2">
@@ -286,14 +290,9 @@
           <div *ngIf="isOpen" class="dropdown-content-lang">
             <ng-container *ngFor="let country of countries">
               <div (click)="selectCountry(country)" class="dropdown-item-lang">
-                <img
-                [src]="country.flagUrl"
-                [alt]="getImageName(country.flagUrl)"
-                width="20"
-                height="15"
-                class="me-2"
-              />
-                              {{ country.label }}
+                <img [src]="country.flagUrl" [alt]="getImageName(country.flagUrl)" width="20" height="15"
+                  class="me-2" />
+                {{ country.label }}
               </div>
             </ng-container>
           </div>

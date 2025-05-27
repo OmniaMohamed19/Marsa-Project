@@ -20,18 +20,18 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { 
-      scrollPositionRestoration: 'enabled', 
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
       initialNavigation: 'enabledBlocking',
-      onSameUrlNavigation: 'reload' 
+      onSameUrlNavigation: 'reload'
     })
   ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
   constructor(
-    private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private readonly router: Router,
+    @Inject(PLATFORM_ID) private readonly platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.router.events.subscribe(event => {
