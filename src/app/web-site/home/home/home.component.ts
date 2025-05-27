@@ -47,9 +47,10 @@ export class HomeComponent implements OnInit {
   metaDetail: any;
   youtubeLink:any;
   ngOnInit(): void {
-    this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
-      this.userDetails = res?.user_inform;
-
+    this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+      if (isAuth) {
+        this.fetchUserInformation();
+      }
     });
     this.httpService.get(environment.marsa, 'Background').subscribe(
       (res: any) => {
@@ -133,6 +134,15 @@ export class HomeComponent implements OnInit {
         console.error('Error:', error);
       }
     );
+  }
+
+  private fetchUserInformation(): void {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
+        this.userDetails = res?.user_inform;
+      });
+    }
   }
 
   startImageRotation() {

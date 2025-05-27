@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
 import { ProfileService } from './profile-service.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
@@ -55,16 +56,28 @@ export class UserCardComponent {
 
   constructor(
     private httpService: HttpService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private AuthService: AuthService
   ) {}
   setActiveSection(section: string) {
     this.activeSection = section;
   }
 
   ngOnInit() {
-    this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
-      this.userDetails = res?.userDashboard;
-      this.types = res?.triptypes;
+    this.AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+      if (isAuth) {
+        this.fetchProfileInformation();
+      }
     });
+  }
+
+  private fetchProfileInformation(): void {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
+        this.userDetails = res?.userDashboard;
+        this.types = res?.triptypes;
+      });
+    }
   }
 }

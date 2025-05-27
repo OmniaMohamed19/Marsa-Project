@@ -41,9 +41,19 @@ export class HttpService {
       }
     }
 
+    // Ensure we have the latest token
+    const token = localStorage.getItem('userToken');
+    const headers = token ? new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }) : undefined;
 
     return this.http
-      .get<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}?${queryParams.join('&')}`)
+      .get<API>(
+        `${this.BaseUrls.get(BaseUrlKey)}${APIName}?${queryParams.join('&')}`,
+        headers ? { headers } : undefined
+      )
       .pipe(
         take(1),
         map((event: any) => {
@@ -70,9 +80,24 @@ export class HttpService {
       );
   }
   post<T>(BaseUrlKey: any, APIName: string, body?: any, showAlert = false, head=false): Observable<T> {
+    // Ensure we have the latest token
+    const token = localStorage.getItem('userToken');
+    let headers = this.headers;
+
+    if (token && !head) {
+      headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+    }
+
     return this.http
-      // .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null )
-      .post<API>(`${this.BaseUrls.get(BaseUrlKey)}${APIName}`, body ? body : null, head ==true?{ headers: this.headers }:{} )
+      .post<API>(
+        `${this.BaseUrls.get(BaseUrlKey)}${APIName}`,
+        body ? body : null,
+        head ? { headers: this.headers } : { headers }
+      )
       .pipe(
         take(1),
         map((event: any) => {

@@ -122,17 +122,19 @@ export class LoginComponent implements OnInit {
           this.$userData.next(res.user);
           this.dialog?.closeAll();
 
-          // استدعاء دالة لجلب بيانات المستخدم بعد تسجيل الدخول بنجاح
-          this.fetchUserInformation();
-
-          // إشعار باقي التطبيق بنجاح تسجيل الدخول
-          this.authService.$isAuthenticated.next(true);
-
-          // إعادة تحميل الصفحة بعد تأخير قصير لضمان حفظ البيانات
+          // Wait for token to be properly stored before fetching user data
           setTimeout(() => {
-            window.location.reload();
-          }, 500);
+            // Notify the app that authentication is complete
+            this.authService.$isAuthenticated.next(true);
 
+            // Fetch user information after login
+            this.fetchUserInformation();
+
+            // Reload page after a short delay
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          }, 300);
         } else {
           this.$loginError.next(true);
           this.toastr.error(res.message || 'Login failed. Please try again.');

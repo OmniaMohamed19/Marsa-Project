@@ -19,18 +19,24 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const authToken = this.AuthService.getToken();
-   
-      this.Language=localStorage.getItem('lang');
+    // Get token directly from localStorage for immediate access
+    const authToken = localStorage.getItem('userToken');
+    this.Language = localStorage.getItem('lang');
 
+    // Only clone and add headers if we have a token
+    if (authToken) {
+      const authRequest = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${authToken}`,
+          'Accept': 'application/json',
+          // 'App-Language': this.Language ? this.Language:'en',
+        }
+      });
+      return next.handle(authRequest);
+    }
 
-    const authRequest = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${authToken ? authToken : ''}`,
-        'Accept': 'application/json',
-        // 'App-Language': this.Language ? this.Language:'en',
-      }
-    });
-    return next.handle(authRequest);
+    // If no token, just pass the request through
+    return next.handle(req);
   }
 }
+

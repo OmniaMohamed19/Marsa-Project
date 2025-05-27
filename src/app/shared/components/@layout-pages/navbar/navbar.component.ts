@@ -237,8 +237,14 @@ ngOnDestroy() {
   ];
 
   ngOnInit() {
-    this._HttpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
-      this.userDetails = res?.user_inform;
+    // First check authentication status
+    this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
+      this.isLogin = isAuth;
+
+      // Only fetch user data if authenticated
+      if (isAuth) {
+        this.fetchUserInformation();
+      }
     });
 
     // Initialize selectedLabel with the first country's label
@@ -262,6 +268,23 @@ ngOnDestroy() {
         console.error('Error:', error);
       }
     );
+  }
+
+  private fetchUserInformation(): void {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      // Add a small delay to ensure token is properly set in localStorage
+      setTimeout(() => {
+        this._HttpService.get(environment.marsa, 'user/inform').subscribe(
+          (res: any) => {
+            this.userDetails = res?.user_inform;
+          },
+          (error) => {
+            console.error('Error fetching user information:', error);
+          }
+        );
+      }, 300);
+    }
   }
 
   toggleDropdown() {
@@ -333,5 +356,8 @@ ngOnDestroy() {
   //   });
   // }
 }
+
+
+
 
 

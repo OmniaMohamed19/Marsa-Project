@@ -39,13 +39,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
-      this.userDetails = res?.user_inform;
-    });
-
+    // First check if user is authenticated
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
+      // Only fetch user info if authenticated
+      if (isAuth) {
+        this.fetchUserInformation();
+      }
     });
 
     this._AuthService.getUserData().subscribe(
@@ -68,6 +68,15 @@ export class HeaderComponent implements OnInit {
       .subscribe((res: any) => {
         this.social = res?.social;
       });
+  }
+
+  private fetchUserInformation(): void {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.httpService.get(environment.marsa, 'user/inform').subscribe((res: any) => {
+        this.userDetails = res?.user_inform;
+      });
+    }
   }
 
   getImageName(url: string): string {
