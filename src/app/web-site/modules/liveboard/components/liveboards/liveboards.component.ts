@@ -97,7 +97,7 @@ export class LiveboardsComponent implements OnInit {
               .getElementById('btn-' + i)
               ?.classList.remove('active-rate');
           } else {
-            this.rate = 2;
+            // this.rate = 2;
             document.getElementById('btn-' + i)?.classList.add('active-rate');
           }
         }

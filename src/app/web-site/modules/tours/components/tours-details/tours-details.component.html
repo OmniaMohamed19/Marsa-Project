@@ -303,14 +303,7 @@
                         <li class="mt-2">
                           <img src="../../../../../../assets/custom/Activity/timer-start.svg" class="me-1"
                             alt="timer-start" />
-                          Starting at
-                          {{
-                          (availableOption?.PickUpTime | slice : 0 : 5) +
-                          (availableOption?.PickUpTime &&
-                          +availableOption.PickUpTime.split(":")[0] >= 12
-                          ? " PM"
-                          : " AM")
-                          }}
+                          Starting at {{ formatTimeTo12Hour(availableOption?.PickUpTime) }}
                         </li>
                       </ul>
                     </div>

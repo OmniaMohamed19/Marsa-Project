@@ -112,6 +112,7 @@ export class PaymentComponent {
     this.activityData?.bookingOption.forEach(() =>
       this.checkboxStatus.push(false)
     );
+
     if (JSON.parse(localStorage['queryParams']).BookingInfo) {
       this.userData.name =
         JSON.parse(localStorage['queryParams']).BookingInfo.name || '';
@@ -120,12 +121,16 @@ export class PaymentComponent {
       this.userData.email =
         JSON.parse(localStorage['queryParams']).BookingInfo['E-mail'] || '';
       this.customerForm.patchValue(this.userData);
+      console.log(this.userData);
+      
       this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
     } else {
       this._AuthService.getUserData().subscribe(
         (data: any) => {
           this.userData = JSON.parse(data); // Assigning the received object directly
           this.customerForm.patchValue(this.userData);
+      console.log(this.userData);
+
           this.customerForm
             ?.get('phone')
             ?.patchValue('+' + this.userData.phone);

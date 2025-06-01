@@ -1,4 +1,3 @@
-
 <div class="modal-body p-0">
   <div id="AvailableOptions">
     <div class="card p-1" style="border: none">
@@ -33,7 +32,6 @@
                 </span>
               </div>
 
-
               <ng-container
                 *ngIf="
                   activityData?.TypeOfRepeat === 'h' ||
@@ -61,19 +59,29 @@
               <div class="clearfix"></div>
 
               <span class="mt-3 mb-3 d-inline-block cancelWallet d-flex">
-                <img src="../../../../../../assets/icons/empty-wallet-tick.svg" alt="wallet" />
+                <img
+                  src="../../../../../../assets/icons/empty-wallet-tick.svg"
+                  alt="wallet"
+                />
                 <p class="mb-0">
                   Cancel before
                   {{
-                    activityData?.CancelationtTime && booking_date
-                      ? formatDate(activityData.CancelationtTime, booking_date)
-                      : 'Invalid date'
+                    formatDate(
+                      activityData?.CancelationtTime,
+                      activityData?.AvailableOption[
+                          getAvailableOptionIndexById(avilable_option_id)
+                        ]?.PickUpTime,
+                      booking_date
+                    )
                   }}
                   for a full refund
                 </p>
               </span>
-              <span class="d-block  cancelWallet d-flex">
-                <img src="../../../../../../assets/icons/bx_time-five.svg" alt="bx_time-five" />
+              <span class="d-block cancelWallet d-flex">
+                <img
+                  src="../../../../../../assets/icons/bx_time-five.svg"
+                  alt="bx_time-five"
+                />
                 <p class="mb-0">
                   Expected Pick Up Time from
                   {{
@@ -168,7 +176,6 @@
                       </div>
                     </li>
                   </ul>
-
                 </div>
                 <div
                   class="d-flex align-items-center gap-5"
