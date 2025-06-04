@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  ElementRef,
+  Input,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -7,14 +15,13 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { HeaderService } from 'src/app/shared/services/header.service';
 import { DataService } from 'src/app/web-site/modules/transfer/dataService';
 import { environment } from 'src/environments/environment.prod';
-import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-quick-search',
   templateUrl: './quick-search.component.html',
   styleUrls: ['./quick-search.component.scss'],
 })
-export class QuickSearchComponent implements OnInit {
+export class QuickSearchComponent {
 
   transferDetails:any;
   showSearch: string = 'tour';
@@ -65,14 +72,7 @@ private dataService: DataService,
   persons: number = 2;
   returnDate: any;
 
-  // Create a form group with multiple date controls
-  dateForm = new FormGroup({
-    date1: new FormControl(),
-    date2: new FormControl(),
-    date3: new FormControl()
-  });
-
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.httpService.get('marsa', 'place').subscribe({
       next: (res: any) => {
         this.destination = res.places;
@@ -369,12 +369,8 @@ increaseAdults3(event: Event) {
     this.placeTours = ev.target.value;
   }
 
-  setDate(event: any, controlName: string) {
-    // Update the specific form control
-    this.dateForm.get(controlName)?.setValue(event.value);
-
-    // You can also store the date in your existing date property if needed
-    this.date = this.formatDateToYYYYMMDD(event.value);
+  setDate(ev: any) {
+    this.dateTours = ev.target.value;
   }
 
   search(route: any) {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,6 +39,12 @@ export class AuthService {
   ) {
     this.registerBehavoir = new BehaviorSubject<string>('login');
     this.isBrowser = isPlatformBrowser(this.platformId);
+    
+    // Debug token on service initialization
+    this.debugToken();
+    
+    // Auto authenticate if token exists
+    this.autoAuth();
   }
   updateRegisterBehavoir(value: string): void {
     this.registerBehavoir.next(value);
@@ -144,7 +150,7 @@ export class AuthService {
   }
 
   authenticate(userData: { email: string; password: string }) {
-    this._HttpClient.post<any>(`https://admin.marsawaves.org/api/login`, userData).subscribe({
+    this._HttpClient.post<any>(`${this.baseURL}login`, userData).subscribe({
       next: (res: any) => {
         if (res && res.result) {
           // set auth status and token
@@ -152,6 +158,9 @@ export class AuthService {
           this.token = res.access_token;
 
           if (this.isBrowser) {
+            // Log token for debugging
+            console.log('Storing token:', res.access_token.substring(0, 10) + '...');
+            
             localStorage.setItem('userToken', res.access_token);
             localStorage.setItem('userData', JSON.stringify(res.user));
           }
@@ -159,9 +168,18 @@ export class AuthService {
           this.$userData.next(res.user);
           this.dialog?.closeAll();
 
-          if (this.isBrowser) {
-            window.location.reload();
-          }
+          // Wait for token to be properly stored before fetching user data
+          setTimeout(() => {
+            // Fetch user information after login
+            this.fetchUserInformation();
+
+            // Reload page after a short delay
+            setTimeout(() => {
+              if (this.isBrowser) {
+                window.location.reload();
+              }
+            }, 500);
+          }, 300);
         } else {
           this.$loginError.next(true);
           this.toastr.error(res.message || 'Login failed. Please try again.');
@@ -227,10 +245,14 @@ export class AuthService {
         this.token = token;
         this.isAuthenticated = true;
         this.$isAuthenticated.next(true);
+        
+        // Log successful authentication
+        console.log('Auto authentication successful with token:', token.substring(0, 10) + '...');
       } else {
         // If token doesn't exist (page refresh), reset authentication status
         this.isAuthenticated = false;
         this.$isAuthenticated.next(false);
+        console.log('Auto authentication failed: No token found');
       }
     }
   }
@@ -280,5 +302,45 @@ export class AuthService {
           this.$changePassError.next(true);
         },
       });
+  }
+
+  fetchUserInformation(): void {
+    const token = localStorage.getItem('userToken');
+    if (token && this.isBrowser) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+
+      this._HttpClient.get<any>(`${this.baseURL}user/inform`, { headers }).subscribe({
+        next: (res: any) => {
+          console.log('User information fetched successfully');
+          if (res?.user_inform) {
+            localStorage.setItem('userInform', JSON.stringify(res.user_inform));
+          }
+        },
+        error: (err: any) => {
+          console.error('Error fetching user information:', err);
+        }
+      });
+    }
+  }
+
+  // Add this method to debug token issues
+  debugToken(): void {
+    if (this.isBrowser) {
+      const token = localStorage.getItem('userToken');
+      console.log('Current token in localStorage:', token ? token.substring(0, 10) + '...' : 'No token found');
+      
+      // Check if token is actually stored
+      if (!token) {
+        console.warn('No token found in localStorage. User might not be logged in.');
+        this.$isAuthenticated.next(false);
+      } else {
+        console.log('Token found in localStorage. User should be authenticated.');
+        this.$isAuthenticated.next(true);
+      }
+    }
   }
 }

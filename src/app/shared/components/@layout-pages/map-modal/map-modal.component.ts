@@ -1,5 +1,6 @@
+
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnInit, PLATFORM_ID, Optional } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID, Optional, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,7 +15,7 @@ import { LEAFLET } from 'src/app/app.config';
   templateUrl: './map-modal.component.html',
   styleUrls: ['./map-modal.component.scss'],
 })
-export class MapModalComponent implements OnInit {
+export class MapModalComponent implements OnInit, AfterViewInit {
   latitudeValue: number = 0;
   longitudeValue: number = 0;
   map: any;
@@ -23,7 +24,8 @@ export class MapModalComponent implements OnInit {
   filteredOptions!: Observable<any[]>;
   currentCountry: string = '';
   private isBrowser: boolean;
-  
+  private leafletLoaded: boolean = false;
+
   constructor(
     private ngZone: NgZone,
     public dialogRef: MatDialogRef<MapModalComponent>,
@@ -37,57 +39,140 @@ export class MapModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isBrowser && this.L) {
-      this.initializeMap();
-    }
-    
-    this.spinner.hide();
+    this.spinner.show();
 
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
       map((value) => (typeof value === 'string' ? value : value.name)),
       switchMap((name) => (name ? this._filter(name) : []))
     );
+
+    if (this.isBrowser) {
+      this.loadLeaflet();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Ensure DOM is fully rendered before attempting to initialize the map
+    if (this.isBrowser && this.leafletLoaded) {
+      setTimeout(() => {
+        this.initializeMap();
+      }, 300);
+    }
+  }
+
+  loadLeaflet(): void {
+    if (!this.isBrowser) return;
+
+    // If L is already injected and valid, use it directly
+    if (this.L && typeof this.L.map === 'function') {
+      console.log('Leaflet already loaded via injection');
+      this.leafletLoaded = true;
+      return;
+    }
+
+    // Otherwise, load it dynamically
+    console.log('Loading Leaflet dynamically');
+    import('leaflet').then(L => {
+      this.L = L;
+      this.leafletLoaded = true;
+      console.log('Leaflet loaded successfully');
+
+      // Initialize map after Leaflet is loaded
+      setTimeout(() => {
+        this.initializeMap();
+      }, 300);
+    }).catch(error => {
+      console.error('Failed to load Leaflet:', error);
+      this.spinner.hide();
+    });
   }
 
   initializeMap(): void {
-    if (!this.isBrowser || !this.L) return;
-    
-    this.latitudeValue = 26.8206; // خط عرض مصر
-    this.longitudeValue = 30.8025; // خط طول مصر
+    if (!this.isBrowser) {
+      console.error('Cannot initialize map in server-side rendering');
+      this.spinner.hide();
+      return;
+    }
 
-    this.map = this.L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
-    this.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a>',
-    }).addTo(this.map);
+    if (!this.L || typeof this.L.map !== 'function') {
+      console.error('Leaflet map function is not available', this.L);
+      this.spinner.hide();
+      return;
+    }
 
-    const customIcon = this.L.icon({
-      iconUrl: 'assets/images/locatio.svg',
-      iconSize: [37, 37],
-    });
+    try {
+      console.log('Initializing map...');
+      const mapElement = document.getElementById('googleMap');
 
-    this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
-      icon: customIcon,
-    }).addTo(this.map);
+      if (!mapElement) {
+        console.error('Map container element not found');
+        this.spinner.hide();
+        return;
+      }
 
-    this.map.on('click', (e: any) => {
-      this.ngZone.run(() => {
-        this.latitudeValue = e.latlng.lat;
-        this.longitudeValue = e.latlng.lng;
-        this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+      this.latitudeValue = 26.8206; // خط عرض مصر
+      this.longitudeValue = 30.8025; // خط طول مصر
+
+      // Add CSS for Leaflet
+      if (!document.getElementById('leaflet-css')) {
+        const link = document.createElement('link');
+        link.id = 'leaflet-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(link);
+      }
+
+      // Create map instance
+      this.map = this.L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
+
+      // Add tile layer
+      this.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a>',
+      }).addTo(this.map);
+
+      // Create custom icon
+      const customIcon = this.L.icon({
+        iconUrl: 'assets/images/locatio.svg',
+        iconSize: [37, 37],
       });
-    });
+
+      // Add marker
+      this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
+        icon: customIcon,
+      }).addTo(this.map);
+
+      // Add click event
+      this.map.on('click', (e: any) => {
+        this.ngZone.run(() => {
+          this.latitudeValue = e.latlng.lat;
+          this.longitudeValue = e.latlng.lng;
+          this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+        });
+      });
+
+      // Force a resize to ensure map renders correctly
+      setTimeout(() => {
+        this.map.invalidateSize();
+        this.spinner.hide();
+      }, 500);
+
+      console.log('Map initialized successfully');
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      this.spinner.hide();
+    }
   }
 
   setCurrentLocation(): void {
     if (!this.isBrowser) return;
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.ngZone.run(() => {
           this.latitudeValue = position.coords.latitude;
           this.longitudeValue = position.coords.longitude;
-          
+
           if (this.map) {
             this.map.setView([this.latitudeValue, this.longitudeValue], 10);
             this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
@@ -116,7 +201,7 @@ export class MapModalComponent implements OnInit {
 
     this.latitudeValue = location.lat;
     this.longitudeValue = location.lon;
-    
+
     if (this.map) {
       this.map.setView([this.latitudeValue, this.longitudeValue], 10);
       this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
@@ -127,14 +212,14 @@ export class MapModalComponent implements OnInit {
     if (!name) return of([]); // Return empty array for empty search
 
     if (!this.isBrowser) return of([]); // Return empty array in server-side rendering
-    
+
     this.spinner.show();
 
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&countrycodes=EG&accept-language=en&limit=5`;
 
     return this.http.get<any[]>(url).pipe(
       debounceTime(300),
-      distinctUntilChanged(), 
+      distinctUntilChanged(),
       map((results) => {
         this.spinner.hide();
         return results.map((result) => ({

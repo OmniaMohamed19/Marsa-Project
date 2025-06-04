@@ -23,13 +23,17 @@ export class TokenInterceptor implements HttpInterceptor {
     const authToken = localStorage.getItem('userToken');
     this.Language = localStorage.getItem('lang');
 
+    // Log for debugging
+    console.log('TokenInterceptor processing request to:', req.url);
+    console.log('Token available:', !!authToken);
+
     // Only clone and add headers if we have a token
     if (authToken) {
       const authRequest = req.clone({
         setHeaders: {
           Authorization: `Bearer ${authToken}`,
           'Accept': 'application/json',
-          // 'App-Language': this.Language ? this.Language:'en',
+          'Content-Type': 'application/json'
         }
       });
       return next.handle(authRequest);
@@ -39,4 +43,5 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 }
+
 

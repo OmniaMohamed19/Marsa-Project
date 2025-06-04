@@ -36,7 +36,7 @@ export function app(): express.Express {
   // Point of serving robots.txt from the server
   server.get('/robots.txt', async (req, res) => {
     try {
-      const seoData = await axios.get('https://marvelits.com/api/seo');
+      const seoData = await axios.get('https://admin.marsawaves.org/api/seo');
       const robotsUrl = seoData.data.seo.robots;
       console.log(robotsUrl);
       const robotsResponse = await axios.get(robotsUrl);
@@ -50,7 +50,7 @@ export function app(): express.Express {
   // Point of serving sitemap.xml from the server
   server.get('/sitemap.xml', async (req, res) => {
     try {
-      const seoData = await axios.get('https://marvelits.com/api/seo');
+      const seoData = await axios.get('https://admin.marsawaves.org/api/seo');
       const sitemapUrl = seoData.data.seo.sitemap;
       console.log(seoData);
       const sitemapResponse = await axios.get(sitemapUrl);

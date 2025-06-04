@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { ConnectivityNotificationComponent } from './connectivity-notification/connectivity-notification.component';
+import { TokenInterceptor } from './core/interceptor/token.interceptor';
 @NgModule({
   declarations: [AppComponent,ConnectivityNotificationComponent],
   imports: [
@@ -59,6 +60,11 @@ import { ConnectivityNotificationComponent } from './connectivity-notification/c
         ],
       } as SocialAuthServiceConfig,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent],
 })
@@ -67,3 +73,4 @@ export class AppModule {}
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
