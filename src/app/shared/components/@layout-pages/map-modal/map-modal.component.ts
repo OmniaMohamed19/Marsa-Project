@@ -1,13 +1,12 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnInit, PLATFORM_ID, Optional, AfterViewInit } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import * as L from 'leaflet';
-import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, of } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -16,16 +15,18 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./map-modal.component.scss'],
 })
 export class MapModalComponent implements OnInit, AfterViewInit {
-  latitudeValue: number = 0;
-  longitudeValue: number = 0;
-  map: L.Map | null = null;
-  marker: L.Marker | null = null;
+  @ViewChild('mapContainer') mapContainer!: ElementRef;
+
+  latitudeValue: number = 26.8206; // Default to Egypt
+  longitudeValue: number = 30.8025; // Default to Egypt
+  map: any = null;
+  marker: any = null;
   searchControl = new FormControl();
   filteredOptions!: Observable<any[]>;
   currentCountry: string = '';
   private isBrowser: boolean;
-
-  private leafletLoaded: boolean = false;
+  private L: any; // Leaflet instance
+  mapInitialized: boolean = false;
 
   constructor(
     private ngZone: NgZone,
@@ -36,6 +37,12 @@ export class MapModalComponent implements OnInit, AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+
+    // If data contains initial coordinates, use them
+    if (data && data.latitude && data.longitude) {
+      this.latitudeValue = data.latitude;
+      this.longitudeValue = data.longitude;
+    }
   }
 
   ngOnInit(): void {
@@ -43,60 +50,80 @@ export class MapModalComponent implements OnInit, AfterViewInit {
 
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
-      map((value) => (typeof value === 'string' ? value : value.name)),
-      switchMap((name) => (name ? this._filter(name) : []))
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((value) => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name) : of([]);
+      })
     );
 
     if (this.isBrowser) {
+      // Load Leaflet CSS
+      this.loadLeafletCSS();
+
+      // Load Leaflet JS
       this.loadLeaflet();
     }
   }
 
   ngAfterViewInit(): void {
-    // Ensure DOM is fully rendered before attempting to initialize the map
-    if (this.isBrowser && this.leafletLoaded) {
-      setTimeout(() => {
-        this.initializeMap();
-      }, 300);
+    // We'll initialize the map after Leaflet is loaded
+  }
+
+  loadLeafletCSS(): void {
+    if (!document.getElementById('leaflet-css')) {
+      const link = document.createElement('link');
+      link.id = 'leaflet-css';
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+      link.crossOrigin = '';
+      document.head.appendChild(link);
+      console.log('Leaflet CSS loaded');
     }
   }
 
   loadLeaflet(): void {
-    if (!this.isBrowser) return;
-
-    // If L is already injected and valid, use it directly
-    if (this.L && typeof this.L.map === 'function') {
-      console.log('Leaflet already loaded via injection');
-      this.leafletLoaded = true;
+    if (!this.isBrowser) {
+      this.spinner.hide();
       return;
     }
 
-    // Otherwise, load it dynamically
-    console.log('Loading Leaflet dynamically');
-    import('leaflet').then(L => {
-      this.L = L;
-      this.leafletLoaded = true;
-      console.log('Leaflet loaded successfully');
+    // Check if Leaflet is already available globally
+    if (window.L && typeof window.L.map === 'function') {
+      console.log('Using globally available Leaflet');
+      this.L = window.L;
+      setTimeout(() => this.initializeMap(), 500);
+      return;
+    }
 
-      // Initialize map after Leaflet is loaded
-      setTimeout(() => {
-        this.initializeMap();
-      }, 300);
-    }).catch(error => {
-      console.error('Failed to load Leaflet:', error);
+    // Load Leaflet dynamically
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+    script.crossOrigin = '';
+    script.onload = () => {
+      console.log('Leaflet script loaded successfully');
+      this.L = window.L;
+      setTimeout(() => this.initializeMap(), 500);
+    };
+    script.onerror = (error) => {
+      console.error('Failed to load Leaflet script:', error);
       this.spinner.hide();
-    });
+    };
+    document.head.appendChild(script);
   }
 
   initializeMap(): void {
-    if (!this.isBrowser) {
-      console.error('Cannot initialize map in server-side rendering');
+    if (!this.isBrowser || !this.L) {
+      console.error('Cannot initialize map: Browser environment or Leaflet not available');
       this.spinner.hide();
       return;
     }
 
-    if (!this.L || typeof this.L.map !== 'function') {
-      console.error('Leaflet map function is not available', this.L);
+    if (this.mapInitialized) {
+      console.log('Map already initialized');
       this.spinner.hide();
       return;
     }
@@ -111,43 +138,49 @@ export class MapModalComponent implements OnInit, AfterViewInit {
         return;
       }
 
-      this.latitudeValue = 26.8206; // خط عرض مصر
-      this.longitudeValue = 30.8025; // خط طول مصر
+      // Create map instance with English locale
+      this.map = this.L.map('googleMap', {
+        center: [this.latitudeValue, this.longitudeValue],
+        zoom: 6,
+        zoomControl: true,
+        language: 'en' // Set language to English
+      });
 
-      // Add CSS for Leaflet
-      if (!document.getElementById('leaflet-css')) {
-        const link = document.createElement('link');
-        link.id = 'leaflet-css';
-        link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-        document.head.appendChild(link);
-      }
-
-      // Create map instance
-      this.map = this.L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
-
-      // Add tile layer
-      this.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.carto.com/attribution">CartoDB</a>',
+      // Add tile layer with English labels (Carto's Voyager map has good English labels)
+      this.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
       }).addTo(this.map);
 
       // Create custom icon
       const customIcon = this.L.icon({
         iconUrl: 'assets/images/locatio.svg',
         iconSize: [37, 37],
+        iconAnchor: [18, 37]
       });
 
       // Add marker
       this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
         icon: customIcon,
+        draggable: true
       }).addTo(this.map);
 
-      // Add click event
+      // Add click event to map
       this.map.on('click', (e: any) => {
         this.ngZone.run(() => {
           this.latitudeValue = e.latlng.lat;
           this.longitudeValue = e.latlng.lng;
           this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+        });
+      });
+
+      // Add drag event to marker
+      this.marker.on('dragend', (e: any) => {
+        this.ngZone.run(() => {
+          const position = this.marker.getLatLng();
+          this.latitudeValue = position.lat;
+          this.longitudeValue = position.lng;
         });
       });
 
@@ -157,6 +190,7 @@ export class MapModalComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
       }, 500);
 
+      this.mapInitialized = true;
       console.log('Map initialized successfully');
     } catch (error) {
       console.error('Error initializing map:', error);
@@ -167,25 +201,31 @@ export class MapModalComponent implements OnInit, AfterViewInit {
   setCurrentLocation(): void {
     if (!this.isBrowser) return;
 
+    this.spinner.show();
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.ngZone.run(() => {
-          this.latitudeValue = position.coords.latitude;
-          this.longitudeValue = position.coords.longitude;
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.ngZone.run(() => {
+            this.latitudeValue = position.coords.latitude;
+            this.longitudeValue = position.coords.longitude;
 
-          if (this.map) {
-            this.map.setView([this.latitudeValue, this.longitudeValue], 15);
-            this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
-          }
+            if (this.map && this.marker) {
+              this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+              this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+            }
 
+            this.spinner.hide();
+          });
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
           this.spinner.hide();
-        });
-      },
-      (error) => {
-        console.error('Geolocation error:', error);
-        this.spinner.hide();
-      }
-    );
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+      this.spinner.hide();
+    }
   }
 
   closeDialog(): void {
@@ -196,26 +236,30 @@ export class MapModalComponent implements OnInit, AfterViewInit {
   }
 
   setLocation(location: any): void {
+    if (!location) return;
+
     this.latitudeValue = location.lat;
     this.longitudeValue = location.lon;
 
-    if (this.map) {
+    if (this.map && this.marker) {
       this.map.setView([this.latitudeValue, this.longitudeValue], 15);
-      this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
+      this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
     }
   }
 
-  private _filter(name: string): Observable<any[]> {
-    if (!name) return of([]); // Return empty array for empty search
+  displayFn(location: any): string {
+    return location ? location.name : '';
+  }
 
-    if (!this.isBrowser) return of([]); // Return empty array in server-side rendering
+  private _filter(query: string): Observable<any[]> {
+    if (!query || query.length < 3) return of([]);
+    if (!this.isBrowser) return of([]);
 
     this.spinner.show();
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`;
+    // Use English locale for search
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&accept-language=en`;
 
     return this.http.get<any[]>(url).pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
       map((results) => {
         this.spinner.hide();
         return results.map((result) => ({
@@ -226,16 +270,9 @@ export class MapModalComponent implements OnInit, AfterViewInit {
       }),
       catchError(error => {
         console.error('Search error:', error);
-        return of([]);
-      }),
-      switchMap(results => {
         this.spinner.hide();
-        return of(results);
+        return of([]);
       })
     );
-  }
-
-  displayFn(location: any): string {
-    return location?.name || '';
   }
 }
