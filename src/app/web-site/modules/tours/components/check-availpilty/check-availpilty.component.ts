@@ -56,9 +56,6 @@ export class CheckAvailpiltyComponent {
       this.tripId = trip_id;
       this.avilableOptions = parsedRes;
       this.booking_date = this.dataCheck['booking_date'];
-      console.log(
-        this.booking_date + ' ' + this.activityData?.CancelationtTime
-      );
 
       this.class = this.dataCheck['class'];
       this.avilable_option_id = Number(this.dataCheck['avilable_option_id']);
@@ -69,38 +66,40 @@ export class CheckAvailpiltyComponent {
       this.getTripById(this.tripId);
     }
   }
-   formatDate(CancelationtTime:any, selected_date:any) {
-    if (!selected_date) {
-      throw new Error('selected_date is undefined');
-    }
-    // Parsear la fecha seleccionada
-    const [day, month, year] = selected_date?.split('/').map(Number);
-    const parsedDate = new Date(year, month - 1, day);
+  formatDate(
+    CancelationtTime: number,
+    PickUpTime: string,
+    selected_date: string
+  ): string {
+    if (!CancelationtTime || !PickUpTime || !selected_date) return '';
 
-    // Restar las horas de cancelación
-    parsedDate.setHours(parsedDate.getHours() - CancelationtTime);
+    // Parse the selected date (assuming format "DD/MM/YYYY")
+    const [day, month, year] = selected_date.split('/').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
 
-    // Formatear la nueva fecha
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    // Parse the pickup time
+    const [hours, minutes, seconds] = PickUpTime.split(':').map(Number);
+    selectedDate.setHours(hours, minutes, seconds);
 
-    const dayOfWeek = daysOfWeek[parsedDate.getDay()];
-    const dayOfMonth = parsedDate.getDate();
-    const monthName = monthsOfYear[parsedDate.getMonth()];
-    const yearNumber = parsedDate.getFullYear();
+    // Subtract cancellation time (in hours) from the selected date
+    const cancellationDate = new Date(selectedDate);
+    cancellationDate.setHours(cancellationDate.getHours() - CancelationtTime);
 
-    let hours = parsedDate.getHours();
-    const minutes = parsedDate.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-
-    const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${monthName}, ${yearNumber} ${hours}:${minutes} ${ampm}`;
-    return formattedDate;
-   }
-  subtract12Hours(dateString:any) {
-    let [datePart, hourPart] = dateString.split(" ");
-    let [day, month, year] = datePart.split("/").map(Number);
+    // Format the date in the desired way: "Sunday, 8 Jun, 2025 12:00 AM"
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long', // "Sunday"
+      day: 'numeric', // "8"
+      month: 'short', // "Jun"
+      year: 'numeric', // "2025"
+      hour: 'numeric', // "12"
+      minute: '2-digit', // "00"
+      hour12: true, // "AM/PM"
+    };
+    return cancellationDate.toLocaleString('en-US', options);
+  }
+  subtract12Hours(dateString: any) {
+    let [datePart, hourPart] = dateString.split(' ');
+    let [day, month, year] = datePart.split('/').map(Number);
     let hour = Number(hourPart);
 
     // Create Date object in UTC to avoid timezone issues
@@ -110,13 +109,13 @@ export class CheckAvailpiltyComponent {
     date.setHours(date.getHours() - 12);
 
     // Format output as "DD/MM/YYYY HH:mm"
-    let newDay = String(date.getDate()).padStart(2, "0");
-    let newMonth = String(date.getMonth() + 1).padStart(2, "0"); // Convert 0-based month
+    let newDay = String(date.getDate()).padStart(2, '0');
+    let newMonth = String(date.getMonth() + 1).padStart(2, '0'); // Convert 0-based month
     let newYear = date.getFullYear();
-    let newHour = String(date.getHours()).padStart(2, "0");
+    let newHour = String(date.getHours()).padStart(2, '0');
 
     return `${newDay}/${newMonth}/${newYear} ${newHour}:00`;
-}
+  }
 
   // Example usage
   // const inputDate = "26/02/2025 14:30"; // Input date with time

@@ -8,7 +8,6 @@
             style="justify-content: center !important"
             class="list-group flex-nowrap overflow-auto overflow-md-visble list-group-horizontal list-group-borderless flex-center-between pt-1"
           >
-
             <li
               class="list-group-item text-center flex-shrink-0 flex-md-shrink-1"
             >
@@ -23,7 +22,11 @@
         </div>
         <div
           class="mb-5 bg-white rounded-sm"
-          style="margin: 30px auto !important; max-width: 100%; overflow: hidden"
+          style="
+            margin: 30px auto !important;
+            max-width: 100%;
+            overflow: hidden;
+          "
         >
           <div
             class="py-6 px-5 border-bottom d-flex justify-content-center"
@@ -80,7 +83,6 @@
               >
                 Traveler Information
               </h5>
-
             </div>
             <!-- Fact List -->
             <ul class="list-unstyled font-size-1 mb-0 font-size-16">
@@ -137,9 +139,7 @@
           <div
             class="pt-4 pb-3 px-5"
             [innerHTML]="confirmRequest?.Bookinginstraction"
-          >
-
-          </div>
+          ></div>
         </div>
         <div class="my-tours-work">
           <h5 class="text-center mb-5 head">You might also like</h5>
@@ -240,13 +240,13 @@
                 <label class="form-label"> Phone </label>
 
                 <ngx-intl-tel-input
+                  [cssClass]="'form-control'"
                   [enableAutoCountrySelect]="true"
-                  [enablePlaceholder]="true"
                   [searchCountryFlag]="true"
-                  [selectFirstCountry]="true"
+                  [selectFirstCountry]="false"
                   [separateDialCode]="true"
                   [maxLength]="20"
-                  [phoneValidation]="false"
+                  [phoneValidation]="true"
                   name="phone"
                   [enablePlaceholder]="true"
                   [customPlaceholder]="'Enter phone number'"
@@ -273,7 +273,6 @@
             <!-- End Input -->
 
             <div class="w-100"></div>
-
 
             <div class="w-100"></div>
             <p class="text-left fs-6">Do you want a pick up services ?</p>

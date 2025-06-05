@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MapModalComponent } from 'src/app/shared/components/@layout-pages/map-modal/map-modal.component';
 import Swal from 'sweetalert2';
 import { Title } from '@angular/platform-browser';
+import { CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 @Component({
   selector: 'app-confirm-payment',
   templateUrl: './confirm-payment.component.html',
@@ -29,7 +30,7 @@ export class ConfirmPaymentComponent implements OnInit {
   locationValue = '';
   latitudeValue: any;
   longitudeValue: any;
-  showServices: boolean = false;
+  showServices: boolean = true;
   customerForm!: FormGroup;
   userData: any = {};
   @ViewChild('btn') btn: ElementRef | undefined;
@@ -65,21 +66,33 @@ export class ConfirmPaymentComponent implements OnInit {
         }
 
         this.customerForm.patchValue(this.userData);
-        this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+        this.customerForm
+          ?.get('phone')
+          ?.patchValue(this.userData.phone.replace(/[()]/g, ''));
       } else {
         this.router.navigate(['/'], { replaceUrl: true });
       }
     });
   }
+  private formatInitialPhoneNumber(phone: string): any {
+    // Remove parentheses and any formatting
+    const cleanedNumber = phone.replace(/[()]/g, ''); // "+1011212000340"
+
+    return {
+      internationalNumber: cleanedNumber,
+      nationalNumber: cleanedNumber.replace(/^\+\d+/, ''), // "011212000340"
+      countryCode: cleanedNumber.startsWith('+1') ? 'us' : 'de', // Default to US if +1, else Germany
+      dialCode: cleanedNumber.startsWith('+1') ? '1' : '49', // Default to US (+1) or Germany (+49)
+    };
+  }
   onCountryChange(event: any) {
     console.log(event);
     console.log(this.customerForm.value);
     let x =
-      '+' +
+    '+'+
       event.dialCode +
       this.customerForm.value.phone.nationalNumber?.replace('-', '');
     this.customerForm?.get('phone')?.patchValue(x);
-    console.log(x);
   }
   getTripById(activityID: any) {
     this._httpService

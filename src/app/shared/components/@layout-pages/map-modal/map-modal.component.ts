@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit, PLATFORM_ID, Optional, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import * as L from 'leaflet';
+import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, of } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { LEAFLET } from 'src/app/app.config';
 
 @Component({
   selector: 'app-map-modal',
@@ -18,12 +18,13 @@ import { LEAFLET } from 'src/app/app.config';
 export class MapModalComponent implements OnInit, AfterViewInit {
   latitudeValue: number = 0;
   longitudeValue: number = 0;
-  map: any;
-  marker: any;
+  map: L.Map | null = null;
+  marker: L.Marker | null = null;
   searchControl = new FormControl();
   filteredOptions!: Observable<any[]>;
   currentCountry: string = '';
   private isBrowser: boolean;
+
   private leafletLoaded: boolean = false;
 
   constructor(
@@ -32,8 +33,7 @@ export class MapModalComponent implements OnInit, AfterViewInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
     private spinner: NgxSpinnerService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    @Optional() @Inject(LEAFLET) private L: any
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -174,19 +174,18 @@ export class MapModalComponent implements OnInit, AfterViewInit {
           this.longitudeValue = position.coords.longitude;
 
           if (this.map) {
-            this.map.setView([this.latitudeValue, this.longitudeValue], 10);
-            this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+            this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+            this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
           }
 
-          const reverseGeocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${this.latitudeValue}&lon=${this.longitudeValue}&accept-language=en`;
-          this.http.get<any>(reverseGeocodeUrl).subscribe((result) => {
-            if (result && result.address && result.address.country) {
-              this.currentCountry = result.address.country;
-            }
-          });
+          this.spinner.hide();
         });
-      });
-    }
+      },
+      (error) => {
+        console.error('Geolocation error:', error);
+        this.spinner.hide();
+      }
+    );
   }
 
   closeDialog(): void {
@@ -197,14 +196,12 @@ export class MapModalComponent implements OnInit, AfterViewInit {
   }
 
   setLocation(location: any): void {
-    this.spinner.hide();
-
     this.latitudeValue = location.lat;
     this.longitudeValue = location.lon;
 
     if (this.map) {
-      this.map.setView([this.latitudeValue, this.longitudeValue], 10);
-      this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+      this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+      this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
     }
   }
 
@@ -214,8 +211,7 @@ export class MapModalComponent implements OnInit, AfterViewInit {
     if (!this.isBrowser) return of([]); // Return empty array in server-side rendering
 
     this.spinner.show();
-
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&countrycodes=EG&accept-language=en&limit=5`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`;
 
     return this.http.get<any[]>(url).pipe(
       debounceTime(300),
@@ -228,15 +224,18 @@ export class MapModalComponent implements OnInit, AfterViewInit {
           lon: parseFloat(result.lon),
         }));
       }),
-      catchError((error) => {
-        this.spinner.hide();
-        console.error('Error during location search:', error);
+      catchError(error => {
+        console.error('Search error:', error);
         return of([]);
+      }),
+      switchMap(results => {
+        this.spinner.hide();
+        return of(results);
       })
     );
   }
 
   displayFn(location: any): string {
-    return location && location.name ? location.name : '';
+    return location?.name || '';
   }
 }

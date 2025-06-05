@@ -816,10 +816,23 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   addAvailableOptions() {
+    if (!this.isLogin) {
+      this.toastr.info('Please login first', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      window.scroll(0, 0);
+      this.headerService.toggleDropdown();
+      return
+    }
     if (this.selectedDateControl.invalid) {
       this.selectedDateControl.markAsTouched();
       return;
     }
+
 
     this.availabilityChecked = true;
 
@@ -1306,4 +1319,16 @@ export class ToursDetailsComponent implements AfterViewInit {
   closeModal() {
     this.isModalOpen = false;
   }
+  formatTimeTo12Hour(timeString: string): string {
+  if (!timeString) return '';
+
+  const [hours, minutes] = timeString.split(':');
+  const hourNum = parseInt(hours, 10);
+
+  // Convert to 12-hour format
+  const period = hourNum >= 12 ? 'PM' : 'AM';
+  const twelveHour = hourNum % 12 || 12; // Convert 0 to 12 for 12 AM
+
+  return `${twelveHour}:${minutes} ${period}`;
+}
 }
