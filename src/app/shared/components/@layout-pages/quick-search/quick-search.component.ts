@@ -134,7 +134,6 @@ private dataService: DataService,
 
       // Store the word "hotel" in local storage (if needed)
 
-
       localStorage.setItem('selectedFromType', 'hotel');
 
     }
@@ -143,7 +142,19 @@ private dataService: DataService,
     this.filterToOptions();
   }
   onDateSelect(selectedDate: Date): void {
+    // تنسيق التاريخ بالشكل المطلوب: "20 June, 2025"
+    const day = selectedDate.getDate();
+    const month = selectedDate.toLocaleString('default', { month: 'long' });
+    const year = selectedDate.getFullYear();
+
+    // تخزين التاريخ بالتنسيق المطلوب للعرض
+    const formattedDisplayDate = `${day} ${month}, ${year}`;
+
+    // تخزين التاريخ بتنسيق YYYY-MM-DD للاستخدام في API
     this.date = this.formatDateToYYYYMMDD(selectedDate);
+
+    console.log('Selected date (display):', formattedDisplayDate);
+    console.log('Selected date (API format):', this.date);
   }
   formatDateToYYYYMMDD(date: Date): string {
     const year = date.getFullYear();

@@ -107,5 +107,15 @@
         <span class="pb-0">{{ item.duration }} {{ item.durationType }}</span>
       </div>
     </div>
+    <!-- إضافة عرض معلومات الجدول الزمني للـ Liveaboard -->
+    <div *ngIf="isLiveaboard() && schedule" class="liveaboard-schedule">
+      <div class="schedule-info">
+        <span class="schedule-date">{{ schedule.Start }} to {{ schedule.End }}</span>
+        <span class="schedule-duration">{{ schedule.Day }} D/ {{ schedule.Night }} N</span>
+        <span class="schedule-availability" [ngClass]="{'available': schedule.Avilabile > 1, 'limited': schedule.Avilabile === 1}">
+          {{ schedule.Avilabile > 1 ? 'Available' : 'Only one space left' }}
+        </span>
+      </div>
+    </div>
   </div>
 </div>

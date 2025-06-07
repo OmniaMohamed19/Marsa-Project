@@ -22,12 +22,16 @@ export class ActivityCardComponent {
     private _httpService: HttpService,
   ) {}
   @Input() item: any;
+  @Input() schedule: any;
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this._AuthService.$isAuthenticated.subscribe((isAuth: any) => {
       this.isLogin = isAuth;
     });
+  }
+   isLiveaboard(): boolean {
+    return this.item && this.item.Schedule && Array.isArray(this.item.Schedule) && this.item.Schedule.length > 0;
   }
   getRoundedRate(rate: number | null): number {
     if (rate !== null && !isNaN(Number(rate))) {
