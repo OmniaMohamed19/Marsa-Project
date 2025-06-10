@@ -63,7 +63,9 @@ export class PackageConfirmComponent {
       console.log(this.userData);
     }
     this.customerForm.patchValue(this.userData);
-    this.customerForm?.get('phone')?.patchValue('+' + this.userData.phone);
+        this.customerForm
+          ?.get('phone')
+          ?.patchValue(this.userData.phone.replace(/[()]/g, ''));
   }
   getTripById(activityID: any) {
     this._httpService

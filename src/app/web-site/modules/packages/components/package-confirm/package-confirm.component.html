@@ -244,13 +244,13 @@
                 <label class="form-label"> Phone </label>
 
                 <ngx-intl-tel-input
+                  [cssClass]="'form-control'"
                   [enableAutoCountrySelect]="true"
-                  [enablePlaceholder]="true"
                   [searchCountryFlag]="true"
-                  [selectFirstCountry]="true"
+                  [selectFirstCountry]="false"
                   [separateDialCode]="true"
                   [maxLength]="20"
-                  [phoneValidation]="false"
+                  [phoneValidation]="true"
                   name="phone"
                   [enablePlaceholder]="true"
                   [customPlaceholder]="'Enter phone number'"
