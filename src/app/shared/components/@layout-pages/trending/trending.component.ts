@@ -208,13 +208,17 @@ export class TrendingComponent  {
     }
     return null;
   }
-  
-  // تعديل دالة getItemType لتعتمد على نوع العنصر الفعلي
+   getBed(item: any): any {
+    if (item && item.bed ) {
+     return item.bed  ;
+    }
+    return null;
+  }
+
   getItemType(item: any): string {
-    // التحقق من نوع العنصر بناءً على وجود Schedule
     if (item && item.Schedule && Array.isArray(item.Schedule) && item.Schedule.length > 0) {
       return 'Liveaboard';
-    } else if (item && item.boatType) {
+    } else if (item && item.bed && !item.Schedule) {
       return 'Boats';
     } else {
       return 'Tours&Activities';

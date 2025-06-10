@@ -7,7 +7,10 @@ h3 {
     position: relative;
 }
 
-
+.boat-icon {
+  display: inline !important;
+  width: auto !important;
+}
 
 h3::after {
     content: "";

@@ -57,24 +57,24 @@ export class RegisterComponent implements OnInit {
   initialForm(): void {
     this.signupForm = this.fb.group(
       {
-        name: ['', Validators.required],
-        email: ['', [Validators.required, emailFormatValidator]], // Use the custom email validator
-        phone: ['', [Validators.required]],
+        name: ['', [Validators.required]],
+        email: ['', [Validators.required, emailFormatValidator]],
+        phone: [null, [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(8)]],
-        password_confirmation: [
-          '',
-          [Validators.required, Validators.minLength(8)],
-        ],
+        password_confirmation: ['', [Validators.required, Validators.minLength(8)]],
         country_code: [''],
         role: [0, [Validators.required, Validators.min(1)]],
       },
       { validators: this.passwordMatchValidator }
     );
 
-    this.signupForm.get('role')?.valueChanges.subscribe((value) => {
-      this.signupForm
-        .get('role')
-        ?.setValue(value ? 1 : 0, { emitEvent: false });
+    // Subscribe to phone value changes to handle the international phone input
+    this.signupForm.get('phone')?.valueChanges.subscribe(value => {
+      if (value && typeof value === 'object') {
+        this.signupForm.patchValue({
+          country_code: value.dialCode
+        }, { emitEvent: false });
+      }
     });
   }
   passwordMatchValidator(control: AbstractControl) {
@@ -143,6 +143,12 @@ export class RegisterComponent implements OnInit {
   //   console.log(x);
   // }
   register(form: FormGroup) {
+    // Mark all fields as touched to trigger validation
+    Object.keys(form.controls).forEach(key => {
+      const control = form.get(key);
+      control?.markAsTouched();
+    });
+
     if (form.invalid) {
       if (this.email.errors && this.email.errors['invalidEmail']) {
         this.toastr.error('Please enter a valid email address.', '', {
@@ -156,10 +162,9 @@ export class RegisterComponent implements OnInit {
         this.email.errors ||
         this.password.errors ||
         this.name.errors ||
-        this.email.errors ||
         this.phone.errors
       ) {
-        this.toastr.error('Check Missing Fields', '', {
+        this.toastr.error('Please fill in all required fields correctly', '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
           messageClass: 'toastr_message',
@@ -175,20 +180,43 @@ export class RegisterComponent implements OnInit {
           closeButton: true,
         });
       }
-
       return;
     }
 
+    // Get the phone input value
+    const phoneValue = this.signupForm.get('phone')?.value;
+    
+    // Create the model with properly formatted data
     const model = {
-      ...this.signupForm.value,
-      phone: this.signupForm.get('phone')?.value['number'],
-      country_code: this.signupForm.get('phone')?.value['dialCode'],
+      name: this.signupForm.get('name')?.value?.trim(),
+      email: this.signupForm.get('email')?.value?.trim(),
+      password: this.signupForm.get('password')?.value,
+      password_confirmation: this.signupForm.get('password_confirmation')?.value,
+      role: this.signupForm.get('role')?.value || 1,
+      phone: phoneValue?.number || phoneValue,
+      country_code: phoneValue?.dialCode || this.signupForm.get('country_code')?.value
     };
+
+    // Validate that all required fields have values
+    if (!model.name || !model.email || !model.password || !model.phone || !model.country_code) {
+      this.toastr.error('Please fill in all required fields', '', {
+        disableTimeOut: false,
+        titleClass: 'toastr_title',
+        messageClass: 'toastr_message',
+        timeOut: 5000,
+        closeButton: true,
+      });
+      return;
+    }
+
+    // Log the data being sent
+    console.log('Sending registration data:', model);
 
     this.authService.register(model).subscribe({
       next: (res: any) => {
+        console.log('Registration response:', res);
         this.showCodeSignForm = !this.showCodeSignForm;
-        this.toastr.success(res.message, ' ', {
+        this.toastr.success(res.message || 'Registration successful', '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',
           messageClass: 'toastr_message',
@@ -198,8 +226,8 @@ export class RegisterComponent implements OnInit {
         this.codeService.setUserData(res.user_id);
       },
       error: (err) => {
-        console.error('Error Response:', err);
-        const errorMessage = err?.error?.message || 'An error occurred';
+        console.error('Registration error:', err);
+        const errorMessage = err?.error?.message || 'An error occurred during registration';
         this.toastr.error(errorMessage, '', {
           disableTimeOut: false,
           titleClass: 'toastr_title',

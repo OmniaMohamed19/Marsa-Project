@@ -34,7 +34,7 @@
           <ng-template carouselSlide>
             <ng-container [ngSwitch]="getItemType(item)">
               <app-activity-card *ngSwitchCase="'Liveaboard'" [item]="item" [schedule]="getFirstSchedule(item)"></app-activity-card>
-              <app-boat-card *ngSwitchCase="'Boats'" [item]="item"></app-boat-card>
+              <app-activity-card *ngSwitchCase="'Boats'" [item]="item" [bed]="getBed(item)"></app-activity-card>
               <app-activity-card *ngSwitchDefault [item]="item"></app-activity-card>
             </ng-container>
           </ng-template>

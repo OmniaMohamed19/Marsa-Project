@@ -69,7 +69,7 @@
             }}
 
           </span>
-          <span>per person</span>
+          <span *ngIf="!isBoat() && !bed">per person</span>
         </h2>
       </div>
     </div>
@@ -103,19 +103,19 @@
         <span class="pb-0">{{ item?.place }}</span>
       </div>
       <div class="d-flex gap-2 pt-2">
-        <img src="../../../../../assets/custom/Activity/time.png" style="width: 14.97px" alt="time" />
-        <span class="pb-0">{{ item.duration }} {{ item.durationType }}</span>
+        <img  *ngIf="!isBoat() && !bed" src="../../../../../assets/custom/Activity/time.png" style="width: 14.97px" alt="time" />
+
+        <span *ngIf="!isLiveaboard() && !schedule" class="pb-0">{{ item.duration }} {{ item.durationType }}</span>
+        <span *ngIf="isLiveaboard() && schedule" class="pb-0">{{ schedule.Start }} to {{ schedule.End }}</span>
+ <div *ngIf="isBoat() && bed" style="margin-left: -9px">
+          <img
+            src="assets/custom/boat-icons/Forma.svg"
+            class="me-1 boat-icon"
+            alt="boat"
+          /><span>{{ item.bed }}</span>
+        </div>
       </div>
     </div>
-    <!-- إضافة عرض معلومات الجدول الزمني للـ Liveaboard -->
-    <div *ngIf="isLiveaboard() && schedule" class="liveaboard-schedule">
-      <div class="schedule-info">
-        <span class="schedule-date">{{ schedule.Start }} to {{ schedule.End }}</span>
-        <span class="schedule-duration">{{ schedule.Day }} D/ {{ schedule.Night }} N</span>
-        <span class="schedule-availability" [ngClass]="{'available': schedule.Avilabile > 1, 'limited': schedule.Avilabile === 1}">
-          {{ schedule.Avilabile > 1 ? 'Available' : 'Only one space left' }}
-        </span>
-      </div>
-    </div>
+
   </div>
 </div>

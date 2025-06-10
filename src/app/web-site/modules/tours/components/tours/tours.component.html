@@ -251,11 +251,12 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8 col-xl-9 order-md-1 order-lg-2 mt-4">
+    <div class="col-lg-8 col-xl-9 col-sm-12 order-lg-2">
+     
       <!-- Activity Title -->
       <div class="d-flex justify-content-between align-items-center">
         <h3 style="margin-bottom: 13px">
-          {{ rows?.trips?.data?.length }} Activities Found
+         {{ totalActivitiesCount }} Activities Found
         </h3>
         <div class="d-flex align-items-center gap-3">
           <div class="list-view" (click)="activeView = 'list'" [class.active]="activeView == 'list'">
@@ -319,7 +320,7 @@
         </div>
       </div>
       <!--  -->
-      <p-paginator *ngIf="!isDestinationFilterActive" [rows]="10" [totalRecords]="rows?.trips?.total || rows?.trips?.data?.length"
+      <p-paginator [rows]="10" [totalRecords]="rows?.trips?.total || rows?.trips?.data?.length"
         [first]="(rows?.trips?.current_page - 1) * 10" (onPageChange)="onPageChange($event)"
         [showFirstLastIcon]="true" [showJumpToPageInput]="true"
         class="m-auto border border-color-4 rounded-sm mb-5 mb-lg-0 overflow-auto overflow-xl-visible justify-content-center align-items-center py-2 w-100">

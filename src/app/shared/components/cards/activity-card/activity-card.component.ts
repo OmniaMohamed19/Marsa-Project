@@ -23,6 +23,7 @@ export class ActivityCardComponent {
   ) {}
   @Input() item: any;
   @Input() schedule: any;
+  @Input() bed :any;
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -32,6 +33,9 @@ export class ActivityCardComponent {
   }
    isLiveaboard(): boolean {
     return this.item && this.item.Schedule && Array.isArray(this.item.Schedule) && this.item.Schedule.length > 0;
+  }
+   isBoat(): boolean {
+    return this.item && this.item.bed && !this.item.Schedule ;
   }
   getRoundedRate(rate: number | null): number {
     if (rate !== null && !isNaN(Number(rate))) {
