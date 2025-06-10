@@ -22,15 +22,14 @@ export class HttpService {
   public urlApiFile = environment;
   private BaseUrls: any = new Map();
   headers = new HttpHeaders({
-  'Content-Type': 'multipart/form-data',
-//   'Content-Type': 'application/json',
-// 'Accept':'application/json'
-  })
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  });
+
   constructor(
     private http: HttpClient,
   ) {
     this.BaseUrls.set('marsa', environment.APIURL);
-
   }
 
   get<T>(BaseUrlKey: any, APIName: string, params?: any, showAlert = false): Observable<T> {
@@ -47,12 +46,12 @@ export class HttpService {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
       'Accept': 'application/json'
-    }) : undefined;
+    }) : this.headers;
 
     return this.http
       .get<API>(
         `${this.BaseUrls.get(BaseUrlKey)}${APIName}?${queryParams.join('&')}`,
-        headers ? { headers } : undefined
+        { headers }
       )
       .pipe(
         take(1),
@@ -92,15 +91,21 @@ export class HttpService {
       });
     }
 
+    // Log the request details
+    console.log('Making POST request to:', `${this.BaseUrls.get(BaseUrlKey)}${APIName}`);
+    console.log('With headers:', headers);
+    console.log('With body:', body);
+
     return this.http
       .post<API>(
         `${this.BaseUrls.get(BaseUrlKey)}${APIName}`,
         body ? body : null,
-        head ? { headers: this.headers } : { headers }
+        { headers }
       )
       .pipe(
         take(1),
         map((event: any) => {
+          console.log('Response received:', event);
           return event;
         })
       );

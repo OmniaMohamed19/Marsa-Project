@@ -12,37 +12,34 @@
             <h6 class="text-uppercase mb-2font-weight-bold mb-4 text-start">
               <picture>
                 <source srcset="../../../../../assets/images/logo.webp" media="(min-width: 768px)" />
-                <img src="../../../../../assets/images/logo.webp" alt="removebg-preview" style="width: 150px" loading="eager"
-                  decoding="sync" class="img" />
+                <img src="../../../../../assets/images/logo.webp" alt="removebg-preview" style="width: 150px"
+                  loading="eager" decoding="sync" class="img" />
               </picture>
             </h6>
             <ul style="list-style-type: none" class="text-start ps-0 info">
-              <li class="d-flex gap-2 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M3.24375 5.39531L5.73984 2.90156C5.91592 2.72471 6.1252 2.58439 6.35567 2.48867C6.58614 2.39294 6.83325 2.34369 7.08281 2.34375C7.5914 2.34375 8.06953 2.54297 8.42812 2.90156L11.1141 5.5875C11.2909 5.76358 11.4312 5.97286 11.527 6.20333C11.6227 6.4338 11.6719 6.68091 11.6719 6.93047C11.6719 7.43906 11.4727 7.91719 11.1141 8.27578L9.15 10.2398C9.60974 11.2532 10.2489 12.175 11.0367 12.9609C11.8225 13.7506 12.7443 14.3922 13.7578 14.8547L15.7219 12.8906C15.898 12.7138 16.1072 12.5735 16.3377 12.4777C16.5682 12.382 16.8153 12.3328 17.0648 12.3328C17.5734 12.3328 18.0516 12.532 18.4102 12.8906L21.0984 15.5742C21.2755 15.7506 21.4159 15.9603 21.5117 16.1912C21.6074 16.4221 21.6565 16.6696 21.6562 16.9195C21.6562 17.4281 21.457 17.9062 21.0984 18.2648L18.607 20.7562C18.0352 21.3305 17.2453 21.6562 16.4344 21.6562C16.2633 21.6562 16.0992 21.6422 15.9375 21.6141C12.7781 21.0938 9.64453 19.4133 7.11562 16.8867C4.58906 14.3625 2.91094 11.2312 2.38359 8.0625C2.22422 7.09453 2.54531 6.09844 3.24375 5.39531Z"
-                    fill="white" />
-                </svg>
-                {{ social?.Call ? social.Call : "+20 010 1111 7381" }}
-              </li>
-              <li class="d-flex gap-2 pb-3">
-                <i class="fa-solid fa-envelope" style="  margin-right: 1rem;  font-size: 18px; margin-top: 0.2rem;"></i>
-                {{ social?.Mail }}
-              </li>
-              <li class="d-flex gap-2 pb-3">
+  <li class="d-flex align-items-center gap-2 pb-3">
+    <div class="icon-container" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+      <i class="fa-solid fa-phone" style="font-size: 18px; color: white;"></i>
+    </div>
+    {{ social?.Call ? social.Call : "+20 010 1111 7381" }}
+  </li>
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <path
-                    d="M12 1.5C9.81276 1.50258 7.71584 2.3726 6.16923 3.91922C4.62261 5.46584 3.75259 7.56276 3.75001 9.75C3.74739 11.5374 4.33124 13.2763 5.41201 14.7C5.41201 14.7 5.63701 14.9963 5.67376 15.039L12 22.5L18.3293 15.0353C18.3623 14.9955 18.588 14.7 18.588 14.7L18.5888 14.6978C19.669 13.2747 20.2526 11.5366 20.25 9.75C20.2474 7.56276 19.3774 5.46584 17.8308 3.91922C16.2842 2.3726 14.1873 1.50258 12 1.5ZM12 12.75C11.4067 12.75 10.8266 12.5741 10.3333 12.2444C9.83995 11.9148 9.45543 11.4462 9.22837 10.8981C9.00131 10.3499 8.9419 9.74667 9.05765 9.16473C9.17341 8.58279 9.45913 8.04824 9.87869 7.62868C10.2982 7.20912 10.8328 6.9234 11.4147 6.80764C11.9967 6.69189 12.5999 6.7513 13.1481 6.97836C13.6962 7.20542 14.1648 7.58994 14.4944 8.08329C14.8241 8.57664 15 9.15666 15 9.75C14.999 10.5453 14.6826 11.3078 14.1202 11.8702C13.5578 12.4326 12.7954 12.749 12 12.75Z"
-                    fill="white" />
-                </svg>
-                {{
-                social?.Location
-                ? social.Location
-                : "10 of Ramadan st El Quseir, Red sea Egypt"
-                }}
-              </li>
-            </ul>
+  <li class="d-flex align-items-center gap-2 pb-3">
+    <div class="icon-container" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+      <i class="fa-solid fa-envelope" style="font-size: 18px; color: white;"></i>
+    </div>
+    {{ social?.Mail }}
+  </li>
+
+  <li class="d-flex align-items-center gap-2 pb-3 ms-md-1 ms-0">
+    <div class="icon-container" style="width:28px; height: 28px; display: flex; align-items: center; justify-content: center;">
+      <!-- جرب هذه الأيقونات واحدة تلو الأخرى -->
+      <i class="fa-solid fa-map-marker-alt" style="font-size: 22px; color: white;"></i>
+
+    </div>
+    {{ social?.Location ? social.Location : "10 of Ramadan st El Quseir, Red sea Egypt" }}
+  </li>
+</ul>
           </div>
           <!-- Grid column -->
 
@@ -174,9 +171,8 @@
             <div class="row mt-4" style="padding-left: 5%">
               <ul class="list-inline mb-0 mr-2 pr-1 pb-3">
                 <li class="list-inline-item">
-                  <a [href]="youtubeLink" target="_blank"
-                    class="btn btn-sm btn-icon btn-pill btn-bg-primary"><span><img style="width: 30px;"
-                        src="assets/custom/icons/Home page icons/video.svg" alt="IMG" /></span></a>
+                  <a [href]="youtubeLink" target="_blank" class="btn btn-sm btn-icon btn-pill btn-bg-primary"><span><img
+                        style="width: 30px;" src="assets/custom/icons/Home page icons/video.svg" alt="IMG" /></span></a>
                 </li>
                 <li class="list-inline-item">
                   <a [href]="social?.tripAdvisor" target="_blank"
@@ -191,7 +187,7 @@
                 <li class="list-inline-item">
                   <a [href]="social?.instgram" target="_blank"
                     class="btn btn-sm btn-icon btn-pill btn-bg-primary"><span><img style="width: 30px;"
-                       src="assets/custom/icons/Home page icons/instagramDark.svg" alt="IMG"
+                        src="assets/custom/icons/Home page icons/instagramDark.svg" alt="IMG"
                         loading="lazy" /></span></a>
                 </li>
               </ul>
@@ -222,13 +218,12 @@
             <div class="d-flex mb-5  download">
               <div>
                 <a href="https://play.google.com/store/apps/details?id=com.misk.marsa" target="_blank">
-                <img src="assets/custom/icons/Home page icons/googleplay.svg" alt="googleplay"
-                class="google-icon"  loading="lazy" /></a>
+                  <img src="assets/custom/icons/Home page icons/googleplay.svg" alt="googleplay" class="google-icon"
+                    loading="lazy" /></a>
               </div>
               <div>
-                <a href="https://apps.apple.com/eg/app/marsa-waves/id6737450382"  target="_blank">
-                <img src="assets/images/appStore.svg" class="apple-icon" alt="googleplay"
-                  loading="lazy" /></a>
+                <a href="https://apps.apple.com/eg/app/marsa-waves/id6737450382" target="_blank">
+                  <img src="assets/images/appStore.svg" class="apple-icon" alt="googleplay" loading="lazy" /></a>
               </div>
 
             </div>
@@ -245,17 +240,14 @@
             ">Newsletter</h4>
             <div class="animation my-3"><span class="poll"></span></div>
             <div>
-              <p
-                style="
+              <p style="
                   color: #fff;
                   font-family: Poppins, sans-serif;
                   font-size: 14px;
                   font-style: normal;
                   font-weight: 400;
                   line-height: 180%; /* 25.2px */
-                "
-                class="mb-4"
-              >
+                " class="mb-4">
                 Sign up and be the first to get our best offers and news
               </p>
 
@@ -263,17 +255,11 @@
                 <form novalidate class="input-group" [formGroup]="joinInForm" style="display: flex;">
                   <div class="row">
                     <div class="col-8" style="margin-right: -2rem;">
-                      <input
-                        style="flex: 1; height: 44px; box-sizing: border-box;"
-                        type="email"
-                        placeholder="Enter Your E-mail"
-                        formControlName="email"
-                        class="form-control"
-                      />
+                      <input style="flex: 1; height: 44px; box-sizing: border-box;" type="email"
+                        placeholder="Enter Your E-mail" formControlName="email" class="form-control" />
                     </div>
                     <div class="col-4">
-                      <button
-                        style="
+                      <button style="
                           width: 112.924px;
                           height: 44px;
                           display: flex;
@@ -283,11 +269,7 @@
                           font-family: Poppins;
                           font-size: 14px;
                           font-weight: 600;
-                        "
-                        type="submit"
-                        class="Join btn"
-                        (click)="GetNewsletter($event)"
-                      >
+                        " type="submit" class="Join btn" (click)="GetNewsletter($event)">
                         Join Now
                       </button>
                     </div>

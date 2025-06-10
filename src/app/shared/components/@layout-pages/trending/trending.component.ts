@@ -13,6 +13,7 @@ export class TrendingComponent  {
   @Input() showHeading: boolean = true;
   @Input() placeId: any;
   @Input() applyMargin: boolean = true;
+
   route = '/' + this.translate.currentLang + '/tours/details/';
   responsiveOptions: any[] | undefined;
   numVisible = 4;  // Default number of visible items
@@ -199,4 +200,28 @@ export class TrendingComponent  {
     },
     nav: true,
   };
+
+  // أضف هذه الدالة للحصول على أول جدول زمني متاح
+  getFirstSchedule(item: any): any {
+    if (item && item.Schedule && Array.isArray(item.Schedule) && item.Schedule.length > 0) {
+      return item.Schedule[0];
+    }
+    return null;
+  }
+   getBed(item: any): any {
+    if (item && item.bed ) {
+     return item.bed  ;
+    }
+    return null;
+  }
+
+  getItemType(item: any): string {
+    if (item && item.Schedule && Array.isArray(item.Schedule) && item.Schedule.length > 0) {
+      return 'Liveaboard';
+    } else if (item && item.bed && !item.Schedule) {
+      return 'Boats';
+    } else {
+      return 'Tours&Activities';
+    }
+  }
 }

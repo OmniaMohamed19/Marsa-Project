@@ -11,7 +11,9 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ToursComponent {
   rows: any = [];
+  totalActivitiesCount: number = 0;
   activeView = 'grid';
+  currentPage: number = 1;
   FilterTimeid: any = [];
   FilterDurationid: any = [];
   isDestinationFilterActive = false;
@@ -77,9 +79,10 @@ export class ToursComponent {
 
 
   getAllactivity() {
-    this._httpsService.get(environment.marsa, 'Activtes').subscribe({
+    this._httpsService.get(environment.marsa, 'Activtes', { page: this.currentPage }).subscribe({
       next: (response: any) => {
         this.rows = response;
+        this.totalActivitiesCount = response.trips?.total || 0;
         this.duration = response.duration;
         this.time = response.time;
         this.types = response.types;
@@ -89,9 +92,8 @@ export class ToursComponent {
     });
   }
   onPageChange(event: any) {
-    const pageNumber = event.page + 1; // PrimeNG uses 0-based index
-    this.loadPageData(pageNumber);
-    // Scroll to top of the page
+    this.currentPage = event.page + 1;
+    this.loadPageData(this.currentPage);
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -99,20 +101,48 @@ export class ToursComponent {
   }
 
   loadPageData(pageNumber: number) {
-    const url = `Activtes?page=${pageNumber}`; // Properly constructed URL
-    this._httpsService.get(environment.marsa, 'Activtes', { page: pageNumber }).subscribe({
-      next: (response: any) => {
+    // If we have active filters, use filter endpoint
+    if (this.hasActiveFilters()) {
+      this._httpsService.post(environment.marsa, 'Activtes/filter', {
+        Place_id: this.place_id == 'null' ? null : this.place_id,
+        TypeTrip: this.TypeTrip == 'null' ? null : this.TypeTrip,
+        start_d: this.start_d,
+        rating: this.rate ? 'rating' : null,
+        value: this.rate,
+        price: this.min_priceChoosen || this.max_priceChoosen ? 'price' : null,
+        start: this.min_priceChoosen
+          ? this.min_priceChoosen
+          : this.min_price.toString(),
+        end: this.max_priceChoosen
+          ? this.max_priceChoosen
+          : this.max_price.toString(),
+        filterid: this.FilterDurationid.concat(this.FilterTimeid),
+        page: pageNumber
+      }).subscribe((response: any) => {
         this.rows = response;
-        this.duration = response.duration;
-        this.time = response.time;
-        this.types = response.types;
-
-        this.getPlaces();
-
-        // Trigger change detection manually
-        this.cdr.detectChanges();
-      },
-    });
+        this.totalActivitiesCount = response.trips?.total || 0;
+        if (this.types?.length == 0) {
+          this.duration = response.duration;
+          this.time = response.time;
+          this.types = response.types;
+        }
+        if (this.destination?.length == 0) {
+          this.getPlaces();
+        }
+      });
+    } else {
+      // If no filters, use normal pagination
+      this._httpsService.get(environment.marsa, 'Activtes', { page: pageNumber }).subscribe({
+        next: (response: any) => {
+          this.rows = response;
+          this.totalActivitiesCount = response.trips?.total || 0;
+          this.duration = response.duration;
+          this.time = response.time;
+          this.types = response.types;
+          this.getPlaces();
+        }
+      });
+    }
   }
   selectedTimeId: number | null = null;
   clearSelection() {
@@ -123,11 +153,14 @@ export class ToursComponent {
     this.isDestinationFilterActive = false;
     this.min_priceChoosen = this.min_price;
     this.max_priceChoosen = this.max_price;
+    this.FilterDurationid = [];
+    this.FilterTimeid = [];
+    this.currentPage = 1; // Reset to first page
+    
     for (let i = 2; i <= 5; i++) {
       if (i != 2) {
         document.getElementById('btn-' + i)?.classList.remove('active-rate');
       } else {
-        // this.rate = 2;
         document.getElementById('btn-' + i)?.classList.add('active-rate');
       }
     }
@@ -155,6 +188,12 @@ export class ToursComponent {
     this.selectedTimeId = ev;
     if (ev == 'all') {
       this.FilterDurationid = [];
+      // Get total count when "All" is selected
+      this._httpsService.get(environment.marsa, 'Activtes/count').subscribe({
+        next: (response: any) => {
+          this.totalActivitiesCount = response.total || 0;
+        }
+      });
     } else {
       this.FilterDurationid = [];
       this.FilterDurationid.push(ev);
@@ -165,6 +204,12 @@ export class ToursComponent {
   filterTime(ev: any) {
     if (ev == 'all') {
       this.FilterTimeid = [];
+      // Get total count when "All" is selected
+      this._httpsService.get(environment.marsa, 'Activtes/count').subscribe({
+        next: (response: any) => {
+          this.totalActivitiesCount = response.total || 0;
+        }
+      });
     } else {
       this.FilterTimeid = [];
       this.FilterTimeid.push(ev);
@@ -175,10 +220,40 @@ export class ToursComponent {
   searchDestination(ev: any) {
     this.place_id = ev.target.value;
     this.isDestinationFilterActive = this.place_id !== 'null' && this.place_id !== null;
+    this.currentPage = 1; // Reset to first page when changing destination
+    
     if (!this.isDestinationFilterActive) {
       this.getAllactivity();
     } else {
-      this.filter();
+      this._httpsService
+        .post(environment.marsa, 'Activtes/filter', {
+          Place_id: this.place_id,
+          TypeTrip: this.TypeTrip == 'null' ? null : this.TypeTrip,
+          start_d: this.start_d,
+          rating: this.rate ? 'rating' : null,
+          value: this.rate,
+          price: this.min_priceChoosen || this.max_priceChoosen ? 'price' : null,
+          start: this.min_priceChoosen
+            ? this.min_priceChoosen
+            : this.min_price.toString(),
+          end: this.max_priceChoosen
+            ? this.max_priceChoosen
+            : this.max_price.toString(),
+          filterid: this.FilterDurationid.concat(this.FilterTimeid),
+          page: this.currentPage
+        })
+        .subscribe((response: any) => {
+          this.rows = response;
+          this.totalActivitiesCount = response.trips?.total || 0;
+          if (this.types?.length == 0) {
+            this.duration = response.duration;
+            this.time = response.time;
+            this.types = response.types;
+          }
+          if (this.destination?.length == 0) {
+            this.getPlaces();
+          }
+        });
     }
   }
 
@@ -195,6 +270,7 @@ export class ToursComponent {
   }
 
   filter() {
+    this.currentPage = 1; // Reset to first page when applying new filters
     this._httpsService
       .post(environment.marsa, 'Activtes/filter', {
         Place_id: this.place_id == 'null' ? null : this.place_id,
@@ -210,9 +286,11 @@ export class ToursComponent {
           ? this.max_priceChoosen
           : this.max_price.toString(),
         filterid: this.FilterDurationid.concat(this.FilterTimeid),
+        page: this.currentPage
       })
       .subscribe((response: any) => {
         this.rows = response;
+        this.totalActivitiesCount = response.trips?.total || 0;
         if (this.types?.length == 0) {
           this.duration = response.duration;
           this.time = response.time;
@@ -232,5 +310,18 @@ export class ToursComponent {
   filterByDate(ev: any) {
     this.start_d = ev.target.value;
     this.filter();
+  }
+
+  hasActiveFilters(): boolean {
+    return (
+      (this.place_id !== 'null' && this.place_id !== null) ||
+      (this.TypeTrip !== 'null' && this.TypeTrip !== null) ||
+      this.start_d !== null ||
+      this.rate !== null ||
+      this.min_priceChoosen !== this.min_price ||
+      this.max_priceChoosen !== this.max_price ||
+      this.FilterDurationid.length > 0 ||
+      this.FilterTimeid.length > 0
+    );
   }
 }

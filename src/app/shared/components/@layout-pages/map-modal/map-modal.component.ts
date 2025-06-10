@@ -1,27 +1,41 @@
-import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormControl } from '@angular/forms';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import * as L from 'leaflet';
-import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Observable, of } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, map, takeUntil } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+
+declare global {
+  interface Window {
+    L: any;
+  }
+}
 
 @Component({
   selector: 'app-map-modal',
   templateUrl: './map-modal.component.html',
   styleUrls: ['./map-modal.component.scss'],
 })
-export class MapModalComponent implements OnInit {
-  latitudeValue: number = 0;
-  longitudeValue: number = 0;
-  map: L.Map | null = null;
-  marker: L.Marker | null = null;
-  searchControl = new FormControl();
-  filteredOptions!: Observable<any[]>;
-  currentCountry: string = '';
+export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
+  // Basic properties
+  searchValue: string = '';
+  searchResults: any[] = [];
+  showResults: boolean = false;
+
+  latitudeValue: number = 26.8206; // Default to Egypt
+  longitudeValue: number = 30.8025; // Default to Egypt
+  map: any = null;
+  marker: any = null;
+  isEditMode: boolean = false;
+
   private isBrowser: boolean;
+  private L: any;
+  mapInitialized: boolean = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private ngZone: NgZone,
@@ -32,135 +46,68 @@ export class MapModalComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+
+    // If data contains initial coordinates, use them
+    if (data && data.latitude && data.longitude) {
+      this.latitudeValue = data.latitude;
+      this.longitudeValue = data.longitude;
+      this.isEditMode = true;
+    }
   }
 
   ngOnInit(): void {
+    this.spinner.show();
+
     if (this.isBrowser) {
-      this.loadLeaflet().then(() => {
-        this.initializeMap();
-        this.setupSearch();
-      }).catch(err => {
-        console.error('Failed to load Leaflet:', err);
-      });
+      this.loadLeafletCSS();
+      this.loadLeaflet();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Nothing here that could block input
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
+    if (this.map) {
+      this.map.remove();
+      this.map = null;
+    }
+  }
+
+  // Simple search handler
+  onSearchInput(event: any): void {
+    const value = event.target.value;
+    console.log('Search input changed:', value);
+
+    if (value && value.length >= 3) {
+      this.searchLocations(value);
     } else {
-      this.setupSearch();
+      this.searchResults = [];
+      this.showResults = false;
     }
   }
 
-  private async loadLeaflet(): Promise<void> {
-    if (typeof L === 'undefined') {
-      await import('leaflet');
-    }
-  }
-
-  private setupSearch(): void {
-    this.filteredOptions = this.searchControl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(value => this._filter(value))
-    );
-  }
-
-  initializeMap(): void {
-    if (!this.isBrowser || typeof L === 'undefined') {
-      console.error('Leaflet not available');
+  // Search for locations
+  searchLocations(query: string): void {
+    if (!this.isBrowser || !query || query.length < 3) {
+      this.searchResults = [];
+      this.showResults = false;
       return;
     }
 
-    try {
-      this.latitudeValue = this.data?.latitude || 26.8206;
-      this.longitudeValue = this.data?.longitude || 30.8025;
-
-      this.map = L.map('googleMap').setView([this.latitudeValue, this.longitudeValue], 6);
-      
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(this.map);
-
-      const customIcon = L.icon({
-        iconUrl: 'assets/images/locatio.svg',
-        iconSize: [37, 37],
-      });
-
-      this.marker = L.marker([this.latitudeValue, this.longitudeValue], {
-        icon: customIcon,
-        draggable: true
-      }).addTo(this.map);
-
-      this.marker.on('dragend', () => {
-        const position = this.marker!.getLatLng();
-        this.ngZone.run(() => {
-          this.latitudeValue = position.lat;
-          this.longitudeValue = position.lng;
-        });
-      });
-
-      this.map.on('click', (e: L.LeafletMouseEvent) => {
-        this.ngZone.run(() => {
-          this.latitudeValue = e.latlng.lat;
-          this.longitudeValue = e.latlng.lng;
-          this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
-        });
-      });
-
-    } catch (error) {
-      console.error('Leaflet initialization error:', error);
-    }
-  }
-
-  setCurrentLocation(): void {
-    if (!this.isBrowser || !navigator.geolocation) return;
-
-    this.spinner.show();
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.ngZone.run(() => {
-          this.latitudeValue = position.coords.latitude;
-          this.longitudeValue = position.coords.longitude;
-          
-          if (this.map) {
-            this.map.setView([this.latitudeValue, this.longitudeValue], 15);
-            this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
-          }
-
-          this.spinner.hide();
-        });
-      },
-      (error) => {
-        console.error('Geolocation error:', error);
-        this.spinner.hide();
-      }
-    );
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close({
-      latitude: this.latitudeValue,
-      longitude: this.longitudeValue,
-    });
-  }
-
-  setLocation(location: any): void {
-    this.latitudeValue = location.lat;
-    this.longitudeValue = location.lon;
-    
-    if (this.map) {
-      this.map.setView([this.latitudeValue, this.longitudeValue], 15);
-      this.marker!.setLatLng([this.latitudeValue, this.longitudeValue]);
-    }
-  }
-
-  private _filter(value: string | any): Observable<any[]> {
-    const query = typeof value === 'string' ? value.trim() : '';
-    if (query.length < 3) return of([]);
-
-    this.spinner.show();
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`;
+    const headers = new HttpHeaders({
+      'Accept-Language': 'en'
+    });
 
-    return this.http.get<any[]>(url).pipe(
-      map(results => {
-        return results.map(result => ({
+    this.http.get<any[]>(url, { headers }).pipe(
+      takeUntil(this.destroy$),
+      map((results) => {
+        return results.map((result) => ({
           name: result.display_name,
           lat: parseFloat(result.lat),
           lon: parseFloat(result.lon),
@@ -169,15 +116,212 @@ export class MapModalComponent implements OnInit {
       catchError(error => {
         console.error('Search error:', error);
         return of([]);
-      }),
-      switchMap(results => {
-        this.spinner.hide();
-        return of(results);
       })
-    );
+    ).subscribe((results) => {
+      this.ngZone.run(() => {
+        this.searchResults = results;
+        this.showResults = results.length > 0;
+      });
+    });
   }
 
-  displayFn(location: any): string {
-    return location?.name || '';
+  // Select a location from search results
+  selectLocation(location: any): void {
+    this.searchValue = location.name;
+    this.latitudeValue = location.lat;
+    this.longitudeValue = location.lon;
+    this.showResults = false;
+
+    if (this.map && this.marker) {
+      this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+      this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+    }
+  }
+
+  // Clear search
+  clearSearch(): void {
+    this.searchValue = '';
+    this.searchResults = [];
+    this.showResults = false;
+  }
+
+  loadLeafletCSS(): void {
+    if (!document.getElementById('leaflet-css')) {
+      const link = document.createElement('link');
+      link.id = 'leaflet-css';
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+      link.crossOrigin = '';
+      document.head.appendChild(link);
+    }
+  }
+
+  loadLeaflet(): void {
+    if (!this.isBrowser) {
+      this.spinner.hide();
+      return;
+    }
+
+    if (window.L && typeof window.L.map === 'function') {
+      this.L = window.L;
+      setTimeout(() => this.initializeMap(), 500);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+    script.crossOrigin = '';
+    script.onload = () => {
+      this.L = window.L;
+      setTimeout(() => this.initializeMap(), 500);
+    };
+    script.onerror = (error) => {
+      console.error('Failed to load Leaflet script:', error);
+      this.spinner.hide();
+    };
+    document.head.appendChild(script);
+  }
+
+  initializeMap(): void {
+    if (!this.isBrowser || !this.L) {
+      this.spinner.hide();
+      return;
+    }
+
+    if (this.mapInitialized) {
+      this.spinner.hide();
+      return;
+    }
+
+    try {
+      const mapElement = document.getElementById('googleMap');
+
+      if (!mapElement) {
+        this.spinner.hide();
+        return;
+      }
+
+      this.map = this.L.map('googleMap', {
+        center: [this.latitudeValue, this.longitudeValue],
+        zoom: this.isEditMode ? 12 : 6,
+        zoomControl: true
+      });
+
+      this.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(this.map);
+
+      const customIcon = this.L.icon({
+        iconUrl: 'assets/images/locatio.svg',
+        iconSize: [37, 37],
+        iconAnchor: [18, 37]
+      });
+
+      this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
+        icon: customIcon,
+        draggable: true
+      }).addTo(this.map);
+
+      this.map.on('click', (e: any) => {
+        this.ngZone.run(() => {
+          this.latitudeValue = e.latlng.lat;
+          this.longitudeValue = e.latlng.lng;
+          this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+          this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+        });
+      });
+
+      this.marker.on('dragend', (e: any) => {
+        this.ngZone.run(() => {
+          const position = this.marker.getLatLng();
+          this.latitudeValue = position.lat;
+          this.longitudeValue = position.lng;
+          this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+        });
+      });
+
+      setTimeout(() => {
+        this.map.invalidateSize();
+        this.spinner.hide();
+      }, 500);
+
+      this.mapInitialized = true;
+
+      if (this.isEditMode) {
+        this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+      }
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      this.spinner.hide();
+    }
+  }
+
+  // Simplified reverse geocode
+  reverseGeocode(lat: number, lon: number): void {
+    if (!this.isBrowser) return;
+
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
+    const headers = new HttpHeaders({
+      'Accept-Language': 'en'
+    });
+
+    this.http.get(url, { headers }).pipe(
+      takeUntil(this.destroy$),
+      catchError(error => {
+        console.error('Reverse geocoding error:', error);
+        return of(null);
+      })
+    ).subscribe((result: any) => {
+      if (result && result.display_name) {
+        this.ngZone.run(() => {
+          // Just update the model value
+          this.searchValue = result.display_name;
+          console.log('Updated search value:', this.searchValue);
+        });
+      }
+    });
+  }
+
+  setCurrentLocation(): void {
+    if (!this.isBrowser) return;
+
+    this.spinner.show();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.ngZone.run(() => {
+            this.latitudeValue = position.coords.latitude;
+            this.longitudeValue = position.coords.longitude;
+
+            if (this.map && this.marker) {
+              this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+              this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+              this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+            }
+
+            this.spinner.hide();
+          });
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+          this.spinner.hide();
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+      this.spinner.hide();
+    }
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close({
+      latitude: this.latitudeValue,
+      longitude: this.longitudeValue,
+      address: this.searchValue
+    });
   }
 }

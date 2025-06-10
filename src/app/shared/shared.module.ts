@@ -1,6 +1,8 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA  } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter, CUSTOM_DATE_FORMATS } from './components/Date/custom-date-adapter';
 import { CarouselModule as CarouselModule } from 'ngx-owl-carousel-o';
 import { QuickSearchComponent } from './components/@layout-pages/quick-search/quick-search.component';
 import { DestinationComponent } from './components/@layout-pages/destination/destination.component';
@@ -117,7 +119,7 @@ const cardComponents = [
   UserCardComponent,
   OverviewCardComponent,
   UserSettingsComponent,
- 
+
   ToursComponent,
   LiveboardComponent,
   PackagesComponent,
@@ -190,5 +192,10 @@ const slider = [
     NgSelectModule,
     NgxIntlTelInputModule,
   ],
+  providers: [
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ]
 })
 export class SharedModule {}

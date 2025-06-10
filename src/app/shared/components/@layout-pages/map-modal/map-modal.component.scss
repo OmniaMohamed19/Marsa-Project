@@ -1,3 +1,4 @@
+
 .close {
   border-radius: 50%;
   width: 40px;
@@ -17,10 +18,45 @@
 }
 
 ::ng-deep {
-  // .mat-mdc-dialog-container .mdc-dialog__surface {
-  //   background-color: white !important;
-  // }
   .cdk-overlay-pane {
     overflow: auto !important;
   }
+
+  // Ensure Leaflet CSS is applied correctly
+  .leaflet-container {
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .leaflet-control-container {
+    z-index: 2;
+  }
+}
+
+#googleMap {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  z-index: 1;
+}
+
+.search-results {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.search-results mat-list-item {
+  cursor: pointer;
+}
+
+.search-results mat-list-item:hover {
+  background-color: #f5f5f5;
 }

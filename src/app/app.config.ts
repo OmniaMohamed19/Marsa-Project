@@ -1,3 +1,4 @@
+
 import { ApplicationConfig, importProvidersFrom, InjectionToken, FactoryProvider } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -24,7 +25,13 @@ export const leafletProvider: FactoryProvider = {
   provide: LEAFLET,
   useFactory: (platformId: Object) => {
     if (isPlatformBrowser(platformId)) {
-      return import('leaflet');
+      return import('leaflet').then(module => {
+        console.log('Leaflet loaded via provider');
+        return module;
+      }).catch(error => {
+        console.error('Failed to load Leaflet in provider:', error);
+        return null;
+      });
     }
     return null;
   },
@@ -56,4 +63,4 @@ export const appConfig: ApplicationConfig = {
       NgxSpinnerModule.forRoot()
     )
   ]
-}; 
+};
