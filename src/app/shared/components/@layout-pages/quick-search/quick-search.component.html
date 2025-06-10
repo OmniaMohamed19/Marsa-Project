@@ -59,7 +59,7 @@
         </div>
       </a>
     </li>
-     <li #liveboard class="nav-item" (click)="showSearchForm('liveboard')">
+    <li #liveboard class="nav-item" (click)="showSearchForm('liveboard')">
       <a [ngClass]="{ active: showSearch == 'liveboard' }" class="nav-link font-weight-medium"
         id="pills-two-example2-tab" data-toggle="pill" role="tab" aria-controls="pills-two-example2"
         aria-selected="true">
@@ -383,7 +383,7 @@
                         </button>
 
                         <input matInput [matDatepicker]="picker2" (dateChange)="setDate($event)"
-                          placeholder="dd MM, yy"  />
+                          placeholder="dd MM, yy" />
 
                         <mat-datepicker #picker2></mat-datepicker>
                       </mat-form-field>
