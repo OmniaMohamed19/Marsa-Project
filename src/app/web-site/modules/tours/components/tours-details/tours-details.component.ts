@@ -537,6 +537,9 @@ export class ToursDetailsComponent implements AfterViewInit {
             ]);
           }
         });
+        this.adults = this.getMinValue('Adultmin');
+        this.infant= this.getMinValue('infantmin');
+        this.children = this.getMinValue('childernmin');
         this.disabledDays = this.getDisabledDays(
           this.activityData.TimeOfRepeat
         );
@@ -826,13 +829,12 @@ export class ToursDetailsComponent implements AfterViewInit {
       });
       window.scroll(0, 0);
       this.headerService.toggleDropdown();
-      return
+      return;
     }
     if (this.selectedDateControl.invalid) {
       this.selectedDateControl.markAsTouched();
       return;
     }
-
 
     this.availabilityChecked = true;
 
@@ -1320,15 +1322,15 @@ export class ToursDetailsComponent implements AfterViewInit {
     this.isModalOpen = false;
   }
   formatTimeTo12Hour(timeString: string): string {
-  if (!timeString) return '';
+    if (!timeString) return '';
 
-  const [hours, minutes] = timeString.split(':');
-  const hourNum = parseInt(hours, 10);
+    const [hours, minutes] = timeString.split(':');
+    const hourNum = parseInt(hours, 10);
 
-  // Convert to 12-hour format
-  const period = hourNum >= 12 ? 'PM' : 'AM';
-  const twelveHour = hourNum % 12 || 12; // Convert 0 to 12 for 12 AM
+    // Convert to 12-hour format
+    const period = hourNum >= 12 ? 'PM' : 'AM';
+    const twelveHour = hourNum % 12 || 12; // Convert 0 to 12 for 12 AM
 
-  return `${twelveHour}:${minutes} ${period}`;
-}
+    return `${twelveHour}:${minutes} ${period}`;
+  }
 }
