@@ -103,7 +103,15 @@ export class LiveboardDetailsComponent {
     this.pagedItems = this.items.slice(startIndex, endIndex);
   }
   isScrolling: boolean = false;
-  sections: string[] = ['overview', 'itinerary', 'cabin', 'boat', 'reviews', 'faq', 'important'];
+  sections: string[] = [
+    'overview',
+    'itinerary',
+    'cabin',
+    'boat',
+    'reviews',
+    'faq',
+    'important',
+  ];
   activeSection: string = 'overview';
   private scrollTimeout: any;
   constructor(
@@ -603,11 +611,9 @@ export class LiveboardDetailsComponent {
     return typeof value === 'object' && 'id' in value;
   }
   bookNow() {
-   
     if (this.selectedOption === 'collective') {
       if (this.persons >= 1) {
       } else {
-     
         this.toastr.info(
           `Sorry, you cannot exceed the minimum cant be 1. Please adjust the number.`,
           '',
@@ -889,34 +895,38 @@ export class LiveboardDetailsComponent {
       const windowHeight = window.innerHeight;
       const scrollThreshold = windowHeight * 0.3; // 30% of viewport height
 
-      const sections = this.sections.map((section: string) => {
-        const element = document.getElementById(section);
-        if (!element) return null;
+      const sections = this.sections
+        .map((section: string) => {
+          const element = document.getElementById(section);
+          if (!element) return null;
 
-        const rect = element.getBoundingClientRect();
-        const offset = rect.top + window.scrollY;
-        const height = rect.height;
-        const isVisible = rect.top <= scrollThreshold && rect.bottom >= 0;
+          const rect = element.getBoundingClientRect();
+          const offset = rect.top + window.scrollY;
+          const height = rect.height;
+          const isVisible = rect.top <= scrollThreshold && rect.bottom >= 0;
 
-        return {
-          id: section,
-          element,
-          offset,
-          height,
-          isVisible,
-          distanceFromTop: Math.abs(rect.top)
-        };
-      }).filter(Boolean);
+          return {
+            id: section,
+            element,
+            offset,
+            height,
+            isVisible,
+            distanceFromTop: Math.abs(rect.top),
+          };
+        })
+        .filter(Boolean);
 
       // Find the most visible section
       const currentSection = sections.reduce((closest: any, section: any) => {
         if (!section.isVisible) return closest;
-        return section.distanceFromTop < closest.distanceFromTop ? section : closest;
+        return section.distanceFromTop < closest.distanceFromTop
+          ? section
+          : closest;
       }, sections[0]);
 
       if (currentSection && this.activeSection !== currentSection.id) {
         this.activeSection = currentSection.id;
-        this.scrollToSection(currentSection.id);
+        // this.scrollToSection(currentSection.id);
       }
     }, 100); // Debounce time
   }
@@ -931,7 +941,7 @@ export class LiveboardDetailsComponent {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
 
       // Reset scrolling flag after animation completes
