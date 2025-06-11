@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpService } from './http.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private baseUrl = 'https://admin.marsawaves.org/api/profile';
-
-  constructor(private http: HttpClient) {}
+  private baseUrl = 'profile';
+  constructor(private _httpService: HttpService,private http: HttpClient) {}
 
   getProfiles(page: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}?page=${page}`);
+    return this._httpService.get<any>(environment.marsa,`${this.baseUrl}?page=${page}`);
   }
 }
