@@ -211,6 +211,7 @@ export class RegisterComponent implements OnInit {
 
     // Log the data being sent
     console.log('Sending registration data:', model);
+    localStorage.setItem('userEmail', model.email);
 
     this.authService.register(model).subscribe({
       next: (res: any) => {

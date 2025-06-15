@@ -107,6 +107,9 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate(userData: { email: string; password: string }) {
+    // حفظ الإيميل في localStorage
+    localStorage.setItem('userEmail', userData.email);
+
     this._HttpClient.post<any>(`https://admin.marsawaves.org/api/login`, userData).subscribe({
       next: (res: any) => {
         if (res && res.result) {
@@ -143,33 +146,36 @@ export class LoginComponent implements OnInit {
       error: (err: any) => {
         this.$loginError.next(true);
 
-        if (err.error && err.error.message) {
-          if (err.error.message === 'User not found') {
-            this.toastr.error('User not found', '', {
-              disableTimeOut: false,
-              titleClass: 'toastr_title',
-              messageClass: 'toastr_message',
-              timeOut: 5000,
-              closeButton: true,
-            });
-          } else if (err.error.message === 'Please verify your account') {
-            this.showCodeSignForm = !this.showCodeSignForm;
-            this.toastr.error(err.error.message, '', {
-              disableTimeOut: false,
-              titleClass: 'toastr_title',
-              messageClass: 'toastr_message',
-              timeOut: 5000,
-              closeButton: true,
-            });
-          } else if (err.error.message === 'Unauthorized') {
-            this.toastr.error('Incorrect Email or password', '', {
-              disableTimeOut: false,
-              titleClass: 'toastr_title',
-              messageClass: 'toastr_message',
-              timeOut: 5000,
-              closeButton: true,
-            });
-          }
+        // اطبع كل الرسائل المحتملة
+        console.log('Error message:', err.error?.message, err.error?.error?.message, err.message);
+
+        const errorMsg = err.error?.message || err.error?.error?.message || err.message || '';
+
+        if (errorMsg === 'User not found') {
+          this.toastr.error('User not found', '', {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          });
+        } else if (errorMsg.toLowerCase().includes('verify your account')) {
+          this.showCodeSignForm = true;
+          this.toastr.error(errorMsg, '', {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          });
+        } else if (errorMsg === 'Unauthorized') {
+          this.toastr.error('Incorrect Email or password', '', {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          });
         } else if (err.statusText === 'Unauthorized') {
           this.toastr.error(this.transtale.instant('validation.Unauthorized'));
         } else {
