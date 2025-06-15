@@ -76,6 +76,29 @@ export class MaindetailComponent implements OnInit {
   carouselCurrentIndex = 0;
   @ViewChild('owlCarousel') owlCarousel: CarouselComponent | undefined;
 
+  mobileCarouselOptions: OwlOptions = {
+    loop: false,
+    margin: 10,
+    dots: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    autoplay: false,
+    navSpeed: 700,
+    nav: true,
+    navText: [
+      "<div class='nav-button nav-left'><i class='fas fa-chevron-left'></i></div>",
+      "<div class='nav-button nav-right'><i class='fas fa-chevron-right'></i></div>"
+    ],
+    responsive: {
+      0: {
+        items: 1
+      }
+    },
+    autoHeight: false,
+    autoWidth: false
+  };
+
 
 
 
@@ -144,15 +167,16 @@ toggleText() {
     onCarouselTranslated(event: any) {
       // تحديث مؤشر العنصر الحالي
       this.carouselCurrentIndex = event.startPosition;
-
-      // تحديث العنصر المحدد فقط إذا لم يكن هناك اختيار يدوي نشط
-      if (!this.manualSelectionActive && this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
+      
+      // تفعيل التحديث التلقائي للعنصر المحدد في وضع الموبايل فقط
+      if (this.isMobile && this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
         const activeSightIndex = this.carouselCurrentIndex;
 
         if (activeSightIndex >= 0 && activeSightIndex < this.placeDetails.places.placesshigts.length) {
           const sight = this.placeDetails.places.placesshigts[activeSightIndex];
-          // استخدام setActiveSight مع تحديد أن هذا ليس اختيارًا يدويًا
-          this.setActiveSight(sight, false);
+          // تحديث العنصر المحدد تلقائيًا في وضع الموبايل
+          this.selectedSight = sight;
+          this.selectedSightId = sight.id;
         }
       }
     }
@@ -162,7 +186,7 @@ toggleText() {
 
     carouselOptions: OwlOptions = {
       loop: false,
-      margin: 10,
+      margin: 20, // Increase margin between items
       dots: false,
       mouseDrag: true,
       touchDrag: true,
@@ -176,16 +200,24 @@ toggleText() {
       ],
       responsive: {
         0: {
-          items: 1
+          items: 1,
+          stagePadding: 0
         },
         600: {
-          items: 2
+          items: 2,
+          stagePadding: 0
         },
         1000: {
-          items: 3
+          items: 3,
+          stagePadding: 0
         }
-      }
-      // Removed the onTranslated property from here
+      },
+      autoHeight: true,
+      autoWidth: false,
+      rewind: false, // Prevent rewinding to first slide
+      smartSpeed: 500, // Smooth transition
+      // fluidSpeed: 500,
+      dragEndSpeed: 500
     };
   isFewItems(): boolean {
     return this.placeDetails?.places?.placesshigts?.length < 3;
@@ -202,6 +234,16 @@ toggleText() {
 
     }
 
+    onMobileCarouselTranslated(event: any) {
+      // جلب رقم العنصر الحالي من الكاروسيل
+      const index = event.startPosition ?? event.item?.index ?? 0;
+      if (this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
+        // تأكد أن الـ index ضمن الحدود
+        const safeIndex = Math.max(0, Math.min(index, this.placeDetails.places.placesshigts.length - 1));
+        this.selectedSight = this.placeDetails.places.placesshigts[safeIndex];
+        this.selectedSightId = this.selectedSight.id;
+      }
+    }
 
   isFirstTripSelected(): boolean {
     const firstTripId = this.placeDetails?.typeTrip?.[0]?.id;
@@ -337,12 +379,12 @@ toggleText() {
   }
   setActiveSight(sight: any, isManualClick = true) {
     if (sight && sight.id) {
-      this.selectedSight = sight;
-      this.selectedSightId = sight.id;
-
-      // عند النقر يدويًا، نقوم بتعيين علامة الاختيار اليدوي
+      // Only update the selected sight if this is a manual click
       if (isManualClick) {
+        this.selectedSight = sight;
+        this.selectedSightId = sight.id;
         this.manualSelectionActive = true;
+        
         // إعادة تعيين علامة الاختيار اليدوي بعد فترة لتجنب تداخل الأحداث
         setTimeout(() => {
           this.manualSelectionActive = false;

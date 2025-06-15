@@ -92,35 +92,76 @@
       <div id="sights">
         <h4>Top Sights in {{ placeDetails?.places?.name }}</h4>
 
-
+        <!-- الكاروسيل للموبايل -->
         <owl-carousel-o
-        #owlCarousel
-        [options]="carouselOptions"
-        class="sight-carousel"
-        [ngClass]="{'few-items': isFewItems()}"
-        (translated)="onCarouselTranslated($event)">
-        <ng-container *ngFor="let sight of placeDetails?.places?.placesshigts">
-          <ng-template carouselSlide>
+          #owlCarousel
+          [options]="mobileCarouselOptions"
+          *ngIf="isMobile"
+          class="sight-carousel mobile-carousel"
+          (translated)="onMobileCarouselTranslated($event)">
+          <ng-container *ngFor="let sight of placeDetails?.places?.placesshigts">
+            <ng-template carouselSlide>
+              <div class="sights-container text-center">
+                <div class="position-relative">
+                  <img 
+                    class="sights-img" 
+                    [id]="sight?.id" 
+                    style="height: 200px; width: 100%; border-radius: 8px;"
+                    (error)="onImgError($event)" 
+                    [src]="sight?.images" 
+                    [alt]="getImageName(sight?.images)" 
+                    (click)="setActiveSight(sight, true)" />
+                     <img 
+                    *ngIf="sight === selectedSight && selectedSight?.trips?.length > 0" 
+                    class="carousel-arrow"
+                    src="../../../../../assets/icons/down-arrow.svg" 
+                    alt="down-arrow"
+                    style="position: absolute; right: 10px; bottom: 10px; width: 28px; z-index: 3;" />
+                  <span class="sights-span" (click)="setActiveSight(sight, true)">
+                    {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
 
-            <div class="sights-container text-center position-relative"
-            (click)="setActiveSight(sight, true)"
-            (mouseout)="onSightHoverExit()">
-         <div class="position-relative">
-           <img class="sights-img" [id]="sight?.id" style="height: 240px; width: 100%; border-radius: 8px;"
-             (error)="onImgError($event)" [src]="sight?.images" [alt]="getImageName(sight?.images)" />
+        <!-- الكاروسيل للديسكتوب -->
+        <owl-carousel-o
+          #owlCarousel
+          [options]="carouselOptions"
+          *ngIf="!isMobile"
+          class="sight-carousel desktop-carousel"
+          [ngClass]="{'few-items': isFewItems()}"
+          (translated)="onCarouselTranslated($event)">
+          <ng-container *ngFor="let sight of placeDetails?.places?.placesshigts">
+            <ng-template carouselSlide>
+              <div class="sights-container text-center position-relative">
+                <div class="position-relative">
+                  <img 
+                    class="sights-img" 
+                    [id]="sight?.id" 
+                    style="height: 240px; width: 100%; border-radius: 8px;"
+                    (error)="onImgError($event)" 
+                    [src]="sight?.images" 
+                    [alt]="getImageName(sight?.images)" 
+                    (click)="setActiveSight(sight, true)" />
 
-           <img *ngIf="sight === selectedSight && selectedSight?.trips?.length > 0" class="carousel-arrow"
-             src="../../../../../assets/icons/down-arrow.svg" alt="down-arrow" />
+                  <img 
+                    *ngIf="sight === selectedSight && selectedSight?.trips?.length > 0" 
+                    class="carousel-arrow"
+                    src="../../../../../assets/icons/down-arrow.svg" 
+                    alt="down-arrow"
+                    style="position: absolute; right: 10px; bottom: 10px; width: 28px; z-index: 3;" />
 
-           <span class="sights-span">
-             {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
-           </span>
-         </div>
-       </div>
-
-          </ng-template>
-        </ng-container>
-      </owl-carousel-o>
+                  <span class="sights-span" (click)="setActiveSight(sight, true)">
+                    {{ getIndex(placeDetails?.places?.placesshigts, sight) + 1 }}. {{ sight?.name }}
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
 
 
 
@@ -353,3 +394,5 @@
   </div>
 
 </section>
+
+
