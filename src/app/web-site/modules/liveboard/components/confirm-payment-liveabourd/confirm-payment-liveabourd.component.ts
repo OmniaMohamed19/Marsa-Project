@@ -29,7 +29,7 @@ export class ConfirmPaymentLiveabourdComponent {
   locationValue = '';
   latitudeValue: any;
   longitudeValue: any;
-  showServices: boolean = false;
+  showServices: boolean = true;
   customerForm!: FormGroup;
   userData: any = {};
   @ViewChild('btn') btn: ElementRef | undefined;
@@ -62,9 +62,9 @@ export class ConfirmPaymentLiveabourdComponent {
       console.log(this.userData);
     }
     this.customerForm.patchValue(this.userData);
-        this.customerForm
-          ?.get('phone')
-          ?.patchValue(this.userData.phone.replace(/[()]/g, ''));
+    this.customerForm
+      ?.get('phone')
+      ?.patchValue(this.userData.phone.replace(/[()]/g, ''));
   }
   getLiveAbourdById(activityID: any) {
     this._httpService
