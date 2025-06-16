@@ -144,9 +144,11 @@ export class LiveboardDetailsComponent {
   isScrolledIntoView() {
     if (this.selectCabinButton) {
       const rect = this.selectCabinButton.nativeElement.getBoundingClientRect();
-      const topShown = rect.top >= 0;
-      const bottomShown = rect.bottom <= window.innerHeight;
+      const topShown = rect.top >= 0 && rect.top < window.innerHeight;
+      const bottomShown = rect.bottom > 0 && rect.bottom <= window.innerHeight;
+
       this.isTestDivScrolledIntoView = topShown && bottomShown;
+
       if (this.isTestDivScrolledIntoView) {
         this.hideMobileFooter = true;
       } else {
@@ -269,7 +271,7 @@ export class LiveboardDetailsComponent {
     const options = {
       root: null, // viewport
       rootMargin: '0px',
-      threshold: 0.5, // element should be at least 70% visible
+      threshold: 0.1, // element should be at least 70% visible
     };
 
     const observer = new IntersectionObserver((entries) => {
