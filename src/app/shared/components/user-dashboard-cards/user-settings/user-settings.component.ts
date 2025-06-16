@@ -6,6 +6,8 @@ import { HttpService } from 'src/app/core/services/http/http.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { HeaderService } from 'src/app/shared/services/header.service';
 import { environment } from 'src/environments/environment.prod';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 interface Item {
   id: number;
   name: string;
@@ -30,6 +32,7 @@ export class UserSettingsComponent implements OnInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private router: Router,
+    private http: HttpClient,
   ) {}
 
 formData = new FormData();
@@ -45,37 +48,44 @@ formData = new FormData();
     return imageName || 'Unknown photo';
   }
   ngOnInit() {
-
+    this.fillUserData();
   }
   selectedCountry:any;
   ngOnChanges() {
-    this.name = this.userDetails?.name;
-    this.phone = this.userDetails?.overviwe?.phonenumber;
+    this.fillUserData();
+  }
 
-    this.phoneNumber =
-      '+' +
-      (this.userDetails?.overviwe?.countrycode || '') +
-      (this.phone ? this.phone.replace(/\s/g, '') : '');
+  fillUserData() {
+    if (this.userDetails) {
+      this.name = this.userDetails?.name || '';
+      this.phone = this.userDetails?.overviwe?.phone
+        || this.userDetails?.overviwe?.phonenumber
+        || this.userDetails?.phone
+        || '';
+      this.email = this.userDetails?.overviwe?.email || '';
+      this.dob = this.userDetails?.overviwe?.dateofbirth || '';
+      this.gender = this.userDetails?.overviwe?.gender;
+      this.phoneNumber = this.userDetails?.overviwe?.countrycode
+        ? this.userDetails?.overviwe?.countrycode.toString()
+        : '';
 
-    this.email = this.userDetails?.overviwe?.email;
-    this.dob = this.userDetails?.overviwe?.dateofbirth;
-    this.gender = this.userDetails?.overviwe?.gender;
-
-    if (this.gender === 1) {
-      this.selectedItem = this.items[0];
-    } else if (this.gender === 0) {
-      this.selectedItem = this.items[1];
-    } else {
-      this.selectedItem = null;
+      if (this.gender === 1) {
+        this.selectedItem = this.items[0];
+      } else if (this.gender === 0) {
+        this.selectedItem = this.items[1];
+      } else {
+        this.selectedItem = null;
+      }
     }
   }
+
   onCountryChange(event: any) {
     if (event) {
       const dialCode = event.dialCode;
       const currentNumber = this.phone ? this.phone.replace(/\s/g, '') : '';
 
       setTimeout(() => {
-        this.phoneNumber = `+${dialCode}${currentNumber}`;
+        this.phoneNumber = dialCode ? dialCode.toString() : '';
       });
     }
   }
@@ -104,7 +114,6 @@ previewImage(files: FileList | null): void {
   if (!files || files.length === 0) {
     return;
   }
-
   this.imageFile = files[0];
 
   const reader = new FileReader();
@@ -115,23 +124,75 @@ previewImage(files: FileList | null): void {
 }
 
 submit(): void {
-  console.log(this.selectedItem);
+  if (!this.name || !this.email || !this.phone || !this.phoneNumber) {
+    this.toastr.error('Please fill all required fields');
+    return;
+  }
+
+  // معالجة رقم الهاتف ليكون string فقط
+  let phoneValue = this.phone;
+  if (typeof phoneValue === 'object' && phoneValue.number) {
+    phoneValue = phoneValue.number;
+  }
+  phoneValue = String(phoneValue);
+
+  if (!this.imageFile) {
+    const data = {
+      fname: this.name,
+      email: this.email,
+      phone: phoneValue,
+      country_code: typeof this.phoneNumber === 'object' ? this.phoneNumber.dialCode : this.phoneNumber,
+      dateofbirth: this.dob,
+      gender: this.selectedItem?.name === 'Male' ? 1 : this.selectedItem?.name === 'Female' ? 0 : null
+    };
+    this.httpService.post(environment.marsa, 'user/update', data).subscribe(
+      (res) => {
+        this.toastr.success('The data has been updated successfully', '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      },
+      (error) => {
+        const errorMessage = error?.error?.message || 'Update Faild !';
+        this.toastr.error(errorMessage, '', {
+          disableTimeOut: false,
+          titleClass: 'toastr_title',
+          messageClass: 'toastr_message',
+          timeOut: 5000,
+          closeButton: true,
+        });
+      }
+    );
+    return;
+  }
+
   const formData = new FormData();
+  formData.append('fname', this.name);
+  formData.append('email', this.email);
+  formData.append('phone', phoneValue);
+  formData.append('country_code', typeof this.phoneNumber === 'object' ? this.phoneNumber.dialCode : this.phoneNumber);
+  if (this.dob) formData.append('dateofbirth', this.dob);
   if (this.selectedItem?.name === 'Male') {
     formData.append('gender', '1');
   } else if (this.selectedItem?.name === 'Female') {
     formData.append('gender', '0');
   }
-  // formData.append('gender', this.selectedItem ? this.selectedItem.value.toString() : '');
   formData.append('cover', this.imageFile);
-  formData.append('email',this.email);
-  formData.append('fname',this.name);
-  formData.append('phone',this.phone);
-  formData.append('country_code',this.phoneNumber.dialCode);
-  formData.append('dateofbirth', this.dob);
 
+  // اطبع نوع الصورة
+  console.log('imageFile:', this.imageFile);
+  console.log('imageFile instanceof File:', this.imageFile instanceof File);
 
-  this.httpService.post(environment.marsa, 'user/update', formData, true).subscribe(
+  const token = localStorage.getItem('userToken'); 
+
+  const headers = token
+    ? { Authorization: `Bearer ${token}` }
+    : { Authorization: '' };
+
+  this.http.post('https://admin.marsawaves.org/api/user/update', formData, { headers: new HttpHeaders(headers) }).subscribe(
     (res) => {
       this.toastr.success('The data has been updated successfully', '', {
         disableTimeOut: false,
@@ -142,14 +203,8 @@ submit(): void {
       });
     },
     (error) => {
-       const errorMessage = error?.error?.message || 'Update Faild !';
-      this.toastr.error(errorMessage, '', {
-        disableTimeOut: false,
-        titleClass: 'toastr_title',
-        messageClass: 'toastr_message',
-        timeOut: 5000,
-        closeButton: true,
-      });
+      this.toastr.error('Update Failed!');
+      console.error(error);
     }
   );
 }

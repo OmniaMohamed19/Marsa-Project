@@ -174,7 +174,7 @@ navigateToResult(result: any) {
     clearTimeout(this.blurTimeout);
   }
 
-  this.router.navigate(['/', this.translate.currentLang, 'tours', result?.id, result?.Name]);
+  this.router.navigate(['/', this.translate.currentLang, 'tours', result?.id, result?.slugUrl]);
   this.hideDropdown();
   this.keyword = result.Name;
 }

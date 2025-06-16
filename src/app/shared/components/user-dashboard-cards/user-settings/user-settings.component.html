@@ -66,14 +66,16 @@
         [separateDialCode]="true"
         [selectFirstCountry]="true"
         [maxLength]="20"
-        name="phoneNumber"
+        name="phone"
         [phoneValidation]="false"
         [customPlaceholder]="'Enter phone number'"
         [preferredCountries]="['de']"
-        [(ngModel)]="phoneNumber"
+        [(ngModel)]="phone"
         (countryChange)="onCountryChange($event)">
       </ngx-intl-tel-input>
 
+
+      
       </div>
     </div>
 

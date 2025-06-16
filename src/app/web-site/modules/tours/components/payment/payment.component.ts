@@ -60,6 +60,8 @@ export class PaymentComponent {
   latitudeValue: any;
   longitudeValue: any;
 
+  
+
   mapModalOptions: any = {
     headerTitle: 'location',
     modalname: 'mapModalDeatails',
@@ -271,12 +273,6 @@ export class PaymentComponent {
       .subscribe((res: any) => {
         this.activityData = res?.tripDetails;
         console.log(res?.tripDetails?.bookingOption.length);
-        if (res?.tripDetails?.bookingOption?.length === 0) {
-          // Wait for view to initialize before using the stepper
-          setTimeout(() => {
-            this.stepper.next(); // ✅ Move to next step
-          });
-        }
       });
   }
 

@@ -4,14 +4,11 @@
     <div class="row">
       <div class="col-lg-8 col-xl-9">
         <mat-horizontal-stepper #stepper [linear]="true">
-          <mat-step [label]="'Optional Items'">
+          <mat-step *ngIf="activityData?.bookingOption && activityData.bookingOption.length > 0" [label]="'Optional Items'">
             <ng-container           
-              *ngIf="
-                activityData?.bookingOption &&
-                activityData.bookingOption.length > 0 ;else noAvailableOption
-              "
+             *ngIf="!avilableOptions || avilableOptions.length === 0"
             >
-              <div class="pt-4 pb-5 px-md-5">
+              <div class="pt-4 pb-5 px-md-5"  >
                 <h5
                   id="scroll-description"
                   class="font-size-21 font-weight-bold text-dark mb-4"
@@ -106,12 +103,6 @@
                 <!-- End Contacts Form -->
               </div>
             </ng-container>
-            <ng-template #noAvailableOption>
-              <div class=" d-flex w-100 fs-2 fw-bold h-100 mt-5 justify-content-center align-items-center  "
-              style="min-height:500px">
-                No Option Available      
-                  </div>
-            </ng-template>
           </mat-step>
 
           <mat-step [label]="'Customer Information'">

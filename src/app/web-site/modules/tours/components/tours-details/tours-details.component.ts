@@ -574,9 +574,10 @@ export class ToursDetailsComponent implements AfterViewInit {
         );
 
         this.isSingleImage = this.images.length === 1;
+        if (this.activityData?.MetaTitle) {
+          this.titleService.setTitle(this.activityData.MetaTitle);
+        }
         if (this.activityData) {
-          this.titleService.setTitle(this.activityData?.MetaTitle);
-
           this.metaService.addTags([
             { name: 'description', content: this.activityData?.MetaDesc },
           ]);
