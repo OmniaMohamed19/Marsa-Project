@@ -3,7 +3,7 @@
     <div class="row flex-column flex-md-row" style="margin-bottom: -0.4rem;">
       <div class="col-md-5 col-lg-6 col-xl-4 pr-0">
         <!-- <div class="product-item__header h-100" style="overflow: hidden"  [style.background]="'url(' + item?.cover + ') no-repeat center center / cover'"> -->
-          <div class="product-item__header h-100" style="overflow: hidden" >
+          <div class="product-item__header h-100 position-relative w-100" style="overflow: hidden" >
           <a
             [routerLink]="[
               '/',
@@ -17,6 +17,13 @@
           >
             <img [src]="item?.cover" alt="Aquavita" class="w-100"  style="    height: 295px;"/>
           </a>
+          <div class="position-absolute" style="top: 22px; left: 7px">
+          <span
+            class="badge badge-pill bg-white text-primary px-4"
+            *ngIf="item?.Featured > 0"
+            >Featured</span
+          >
+        </div>
         </div>
       </div>
       <div class="col col-md-7 col-lg-6 col-xl-5 mt-2">

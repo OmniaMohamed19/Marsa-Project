@@ -33,6 +33,15 @@
             <div class="mb-2 mb-md-0 d-flex align-items-center">
               <h4 class="font-size-23 font-weight-bold mb-1 mr-3">
                 {{ liveabourdData?.Name }}
+                <div class="d-inline-block fw-bold fs-5 mx-4" style="
+                    border: 1px solid gray;
+                    padding: 0px 30px;
+                    border-radius: 30px;
+                    color: #297cbb;
+                    font-size: 10px;
+                  " *ngIf="liveabourdData?.trending != 0">
+                  Popular
+                </div>
               </h4>
             </div>
             <div class="d-block mt-4">
