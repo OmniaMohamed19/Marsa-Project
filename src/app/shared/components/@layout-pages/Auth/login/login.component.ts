@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { CodeService } from '../services/code.service';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
     private dialog: MatDialog,
     private transtale: TranslateService,
     private _HttpClient: HttpClient,
+    private codeService: CodeService
   ) { }
 
   ngOnInit(): void {
@@ -107,7 +109,6 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate(userData: { email: string; password: string }) {
-    // حفظ الإيميل في localStorage
     localStorage.setItem('userEmail', userData.email);
 
     this._HttpClient.post<any>(`https://admin.marsawaves.org/api/login`, userData).subscribe({
@@ -146,7 +147,6 @@ export class LoginComponent implements OnInit {
       error: (err: any) => {
         this.$loginError.next(true);
 
-        // اطبع كل الرسائل المحتملة
         console.log('Error message:', err.error?.message, err.error?.error?.message, err.message);
 
         const errorMsg = err.error?.message || err.error?.error?.message || err.message || '';
@@ -160,6 +160,11 @@ export class LoginComponent implements OnInit {
             closeButton: true,
           });
         } else if (errorMsg.toLowerCase().includes('verify your account')) {
+          if (err.error?.user?.id) {
+            this.codeService.setUserData(err.error.user.id);
+          } else if (err.error?.user_id) {
+            this.codeService.setUserData(err.error.user_id);
+          }
           this.showCodeSignForm = true;
           this.toastr.error(errorMsg, '', {
             disableTimeOut: false,
@@ -185,7 +190,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // دالة منفصلة لجلب بيانات المستخدم
   private fetchUserInformation() {
     const token = localStorage.getItem('userToken');
     if (token) {
@@ -197,7 +201,6 @@ export class LoginComponent implements OnInit {
       this._HttpClient.get<any>(`${environment.APIURL}user/inform`, { headers }).subscribe({
         next: (res: any) => {
           console.log('User information fetched successfully:', res);
-          // يمكنك حفظ بيانات المستخدم هنا إذا لزم الأمر
           if (res?.user_inform) {
             localStorage.setItem('userInform', JSON.stringify(res.user_inform));
           }

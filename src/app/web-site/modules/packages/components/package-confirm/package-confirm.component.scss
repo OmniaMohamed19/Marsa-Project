@@ -116,3 +116,62 @@ h3 {
       line-height: 22px !important;
   }
 }
+
+// Map styles
+.map-container {
+  .search-box {
+    position: relative;
+    z-index: 1001;
+    
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      background: white;
+      border: 1px solid #ddd;
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      max-height: 200px;
+      overflow-y: auto;
+      
+      .list-group {
+        margin: 0;
+        
+        .list-group-item {
+          cursor: pointer;
+          border: none;
+          border-bottom: 1px solid #eee;
+          padding: 8px 12px;
+          font-size: 14px;
+          
+          &:hover {
+            background-color: #f8f9fa;
+          }
+          
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+  
+  #googleMap {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .btn {
+    margin-right: 8px;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.location {
+  cursor: pointer;
+}

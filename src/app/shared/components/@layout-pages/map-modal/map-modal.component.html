@@ -1,4 +1,3 @@
-
 <!-- map-modal.component.html -->
 <div class="modal-header mymap">
   <h4 class="modal-title">Choose Location</h4>
@@ -18,9 +17,9 @@
           type="text"
           class="form-control"
           placeholder="Search location"
-          [ngModel]="searchValue"
-          (ngModelChange)="searchValue = $event"
-          (input)="onSearchInput($event)"
+          [(ngModel)]="searchValue"
+          (keyup)="onSearchInput($event)"
+          autocomplete="off"
         />
         <div class="input-group-append" *ngIf="searchValue">
           <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">

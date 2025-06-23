@@ -1,6 +1,5 @@
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Inject, NgZone, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, of, Subject } from 'rxjs';
@@ -43,7 +42,8 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
     private spinner: NgxSpinnerService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
@@ -65,7 +65,13 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Nothing here that could block input
+    // Focus the search input after view initialization
+    setTimeout(() => {
+      if (this.searchInput && this.searchInput.nativeElement) {
+        this.searchInput.nativeElement.focus();
+        this.searchInput.nativeElement.removeAttribute('readonly');
+      }
+    }, 500);
   }
 
   ngOnDestroy(): void {
@@ -78,24 +84,12 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Simple search handler
-  onSearchInput(event: any): void {
-    const value = event.target.value;
-    console.log('Search input changed:', value);
-
-    if (value && value.length >= 3) {
-      this.searchLocations(value);
-    } else {
-      this.searchResults = [];
-      this.showResults = false;
-    }
-  }
-
   // Search for locations
   searchLocations(query: string): void {
     if (!this.isBrowser || !query || query.length < 3) {
       this.searchResults = [];
       this.showResults = false;
+      this.cdr.detectChanges();
       return;
     }
 
@@ -121,28 +115,43 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngZone.run(() => {
         this.searchResults = results;
         this.showResults = results.length > 0;
+        this.cdr.detectChanges();
       });
+    });
+  }
+
+  onSearchInput(event: any): void {
+    const query = event.target.value;
+    this.ngZone.run(() => {
+      this.searchLocations(query);
+      this.cdr.detectChanges();
     });
   }
 
   // Select a location from search results
   selectLocation(location: any): void {
-    this.searchValue = location.name;
-    this.latitudeValue = location.lat;
-    this.longitudeValue = location.lon;
-    this.showResults = false;
+    this.ngZone.run(() => {
+      this.searchValue = location.name;
+      this.latitudeValue = location.lat;
+      this.longitudeValue = location.lon;
+      this.showResults = false;
 
-    if (this.map && this.marker) {
-      this.map.setView([this.latitudeValue, this.longitudeValue], 15);
-      this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
-    }
+      if (this.map && this.marker) {
+        this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+        this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+      }
+      this.cdr.detectChanges();
+    });
   }
 
   // Clear search
   clearSearch(): void {
-    this.searchValue = '';
-    this.searchResults = [];
-    this.showResults = false;
+    this.ngZone.run(() => {
+      this.searchValue = '';
+      this.searchResults = [];
+      this.showResults = false;
+      this.cdr.detectChanges();
+    });
   }
 
   loadLeafletCSS(): void {

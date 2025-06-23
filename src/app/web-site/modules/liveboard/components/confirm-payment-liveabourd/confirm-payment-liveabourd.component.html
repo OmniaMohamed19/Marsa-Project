@@ -183,7 +183,7 @@
         <form [formGroup]="customerForm">
           <div class="row">
             <!-- Input -->
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Name </label>
 
@@ -211,7 +211,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Email </label>
                 <input
@@ -238,7 +238,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Phone </label>
 
@@ -285,9 +285,9 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="flexRadioDefault"
-                  checked="checked"
+                  name="pickupService"
                   id="flexRadioDefault1"
+                  [checked]="showServices"
                   (change)="showServices = true"
                 />
                 <label class="form-check-label" for="flexRadioDefault1">
@@ -298,30 +298,37 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="flexRadioDefault"
+                  name="pickupService"
                   id="flexRadioDefault2"
+                  [checked]="!showServices"
                   (change)="showServices = false"
                 />
                 <label class="form-check-label" for="flexRadioDefault2">
-                  I don't know yet ( later )
+                  I don't know yet ( later )
                 </label>
               </div>
             </div>
             <!-- Input -->
-            <ng-container *ngIf="showServices; else elseTemplate" class="mb-2">
+            <ng-container *ngIf="showServices">
               <div class="col-sm-6 mb-4">
                 <div class="js-form-message">
                   <label class="form-label"> Pick up Location </label>
-                  <input
-                    (click)="openMapModal()"
-                    type="text"
-                    class="form-control location"
-                    aria-describedby="helpId"
-                    [value]="locationValue"
-                    placeholder="Location"
-                    formControlName="locationValue"
-                    readonly
-                  />
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control location"
+                      aria-describedby="helpId"
+                      [value]="locationValue"
+                      placeholder="Location"
+                      formControlName="locationValue"
+                      readonly
+                    />
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" (click)="openMapModal()">
+                        <i class="fa fa-map-marker"></i>
+                      </button>
+                    </div>
+                  </div>
                   <div
                     *ngIf="
                       !locationValue &&
@@ -399,6 +406,56 @@
         >
           Confirm Edit
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Map Modal -->
+<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 90%; margin: 1.75rem auto;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="map-container">
+          <div class="search-box mb-3">
+            <div class="input-group">
+              <input
+                #searchInput
+                type="text"
+                class="form-control"
+                placeholder="Search location"
+                [formControl]="searchControl"
+                (keyup)="onSearchInput($event)"
+                autocomplete="off"
+              />
+              <div class="input-group-append" *ngIf="searchControl.value">
+                <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
+                  <i class="fa fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <!-- Search Results -->
+            <div *ngIf="showResults" class="search-results">
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let result of searchResults" (click)="selectLocation(result)">
+                  {{ result.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="googleMap" style="height: 400px; width: 100%;"></div>
+          <div class="mt-3">
+            <button class="btn btn-secondary mr-2" (click)="setCurrentLocation()">
+              <i class="fa fa-location-arrow mr-1"></i> Set Current Location
+            </button>
+            <button class="btn btn-primary" (click)="confirmLocation()" data-bs-dismiss="modal">
+              <i class="fa fa-check mr-1"></i> Confirm Location
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

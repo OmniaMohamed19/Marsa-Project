@@ -162,19 +162,16 @@ toggleText() {
       this.checkScreenWidth();
 
     }
-    manualSelectionActive = false; // متغير جديد لتتبع اختيار المستخدم
+    manualSelectionActive = false;
 
     onCarouselTranslated(event: any) {
-      // تحديث مؤشر العنصر الحالي
       this.carouselCurrentIndex = event.startPosition;
       
-      // تفعيل التحديث التلقائي للعنصر المحدد في وضع الموبايل فقط
       if (this.isMobile && this.placeDetails?.places?.placesshigts && this.placeDetails.places.placesshigts.length > 0) {
         const activeSightIndex = this.carouselCurrentIndex;
 
         if (activeSightIndex >= 0 && activeSightIndex < this.placeDetails.places.placesshigts.length) {
           const sight = this.placeDetails.places.placesshigts[activeSightIndex];
-          // تحديث العنصر المحدد تلقائيًا في وضع الموبايل
           this.selectedSight = sight;
           this.selectedSightId = sight.id;
         }

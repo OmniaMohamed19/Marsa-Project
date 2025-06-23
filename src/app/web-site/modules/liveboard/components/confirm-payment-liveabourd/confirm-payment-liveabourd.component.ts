@@ -1,21 +1,55 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef, NgZone, PLATFORM_ID, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { HttpService } from 'src/app/core/services/http/http.service';
 import { environment } from 'src/environments/environment.prod';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MapModalComponent } from 'src/app/shared/components/@layout-pages/map-modal/map-modal.component';
 import Swal from 'sweetalert2';
 import { Title } from '@angular/platform-browser';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
+import { map } from 'rxjs/operators';
+
+declare global {
+  interface Window {
+    L: any;
+  }
+}
+
 @Component({
   selector: 'app-confirm-payment-liveabourd',
   templateUrl: './confirm-payment-liveabourd.component.html',
   styleUrls: ['./confirm-payment-liveabourd.component.scss'],
 })
-export class ConfirmPaymentLiveabourdComponent {
+export class ConfirmPaymentLiveabourdComponent implements OnInit {
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
+  // Map properties
+  showMap: boolean = false;
+  searchResults: any[] = [];
+  showResults: boolean = false;
+  map: any = null;
+  marker: any = null;
+  private L: any;
+  private isBrowser: boolean;
+
+  // Form controls for map
+  searchControl = new FormControl('');
+  latitudeControl = new FormControl({ value: 26.8206, disabled: true });
+  longitudeControl = new FormControl({ value: 30.8025, disabled: true });
+
+  // Egypt bounding box
+  private egyptBounds = {
+    north: 31.9167, // Northernmost point
+    south: 22.0,    // Southernmost point
+    east: 36.8667,  // Easternmost point
+    west: 24.7      // Westernmost point
+  };
+
   tripId: any;
   confirmRequest: any;
   relatedtrips: any[] = [];
@@ -27,12 +61,13 @@ export class ConfirmPaymentLiveabourdComponent {
   };
   BookingInfo: any;
   locationValue = '';
-  latitudeValue: any;
-  longitudeValue: any;
+  latitudeValue: number = 26.8206; // Default to Egypt
+  longitudeValue: number = 30.8025; // Default to Egypt
   showServices: boolean = true;
   customerForm!: FormGroup;
   userData: any = {};
   @ViewChild('btn') btn: ElementRef | undefined;
+
   constructor(
     private _httpService: HttpService,
     private route: ActivatedRoute,
@@ -41,8 +76,15 @@ export class ConfirmPaymentLiveabourdComponent {
     private _AuthService: AuthService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private titleService: Title
-  ) {}
+    private titleService: Title,
+    private viewContainerRef: ViewContainerRef,
+    private http: HttpClient,
+    private ngZone: NgZone,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
   ngOnInit(): void {
     this.titleService.setTitle('Confirm Booking');
 
@@ -65,7 +107,10 @@ export class ConfirmPaymentLiveabourdComponent {
     this.customerForm
       ?.get('phone')
       ?.patchValue(this.userData.phone.replace(/[()]/g, ''));
+
+    this.openEditModal();
   }
+
   getLiveAbourdById(activityID: any) {
     this._httpService
       .get(environment.marsa, `liveboard/details/` + activityID)
@@ -76,6 +121,7 @@ export class ConfirmPaymentLiveabourdComponent {
         }
       });
   }
+
   onCountryChange(event: any) {
     console.log(event);
     console.log(this.customerForm.value);
@@ -86,6 +132,7 @@ export class ConfirmPaymentLiveabourdComponent {
     this.customerForm?.get('phone')?.patchValue(x);
     console.log(x);
   }
+
   ReturnToPayment() {
     if (typeof window !== 'undefined') {
       const storedQueryParams = localStorage.getItem('queryParamsliveaboard');
@@ -108,17 +155,18 @@ export class ConfirmPaymentLiveabourdComponent {
       }
     }
   }
+
   initForm() {
     this.customerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      note: [''],
-      pickup_point: ['', this.showServices ? [Validators.required] : []],
+      phone: ['', Validators.required],
       locationValue: [''],
-      // locationValue: [''],
+      pickup_point: ['', Validators.required],
+      note: [''],
     });
   }
+
   confirmEdit() {
     if (this.showServices) {
       this.customerForm
@@ -173,6 +221,7 @@ export class ConfirmPaymentLiveabourdComponent {
       this.markFormGroupTouched(this.customerForm);
     }
   }
+
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
@@ -181,22 +230,242 @@ export class ConfirmPaymentLiveabourdComponent {
       }
     });
   }
-  // map
-  openMapModal(): void {
-    const dialogRef = this.dialog.open(MapModalComponent, {
-      width: '100%',
-      data: {
-        mapModalOptions: this.mapModalOptions,
-      },
-      disableClose: true,
-    });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.latitudeValue = result.latitude;
-      this.longitudeValue = result.longitude;
-      this.locationValue = `(${result.longitude} - ${result.latitude})`;
+  openEditModal(): void {
+    // Check if we have location values in confirmRequest
+    if (this.confirmRequest?.locationValue) {
+      const locationMatch = this.confirmRequest.locationValue.match(/\(([-\d.]+) - ([-\d.]+)\)/);
+      if (locationMatch) {
+        const lng = parseFloat(locationMatch[1]);
+        const lat = parseFloat(locationMatch[2]);
+        
+        // Set the form control values and component properties
+        this.latitudeControl.setValue(lat);
+        this.longitudeControl.setValue(lng);
+        this.latitudeValue = lat;
+        this.longitudeValue = lng;
+        
+        // Show location services and set the radio button to "Yes"
+        this.showServices = true;
+        const yesRadio = document.getElementById('flexRadioDefault1') as HTMLInputElement;
+        if (yesRadio) {
+          yesRadio.checked = true;
+        }
+      } else {
+        // If no valid location values, set to "I don't know yet"
+        this.showServices = false;
+        const laterRadio = document.getElementById('flexRadioDefault2') as HTMLInputElement;
+        if (laterRadio) {
+          laterRadio.checked = true;
+        }
+      }
+    } else {
+      // If no location value at all, set to "I don't know yet"
+      this.showServices = false;
+      const laterRadio = document.getElementById('flexRadioDefault2') as HTMLInputElement;
+      if (laterRadio) {
+        laterRadio.checked = true;
+      }
+    }
+  }
+
+  openMapModal(): void {
+    if (this.isBrowser) {
+      const mapModal = document.getElementById('mapModal');
+      if (mapModal) {
+        const modal = new (window as any).bootstrap.Modal(mapModal);
+        modal.show();
+
+        // أضف { once: true } حتى لا تتكرر التهيئة
+        mapModal.addEventListener('shown.bs.modal', () => {
+          setTimeout(() => {
+            this.loadLeafletCSS();
+            this.loadLeaflet();
+          }, 100);
+        }, { once: true });
+      }
+    }
+  }
+
+  // Map methods
+  loadLeafletCSS(): void {
+    if (!this.isBrowser) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+    link.crossOrigin = '';
+    document.head.appendChild(link);
+  }
+
+  loadLeaflet(): void {
+    if (!this.isBrowser) return;
+    if (window.L && typeof window.L.map === 'function') {
+      this.L = window.L;
+      setTimeout(() => this.initializeMap(), 500);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+    script.crossOrigin = '';
+    script.onload = () => {
+      this.L = window.L;
+      setTimeout(() => this.initializeMap(), 500);
+    };
+    document.head.appendChild(script);
+  }
+
+  initializeMap(): void {
+    if (!this.isBrowser || !this.L) return;
+    const mapElement = document.getElementById('googleMap');
+    if (!mapElement) return;
+    this.map = this.L.map('googleMap', {
+      center: [this.latitudeValue, this.longitudeValue],
+      zoom: 12,
+      zoomControl: true
+    });
+    this.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(this.map);
+    const customIcon = this.L.icon({
+      iconUrl: 'assets/images/locatio.svg',
+      iconSize: [37, 37],
+      iconAnchor: [18, 37]
+    });
+    this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
+      icon: customIcon,
+      draggable: true
+    }).addTo(this.map);
+    this.map.on('click', (e: any) => {
+      this.ngZone.run(() => {
+        this.latitudeValue = e.latlng.lat;
+        this.longitudeValue = e.latlng.lng;
+        this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+        this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+      });
+    });
+    this.marker.on('dragend', (e: any) => {
+      this.ngZone.run(() => {
+        const position = this.marker.getLatLng();
+        this.latitudeValue = position.lat;
+        this.longitudeValue = position.lng;
+        this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+      });
+    });
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 500);
+  }
+
+  searchLocations(query: string): void {
+    if (!this.isBrowser || !query || query.length < 3) {
+      this.searchResults = [];
+      this.showResults = false;
+      return;
+    }
+    const egyptBounds = {
+      north: 31.9167,
+      south: 22.0,
+      east: 36.8667,
+      west: 24.7
+    };
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=eg&viewbox=${egyptBounds.west},${egyptBounds.north},${egyptBounds.east},${egyptBounds.south}&bounded=1`;
+    const headers = new HttpHeaders({
+      'Accept-Language': 'en'
+    });
+    this.http.get<any[]>(url, { headers }).pipe(
+      map((results) => {
+        return results.map((result) => ({
+          name: result.display_name,
+          lat: parseFloat(result.lat),
+          lon: parseFloat(result.lon),
+        }));
+      })
+    ).subscribe((results) => {
+      this.ngZone.run(() => {
+        this.searchResults = results;
+        this.showResults = results.length > 0;
+      });
     });
   }
+
+  onSearchInput(event: any): void {
+    const query = event.target.value;
+    this.ngZone.run(() => {
+      this.searchLocations(query);
+    });
+  }
+
+  selectLocation(location: any): void {
+    this.ngZone.run(() => {
+      this.searchControl.setValue(location.name);
+      this.latitudeValue = location.lat;
+      this.longitudeValue = location.lon;
+      this.showResults = false;
+      if (this.map && this.marker) {
+        this.map.setView([location.lat, location.lon], 15);
+        this.marker.setLatLng([location.lat, location.lon]);
+      }
+    });
+  }
+
+  clearSearch(): void {
+    this.ngZone.run(() => {
+      this.searchControl.setValue('');
+      this.searchResults = [];
+      this.showResults = false;
+    });
+  }
+
+  setCurrentLocation(): void {
+    if (!this.isBrowser) return;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.ngZone.run(() => {
+            this.latitudeControl.setValue(position.coords.latitude);
+            this.longitudeControl.setValue(position.coords.longitude);
+            this.latitudeValue = position.coords.latitude;
+            this.longitudeValue = position.coords.longitude;
+            if (this.map && this.marker) {
+              this.map.setView([position.coords.latitude, position.coords.longitude], 15);
+              this.marker.setLatLng([position.coords.latitude, position.coords.longitude]);
+              this.reverseGeocode(position.coords.latitude, position.coords.longitude);
+            }
+          });
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+        }
+      );
+    }
+  }
+
+  confirmLocation(): void {
+    const lat = this.latitudeControl.value;
+    const lon = this.longitudeControl.value;
+    this.locationValue = `(${lon} - ${lat})`;
+    this.customerForm.patchValue({
+      locationValue: this.locationValue
+    });
+    this.showMap = false;
+  }
+
+  reverseGeocode(lat: number, lon: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+    const headers = new HttpHeaders({
+      'Accept-Language': 'en'
+    });
+    this.http.get(url, { headers }).subscribe((result: any) => {
+      this.ngZone.run(() => {
+        this.searchControl.setValue(result.display_name);
+      });
+    });
+  }
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
