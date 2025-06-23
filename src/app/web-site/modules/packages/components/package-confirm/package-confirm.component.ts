@@ -470,13 +470,13 @@ export class PackageConfirmComponent {
         items: 1,
       },
       740: {
-        items: 4,
+        items: 3,
       },
       940: {
-        items: 4,
+        items: 3,
       },
       1200: {
-        items: 4,
+        items: 3,
       },
     },
     nav: true,
