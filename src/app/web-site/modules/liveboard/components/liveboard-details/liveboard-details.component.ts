@@ -272,7 +272,7 @@ export class LiveboardDetailsComponent {
     const getThreshold = (id: string | null) => {
       if (id === 'importantInformation') return 1;
       if (id === 'faq') return 0.01;
-      return 0.5; // default threshold
+      return 0.1; // default threshold
     };
 
     const observer = new IntersectionObserver(
