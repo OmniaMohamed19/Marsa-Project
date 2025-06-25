@@ -630,10 +630,10 @@ export class LiveboardDetailsComponent {
         return;
       }
     } else {
-      if (this.persons < this.getValue('AdultMax')) {
+      if (this.persons < this.getValue('Adultmin')) {
         this.toastr.info(
           `Sorry, you cannot exceed the minimum limit of ${this.getValue(
-            'AdultMax'
+            'Adultmin'
           )}. Please adjust the number.`,
           '',
           {
