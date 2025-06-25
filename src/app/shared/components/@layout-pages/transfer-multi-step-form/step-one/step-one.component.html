@@ -187,7 +187,7 @@
         </div>
         <div class="col-md col-12 mt-2 fixed-input-wrapper">
           <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
+            <!-- <mat-label>Email</mat-label> -->
             <input matInput placeholder="xxx@xxx.com" [(ngModel)]="formData.email" name="email" required email
               #email="ngModel" [ngModelOptions]="{ updateOn: 'blur' }">
             <mat-error *ngIf="email.invalid && email.touched">

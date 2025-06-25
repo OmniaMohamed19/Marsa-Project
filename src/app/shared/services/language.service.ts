@@ -10,6 +10,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 export class LanguageService {
   private currentLang: BehaviorSubject<string>;
   private isBrowser: boolean;
+  private supportedLanguages = ['en', 'ar', 'rs', 'du', 'cez'];
 
   constructor(
     private translateService: TranslateService,
@@ -23,7 +24,8 @@ export class LanguageService {
   }
 
   setCurrentLang(language: string, init: boolean = false) {
-    if (language === 'rs' || language === 'en' || language === 'du' || language === 'cez') {
+    // Check if language is supported
+    if (this.supportedLanguages.includes(language)) {
       let htmlTag = this.document.getElementsByTagName(
         'html'
       )[0] as HTMLHtmlElement;
@@ -50,11 +52,20 @@ export class LanguageService {
         });
       }
     } else {
-      this.setCurrentLang('en');
+      // If language is not supported, redirect to 404
+      this.router.navigate(['/404']);
     }
   }
 
   getCurrentLang() {
     return this.currentLang.asObservable();
+  }
+
+  isLanguageSupported(language: string): boolean {
+    return this.supportedLanguages.includes(language);
+  }
+
+  getSupportedLanguages(): string[] {
+    return this.supportedLanguages;
   }
 }

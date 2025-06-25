@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -31,6 +32,7 @@ import { TokenInterceptor } from './core/interceptor/token.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
+    SharedModule,
     BrowserAnimationsModule,
     CarouselModule,
     NgxMaterialTimepickerModule,

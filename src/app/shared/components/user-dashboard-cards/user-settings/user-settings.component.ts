@@ -80,13 +80,9 @@ formData = new FormData();
   }
 
   onCountryChange(event: any) {
-    if (event) {
-      const dialCode = event.dialCode;
-      const currentNumber = this.phone ? this.phone.replace(/\s/g, '') : '';
-
-      setTimeout(() => {
-        this.phoneNumber = dialCode ? dialCode.toString() : '';
-      });
+    if (event && event.dialCode) {
+      this.phoneNumber = event.dialCode;
+      console.log('تم تغيير كود الدولة:', this.phoneNumber);
     }
   }
 

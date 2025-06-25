@@ -93,7 +93,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=eg&limit=5`;
     const headers = new HttpHeaders({
       'Accept-Language': 'en'
     });

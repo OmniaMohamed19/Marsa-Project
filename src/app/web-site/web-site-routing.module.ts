@@ -39,8 +39,12 @@ const routes: Routes = [
       },
       // Add other routes as needed when modules are confirmed to exist
       {
-        path: '**',
+        path: '404',
         component: NotFoundComponent
+      },
+      {
+        path: '**',
+        redirectTo: '/404'
       }
     ]
   }

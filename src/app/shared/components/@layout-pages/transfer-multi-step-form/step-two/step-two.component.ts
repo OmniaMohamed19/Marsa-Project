@@ -231,6 +231,17 @@ export class StepTwoComponent implements OnInit {
             this.next.emit(this.formData);
             window.scrollTo(0, 0);
           }
+        },
+        error: (error) => {
+          // جلب رسالة الخطأ من الباك اند
+          const errorMessage = error?.error?.message || 'An error occurred!';
+          this.toastr.error(errorMessage, '', {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          });
         }
       });
 
