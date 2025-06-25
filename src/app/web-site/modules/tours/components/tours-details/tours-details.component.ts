@@ -216,7 +216,7 @@ export class ToursDetailsComponent implements AfterViewInit {
       const tabElement = document.getElementById(tabId);
       if (tabElement) {
         const elementRect = tabElement.getBoundingClientRect();
-        const offset = window.scrollY + elementRect.top - 950; // Adjust offset as needed
+        const offset = window.scrollY + elementRect.top - 170; // Adjust offset as needed
 
         window.scrollTo({
           top: offset,
@@ -244,20 +244,31 @@ export class ToursDetailsComponent implements AfterViewInit {
   }
 
   private setupIntersectionObserver() {
-    const options = {
-      root: null, // viewport
-      rootMargin: '0px',
-      threshold: 0.5, // element should be at least 70% visible
+    // Determine threshold based on activeId
+    const getThreshold = (id: string | null) => {
+      if (id === 'importantInformation') return 1;
+      if (id === 'faq') return 0.01;
+      return 0.5; // default threshold
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
 
-      if (visibleEntries.length > 0) {
-        // Set activeTabId to the id of the first visible element
-        this.activeTabId = visibleEntries[0].target.id;
+        console.log(this.activeTabId);
+        console.log(visibleEntries);
+        if (visibleEntries.length > 0) {
+          // Set activeTabId to the id of the first visible element
+          this.activeTabId = visibleEntries[0].target.id;
+        }
+      },
+
+      {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: getThreshold(this.activeTabId), // Use dynamic threshold
       }
-    }, options);
+    );
 
     const tabs = document.querySelectorAll('.tab-pane');
     tabs.forEach((tab) => {
@@ -538,7 +549,7 @@ export class ToursDetailsComponent implements AfterViewInit {
           }
         });
         this.adults = this.getMinValue('Adultmin');
-        this.infant= this.getMinValue('infantmin');
+        this.infant = this.getMinValue('infantmin');
         this.children = this.getMinValue('childernmin');
         this.disabledDays = this.getDisabledDays(
           this.activityData.TimeOfRepeat

@@ -268,20 +268,28 @@ export class LiveboardDetailsComponent {
   }
 
   private setupIntersectionObserver() {
-    const options = {
-      root: null, // viewport
-      rootMargin: '0px',
-      threshold: 0.1, // element should be at least 70% visible
+    // Determine threshold based on activeId
+    const getThreshold = (id: string | null) => {
+      if (id === 'importantInformation') return 1;
+      if (id === 'faq') return 0.01;
+      return 0.5; // default threshold
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
 
-      if (visibleEntries.length > 0) {
-        // Set activeTabId to the id of the first visible element
-        this.activeTabId = visibleEntries[0].target.id;
+        if (visibleEntries.length > 0) {
+          // Set activeTabId to the id of the first visible element
+          this.activeTabId = visibleEntries[0].target.id;
+        }
+      },
+      {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: getThreshold(this.activeTabId), // Use dynamic threshold
       }
-    }, options);
+    );
 
     const tabs = document.querySelectorAll('.tab-pane');
     tabs.forEach((tab) => {
