@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { CodeService } from '../services/code.service';
@@ -144,10 +144,22 @@ export class LoginComponent implements OnInit {
           this.toastr.error(res.message || 'Login failed. Please try again.');
         }
       },
-      error: (err: any) => {
+      error: (err: HttpErrorResponse) => {
         this.$loginError.next(true);
 
         console.log('Error message:', err.error?.message, err.error?.error?.message, err.message);
+
+        // Handle 403 Forbidden error
+        if (err.status === 403) {
+          this.toastr.error(err.error.error?.message || 'Forbidden', '', {
+            disableTimeOut: false,
+            titleClass: 'toastr_title',
+            messageClass: 'toastr_message',
+            timeOut: 5000,
+            closeButton: true,
+          });
+          return;
+        }
 
         const errorMsg = err.error?.message || err.error?.error?.message || err.message || '';
 
