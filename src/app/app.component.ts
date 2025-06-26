@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
   }
   contactWhatsapp() {
     if (isPlatformBrowser(this.platformId)) {
-      window.open('https://api.whatsapp.com/send?phone=+201011117381', '_blank');
+      window.open('https://api.whatsapp.com/send?phone=201011117381', '_blank');
     }
   }
 }
