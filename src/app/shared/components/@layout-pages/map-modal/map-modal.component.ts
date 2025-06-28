@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, map, takeUntil } from 'rxjs/operators';
+import { Observable, of, Subject, timer } from 'rxjs';
+import { catchError, map, takeUntil, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 
 declare global {
@@ -24,6 +24,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   searchValue: string = '';
   searchResults: any[] = [];
   showResults: boolean = false;
+  isSearching: boolean = false;
 
   latitudeValue: number = 26.8206; // Default to Egypt
   longitudeValue: number = 30.8025; // Default to Egypt
@@ -35,6 +36,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   private L: any;
   mapInitialized: boolean = false;
   private destroy$ = new Subject<void>();
+  private searchSubject$ = new Subject<string>();
 
   constructor(
     private ngZone: NgZone,
@@ -62,6 +64,9 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loadLeafletCSS();
       this.loadLeaflet();
     }
+
+    // Setup search with debounce
+    this.setupSearch();
   }
 
   ngAfterViewInit(): void {
@@ -84,22 +89,36 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Search for locations
-  searchLocations(query: string): void {
-    if (!this.isBrowser || !query || query.length < 3) {
-      this.searchResults = [];
-      this.showResults = false;
-      this.cdr.detectChanges();
-      return;
+  private setupSearch(): void {
+    this.searchSubject$.pipe(
+      takeUntil(this.destroy$),
+      debounceTime(300), // Wait 300ms after user stops typing
+      distinctUntilChanged(), // Only search if query changed
+      switchMap(query => this.performSearch(query))
+    ).subscribe(results => {
+      this.ngZone.run(() => {
+        this.searchResults = results;
+        this.showResults = results.length > 0;
+        this.isSearching = false;
+        this.cdr.detectChanges();
+      });
+    });
+  }
+
+  private performSearch(query: string): Observable<any[]> {
+    if (!this.isBrowser || !query || query.trim().length < 2) {
+      return of([]);
     }
+
+    this.isSearching = true;
+    this.cdr.detectChanges();
 
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=eg&limit=5`;
     const headers = new HttpHeaders({
       'Accept-Language': 'en'
     });
 
-    this.http.get<any[]>(url, { headers }).pipe(
-      takeUntil(this.destroy$),
+    return this.http.get<any[]>(url, { headers }).pipe(
       map((results) => {
         return results.map((result) => ({
           name: result.display_name,
@@ -109,37 +128,35 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       }),
       catchError(error => {
         console.error('Search error:', error);
+        this.isSearching = false;
         return of([]);
       })
-    ).subscribe((results) => {
-      this.ngZone.run(() => {
-        this.searchResults = results;
-        this.showResults = results.length > 0;
-        this.cdr.detectChanges();
-      });
-    });
+    );
+  }
+
+  // Search for locations - deprecated, using new approach
+  searchLocations(query: string): void {
+    // This method is kept for backward compatibility but not used
+    this.searchSubject$.next(query);
   }
 
   onSearchInput(event: any): void {
     const query = event.target.value;
-    this.ngZone.run(() => {
-      this.searchLocations(query);
-      this.cdr.detectChanges();
-    });
+    this.searchSubject$.next(query);
   }
 
   // Select a location from search results
   selectLocation(location: any): void {
     this.ngZone.run(() => {
-      this.searchValue = location.name;
-      this.latitudeValue = location.lat;
-      this.longitudeValue = location.lon;
-      this.showResults = false;
+    this.searchValue = location.name;
+    this.latitudeValue = location.lat;
+    this.longitudeValue = location.lon;
+    this.showResults = false;
 
-      if (this.map && this.marker) {
-        this.map.setView([this.latitudeValue, this.longitudeValue], 15);
-        this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
-      }
+    if (this.map && this.marker) {
+      this.map.setView([this.latitudeValue, this.longitudeValue], 15);
+      this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+    }
       this.cdr.detectChanges();
     });
   }
@@ -150,6 +167,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchValue = '';
       this.searchResults = [];
       this.showResults = false;
+      this.isSearching = false;
       this.cdr.detectChanges();
     });
   }

@@ -23,8 +23,8 @@ export class BoatComponent {
   minDate: string;
 
   min_priceChoosen: any = null;
-  max_priceChoosen: any = 999;
-  max_price = 999;
+   max_price = 9999;
+  max_priceChoosen: number = 9999;
   isMobile = false;
   showFilter = true;
   constructor(
@@ -47,6 +47,10 @@ export class BoatComponent {
   }
 
   ngOnInit(): void {
+    // Initialize price range values
+    this.min_priceChoosen = this.min_price;
+    this.max_priceChoosen = this.max_price;
+    
     this.route.queryParams.subscribe((params: any) => {
       if (params.place_id || params.date) {
         this.place_id = params['place_id'];
@@ -83,13 +87,24 @@ export class BoatComponent {
 
 
   getBoats() {
-
     this._httpService.get(environment.marsa, 'Boats').subscribe({
       next: (res: any) => {
         this.boats = res?.trips;
         this.search = res?.search;
         this.types = res?.types;
+        
+        // Update price range if available from API
+        if (res?.search?.min_price !== undefined) {
+          this.min_price = res.search.min_price;
+          this.min_priceChoosen = this.min_price;
+        }
+        if (res?.search?.max_price !== undefined) {
+          this.max_price = res.search.max_price;
+          this.max_priceChoosen = this.max_price;
+        }
+        
         this.getPlace();
+        this.cdr.detectChanges();
       },
     });
   }
@@ -125,7 +140,7 @@ export class BoatComponent {
     });
   }
 
-  setMinPrice(event: any) {
+ setMinPrice(event: any) {
     this.min_priceChoosen = event.target.value;
     this.filter();
   }
@@ -133,6 +148,7 @@ export class BoatComponent {
     this.max_priceChoosen = event.target.value;
     this.filter();
   }
+
   searchDestination(ev: any) {
     this.place_id = ev.target.value;
     this.filter();

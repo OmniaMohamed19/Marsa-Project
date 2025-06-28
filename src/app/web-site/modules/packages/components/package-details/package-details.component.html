@@ -291,7 +291,7 @@
                 Showing Most Recent verified guest comments
               </h5>
               <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-                *ngFor="let review of rows?.Reviwe?.slice(0, 1)">
+                *ngFor="let review of rows?.Reviwe?.slice(-1)">
                 <div class="mr-md-5">
                   <a class="d-block" href="#">
                     <img class="comment-img mb-3 mb-md-0 rounded-circle" [src]="
@@ -331,7 +331,8 @@
               *ngFor="let review of rows?.Reviwe">
               <div class="mr-md-5">
                 <a class="d-block" href="#">
-                  <img class="comment-img img-fluid mb-3 mb-md-0 rounded-circle" [src]="review?.avatar"
+                  <img class="comment-img img-fluid mb-3 mb-md-0 rounded-circle" [src]=" review?.avatar ||
+                        '../../../../../../assets/custom/user-dasboard/avatar-place.png'"
                     [alt]="review?.name" />
                 </a>
               </div>
@@ -404,7 +405,7 @@
       </div>
       <div class="my-tours-work">
         <h5 class="text-center mb-5 mt-5">
-          Based on what’s you’re looking for ....
+          Based on what you're looking for ....
         </h5>
         <owl-carousel-o [options]="customOptions" class="my-tours">
           <ng-container *ngFor="let item of relatedtrips">

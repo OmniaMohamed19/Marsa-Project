@@ -159,14 +159,15 @@ h3 {
   border-radius: 4px;
   max-height: 200px;
   overflow-y: auto;
-  z-index: 1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   .list-group-item {
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 12px 15px;
     border: none;
     border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
 
     &:last-child {
       border-bottom: none;
@@ -174,6 +175,7 @@ h3 {
 
     &:hover {
       background-color: #f8f9fa;
+      border-left: 3px solid #0db1ff;
     }
   }
 }
@@ -196,4 +198,53 @@ h3 {
 
 .leaflet-pane {
   z-index: 998 !important;
+}
+
+// Loading spinner styles
+.fa-spinner {
+  color: #0db1ff;
+}
+
+// Alert styles for no results
+.alert-info {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #6c757d;
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+// Input group styles
+.input-group-append .btn {
+  border-radius: 0 4px 4px 0;
+  border-left: none;
+}
+
+.input-group-append .btn:hover {
+  background-color: #e9ecef;
+}
+
+.form-control {
+  border-radius: 4px 0 0 4px;
+}
+
+// Make readonly inputs look clickable
+.form-control[readonly] {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.form-control[readonly]:hover {
+  background-color: #f8f9fa;
+  border-color: #0db1ff;
+}
+
+// Map modal input styles
+.map-container .form-control {
+  cursor: text;
+}
+
+.map-container .form-control:hover {
+  border-color: #0db1ff;
 }

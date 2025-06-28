@@ -125,8 +125,8 @@ export class HeaderComponent implements OnInit {
   }
 
   contactWhatsapp() {
-    if (this.isBrowser) {
-      window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
-    }
-  }
+     if (isPlatformBrowser(this.platformId)) {
+       window.open('https://api.whatsapp.com/send?phone=201011117381', '_blank');
+     }
+   }
 }

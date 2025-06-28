@@ -1,4 +1,4 @@
-import { Component, Input , OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { log } from 'console';
 
 @Component({
@@ -6,20 +6,26 @@ import { log } from 'console';
   templateUrl: './tours-table.component.html',
   styleUrls: ['./tours-table.component.scss'],
 })
-export class ToursTableComponent {
+export class ToursTableComponent implements OnInit, OnChanges {
   @Input() tours: any;
   activeTab: string = 'year';
   thisYear: number = new Date().getFullYear();
   filterdTours: any = [];
- selectedTour : any;
- years: { label: string; value: string }[] = [];
- ngOnChanges(changes: SimpleChanges): void {
-   
-    if (changes) {
-      this.filterdTours=changes['tours']?.currentValue
+  selectedTour: any;
+  years: { label: string; value: string }[] = [];
 
+  ngOnInit() {
+    this.filterdTours = this.tours;
+    this.generateYears();
+    this.activeTab = this.thisYear.toString();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      this.filterdTours = changes['tours']?.currentValue;
     }
   }
+
   generateYears() {
     const currentYear = new Date().getFullYear();
     this.years = [
@@ -30,20 +36,9 @@ export class ToursTableComponent {
     ];
   }
 
-
-  ngOnInit() {
-    this.filterdTours = this.tours;
-
-    this.generateYears();
-    this.activeTab = this.thisYear.toString();
-
-  }
   openModal(tour: any) {
     this.selectedTour = tour;
-
   }
-
-
 
   setFilter(year: string) {
     this.activeTab = year;

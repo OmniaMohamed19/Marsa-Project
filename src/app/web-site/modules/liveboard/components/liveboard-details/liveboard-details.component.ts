@@ -314,6 +314,12 @@ export class LiveboardDetailsComponent {
       block: 'start',
     });
   }
+   getFirstSchedule(item: any): any {
+    if (item && item.Schedule && Array.isArray(item.Schedule) && item.Schedule.length > 0) {
+      return item.Schedule[0];
+    }
+    return null;
+  }
   shareLiveaboard(id: string) {
     window.navigator.share({
       title: this.liveabourdData?.Name,

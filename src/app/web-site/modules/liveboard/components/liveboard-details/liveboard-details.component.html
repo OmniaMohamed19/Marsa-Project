@@ -108,10 +108,10 @@
                   fill="#297CBB"
                 />
               </svg>
+              <div class="ml-1 text-gray-1 mt-2">Free cancellation up to</div>
               <div class="ml-1 text-gray-1 mt-2">
                 {{ formatCancellationTime(liveabourdData?.Cancellation_time) }}
               </div>
-              <div class="ml-1 text-gray-1 mt-2">Free Cancelation</div>
             </li>
             <li
               class="col-md-4 flex-horizontal-center list-group-item text-lh-sm mb-2"
@@ -599,8 +599,8 @@
           </div>
 
           <div id="faq" class="tab-pane">
-            <div class="py-4">
-              <h5 class="font-size-21 fw-bold text-black mb-lg-5 mb-1 pb-lg-5 pb-3">FAQ</h5>
+            <div class="py-1">
+              <h5 class="font-size-21 fw-bold text-black mb-lg-0 mb-1 pb-lg-0 pb-3">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
                 <div class="card border-0 mb-lg-4 mb-0 pb-lg-1 pb-0">
@@ -782,7 +782,7 @@
                   </h5>
                   <div
                     class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-                    *ngFor="let review of liveabourdData?.Reviwe?.slice(0, 1)"
+                    *ngFor="let review of liveabourdData?.Reviwe?.slice(-1)"
                   >
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
@@ -1525,11 +1525,13 @@
     </div>
 
     <div *ngIf="showRelatedtrip" class="my-tours-work">
-      <h5 class="text-center mb-5">Based on what's you're looking for ....</h5>
+      <h5 class="text-center mb-5">Based on what you're looking for ....</h5>
       <owl-carousel-o [options]="customOptions" class="my-tours">
         <ng-container *ngFor="let item of relatedtrips">
           <ng-template carouselSlide>
-            <app-activity-card [item]="item"></app-activity-card>
+            <!-- <app-activity-card [item]="item"></app-activity-card> -->
+         <app-activity-card  [item]="item" [schedule]="getFirstSchedule(item)"></app-activity-card>
+
           </ng-template>
         </ng-container>
       </owl-carousel-o>

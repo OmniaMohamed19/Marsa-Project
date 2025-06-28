@@ -201,7 +201,6 @@ export class TrendingComponent  {
     nav: true,
   };
 
-  // أضف هذه الدالة للحصول على أول جدول زمني متاح
   getFirstSchedule(item: any): any {
     if (item && item.Schedule && Array.isArray(item.Schedule) && item.Schedule.length > 0) {
       return item.Schedule[0];

@@ -21,10 +21,13 @@
           (keyup)="onSearchInput($event)"
           autocomplete="off"
         />
-        <div class="input-group-append" *ngIf="searchValue">
-          <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()" *ngIf="searchValue">
             <i class="fa fa-times"></i>
           </button>
+          <div class="btn btn-outline-secondary" *ngIf="isSearching">
+            <i class="fa fa-spinner fa-spin"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -37,6 +40,11 @@
         {{ result.name }}
       </li>
     </ul>
+  </div>
+
+  <!-- No results message -->
+  <div *ngIf="searchValue && !isSearching && !showResults && searchValue.length >= 2" class="alert alert-info mb-3">
+    No locations found for "{{ searchValue }}"
   </div>
 
   <!-- Map container -->

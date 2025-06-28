@@ -181,7 +181,7 @@
         <form [formGroup]="customerForm">
           <div class="row">
             <!-- Input -->
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Name </label>
 
@@ -209,7 +209,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Email </label>
                 <input
@@ -236,25 +236,28 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 mb-4">
+            <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Phone </label>
+                <div>
+                  
+                  <ngx-intl-tel-input
+                    [cssClass]="'form-control'"
+                    [enableAutoCountrySelect]="true"
+                    [searchCountryFlag]="true"
+                    [selectFirstCountry]="false"
+                    [separateDialCode]="true"
+                    [maxLength]="20"
+                    [phoneValidation]="false"
+                    name="phone"
+                    [enablePlaceholder]="true"
+                    [customPlaceholder]="'Enter phone number'"
+                    [preferredCountries]="['de']"
+                    formControlName="phone"
+                    (countryChange)="onCountryChange($event)"
+                  ></ngx-intl-tel-input>
+                </div>
 
-                <ngx-intl-tel-input
-                  [cssClass]="'form-control'"
-                  [enableAutoCountrySelect]="true"
-                  [searchCountryFlag]="true"
-                  [selectFirstCountry]="false"
-                  [separateDialCode]="true"
-                  [maxLength]="20"
-                  [phoneValidation]="false"
-                  name="phone"
-                  [enablePlaceholder]="true"
-                  [customPlaceholder]="'Enter phone number'"
-                  [preferredCountries]="['de']"
-                  formControlName="phone"
-                  (countryChange)="onCountryChange($event)"
-                ></ngx-intl-tel-input>
 
                 <ng-container
                   *ngIf="
@@ -275,6 +278,7 @@
 
             <div class="w-100"></div>
 
+            <!-- End Input -->
             <div class="w-100"></div>
             <p class="text-left fs-6">Do you want a pick up services ?</p>
             <div class="d-flex gap-3 flex-wrap mb-2">
@@ -286,24 +290,24 @@
                   id="flexRadioDefault1"
                   [checked]="showServices"
                   (change)="showServices = true"
-                  />
-                  <label class="form-check-label" for="flexRadioDefault1">
-                    Yes, I can add it now (recommended)
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="pickupService"
-                    id="flexRadioDefault2"
-                    [checked]="!showServices"
-                    (change)="showServices = false"
-                  />
-                  <label class="form-check-label" for="flexRadioDefault2">
-                    I don't know yet ( later )
-                  </label>
-                </div>
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Yes, I can add it now (recommended)
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="pickupService"
+                  id="flexRadioDefault2"
+                  [checked]="!showServices"
+                  (change)="showServices = false"
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  I don't know yet ( later )
+                </label>
+              </div>
             </div>
             <!-- Input -->
             <ng-container *ngIf="showServices">
@@ -312,20 +316,16 @@
                   <label class="form-label"> Pick up Location </label>
                   <div class="input-group">
                     <input
-                    (click)="openMapModal()"
                       type="text"
                       class="form-control location"
                       aria-describedby="helpId"
                       [value]="locationValue"
                       placeholder="Location"
                       formControlName="locationValue"
+                      (click)="openMapModal()"
                       readonly
                     />
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" (click)="openMapModal()">
-                        <i class="fa fa-map-marker"></i>
-                      </button>
-                    </div>
+                   
                   </div>
                   <div
                     *ngIf="
@@ -357,48 +357,6 @@
                   Pick up Place is required
                 </div>
               </div>
-
-              <!-- Map Section -->
-              <div class="col-12 mb-4" *ngIf="showMap">
-                <div class="map-container">
-                  <div class="search-box mb-3">
-                    <div class="input-group">
-                      <input
-                        #searchInput
-                        type="text"
-                        class="form-control"
-                        placeholder="Search location"
-                        [formControl]="searchControl"
-                        (keyup)="onSearchInput($event)"
-                        autocomplete="off"
-                      />
-                      <div class="input-group-append" *ngIf="searchControl.value">
-                        <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
-                          <i class="fa fa-times"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <!-- Search Results -->
-                    <div *ngIf="showResults" class="search-results">
-                      <ul class="list-group">
-                        <li class="list-group-item" *ngFor="let result of searchResults" (click)="selectLocation(result)">
-                          {{ result.name }}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div id="googleMap" style="height: 400px; width: 100%;"></div>
-                 
-                  <div class="mt-3">
-                    <button class="btn btn-secondary mr-2" (click)="setCurrentLocation()">
-                      <i class="fa fa-location-arrow mr-1"></i> Set Current Location
-                    </button>
-                    <button class="btn btn-primary" (click)="confirmLocation()">
-                      <i class="fa fa-check mr-1"></i> Confirm Location
-                    </button>
-                  </div>
-                </div>
-              </div>
             </ng-container>
             <ng-template #elseTemplate>
               <div class="col-sm-6 mb-4">
@@ -413,7 +371,6 @@
             </ng-template>
 
             <div class="w-100"></div>
-            <!-- Input -->
 
             <div class="col-sm-12 mb-4">
               <div class="js-form-message">
@@ -472,10 +429,13 @@
                 (keyup)="onSearchInput($event)"
                 autocomplete="off"
               />
-              <div class="input-group-append" *ngIf="searchControl.value">
-                <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()" *ngIf="searchControl.value">
                   <i class="fa fa-times"></i>
                 </button>
+                <div class="btn btn-outline-secondary" *ngIf="isSearching">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </div>
               </div>
             </div>
             <!-- Search Results -->
@@ -485,6 +445,10 @@
                   {{ result.name }}
                 </li>
               </ul>
+            </div>
+            <!-- No results message -->
+            <div *ngIf="searchControl.value && !isSearching && searchResults.length === 0 && searchControl.value.trim().length >= 2" class="alert alert-info mt-2">
+              No locations found for "{{ searchControl.value }}"
             </div>
           </div>
           <div id="googleMap" style="height: 400px; width: 100%;"></div>

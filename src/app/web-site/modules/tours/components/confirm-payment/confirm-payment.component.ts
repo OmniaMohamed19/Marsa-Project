@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef, NgZone, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef, NgZone, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -12,7 +12,8 @@ import { Title } from '@angular/platform-browser';
 import { CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { map } from 'rxjs/operators';
+import { map, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, Observable, of } from 'rxjs';
 
 declare global {
   interface Window {
@@ -25,7 +26,7 @@ declare global {
   templateUrl: './confirm-payment.component.html',
   styleUrls: ['./confirm-payment.component.scss'],
 })
-export class ConfirmPaymentComponent implements OnInit {
+export class ConfirmPaymentComponent implements OnInit, OnDestroy {
   tripId: any;
   Bookingid: any;
   confirmRequest: any;
@@ -49,15 +50,26 @@ export class ConfirmPaymentComponent implements OnInit {
   showMap: boolean = false;
   searchResults: any[] = [];
   showResults: boolean = false;
+  isSearching: boolean = false;
   map: any = null;
   marker: any = null;
   private L: any;
   private isBrowser: boolean;
+  private destroy$ = new Subject<void>();
+  private searchSubject$ = new Subject<string>();
 
   // Form controls for map
   searchControl = new FormControl('');
   latitudeControl = new FormControl({ value: 26.8206, disabled: true });
   longitudeControl = new FormControl({ value: 30.8025, disabled: true });
+
+  // Egypt bounding box
+  private egyptBounds = {
+    north: 31.9167, // Northernmost point
+    south: 22.0,    // Southernmost point
+    east: 36.8667,  // Easternmost point
+    west: 24.7      // Westernmost point
+  };
 
   constructor(
     private _httpService: HttpService,
@@ -79,6 +91,7 @@ export class ConfirmPaymentComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Confirm Booking');
     this.initForm();
+    this.setupSearch();
 
     this.route.queryParams.subscribe((params: any) => {
       if (params['res']) {
@@ -105,6 +118,49 @@ export class ConfirmPaymentComponent implements OnInit {
         this.router.navigate(['/'], { replaceUrl: true });
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private setupSearch(): void {
+    this.searchSubject$.pipe(
+      takeUntil(this.destroy$),
+      debounceTime(300), // Wait 300ms after user stops typing
+      distinctUntilChanged(), // Only search if query changed
+      switchMap(query => this.performSearch(query))
+    ).subscribe(results => {
+      this.ngZone.run(() => {
+        this.searchResults = results;
+        this.showResults = results.length > 0;
+        this.isSearching = false;
+      });
+    });
+  }
+
+  private performSearch(query: string): Observable<any[]> {
+    if (!this.isBrowser || !query || query.trim().length < 2) {
+      return of([]);
+    }
+
+    this.isSearching = true;
+
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=eg&viewbox=${this.egyptBounds.west},${this.egyptBounds.north},${this.egyptBounds.east},${this.egyptBounds.south}&bounded=1`;
+    const headers = new HttpHeaders({
+      'Accept-Language': 'en'
+    });
+
+    return this.http.get<any[]>(url, { headers }).pipe(
+      map((results) => {
+        return results.map((result) => ({
+          name: result.display_name,
+          lat: parseFloat(result.lat),
+          lon: parseFloat(result.lon),
+        }));
+      })
+    );
   }
 
   private formatInitialPhoneNumber(phone: string): any {
@@ -219,15 +275,30 @@ export class ConfirmPaymentComponent implements OnInit {
     if (this.isBrowser) {
       const mapModal = document.getElementById('mapModal');
       if (mapModal) {
+        // تحقق من أن المودال ليس مفتوحاً بالفعل
+        const modalInstance = (window as any).bootstrap.Modal.getInstance(mapModal);
+        if (modalInstance && modalInstance._isShown) {
+          return; // المودال مفتوح بالفعل
+        }
+
         const modal = new (window as any).bootstrap.Modal(mapModal);
         modal.show();
-        
-        // Initialize map after modal is shown
+
+        // تهيئة الخريطة عند فتح المودال
         mapModal.addEventListener('shown.bs.modal', () => {
           setTimeout(() => {
             this.loadLeafletCSS();
             this.loadLeaflet();
           }, 100);
+        }, { once: true });
+
+        // إعادة تهيئة الخريطة عند إغلاق المودال
+        mapModal.addEventListener('hidden.bs.modal', () => {
+          if (this.map) {
+            this.map.remove();
+            this.map = null;
+            this.marker = null;
+          }
         });
       }
     }
@@ -292,8 +363,14 @@ export class ConfirmPaymentComponent implements OnInit {
 
   loadLeafletCSS(): void {
     if (!this.isBrowser) return;
-
+    
+    // تجنب تحميل CSS مرتين
+    if (document.getElementById('leaflet-css')) {
+      return;
+    }
+    
     const link = document.createElement('link');
+    link.id = 'leaflet-css';
     link.rel = 'stylesheet';
     link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
     link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
@@ -304,115 +381,116 @@ export class ConfirmPaymentComponent implements OnInit {
   loadLeaflet(): void {
     if (!this.isBrowser) return;
 
+    // إذا كانت المكتبة محملة بالفعل
     if (window.L && typeof window.L.map === 'function') {
       this.L = window.L;
       setTimeout(() => this.initializeMap(), 500);
       return;
     }
 
+    // تحميل المكتبة إذا لم تكن محملة
     const script = document.createElement('script');
     script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
     script.crossOrigin = '';
+    
     script.onload = () => {
       this.L = window.L;
       setTimeout(() => this.initializeMap(), 500);
     };
+    
+    script.onerror = (error) => {
+      console.error('Failed to load Leaflet script:', error);
+    };
+    
     document.head.appendChild(script);
   }
 
   initializeMap(): void {
-    if (!this.isBrowser || !this.L) return;
-
-    const mapElement = document.getElementById('googleMap');
-    if (!mapElement) return;
-
-    this.map = this.L.map('googleMap', {
-      center: [this.latitudeValue, this.longitudeValue],
-      zoom: 12,
-      zoomControl: true
-    });
-
-    this.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(this.map);
-
-    const customIcon = this.L.icon({
-      iconUrl: 'assets/images/locatio.svg',
-      iconSize: [37, 37],
-      iconAnchor: [18, 37]
-    });
-
-    this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
-      icon: customIcon,
-      draggable: true
-    }).addTo(this.map);
-
-    this.map.on('click', (e: any) => {
-      this.ngZone.run(() => {
-        this.latitudeValue = e.latlng.lat;
-        this.longitudeValue = e.latlng.lng;
-        this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
-        this.reverseGeocode(this.latitudeValue, this.longitudeValue);
-      });
-    });
-
-    this.marker.on('dragend', (e: any) => {
-      this.ngZone.run(() => {
-        const position = this.marker.getLatLng();
-        this.latitudeValue = position.lat;
-        this.longitudeValue = position.lng;
-        this.reverseGeocode(this.latitudeValue, this.longitudeValue);
-      });
-    });
-
-    setTimeout(() => {
-      this.map.invalidateSize();
-    }, 500);
-  }
-
-  searchLocations(query: string): void {
-    if (!this.isBrowser || !query || query.length < 3) {
-      this.searchResults = [];
-      this.showResults = false;
+    if (!this.isBrowser || !this.L) {
+      console.log('Browser or Leaflet not available');
       return;
     }
 
-    // Egypt's bounding box coordinates
-    const egyptBounds = {
-      north: 31.9167,  // Northernmost point
-      south: 22.0,     // Southernmost point
-      east: 36.8667,   // Easternmost point
-      west: 24.7       // Westernmost point
-    };
+    try {
+      const mapElement = document.getElementById('googleMap');
+      if (!mapElement) {
+        console.log('Map element not found');
+        return;
+      }
 
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=eg&viewbox=${egyptBounds.west},${egyptBounds.north},${egyptBounds.east},${egyptBounds.south}&bounded=1`;
-    const headers = new HttpHeaders({
-      'Accept-Language': 'en'
-    });
+      // إزالة الخريطة السابقة إذا كانت موجودة
+      if (this.map) {
+        this.map.remove();
+        this.map = null;
+        this.marker = null;
+      }
 
-    this.http.get<any[]>(url, { headers }).pipe(
-      map((results) => {
-        return results.map((result) => ({
-          name: result.display_name,
-          lat: parseFloat(result.lat),
-          lon: parseFloat(result.lon),
-        }));
-      })
-    ).subscribe((results) => {
-      this.ngZone.run(() => {
-        this.searchResults = results;
-        this.showResults = results.length > 0;
+      this.map = this.L.map('googleMap', {
+        center: [this.latitudeValue, this.longitudeValue],
+        zoom: 12,
+        zoomControl: true
       });
-    });
+
+      this.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(this.map);
+
+      const customIcon = this.L.icon({
+        iconUrl: 'assets/images/locatio.svg',
+        iconSize: [37, 37],
+        iconAnchor: [18, 37]
+      });
+
+      this.marker = this.L.marker([this.latitudeValue, this.longitudeValue], {
+        icon: customIcon,
+        draggable: true
+      }).addTo(this.map);
+
+      this.map.on('click', (e: any) => {
+        this.ngZone.run(() => {
+          this.latitudeValue = e.latlng.lat;
+          this.longitudeValue = e.latlng.lng;
+          this.marker.setLatLng([this.latitudeValue, this.longitudeValue]);
+          this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+        });
+      });
+
+      this.marker.on('dragend', (e: any) => {
+        this.ngZone.run(() => {
+          const position = this.marker.getLatLng();
+          this.latitudeValue = position.lat;
+          this.longitudeValue = position.lng;
+          this.reverseGeocode(this.latitudeValue, this.longitudeValue);
+        });
+      });
+
+      // إعادة تحجيم الخريطة بعد التهيئة
+      setTimeout(() => {
+        if (this.map) {
+          this.map.invalidateSize();
+        }
+      }, 500);
+
+      console.log('Map initialized successfully');
+    } catch (error) {
+      console.error('Error initializing map:', error);
+    }
   }
 
   onSearchInput(event: any): void {
     const query = event.target.value;
     this.ngZone.run(() => {
-      this.searchLocations(query);
+      // إذا كان النص قصيراً، امسح النتائج
+      if (!query || query.trim().length < 2) {
+        this.searchResults = [];
+        this.showResults = false;
+        this.isSearching = false;
+      } else {
+        this.searchSubject$.next(query);
+      }
     });
   }
 
@@ -435,6 +513,7 @@ export class ConfirmPaymentComponent implements OnInit {
       this.searchControl.setValue('');
       this.searchResults = [];
       this.showResults = false;
+      this.isSearching = false;
     });
   }
 

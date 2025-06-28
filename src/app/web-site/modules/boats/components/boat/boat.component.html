@@ -62,8 +62,8 @@
               </div>
 
 
-              <div class="col dropdown-custom px-0 mb-5">
-                <!-- Input -->
+              <!-- <div class="col dropdown-custom px-0 mb-5">
+             
                 <span
                   class="d-block text-gray-1 text-left font-weight-normal mb-2">Trip Type</span>
                 <div
@@ -84,7 +84,7 @@
                     </option>
                   </select>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -123,30 +123,25 @@
                       </button>
                     </h3>
                   </div>
-                  <div
-                    id="shopCardOne"
-                    class="collapse show"
-                    aria-labelledby="shopCardHeadingOne"
-                    data-parent="#shopCartAccordion"
-                  >
+                <div id="shopCardOne" class="collapse show" aria-labelledby="shopCardHeadingOne"
+                    data-parent="#shopCartAccordion">
                     <div class="card-body pt-0 px-5">
                       <div class="pb-3 mb-1 d-flex text-lh-1">
-                        <span>£</span>
+                        <span>$</span>
                         <span id="rangeSliderExample3MinResult" class="">{{
                           min_priceChoosen ? min_priceChoosen : min_price
-                        }}</span>
+                          }}</span>
                         <span class="mx-0dot5"> — </span>
-                        <span>£</span>
+                        <span>$</span>
                         <span id="rangeSliderExample3MaxResult" class="">{{
                           max_priceChoosen ? max_priceChoosen : max_price
-                        }}</span>
+                          }}</span>
                       </div>
                       <mat-slider
                         class="w-100"
                         [min]="min_price"
                         [max]="max_price"
                         step="1"
-                        [(ngModel)]="min_priceChoosen"
                         thumbLabel
                       >
                         <input

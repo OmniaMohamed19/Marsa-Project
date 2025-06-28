@@ -119,6 +119,12 @@ h3 {
 
 // Map styles
 .map-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+
   .search-box {
     position: relative;
     z-index: 1001;
@@ -128,13 +134,13 @@ h3 {
       top: 100%;
       left: 0;
       right: 0;
-      z-index: 1;
+      z-index: 1002;
       background: white;
       border: 1px solid #ddd;
-      border-top: none;
-      border-radius: 0 0 4px 4px;
+      border-radius: 4px;
       max-height: 200px;
       overflow-y: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       
       .list-group {
         margin: 0;
@@ -143,11 +149,13 @@ h3 {
           cursor: pointer;
           border: none;
           border-bottom: 1px solid #eee;
-          padding: 8px 12px;
+          padding: 12px 15px;
           font-size: 14px;
+          transition: background-color 0.2s ease;
           
           &:hover {
             background-color: #f8f9fa;
+            border-left: 3px solid #0db1ff;
           }
           
           &:last-child {
@@ -159,8 +167,9 @@ h3 {
   }
   
   #googleMap {
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
+    margin-bottom: 15px;
   }
   
   .btn {
@@ -174,4 +183,53 @@ h3 {
 
 .location {
   cursor: pointer;
+}
+
+// Loading spinner styles
+.fa-spinner {
+  color: #0db1ff;
+}
+
+// Alert styles for no results
+.alert-info {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #6c757d;
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+// Input group styles
+.input-group-append .btn {
+  border-radius: 0 4px 4px 0;
+  border-left: none;
+}
+
+.input-group-append .btn:hover {
+  background-color: #e9ecef;
+}
+
+.form-control {
+  border-radius: 4px 0 0 4px;
+}
+
+// Make readonly inputs look clickable
+.form-control[readonly] {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.form-control[readonly]:hover {
+  background-color: #f8f9fa;
+  border-color: #0db1ff;
+}
+
+// Map modal input styles
+.map-container .form-control {
+  cursor: text;
+}
+
+.map-container .form-control:hover {
+  border-color: #0db1ff;
 }

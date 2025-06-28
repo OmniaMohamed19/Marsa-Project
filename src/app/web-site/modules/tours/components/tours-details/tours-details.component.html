@@ -555,8 +555,8 @@
             </div>
           </div>
           <div id="faq" class="tab-pane pb-5">
-            <div class="py-4">
-              <h5 class="heading text-uppercase mb-lg-5 mb-1 pb-lg-5 pb-3">FAQ</h5>
+            <div class="py-1">
+              <h5 class="heading text-uppercase mb-lg-0 mb-1 pb-lg-0 pb-3">FAQ</h5>
               <div id="basicsAccordion">
                 <!-- Card -->
                 <div class="card border-0 mb-lg-4 mb-0 pb-lg-1 pb-0">
@@ -602,7 +602,7 @@
                 </div>
                 <div class="col-md-7">
                   <div class="row g-3">
-                    <!-- الصور الباقية -->
+                  
                     <div class="col-md-6 position-relative"
                       *ngFor="let image of remainingImages.slice(0, 3); let index = index">
                       <img class="w-100 img-fluid" [src]="image" [alt]="getImageName(image)" style="
@@ -613,7 +613,7 @@
                       <div class="overlay"></div>
                     </div>
 
-                    <!-- الصورة الأخيرة -->
+                    
                     <div class="col-md-6 position-relative pt-1" *ngIf="remainingImages.length > 3">
                       <img class="w-100 img-fluid" [src]="remainingImages[3]" [alt]="getImageName(remainingImages[3])"
                         style="
@@ -622,7 +622,6 @@
                         object-fit: cover;
                         object-position: center;" (click)="imageClick(4)" />
 
-                      <!-- الoverlay والزر -->
                       <div class="see-more-container">
                         <div class="position-relative">
                           <div class="overlay"></div>
@@ -679,7 +678,7 @@
                     Showing Most Recent verified guest comments
                   </h5>
                   <div class="media flex-column flex-md-row align-items-center align-items-md-start mb-4"
-                    *ngFor="let review of activityData?.Reviwe?.slice(0, 1)">
+                    *ngFor="let review of activityData?.Reviwe?.slice(-1)">
                     <div class="mr-md-5">
                       <a class="d-block" href="#">
                         <img class="comment-img mb-3 mb-md-0 rounded-circle" [src]="
@@ -1369,7 +1368,7 @@
     </div>
 
     <div class="my-tours-work">
-      <h5 class="text-center mb-5">Based on what’s you’re looking for ....</h5>
+      <h5 class="text-center mb-5">Based on what you’re looking for ....</h5>
       <owl-carousel-o [options]="customOptions" class="my-tours">
         <ng-container *ngFor="let item of relatedtrips">
           <ng-template carouselSlide>

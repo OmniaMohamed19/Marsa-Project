@@ -155,6 +155,12 @@ export class BoatDetailsComponent {
     this.showFullDescription = !this.showFullDescription;
     // No need to toggle seeMore; it can be derived from showFullDescription
   }
+getBed(item: any): any {
+    if (item && item.bed ) {
+     return item.bed  ;
+    }
+    return null;
+  }
 
   // Method to get the displayed description
   getDisplayedDescription(): string {
@@ -536,11 +542,12 @@ export class BoatDetailsComponent {
     return 0;
   }
 
-  onSelectionChange(event: MatSelectChange): void {
+  onSelectionChange(event: any): void {
     setTimeout(() => {
       this.persons = 1;
     });
   }
+  
 
   onValueChange(event: any) {
     console.log('====================================');
@@ -771,5 +778,12 @@ export class BoatDetailsComponent {
   closeModal() {
     this.hideMobileFooter = true;
     this.isModalOpen = false;
+  }
+
+  selectedDestination: any = null;
+
+  onDestinationChange(event: any) {
+    this.selectedDestination = event.value;
+    // إذا كنت تحتاج منطق إضافي أضفه هنا
   }
 }

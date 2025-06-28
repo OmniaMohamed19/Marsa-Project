@@ -203,6 +203,6 @@ export class HomeComponent implements OnInit {
     window.open('mailto:' + this.social.Mail, '_blank');
  }
  contactWhatsapp() {
-   window.open('https://api.whatsapp.com/send?phone=15551234567', '_blank');
+   window.open('https://api.whatsapp.com/send?phone=201011117381', '_blank');
  }
 }

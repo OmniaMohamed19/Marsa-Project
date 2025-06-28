@@ -60,6 +60,7 @@ export class UserCardComponent {
     private AuthService: AuthService
   ) {}
   setActiveSection(section: string) {
+    console.log('Setting active section to:', section);
     this.activeSection = section;
   }
 
@@ -75,8 +76,12 @@ export class UserCardComponent {
     const token = localStorage.getItem('userToken');
     if (token) {
       this.httpService.get(environment.marsa, 'profile').subscribe((res: any) => {
+        console.log('Profile information received:', res);
         this.userDetails = res?.userDashboard;
         this.types = res?.triptypes;
+        console.log('Types set to:', this.types);
+      }, (error) => {
+        console.error('Error fetching profile information:', error);
       });
     }
   }

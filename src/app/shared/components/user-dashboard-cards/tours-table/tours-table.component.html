@@ -5,10 +5,10 @@
         <div
           class="tab"
           *ngFor="let year of years"
-          (click)="setFilter(year.toString())"
+          (click)="setFilter(year.value)"
           [class.active]="activeTab === year.value"
-    >
-      {{ year.label }}
+        >
+          {{ year.label }}
         </div>
       </div>
     </header>
@@ -84,7 +84,7 @@
           />
         </svg>
       </div>
-      <h3>No Bookings yet , let’s changes that</h3>
+      <h3>No Bookings yet , let's changes that</h3>
       <div>
         <button routerLink="/">Back to Home</button>
       </div>

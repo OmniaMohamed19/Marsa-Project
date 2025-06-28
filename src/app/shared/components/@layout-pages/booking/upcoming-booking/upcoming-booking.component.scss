@@ -591,18 +591,37 @@ input {
     position: relative;
     z-index: 1001;
     
+    .input-group {
+      .input-group-append {
+        .btn {
+          border-left: none;
+          background-color: #f8f9fa;
+          
+          &:hover {
+            background-color: #e9ecef;
+          }
+          
+          i.fa-spinner {
+            color: #007bff;
+          }
+        }
+      }
+    }
+    
     .search-results {
       position: absolute;
       top: 100%;
       left: 0;
       right: 0;
-      z-index: 1;
+      z-index: 1002;
       background: white;
       border: 1px solid #ddd;
       border-top: none;
       border-radius: 0 0 4px 4px;
       max-height: 200px;
       overflow-y: auto;
+      margin-top: 2px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       
       .list-group {
         margin: 0;
@@ -613,6 +632,7 @@ input {
           border-bottom: 1px solid #eee;
           padding: 8px 12px;
           font-size: 14px;
+          transition: background-color 0.2s ease;
           
           &:hover {
             background-color: #f8f9fa;
@@ -623,6 +643,13 @@ input {
           }
         }
       }
+    }
+
+    .alert-info {
+      font-size: 14px;
+      padding: 8px 12px;
+      margin-top: 5px;
+      border-radius: 4px;
     }
   }
   
@@ -636,6 +663,36 @@ input {
     
     &:last-child {
       margin-right: 0;
+    }
+  }
+}
+
+// تحسين مظهر حقول الإدخال readonly
+.form-control[readonly] {
+  cursor: pointer;
+  background-color: #f8f9fa;
+  
+  &:hover {
+    background-color: #e9ecef;
+  }
+  
+  &:focus {
+    background-color: #fff;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+}
+
+// تحسين مظهر أزرار المودال
+.modal-footer {
+  .btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
   }
 }

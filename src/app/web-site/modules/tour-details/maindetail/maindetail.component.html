@@ -301,7 +301,7 @@
             </select>
           </li>
           <li>
-            <label for="time" class="form-label mt-2">Time</label>
+            <label for="time" class="form-label mt-2">Starting time</label>
             <select id="time" class="form-select" (change)="filterTime($event)">
               <option [value]="'all'">All Times</option>
               <option *ngFor="let type of placeDetails?.time" [value]="type?.id">

@@ -180,7 +180,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="customerForm">
+ <form [formGroup]="customerForm">
           <div class="row">
             <!-- Input -->
             <div class="col-sm-4 mb-4">
@@ -241,22 +241,25 @@
             <div class="col-sm-4 mb-4">
               <div class="js-form-message">
                 <label class="form-label"> Phone </label>
+                <div>
+                  
+                  <ngx-intl-tel-input
+                    [cssClass]="'form-control'"
+                    [enableAutoCountrySelect]="true"
+                    [searchCountryFlag]="true"
+                    [selectFirstCountry]="false"
+                    [separateDialCode]="true"
+                    [maxLength]="20"
+                    [phoneValidation]="false"
+                    name="phone"
+                    [enablePlaceholder]="true"
+                    [customPlaceholder]="'Enter phone number'"
+                    [preferredCountries]="['de']"
+                    formControlName="phone"
+                    (countryChange)="onCountryChange($event)"
+                  ></ngx-intl-tel-input>
+                </div>
 
-                <ngx-intl-tel-input
-                  [cssClass]="'form-control'"
-                  [enableAutoCountrySelect]="true"
-                  [searchCountryFlag]="true"
-                  [selectFirstCountry]="false"
-                  [separateDialCode]="true"
-                  [maxLength]="20"
-                  [phoneValidation]="false"
-                  name="phone"
-                  [enablePlaceholder]="true"
-                  [customPlaceholder]="'Enter phone number'"
-                  [preferredCountries]="['de']"
-                  formControlName="phone"
-                  (countryChange)="onCountryChange($event)"
-                ></ngx-intl-tel-input>
 
                 <ng-container
                   *ngIf="
@@ -321,13 +324,10 @@
                       [value]="locationValue"
                       placeholder="Location"
                       formControlName="locationValue"
+                      (click)="openMapModal()"
                       readonly
                     />
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" (click)="openMapModal()">
-                        <i class="fa fa-map-marker"></i>
-                      </button>
-                    </div>
+                   
                   </div>
                   <div
                     *ngIf="
@@ -425,17 +425,19 @@
               <input
                 #searchInput
                 type="text"
-                (click)="openMapModal()"
                 class="form-control"
                 placeholder="Search location"
                 [formControl]="searchControl"
                 (keyup)="onSearchInput($event)"
                 autocomplete="off"
               />
-              <div class="input-group-append" *ngIf="searchControl.value">
-                <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()" *ngIf="searchControl.value">
                   <i class="fa fa-times"></i>
                 </button>
+                <div class="btn btn-outline-secondary" *ngIf="isSearching">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </div>
               </div>
             </div>
             <!-- Search Results -->
@@ -445,6 +447,10 @@
                   {{ result.name }}
                 </li>
               </ul>
+            </div>
+            <!-- No results message -->
+            <div *ngIf="searchControl.value && !isSearching && searchResults.length === 0 && searchControl.value.trim().length >= 2" class="alert alert-info mt-2">
+              No locations found for "{{ searchControl.value }}"
             </div>
           </div>
           <div id="googleMap" style="height: 400px; width: 100%;"></div>
